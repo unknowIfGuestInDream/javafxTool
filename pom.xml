@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tlcsdm</groupId>
+    <artifactId>javafxTool</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>javafxTool</name>
+    <url>https://www.tlcsdm.com</url>
+    <description>javafx工具包</description>
+
+    <properties>
+        <javafxTool.version>1.0.0</javafxTool.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.7.1</junit.version>
+        <javafx-controls.version>17.0.0.1</javafx-controls.version>
+        <javafx-fxml.version>17.0.0.1</javafx-fxml.version>
+        <javafx-web.version>17.0.0.1</javafx-web.version>
+        <controlsfx.version>11.1.0</controlsfx.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <tlcsdm-common.version>1.2</tlcsdm-common.version>
+        <lombok.version>1.18.24</lombok.version>
+    </properties>
+
+    <modules>
+        <module>frame</module>
+        <module>smc</module>
+        <module>demo</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx-controls.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx-fxml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx-web.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${controlsfx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tlcsdm</groupId>
+            <artifactId>tlcsdm-common</artifactId>
+            <version>${tlcsdm-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-frame</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
