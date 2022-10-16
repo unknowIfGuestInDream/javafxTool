@@ -20,7 +20,7 @@
         <junit.version>5.7.1</junit.version>
         <javafx-controls.version>17.0.0.1</javafx-controls.version>
         <javafx-fxml.version>17.0.0.1</javafx-fxml.version>
-        <javafx-web.version>17.0.0.1</javafx-web.version>
+        <javafx-web.version>19</javafx-web.version>
         <controlsfx.version>11.1.0</controlsfx.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.2</tlcsdm-common.version>
