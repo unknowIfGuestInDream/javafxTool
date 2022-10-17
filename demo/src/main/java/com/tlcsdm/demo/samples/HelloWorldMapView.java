@@ -72,7 +72,7 @@ public class HelloWorldMapView extends ControlsFXSample {
 
     @Override
     public String getControlStylesheetURL() {
-        return "/org/controlsfx/control/world.css";
+        return "/com/tlcsdm/demo/world.css";
     }
 
     @Override

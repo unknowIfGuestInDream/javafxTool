@@ -51,8 +51,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static javafx.application.Application.launch;
-
 /**
  *
  * Build the UI and launch the Application
@@ -267,7 +265,7 @@ public class HelloSpreadsheetView2 extends ControlsFXSample {
             hideRow(4);
             hideRow(5);
             hideRow(6);
-            getStylesheets().add(Utils.class.getResource("spreadsheetSample2.css").toExternalForm());
+            getStylesheets().add(Utils.class.getResource("/com/tlcsdm/demo/spreadsheetSample2.css").toExternalForm());
         }
 
         /**
@@ -407,7 +405,7 @@ public class HelloSpreadsheetView2 extends ControlsFXSample {
             title.add(cell);
             title.add(SpreadsheetCellType.STRING.createCell(row, 1, 1, 1, "Paris"));
             cell = SpreadsheetCellType.STRING.createCell(row, 2, 1, 1, "");
-            cell.setGraphic(new ImageView(new Image(Utils.class.getResourceAsStream("frenchFlag.png"))));
+            cell.setGraphic(new ImageView(new Image(Utils.class.getResourceAsStream("/com/tlcsdm/demo/frenchFlag.png"))));
             cell.setEditable(false);
             title.add(cell);
 

@@ -55,8 +55,8 @@ import java.util.Random;
 
 public class HelloNotifications extends ControlsFXSample {
     
-    private static final Image SMALL_GRAPHIC = 
-            new Image(HelloNotificationPane.class.getResource("controlsfx-logo.png").toExternalForm());
+    private static final Image SMALL_GRAPHIC =
+            new Image(HelloNotificationPane.class.getResource("/com/tlcsdm/demo/controlsfx-logo.png").toExternalForm());
     
     private Stage stage;
     private Pane pane;

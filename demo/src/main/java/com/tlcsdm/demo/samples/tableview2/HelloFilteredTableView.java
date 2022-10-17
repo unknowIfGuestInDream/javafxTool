@@ -99,7 +99,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
 
     @Override
     public String getControlStylesheetURL() {
-        return "/org/controlsfx/tableview2/tableview2.css";
+        return "/com/tlcsdm/demo/tableview2.css";
     }
 
     @Override
