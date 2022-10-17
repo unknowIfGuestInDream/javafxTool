@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,22 +26,18 @@
  */
 package com.tlcsdm.demo.samples.textfields;
 
-import impl.org.controlsfx.skin.AutoCompletePopup;
 import com.tlcsdm.demo.ControlsFXSample;
 import com.tlcsdm.demo.samples.Utils;
-import impl.org.controlsfx.skin.AutoCompletePopupSkin;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -52,22 +48,25 @@ import java.util.*;
 public class HelloAutoComplete extends ControlsFXSample {
 
     private AutoCompletionBinding<String> autoCompletionBinding;
-    private String[] _possibleSuggestions = {"Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola"};
-    private Set<String> possibleSuggestions = new HashSet<>(Arrays.asList(_possibleSuggestions));
-	private Map<String, Color> colorSuggestions = allColorsWithName();
-    
+    private final String[] _possibleSuggestions = {"Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola"};
+    private final Set<String> possibleSuggestions = new HashSet<>(Arrays.asList(_possibleSuggestions));
+    private final Map<String, Color> colorSuggestions = allColorsWithName();
+
     private TextField learningTextField;
 
-    @Override public String getSampleName() {
+    @Override
+    public String getSampleName() {
         return "AutoComplete";
     }
 
-    @Override public String getJavaDocURL() {
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/textfield/TextFields.html";
     }
 
-    @Override public String getSampleDescription() {
-        return "AutoComplete helps a user with suggestions to type faster, " 
+    @Override
+    public String getSampleDescription() {
+        return "AutoComplete helps a user with suggestions to type faster, "
                 + "but does not limit the user from entering alternative text."
                 + "\n\n"
                 + "The textfields have been primed with the following words:\n"
@@ -82,7 +81,8 @@ public class HelloAutoComplete extends ControlsFXSample {
                 + "in their name.";
     }
 
-    @Override public Node getPanel(final Stage stage) {
+    @Override
+    public Node getPanel(final Stage stage) {
 
         BorderPane root = new BorderPane();
 
@@ -104,7 +104,6 @@ public class HelloAutoComplete extends ControlsFXSample {
         grid.add(textField, 1, 0);
         GridPane.setHgrow(textField, Priority.ALWAYS);
 
-
         //
         // TextField with learning auto-complete functionality
         // Learn the word when user presses ENTER
@@ -115,50 +114,50 @@ public class HelloAutoComplete extends ControlsFXSample {
             @Override
             public void handle(KeyEvent ke) {
                 switch (ke.getCode()) {
-                case ENTER:
-                    autoCompletionLearnWord(learningTextField.getText().trim());
-                    break;
-                default:
-                    break;
+                    case ENTER:
+                        autoCompletionLearnWord(learningTextField.getText().trim());
+                        break;
+                    default:
+                        break;
                 }
             }
         });
 
-		grid.add(new Label("Learning TextField"), 0, 1);
-		grid.add(learningTextField, 1, 1);
-		GridPane.setHgrow(learningTextField, Priority.ALWAYS);
+        grid.add(new Label("Learning TextField"), 0, 1);
+        grid.add(learningTextField, 1, 1);
+        GridPane.setHgrow(learningTextField, Priority.ALWAYS);
 
-		//
-		// TextField with custom cell factory
-		// Completes color names
-		//
-		TextField customTextField = new TextField();
-		AutoCompletePopup<String> colorCompletionPopup = TextFields.bindAutoCompletion(customTextField, colorSuggestions.keySet()).getAutoCompletionPopup();
-		colorCompletionPopup.setSkin(new AutoCompletePopupSkin<String>(colorCompletionPopup, param -> new ListCell<String>() {
-			@Override
-			public void updateItem(String item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setText(null);
-					setGraphic(null);
-				} else {
-					setGraphic(new Rectangle(32, 32, colorSuggestions.get(item)));
-					setText(item);
-				}
-			}
-		}));
+        //
+        // TextField with custom cell factory
+        // Completes color names
+        //
+        TextField customTextField = new TextField();
+//		AutoCompletePopup<String> colorCompletionPopup = TextFields.bindAutoCompletion(customTextField, colorSuggestions.keySet()).getAutoCompletionPopup();
+//		colorCompletionPopup.setSkin(new AutoCompletePopupSkin<String>(colorCompletionPopup, param -> new ListCell<String>() {
+//			@Override
+//			public void updateItem(String item, boolean empty) {
+//				super.updateItem(item, empty);
+//				if (empty) {
+//					setText(null);
+//					setGraphic(null);
+//				} else {
+//					setGraphic(new Rectangle(32, 32, colorSuggestions.get(item)));
+//					setText(item);
+//				}
+//			}
+//		}));
 
-		grid.add(new Label("Color TextField with custom CellFactory"), 0, 2);
-		grid.add(customTextField, 1, 2);
-		GridPane.setHgrow(customTextField, Priority.ALWAYS);
+        grid.add(new Label("Color TextField with custom CellFactory"), 0, 2);
+        grid.add(customTextField, 1, 2);
+        GridPane.setHgrow(customTextField, Priority.ALWAYS);
 
         root.setTop(grid);
         return root;
     }
 
-    private void autoCompletionLearnWord(String newWord){
+    private void autoCompletionLearnWord(String newWord) {
         possibleSuggestions.add(newWord);
-        
+
         // we dispose the old binding and recreate a new binding
         if (autoCompletionBinding != null) {
             autoCompletionBinding.dispose();
@@ -166,7 +165,8 @@ public class HelloAutoComplete extends ControlsFXSample {
         autoCompletionBinding = TextFields.bindAutoCompletion(learningTextField, possibleSuggestions);
     }
 
-    @Override public Node getControlPanel() {
+    @Override
+    public Node getControlPanel() {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
@@ -174,24 +174,23 @@ public class HelloAutoComplete extends ControlsFXSample {
 
         // TODO Add customization example controls
 
-
         return grid;
     }
 
-	/* Modified from https://stackoverflow.com/a/17465261/6094756 */
-	private Map<String, Color> allColorsWithName() {
+    /* Modified from https://stackoverflow.com/a/17465261/6094756 */
+    private Map<String, Color> allColorsWithName() {
         Map<String, Color> map = new HashMap<>();
         try {
-			for (Field f : Color.class.getFields()) {
-				Object obj = f.get(null);
-				if (obj instanceof Color) {
-					map.put(f.getName(), (Color) obj);
-				}
-			}
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			map.put("red", Color.RED);
-			map.put("green", Color.GREEN);
-			map.put("blue", Color.BLUE);
+            for (Field f : Color.class.getFields()) {
+                Object obj = f.get(null);
+                if (obj instanceof Color) {
+                    map.put(f.getName(), (Color) obj);
+                }
+            }
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            map.put("red", Color.RED);
+            map.put("green", Color.GREEN);
+            map.put("blue", Color.BLUE);
         }
         return map;
     }
