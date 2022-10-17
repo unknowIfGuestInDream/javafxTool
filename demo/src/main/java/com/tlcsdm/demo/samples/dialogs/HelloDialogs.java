@@ -385,7 +385,7 @@ public class HelloDialogs extends ControlsFXSample {
         }
         
         if (cbCustomGraphic.isSelected()) {
-            dlg.getDialogPane().setGraphic(new ImageView(new Image(getClass().getResource("../controlsfx-logo.png").toExternalForm())));
+            dlg.getDialogPane().setGraphic(new ImageView(new Image(getClass().getResource("/com/tlcsdm/demo/controlsfx-logo.png").toExternalForm())));
         }
         
         dlg.initStyle(styleCombobox.getValue());

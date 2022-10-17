@@ -70,7 +70,7 @@ public class HelloInfoOverlay extends ControlsFXSample {
     }
     
     @Override public Node getPanel(Stage stage) {
-        String imageUrl = getClass().getResource("duke_wave.png").toExternalForm();
+        String imageUrl = getClass().getResource("/com/tlcsdm/demo/duke_wave.png").toExternalForm();
         ImageView image = new ImageView(imageUrl);
         image.fitHeightProperty().bind(fitHeightSlider.valueProperty());
         image.setPreserveRatio(true);

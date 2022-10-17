@@ -56,7 +56,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * Build the UI and launch the Application
  */
 public class HelloSpreadsheetView extends ControlsFXSample {
@@ -222,8 +221,8 @@ public class HelloSpreadsheetView extends ControlsFXSample {
         private final List<String> countryList = Arrays.asList("China", "France", "New Zealand",
                 "United States", "Germany", "Canada");
 
-        private final List<String> logoList = Arrays.asList("", "ControlsFX.png", "apertureLogo.png",
-                "raptureLogo.png", "ammunationLogo.JPG", "nukaColaLogo.png", "paynsprayLogo.jpg", "umbrellacorporation.png");
+        private final List<String> logoList = Arrays.asList("", "/com/tlcsdm/demo/ControlsFX.png", "/com/tlcsdm/demo/apertureLogo.png",
+                "/com/tlcsdm/demo/raptureLogo.png", "/com/tlcsdm/demo/ammunationLogo.JPG", "/com/tlcsdm/demo/nukaColaLogo.png", "/com/tlcsdm/demo/paynsprayLogo.jpg", "/com/tlcsdm/demo/umbrellacorporation.png");
 
         private final List<String> webSiteList = Arrays.asList("", "http://fxexperience.com/controlsfx/",
                 "http://aperturescience.com/", "", "http://fr.gta.wikia.com/wiki/Ammu-Nation",
@@ -245,7 +244,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
             getFixedRows().add(0);
             getColumns().get(0).setFixed(true);
             getColumns().get(1).setPrefWidth(250);
-            getStylesheets().add(Utils.class.getResource("spreadsheetSample.css").toExternalForm());
+            getStylesheets().add(Utils.class.getResource("/com/tlcsdm/demo/spreadsheetSample.css").toExternalForm());
         }
 
         /**
@@ -584,7 +583,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
             for (int column = 1; column < grid.getColumnCount(); ++column) {
                 cell = SpreadsheetCellType.DOUBLE.createCell(row, column, 1, 1, (double) Math.random());
                 if (column % 2 == 1) {
-                    cell.setGraphic(new ImageView(new Image(Utils.class.getResourceAsStream("exclamation.png"))));
+                    cell.setGraphic(new ImageView(new Image(Utils.class.getResourceAsStream("/com/tlcsdm/demo/exclamation.png"))));
                 }
                 cell.setFormat("#" + "%");
                 increase.add(cell);

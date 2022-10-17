@@ -44,7 +44,7 @@ public class HelloGlyphFont extends ControlsFXSample {
 
     static {
         // Register a custom default font
-        GlyphFontRegistry.register("icomoon", HelloGlyphFont.class.getResourceAsStream("icomoon.ttf") , 16);
+        GlyphFontRegistry.register("icomoon", HelloGlyphFont.class.getResourceAsStream("/com/tlcsdm/demo/icomoon.ttf"), 16);
     }
 
 

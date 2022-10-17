@@ -98,7 +98,7 @@ public class HelloToggleSwitch extends ControlsFXSample
         anchorPane.getChildren().addAll(headerLabel, itemTitle1, toggleSwitch1, itemTitle2, toggleSwitch2, itemTitle3, toggleSwitch3);
         anchorPane.getChildren().addAll(itemTitle4, toggleSwitch4);
 
-        anchorPane.getStylesheets().add(getClass().getResource("toggleSwitchSample.css").toExternalForm());
+        anchorPane.getStylesheets().add(getClass().getResource("/com/tlcsdm/demo/toggleSwitchSample.css").toExternalForm());
         return anchorPane;
     }
     

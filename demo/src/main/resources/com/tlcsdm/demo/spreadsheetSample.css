@@ -99,7 +99,7 @@
 }
 
 .picker-label-exclamation{
-    -fx-graphic: url("exclamation.png"); 
+    -fx-graphic: url("/com/tlcsdm/demo/exclamation.png");
     -fx-background-color: transparent;
     -fx-padding: 0 0 0 0;
     -fx-alignment: center;
