@@ -46,17 +46,28 @@ import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.util.SampleScanner;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -121,6 +132,115 @@ public final class FXSampler extends Application {
 		grid.setHgap(10);
 		grid.setVgap(10);
 
+		// https://www.cnblogs.com/zeromi/p/14852323.html
+		// https://www.w3cschool.cn/java/codedemo-484049808.html
+		// https://www.cnblogs.com/zeromi/p/14852323.html
+
+		// toolbar
+//		BorderPane bp = new BorderPane();
+//	    bp.setPadding(new Insets(10, 20, 10, 20))
+
+//	    Button btnTop = new Button("Top");
+//	    bp.setTop(btnTop);
+//
+//	    Button btnLeft = new Button("Left");
+//	    bp.setLeft(btnLeft);
+//
+//	    Button btnCenter = new Button("Center");
+//	    bp.setCenter(btnCenter);
+//
+//	    Button btnRight = new Button("Right");
+//	    bp.setRight(btnRight);
+//
+//	    Button btnBottom = new Button("Bottom");
+//	    bp.setBottom(btnBottom);
+//
+//	    Scene scene = new Scene(bp, 300, 200);
+
+//		AnchorPane anchorPane = new AnchorPane();
+//		anchorPane.setStyle("-fx-background-color: #FFFF00");
+		MenuBar menuBar = new MenuBar();
+		Menu menu1 = new Menu("menu1");
+		Menu menu2 = new Menu("menu2");
+		Menu menu3 = new Menu("menu3");
+		menuBar.getMenus().addAll(menu1, menu2, menu3);
+		menuBar.getMenus().addAll(new Menu("a"), new Menu("a"), new Menu("a"), new Menu("a"), new Menu("a"),
+				new Menu("a"), new Menu("a"), new Menu("a"), new Menu("a"), new Menu("a"), new Menu("a"));
+		MenuItem item1 = new MenuItem("item1");
+		MenuItem item2 = new MenuItem("item2");
+
+		MenuItem item3 = new MenuItem("item3");
+		// 分割符（一条线）
+		SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
+		// 子菜单
+		Menu menu4 = new Menu("menu4");
+		MenuItem item5 = new MenuItem("MenuItem5");
+		MenuItem item6 = new MenuItem("MenuItem6");
+		menu4.getItems().addAll(item5, item6);
+
+		menu1.getItems().addAll(item1, item2, separatorMenuItem, menu4, item3);
+		// 菜单栏单选
+		ToggleGroup tg = new ToggleGroup(); // 组
+		RadioMenuItem radioMenuItem1 = new RadioMenuItem("RadioMenuItem1");
+		RadioMenuItem radioMenuItem2 = new RadioMenuItem("RadioMenuItem2");
+		RadioMenuItem radioMenuItem3 = new RadioMenuItem("RadioMenuItem3");
+		radioMenuItem1.setToggleGroup(tg);
+		radioMenuItem2.setToggleGroup(tg);
+		radioMenuItem3.setToggleGroup(tg);
+		menu2.getItems().addAll(radioMenuItem1, radioMenuItem2, radioMenuItem3);
+
+		radioMenuItem3.setSelected(true); // 设置默认为选中状态
+
+		// 绑定单击事件
+		radioMenuItem1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				RadioMenuItem source = (RadioMenuItem) event.getSource();// 获得事件源
+				System.out.println(source.isSelected()); // 判断是否被选中
+				// 或者直接点
+				System.out.println(radioMenuItem1.isSelected());
+
+			}
+		});
+
+		// 菜单栏多选
+		CheckMenuItem checkMenuItem1 = new CheckMenuItem("checkMenuItem1");
+		CheckMenuItem checkMenuItem2 = new CheckMenuItem("checkMenuItem2");
+		CheckMenuItem checkMenuItem3 = new CheckMenuItem("checkMenuItem3");
+		menu3.getItems().addAll(checkMenuItem1, checkMenuItem2, checkMenuItem3);
+
+		checkMenuItem2.setSelected(true); // 设置默认选中
+		checkMenuItem3.setSelected(true);
+
+		// 绑定单击事件
+		checkMenuItem1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				CheckMenuItem source = (CheckMenuItem) event.getSource();// 获得事件源
+				System.out.println(source.isSelected()); // 判断是否被选中
+				// 或者直接点
+				System.out.println(checkMenuItem1.isSelected());
+			}
+		});
+//		anchorPane.getChildren().add(menuBar);
+		grid.add(menuBar, 0, 0);
+
+		// 设置菜单条长度
+		menuBar.setPrefWidth(primaryStage.getWidth());
+		menuBar.widthProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				menuBar.setPrefWidth(newValue.doubleValue());
+			}
+		});
+		// 宽度监听设置菜单条长度
+//		anchorPane.widthProperty().addListener(new ChangeListener<Number>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//				menuBar.setPrefWidth(newValue.doubleValue());
+//			}
+//		});
+
 		// --- left hand side
 		// search box
 		final TextField searchBox = new TextField();
@@ -128,7 +248,7 @@ public final class FXSampler extends Application {
 		searchBox.getStyleClass().add("search-box");
 		searchBox.textProperty().addListener(o -> buildSampleTree(searchBox.getText()));
 		GridPane.setMargin(searchBox, new Insets(5, 0, 0, 0));
-		grid.add(searchBox, 0, 0);
+		grid.add(searchBox, 0, 1);
 
 		// treeview
 		samplesTreeView = new TreeView<>(root);
@@ -171,7 +291,7 @@ public final class FXSampler extends Application {
 			changeSample();
 		});
 		GridPane.setVgrow(samplesTreeView, Priority.ALWAYS);
-		grid.add(samplesTreeView, 0, 1);
+		grid.add(samplesTreeView, 0, 2);
 
 		// ProgressIndicator
 		progressIndicator = new ProgressIndicator();
@@ -184,7 +304,7 @@ public final class FXSampler extends Application {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(o -> updateTab());
 		GridPane.setHgrow(tabPane, Priority.ALWAYS);
 		GridPane.setVgrow(tabPane, Priority.ALWAYS);
-		grid.add(tabPane, 1, 0, 1, 2);
+		grid.add(tabPane, 1, 1, 1, 2);
 
 		sampleTab = new Tab("Sample");
 		javaDocTab = new Tab("JavaDoc");
