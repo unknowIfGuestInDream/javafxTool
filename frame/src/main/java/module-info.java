@@ -7,5 +7,6 @@ module com.tlcsdm.frame {
 	exports com.tlcsdm.frame.model;
 
 	uses com.tlcsdm.frame.FXSamplerProject;
+	uses com.tlcsdm.frame.MenubarConfigration;
 	uses com.tlcsdm.frame.FXSamplerConfiguration;
 }
