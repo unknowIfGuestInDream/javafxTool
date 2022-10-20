@@ -1,5 +1,12 @@
 ## 介绍
+
 javafx工具包，JDK17 + JavaFX17 + controlsfx 11.x.x
+
+## 结构
+
+frame: 大体框架  
+demo: demo例子  
+smc: 个人应用
 
 ## 贡献者
 
@@ -15,6 +22,6 @@ javafx工具包，JDK17 + JavaFX17 + controlsfx 11.x.x
 </tr>
 </table>
 
-
 ## 联系
+
 如有问题，请发邮件到 tang97155@gmail.com

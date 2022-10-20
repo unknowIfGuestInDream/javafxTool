@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2020, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -48,14 +48,17 @@ import java.util.ServiceLoader;
  */
 public abstract class SampleBase extends Application implements Sample {
 
-    /** {@inheritDoc} */
-    @Override public void start(Stage primaryStage) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(Stage primaryStage) {
         ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader.load(FXSamplerConfiguration.class);
 
         primaryStage.setTitle(getSampleName());
 
-        Scene scene = new Scene((Parent)buildSample(this, primaryStage), 800, 800);
-        scene.getStylesheets().add(SampleBase.class.getResource("fxsampler.css").toExternalForm());
+        Scene scene = new Scene((Parent) buildSample(this, primaryStage), 800, 800);
+        scene.getStylesheets().add(SampleBase.class.getResource("/fxsampler/fxsampler.css").toExternalForm());
         for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
@@ -66,13 +69,19 @@ public abstract class SampleBase extends Application implements Sample {
         primaryStage.show();
     }
 
-    /** {@inheritDoc} */
-    @Override public boolean isVisible() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isVisible() {
         return true;
     }
 
-    /** {@inheritDoc} */
-    @Override public Node getControlPanel() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Node getControlPanel() {
         return null;
     }
 
@@ -82,13 +91,19 @@ public abstract class SampleBase extends Application implements Sample {
         return 0.6;
     }
 
-    /** {@inheritDoc} */
-    @Override public String getSampleDescription() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSampleDescription() {
         return "";
     }
 
-    /** {@inheritDoc} */
-    @Override public String getProjectName() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProjectName() {
         return "ControlsFX";
     }
 
@@ -116,12 +131,12 @@ public abstract class SampleBase extends Application implements Sample {
         Label sampleName = new Label(sample.getSampleName());
         sampleName.getStyleClass().add("sample-name");
         rightPanel.getChildren().add(sampleName);
-        
+
         // --- project name & version
         String version = sample.getProjectVersion();
-        version = version == null ? "" : 
-                  version.equals("@version@") ? "" :
-                  " " + version.trim();
+        version = version == null ? "" :
+                version.equals("@version@") ? "" :
+                        " " + version.trim();
 
         final String projectName = sample.getProjectName() + version;
         if (!projectName.isEmpty()) {
@@ -138,18 +153,18 @@ public abstract class SampleBase extends Application implements Sample {
 
         // --- description
         final String description = sample.getSampleDescription();
-        if (description != null && ! description.isEmpty()) {
+        if (description != null && !description.isEmpty()) {
             Label descriptionLabel = new Label(description);
             descriptionLabel.getStyleClass().add("description");
             descriptionLabel.setWrapText(true);
             rightPanel.getChildren().add(descriptionLabel);
-            
+
             addRightPanel = true;
         }
 
         if (controlPanel != null) {
             rightPanel.getChildren().add(new Separator());
-            
+
             controlPanel.getStyleClass().add("control-panel");
             rightPanel.getChildren().add(controlPanel);
             VBox.setVgrow(controlPanel, Priority.ALWAYS);
