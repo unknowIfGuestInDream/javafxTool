@@ -11,7 +11,7 @@
     <artifactId>javafxTool-demo</artifactId>
     <name>demo</name>
     <packaging>jar</packaging>
-    <description>demo</description>
+    <description>javafxTool demo</description>
 
     <dependencies>
         <dependency>
@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-loginFrame</artifactId>
+            <artifactId>javafxTool-login</artifactId>
         </dependency>
     </dependencies>
 

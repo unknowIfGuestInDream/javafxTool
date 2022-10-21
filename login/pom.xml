@@ -8,10 +8,10 @@
         <artifactId>javafxTool</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>javafxTool-loginFrame</artifactId>
+    <artifactId>javafxTool-login</artifactId>
     <name>login</name>
     <packaging>jar</packaging>
-    <description>javafx 登录框架</description>
+    <description>javafxTool登录框架</description>
 
     <build>
         <plugins>
