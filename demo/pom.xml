@@ -18,10 +18,6 @@
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-frame</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-loginFrame</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

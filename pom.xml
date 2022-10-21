@@ -90,11 +90,6 @@
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.tlcsdm</groupId>
-                <artifactId>javafxTool-loginFrame</artifactId>
-                <version>${javafxTool.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi-ooxml.version}</version>
