@@ -36,11 +36,6 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
         cache: maven
-    - name: Clean Maven
-      run: mvn clean
-      
-    - name: Install Maven
-      run: mvn install
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml -Dmaven.test.skip=true

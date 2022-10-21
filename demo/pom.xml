@@ -11,7 +11,7 @@
     <artifactId>javafxTool-demo</artifactId>
     <name>demo</name>
     <packaging>jar</packaging>
-    <description>demo</description>
+    <description>javafxTool demo</description>
 
     <dependencies>
         <dependency>
