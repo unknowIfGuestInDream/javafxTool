@@ -23,7 +23,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tlcsdm.login/com.tlcsdm.login.HelloApplication</mainClass>
+                            <mainClass>com.tlcsdm.login/com.tlcsdm.login.LoginFrame</mainClass>
                         </configuration>
                     </execution>
                 </executions>
