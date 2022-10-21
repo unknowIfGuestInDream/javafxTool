@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-login</artifactId>
+            <artifactId>javafxTool-loginFrame</artifactId>
         </dependency>
     </dependencies>
 

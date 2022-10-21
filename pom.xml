@@ -91,7 +91,7 @@
             </dependency>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
-                <artifactId>javafxTool-login</artifactId>
+                <artifactId>javafxTool-loginFrame</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>

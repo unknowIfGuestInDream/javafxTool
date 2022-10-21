@@ -1,7 +1,7 @@
-module com.tlcsdm.javafxtoollogin {
+module com.tlcsdm.login {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens com.tlcsdm.javafxtoollogin to javafx.fxml;
-    exports com.tlcsdm.javafxtoollogin;
+    opens com.tlcsdm.login to javafx.fxml;
+    exports com.tlcsdm.login;
 }

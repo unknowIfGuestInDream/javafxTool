@@ -8,10 +8,10 @@
         <artifactId>javafxTool</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>javafxTool-login</artifactId>
+    <artifactId>javafxTool-loginFrame</artifactId>
     <name>login</name>
     <packaging>jar</packaging>
-    <description>登录界面</description>
+    <description>javafx 登录框架</description>
 
     <build>
         <plugins>
@@ -23,8 +23,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tlcsdm.javafxtoollogin/com.tlcsdm.javafxtoollogin.HelloApplication
-                            </mainClass>
+                            <mainClass>com.tlcsdm.login/com.tlcsdm.login.HelloApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>
