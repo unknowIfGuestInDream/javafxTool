@@ -8,21 +8,10 @@
         <artifactId>javafxTool</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>javafxTool-demo</artifactId>
-    <name>demo</name>
+    <artifactId>javafxTool-login</artifactId>
+    <name>login</name>
     <packaging>jar</packaging>
-    <description>javafxTool demo</description>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-frame</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-login</artifactId>
-        </dependency>
-    </dependencies>
+    <description>javafxTool登录框架</description>
 
     <build>
         <plugins>
@@ -34,7 +23,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tlcsdm.demo/com.tlcsdm.demo.ControlsFXSampler</mainClass>
+                            <mainClass>com.tlcsdm.login/com.tlcsdm.login.HelloApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

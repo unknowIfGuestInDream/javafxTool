@@ -3,6 +3,7 @@ module com.tlcsdm.demo {
     requires java.desktop;
     requires org.controlsfx.controls;
     requires com.tlcsdm.frame;
+    requires com.tlcsdm.login;
 
     exports com.tlcsdm.demo.samples to javafx.graphics;
     exports com.tlcsdm.demo.samples.actions to com.tlcsdm.frame;

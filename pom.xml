@@ -12,6 +12,13 @@
     <url>https://www.tlcsdm.com</url>
     <description>javafx工具包</description>
 
+    <modules>
+        <module>frame</module>
+        <module>smc</module>
+        <module>demo</module>
+        <module>login</module>
+    </modules>
+
     <properties>
         <javafxTool.version>1.0.0</javafxTool.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -30,12 +37,6 @@
         <freemarker.version>2.3.31</freemarker.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
     </properties>
-
-    <modules>
-        <module>frame</module>
-        <module>smc</module>
-        <module>demo</module>
-    </modules>
 
     <dependencies>
         <dependency>
@@ -87,6 +88,11 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-frame</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-login</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>
