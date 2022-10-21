@@ -22,25 +22,20 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     strategy:
       matrix:
         java: [ '17' ]
         
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK ${{ matrix.Java }}
-      uses: actions/setup-java@v3
-      with:
-        java-version: ${{ matrix.java }}
-        distribution: 'temurin'
-        cache: maven
-    - name: Clean Maven
-      run: mvn clean
-      
-    - name: Install Maven
-      run: mvn install
+      - uses: actions/checkout@v3
+      - name: Set up JDK ${{ matrix.Java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
