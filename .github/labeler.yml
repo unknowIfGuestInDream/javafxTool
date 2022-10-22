@@ -10,6 +10,9 @@ login:
 smc:
   - smc/**
 
+workflow:
+  - .github/**
+
 documentation:
   - CHANGELOG.md
   - LICENSE
