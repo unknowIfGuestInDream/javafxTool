@@ -1,0 +1,23 @@
+demo:
+  - demo/*
+
+frame:
+  - frame/*
+
+login:
+  - login/*
+
+smc:
+  - smc/*
+
+docs:
+  - CHANGELOG.md
+  - LICENSE
+  - README.md
+
+build:
+  - pom.xml
+  - demo/pom.xml
+  - frame/pom.xml
+  - login/pom.xml
+  - smc/pom.xml
