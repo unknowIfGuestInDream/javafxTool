@@ -30,6 +30,7 @@ import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.SampleTree;
 import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
@@ -123,7 +124,7 @@ public final class FXSampler extends Application {
 		// --- left hand side
 		// search box
 		final TextField searchBox = new TextField();
-		searchBox.setPromptText("Search");
+		searchBox.setPromptText(I18nUtils.get("frame.searchBox.promptText"));
 		searchBox.getStyleClass().add("search-box");
 		searchBox.textProperty().addListener(o -> buildSampleTree(searchBox.getText()));
 		GridPane.setMargin(searchBox, new Insets(5, 0, 0, 0));
@@ -226,7 +227,7 @@ public final class FXSampler extends Application {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		primaryStage.setWidth(screenBounds.getWidth() * 0.75);
 		primaryStage.setHeight(screenBounds.getHeight() * .75);
-		primaryStage.setTitle("JavaFXTool");
+		primaryStage.setTitle(I18nUtils.get("frame.stage.title"));
 		primaryStage.getIcons()
 				.add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
 		primaryStage.show();
@@ -270,7 +271,7 @@ public final class FXSampler extends Application {
 	void buildSampleTree(String searchText) {
 		// rebuild the whole tree (it isn't memory intensive - we only scan
 		// classes once at startup)
-		root = new TreeItem<>(new EmptySample("FXSampler"));
+		root = new TreeItem<>(new EmptySample(I18nUtils.get("frame.sample.emptySample")));
 		root.setExpanded(true);
 
 		for (String projectName : projectsMap.keySet()) {
@@ -500,14 +501,13 @@ public final class FXSampler extends Application {
 
 	private WelcomePage getDefaultWelcomePage() {
 		// line 1
-		Label welcomeLabel1 = new Label("Welcome to FXSampler!");
+		Label welcomeLabel1 = new Label(I18nUtils.get("frame.sample.defaultWelcomeLabel1"));
 		welcomeLabel1.setStyle("-fx-font-size: 2em; -fx-padding: 0 0 0 5;");
 
 		// line 2
-		Label welcomeLabel2 = new Label("Explore the available UI controls and other interesting projects "
-				+ "by clicking on the options to the left.");
+		Label welcomeLabel2 = new Label(I18nUtils.get("frame.sample.defaultWelcomeLabel2"));
 		welcomeLabel2.setStyle("-fx-font-size: 1.25em; -fx-padding: 0 0 0 5;");
 
-		return new WelcomePage("Welcome!", new VBox(5, welcomeLabel1, welcomeLabel2));
+		return new WelcomePage(I18nUtils.get("frame.sample.welcome"), new VBox(5, welcomeLabel1, welcomeLabel2));
 	}
 }

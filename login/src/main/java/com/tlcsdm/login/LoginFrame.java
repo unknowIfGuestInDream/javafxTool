@@ -1,5 +1,6 @@
 package com.tlcsdm.login;
 
+import com.tlcsdm.login.util.I18nUtils;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,16 +20,16 @@ import java.util.ServiceLoader;
  * 登录框架
  */
 public class LoginFrame extends Application {
-    Label nameLabel = new Label("User Name :");
-    Label passwordLabel = new Label("Password  : ");
+    Label nameLabel = new Label(I18nUtils.get("login.userNameLabel"));
+    Label passwordLabel = new Label(I18nUtils.get("login.passwordLabel"));
 
     HBox user = new HBox();
     HBox password = new HBox();
     TextField tfUser = new TextField();
     PasswordField tfPassword = new PasswordField();
-    Button btLogIn = new Button("Log in");
-    Button btSignIn = new Button("Sign in");
-    HBox h3 = new HBox();//装按钮
+    Button btLogIn = new Button(I18nUtils.get("login.btLogIn"));
+    Button btSignIn = new Button(I18nUtils.get("login.btSignIn"));
+    HBox h3 = new HBox();
     VBox pane = new VBox();
 
     public static void main(String[] args) {
@@ -67,7 +68,7 @@ public class LoginFrame extends Application {
         stage.getIcons()
                 .add(new Image(Objects.requireNonNull(getClass().getResource("/static/logo.png")).toExternalForm()));
         stage.setScene(new Scene(pane, 400, 250));
-        stage.setTitle("Welcome!");
+        stage.setTitle(I18nUtils.get("login.title"));
         stage.show();
 
         btLogIn.setOnAction(e -> {

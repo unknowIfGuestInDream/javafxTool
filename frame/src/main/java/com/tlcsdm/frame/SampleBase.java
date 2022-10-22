@@ -39,6 +39,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.ServiceLoader;
 
 /**
@@ -58,7 +59,7 @@ public abstract class SampleBase extends Application implements Sample {
         primaryStage.setTitle(getSampleName());
 
         Scene scene = new Scene((Parent) buildSample(this, primaryStage), 800, 800);
-        scene.getStylesheets().add(SampleBase.class.getResource("/fxsampler/fxsampler.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(SampleBase.class.getResource("/fxsampler/fxsampler.css")).toExternalForm());
         for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
@@ -135,7 +136,7 @@ public abstract class SampleBase extends Application implements Sample {
         // --- project name & version
         String version = sample.getProjectVersion();
         version = version == null ? "" :
-                version.equals("@version@") ? "" :
+                "@version@".equals(version) ? "" :
                         " " + version.trim();
 
         final String projectName = sample.getProjectName() + version;
