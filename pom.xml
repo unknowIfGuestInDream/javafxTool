@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://www.tlcsdm.com</url>
-    <description>javafx工具包</description>
+    <description>javafx工具包, 通过实现frame, login等接口快速创建需要的javafx工具</description>
 
     <modules>
         <module>frame</module>
