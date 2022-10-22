@@ -3,8 +3,7 @@ package com.tlcsdm.login;
 import javafx.stage.Stage;
 
 /**
- * @author: 唐 亮
- * @date: 2022/10/22 8:42
+ * 登录校验(应用模块实现)
  */
 public interface LoginCheck {
 

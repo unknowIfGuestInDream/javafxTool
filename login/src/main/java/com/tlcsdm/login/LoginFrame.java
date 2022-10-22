@@ -16,8 +16,7 @@ import java.util.Objects;
 import java.util.ServiceLoader;
 
 /**
- * @author: 唐 亮
- * @date: 2022/10/21 23:41
+ * 登录框架
  */
 public class LoginFrame extends Application {
     Label nameLabel = new Label("User Name :");
@@ -31,10 +30,6 @@ public class LoginFrame extends Application {
     Button btSignIn = new Button("Sign in");
     HBox h3 = new HBox();//装按钮
     VBox pane = new VBox();
-
-//    record LoginNodes(Label nameLabel, Label passwordLabel, HBox user, HBox password, TextField tfUser,
-//                      PasswordField tfPassword, Button btLogIn, Button btSignIn, HBox h3) {
-//    }
 
     public static void main(String[] args) {
         launch(args);
@@ -85,10 +80,11 @@ public class LoginFrame extends Application {
             if (ref.loginCheck != null) {
                 ref.loginCheck.signAction(loginNodes);
             }
-            if (ref.loginCheck != null) {
-                ref.loginCheck.initNode(loginNodes);
-            }
         });
+
+        if (ref.loginCheck != null) {
+            ref.loginCheck.initNode(loginNodes);
+        }
     }
 
 }

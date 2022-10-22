@@ -26,53 +26,34 @@
  */
 package com.tlcsdm.frame;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ServiceLoader;
-import java.util.function.Function;
-
 import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.SampleTree;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.util.SampleScanner;
-
 import javafx.application.Application;
 import javafx.concurrent.Worker;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.*;
+import java.util.function.Function;
 
 public final class FXSampler extends Application {
 
@@ -286,7 +267,7 @@ public final class FXSampler extends Application {
 		return cssTab;
 	}
 
-	protected void buildSampleTree(String searchText) {
+	void buildSampleTree(String searchText) {
 		// rebuild the whole tree (it isn't memory intensive - we only scan
 		// classes once at startup)
 		root = new TreeItem<>(new EmptySample("FXSampler"));
@@ -316,7 +297,7 @@ public final class FXSampler extends Application {
 		sort(root, Comparator.comparing(o -> o.getValue().getSampleName()));
 	}
 
-	protected void changeSample() {
+	void changeSample() {
 		if (selectedSample == null) {
 			return;
 		}
