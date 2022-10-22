@@ -6,7 +6,8 @@ javafx工具包，JDK17 + JavaFX17 + controlsfx 11.x.x
 
 frame: 大体框架  
 demo: demo例子  
-smc: 个人应用
+smc: 个人应用  
+login: 登录模块
 
 ## 贡献者
 
