@@ -25,4 +25,5 @@ module com.tlcsdm.demo {
 
     provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.demo.ControlsFXSamplerProject;
     provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.demo.FXMenubarConfigration;
+    provides com.tlcsdm.login.LoginCheck with com.tlcsdm.demo.ControlsLoginCheck;
 }
