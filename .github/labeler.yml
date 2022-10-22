@@ -10,12 +10,12 @@ login:
 smc:
   - smc/*
 
-docs:
+documentation:
   - CHANGELOG.md
   - LICENSE
   - README.md
 
-build:
+dependencies:
   - pom.xml
   - demo/pom.xml
   - frame/pom.xml
