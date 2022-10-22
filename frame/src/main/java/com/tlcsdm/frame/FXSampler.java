@@ -70,9 +70,7 @@ public final class FXSampler extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-
         this.stage = primaryStage;
-
         ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
                 .load(FXSamplerConfiguration.class);
         MenubarConfigration menubarConfigration = ServiceLoaderUtil.loadFirstAvailable(MenubarConfigration.class);
@@ -219,6 +217,7 @@ public final class FXSampler extends Application {
         sort(root, Comparator.comparing(o -> o.getValue().getSampleName()));
     }
 
+    // 切换左侧菜单时触发
     void changeSample() {
         if (selectedSample == null) {
             return;

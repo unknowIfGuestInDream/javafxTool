@@ -7,10 +7,10 @@ demo是提供的示例demo
 
 ## 结构
 
-frame: 应用框架  
-demo: demo例子  
-smc: 个人应用  
-login: 登录模块
+frame: 应用框架(提供SPI接口)  
+login: 登录模块(提供SPI接口)  
+demo: demo示例  
+smc: 个人应用(无需在意)
 
 ## 贡献者
 

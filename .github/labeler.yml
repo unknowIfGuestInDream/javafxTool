@@ -1,14 +1,14 @@
 demo:
-  - demo/*
+  - demo/**
 
 frame:
-  - frame/*
+  - frame/**
 
 login:
-  - login/*
+  - login/**
 
 smc:
-  - smc/*
+  - smc/**
 
 documentation:
   - CHANGELOG.md
