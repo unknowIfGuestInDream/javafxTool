@@ -52,10 +52,6 @@ public class I18nUtils {
         return locale;
     }
 
-    public static void setLocale(Locale locale) {
-        locale = locale;
-    }
-
     /**
      * gets the string with the given key from the resource bundle for the current locale and uses it as first argument
      * to MessageFormat.format, passing in the optional args and returning the result.
