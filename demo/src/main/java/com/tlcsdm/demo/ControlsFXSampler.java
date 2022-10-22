@@ -26,11 +26,12 @@
  */
 package com.tlcsdm.demo;
 
-import com.tlcsdm.frame.FXSampler;
+import com.tlcsdm.login.LoginFrame;
 
 public class ControlsFXSampler {
 
     public static void main(String[] args) {
-        FXSampler.main(args);
+        //FXSampler.main(args);
+        LoginFrame.main(args);
     }
 }
