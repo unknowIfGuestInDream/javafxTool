@@ -10,21 +10,21 @@ public interface LoginCheck {
     /**
      * 判断信息是否填写完全
      */
-    boolean checkInformation(Record loginNodes);
+    boolean checkInformation(LoginNodes loginNodes);
 
     /**
      * 登录按钮功能实现
      */
-    void loginAction(Stage stage, Record loginNodes);
+    void loginAction(Stage stage, LoginNodes loginNodes);
 
     /**
      * 注册按钮功能实现
      */
-    void signAction(Record loginNodes);
+    void signAction(LoginNodes loginNodes);
 
     /**
      * 登录页组件设定
      */
-    void initNode(Record loginNodes);
+    void initNode(LoginNodes loginNodes);
 
 }

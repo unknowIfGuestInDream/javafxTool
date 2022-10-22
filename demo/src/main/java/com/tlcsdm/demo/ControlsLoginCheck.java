@@ -15,9 +15,8 @@ import javafx.stage.Stage;
  */
 public class ControlsLoginCheck implements LoginCheck {
     @Override
-    public boolean checkInformation(Record loginNodes) {
-        LoginNodes l = (LoginNodes) loginNodes;
-        if ("".equals(l.tfUser().getText()) || "".equals(l.tfPassword().getText())) {
+    public boolean checkInformation(LoginNodes loginNodes) {
+        if ("".equals(loginNodes.tfUser().getText()) || "".equals(loginNodes.tfPassword().getText())) {
             HBox hBox = new HBox();
             Label label = new Label("用户信息填写不全！");
 //            ImageView image = new ImageView("No.png");
@@ -37,7 +36,7 @@ public class ControlsLoginCheck implements LoginCheck {
     }
 
     @Override
-    public void loginAction(Stage stage, Record loginNodes) {
+    public void loginAction(Stage stage, LoginNodes loginNodes) {
         if (!user_exist()) {
             HBox hBox = new HBox();
             Label label = new Label("用户不存在");
@@ -60,7 +59,7 @@ public class ControlsLoginCheck implements LoginCheck {
     }
 
     @Override
-    public void signAction(Record loginNodes) {
+    public void signAction(LoginNodes loginNodes) {
         if (user_exist()) {
             HBox hBox = new HBox();
             Label label = new Label("用户已存在");
@@ -93,7 +92,7 @@ public class ControlsLoginCheck implements LoginCheck {
     }
 
     @Override
-    public void initNode(Record loginNodes) {
+    public void initNode(LoginNodes loginNodes) {
 //        LoginNodes l = (LoginNodes) loginNodes;
 //        l.btSignIn().setVisible(false);
 //        Platform.runLater(() -> {
