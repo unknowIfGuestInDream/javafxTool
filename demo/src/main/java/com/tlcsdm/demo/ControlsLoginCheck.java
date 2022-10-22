@@ -94,7 +94,12 @@ public class ControlsLoginCheck implements LoginCheck {
 
     @Override
     public void initNode(Record loginNodes) {
-
+//        LoginNodes l = (LoginNodes) loginNodes;
+//        l.btSignIn().setVisible(false);
+//        Platform.runLater(() -> {
+//            l.h3().getChildren().remove(l.btSignIn());
+//            //操作窗口组件的代码
+//        });
     }
 
     private void login() {
