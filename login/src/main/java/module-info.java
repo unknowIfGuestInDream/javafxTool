@@ -4,4 +4,6 @@ module com.tlcsdm.login {
 
     opens com.tlcsdm.login to javafx.fxml;
     exports com.tlcsdm.login;
+
+    uses com.tlcsdm.login.LoginCheck;
 }
