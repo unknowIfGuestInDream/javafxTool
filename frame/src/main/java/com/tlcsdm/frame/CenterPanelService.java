@@ -10,16 +10,26 @@ import javafx.stage.Stage;
  */
 public interface CenterPanelService {
 
-    //设置CenterPanel
+    /**
+     * 设置CenterPanel
+     */
     Node setCenterPanel(Node centerPanel, Stage stage);
 
-    //点击菜单时触发的CenterPanel avtion
+    /**
+     * 点击菜单时触发的CenterPanel action
+     */
     void changeSample();
 
-    //CenterPanel 内部组件的切换
+    /**
+     * CenterPanel 内部组件的切换
+     */
     void updateSampleChild(Sample selectedSample, Project selectedProject);
 
     //WelcomePage 处理
+
+    /**
+     * WelcomePage 处理
+     */
     void handleWelcomePage(WelcomePage wPage);
 
 }
