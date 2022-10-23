@@ -33,7 +33,7 @@
         <tlcsdm-common.version>1.3.2</tlcsdm-common.version>
         <lombok.version>1.18.24</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
-        <poi-ooxml.version>5.2.2</poi-ooxml.version>
+        <poi-ooxml.version>5.2.3</poi-ooxml.version>
         <freemarker.version>2.3.31</freemarker.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
     </properties>
