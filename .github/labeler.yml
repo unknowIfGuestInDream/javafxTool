@@ -24,3 +24,7 @@ dependencies:
   - frame/pom.xml
   - login/pom.xml
   - smc/pom.xml
+
+automerge:
+  - all: [ 'README.md' ]
+  - all: [ 'CHANGELOG.md' ]
