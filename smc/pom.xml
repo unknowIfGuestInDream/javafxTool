@@ -11,7 +11,7 @@
     <artifactId>javafxTool-smc</artifactId>
     <name>smc</name>
     <packaging>jar</packaging>
-    <description>smc工具</description>
+    <description>smc工具包</description>
 
     <dependencies>
         <dependency>
