@@ -3,14 +3,14 @@
 javafx工具包，JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
 frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成  
-demo是提供的示例demo
+demo是提供的示例模块
 
 ## 结构
 
 frame: 应用框架(提供SPI接口)  
 login: 登录模块(提供SPI接口)  
 demo: demo示例  
-smc: 个人应用(无需在意)
+smc: 个人应用(无需参考)
 
 ## 贡献者
 
@@ -28,4 +28,5 @@ smc: 个人应用(无需在意)
 
 ## 联系
 
-如有问题，请发邮件到 tang97155@gmail.com
+如果有什么问题，可以发邮件到 tang97155@gmail.com  
+我将尽快回复
