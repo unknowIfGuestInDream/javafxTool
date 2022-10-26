@@ -46,7 +46,7 @@ import org.controlsfx.control.textfield.TextFields;
 
 public class HelloTextFields extends ControlsFXSample {
     
-    private static final Image image = new Image("/com/tlcsdm/demo/security-low.png");
+    private final Image image = new Image(getClass().getResource("/com/tlcsdm/demo/security-low.png").toExternalForm());
     
     @Override public String getSampleName() {
         return "TextFields";

@@ -22,9 +22,12 @@ module com.tlcsdm.demo {
 
     opens com.tlcsdm.demo.samples;
     opens com.tlcsdm.demo.samples.dialogs;
-    opens com.tlcsdm.demo.samples.actions to org.controlsfx.controls;
+    opens com.tlcsdm.demo.samples.actions to org.controlsfx.controls, javafx.graphics;
     opens com.tlcsdm.demo.samples.tableview to javafx.base;
     opens com.tlcsdm.demo.samples.spreadsheet to javafx.graphics;
+    opens com.tlcsdm.demo.samples.button to javafx.graphics;
+    opens com.tlcsdm.demo.samples.textfields to javafx.graphics;
+    opens com.tlcsdm.demo to javafx.graphics;
 
     provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.demo.ControlsFXSamplerProject;
     provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.demo.FXMenubarConfigration;
