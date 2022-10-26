@@ -103,7 +103,7 @@ public class HelloWorldMapView extends ControlsFXSample {
                 new WorldMapView.Location("NRT", 35.766948, 140.385254),
                 new WorldMapView.Location("SYD", -33.939040, 151.174996));
 
-        worldMapView.getStylesheets().add(HelloWorldMapView.class.getResource("world.css").toExternalForm());
+        worldMapView.getStylesheets().add(getClass().getResource("/com/tlcsdm/demo/world.css").toExternalForm());
 
         configureCountryAndLocationViewFactories();
 

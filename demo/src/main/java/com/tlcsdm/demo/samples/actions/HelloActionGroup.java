@@ -57,7 +57,7 @@ import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
 
 public class HelloActionGroup extends ControlsFXSample {
 
-    private static final ImageView image = new ImageView(new Image("/com/tlcsdm/demo/security-low.png"));
+    private final ImageView image = new ImageView(new Image(getClass().getResource("/com/tlcsdm/demo/security-low.png").toExternalForm()));
 
     private Collection<? extends Action> actions = Arrays.asList(
             new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image),
