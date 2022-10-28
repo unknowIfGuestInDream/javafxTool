@@ -60,7 +60,8 @@
     <!-- See https://checkstyle.org/config_sizes.html -->
     <module name="FileLength"/>
     <module name="LineLength">
-        <property name="fileExtensions" value="java" max="150"/>
+        <property name="fileExtensions" value="java" />
+        <property name="max" value="150" />
     </module>
 
     <!-- Checks for whitespace                               -->
