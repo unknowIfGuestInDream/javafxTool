@@ -26,7 +26,6 @@
  */
 package com.tlcsdm.frame;
 
-import cn.hutool.core.util.ServiceLoaderUtil;
 import com.tlcsdm.frame.model.*;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
@@ -73,8 +72,17 @@ public final class FXSampler extends Application {
         this.stage = primaryStage;
         ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
                 .load(FXSamplerConfiguration.class);
-        MenubarConfigration menubarConfigration = ServiceLoaderUtil.loadFirstAvailable(MenubarConfigration.class);
-        centerPanelService = ServiceLoaderUtil.loadFirstAvailable(CenterPanelService.class);
+        ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader
+                .load(MenubarConfigration.class);
+        MenubarConfigration menubarConfigration = null;
+        for (MenubarConfigration m : menubarConfigrations) {
+            menubarConfigration = m;
+        }
+        ServiceLoader<CenterPanelService> centerPanelServices = ServiceLoader
+                .load(CenterPanelService.class);
+        for (CenterPanelService c : centerPanelServices) {
+            centerPanelService = c;
+        }
         if (centerPanelService == null) {
             centerPanelService = new EmptyCenterPanel();
         }

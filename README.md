@@ -26,6 +26,19 @@ smc: 个人应用(无需参考)
 </tr>
 </table>
 
+## 打包命令示例
+
+在windows上执行需要安装wix310.exe  
+先执行javafx:jlink打包镜像
+
+```shell
+javafx: jlink
+```
+
+```shell
+D:\JDK\JDK17\bin\jpackage.exe --type app-image -n tlcsdm-demo -m com.tlcsdm.demo/com.tlcsdm.demo.ControlsFXSampler --runtime-image E:\javaWorkSpace\javafxTool\javafxTool\demo\target\image --temp F:/temp --dest F:/TM --app-version 1.0.0 --copyright unknowIfGuestInDream --vendor unknowIfGuestInDream --description demo工具
+```
+
 ## 联系
 
 如果有什么问题，可以发邮件到 tang97155@gmail.com
