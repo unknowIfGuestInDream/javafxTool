@@ -32,7 +32,7 @@ import java.util.function.Function;
 public class FXCenterPanelService implements CenterPanelService {
 
     private static final String TAB_LOAD_CACHE = "TAB_LOAD_CACHE";
-    private Sample selectedSample;
+    private ControlsFXSample selectedSample;
     private Project selectedProject;
     private Stage stage;
 
@@ -91,7 +91,7 @@ public class FXCenterPanelService implements CenterPanelService {
 
     @Override
     public void updateSampleChild(Sample selectedSample, Project selectedProject) {
-        this.selectedSample = selectedSample;
+        this.selectedSample = (ControlsFXSample) selectedSample;
         this.selectedProject = selectedProject;
         updateTab();
     }
@@ -122,13 +122,13 @@ public class FXCenterPanelService implements CenterPanelService {
             sampleTab.setContent(buildSampleTabContent(selectedSample));
         } else if (selectedTab == javaDocTab) {
             prepareTabContent(javaDocTab, javaDocWebView);
-            loadWebViewContent(javaDocWebView, selectedSample, Sample::getJavaDocURL, sample -> "No Javadoc available");
+            loadWebViewContent(javaDocWebView, selectedSample, ControlsFXSample::getJavaDocURL, sample -> "No Javadoc available");
         } else if (selectedTab == sourceTab) {
             prepareTabContent(sourceTab, sourceWebView);
-            loadWebViewContent(sourceWebView, selectedSample, Sample::getSampleSourceURL, this::formatSourceCode);
+            loadWebViewContent(sourceWebView, selectedSample, ControlsFXSample::getSampleSourceURL, this::formatSourceCode);
         } else if (selectedTab == cssTab) {
             prepareTabContent(cssTab, cssWebView);
-            loadWebViewContent(cssWebView, selectedSample, Sample::getControlStylesheetURL, this::formatCss);
+            loadWebViewContent(cssWebView, selectedSample, ControlsFXSample::getControlStylesheetURL, this::formatCss);
         }
     }
 
@@ -144,8 +144,8 @@ public class FXCenterPanelService implements CenterPanelService {
         });
     }
 
-    private void loadWebViewContent(WebView webView, Sample sample, Function<Sample, String> urlFunction,
-                                    Function<Sample, String> contentFunction) {
+    private void loadWebViewContent(WebView webView, ControlsFXSample sample, Function<ControlsFXSample, String> urlFunction,
+                                    Function<ControlsFXSample, String> contentFunction) {
         final String url = urlFunction.apply(sample);
         if (url != null && url.startsWith("http")) {
             webView.getEngine().load(url);
@@ -174,7 +174,7 @@ public class FXCenterPanelService implements CenterPanelService {
         }
     }
 
-    private String formatSourceCode(Sample sample) {
+    private String formatSourceCode(ControlsFXSample sample) {
         String sourceURL = sample.getSampleSourceURL();
         String src;
         if (sourceURL == null) {
@@ -195,7 +195,7 @@ public class FXCenterPanelService implements CenterPanelService {
         return template.replace("<source/>", src);
     }
 
-    private String getSourceCode(Sample sample) {
+    private String getSourceCode(ControlsFXSample sample) {
         String sourceURL = sample.getSampleSourceURL();
         try {
             // try loading via the web or local file system
@@ -208,7 +208,7 @@ public class FXCenterPanelService implements CenterPanelService {
         return getResource(sourceURL, sample.getClass());
     }
 
-    private String formatCss(Sample sample) {
+    private String formatCss(ControlsFXSample sample) {
         String cssUrl = sample.getControlStylesheetURL();
         String src;
         if (cssUrl == null) {

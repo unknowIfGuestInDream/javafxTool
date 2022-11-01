@@ -21,12 +21,22 @@ public abstract class ControlsFXSample extends SampleBase {
         return projectInfo.getVersion();
     }
 
-    @Override
+    /**
+     * A full URL to the javadoc for the API being demonstrated in this sample.
+     */
+    public abstract String getJavaDocURL();
+
+    /**
+     * A full URL to a sample source code, which is assumed to be in java.
+     */
     public String getSampleSourceURL() {
         return Utils.SAMPLES_BASE + getClass().getName().replace('.', '/') + ".java";
     }
 
-    @Override
+    /**
+     * Returns URL for control's stylesheet.
+     * If the CSS resource is available on module-path,
+     */
     public String getControlStylesheetURL() {
         return null;
     }
