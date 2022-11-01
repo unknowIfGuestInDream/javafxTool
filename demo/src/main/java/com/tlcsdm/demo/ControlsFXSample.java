@@ -3,6 +3,7 @@ package com.tlcsdm.demo;
 import com.tlcsdm.demo.samples.Utils;
 import com.tlcsdm.frame.SampleBase;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -54,7 +55,7 @@ public abstract class ControlsFXSample extends SampleBase {
                 Manifest manifest = new Manifest(s);
                 Attributes attr = manifest.getMainAttributes();
                 version = attr.getValue("Implementation-Version");
-            } catch (Throwable e) {
+            } catch (IOException e) {
                 System.out.println("Unable to load project version for ControlsFX "
                         + "samples project as the manifest file can't be read "
                         + "or the Implementation-Version attribute is unavailable.");

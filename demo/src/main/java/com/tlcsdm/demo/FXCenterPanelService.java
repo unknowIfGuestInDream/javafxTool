@@ -183,7 +183,7 @@ public class FXCenterPanelService implements CenterPanelService {
             src = "Sample Source not found";
             try {
                 src = getSourceCode(sample);
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -230,7 +230,7 @@ public class FXCenterPanelService implements CenterPanelService {
                     // classpath
                     src = getResource(getClass().getResourceAsStream(cssUrl));
                 }
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
