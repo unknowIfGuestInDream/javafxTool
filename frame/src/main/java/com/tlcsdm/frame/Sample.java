@@ -70,28 +70,10 @@ public interface Sample {
      */
     void dispose();
 
-
     /**
      * Returns divider position to use for split between main panel and control panel
      */
     double getControlPanelDividerPosition();
-
-    /**
-     * A full URL to the javadoc for the API being demonstrated in this sample.
-     */
-    String getJavaDocURL();
-
-    /**
-     * Returns URL for control's stylesheet.
-     * If the CSS resource is available on module-path,
-     * {@link fxsampler.FXSamplerProject#getModuleName() project's} module name should be defined.
-     */
-    String getControlStylesheetURL();
-
-    /**
-     * A full URL to a sample source code, which is assumed to be in java.
-     */
-    String getSampleSourceURL();
 
     /**
      * If true this sample is shown to users, if false it is not.
