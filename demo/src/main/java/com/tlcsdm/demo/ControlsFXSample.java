@@ -3,13 +3,15 @@ package com.tlcsdm.demo;
 import com.tlcsdm.demo.samples.Utils;
 import com.tlcsdm.frame.SampleBase;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public abstract class ControlsFXSample extends SampleBase {
 
-    private static final ProjectInfo projectInfo = new ProjectInfo();
+    //项目信息
+    private static final ProjectInfo PROJECTINFO = new ProjectInfo();
 
     @Override
     public String getProjectName() {
@@ -18,19 +20,32 @@ public abstract class ControlsFXSample extends SampleBase {
 
     @Override
     public String getProjectVersion() {
-        return projectInfo.getVersion();
+        return PROJECTINFO.getVersion();
     }
 
-    @Override
+    /**
+     * A full URL to the javadoc for the API being demonstrated in this sample.
+     */
+    public abstract String getJavaDocURL();
+
+    /**
+     * A full URL to a sample source code, which is assumed to be in java.
+     */
     public String getSampleSourceURL() {
         return Utils.SAMPLES_BASE + getClass().getName().replace('.', '/') + ".java";
     }
 
-    @Override
+    /**
+     * Returns URL for control's stylesheet.
+     * If the CSS resource is available on module-path,
+     */
     public String getControlStylesheetURL() {
         return null;
     }
 
+    /**
+     * 项目信息
+     */
     private static class ProjectInfo {
 
         private String version;
@@ -44,7 +59,7 @@ public abstract class ControlsFXSample extends SampleBase {
                 Manifest manifest = new Manifest(s);
                 Attributes attr = manifest.getMainAttributes();
                 version = attr.getValue("Implementation-Version");
-            } catch (Throwable e) {
+            } catch (IOException e) {
                 System.out.println("Unable to load project version for ControlsFX "
                         + "samples project as the manifest file can't be read "
                         + "or the Implementation-Version attribute is unavailable.");

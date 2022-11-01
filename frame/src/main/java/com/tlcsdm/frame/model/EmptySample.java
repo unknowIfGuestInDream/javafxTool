@@ -58,14 +58,6 @@ public class EmptySample implements Sample {
         return null;
     }
 
-    @Override public String getJavaDocURL() {
-        return null;
-    }
-    
-    @Override public String getSampleSourceURL() {
-        return null;
-    }
-
     @Override public boolean isVisible() {
         return true;
     }
@@ -81,10 +73,5 @@ public class EmptySample implements Sample {
     public double getControlPanelDividerPosition() {
     	return 0.6;
     }
-
-	@Override
-	public String getControlStylesheetURL() {
-		return null;
-	}
 
 }
