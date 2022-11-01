@@ -10,10 +10,8 @@ import java.util.jar.Manifest;
 
 public abstract class ControlsFXSample extends SampleBase {
 
-    /**
-     * 项目信息
-     */
-    private static final ProjectInfo projectInfo = new ProjectInfo();
+    //项目信息
+    private static final ProjectInfo PROJECTINFO = new ProjectInfo();
 
     @Override
     public String getProjectName() {
@@ -22,7 +20,7 @@ public abstract class ControlsFXSample extends SampleBase {
 
     @Override
     public String getProjectVersion() {
-        return projectInfo.getVersion();
+        return PROJECTINFO.getVersion();
     }
 
     /**
