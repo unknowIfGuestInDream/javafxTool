@@ -1,6 +1,3 @@
-import com.tlcsdm.demo.FXCenterPanelService;
-import com.tlcsdm.frame.CenterPanelService;
-
 module com.tlcsdm.demo {
 
     requires java.desktop;
@@ -31,7 +28,7 @@ module com.tlcsdm.demo {
 
     provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.demo.ControlsFXSamplerProject;
     provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.demo.FXMenubarConfigration;
-    provides CenterPanelService with FXCenterPanelService;
+    provides com.tlcsdm.frame.CenterPanelService with com.tlcsdm.demo.FXCenterPanelService;
     provides com.tlcsdm.login.LoginCheck with com.tlcsdm.demo.ControlsLoginCheck;
 
 }
