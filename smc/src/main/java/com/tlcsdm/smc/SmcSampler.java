@@ -24,13 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.tlcsdm.demo;
+package com.tlcsdm.smc;
 
 import com.tlcsdm.frame.FXSampler;
 
-public class ControlsFXSampler {
+public class SmcSampler {
 
     public static void main(String[] args) {
+//        System.out.println(System.getProperty("user.dir"));
+//        String relativelyPath = System.getProperty("user.dir");
+//        File file = new File(relativelyPath + "\\data\\demo");
+//        File txt = new File("F:\\TM\\test.txt");
+//
+//        try {
+//
+//
+//        FileWriter fw = new FileWriter(txt, true);
+//        PrintWriter pw = new PrintWriter(fw);
+//        pw.println(relativelyPath);
+//        pw.flush();
+//
+//        fw.flush();
+//        pw.close();
+//        fw.close();
+//        }catch (Exception e){
+//
+//        }
+//
+//        if (!file.exists()) {
+//            try {
+//                file.mkdirs();
+//                new File(relativelyPath + "\\data\\demo\\setting.xml").createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         //直接启动应用
         FXSampler.main(args);
 
