@@ -76,6 +76,7 @@ public class SmcLoginCheck implements LoginCheck {
 
     @Override
     public void initNode(LoginNodes loginNodes) {
+        // Do nothing
     }
 
     private void login() {

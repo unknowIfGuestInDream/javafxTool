@@ -5,7 +5,6 @@ import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
@@ -13,15 +12,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.function.Function;
 
 /**
  * @author: 唐 亮
@@ -100,28 +96,6 @@ public class SmcCenterPanelService implements CenterPanelService {
                 return;
             }
             sampleTab.setContent(buildSampleTabContent(selectedSample));
-        }
-    }
-
-    private void prepareTabContent(Tab tab, WebView webView) {
-        tab.setContent(progressIndicatorPane);
-        final WebEngine engine = webView.getEngine();
-        progressIndicator.progressProperty().bind(engine.getLoadWorker().progressProperty());
-        engine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == Worker.State.SUCCEEDED) {
-                tab.setContent(webView);
-                tab.getProperties().put(TAB_LOAD_CACHE, true);
-            }
-        });
-    }
-
-    private void loadWebViewContent(WebView webView, SmcSample sample, Function<SmcSample, String> urlFunction,
-                                    Function<SmcSample, String> contentFunction) {
-        final String url = urlFunction.apply(sample);
-        if (url != null && url.startsWith("http")) {
-            webView.getEngine().load(url);
-        } else {
-            webView.getEngine().loadContent(contentFunction.apply(sample));
         }
     }
 
