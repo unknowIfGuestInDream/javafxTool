@@ -1,5 +1,3 @@
-import com.tlcsdm.frame.CenterPanelService;
-
 module com.tlcsdm.frame {
 
     requires transitive javafx.controls;
@@ -11,5 +9,5 @@ module com.tlcsdm.frame {
     uses com.tlcsdm.frame.FXSamplerProject;
     uses com.tlcsdm.frame.MenubarConfigration;
     uses com.tlcsdm.frame.FXSamplerConfiguration;
-    uses CenterPanelService;
+    uses com.tlcsdm.frame.CenterPanelService;
 }
