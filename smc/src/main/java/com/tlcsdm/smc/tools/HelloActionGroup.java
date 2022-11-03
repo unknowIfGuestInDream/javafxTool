@@ -41,6 +41,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
@@ -48,6 +49,7 @@ import org.controlsfx.control.action.ActionGroup;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
@@ -79,7 +81,13 @@ public class HelloActionGroup extends SmcSample {
         public DummyAction(String name, Node image) {
             super(name);
             setGraphic(image);
-            setEventHandler(ae -> String.format("Action '%s' is executed", getText()));
+            setEventHandler(ae -> {
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                File file = directoryChooser.showDialog(new Stage());
+                if (file != null) {
+                    System.out.println(file.getAbsolutePath());
+                }
+            });
         }
 
         public DummyAction(String name) {
