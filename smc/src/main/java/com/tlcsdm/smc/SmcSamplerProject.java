@@ -28,6 +28,7 @@ package com.tlcsdm.smc;
 
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -61,7 +62,8 @@ public class SmcSamplerProject implements FXSamplerProject {
 		imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/ControlsFX.png');");
 		StackPane pane = new StackPane();
 		pane.setPrefHeight(207);
-		pane.setStyle("-fx-background-image: url('com/tlcsdm/smc/static/bar.png');" + "-fx-background-repeat: repeat-x;");
+		pane.setStyle(
+				"-fx-background-image: url('com/tlcsdm/smc/static/bar.png');" + "-fx-background-repeat: repeat-x;");
 		pane.getChildren().add(imgView);
 		Label label = new Label();
 		label.setWrapText(true);
@@ -73,7 +75,18 @@ public class SmcSamplerProject implements FXSamplerProject {
 		desc.append("Explore the available UI controls by clicking on the options to the left.");
 		label.setText(desc.toString());
 		label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
-		vBox.getChildren().addAll(pane, label);
+
+		Label bottom = new Label();
+		bottom.setWrapText(true);
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n");
+		sb.append("This project is built on javaFX 17 and controlsfx 11.");
+		sb.append("\n");
+		sb.append("If you have some questions or ideas, Please contact me.");
+		bottom.setText(sb.toString());
+		bottom.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
+
+		vBox.getChildren().addAll(pane, label, bottom);
 		return new WelcomePage("Welcome to SMC Tool!", vBox);
 	}
 }
