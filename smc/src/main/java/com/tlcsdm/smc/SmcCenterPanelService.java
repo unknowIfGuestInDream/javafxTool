@@ -30,8 +30,8 @@ public class SmcCenterPanelService implements CenterPanelService {
 
 	@Override
 	public Node setCenterPanel(Node centerPanel, Stage stage) {
-		centerPanel = new ScrollPane();
-		scrollPane = (ScrollPane) centerPanel;
+		scrollPane = new ScrollPane();
+		centerPanel = scrollPane;
 		this.stage = stage;
 
 		scrollPane.setMaxHeight(Double.MAX_VALUE);
@@ -69,6 +69,9 @@ public class SmcCenterPanelService implements CenterPanelService {
 		scrollPane.setContent(buildSampleTabContent(selectedSample));
 	}
 
+	/**
+	 * 加载content前初始化
+	 */
 	private void prepareContent(ScrollPane scrollPane) {
 		// Do nothing
 	}
