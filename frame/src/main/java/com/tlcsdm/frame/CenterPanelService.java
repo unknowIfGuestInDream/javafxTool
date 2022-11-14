@@ -13,7 +13,7 @@ public interface CenterPanelService {
     /**
      * 设置CenterPanel
      */
-    Node setCenterPanel(Node centerPanel, Stage stage);
+    Node getCenterPanel(Stage stage);
 
     /**
      * 点击菜单时触发的CenterPanel action
