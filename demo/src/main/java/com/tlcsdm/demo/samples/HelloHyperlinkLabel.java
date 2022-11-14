@@ -95,7 +95,6 @@ public class HelloHyperlinkLabel extends ControlsFXSample {
             selectedLinkField.setText(str);
         });
         root.getChildren().add(label);
-        root.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         
         return root;
     }

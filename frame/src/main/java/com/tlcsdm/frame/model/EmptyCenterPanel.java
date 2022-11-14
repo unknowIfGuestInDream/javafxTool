@@ -20,10 +20,8 @@ public class EmptyCenterPanel implements CenterPanelService {
     private Tab welcomeTab;
 
     @Override
-    public Node setCenterPanel(Node centerPanel, Stage stage) {
-        centerPanel = new TabPane();
-        tabPane = (TabPane) centerPanel;
-
+    public Node getCenterPanel(Stage stage) {
+        tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.getStyleClass().add(TabPane.STYLE_CLASS_FLOATING);
         tabPane.getSelectionModel().selectedItemProperty().addListener(o -> updateTab());
