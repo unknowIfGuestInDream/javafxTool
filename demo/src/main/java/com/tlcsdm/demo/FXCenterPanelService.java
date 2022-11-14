@@ -51,9 +51,8 @@ public class FXCenterPanelService implements CenterPanelService {
     private WebView cssWebView;
 
     @Override
-    public Node setCenterPanel(Node centerPanel, Stage stage) {
-        centerPanel = new TabPane();
-        tabPane = (TabPane) centerPanel;
+    public Node getCenterPanel(Stage stage) {
+        tabPane = new TabPane();
         this.stage = stage;
         // ProgressIndicator
         progressIndicator = new ProgressIndicator();

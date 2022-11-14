@@ -156,7 +156,7 @@ public final class FXSampler extends Application {
         grid.add(samplesTreeView, 0, 2);
         bp.setLeft(grid);
 
-        centerPanel = centerPanelService.setCenterPanel(centerPanel, stage);
+        centerPanel = centerPanelService.getCenterPanel(stage);
         bp.setCenter(centerPanel);
 
         // by default we'll show the welcome message of first project in the tree

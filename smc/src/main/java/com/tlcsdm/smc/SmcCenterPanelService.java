@@ -1,21 +1,20 @@
 package com.tlcsdm.smc;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import com.tlcsdm.frame.CenterPanelService;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
-
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * @author: 唐 亮
@@ -29,11 +28,9 @@ public class SmcCenterPanelService implements CenterPanelService {
 	private ScrollPane scrollPane;
 
 	@Override
-	public Node setCenterPanel(Node centerPanel, Stage stage) {
+	public Node getCenterPanel(Stage stage) {
 		scrollPane = new ScrollPane();
-		centerPanel = scrollPane;
 		this.stage = stage;
-
 		scrollPane.setMaxHeight(Double.MAX_VALUE);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
