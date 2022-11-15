@@ -1,5 +1,7 @@
 package com.tlcsdm.smc;
 
+import org.controlsfx.control.MaskerPane;
+
 import com.tlcsdm.frame.CenterPanelService;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
@@ -22,6 +24,7 @@ public class SmcCenterPanelService implements CenterPanelService {
 	private Project selectedProject;
 	private Stage stage;
 	private ScrollPane scrollPane;
+	private MaskerPane masker = new MaskerPane();
 
 	@Override
 	public Node getCenterPanel(Stage stage) {
@@ -66,7 +69,7 @@ public class SmcCenterPanelService implements CenterPanelService {
 	 * 加载content前初始化
 	 */
 	private void prepareContent(ScrollPane scrollPane) {
-		// Do nothing
+		scrollPane.setContent(masker);
 	}
 
 	private Node buildSmcContent(Sample sample) {
