@@ -77,6 +77,7 @@ public class EmptySample implements Sample {
 
     @Override
     public void dispose() {
+        // Do nothing
     }
 
     @Override
