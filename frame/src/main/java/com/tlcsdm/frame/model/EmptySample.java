@@ -44,34 +44,45 @@ public class EmptySample implements Sample {
     @Override public String getSampleDescription() {
         return null;
     }
-    
-    @Override public String getProjectName() {
+
+    @Override
+    public String getProjectName() {
         return null;
     }
 
-	@Override
-	public String getProjectVersion() {
-		return null;
-	}
-	
-    @Override public Node getPanel(Stage stage) {
+    @Override
+    public String getProjectVersion() {
         return null;
     }
 
-    @Override public boolean isVisible() {
+    @Override
+    public Node getPanel(Stage stage) {
+        return null;
+    }
+
+    @Override
+    public boolean isVisible() {
         return true;
     }
 
-    @Override public Node getControlPanel() {
+    @Override
+    public String getOrderKey() {
+        return "";
+    }
+
+    @Override
+    public Node getControlPanel() {
         return null;
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        // Do nothing
+    }
 
     @Override
     public double getControlPanelDividerPosition() {
-    	return 0.6;
+        return 0.6;
     }
 
 }

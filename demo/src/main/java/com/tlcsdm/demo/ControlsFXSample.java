@@ -23,6 +23,11 @@ public abstract class ControlsFXSample extends SampleBase {
         return PROJECTINFO.getVersion();
     }
 
+    @Override
+    public String getOrderKey() {
+        return getSampleName();
+    }
+
     /**
      * A full URL to the javadoc for the API being demonstrated in this sample.
      */

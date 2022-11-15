@@ -80,4 +80,9 @@ public interface Sample {
      */
     boolean isVisible();
 
+    /**
+     * 排序字段
+     */
+    String getOrderKey();
+
 }
