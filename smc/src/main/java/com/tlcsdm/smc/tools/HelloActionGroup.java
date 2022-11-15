@@ -26,23 +26,8 @@
  */
 package com.tlcsdm.smc.tools;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionGroup;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,6 +44,19 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
 
 public class HelloActionGroup extends SmcSample {
 
@@ -173,6 +171,11 @@ public class HelloActionGroup extends SmcSample {
 		grid.add(ActionUtils.createButton(toggleAction), 2, row++);
 
 		return grid;
+	}
+
+	@Override
+	public String getOrderKey() {
+		return "Action Group";
 	}
 
 	@Override
