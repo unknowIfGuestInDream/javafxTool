@@ -5,16 +5,12 @@ import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
+
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * @author: 唐 亮
@@ -63,7 +59,7 @@ public class SmcCenterPanelService implements CenterPanelService {
 			return;
 		}
 		prepareContent(scrollPane);
-		scrollPane.setContent(buildSampleTabContent(selectedSample));
+		scrollPane.setContent(buildSmcContent(selectedSample));
 	}
 
 	/**
@@ -73,27 +69,7 @@ public class SmcCenterPanelService implements CenterPanelService {
 		// Do nothing
 	}
 
-	private String getResource(String resourceName, Class<?> baseClass) {
-		Class<?> clz = baseClass == null ? getClass() : baseClass;
-		return getResource(clz.getResourceAsStream(resourceName));
-	}
-
-	private String getResource(InputStream is) {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-			String line;
-			StringBuilder sb = new StringBuilder();
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-				sb.append("\n");
-			}
-			return sb.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
-		}
-	}
-
-	private Node buildSampleTabContent(Sample sample) {
+	private Node buildSmcContent(Sample sample) {
 		return SampleBase.buildSample(sample, stage);
 	}
 }
