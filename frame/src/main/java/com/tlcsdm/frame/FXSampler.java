@@ -222,7 +222,7 @@ public final class FXSampler extends Application {
         }
 
         // and finally we sort the display a little
-        sort(root, Comparator.comparing(o -> o.getValue().getSampleName()));
+        sort(root, Comparator.comparing(o -> o.getValue().getOrderKey()));
     }
 
     // 切换左侧菜单时触发
