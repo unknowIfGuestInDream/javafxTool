@@ -26,7 +26,23 @@
  */
 package com.tlcsdm.smc.tools;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
 import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,177 +59,160 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionGroup;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
 
 public class HelloActionGroup extends SmcSample {
 
-    private final ImageView image = new ImageView(new Image(Objects.requireNonNull(getClass()
-            .getResource("/com/tlcsdm/smc/static/security-low.png")).toExternalForm()));
+	private final ImageView image = new ImageView(new Image(Objects
+			.requireNonNull(getClass().getResource("/com/tlcsdm/smc/static/security-low.png")).toExternalForm()));
 
-    private Collection<? extends Action> actions = Arrays.asList(
-            new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image),
-                    new CheckDummyAction("Action 1.2")),
-            new ActionGroup("Group 2", image, new DummyAction("Action 2.1"),
-                    ACTION_SEPARATOR,
-                    new ActionGroup("Action 2.2", new DummyAction("Action 2.2.1"),
-                            new CheckDummyAction("Action 2.2.2")),
-                    new DummyAction("Action 2.3")),
-            ACTION_SPAN,
-            ACTION_SEPARATOR,
-            new CheckDummyAction("Action 3", image),
-            new ActionGroup("Group 4", image, new DummyAction("Action 4.1", image),
-                    new CheckDummyAction("Action 4.2"))
-    );
+	private Collection<? extends Action> actions = Arrays.asList(
+			new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image), new CheckDummyAction("Action 1.2")),
+			new ActionGroup("Group 2", image, new DummyAction("Action 2.1"), ACTION_SEPARATOR,
+					new ActionGroup("Action 2.2", new DummyAction("Action 2.2.1"),
+							new CheckDummyAction("Action 2.2.2")),
+					new DummyAction("Action 2.3")),
+			ACTION_SPAN, ACTION_SEPARATOR, new CheckDummyAction("Action 3", image), new ActionGroup("Group 4", image,
+					new DummyAction("Action 4.1", image), new CheckDummyAction("Action 4.2")));
 
-    private static class DummyAction extends Action {
-        public DummyAction(String name, Node image) {
-            super(name);
-            setGraphic(image);
-            setEventHandler(ae -> {
-                DirectoryChooser directoryChooser = new DirectoryChooser();
-                File file = directoryChooser.showDialog(new Stage());
-                if (file != null) {
-                    System.out.println(file.getAbsolutePath());
-                }
-            });
-        }
+	private static class DummyAction extends Action {
+		public DummyAction(String name, Node image) {
+			super(name);
+			setGraphic(image);
+			setEventHandler(ae -> {
+				DirectoryChooser directoryChooser = new DirectoryChooser();
+				File file = directoryChooser.showDialog(new Stage());
+				if (file != null) {
+					System.out.println(file.getAbsolutePath());
+				}
+			});
+		}
 
-        public DummyAction(String name) {
-            super(name);
-        }
+		public DummyAction(String name) {
+			super(name);
+		}
 
-        @Override
-        public String toString() {
-            return getText();
-        }
-    }
+		@Override
+		public String toString() {
+			return getText();
+		}
+	}
 
-    @ActionCheck
-    private static class CheckDummyAction extends Action {
-        public CheckDummyAction(String name, Node image) {
-            super(name);
-            setGraphic(image);
-            setEventHandler(ae -> String.format("Action '%s' is executed", getText()));
-        }
+	@ActionCheck
+	private static class CheckDummyAction extends Action {
+		public CheckDummyAction(String name, Node image) {
+			super(name);
+			setGraphic(image);
+			setEventHandler(ae -> String.format("Action '%s' is executed", getText()));
+		}
 
-        public CheckDummyAction(String name) {
-            super(name);
-        }
+		public CheckDummyAction(String name) {
+			super(name);
+		}
 
-        @Override
-        public String toString() {
-            return getText();
-        }
-    }
+		@Override
+		public String toString() {
+			return getText();
+		}
+	}
 
-    private ObservableList<Action> flatten(Collection<? extends Action> actions, ObservableList<Action> dest) {
-        for (Action a : actions) {
-            if (a == null || a == ActionUtils.ACTION_SEPARATOR) {
-                continue;
-            }
-            dest.add(a);
-            if (a instanceof ActionGroup) {
-                flatten(((ActionGroup) a).getActions(), dest);
-            }
-        }
+	private ObservableList<Action> flatten(Collection<? extends Action> actions, ObservableList<Action> dest) {
+		for (Action a : actions) {
+			if (a == null || a == ActionUtils.ACTION_SEPARATOR) {
+				continue;
+			}
+			dest.add(a);
+			if (a instanceof ActionGroup) {
+				flatten(((ActionGroup) a).getActions(), dest);
+			}
+		}
 
-        return dest;
-    }
+		return dest;
+	}
 
-    @Override
-    public String getSampleName() {
-        return "Action Group";
-    }
+	@Override
+	public String getSampleName() {
+		return I18nUtils.get("smc.sampleName.actionGroup", null);
+	}
 
-    @Override
-    public String getSampleDescription() {
-        return "MenuBar, ToolBar and ContextMenu presented here are effortlessly built out of the same action tree. " +
-                "Action properties can be dynamically changed, triggering changes in all related controls";
-    }
+	@Override
+	public String getSampleDescription() {
+		return "MenuBar, ToolBar and ContextMenu presented here are effortlessly built out of the same action tree. "
+				+ "Action properties can be dynamically changed, triggering changes in all related controls";
+	}
 
-    @Override
-    public Node getControlPanel() {
-        GridPane grid = new GridPane();
-        grid.setVgap(10);
-        grid.setHgap(10);
-        grid.setPadding(new Insets(30, 30, 0, 30));
+	@Override
+	public Node getControlPanel() {
+		GridPane grid = new GridPane();
+		grid.setVgap(10);
+		grid.setHgap(10);
+		grid.setPadding(new Insets(30, 30, 0, 30));
 
-        int row = 0;
+		int row = 0;
 
-        // Dynamically enable/disable action
-        Label lblAddCrumb = new Label("Dynamically enable/disable action: ");
-        lblAddCrumb.getStyleClass().add("property");
-        grid.add(lblAddCrumb, 0, row);
-        final ComboBox<Action> cbActions = new ComboBox<>(flatten(actions, FXCollections.<Action>observableArrayList()));
-        cbActions.getSelectionModel().select(0);
-        grid.add(cbActions, 1, row);
-        Action toggleAction = new Action("Enable/Disable") {
-            {
-                setEventHandler(this::handleAction);
-            }
+		// Dynamically enable/disable action
+		Label lblAddCrumb = new Label("Dynamically enable/disable action: ");
+		lblAddCrumb.getStyleClass().add("property");
+		grid.add(lblAddCrumb, 0, row);
+		final ComboBox<Action> cbActions = new ComboBox<>(
+				flatten(actions, FXCollections.<Action>observableArrayList()));
+		cbActions.getSelectionModel().select(0);
+		grid.add(cbActions, 1, row);
+		Action toggleAction = new Action("Enable/Disable") {
+			{
+				setEventHandler(this::handleAction);
+			}
 
-            private void handleAction(ActionEvent ae) {
-                Action action = cbActions.getSelectionModel().getSelectedItem();
-                if (action != null) {
-                    BooleanProperty p = action.disabledProperty();
-                    p.set(!p.get());
-                }
-            }
-        };
-        grid.add(ActionUtils.createButton(toggleAction), 2, row++);
+			private void handleAction(ActionEvent ae) {
+				Action action = cbActions.getSelectionModel().getSelectedItem();
+				if (action != null) {
+					BooleanProperty p = action.disabledProperty();
+					p.set(!p.get());
+				}
+			}
+		};
+		grid.add(ActionUtils.createButton(toggleAction), 2, row++);
 
-        return grid;
-    }
+		return grid;
+	}
 
-    @Override
-    public Node getPanel(final Stage stage) {
-        VBox root = new VBox(10);
-        root.setPadding(new Insets(10, 10, 10, 10));
-        root.setMaxHeight(Double.MAX_VALUE);
+	@Override
+	public Node getPanel(final Stage stage) {
+		VBox root = new VBox(10);
+		root.setPadding(new Insets(10, 10, 10, 10));
+		root.setMaxHeight(Double.MAX_VALUE);
 
-        Insets topMargin = new Insets(7, 7, 0, 7);
-        Insets margin = new Insets(0, 7, 7, 7);
+		Insets topMargin = new Insets(7, 7, 0, 7);
+		Insets margin = new Insets(0, 7, 7, 7);
 
-        addWithMargin(root, new Label("MenuBar:"), topMargin).setStyle("-fx-font-weight: bold;");
-        addWithMargin(root, ActionUtils.createMenuBar(actions), margin);
+		addWithMargin(root, new Label("MenuBar:"), topMargin).setStyle("-fx-font-weight: bold;");
+		addWithMargin(root, ActionUtils.createMenuBar(actions), margin);
 
-        addWithMargin(root, new Label("ToolBar (with text on controls):"), topMargin).setStyle("-fx-font-weight: bold;");
-        addWithMargin(root, ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW), margin);
+		addWithMargin(root, new Label("ToolBar (with text on controls):"), topMargin)
+				.setStyle("-fx-font-weight: bold;");
+		addWithMargin(root, ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW), margin);
 
-        addWithMargin(root, new Label("ToolBar (no text on controls):"), topMargin).setStyle("-fx-font-weight: bold;");
-        addWithMargin(root, ActionUtils.createToolBar(actions, ActionTextBehavior.HIDE), margin);
+		addWithMargin(root, new Label("ToolBar (no text on controls):"), topMargin).setStyle("-fx-font-weight: bold;");
+		addWithMargin(root, ActionUtils.createToolBar(actions, ActionTextBehavior.HIDE), margin);
 
-        addWithMargin(root, new Label("ContextMenu:"), topMargin).setStyle("-fx-font-weight: bold;");
-        Label context = new Label("Right-click to see the context menu");
-        addWithMargin(root, context, margin);
-        context.setContextMenu(ActionUtils.createContextMenu(actions));
-        context.setStyle("-fx-background-color: #E0E0E0 ;-fx-border-color: black;-fx-border-style: dotted");
-        context.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        VBox.setVgrow(context, Priority.ALWAYS);
-        VBox.setVgrow(root, Priority.ALWAYS);
+		addWithMargin(root, new Label("ContextMenu:"), topMargin).setStyle("-fx-font-weight: bold;");
+		Label context = new Label("Right-click to see the context menu");
+		addWithMargin(root, context, margin);
+		context.setContextMenu(ActionUtils.createContextMenu(actions));
+		context.setStyle("-fx-background-color: #E0E0E0 ;-fx-border-color: black;-fx-border-style: dotted");
+		context.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		VBox.setVgrow(context, Priority.ALWAYS);
+		VBox.setVgrow(root, Priority.ALWAYS);
 
-        return root;
-    }
+		return root;
+	}
 
-    private Control addWithMargin(VBox parent, Control control, Insets insets) {
-        parent.getChildren().add(control);
-        VBox.setMargin(control, insets);
-        return control;
-    }
+	private Control addWithMargin(VBox parent, Control control, Insets insets) {
+		parent.getChildren().add(control);
+		VBox.setMargin(control, insets);
+		return control;
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
