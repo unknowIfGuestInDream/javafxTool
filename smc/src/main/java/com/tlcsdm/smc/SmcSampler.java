@@ -30,8 +30,8 @@ import com.tlcsdm.frame.FXSampler;
 
 public class SmcSampler {
 
-    public static void main(String[] args) {
-//        System.out.println(System.getProperty("user.dir"));
+	public static void main(String[] args) {
+//		System.out.println(System.getProperty("user.dir"));
 //        String relativelyPath = System.getProperty("user.dir");
 //        File file = new File(relativelyPath + "\\data\\demo");
 //        File txt = new File("F:\\TM\\test.txt");
@@ -59,10 +59,10 @@ public class SmcSampler {
 //                e.printStackTrace();
 //            }
 //        }
-        //直接启动应用
-        FXSampler.main(args);
+		// 直接启动应用
+		FXSampler.main(args);
 
-        //带有登录校验的启动
-        //LoginFrame.main(args);
-    }
+		// 带有登录校验的启动
+		// LoginFrame.main(args);
+	}
 }
