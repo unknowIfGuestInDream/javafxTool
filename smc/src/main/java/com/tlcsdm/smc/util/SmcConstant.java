@@ -13,4 +13,5 @@ public class SmcConstant {
 
     public static String GITHUB_PROJECT_URL = "https://github.com/unknowIfGuestInDream/javafxTool";
     public static String GITHUB_PROJECT_SUPPORT_URL = "https://github.com/unknowIfGuestInDream/javafxTool/issues";
+    public static String GITHUB_PROJECT_FEEDBACK_URL = "https://github.com/unknowIfGuestInDream/javafxTool/discussions";
 }

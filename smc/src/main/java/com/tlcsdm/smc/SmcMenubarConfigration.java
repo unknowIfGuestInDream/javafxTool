@@ -36,6 +36,16 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         }
     });
 
+    private final Action submitFeedback = new Action(I18nUtils.get("smc.menubar.help.submitFeedback"), actionEvent -> {
+        Desktop d = Desktop.getDesktop();
+        try {
+            URI address = new URI(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL);
+            d.browse(address);
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
+    });
+
     private final Action about = new Action(I18nUtils.get("smc.menubar.help.about"), actionEvent -> {
         // Do nothing
         //@todo
@@ -44,7 +54,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(
             new ActionGroup(I18nUtils.get("smc.menubar.setting")),
-            new ActionGroup(I18nUtils.get("smc.menubar.help"), contactSupport, ACTION_SEPARATOR, about));
+            new ActionGroup(I18nUtils.get("smc.menubar.help"), contactSupport, submitFeedback, ACTION_SEPARATOR, about));
 
     /**
      * 初始化action
