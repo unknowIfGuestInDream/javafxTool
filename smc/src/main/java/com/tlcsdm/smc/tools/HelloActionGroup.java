@@ -129,7 +129,7 @@ public class HelloActionGroup extends SmcSample {
 
 	@Override
 	public String getSampleName() {
-		return I18nUtils.get("smc.sampleName.actionGroup", null);
+		return I18nUtils.get("smc.sampleName.actionGroup");
 	}
 
 	@Override
