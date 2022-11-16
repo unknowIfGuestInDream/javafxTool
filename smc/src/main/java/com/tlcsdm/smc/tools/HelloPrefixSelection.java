@@ -58,7 +58,7 @@ public class HelloPrefixSelection extends SmcSample {
 
 	@Override
 	public String getSampleName() {
-		return I18nUtils.get("smc.sampleName.prefixSelection", null);
+		return I18nUtils.get("smc.sampleName.prefixSelection");
 	}
 
 	@Override

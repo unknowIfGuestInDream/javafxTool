@@ -28,6 +28,7 @@ package com.tlcsdm.smc;
 
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.smc.util.SmcConstant;
 import javafx.beans.binding.StringBinding;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -118,7 +119,7 @@ public class SmcSamplerProject implements FXSamplerProject {
             }
             Desktop d = Desktop.getDesktop();
             try {
-                URI address = new URI("https://github.com/unknowIfGuestInDream/javafxTool");
+                URI address = new URI(SmcConstant.GITHUB_PROJECT_URL);
                 d.browse(address);
                 b.set(false);
             } catch (URISyntaxException | IOException e) {
