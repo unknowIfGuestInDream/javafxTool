@@ -1,32 +1,26 @@
 package com.tlcsdm.smc.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-
-import org.controlsfx.control.PrefixSelectionChoiceBox;
-import org.controlsfx.control.PrefixSelectionComboBox;
-
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
+import org.controlsfx.control.PrefixSelectionChoiceBox;
+import org.controlsfx.control.PrefixSelectionComboBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -43,7 +37,7 @@ public class CodeStyleLength120 extends SmcSample {
 
 	@Override
 	public String getSampleName() {
-		return I18nUtils.get("smc.sampleName.codeStyleLength120", null);
+		return I18nUtils.get("smc.sampleName.codeStyleLength120");
 	}
 
 	@Override
@@ -193,7 +187,7 @@ public class CodeStyleLength120 extends SmcSample {
 
 	@Override
 	public String getSampleDescription() {
-		return I18nUtils.get("smc.sampleName.codeStyleLength120.description", null);
+		return I18nUtils.get("smc.sampleName.codeStyleLength120.description");
 	}
 
 	private static class Person {
