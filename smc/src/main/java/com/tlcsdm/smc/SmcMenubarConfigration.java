@@ -39,10 +39,12 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         }
     });
 
+    /**
+     * @todo 完善关于菜单功能
+     * @body Dialogs 实现版本号， 包含项目名,版本号,技术支持 超链接是个table software  + License，Copyright © 2022 unknowIfGuestInDream
+     */
     private final Action about = new Action(I18nUtils.get("smc.menubar.help.about"), actionEvent -> {
         // Do nothing
-        //@todo
-        //@body Dialogs 实现版本号， 包含项目名,版本号,技术支持 超链接是个table software  + License，Copyright © 2022 unknowIfGuestInDream
     });
 
     private final Collection<? extends Action> actions = List.of(
