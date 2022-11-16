@@ -19,13 +19,6 @@ import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
-    @Override
-    public MenuBar setMenuBar(MenuBar menuBar) {
-        initActions();
-        ActionUtils.updateMenuBar(menuBar, actions);
-        return menuBar;
-    }
-
     private final Action contactSupport = new Action(I18nUtils.get("smc.menubar.help.contactSupport"), actionEvent -> {
         Desktop d = Desktop.getDesktop();
         try {
@@ -61,6 +54,13 @@ public class SmcMenubarConfigration implements MenubarConfigration {
      */
     private void initActions() {
         // Do nothing
+    }
+
+    @Override
+    public MenuBar setMenuBar(MenuBar menuBar) {
+        initActions();
+        ActionUtils.updateMenuBar(menuBar, actions);
+        return menuBar;
     }
 
 }
