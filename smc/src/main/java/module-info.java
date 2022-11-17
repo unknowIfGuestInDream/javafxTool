@@ -4,6 +4,7 @@ module com.tlcsdm.smc {
 	requires com.tlcsdm.login;
 	requires java.desktop;
 	requires org.controlsfx.controls;
+	requires javafx.controls;
 
 	exports com.tlcsdm.smc;
 	exports com.tlcsdm.smc.tools;
