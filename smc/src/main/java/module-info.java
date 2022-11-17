@@ -11,5 +11,6 @@ module com.tlcsdm.smc {
 	provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.smc.SmcSamplerProject;
 	provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.smc.SmcMenubarConfigration;
 	provides com.tlcsdm.frame.CenterPanelService with com.tlcsdm.smc.SmcCenterPanelService;
+	provides com.tlcsdm.frame.FXSamplerConfiguration with com.tlcsdm.smc.SmcConfiguration;
 	provides com.tlcsdm.login.LoginCheck with com.tlcsdm.smc.SmcLoginCheck;
 }
