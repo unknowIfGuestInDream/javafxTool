@@ -9,11 +9,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 public class FXMenubarConfigration implements MenubarConfigration {
 
 	@Override
-	public MenuBar setMenuBar(MenuBar menuBar) {
+	public MenuBar setMenuBar(MenuBar menuBar, Stage stage) {
 		Menu menu1 = new Menu("menu1");
 		Menu menu2 = new Menu("menu2");
 		Menu menu3 = new Menu("menu3");
