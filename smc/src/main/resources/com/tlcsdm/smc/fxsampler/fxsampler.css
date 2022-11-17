@@ -21,7 +21,7 @@
     -fx-text-alignment: justify;
 }
 
-.right-panel > * > .project-name-title, 
+.right-panel > * > .project-name-title,
 .right-panel > * > .property {
     -fx-font-weight: bold;
 }
@@ -36,4 +36,17 @@
  */
 .right-panel > .control-panel {
     -fx-padding: 5 0 0 0;
+}
+
+.dialog-pane > {
+    -fx-min-width: 500;
+    -fx-min-height: 480;
+}
+
+.dialog-pane > .header-panel {
+    -fx-font-size: 18;
+}
+
+.dialog-pane > .content {
+    -fx-font-size: 14;
 }

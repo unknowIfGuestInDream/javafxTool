@@ -30,7 +30,10 @@ import com.tlcsdm.frame.FXSampler;
 
 public class SmcSampler {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        //语言 包含nl key则不再赋值
+        //System.setProperty()
+
 //		System.out.println(System.getProperty("user.dir"));
 //        String relativelyPath = System.getProperty("user.dir");
 //        File file = new File(relativelyPath + "\\data\\demo");
@@ -59,10 +62,10 @@ public class SmcSampler {
 //                e.printStackTrace();
 //            }
 //        }
-		// 直接启动应用
-		FXSampler.main(args);
+        // 直接启动应用
+        FXSampler.main(args);
 
-		// 带有登录校验的启动
-		// LoginFrame.main(args);
-	}
+        // 带有登录校验的启动
+        // LoginFrame.main(args);
+    }
 }
