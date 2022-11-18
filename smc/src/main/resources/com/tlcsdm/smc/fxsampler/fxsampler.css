@@ -38,9 +38,9 @@
     -fx-padding: 5 0 0 0;
 }
 
-.dialog-pane > {
-    -fx-min-width: 500;
-    -fx-min-height: 480;
+.dialog-pane {
+    -fx-min-width: 480;
+    -fx-min-height: 360;
 }
 
 .dialog-pane > .header-panel {
