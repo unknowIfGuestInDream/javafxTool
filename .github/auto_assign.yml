@@ -12,7 +12,7 @@ reviewers:
 # Set to 0 to add all of the assignees.
 # Uses numberOfReviewers if unset.
 numberOfAssignees: 0
-numberOfReviewers: 1
+numberOfReviewers: 0
 
 skipKeywords:
    - wip
