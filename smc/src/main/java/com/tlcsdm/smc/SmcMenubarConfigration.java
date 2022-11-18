@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionGroup;
 import org.controlsfx.control.action.ActionUtils;
 
@@ -19,6 +20,9 @@ import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -119,9 +123,11 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
 	private final Collection<? extends Action> actions = List.of(
 			new ActionGroup(I18nUtils.get("smc.menubar.file"), restart, exit),
-			new ActionGroup(I18nUtils.get("smc.menubar.setting")), new ActionGroup(I18nUtils.get("smc.menubar.help"),
-					contactSupport, submitFeedback, ACTION_SEPARATOR, about));
-	// ActionUtils.createCheckMenuItem
+			new ActionGroup(I18nUtils.get("smc.menubar.setting"),
+					new ActionGroup(I18nUtils.get("smc.menubar.setting.language"), new CheckLangAction("中文简体"),
+							new CheckLangAction("English"), new CheckLangAction("日本語"))),
+			new ActionGroup(I18nUtils.get("smc.menubar.help"), contactSupport, submitFeedback, ACTION_SEPARATOR,
+					about));
 
 	/**
 	 * 初始化action
@@ -136,6 +142,31 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 		initActions();
 		ActionUtils.updateMenuBar(menuBar, actions);
 		return menuBar;
+	}
+
+	@ActionCheck
+	private static class CheckLangAction extends Action {
+		public CheckLangAction(String name, Node image) {
+			super(name);
+			setGraphic(image);
+			setEventHandler(ae -> String.format("'%s' is selected", getText()));
+			this.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+					// 三个语言按钮单独设立，在这里进行实现只能选择一个，外加一个全局项目属性
+					// Do nothing
+				}
+			});
+		}
+
+		public CheckLangAction(String name) {
+			super(name);
+		}
+
+		@Override
+		public String toString() {
+			return getText();
+		}
 	}
 
 }
