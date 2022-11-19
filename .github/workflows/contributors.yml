@@ -18,7 +18,7 @@ jobs:
       - name: Create a PR
         uses: peter-evans/create-pull-request@v4.2.0
         with:
-          commit-message: Update Contributors
+          commit-message: Update Contributors [skip ci]
           title: "bot: Update Contributors File"
           token: ${{ secrets.GITHUB_TOKEN }}
           signoff: true
