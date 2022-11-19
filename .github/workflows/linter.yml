@@ -11,9 +11,13 @@ name: Lint Code Base
 on:
   push:
     branches-ignore: [ master ]
+    paths-ignore:
+      - '.github/**'
     # Remove the line above to run when pushing to master
   pull_request:
     branches: [ master ]
+    paths-ignore:
+      - '.github/**'
 
 ###############
 # Set the Job #

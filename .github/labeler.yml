@@ -29,3 +29,4 @@ automerge:
   - all: [ 'README.md' ]
   - all: [ 'CHANGELOG.md' ]
   - all: [ '.github/**' ]
+  - all: [ 'CONTRIBUTORS.md' ]

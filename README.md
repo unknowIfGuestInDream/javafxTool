@@ -12,27 +12,6 @@ login: 登录模块(提供SPI接口)
 demo: demo示例  
 smc: 个人应用(无需参考)
 
-## 贡献者
-
-<table>
-<tr>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/unknowIfGuestInDream>
-            <img src=https://avatars.githubusercontent.com/u/57802425?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=梦里不知身是客/>
-            <br />
-            <sub style="font-size:14px"><b>梦里不知身是客</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/deepsourcebot>
-            <img src=https://avatars.githubusercontent.com/u/60907429?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=DeepSource Bot/>
-            <br />
-            <sub style="font-size:14px"><b>DeepSource Bot</b></sub>
-        </a>
-    </td>
-</tr>
-</table>
-
 ## 打包命令示例
 
 在windows上执行需要安装wix310.exe  
