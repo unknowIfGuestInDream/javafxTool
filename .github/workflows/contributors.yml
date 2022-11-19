@@ -1,23 +1,25 @@
-name: Add contributors
+name: Update CONTRIBUTORS file
 on:
   schedule:
-    - cron:  '20 20 * * *'
-  push:
-    branches: 
-      - master
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
 
 jobs:
-  add-contributors:
+  main:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: BobAnkh/add-contributors@v0.2.2
-      with:
-        CONTRIBUTOR: '## 贡献者'
-        COLUMN_PER_ROW: '6'
-        ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        IMG_WIDTH: '100'
-        FONT_SIZE: '14'
-        PATH: '/README.md'
-        COMMIT_MESSAGE: 'docs(README): update contributors'
-        AVATAR_SHAPE: 'round'
+      - uses: actions/checkout@v2
+      - uses: minicli/action-contributors@v3.3
+        name: "Update a projects CONTRIBUTORS file"
+        env:
+          CONTRIB_REPOSITORY: 'unknowIfGuestInDream/document'
+          CONTRIB_OUTPUT_FILE: 'CONTRIBUTORS.md'
+          CONTRIB_IGNORE: github-actions[bot],renovate-bot,dependabot,imgbot,deepsourcebot,ImgBotApp
+      - name: Create a PR
+        uses: peter-evans/create-pull-request@v4.2.0
+        with:
+          commit-message: Update Contributors
+          title: "bot: Update Contributors File"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          signoff: true
+          labels: automerge
