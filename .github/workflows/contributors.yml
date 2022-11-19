@@ -24,7 +24,4 @@ jobs:
           signoff: true
           labels: automerge
           branch: contributors
-          body: |
-
-
-            skip-checks:true
+          body: "skip-checks:true"
