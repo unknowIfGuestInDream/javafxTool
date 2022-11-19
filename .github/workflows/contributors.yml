@@ -19,7 +19,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4.2.0
         with:
           commit-message: Update Contributors
-          title: "bot: Update Contributors File [skip ci]"
+          title: "bot: Update Contributors File"
           token: ${{ secrets.GITHUB_TOKEN }}
           signoff: true
           labels: automerge
