@@ -12,7 +12,7 @@ jobs:
       - uses: minicli/action-contributors@v3.3
         name: "Update CONTRIBUTORS file"
         env:
-          CONTRIB_REPOSITORY: 'unknowIfGuestInDream/document'
+          CONTRIB_REPOSITORY: 'unknowIfGuestInDream/javafxTool'
           CONTRIB_OUTPUT_FILE: 'CONTRIBUTORS.md'
           CONTRIB_IGNORE: github-actions[bot],renovate-bot,dependabot,imgbot,deepsourcebot,ImgBotApp
       - name: Create a PR
