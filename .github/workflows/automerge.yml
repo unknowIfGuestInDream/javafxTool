@@ -38,3 +38,5 @@ jobs:
           MERGE_LABELS: "automerge,!work in progress"
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "pull-request-title"
+          MERGE_RETRIES: "10"
+          MERGE_RETRY_SLEEP: "60000"

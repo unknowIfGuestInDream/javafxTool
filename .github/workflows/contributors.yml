@@ -14,7 +14,7 @@ jobs:
         env:
           CONTRIB_REPOSITORY: 'unknowIfGuestInDream/javafxTool'
           CONTRIB_OUTPUT_FILE: 'CONTRIBUTORS.md'
-          CONTRIB_IGNORE: github-actions[bot],renovate-bot,dependabot,imgbot,deepsourcebot,ImgBotApp
+          CONTRIB_IGNORE: github-actions[bot],renovate-bot,dependabot,imgbot,deepsourcebot,ImgBotApp,dependabot[bot],imgbot[bot],renovate[bot]
       - name: Create a PR
         uses: peter-evans/create-pull-request@v4.2.0
         with:
