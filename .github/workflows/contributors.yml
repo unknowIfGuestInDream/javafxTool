@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: minicli/action-contributors@v3.3
-        name: "Update a projects CONTRIBUTORS file"
+        name: "Update CONTRIBUTORS file"
         env:
           CONTRIB_REPOSITORY: 'unknowIfGuestInDream/document'
           CONTRIB_OUTPUT_FILE: 'CONTRIBUTORS.md'
@@ -18,7 +18,7 @@ jobs:
       - name: Create a PR
         uses: peter-evans/create-pull-request@v4.2.0
         with:
-          commit-message: "[ skip ci ] Update Contributors"
+          commit-message: "bot: Update Contributors"
           title: "bot: Update Contributors File"
           token: ${{ secrets.GITHUB_TOKEN }}
           signoff: true
