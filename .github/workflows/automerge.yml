@@ -28,4 +28,3 @@ jobs:
           MERGE_LABELS: "automerge,!work in progress"
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "pull-request-title"
-        run: 'echo ${{ github.event_name }}'
