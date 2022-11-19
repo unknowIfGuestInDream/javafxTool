@@ -10,17 +10,29 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-      - created
   pull_request_review:
     types:
       - submitted
-  status: {}
+  pull_request_target:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  check_suite:
+    types:
+      - completed
+  status: { }
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
       - name: Merge pull requests
-        uses: pascalgn/automerge-action@v0.15.3
+        uses: pascalgn/automerge-action@v0.15.5
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge,!work in progress"
