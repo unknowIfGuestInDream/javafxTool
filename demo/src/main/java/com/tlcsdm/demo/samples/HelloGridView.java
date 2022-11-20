@@ -64,12 +64,6 @@ public class HelloGridView extends ControlsFXSample {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/GridView.html";
     }
     
-    
-    @Override
-    public String getControlStylesheetURL() {
-    	return "/org/controlsfx/control/gridview.css";
-    }
-    
     private GridView<?> getColorGrid() {
         final ObservableList<Color> list = FXCollections.<Color>observableArrayList();
         
@@ -89,7 +83,7 @@ public class HelloGridView extends ControlsFXSample {
     
     private GridView<?> getImageGrid( final boolean preserveImageProperties ) {
         
-        final Image image = new Image("/com/tlcsdm/demo/flowers.png", 200, 0, true, true);
+        final Image image = new Image(String.valueOf(getClass().getResource("/com/tlcsdm/demo/flowers.png")), 200, 0, true, true);
         final ObservableList<Image> list = FXCollections.<Image>observableArrayList();
         
         GridView<Image> colorGrid = new GridView<>(list);
