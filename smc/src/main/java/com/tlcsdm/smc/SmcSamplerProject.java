@@ -75,6 +75,7 @@ public class SmcSamplerProject implements FXSamplerProject {
     @Override
     public WelcomePage getWelcomePage() {
         VBox vBox = new VBox();
+        vBox.getStyleClass().add("welcomePage");
         ImageView imgView = new ImageView();
         imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/ControlsFX.png');");
         StackPane pane = new StackPane();
@@ -106,7 +107,7 @@ public class SmcSamplerProject implements FXSamplerProject {
         link.textProperty().bind(new StringBinding() {
             @Override
             protected String computeValue() {
-                return "[github]";
+                return "project url: [" + SmcConstant.GITHUB_PROJECT_URL + "]";
             }
         });
 
