@@ -1,0 +1,8 @@
+mode: chatops
+branchName: '${issue.number}-${issue.title[0,64]}'
+silent: false
+commentMessage: 'Branch ${branchName} created, please use it.'
+autoCloseIssue: true
+branches:
+  - label: question
+    skip: true
