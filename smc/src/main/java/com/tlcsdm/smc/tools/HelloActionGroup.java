@@ -60,6 +60,11 @@ import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
 
 public class HelloActionGroup extends SmcSample {
 
+	@Override
+	public boolean isVisible() {
+		return true;
+	}
+
 	private final ImageView image = new ImageView(new Image(Objects
 			.requireNonNull(getClass().getResource("/com/tlcsdm/smc/static/security-low.png")).toExternalForm()));
 
