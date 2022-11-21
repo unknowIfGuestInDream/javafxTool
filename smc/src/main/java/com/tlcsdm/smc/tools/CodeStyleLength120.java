@@ -56,6 +56,15 @@ public class CodeStyleLength120 extends SmcSample {
 		choice1.setMaxWidth(Double.MAX_VALUE);
 		grid.add(choice1, 1, 0);
 
+//		Button buttonLoad = new Button("Load");
+//		buttonLoad.setOnAction(arg0 -> {
+//			FileChooser fileChooser = new FileChooser();
+//			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+//			fileChooser.getExtensionFilters().add(extFilter);
+//			File file = fileChooser.showOpenDialog(new Stage());
+//			System.out.println(file);
+//		});
+
 		grid.add(new Label("ComboBox<String>"), 0, 1);
 		PrefixSelectionComboBox<String> combo1 = new PrefixSelectionComboBox<>();
 		combo1.setItems(stringList);
