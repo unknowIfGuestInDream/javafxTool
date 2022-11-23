@@ -5,6 +5,8 @@ module com.tlcsdm.smc {
 	requires java.desktop;
 	requires org.controlsfx.controls;
 	requires javafx.controls;
+	requires io.github.javadiffutils;
+	requires javafx.graphics;
 
 	exports com.tlcsdm.smc;
 	exports com.tlcsdm.smc.tools;
