@@ -18,3 +18,5 @@ jobs:
         PATH: 'CHANGELOG.md'
         COMMIT_MESSAGE: 'docs(changelog): update release notes'
         TYPE: 'feat:Feature,fix:Bug Fixes,refactor:Refactor,perf:Performance Improvements'
+        PULL_REQUEST: 'changelog'
+        BRANCH: 'master'
