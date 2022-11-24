@@ -92,6 +92,26 @@ public class DiffHandleUtils {
      * @param htmlPath   生成的html路径，如:/user/var/mbos/ent/21231/diff.html
      */
     public static void generateDiffHtml(List<String> diffString, String htmlPath) {
+        String template = getDiffHtml(diffString);
+        FileWriter f = null; //文件读取为字符流
+        try {
+            f = new FileWriter(htmlPath);
+            BufferedWriter buf = new BufferedWriter(f); //文件加入缓冲区
+            buf.write(template); //向缓冲区写入
+            buf.close(); //关闭缓冲区并将信息写入文件
+            f.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 通过两文件的差异diff生成 html文件，打开此 html文件便可看到文件对比的明细内容
+     *
+     * @param diffString 调用上面 diffString方法获取到的对比结果
+     * @param htmlPath   生成的html路径，如:/user/var/mbos/ent/21231/diff.html
+     */
+    public static String getDiffHtml(List<String> diffString) {
         StringBuilder builder = new StringBuilder();
         for (String line : diffString) {
             builder.append(line);
@@ -148,16 +168,7 @@ public class DiffHandleUtils {
                 "  </body>\n" +
                 "</html>";
         template = template.replace("temp", builder.toString());
-        FileWriter f = null; //文件读取为字符流
-        try {
-            f = new FileWriter(htmlPath);
-            BufferedWriter buf = new BufferedWriter(f); //文件加入缓冲区
-            buf.write(template); //向缓冲区写入
-            buf.close(); //关闭缓冲区并将信息写入文件
-            f.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return template;
     }
 
     //统一差异格式插入到原始文件
