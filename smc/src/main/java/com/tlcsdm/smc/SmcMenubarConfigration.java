@@ -62,11 +62,13 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
 	private final Action about = new Action(I18nUtils.get("smc.menubar.help.about"), actionEvent -> {
 		Alert alert = new Alert(Alert.AlertType.NONE);
+		alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
 		alert.setResizable(false);
 		alert.setTitle(I18nUtils.get("smc.menubar.help.about.title"));
 		alert.setHeaderText(I18nUtils.get("smc.menubar.help.about.headerText"));
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(stage);
+
 		if (stage.getIcons().size() > 0) {
 			ImageView imageView = new ImageView(stage.getIcons().get(0));
 			imageView.setFitHeight(80);

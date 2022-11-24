@@ -202,6 +202,9 @@ public final class FXSampler extends Application {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		primaryStage.setWidth(screenBounds.getWidth() * 0.75);
 		primaryStage.setHeight(screenBounds.getHeight() * .75);
+		primaryStage.setMinHeight(750);
+		primaryStage.setMinWidth(1000);
+		primaryStage.setResizable(false);
 		primaryStage.setTitle(I18nUtils.get("frame.stage.title"));
 		primaryStage.getIcons()
 				.add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
