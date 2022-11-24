@@ -2,6 +2,8 @@ module com.tlcsdm.frame {
 
     requires transitive javafx.controls;
     requires transitive javafx.web;
+	requires javafx.graphics;
+	requires javafx.base;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
