@@ -3,7 +3,6 @@ package com.tlcsdm.frame;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
 import javafx.scene.Node;
-import javafx.stage.Stage;
 
 /**
  * BorderPane的center组件(应用模块实现)
@@ -13,7 +12,7 @@ public interface CenterPanelService {
     /**
      * 设置CenterPanel
      */
-    Node getCenterPanel(Stage stage);
+    Node getCenterPanel();
 
     /**
      * 点击菜单时触发的CenterPanel action
