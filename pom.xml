@@ -89,6 +89,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-core</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-frame</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
