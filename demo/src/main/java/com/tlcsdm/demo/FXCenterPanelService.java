@@ -1,6 +1,7 @@
 package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.CenterPanelService;
+import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
@@ -51,9 +52,9 @@ public class FXCenterPanelService implements CenterPanelService {
     private WebView cssWebView;
 
     @Override
-    public Node getCenterPanel(Stage stage) {
+    public Node getCenterPanel() {
         tabPane = new TabPane();
-        this.stage = stage;
+        this.stage = FXSampler.getStage();
         // ProgressIndicator
         progressIndicator = new ProgressIndicator();
         progressIndicatorPane = new StackPane(progressIndicator);

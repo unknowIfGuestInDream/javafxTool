@@ -1,25 +1,9 @@
 package com.tlcsdm.smc;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionGroup;
-import org.controlsfx.control.action.ActionUtils;
-
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -30,10 +14,24 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
-	private Stage stage;
+	private Stage stage = FXSampler.getStage();
 
 	private final Action restart = new Action(I18nUtils.get("smc.menubar.file.restart"),
 			actionEvent -> Platform.runLater(() -> {
@@ -134,8 +132,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 	}
 
 	@Override
-	public MenuBar setMenuBar(MenuBar menuBar, Stage stage) {
-		this.stage = stage;
+	public MenuBar setMenuBar(MenuBar menuBar) {
 		initActions();
 		ActionUtils.updateMenuBar(menuBar, actions);
 		return menuBar;

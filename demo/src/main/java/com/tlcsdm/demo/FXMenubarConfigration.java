@@ -1,20 +1,12 @@
 package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.MenubarConfigration;
-
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 
 public class FXMenubarConfigration implements MenubarConfigration {
 
 	@Override
-	public MenuBar setMenuBar(MenuBar menuBar, Stage stage) {
+	public MenuBar setMenuBar(MenuBar menuBar) {
 		Menu menu1 = new Menu("menu1");
 		Menu menu2 = new Menu("menu2");
 		Menu menu3 = new Menu("menu3");
