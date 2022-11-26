@@ -26,21 +26,9 @@
  */
 package com.tlcsdm.frame;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
-import com.tlcsdm.frame.model.EmptyCenterPanel;
-import com.tlcsdm.frame.model.EmptySample;
-import com.tlcsdm.frame.model.Project;
-import com.tlcsdm.frame.model.SampleTree;
-import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.model.*;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -48,12 +36,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -62,6 +45,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.util.*;
 
 public final class FXSampler extends Application {
 
@@ -115,7 +100,7 @@ public final class FXSampler extends Application {
 
 		// menubar
 		if (menubarConfigration != null) {
-			MenuBar menuBar = menubarConfigration.getMenuBar(primaryStage);
+			MenuBar menuBar = menubarConfigration.getMenuBar();
 			bp.setTop(menuBar);
 		}
 
@@ -171,7 +156,7 @@ public final class FXSampler extends Application {
 		grid.add(samplesTreeView, 0, 2);
 		bp.setLeft(grid);
 
-		centerPanel = centerPanelService.getCenterPanel(stage);
+		centerPanel = centerPanelService.getCenterPanel();
 		bp.setCenter(centerPanel);
 
 		// by default we'll show the welcome message of first project in the tree
@@ -194,21 +179,21 @@ public final class FXSampler extends Application {
 				scene.getStylesheets().add(stylesheet);
 			}
 		}
-		primaryStage.setScene(scene);
-		primaryStage.setMinWidth(1000);
-		primaryStage.setMinHeight(600);
-		primaryStage.setOnCloseRequest(FXSampler::confirmExit);
+		stage.setScene(scene);
+		stage.setMinWidth(1000);
+		stage.setMinHeight(600);
+		stage.setOnCloseRequest(FXSampler::confirmExit);
 		// set width / height values to be 75% of users screen resolution
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		primaryStage.setWidth(screenBounds.getWidth() * 0.75);
-		primaryStage.setHeight(screenBounds.getHeight() * .75);
-		primaryStage.setMinHeight(750);
-		primaryStage.setMinWidth(1000);
-		primaryStage.setResizable(false);
-		primaryStage.setTitle(I18nUtils.get("frame.stage.title"));
-		primaryStage.getIcons()
+		stage.setWidth(screenBounds.getWidth() * 0.75);
+		stage.setHeight(screenBounds.getHeight() * .75);
+		stage.setMinHeight(750);
+		stage.setMinWidth(1000);
+		stage.setResizable(false);
+		stage.setTitle(I18nUtils.get("frame.stage.title"));
+		stage.getIcons()
 				.add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
-		primaryStage.show();
+		stage.show();
 
 		samplesTreeView.requestFocus();
 	}

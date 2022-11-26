@@ -20,13 +20,8 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <!--                            <compilerArgs>-->
-                            <!--                                <arg>&#45;&#45;add-exports</arg>-->
-                            <!--                                <arg>javafx.graphics/com.sun.glass.ui=org.openjfx.hellofx</arg>-->
-                            <!--                            </compilerArgs>-->
                             <mainClass>com.tlcsdm.frame/com.tlcsdm.frame.FXSampler</mainClass>
                         </configuration>
                     </execution>

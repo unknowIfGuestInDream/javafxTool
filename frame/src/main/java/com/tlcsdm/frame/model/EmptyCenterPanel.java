@@ -7,7 +7,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 
 /**
  * @author: 唐 亮
@@ -20,7 +19,7 @@ public class EmptyCenterPanel implements CenterPanelService {
     private Tab welcomeTab;
 
     @Override
-    public Node getCenterPanel(Stage stage) {
+    public Node getCenterPanel() {
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.getStyleClass().add(TabPane.STYLE_CLASS_FLOATING);

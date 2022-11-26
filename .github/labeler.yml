@@ -10,6 +10,9 @@ login:
 smc:
   - smc/**
 
+core:
+  - core/**
+
 workflow:
   - .github/**
 
@@ -24,6 +27,7 @@ dependencies:
   - frame/pom.xml
   - login/pom.xml
   - smc/pom.xml
+  - core/pom.xml
 
 automerge:
   - all: [ 'README.md' ]
