@@ -138,6 +138,11 @@ public class HelloActionGroup extends SmcSample {
 	}
 
 	@Override
+	public String getSampleVersion() {
+		return "1.0.0";
+	}
+
+	@Override
 	public String getSampleDescription() {
 		return "MenuBar, ToolBar and ContextMenu presented here are effortlessly built out of the same action tree. "
 				+ "Action properties can be dynamically changed, triggering changes in all related controls";

@@ -28,6 +28,11 @@ public abstract class ControlsFXSample extends SampleBase {
         return getSampleName();
     }
 
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0";
+    }
+
     /**
      * A full URL to the javadoc for the API being demonstrated in this sample.
      */
