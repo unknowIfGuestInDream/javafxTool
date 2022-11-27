@@ -98,12 +98,20 @@ public class LayoutHelper {
         }
     }
 
+    public static Image icon(URL resource) {
+        if (resource == null) {
+            throw new RuntimeException("Resource not found.");
+        } else {
+            return new Image(resource.toExternalForm());
+        }
+    }
+
     public static ImageView iconView(Image icon) {
         return new ImageView(icon);
     }
 
-    public static ImageView iconView(String resourcePath) {
-        return iconView(icon(resourcePath));
+    public static ImageView iconView(URL resource) {
+        return iconView(icon(resource));
     }
 
     public static ImageView iconView(Image icon, double size) {
@@ -113,7 +121,7 @@ public class LayoutHelper {
         return imageView;
     }
 
-    public static ImageView iconView(String resourcePath, double size) {
-        return iconView(icon(resourcePath), size);
+    public static ImageView iconView(URL resource, double size) {
+        return iconView(icon(resource), size);
     }
 }

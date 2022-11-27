@@ -31,7 +31,7 @@ public class FxAlerts {
     }
 
     public static void error(String message) {
-        alert(AlertType.ERROR, "错误", message);
+        alert(AlertType.ERROR, "error", message);
     }
 
     public static void error(String title, String message) {
@@ -61,7 +61,7 @@ public class FxAlerts {
     public static void alert(Window owner, AlertType alertType, String title, String message) {
         FxApp.runLater(() -> {
             try {
-                Alert alert = new Alert(alertType, message, new ButtonType[]{ButtonType.OK});
+                Alert alert = new Alert(alertType, message, ButtonType.OK);
                 alert.setTitle(title);
                 alert.setHeaderText((String) null);
                 Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -124,7 +124,7 @@ public class FxAlerts {
     }
 
     public static boolean confirmYesNo(String title, String message) {
-        return confirm(AlertType.WARNING, title, message, ButtonType.YES, ButtonType.NO) == ButtonType.YES;
+        return confirm(AlertType.CONFIRMATION, title, message, ButtonType.YES, ButtonType.NO) == ButtonType.YES;
     }
 
     public static ButtonType confirmYesNoCancel(String title, String message) {

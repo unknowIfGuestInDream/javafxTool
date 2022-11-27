@@ -5,4 +5,9 @@ module com.tlcsdm.core {
     requires javafx.controls;
     requires org.apache.commons.configuration2;
 
+    exports com.tlcsdm.core.javafx;
+    exports com.tlcsdm.core.javafx.dialog;
+    exports com.tlcsdm.core.javafx.helper;
+    exports com.tlcsdm.core.javafx.util;
+
 }
