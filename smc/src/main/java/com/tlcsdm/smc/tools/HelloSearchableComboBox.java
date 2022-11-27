@@ -58,6 +58,11 @@ public class HelloSearchableComboBox extends SmcSample {
     }
 
     @Override
+    public String getSampleVersion() {
+        return "1.0.0";
+    }
+
+    @Override
     public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
         grid.setVgap(12);
