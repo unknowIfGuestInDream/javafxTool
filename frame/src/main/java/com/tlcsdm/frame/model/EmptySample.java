@@ -56,6 +56,11 @@ public class EmptySample implements Sample {
     }
 
     @Override
+    public String getSampleVersion() {
+        return null;
+    }
+
+    @Override
     public Node getPanel(Stage stage) {
         return null;
     }

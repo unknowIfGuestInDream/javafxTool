@@ -160,6 +160,11 @@ public class FileDiff extends SmcSample {
         return I18nUtils.get("smc.sampleName.fileDiff.description");
     }
 
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0";
+    }
+
     private void initActions(Stage stage) {
         generate.setGraphic(getImageView("/com/tlcsdm/smc/static/icon/generate.png"));
         download.setGraphic(getImageView("/com/tlcsdm/smc/static/icon/download.png"));

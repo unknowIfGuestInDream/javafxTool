@@ -55,6 +55,11 @@ public interface Sample {
     String getProjectVersion();
 
     /**
+     * sample version
+     */
+    String getSampleVersion();
+
+    /**
      * Returns the main sample panel.
      */
     Node getPanel(final Stage stage);

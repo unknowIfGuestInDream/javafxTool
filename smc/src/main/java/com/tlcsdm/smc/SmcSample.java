@@ -14,7 +14,7 @@ public abstract class SmcSample extends SampleBase {
 
     @Override
     public String getProjectName() {
-        return "SMC";
+        return "smc";
     }
 
     @Override
