@@ -1,0 +1,8 @@
+pull_request_rules:
+  - name: automatic merge for ImgBot pull requests
+    conditions:
+      - author=imgbot[bot]
+      - check-success=Travis CI - Pull Request
+    actions:
+      merge:
+        method: merge
