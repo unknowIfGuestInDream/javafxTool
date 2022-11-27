@@ -45,12 +45,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 			}));
 
 	private final Action exit = new Action(I18nUtils.get("smc.menubar.file.exit"),
-			actionEvent -> Platform.runLater(() -> {
-				stage.close();
-				Platform.setImplicitExit(false);
-				Platform.exit();
-				System.exit(0);
-			}));
+			actionEvent -> FXSampler.doExit());
 
 	private final Action contactSupport = new Action(I18nUtils.get("smc.menubar.help.contactSupport"),
 			actionEvent -> openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
@@ -168,10 +163,25 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 		private void init() {
 			setEventHandler(ae -> {
 				// getText()
+//				if ("简体中文".equals(languageType)) {
+//					Config.set(Config.Keys.Locale, Locale.SIMPLIFIED_CHINESE);
+//				} else if ("English".equals(languageType)) {
+//					Config.set(Config.Keys.Locale, Locale.US);
+//				}
+//				AlertUtil.showInfoAlert(indexController.getBundle().getString("SetLanguageText"));
+				//FxAlerts.info
+//				XJavaFxToolApplication.getStage().close();
+//				Platform.runLater(() -> {
+//					try {
+//						XJavaFxSystemUtil.initSystemLocal();    // 初始化本地语言
+//						new XJavaFxToolApplication().start(new Stage());
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//				});
 			});
 			this.selectedProperty().addListener((arg0, oldValue, newValue) -> {
 				// TODO 三个语言按钮单独设立，在这里进行实现只能选择一个，外加一个全局项目属性
-				// Do nothing
 			});
 		}
 	}

@@ -2,11 +2,12 @@ package com.tlcsdm.core.javafx.util;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author: 唐 亮
@@ -16,8 +17,6 @@ public class JavaFxSystemUtil {
     /**
      * @deprecated
      */
-    @Deprecated
-    public static Stage mainStage = null;
 
     public JavaFxSystemUtil() {
     }
@@ -42,5 +41,21 @@ public class JavaFxSystemUtil {
         }
 
         return new double[]{screenWidth, screenHeight};
+    }
+
+    public static void initSystemLocal() {
+        try {
+            String localeString = Config.get(Config.Keys.Locale, "");
+
+            if (StringUtils.isNotEmpty(localeString)) {
+                String[] locale1 = localeString.split("_");
+                Config.defaultLocale = new Locale(locale1[0], locale1[1]);
+            }
+
+            //XJavaFxToolApplication.RESOURCE_BUNDLE = ResourceBundle.getBundle("locale.Menu", Config.defaultLocale);
+            //RESOURCE_BUNDLE.getString("Title")
+        } catch (Exception e) {
+            //log.error("初始化本地语言失败", e);
+        }
     }
 }

@@ -13,6 +13,13 @@
     <packaging>jar</packaging>
     <description>javafx 基本框架</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.tlcsdm</groupId>
+            <artifactId>javafxTool-core</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

@@ -8,6 +8,7 @@ demo是提供的示例模块
 ## 结构
 
 frame: 应用主体框架(提供SPI接口)  
+core: 应用核心组件，包含一些共同功能    
 login: 登录模块(提供SPI接口)  
 demo: demo示例  
 smc: 个人应用(无需参考)
