@@ -69,7 +69,7 @@ pull_request_rules:
       label:
         add:
           - style
-  - name: Label dependencies
+  - name: Label workflow
     conditions:
       - title=^bot\/[a-zA-Z0-9-_\/]+$
     actions:
