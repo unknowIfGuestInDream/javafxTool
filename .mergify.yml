@@ -29,56 +29,56 @@ pull_request_rules:
           - unknowIfGuestInDream
   - name: Label enhancement
     conditions:
-      - title=^feat(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^feat(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - enhancement
   - name: Label bug
     conditions:
-      - title=^fix(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^fix(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - bug
   - name: Label documentation
     conditions:
-      - title=^docs(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^docs(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - documentation
   - name: Label chore
     conditions:
-      - title=^chore(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^chore(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - chore
   - name: Label dependencies
     conditions:
-      - title=^(build|ci)\/[a-zA-Z0-9-_\/]+$
+      - title~=^(build|ci)\/[a-zA-Z0-9-_\/]+$
     actions:
       label:
         add:
           - dependencies
   - name: Label style
     conditions:
-      - title=^style(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^style(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - style
   - name: Label workflow
     conditions:
-      - title=^bot\/[a-zA-Z0-9-_\/]+$
+      - title~=^bot\/[a-zA-Z0-9-_\/]+$
     actions:
       label:
         add:
           - workflow
   - name: Label test
     conditions:
-      - title=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title~=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
