@@ -148,10 +148,8 @@ pull_request_rules:
           @{{name}}
           {% endfor %}
           Thank you @{{author}} for your contributions!
-      merge:
-        method: merge
-        strict: smart+fasttrack
-        strict_method: rebase
+      squash:
+        commit_message: all-commits
   - name: Automatic merge
     conditions:
       - author=unknowIfGuestInDream
@@ -167,10 +165,8 @@ pull_request_rules:
       - "-conflict"
       - "-merged"
     actions:
-      merge:
-        method: merge
-        strict: smart+fasttrack
-        strict_method: rebase
+      squash:
+        commit_message: all-commits
   - name: Automatic merge dependabot[bot]
     conditions:
       - author=dependabot[bot]
@@ -182,15 +178,11 @@ pull_request_rules:
       - "-conflict"
       - "-merged"
     actions:
-      merge:
-        method: merge
-        strict: smart+fasttrack
-        strict_method: rebase
+      squash:
+        commit_message: all-commits
   - name: automatic merge for ImgBot pull requests
     conditions:
       - author=imgbot[bot]
     actions:
-      merge:
-        method: merge
-        strict: smart+fasttrack
-        strict_method: rebase
+      squash:
+        commit_message: all-commits
