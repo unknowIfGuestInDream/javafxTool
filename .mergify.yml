@@ -62,14 +62,14 @@ pull_request_rules:
       label:
         add:
           - dependencies
-   - name: Label style
+  - name: Label style
     conditions:
       - head~=^style\(.+\):+$
     actions:
       label:
         add:
           - style
-   - name: Label test
+  - name: Label test
     conditions:
       - head~=^test\(.+\):+$
     actions:
