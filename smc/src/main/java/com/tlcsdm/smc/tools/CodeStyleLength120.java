@@ -29,6 +29,7 @@ import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -74,25 +75,27 @@ public class CodeStyleLength120 extends SmcSample {
     private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
         ignoreFilesList = StrUtil.splitTrim(ignoreFileField.getText(), ",");
         fileTypeList = StrUtil.splitTrim(checkFileTypeField.getText(), ",");
-        // todo
-        // valid
+        if (StrUtil.isEmptyIfStr(generateFilesParentPath)) {
+            notificationBuilder.text("The variable checkDirLabel must be a folder");
+            notificationBuilder.showWarning();
+            return;
+        }
         File file = outPutChooser.showSaveDialog(FxApp.primaryStage);
         if (file != null) {
             if (!StrUtil.endWith(file.getName(), ".xlsx")) {
-                notificationBuilder.text("请保存成xlsx文件");
-                notificationBuilder.showError();
+                notificationBuilder.text("请保存为xlsx文件");
+                notificationBuilder.showWarning();
                 return;
             }
             resultFileName = file.getName();
             resultPath = file.getParent();
             outPutChooser.setInitialDirectory(file.getParentFile());
             outPutChooser.setInitialFileName(resultFileName);
+            initData();
+            handleResult();
+            notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+            notificationBuilder.showInformation();
         }
-        initData();
-        handleResult();
-
-        notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
-        notificationBuilder.showInformation();
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -185,17 +188,24 @@ public class CodeStyleLength120 extends SmcSample {
      * 初始化数据
      */
     private void initData() {
-        List<File> files = FileUtil.loopFiles(generateFilesParentPath, file -> {
-            if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
-                for (String fileType : fileTypeList) {
-                    if (StrUtil.endWith(file.getName(), fileType)) {
-                        return true;
+        List<File> files = FileUtil.loopFiles(generateFilesParentPath, new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
+                    for (String fileType : fileTypeList) {
+                        if (StrUtil.endWith(file.getName(), fileType)) {
+                            return true;
+                        }
                     }
                 }
+                return false;
             }
-            return false;
         });
-
+        if (files.size() == 0) {
+            notificationBuilder.text("There are no eligible files in the current path");
+            notificationBuilder.showWarning();
+            return;
+        }
         for (File file : files) {
             AtomicInteger atomicInteger = new AtomicInteger(0);
             FileUtil.readUtf8Lines(file, (LineHandler) line -> {
