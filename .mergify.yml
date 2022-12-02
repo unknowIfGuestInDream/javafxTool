@@ -29,28 +29,28 @@ pull_request_rules:
           - unknowIfGuestInDream
   - name: Label enhancement
     conditions:
-      - head~=^feat\(.+\):+$
+      - head~=^feat(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - enhancement
   - name: Label bug
     conditions:
-      - head~=^fix\(.+\):+$
+      - head~=^fix(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - bug
   - name: Label documentation
     conditions:
-      - head~=^docs\(.+\):+$
+      - head~=^docs(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - documentation
   - name: Label chore
     conditions:
-      - head~=^chore\(.+\):+$
+      - head~=^chore(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
@@ -64,14 +64,14 @@ pull_request_rules:
           - dependencies
   - name: Label style
     conditions:
-      - head~=^style\(.+\):+$
+      - head~=^style(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - style
   - name: Label test
     conditions:
-      - head~=^test\(.+\):+$
+      - head~=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
