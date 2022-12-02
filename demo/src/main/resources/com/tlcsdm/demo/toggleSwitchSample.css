@@ -19,5 +19,5 @@
 }
 
 .styled-toggle .label {
-    -fx-padding: 0 90 0 0; //label belonging to the toggle at the left side of the toggle with 90 between them
+    -fx-padding: 0 90 0 0;
 }
