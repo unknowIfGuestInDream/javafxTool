@@ -57,7 +57,7 @@ pull_request_rules:
           - chore
   - name: Label dependencies
     conditions:
-      - title=^build\/[a-zA-Z0-9-_\/]+$
+      - title=^(build|ci)\/[a-zA-Z0-9-_\/]+$
     actions:
       label:
         add:
@@ -69,13 +69,20 @@ pull_request_rules:
       label:
         add:
           - style
+  - name: Label dependencies
+    conditions:
+      - title=^bot\/[a-zA-Z0-9-_\/]+$
+    actions:
+      label:
+        add:
+          - workflow
   - name: Label test
     conditions:
       - title=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
-          - test 
+          - test
   - name: Title Validator comment
     conditions:
       - "status-failure=Title Validator"
@@ -91,6 +98,7 @@ pull_request_rules:
     conditions:
       - "status-failure=mergefreeze"
       - author!=dependabot[bot]
+      - author!=imgbot[bot]
       - "-closed"
       - "-merged"
     actions:
@@ -98,17 +106,45 @@ pull_request_rules:
         message: |
           @{{author}}
           The current code is frozen, please wait for the unfreeze to merge.
- # - name: markdownlint check comment
- #   conditions:
- #     - "status-failure=markdownlint-cli-check"
- #     - "-closed"
- #     - "-merged"
- #   actions:
- #     comment:
- #       message: |
- #         @{{author}}
- #         Markdown Files Check failed with markdownlint.
- #         Please check details or [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
+  - name: GitGuardian check comment
+    conditions:
+      - "status-failure=GitGuardian Security Checks"
+      - author!=dependabot[bot]
+      - author!=imgbot[bot]
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}}
+          Your commit has API keys, passwords, certificates, encryption keys and other sensitive data!
+          Please remove this sensitive data.
+  - name: Build check comment
+    conditions:
+      - "status-failure=build (17)"
+      - author!=dependabot[bot]
+      - author!=imgbot[bot]
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}}
+          Compile failed in your commit!
+          Please confirm that the compilation is passed before submitting.
+  - name: Dependency-review check comment
+    conditions:
+      - "status-failure=dependency-review"
+      - author!=dependabot[bot]
+      - author!=imgbot[bot]
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}}
+          Your commit contains known known-vulnerable versions or GPL-3.0 LICENSE packages, which are not allowed.
+          Please update or remove these packages before submitting.
   - name: conflict comment
     conditions:
       - "-closed"
@@ -195,6 +231,13 @@ pull_request_rules:
   - name: automatic merge for ImgBot pull requests
     conditions:
       - author=imgbot[bot]
+      - "-status-failure=Title Validator"
+      - "#approved-reviews-by>=1"
+      - label!=invalid
+      - "-closed"
+      - "-draft"
+      - "-conflict"
+      - "-merged"
     actions:
       merge:
         method: squash
