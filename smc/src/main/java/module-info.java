@@ -10,6 +10,7 @@ module com.tlcsdm.smc {
 	requires com.tlcsdm.core;
 	requires hutool.core;
 	requires hutool.poi;
+	requires org.apache.poi.poi;
 
 	exports com.tlcsdm.smc;
 	exports com.tlcsdm.smc.tools;
