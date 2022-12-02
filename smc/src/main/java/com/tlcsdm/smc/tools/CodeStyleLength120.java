@@ -1,26 +1,32 @@
 package com.tlcsdm.smc.tools;
 
+import java.io.File;
+import java.util.Collection;
+import java.util.List;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-import javafx.animation.PauseTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
-import org.controlsfx.control.PrefixSelectionChoiceBox;
-import org.controlsfx.control.PrefixSelectionComboBox;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -29,7 +35,72 @@ import java.util.stream.Collectors;
  */
 public class CodeStyleLength120 extends SmcSample {
 
-	private final int hidingDelay = 200;
+	private TextField checkDirField;
+	private TextField checkFileTypeField;
+	private final Notifications notificationBuilder = Notifications.create().hideAfter(Duration.seconds(5))
+			.position(Pos.TOP_CENTER);
+	FileChooser outPutChooser = new FileChooser();
+	private final String resultFileName = "CodeStyleLength120.xlsx";
+
+	private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
+		File file = outPutChooser.showSaveDialog(FxApp.primaryStage);
+		if (file != null) {
+			outPutChooser.setInitialDirectory(file.getParentFile());
+			outPutChooser.setInitialFileName(file.getName());
+			if (!StrUtil.endWith(file.getName(), ".xlsx")) {
+				notificationBuilder.text("请保存成xlsx文件");
+				notificationBuilder.showError();
+				return;
+			}
+		}
+
+		notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+		notificationBuilder.showInformation();
+	});
+
+	private final Collection<? extends Action> actions = List.of(generate);
+
+	@Override
+	public Node getPanel(Stage stage) {
+		initComponment();
+		GridPane grid = new GridPane();
+		grid.setVgap(12);
+		grid.setHgap(12);
+		grid.setPadding(new Insets(24));
+
+		ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
+		toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		toolBar.setPrefWidth(Double.MAX_VALUE);
+
+		Label checkDirLabel = new Label("校验文件夹路径" + ": ");
+		checkDirField = new TextField();
+		checkDirField.setMaxWidth(Double.MAX_VALUE);
+		DirectoryChooser checkDirChooser = new DirectoryChooser();
+		Button checkDirButton = new Button(I18nUtils.get("smc.tool.fileDiff.button.choose"));
+		checkDirField.setEditable(false);
+		checkDirButton.setOnAction(arg0 -> {
+			File file = checkDirChooser.showDialog(stage);
+			if (file != null) {
+				checkDirField.setText(file.getPath());
+				checkDirChooser.setInitialDirectory(file);
+			}
+		});
+
+		Label checkFileTypeLabel = new Label("校验文件类型" + ": ");
+		checkFileTypeField = new TextField();
+		checkFileTypeField.setPrefWidth(Double.MAX_VALUE);
+		checkFileTypeField.setText("c,h");
+
+		grid.add(toolBar, 0, 0, 3, 1);
+		grid.add(checkDirLabel, 0, 1);
+		grid.add(checkDirButton, 1, 1);
+		grid.add(checkDirField, 2, 1);
+
+		grid.add(checkFileTypeLabel, 0, 2);
+		grid.add(checkFileTypeField, 1, 2, 2, 1);
+
+		return grid;
+	}
 
 	public static void main(String[] args) {
 		launch(args);
@@ -46,155 +117,6 @@ public class CodeStyleLength120 extends SmcSample {
 	}
 
 	@Override
-	public Node getPanel(Stage stage) {
-		GridPane grid = new GridPane();
-		grid.setVgap(12);
-		grid.setHgap(12);
-		grid.setPadding(new Insets(24));
-
-		ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
-				"Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");
-
-		grid.add(new Label("ChoiceBox<String>"), 0, 0);
-		PrefixSelectionChoiceBox<String> choice1 = new PrefixSelectionChoiceBox<>();
-		choice1.setItems(stringList);
-		choice1.setMaxWidth(Double.MAX_VALUE);
-		grid.add(choice1, 1, 0);
-
-//		Button buttonLoad = new Button("Load");
-//		buttonLoad.setOnAction(arg0 -> {
-//			FileChooser fileChooser = new FileChooser();
-//			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-//			fileChooser.getExtensionFilters().add(extFilter);
-//			File file = fileChooser.showOpenDialog(new Stage());
-//			System.out.println(file);
-//		});
-
-		grid.add(new Label("ComboBox<String>"), 0, 1);
-		PrefixSelectionComboBox<String> combo1 = new PrefixSelectionComboBox<>();
-		combo1.setItems(stringList);
-		combo1.setMaxWidth(Double.MAX_VALUE);
-		grid.add(combo1, 1, 1);
-		CheckBox cb1 = new CheckBox("Make ComboBox editable");
-		cb1.selectedProperty().bindBidirectional(combo1.editableProperty());
-		grid.add(cb1, 2, 1);
-
-		ObservableList<Person> personList = FXCollections.observableArrayList(new Person("Jack Nicholson"),
-				new Person("Marlon Brando"), new Person("Robert De Niro"), new Person("Al Pacino"),
-				new Person("Daniel Day-Lewis"), new Person("Dustin Hoffman"), new Person("Tom Hanks"),
-				new Person("Anthony Hopkins"), new Person("Paul Newman"), new Person("Denzel Washington"),
-				new Person("Spencer Tracy"), new Person("Laurence Olivier"), new Person("Jack Lemmon"),
-				new Person("Jeff Bridges"), new Person("James Stewart"), new Person("Sean Penn"),
-				new Person("Michael Caine"), new Person("Morgan Freeman"), new Person("Robert Duvall"),
-				new Person("Gene Hackman"), new Person("Clint Eastwood"), new Person("Gregory Peck"),
-				new Person("Robin Williams"), new Person("Ben Kingsley"), new Person("Philip Seymour Hoffman"));
-
-		grid.add(new Label("ChoiceBox<Person>"), 0, 3);
-		PrefixSelectionChoiceBox<Person> choice2 = new PrefixSelectionChoiceBox<>();
-		choice2.setItems(personList);
-		choice2.setMaxWidth(Double.MAX_VALUE);
-		grid.add(choice2, 1, 3);
-
-		grid.add(new Label("ComboBox<Person>"), 0, 4);
-		PrefixSelectionComboBox<Person> combo2 = new PrefixSelectionComboBox<>();
-		combo2.setItems(personList);
-		combo2.setMaxWidth(Double.MAX_VALUE);
-		grid.add(combo2, 1, 4);
-		CheckBox cb2 = new CheckBox("Make ComboBox editable");
-		cb2.selectedProperty().bindBidirectional(combo2.editableProperty());
-		grid.add(cb2, 2, 4);
-
-		grid.add(new Button("Press Tab"), 0, 5);
-		PrefixSelectionComboBox<String> customLookupCombo = new PrefixSelectionComboBox<>();
-		customLookupCombo.setDisplayOnFocusedEnabled(true);
-		customLookupCombo.setTypingDelay(1000);
-		customLookupCombo.setBackSpaceAllowed(true);
-		customLookupCombo.setItems(FXCollections.observableArrayList("00 Abb", "01 Acc", "02 Add", "10 Baa", "11 Bcc",
-				"12 Bdd", "13 Bee", "20 Caa", "21 Cbb", "22 Cdd", "23 Cee", "24 Cff", "30 Daa"));
-		customLookupCombo.setLookup((combo, u) -> combo.getItems().stream().filter(item -> {
-			String s = combo.getConverter().toString(item);
-			if (s != null && !s.isEmpty() && !u.isEmpty()) {
-				s = s.toUpperCase(Locale.ROOT);
-				String firstLetter = u.substring(0, 1).toUpperCase(Locale.ROOT);
-				int numberOfDigits = 2;
-				final int numberOfOccurrences = u.toUpperCase(Locale.ROOT)
-						.replaceFirst(".*?(" + firstLetter + "+).*", "$1").length();
-				if (isValidNumber(u, numberOfDigits) && s.startsWith(u)) {
-					// two digits: select that line and tab to the next field
-					commitSelection(combo);
-					return true;
-				} else if (s.substring(numberOfDigits + 1).startsWith(u.toUpperCase(Locale.ROOT))) {
-					// alpha characters: highlight closest (first) match
-					return true;
-				} else if (numberOfOccurrences > 1
-						&& s.substring(numberOfDigits + 1, numberOfDigits + 2).equals(firstLetter)) {
-					final int numberOfItems = getItemsByLetter(combo, firstLetter, numberOfDigits).size();
-					final int index = getItemsByLetter(combo, firstLetter, numberOfDigits).indexOf(item);
-					// repeated alpha characters: highlight match based on order
-					if (index == (numberOfOccurrences - 1) % numberOfItems) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}).findFirst());
-		customLookupCombo.setMaxWidth(Double.MAX_VALUE);
-		grid.add(customLookupCombo, 1, 5);
-		grid.add(new TextField(), 2, 5);
-
-		grid.add(new Button("Press Tab"), 0, 6);
-		PrefixSelectionComboBox<Person> combo4 = new PrefixSelectionComboBox<>();
-		combo4.setConverter(new StringConverter<Person>() {
-			@Override
-			public String toString(Person object) {
-				return String.format("%02d ", personList.indexOf(object)) + (object != null ? object.toString() : "");
-			}
-
-			@Override
-			public Person fromString(String string) {
-				throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-																				// choose Tools | Templates.
-			}
-		});
-		combo4.setItems(personList);
-		combo4.setBackSpaceAllowed(true);
-		combo4.setDisplayOnFocusedEnabled(true);
-		combo4.setTypingDelay(1000);
-		combo4.setLookup((combo, u) -> combo.getItems().stream().filter(item -> {
-			String s = combo.getConverter().toString(item);
-			if (s != null && !s.isEmpty() && !u.isEmpty()) {
-				s = s.toUpperCase(Locale.ROOT);
-				String firstLetter = u.substring(0, 1).toUpperCase(Locale.ROOT);
-				final int numberOfOccurrences = u.toUpperCase(Locale.ROOT)
-						.replaceFirst(".*?(" + firstLetter + "+).*", "$1").length();
-				int numberOfDigits = 2;
-				if (isValidNumber(u, numberOfDigits) && s.startsWith(u)) {
-					// two digits: select that line and tab to the next field
-					commitSelection(combo);
-					return true;
-				} else if (s.substring(numberOfDigits + 1).startsWith(u.toUpperCase(Locale.ROOT))) {
-					// alpha characters: highlight closest (first) match
-					return true;
-				} else if (numberOfOccurrences > 1
-						&& s.substring(numberOfDigits + 1, numberOfDigits + 2).equals(firstLetter)) {
-					final int numberOfItems = getItemsByLetter(combo, firstLetter, numberOfDigits).size();
-					final int index = getItemsByLetter(combo, firstLetter, numberOfDigits).indexOf(item);
-					// repeated alpha characters: highlight match based on order
-					if (index == (numberOfOccurrences - 1) % numberOfItems) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}).findFirst());
-		combo4.setMaxWidth(Double.MAX_VALUE);
-		grid.add(combo4, 1, 6);
-		grid.add(new TextField(), 2, 6);
-
-		return grid;
-	}
-
-	@Override
 	public String getOrderKey() {
 		return "CodeStyleLength120";
 	}
@@ -204,51 +126,14 @@ public class CodeStyleLength120 extends SmcSample {
 		return I18nUtils.get("smc.sampleName.codeStyleLength120.description");
 	}
 
-	private static class Person {
-		public String name;
+	// 初始化组件
+	private void initComponment() {
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+		outPutChooser.getExtensionFilters().add(extFilter);
+		outPutChooser.setInitialFileName(resultFileName);
 
-		public Person(String string) {
-			name = string;
-		}
-
-		@Override
-		public String toString() {
-			return name;
-		}
+		generate.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/generate.png")));
+		notificationBuilder.owner(FxApp.primaryStage);
 	}
 
-	private boolean isValidNumber(String prefix, int numberOfDigits) {
-		if (prefix == null || prefix.length() != numberOfDigits) {
-			return false;
-		}
-		try {
-			Integer.parseInt(prefix);
-			return true;
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-	}
-
-	private <T> void commitSelection(ComboBox<T> combo) {
-		if (combo == null) {
-			return;
-		}
-		PauseTransition pause = new PauseTransition(Duration.millis(hidingDelay));
-		pause.setOnFinished(f -> {
-			combo.hide();
-			combo.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.TAB, false, false, false, false));
-		});
-		pause.playFromStart();
-	}
-
-	private <T> List<T> getItemsByLetter(ComboBox<T> combo, String firstLetter, int numberOfDigits) {
-		if (combo == null) {
-			return new ArrayList<>();
-		}
-		return combo.getItems().stream().filter(item -> {
-			String s = combo.getConverter().toString(item);
-			return (s != null && !s.isEmpty() && s.length() >= numberOfDigits + 2 && s
-					.substring(numberOfDigits + 1, numberOfDigits + 2).toUpperCase(Locale.ROOT).equals(firstLetter));
-		}).collect(Collectors.toList());
-	}
 }

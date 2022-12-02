@@ -7,6 +7,9 @@ module com.tlcsdm.smc {
 	requires javafx.controls;
 	requires io.github.javadiffutils;
 	requires javafx.graphics;
+	requires com.tlcsdm.core;
+	requires hutool.core;
+	requires hutool.poi;
 
 	exports com.tlcsdm.smc;
 	exports com.tlcsdm.smc.tools;
