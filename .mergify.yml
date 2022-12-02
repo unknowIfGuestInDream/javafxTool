@@ -29,49 +29,49 @@ pull_request_rules:
           - unknowIfGuestInDream
   - name: Label enhancement
     conditions:
-      - head~=^feat(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^feat(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - enhancement
   - name: Label bug
     conditions:
-      - head~=^fix(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^fix(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - bug
   - name: Label documentation
     conditions:
-      - head~=^docs(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^docs(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - documentation
   - name: Label chore
     conditions:
-      - head~=^chore(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^chore(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - chore
   - name: Label dependencies
     conditions:
-      - head~=^(dependabot|build)\/[a-zA-Z0-9-_\/]+$
+      - title=^(dependabot|build)\/[a-zA-Z0-9-_\/]+$
     actions:
       label:
         add:
           - dependencies
   - name: Label style
     conditions:
-      - head~=^style(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^style(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
           - style
   - name: Label test
     conditions:
-      - head~=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
+      - title=^test(\(([\w$.\-*/ ]*)\))?:[ ](.*)$
     actions:
       label:
         add:
@@ -162,23 +162,23 @@ pull_request_rules:
           Thank you @{{author}} for your contributions!
       merge:
         method: squash
-  - name: Automatic merge
-    conditions:
-      - author=unknowIfGuestInDream
-      - status-success=Title Validator
-      - status-success=dependency-review
-      - status-success=build (17)
-      - status-success=GitGuardian Security Checks
-      - status-success=mergefreeze
-      - status-success=WIP
-      - label!=invalid
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
-    actions:
-      merge:
-        method: squash
+  #  - name: Automatic merge
+  #    conditions:
+  #      - author=unknowIfGuestInDream
+  #      - status-success=Title Validator
+  #      - status-success=dependency-review
+  #      - status-success=build (17)
+  #      - status-success=GitGuardian Security Checks
+  #      - status-success=mergefreeze
+  #      - status-success=WIP
+  #      - label!=invalid
+  #      - "-closed"
+  #      - "-draft"
+  #      - "-conflict"
+  #      - "-merged"
+  #    actions:
+  #      merge:
+  #        method: squash
   - name: Automatic merge dependabot[bot]
     conditions:
       - author=dependabot[bot]
