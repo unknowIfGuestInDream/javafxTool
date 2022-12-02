@@ -29,7 +29,7 @@ pull_request_rules:
           - unknowIfGuestInDream
   - name: Label enhancement
     conditions:
-      - head~=^feat\(.+\):)+$
+      - head~=^feat\(.+\):+$
     actions:
       label:
         add:
@@ -50,7 +50,7 @@ pull_request_rules:
           - documentation
   - name: Label chore
     conditions:
-      - head~=^chore\(.+\):)+$
+      - head~=^chore\(.+\):+$
     actions:
       label:
         add:
@@ -64,14 +64,14 @@ pull_request_rules:
           - dependencies
    - name: Label style
     conditions:
-      - head~=^style\(.+\):)+$
+      - head~=^style\(.+\):+$
     actions:
       label:
         add:
           - style
    - name: Label test
     conditions:
-      - head~=^test\(.+\):)+$
+      - head~=^test\(.+\):+$
     actions:
       label:
         add:
