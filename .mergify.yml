@@ -57,7 +57,7 @@ pull_request_rules:
           - chore
   - name: Label dependencies
     conditions:
-      - title=^(dependabot|build)\/[a-zA-Z0-9-_\/]+$
+      - title=^build\/[a-zA-Z0-9-_\/]+$
     actions:
       label:
         add:
