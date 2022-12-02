@@ -43,6 +43,7 @@
         <logback-classic.version>1.4.5</logback-classic.version>
         <commons-configuration2.version>2.8.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <log4j2.version>2.18.0</log4j2.version>
     </properties>
 
     <dependencies>
@@ -166,6 +167,16 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-poi</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
