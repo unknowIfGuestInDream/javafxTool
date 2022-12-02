@@ -148,8 +148,8 @@ pull_request_rules:
           @{{name}}
           {% endfor %}
           Thank you @{{author}} for your contributions!
-      squash:
-        commit_message: all-commits
+      merge:
+        method: squash
   - name: Automatic merge
     conditions:
       - author=unknowIfGuestInDream
@@ -165,8 +165,8 @@ pull_request_rules:
       - "-conflict"
       - "-merged"
     actions:
-      squash:
-        commit_message: all-commits
+      merge:
+        method: squash
   - name: Automatic merge dependabot[bot]
     conditions:
       - author=dependabot[bot]
@@ -178,11 +178,11 @@ pull_request_rules:
       - "-conflict"
       - "-merged"
     actions:
-      squash:
-        commit_message: all-commits
+      merge:
+        method: squash
   - name: automatic merge for ImgBot pull requests
     conditions:
       - author=imgbot[bot]
     actions:
-      squash:
-        commit_message: all-commits
+      merge:
+        method: squash
