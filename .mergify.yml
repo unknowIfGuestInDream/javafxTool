@@ -87,19 +87,17 @@ pull_request_rules:
           @{{author}}
           Wrong PR Title: {{title}}
           Please check [Contributing Guidelines](https://github.com/BobAnkh/auto-generate-changelog/blob/master/CONTRIBUTING.md) for more information.
- # - name: message check comment
- #   conditions:
- #     - "status-failure=gitmagic/rules"
- #     - author!=dependabot[bot]
- #     - "-closed"
- #     - "-merged"
- #   actions:
- #     comment:
- #       message: |
- #         @{{author}}
- #         Contribution Message Convention Tests failed with GitMagic.
- #         Please check details and [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
- #         If you don't want to correct it yourself, just tell the maintainers. They will do it when merging.
+  - name: mergefreeze check comment
+    conditions:
+      - "status-failure=mergefreeze"
+      - author!=dependabot[bot]
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}}
+          The current code is frozen, please wait for the unfreeze to merge.
  # - name: markdownlint check comment
  #   conditions:
  #     - "status-failure=markdownlint-cli-check"
