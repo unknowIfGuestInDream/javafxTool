@@ -1,11 +1,14 @@
 package com.tlcsdm.core.javafx.util;
 
-import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
-import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.builder.fluent.PropertiesBuilderParameters;
+import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.io.File;
 import java.util.Locale;
 
 /*
@@ -17,9 +20,7 @@ public class Config {
 
     public static Locale defaultLocale = Locale.getDefault();// 设置系统语言
 
-    public static final String JAVAFX_TOOL_VERSION = "V1.0.0";// xJavaFxTool版本信息
-
-    ///////////////////////////////////////////////////////////////
+    public static final String JAVAFX_TOOL_VERSION = "v1.0.0";// xJavaFxTool版本信息
 
     public enum Keys {
         MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft,
@@ -30,27 +31,24 @@ public class Config {
     private static PropertiesConfiguration conf;
 
     public static PropertiesConfiguration getConfig() {
-        try {
-            if (conf == null) {
-                conf = new PropertiesConfiguration();
-//                File file = ConfigureUtil.getConfigureFile(CONFIG_FILE_NAME);
-//                conf = new PropertiesConfiguration();
-//                conf.setAutoSave(true); // 启用自动保存
-                Configurations configs = new Configurations();
-
-                // 每个Configuration代表这一个配置文件~（依赖beanutils这个jar）
-                Configuration config = configs.properties("my.properties");
-                FileBasedConfigurationBuilder.setDefaultEncoding(PropertiesConfiguration.class, "UTF-8");
-            } else {
-                //conf.reload();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            // 即使加载失败，也要返回一个内存中的 PropertiesConfiguration 对象，以免程序报错。
-            conf = new PropertiesConfiguration();
+        if (conf != null) {
+            return conf;
         }
-
+        Parameters params = new Parameters();
+        File propertiesFile = ConfigureUtil.getConfigureFile(CONFIG_FILE_NAME);
+        PropertiesBuilderParameters propertiesBuilderParameters = params.properties()
+                .setFile(propertiesFile)
+                .setEncoding("UTF-8")
+                .setListDelimiterHandler(new DefaultListDelimiterHandler(','))
+                .setThrowExceptionOnMissing(false);
+        ReloadingFileBasedConfigurationBuilder<PropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+                .configure(propertiesBuilderParameters);
+        builder.setAutoSave(true);
+        try {
+            conf = builder.getConfiguration();
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
         return conf;
     }
 

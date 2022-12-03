@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -15,9 +16,9 @@ import java.util.Locale;
  * @date: 2022/11/27 0:00
  */
 public class JavaFxSystemUtil {
-    /**
-     * @deprecated
-     */
+
+    public static List<Locale> SUPPORT_LOCALE = List.of(Locale.ENGLISH, Locale.SIMPLIFIED_CHINESE, Locale.JAPANESE);
+    public static List<String> SUPPORT_LOCALE_STRING = List.of("en", "en-us", "zh", "zh-cn", "ja", "ja-jp");
 
     public JavaFxSystemUtil() {
     }
@@ -47,16 +48,17 @@ public class JavaFxSystemUtil {
     public static void initSystemLocal() {
         try {
             String localeString = Config.get(Config.Keys.Locale, "");
-
             if (StringUtils.isNotEmpty(localeString)) {
-                String[] locale1 = localeString.split("_");
-                Config.defaultLocale = new Locale(locale1[0], locale1[1]);
+                localeString = localeString.toLowerCase();
+                switch (localeString) {
+                    case "en", "en-us" -> Config.defaultLocale = Locale.ENGLISH;
+                    case "zh", "zh-cn" -> Config.defaultLocale = Locale.SIMPLIFIED_CHINESE;
+                    case "ja", "ja-jp" -> Config.defaultLocale = Locale.JAPANESE;
+                    default -> Config.defaultLocale = Locale.ENGLISH;
+                }
             }
-
-            //XJavaFxToolApplication.RESOURCE_BUNDLE = ResourceBundle.getBundle("locale.Menu", Config.defaultLocale);
-            //RESOURCE_BUNDLE.getString("Title")
         } catch (Exception e) {
-            //log.error("初始化本地语言失败", e);
+            StaticLog.error("Failed to initialize locale");
         }
     }
 }

@@ -28,6 +28,9 @@ package com.tlcsdm.frame;
 
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.StageUtils;
 import com.tlcsdm.frame.model.*;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
@@ -67,6 +70,7 @@ public final class FXSampler extends Application {
     private Project selectedProject;
 
     public static void main(String[] args) {
+        JavaFxSystemUtil.initSystemLocal();
         launch(args);
     }
 
@@ -194,7 +198,7 @@ public final class FXSampler extends Application {
 //        stage.setResizable(false);
         stage.setTitle(I18nUtils.get("frame.stage.title"));
         //加载上次位置
-        //StageUtils.loadPrimaryStageBound(primaryStage);
+        StageUtils.loadPrimaryStageBound(primaryStage);
 //        stage.getIcons()
 //                .add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
         stage.show();
@@ -246,19 +250,19 @@ public final class FXSampler extends Application {
     }
 
     public static void confirmExit(Event event) {
-//		if (Config.getBoolean(Config.Keys.ConfirmExit, true)) {
-        if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"), I18nUtils.get("frame.main.confirmExit.message"))) {
+        if (Config.getBoolean(Config.Keys.ConfirmExit, true)) {
+            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"), I18nUtils.get("frame.main.confirmExit.message"))) {
+                doExit();
+            } else if (event != null) {
+                event.consume();
+            }
+        } else {
             doExit();
-        } else if (event != null) {
-            event.consume();
         }
-//		} else {
-//			doExit();
-//		}
     }
 
     public static void doExit() {
-        //StageUtils.savePrimaryStageBound(stage);
+        StageUtils.savePrimaryStageBound(stage);
         Platform.exit();
         System.exit(0);
     }
