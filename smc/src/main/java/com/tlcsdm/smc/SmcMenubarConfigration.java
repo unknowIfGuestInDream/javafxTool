@@ -1,5 +1,6 @@
 package com.tlcsdm.smc;
 
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -31,7 +32,7 @@ import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
-	private Stage stage = FXSampler.getStage();
+	private final Stage stage = FXSampler.getStage();
 
 	private final Action restart = new Action(I18nUtils.get("smc.menubar.file.restart"),
 			actionEvent -> Platform.runLater(() -> {
@@ -52,6 +53,9 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
 	private final Action submitFeedback = new Action(I18nUtils.get("smc.menubar.help.submitFeedback"),
 			actionEvent -> openWeb(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL));
+
+	private final Action openLogDir = new Action(I18nUtils.get("smc.menubar.help.openLogDir"),
+			actionEvent -> JavaFxSystemUtil.openDirectory("logs/"));
 
 	private final Action about = new Action(I18nUtils.get("smc.menubar.help.about"), actionEvent -> {
 		Alert alert = new Alert(Alert.AlertType.NONE);
@@ -112,7 +116,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 							getImageView("/com/tlcsdm/smc/static/menubar/language.png"), new CheckLangAction("中文简体"),
 							new CheckLangAction("English"), new CheckLangAction("日本語"))),
 			new ActionGroup(I18nUtils.get("smc.menubar.help"), getImageView("/com/tlcsdm/smc/static/menubar/help.png"),
-					contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+					openLogDir, ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
 	/**
 	 * 初始化action
@@ -123,6 +127,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 		contactSupport.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/support.png"));
 		submitFeedback.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/feedback.png"));
 		about.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/about.png"));
+		openLogDir.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/folder.png"));
 		release.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/release.png"));
 	}
 

@@ -7,11 +7,11 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +21,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
@@ -68,8 +67,7 @@ public class CodeStyleLength120 extends SmcSample {
     private TextField checkDirField;
     private TextField checkFileTypeField;
     private TextField ignoreFileField;
-    private final Notifications notificationBuilder = Notifications.create().hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_CENTER);
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
     FileChooser outPutChooser = new FileChooser();
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
