@@ -7,14 +7,14 @@ pull_request_rules:
     actions:
       comment:
         message: |
-          Thanks for opening this pull request! 
+          Thanks for opening this pull request!
           Please check out the [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md).
   - name: Assign author
     conditions:
       - "-closed"
       - "#assignee=0"
     actions:
-      assign: 
+      assign:
         users:
           - "{{author}}"
   - name: Assign Reviewer
