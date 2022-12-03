@@ -11,6 +11,8 @@ module com.tlcsdm.smc {
     requires hutool.core;
     requires hutool.poi;
     requires org.apache.poi.poi;
+    requires org.slf4j;
+    requires hutool.log;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools;
