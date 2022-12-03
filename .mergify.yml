@@ -172,6 +172,19 @@ pull_request_rules:
         message: |
           All checks passed.
           Please wait for review.
+  - name: Pr size comment
+    conditions:
+      - author!=unknowIfGuestInDream
+      - author!=dependabot[bot]
+      - author!=imgbot[bot]
+      - label=size/XXL
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}} @unknowIfGuestInDream
+          This is a big change, please make sure it is correct.
   - name: Automatic merge on approval
     conditions:
       - author!=unknowIfGuestInDream
