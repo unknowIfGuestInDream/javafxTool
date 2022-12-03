@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.log.StaticLog;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ public class JavaFxSystemUtil {
         try {
             Desktop.getDesktop().open(new File(directoryPath));
         } catch (IOException var2) {
-            System.err.println("打开目录异常：" + directoryPath);
+            StaticLog.error("Failed to open directory");
         }
 
     }

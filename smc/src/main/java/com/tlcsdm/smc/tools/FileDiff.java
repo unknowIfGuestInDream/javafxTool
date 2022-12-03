@@ -1,12 +1,13 @@
 package com.tlcsdm.smc.tools;
 
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -38,8 +38,8 @@ public class FileDiff extends SmcSample {
     private TextField compareField;
     private TextField outputField;
     private WebView webView;
-    private final Notifications notificationBuilder = Notifications.create().hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_CENTER);
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
+    ;
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
         // 对比 两个文件，获得不同点
@@ -51,6 +51,11 @@ public class FileDiff extends SmcSample {
     });
 
     private final Action download = new Action(I18nUtils.get("smc.tool.fileDiff.button.download"), actionEvent -> {
+        if (StrUtil.isEmpty(outputField.getText())) {
+            notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.label.output.valid"));
+            notificationBuilder.showWarning();
+            return;
+        }
         List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
         // 生成一个diff.html文件，打开便可看到两个文件的对比
         DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + "\\diff.html");

@@ -93,7 +93,7 @@ pull_request_rules:
         message: |
           @{{author}}
           Wrong PR Title: {{title}}
-          Please check [Contributing Guidelines](https://github.com/BobAnkh/auto-generate-changelog/blob/master/CONTRIBUTING.md) for more information.
+          Please check [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
   - name: mergefreeze check comment
     conditions:
       - "status-failure=mergefreeze"
@@ -121,6 +121,7 @@ pull_request_rules:
           Please remove this sensitive data.
   - name: Build check comment
     conditions:
+      -
       - "status-failure=build (17)"
       - author!=dependabot[bot]
       - author!=imgbot[bot]
