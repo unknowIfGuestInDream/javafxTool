@@ -59,7 +59,7 @@ public class CodeStyleLength120 extends SmcSample {
     /**
      * 待比对文件的父级路径
      */
-    private String generateFilesParentPath;
+    private File generateFilesParentPath;
     /**
      * 结果信息
      */
@@ -75,7 +75,7 @@ public class CodeStyleLength120 extends SmcSample {
     private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
         ignoreFilesList = StrUtil.splitTrim(ignoreFileField.getText(), ",");
         fileTypeList = StrUtil.splitTrim(checkFileTypeField.getText(), ",");
-        if (StrUtil.isEmptyIfStr(generateFilesParentPath)) {
+        if (generateFilesParentPath == null) {
             notificationBuilder.text("The variable checkDirLabel must be a folder");
             notificationBuilder.showWarning();
             return;
@@ -122,7 +122,7 @@ public class CodeStyleLength120 extends SmcSample {
             File file = checkDirChooser.showDialog(stage);
             if (file != null) {
                 checkDirField.setText(file.getPath());
-                generateFilesParentPath = file.getPath();
+                generateFilesParentPath = file;
                 checkDirChooser.setInitialDirectory(file);
             }
         });
