@@ -63,7 +63,7 @@ verifyTitles:
 ###### PR/Branch Up-To-Date Checker ####################################################################################
 # Check if the branch is up to date with master when certain files are modified
 checkUpToDate:
-  # The default branch is "master", change the branch if you want to check against a different target branch  
+  # The default branch is "master", change the branch if you want to check against a different target branch
   targetBranch: master
   files:
   # File paths that you want to check for

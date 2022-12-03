@@ -1,6 +1,7 @@
 package com.tlcsdm.core.javafx.util;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author: 唐 亮
@@ -20,6 +21,17 @@ public class ConfigureUtil {
     }
 
     public static File getConfigureFile(String fileName) {
-        return new File(getConfigurePath(fileName));
+        File file = new File(getConfigurePath(fileName));
+        if (!file.exists()) {
+            if (!file.getParentFile().exists()) {
+                file.mkdirs();
+            }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
     }
 }

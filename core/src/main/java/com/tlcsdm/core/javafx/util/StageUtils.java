@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.log.StaticLog;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -45,7 +46,7 @@ public class StageUtils {
                 stage.setHeight(height);
             }
         } catch (Exception e) {
-            System.err.println("Initialization interface position failure");
+            StaticLog.error("Initialization interface position failure");
         }
     }
 
@@ -63,7 +64,7 @@ public class StageUtils {
             Config.set(Config.Keys.MainWindowWidth, stage.getWidth());
             Config.set(Config.Keys.MainWindowHeight, stage.getHeight());
         } catch (Exception e) {
-            System.err.println("Initialization interface position failure");
+            StaticLog.error("Initialization interface position failure");
         }
     }
 }
