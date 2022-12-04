@@ -39,6 +39,18 @@ public class SmcConstant {
      * 发布版本
      */
     public static final String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases";
+    /**
+     * 简体中文
+     */
+    public static final String LANGUAGE_CHINESE = "简体中文";
+    /**
+     * 英文
+     */
+    public static final String LANGUAGE_ENGLISH = "English";
+    /**
+     * 日文
+     */
+    public static final String LANGUAGE_JAPANESE = "日本語";
 
     private SmcConstant() {
     }
