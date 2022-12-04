@@ -18,7 +18,7 @@ import java.util.Locale;
 public class JavaFxSystemUtil {
 
     public static List<Locale> SUPPORT_LOCALE = List.of(Locale.ENGLISH, Locale.SIMPLIFIED_CHINESE, Locale.JAPANESE);
-    public static List<String> SUPPORT_LOCALE_STRING = List.of("en", "en-us", "zh", "zh-cn", "ja", "ja-jp");
+    public static List<String> SUPPORT_LOCALE_STRING = List.of("en", "en_US", "zh", "zh_CN", "ja", "ja_JP");
 
     public JavaFxSystemUtil() {
     }
@@ -51,10 +51,16 @@ public class JavaFxSystemUtil {
             if (StringUtils.isNotEmpty(localeString)) {
                 localeString = localeString.toLowerCase();
                 switch (localeString) {
-                    case "en", "en-us" -> Config.defaultLocale = Locale.ENGLISH;
-                    case "zh", "zh-cn" -> Config.defaultLocale = Locale.SIMPLIFIED_CHINESE;
-                    case "ja", "ja-jp" -> Config.defaultLocale = Locale.JAPANESE;
+                    case "en", "en_us" -> Config.defaultLocale = Locale.ENGLISH;
+                    case "zh", "zh_cn" -> Config.defaultLocale = Locale.SIMPLIFIED_CHINESE;
+                    case "ja", "ja_jp" -> Config.defaultLocale = Locale.JAPANESE;
                     default -> Config.defaultLocale = Locale.ENGLISH;
+                }
+            } else {
+                if (!SUPPORT_LOCALE.contains(Config.defaultLocale)) {
+                    if (!SUPPORT_LOCALE_STRING.contains(Config.defaultLocale.getCountry())) {
+                        Config.defaultLocale = Locale.ENGLISH;
+                    }
                 }
             }
         } catch (Exception e) {
