@@ -33,12 +33,12 @@
 }
 
 .right-panel > * > .project-name {
-	-fx-font-size: 16;
+    -fx-font-size: 16;
     -fx-text-alignment: justify;
 }
 
 .center-panel > .tool-bar {
-	-fx-background-color: #DCDCDC;
+    -fx-background-color: #DCDCDC;
 }
 
 /* 
@@ -50,23 +50,23 @@
 }
 
 .control-textarea {
-	-fx-background-color: rgb(244,244,244);
-    -fx-focus-color: rgb(244,244,244);
-    -fx-faint-focus-color: rgb(244,244,244);
-    -fx-box-border: rgb(244,244,244);
-    -fx-translate-y:-7;
+    -fx-background-color: rgb(244, 244, 244);
+    -fx-focus-color: rgb(244, 244, 244);
+    -fx-faint-focus-color: rgb(244, 244, 244);
+    -fx-box-border: rgb(244, 244, 244);
+    -fx-translate-y: -7;
     -fx-font-size: 16;
 }
 
 .control-textarea .scroll-pane {
-    -fx-background-color: rgb(244,244,244);
+    -fx-background-color: rgb(244, 244, 244);
     -fx-padding: 0;
     -fx-background-insets: 0;
     -fx-border-width: -1;
 }
 
 .control-textarea .scroll-pane .content {
-    -fx-background-color: rgb(244,244,244);
+    -fx-background-color: rgb(244, 244, 244);
 }
 
 .dialog-pane {

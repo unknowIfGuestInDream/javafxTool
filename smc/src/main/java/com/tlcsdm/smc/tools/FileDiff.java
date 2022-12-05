@@ -1,29 +1,17 @@
 package com.tlcsdm.smc.tools;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
@@ -31,6 +19,16 @@ import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -43,7 +41,7 @@ public class FileDiff extends SmcSample {
 	private TextField compareField;
 	private TextField outputField;
 	private WebView webView;
-	private final Notifications notificationBuilder = FxNotifications.defaultNotify();;
+	private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
 	private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
 		// 对比 两个文件，获得不同点
@@ -159,11 +157,6 @@ public class FileDiff extends SmcSample {
 
 	@Override
 	public Node getControlPanel() {
-		TextArea textArea = new TextArea();
-		textArea.setEditable(false);
-		textArea.getStyleClass().add("control-textarea");
-		textArea.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		textArea.setWrapText(true);
 		String content = """
 				{generateButton}:
 				{generateDesc}
@@ -182,8 +175,7 @@ public class FileDiff extends SmcSample {
 		map.put("downloadButton", I18nUtils.get("smc.tool.button.download"));
 		map.put("downloadDesc", I18nUtils.get("smc.tool.fileDiff.control.textarea2"));
 		map.put("outputLabel", I18nUtils.get("smc.tool.fileDiff.label.output"));
-		textArea.setText(StrUtil.format(content, map));
-		return textArea;
+		return FxTextInput.textArea(StrUtil.format(content, map));
 	}
 
 	@Override
