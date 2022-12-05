@@ -53,6 +53,11 @@ public class HelloSearchableComboBox extends SmcSample {
     }
 
     @Override
+    public String getSampleId() {
+        return "searchableComboBox";
+    }
+
+    @Override
     public String getSampleName() {
         return "Searchable ComboBox";
     }

@@ -37,11 +37,18 @@ public class EmptySample implements Sample {
         this.name = name;
     }
 
-    @Override public String getSampleName() {
+    @Override
+    public String getSampleId() {
+        return "empty";
+    }
+
+    @Override
+    public String getSampleName() {
         return name;
     }
 
-    @Override public String getSampleDescription() {
+    @Override
+    public String getSampleDescription() {
         return null;
     }
 

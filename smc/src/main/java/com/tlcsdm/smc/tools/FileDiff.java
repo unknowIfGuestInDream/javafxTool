@@ -179,6 +179,11 @@ public class FileDiff extends SmcSample {
 	}
 
 	@Override
+	public String getSampleId() {
+		return "fillDiff";
+	}
+
+	@Override
 	public String getOrderKey() {
 		return "FillDiff";
 	}
