@@ -1,18 +1,18 @@
 module com.tlcsdm.smc {
-    requires javafx.fxml;
-    requires com.tlcsdm.frame;
-    requires com.tlcsdm.login;
     requires java.desktop;
-    requires org.controlsfx.controls;
+    requires javafx.fxml;
     requires javafx.controls;
-    requires io.github.javadiffutils;
     requires javafx.graphics;
     requires com.tlcsdm.core;
+    requires com.tlcsdm.frame;
+    requires com.tlcsdm.login;
+    requires org.controlsfx.controls;
+    requires io.github.javadiffutils;
     requires hutool.core;
     requires hutool.poi;
+    requires hutool.log;
     requires org.apache.poi.poi;
     requires org.slf4j;
-    requires hutool.log;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools;

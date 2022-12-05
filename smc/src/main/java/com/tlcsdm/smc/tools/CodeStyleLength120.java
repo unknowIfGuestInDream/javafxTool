@@ -7,6 +7,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
@@ -70,18 +71,18 @@ public class CodeStyleLength120 extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
     FileChooser outPutChooser = new FileChooser();
 
-    private final Action generate = new Action(I18nUtils.get("smc.tool.fileDiff.button.generate"), actionEvent -> {
+    private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
         ignoreFilesList = StrUtil.splitTrim(ignoreFileField.getText(), ",");
         fileTypeList = StrUtil.splitTrim(checkFileTypeField.getText(), ",");
         if (generateFilesParentPath == null) {
-            notificationBuilder.text("The variable checkDirLabel must be a folder");
+            notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message1"));
             notificationBuilder.showWarning();
             return;
         }
         File file = outPutChooser.showSaveDialog(FxApp.primaryStage);
         if (file != null) {
             if (!StrUtil.endWith(file.getName(), ".xlsx")) {
-                notificationBuilder.text("请保存为xlsx文件");
+                notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
                 notificationBuilder.showWarning();
                 return;
             }
@@ -110,11 +111,11 @@ public class CodeStyleLength120 extends SmcSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
 
-        Label checkDirLabel = new Label("校验文件夹路径" + ": ");
+        Label checkDirLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.checkDir") + ": ");
         checkDirField = new TextField();
         checkDirField.setMaxWidth(Double.MAX_VALUE);
         DirectoryChooser checkDirChooser = new DirectoryChooser();
-        Button checkDirButton = new Button(I18nUtils.get("smc.tool.fileDiff.button.choose"));
+        Button checkDirButton = new Button(I18nUtils.get("smc.tool.button.choose"));
         checkDirField.setEditable(false);
         checkDirButton.setOnAction(arg0 -> {
             File file = checkDirChooser.showDialog(stage);
@@ -125,15 +126,16 @@ public class CodeStyleLength120 extends SmcSample {
             }
         });
 
-        Label checkFileTypeLabel = new Label("校验文件类型" + ": ");
+        Label checkFileTypeLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.checkFileType") + ": ");
         checkFileTypeField = new TextField();
         checkFileTypeField.setPrefWidth(Double.MAX_VALUE);
+        checkFileTypeField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
         checkFileTypeField.setText("c,h");
 
-        Label ignoreFileLabel = new Label("忽略文件" + ": ");
+        Label ignoreFileLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
         ignoreFileField = new TextField();
         ignoreFileField.setPrefWidth(Double.MAX_VALUE);
-
+        ignoreFileField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(checkDirLabel, 0, 1);
         grid.add(checkDirButton, 1, 1);
@@ -146,6 +148,30 @@ public class CodeStyleLength120 extends SmcSample {
         grid.add(ignoreFileField, 1, 3, 2, 1);
 
         return grid;
+    }
+
+    @Override
+    public Node getControlPanel() {
+        String content = """
+                {generateButton}:
+                {generateDesc}
+                {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
+
+                {Note}
+                {checkFileTypeLabel} {emptyDesc} {promptTextList}
+                {ignoreFileLabel} {emptyDesc} {promptTextList}
+                """;
+        Map<String, String> map = new HashMap<>();
+        map.put("generateButton", I18nUtils.get("smc.tool.button.generate"));
+        map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));
+        map.put("Required", I18nUtils.get("smc.tool.control.required"));
+        map.put("checkDirLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkDir"));
+        map.put("checkFileTypeLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkFileType"));
+        map.put("ignoreFileLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile"));
+        map.put("Note", I18nUtils.get("smc.tool.control.note"));
+        map.put("emptyDesc", I18nUtils.get("smc.tool.textfield.empty.desc"));
+        map.put("promptTextList", I18nUtils.get("smc.tool.textfield.promptText.list"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     public static void main(String[] args) {
@@ -190,6 +216,9 @@ public class CodeStyleLength120 extends SmcSample {
             @Override
             public boolean accept(File file) {
                 if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
+                    if (fileTypeList.size() == 0) {
+                        return true;
+                    }
                     for (String fileType : fileTypeList) {
                         if (StrUtil.endWith(file.getName(), fileType)) {
                             return true;
@@ -200,7 +229,7 @@ public class CodeStyleLength120 extends SmcSample {
             }
         });
         if (files.size() == 0) {
-            notificationBuilder.text("There are no eligible files in the current path");
+            notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message3"));
             notificationBuilder.showWarning();
             return;
         }
@@ -226,16 +255,18 @@ public class CodeStyleLength120 extends SmcSample {
      */
     private void handleResult() {
         if (result.size() == 0) {
+            notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.info.message"));
+            notificationBuilder.showInformation();
             return;
         }
         ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
         setExcelStyle(writer);
         handleData(writer);
-        writer.addHeaderAlias("lineNumber", "行号");
-        writer.addHeaderAlias("fileName", "文件名");
-        writer.addHeaderAlias("lineLength", "行文本长度");
-        writer.addHeaderAlias("filePath", "文件路径");
-        writer.addHeaderAlias("line", "行文本数据");
+        writer.addHeaderAlias("lineNumber", I18nUtils.get("smc.tool.codeStyleLength120.result.lineNumber"));
+        writer.addHeaderAlias("fileName", I18nUtils.get("smc.tool.codeStyleLength120.result.fileName"));
+        writer.addHeaderAlias("lineLength", I18nUtils.get("smc.tool.codeStyleLength120.result.lineLength"));
+        writer.addHeaderAlias("filePath", I18nUtils.get("smc.tool.codeStyleLength120.result.filePath"));
+        writer.addHeaderAlias("line", I18nUtils.get("smc.tool.codeStyleLength120.result.line"));
         writer.write(result, true);
         writer.close();
     }
