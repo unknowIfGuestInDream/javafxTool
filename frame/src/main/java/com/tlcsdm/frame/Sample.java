@@ -30,8 +30,14 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
+ *
  */
 public interface Sample {
+
+    /**
+     * 组件id
+     */
+    String getSampleId();
 
     /**
      * A short, most likely single-word, name to show to the user - e.g. "CheckBox"

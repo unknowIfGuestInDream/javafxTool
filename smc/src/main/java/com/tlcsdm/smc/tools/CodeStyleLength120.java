@@ -179,6 +179,11 @@ public class CodeStyleLength120 extends SmcSample {
     }
 
     @Override
+    public String getSampleId() {
+        return "codeStyleLength120";
+    }
+
+    @Override
     public String getSampleName() {
         return I18nUtils.get("smc.sampleName.codeStyleLength120");
     }

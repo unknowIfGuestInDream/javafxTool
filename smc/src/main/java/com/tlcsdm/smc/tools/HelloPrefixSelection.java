@@ -212,6 +212,11 @@ public class HelloPrefixSelection extends SmcSample {
     }
 
     @Override
+    public String getSampleId() {
+        return "prefixSelection";
+    }
+
+    @Override
     public String getOrderKey() {
         return "Prefix Selection ComboBox/ChoiceBox";
     }
