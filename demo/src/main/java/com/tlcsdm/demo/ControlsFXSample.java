@@ -33,6 +33,11 @@ public abstract class ControlsFXSample extends SampleBase {
         return "1.0.0";
     }
 
+    @Override
+    public String getSampleId() {
+        return "controlsFX";
+    }
+
     /**
      * A full URL to the javadoc for the API being demonstrated in this sample.
      */
