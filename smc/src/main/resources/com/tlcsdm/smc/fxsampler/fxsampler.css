@@ -19,6 +19,12 @@
 
 .right-panel > .description {
     -fx-text-alignment: justify;
+    -fx-font-size: 18;
+}
+
+.right-panel > .sampleVersion {
+    -fx-text-alignment: justify;
+    -fx-font-size: 14;
 }
 
 .right-panel > * > .project-name-title,
@@ -27,6 +33,7 @@
 }
 
 .right-panel > * > .project-name {
+	-fx-font-size: 16;
     -fx-text-alignment: justify;
 }
 
@@ -40,6 +47,26 @@
  */
 .right-panel > .control-panel {
     -fx-padding: 5 0 0 0;
+}
+
+.control-textarea {
+	-fx-background-color: rgb(244,244,244);
+    -fx-focus-color: rgb(244,244,244);
+    -fx-faint-focus-color: rgb(244,244,244);
+    -fx-box-border: rgb(244,244,244);
+    -fx-translate-y:-7;
+    -fx-font-size: 16;
+}
+
+.control-textarea .scroll-pane {
+    -fx-background-color: rgb(244,244,244);
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: -1;
+}
+
+.control-textarea .scroll-pane .content {
+    -fx-background-color: rgb(244,244,244);
 }
 
 .dialog-pane {
