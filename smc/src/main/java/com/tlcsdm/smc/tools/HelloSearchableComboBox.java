@@ -26,7 +26,10 @@
  */
 package com.tlcsdm.smc.tools;
 
+import org.controlsfx.control.SearchableComboBox;
+
 import com.tlcsdm.smc.SmcSample;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -36,118 +39,100 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.SearchableComboBox;
 
 /**
  * @author 唐 亮
  */
 public class HelloSearchableComboBox extends SmcSample {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 
-    @Override
-    public boolean isVisible() {
-        return true;
-    }
+	@Override
+	public boolean isVisible() {
+		return false;
+	}
 
-    @Override
-    public String getSampleId() {
-        return "searchableComboBox";
-    }
+	@Override
+	public String getSampleId() {
+		return "searchableComboBox";
+	}
 
-    @Override
-    public String getSampleName() {
-        return "Searchable ComboBox";
-    }
+	@Override
+	public String getSampleName() {
+		return "Searchable ComboBox";
+	}
 
-    @Override
-    public String getSampleVersion() {
-        return "1.0.0";
-    }
+	@Override
+	public String getSampleVersion() {
+		return "1.0.0";
+	}
 
-    @Override
-    public Node getPanel(Stage stage) {
-        GridPane grid = new GridPane();
-        grid.setVgap(12);
-        grid.setHgap(12);
-        grid.setPadding(new Insets(24));
+	@Override
+	public Node getPanel(Stage stage) {
+		GridPane grid = new GridPane();
+		grid.setVgap(12);
+		grid.setHgap(12);
+		grid.setPadding(new Insets(24));
 
-        ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc", "Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");
+		ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
+				"Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");
 
-        grid.add(new Label("Searchable ComboBox<String>"), 0, 2);
-        ComboBox<String> searchableStringBox = new SearchableComboBox<>();
-        searchableStringBox.setItems(stringList);
-        searchableStringBox.setMaxWidth(Double.MAX_VALUE);
-        grid.add(searchableStringBox, 1, 2);
-        CheckBox searchableStringBoxEditable = new CheckBox("Make ComboBox editable");
-        searchableStringBoxEditable.selectedProperty().bindBidirectional(searchableStringBox.editableProperty());
-        grid.add(searchableStringBoxEditable, 2, 2);
+		grid.add(new Label("Searchable ComboBox<String>"), 0, 2);
+		ComboBox<String> searchableStringBox = new SearchableComboBox<>();
+		searchableStringBox.setItems(stringList);
+		searchableStringBox.setMaxWidth(Double.MAX_VALUE);
+		grid.add(searchableStringBox, 1, 2);
+		CheckBox searchableStringBoxEditable = new CheckBox("Make ComboBox editable");
+		searchableStringBoxEditable.selectedProperty().bindBidirectional(searchableStringBox.editableProperty());
+		grid.add(searchableStringBoxEditable, 2, 2);
 
-        ObservableList<Person> personList = FXCollections.observableArrayList(
-                new Person("Jack Nicholson"),
-                new Person("Marlon Brando"),
-                new Person("Robert De Niro"),
-                new Person("Al Pacino"),
-                new Person("Daniel Day-Lewis"),
-                new Person("Dustin Hoffman"),
-                new Person("Tom Hanks"),
-                new Person("Anthony Hopkins"),
-                new Person("Paul Newman"),
-                new Person("Denzel Washington"),
-                new Person("Spencer Tracy"),
-                new Person("Laurence Olivier"),
-                new Person("Jack Lemmon"),
-                new Person("Jeff Bridges"),
-                new Person("James Stewart"),
-                new Person("Sean Penn"),
-                new Person("Michael Caine"),
-                new Person("Morgan Freeman"),
-                new Person("Robert Duvall"),
-                new Person("Gene Hackman"),
-                new Person("Clint Eastwood"),
-                new Person("Gregory Peck"),
-                new Person("Robin Williams"),
-                new Person("Ben Kingsley"),
-                new Person("Philip Seymour Hoffman")
-        );
+		ObservableList<Person> personList = FXCollections.observableArrayList(new Person("Jack Nicholson"),
+				new Person("Marlon Brando"), new Person("Robert De Niro"), new Person("Al Pacino"),
+				new Person("Daniel Day-Lewis"), new Person("Dustin Hoffman"), new Person("Tom Hanks"),
+				new Person("Anthony Hopkins"), new Person("Paul Newman"), new Person("Denzel Washington"),
+				new Person("Spencer Tracy"), new Person("Laurence Olivier"), new Person("Jack Lemmon"),
+				new Person("Jeff Bridges"), new Person("James Stewart"), new Person("Sean Penn"),
+				new Person("Michael Caine"), new Person("Morgan Freeman"), new Person("Robert Duvall"),
+				new Person("Gene Hackman"), new Person("Clint Eastwood"), new Person("Gregory Peck"),
+				new Person("Robin Williams"), new Person("Ben Kingsley"), new Person("Philip Seymour Hoffman"));
 
-        grid.add(new Label("SearchableComboBox<Person>"), 0, 5);
-        ComboBox<Person> searchablePersonBox = new SearchableComboBox<>();
-        searchablePersonBox.setItems(personList);
-        searchablePersonBox.setMaxWidth(Double.MAX_VALUE);
-        grid.add(searchablePersonBox, 1, 5);
-        CheckBox searchablePersonBoxEditable = new CheckBox("Make ComboBox editable");
-        searchablePersonBoxEditable.selectedProperty().bindBidirectional(searchablePersonBox.editableProperty());
-        grid.add(searchablePersonBoxEditable, 2, 5);
+		grid.add(new Label("SearchableComboBox<Person>"), 0, 5);
+		ComboBox<Person> searchablePersonBox = new SearchableComboBox<>();
+		searchablePersonBox.setItems(personList);
+		searchablePersonBox.setMaxWidth(Double.MAX_VALUE);
+		grid.add(searchablePersonBox, 1, 5);
+		CheckBox searchablePersonBoxEditable = new CheckBox("Make ComboBox editable");
+		searchablePersonBoxEditable.selectedProperty().bindBidirectional(searchablePersonBox.editableProperty());
+		grid.add(searchablePersonBoxEditable, 2, 5);
 
-        return grid;
-    }
+		return grid;
+	}
 
-    @Override
-    public String getOrderKey() {
-        return "Searchable ComboBox";
-    }
+	@Override
+	public String getOrderKey() {
+		return "Searchable ComboBox";
+	}
 
-    @Override
-    public String getSampleDescription() {
-        return "This ComboBox implementation can be used to create a ComboBox"
-                + " that can be filtered. While the popup is showing, a filter text field"
-                + " allows to filter the displayed items by searching for all items containing"
-                + " any of the filter words case insensitively.";
-    }
+	@Override
+	public String getSampleDescription() {
+		return "This ComboBox implementation can be used to create a ComboBox"
+				+ " that can be filtered. While the popup is showing, a filter text field"
+				+ " allows to filter the displayed items by searching for all items containing"
+				+ " any of the filter words case insensitively.";
+	}
 
-    private static class Person {
-        public String name;
+	private static class Person {
+		public String name;
 
-        public Person(String string) {
-            name = string;
-        }
+		public Person(String string) {
+			name = string;
+		}
 
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
+		@Override
+		public String toString() {
+			return name;
+		}
+	}
 }

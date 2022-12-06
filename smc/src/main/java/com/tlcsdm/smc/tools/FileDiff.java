@@ -1,6 +1,16 @@
 package com.tlcsdm.smc.tools;
 
-import cn.hutool.core.util.StrUtil;
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -8,6 +18,8 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,20 +27,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -85,6 +88,8 @@ public class FileDiff extends SmcSample {
 		grid.setPadding(new Insets(24));
 
 		ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
+		toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		toolBar.setPrefWidth(Double.MAX_VALUE);
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files", "*.txt", "*.c", "*.h",
 				"*.java", "*.html");
 		// original
@@ -139,6 +144,7 @@ public class FileDiff extends SmcSample {
 		// webView
 		webView = new WebView();
 		webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		GridPane.setVgrow(webView, Priority.ALWAYS);
 
 		grid.add(toolBar, 0, 0, 3, 1);
 		grid.add(originalLabel, 0, 1);
