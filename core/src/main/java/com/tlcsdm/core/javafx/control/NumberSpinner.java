@@ -1,10 +1,5 @@
 package com.tlcsdm.core.javafx.control;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-
-import javax.swing.JSpinner;
-
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -14,14 +9,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+
+import javax.swing.*;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 /**
  * JavaFX Control that behaves like a {@link JSpinner} known in Swing. The
@@ -96,7 +91,7 @@ public class NumberSpinner extends HBox {
 		arrowDown.setMouseTransparent(true);
 
 		// the spinner buttons scale with the textfield size
-		// TODO: the following approach leads to the desired result, but it is
+		// the following approach leads to the desired result, but it is
 		// not fully understood why and obviously it is not quite elegant
 		buttonHeight = numberField.heightProperty().subtract(3).divide(2);
 		// give unused space in the buttons VBox to the incrementBUtton
