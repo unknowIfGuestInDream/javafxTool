@@ -54,6 +54,7 @@ import java.util.*;
  */
 public class GirretReview extends SmcSample {
 
+    private final static String defaultGirretUrl = "http://172.29.44.217/";
     private final static String paramO = "81";
     private final static String defaultParamQ = "is:closed -is:ignored (-is:wip OR owner:self) (owner:self OR reviewer:self OR assignee:self OR cc:self)";
     // cookie GerritAccount
@@ -216,7 +217,7 @@ public class GirretReview extends SmcSample {
         // 初始化赋值
         limitField.setNumber(BigDecimal.valueOf(50));
         reserveJsonCheck.setSelected(true);
-        girretUrlField.setText("http://172.29.44.217/");
+        girretUrlField.setText(defaultGirretUrl);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(gerritAccountLabel, 0, 1);
@@ -247,24 +248,32 @@ public class GirretReview extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {generateButton}:
-                {generateDesc}
-                {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
-
-                {Note}
-                {checkFileTypeLabel} {emptyDesc} {promptTextList}
-                {ignoreFileLabel} {emptyDesc} {promptTextList}
+                GerritAccount&XSRF_TOKEN{tokenDesc}
+                {userName}&{passwd}{girretUserDesc}
+                {ownerEmail}{ownerEmailDesc}
+                {limit}{limitDesc}
+                {ignoreGirretNumber}{ignoreGirretNumberDesc}
+                {startDate}: {startDateDesc}
+                {reserveJson}: {reserveJsonDesc}
+                {girretUrl}{girretUrlDesc}
                 """;
-        Map<String, String> map = new HashMap<>();
-        map.put("generateButton", I18nUtils.get("smc.tool.button.generate"));
-        map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));
-        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("checkDirLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkDir"));
-        map.put("checkFileTypeLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkFileType"));
-        map.put("ignoreFileLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile"));
-        map.put("Note", I18nUtils.get("smc.tool.control.note"));
-        map.put("emptyDesc", I18nUtils.get("smc.tool.textfield.empty.desc"));
-        map.put("promptTextList", I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Map<String, String> map = new HashMap<>(32);
+        map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
+        map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
+        map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
+        map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
+        map.put("ownerEmail", I18nUtils.get("smc.tool.girretReview.label.ownerEmail"));
+        map.put("ownerEmailDesc", I18nUtils.get("smc.tool.girretReview.control.textarea3"));
+        map.put("limit", I18nUtils.get("smc.tool.girretReview.label.limit"));
+        map.put("limitDesc", I18nUtils.get("smc.tool.girretReview.control.textarea4"));
+        map.put("ignoreGirretNumber", I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber"));
+        map.put("ignoreGirretNumberDesc", I18nUtils.get("smc.tool.girretReview.control.textarea5"));
+        map.put("startDate", I18nUtils.get("smc.tool.girretReview.label.startDate"));
+        map.put("startDateDesc", I18nUtils.get("smc.tool.girretReview.control.textarea6"));
+        map.put("reserveJson", I18nUtils.get("smc.tool.girretReview.label.reserveJson"));
+        map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
+        map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
+        map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -311,15 +320,20 @@ public class GirretReview extends SmcSample {
     private void handleChanges(JSONArray array, boolean changesEnd, int paramN, List<Map<String, String>> changesList) {
         for (int i = 0; i < array.size(); i++) {
             if (changesFilter(array.get(i), array, i)) {
-                // todo startDatePicker.getValue() submit 判断后 changesEnd
+                String submitted = String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", "");
+                if (startDatePicker.getValue() != null) {
+                    if ((startDatePicker.getValue().toString() + " 00:00:00").compareTo(submitted) >= 0) {
+                        changesEnd = true;
+                        break;
+                    }
+                }
                 Map<String, String> map = new HashMap<>();
                 map.put("girretNum", String.valueOf(array.getByPath("[" + i + "]._number")));
                 map.put("project", String.valueOf(array.getByPath("[" + i + "].project")));
                 map.put("changeId", String.valueOf(array.getByPath("[" + i + "].change_id")));
                 map.put("subject", String.valueOf(array.getByPath("[" + i + "].subject")));
                 map.put("created", String.valueOf(array.getByPath("[" + i + "].created")).replace(".000000000", ""));
-                map.put("submitted",
-                        String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", ""));
+                map.put("submitted", submitted);
                 map.put("insertions", String.valueOf(array.getByPath("[" + i + "].insertions")));
                 map.put("deletions", String.valueOf(array.getByPath("[" + i + "].deletions")));
                 map.put("ownerUserName", String.valueOf(array.getByPath("[" + i + "].owner.username")));
