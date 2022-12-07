@@ -1,20 +1,20 @@
 package com.tlcsdm.core.javafx.dialog;
 
-import java.util.Optional;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import com.tlcsdm.core.javafx.FxApp;
-
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.Optional;
 
 /**
  * @author: 唐 亮
@@ -147,5 +147,25 @@ public class FxAlerts {
 			var7.printStackTrace();
 			return FxButtonType.CANCEL;
 		}
+	}
+
+	public static void exception(Throwable exception) {
+		ExceptionDialog exceptionDialog = new ExceptionDialog(exception);
+		exceptionDialog.show();
+	}
+
+	public void delayClose(Dialog<?> dlg) {
+		delayClose(dlg, 5000);
+	}
+
+	public void delayClose(Dialog<?> dlg, long millis) {
+		new Thread(() -> {
+			try {
+				Thread.sleep(millis);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			Platform.runLater(dlg::close);
+		}).start();
 	}
 }

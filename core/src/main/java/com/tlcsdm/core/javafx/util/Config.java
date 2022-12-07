@@ -1,8 +1,5 @@
 package com.tlcsdm.core.javafx.util;
 
-import java.io.File;
-import java.util.Locale;
-
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -11,8 +8,13 @@ import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.math.NumberUtils;
 
-/*
+import java.io.File;
+import java.util.Locale;
+
+/**
  * 存取框架配置
+ *
+ * @author 唐 亮
  */
 public class Config {
 
@@ -25,7 +27,7 @@ public class Config {
 
 	public enum Keys {
 		MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft, Locale, NotepadEnabled,
-		RememberWindowLocation, ConfirmExit, NewLauncher
+		RememberWindowLocation, ConfirmExit
 	}
 
 	private static PropertiesConfiguration conf;
