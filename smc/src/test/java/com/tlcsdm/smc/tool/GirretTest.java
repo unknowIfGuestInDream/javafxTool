@@ -37,9 +37,9 @@ public class GirretTest {
 
 	// 用户配置
 	// cookie GerritAccount
-	private final static String gerritAccountValue = "aQIiprr2LX.wnWQXvOWgU5rV0bol2G.tdq";
+	private final static String gerritAccountValue = "";
 	// cookie XSRF_TOKEN
-	private final static String tokenValue = "aQIiprsBX0t.WjA5BSWV4MxDzYjjZ73uDa";
+	private final static String tokenValue = "";
 	// girret userName
 	private final static String userName = "xx.yk";
 	// girret password
