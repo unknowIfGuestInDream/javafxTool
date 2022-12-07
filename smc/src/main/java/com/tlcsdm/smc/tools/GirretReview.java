@@ -320,9 +320,9 @@ public class GirretReview extends SmcSample {
     private void handleChanges(JSONArray array, boolean changesEnd, int paramN, List<Map<String, String>> changesList) {
         for (int i = 0; i < array.size(); i++) {
             if (changesFilter(array.get(i), array, i)) {
+                String submitted = String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", "");
                 if (startDatePicker.getValue() != null) {
-                    if ((startDatePicker.getValue().toString() + " 00:00:00").compareTo
-                            (String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", "")) >= 0) {
+                    if ((startDatePicker.getValue().toString() + " 00:00:00").compareTo(submitted) >= 0) {
                         changesEnd = true;
                         break;
                     }
@@ -333,8 +333,7 @@ public class GirretReview extends SmcSample {
                 map.put("changeId", String.valueOf(array.getByPath("[" + i + "].change_id")));
                 map.put("subject", String.valueOf(array.getByPath("[" + i + "].subject")));
                 map.put("created", String.valueOf(array.getByPath("[" + i + "].created")).replace(".000000000", ""));
-                map.put("submitted",
-                        String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", ""));
+                map.put("submitted", submitted);
                 map.put("insertions", String.valueOf(array.getByPath("[" + i + "].insertions")));
                 map.put("deletions", String.valueOf(array.getByPath("[" + i + "].deletions")));
                 map.put("ownerUserName", String.valueOf(array.getByPath("[" + i + "].owner.username")));
