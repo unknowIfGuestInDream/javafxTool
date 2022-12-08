@@ -1,5 +1,35 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpClient.Redirect;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -13,22 +43,6 @@ import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
-import org.apache.poi.ss.usermodel.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient.Redirect;
-import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * Girret数据读取
@@ -41,11 +55,11 @@ public class GirretTest {
 	// cookie XSRF_TOKEN
 	private final static String tokenValue = "";
 	// girret userName
-	private final static String userName = "xx.yk";
+	private final static String userName = "";
 	// girret password
-	private final static String password = "xxxx";
+	private final static String password = "";
 	// 被查询的提交者的email
-	private final static String ownerEmail = "xxx@xxx.com";
+	private final static String ownerEmail = "";
 	// 开始索引
 	private int paramS = 0;
 	// 每次查询数量
@@ -98,12 +112,12 @@ public class GirretTest {
 	@Test
 	public void GirretTest1() throws IOException, InterruptedException, UnsupportedEncodingException {
 		Console.log("================== Getting changes ==================");
-		for (; ; ) {
+		for (;;) {
 			String url = String.format(changesRequestUrl, URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS,
 					paramN, URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
 			HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-							"application/json", "User-Agent",
-							"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+					"application/json", "User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
 					.build();
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 			if (response.statusCode() == 200) {
@@ -186,8 +200,8 @@ public class GirretTest {
 					URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
 					changesList.get(i).get("girretNum"));
 			HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-							"application/json", "User-Agent",
-							"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+					"application/json", "User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
 					.build();
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 			if (response.statusCode() == 200) {
