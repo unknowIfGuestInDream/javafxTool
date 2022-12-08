@@ -1,19 +1,14 @@
 package com.tlcsdm.core.javafx.dialog;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.I18nUtils;
-
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * @author: 唐 亮
@@ -26,7 +21,7 @@ public class ExceptionDialog extends Dialog<ButtonType> {
 		dialogPane.setHeaderText(I18nUtils.get("core.dialog.exception.dlg.header"));
 		dialogPane.getStyleClass().add("exception-dialog");
 		dialogPane
-				.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/error.png")));
+				.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/dialog-error.png")));
 		dialogPane.getButtonTypes().addAll(ButtonType.OK);
 		this.setContentText(exception.getLocalizedMessage());
 		this.initOwner(FxApp.primaryStage);
