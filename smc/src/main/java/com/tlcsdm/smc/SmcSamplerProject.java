@@ -28,7 +28,6 @@ package com.tlcsdm.smc;
 
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
-
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -83,7 +82,7 @@ public class SmcSamplerProject implements FXSamplerProject {
 				Explore the available UI controls by clicking on the options to the left.
 				If you have some questions or ideas, Please contact me at tang97155@gmail.com
 				""";
-		label.setText(desc.toString());
+		label.setText(desc);
 		label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
 
 //		HyperlinkLabel link = new HyperlinkLabel();
