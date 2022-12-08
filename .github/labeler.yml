@@ -15,6 +15,7 @@ core:
 
 test:
   - smc/src/test/**
+  - core/src/test/**
 
 workflow:
   - .github/**
