@@ -10,8 +10,8 @@ module com.tlcsdm.core {
 	requires commons.beanutils;
 
 	exports com.tlcsdm.core.javafx;
-    exports com.tlcsdm.core.javafx.control;
-    exports com.tlcsdm.core.javafx.dialog;
+	exports com.tlcsdm.core.javafx.control;
+	exports com.tlcsdm.core.javafx.dialog;
 	exports com.tlcsdm.core.javafx.helper;
 	exports com.tlcsdm.core.javafx.util;
 
