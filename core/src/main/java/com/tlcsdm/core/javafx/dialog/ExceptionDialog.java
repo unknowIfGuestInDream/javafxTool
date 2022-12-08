@@ -2,11 +2,9 @@ package com.tlcsdm.core.javafx.dialog;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Objects;
-
-import org.controlsfx.dialog.ProgressDialog;
 
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.I18nUtils;
 
 import javafx.scene.control.ButtonType;
@@ -27,8 +25,8 @@ public class ExceptionDialog extends Dialog<ButtonType> {
 		this.setTitle(I18nUtils.get("core.dialog.exception.dlg.title"));
 		dialogPane.setHeaderText(I18nUtils.get("core.dialog.exception.dlg.header"));
 		dialogPane.getStyleClass().add("exception-dialog");
-		dialogPane.getStylesheets()
-				.add(Objects.requireNonNull(ProgressDialog.class.getResource("dialogs.css")).toExternalForm());
+		dialogPane
+				.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/error.png")));
 		dialogPane.getButtonTypes().addAll(ButtonType.OK);
 		this.setContentText(exception.getLocalizedMessage());
 		this.initOwner(FxApp.primaryStage);
