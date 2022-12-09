@@ -29,7 +29,6 @@ public class JavaFxSystemUtil {
         } catch (IOException var2) {
             StaticLog.error("Failed to open directory");
         }
-
     }
 
     public static double[] getScreenSizeByScale(double width, double height) {
