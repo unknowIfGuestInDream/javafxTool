@@ -1,9 +1,8 @@
-package com.tlcsdm.smc.controller;
+package com.tlcsdm.core.javafx.controller;
 
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.smc.view.SystemSettingView;
-import javafx.stage.Stage;
+import com.tlcsdm.core.javafx.view.SystemSettingView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,8 +13,6 @@ import java.util.ResourceBundle;
  * @author xufeng
  */
 public class SystemSettingController extends SystemSettingView {
-
-    private Stage newStage = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,20 +32,8 @@ public class SystemSettingController extends SystemSettingView {
         try {
             Config.set(Config.Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());
             Config.set(Config.Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
-
-            if (newStage != null) {
-                newStage.close();
-            }
         } catch (Exception e) {
             StaticLog.error("Save setting failed: ", e);
         }
-    }
-
-    public Stage getNewStage() {
-        return newStage;
-    }
-
-    public void setNewStage(Stage newStage) {
-        this.newStage = newStage;
     }
 }

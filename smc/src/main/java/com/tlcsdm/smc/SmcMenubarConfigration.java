@@ -2,12 +2,12 @@ package com.tlcsdm.smc;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
-import com.tlcsdm.smc.dialog.SystemSettingDialog;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;

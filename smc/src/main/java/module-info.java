@@ -19,9 +19,6 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools;
 
-    opens com.tlcsdm.smc.controller to javafx.fxml;
-    opens com.tlcsdm.smc.view to javafx.fxml;
-
     provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.smc.SmcSamplerProject;
     provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.smc.SmcMenubarConfigration;
     provides com.tlcsdm.frame.CenterPanelService with com.tlcsdm.smc.SmcCenterPanelService;
