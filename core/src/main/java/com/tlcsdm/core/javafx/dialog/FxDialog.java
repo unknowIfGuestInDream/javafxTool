@@ -41,7 +41,6 @@ public class FxDialog<T> {
     private double prefHeight;
     private boolean closeable = true;
     private Window owner;
-    private ClassLoader bodyFxmlClassLoader;
     private URL bodyFxmlPath;
     private Parent body;
     private String title;
@@ -49,14 +48,6 @@ public class FxDialog<T> {
     private Map<ButtonType, BiConsumer<ActionEvent, Stage>> buttonHandlers = new HashMap<>();
     private Consumer<Stage> withStage;
     private ResourceBundle resourceBundle;
-
-    public FxDialog() {
-    }
-
-    public FxDialog<T> setBodyFxmlClassLoader(ClassLoader bodyFxmlClassLoader) {
-        this.bodyFxmlClassLoader = bodyFxmlClassLoader;
-        return this;
-    }
 
     public FxDialog<T> setResizable(boolean resizable) {
         this.resizable = resizable;
@@ -95,12 +86,6 @@ public class FxDialog<T> {
     }
 
     public FxDialog<T> setBodyFxml(URL bodyFxmlPath) {
-        this.bodyFxmlPath = bodyFxmlPath;
-        return this;
-    }
-
-    public FxDialog<T> setBodyFxml(ClassLoader classLoader, URL bodyFxmlPath) {
-        this.bodyFxmlClassLoader = classLoader;
         this.bodyFxmlPath = bodyFxmlPath;
         return this;
     }
@@ -146,7 +131,7 @@ public class FxDialog<T> {
             stage.show();
             return null;
         } else {
-            throw new RuntimeException("bodyFxmlPath 和 body 不能都为空");
+            throw new RuntimeException();
         }
     }
 
@@ -161,7 +146,7 @@ public class FxDialog<T> {
             stage.showAndWait();
             return null;
         } else {
-            throw new RuntimeException("bodyFxmlPath 和 body 不能都为空");
+            throw new RuntimeException();
         }
     }
 
