@@ -26,64 +26,74 @@
  */
 package com.tlcsdm.smc;
 
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SmcSamplerProject implements FXSamplerProject {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getProjectName() {
-		return "SMC";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProjectName() {
+        return "SMC";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getSampleBasePackage() {
-		return "com.tlcsdm.smc";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSampleBasePackage() {
+        return "com.tlcsdm.smc";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getModuleName() {
-		return "com.tlcsdm.smc";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getModuleName() {
+        return "com.tlcsdm.smc";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public WelcomePage getWelcomePage() {
-		VBox vBox = new VBox();
-		vBox.getStyleClass().add("welcomePage");
-		ImageView imgView = new ImageView();
-		imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/ControlsFX.png');");
-		StackPane pane = new StackPane();
-		pane.setPrefHeight(207);
-		pane.setStyle(
-				"-fx-background-image: url('com/tlcsdm/smc/static/bar.png');" + "-fx-background-repeat: repeat-x;");
-		pane.getChildren().add(imgView);
-		Label label = new Label();
-		label.setWrapText(true);
-		String desc = """
-				SMC Tool is a development tool that can help you develop Smart Configurator.
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public WelcomePage getWelcomePage() {
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("welcomePage");
+        ImageView imgView = new ImageView();
+        imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/ControlsFX.png');");
+        StackPane pane = new StackPane();
+        pane.setPrefHeight(207);
+        pane.setStyle(
+                "-fx-background-image: url('com/tlcsdm/smc/static/bar.png');-fx-background-repeat: repeat-x;");
+        pane.getChildren().add(imgView);
+        Label label = new Label();
+        label.setWrapText(true);
+        String desc = """
+                {introduce}
 
-				This tool is built on jdk17, javaFX 17 and controlsfx 11.
-				Explore the available UI controls by clicking on the options to the left.
-				If you have some questions or ideas, Please contact me at tang97155@gmail.com
-				""";
-		label.setText(desc);
-		label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
+                {build}
+                {explore}
+                {connect}
+                """;
+        Map<String, String> map = new HashMap<>();
+        map.put("introduce", I18nUtils.get("smc.welcomePage.desc.introduce"));
+        map.put("build", I18nUtils.get("smc.welcomePage.desc.build"));
+        map.put("explore", I18nUtils.get("smc.welcomePage.desc.explore"));
+        map.put("connect", I18nUtils.get("smc.welcomePage.desc.connect"));
+        label.setText(StrUtil.format(desc, map));
+        label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
 
 //		HyperlinkLabel link = new HyperlinkLabel();
 //		link.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
@@ -111,7 +121,7 @@ public class SmcSamplerProject implements FXSamplerProject {
 //			}
 //		});
 
-		vBox.getChildren().addAll(pane, label);
-		return new WelcomePage("Welcome to SMC Tool!", vBox);
-	}
+        vBox.getChildren().addAll(pane, label);
+        return new WelcomePage("Welcome to SMC Tool!", vBox);
+    }
 }
