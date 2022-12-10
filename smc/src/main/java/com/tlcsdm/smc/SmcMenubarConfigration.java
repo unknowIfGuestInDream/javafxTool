@@ -2,6 +2,7 @@ package com.tlcsdm.smc;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
@@ -51,58 +52,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
     private final Action exit = new Action(I18nUtils.get("smc.menubar.file.exit"), actionEvent -> FXSampler.doExit());
 
     private final Action systemSetting = new Action(I18nUtils.get("smc.menubar.setting.systemSetting"), actionEvent -> {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
-        alert.setResizable(false);
-        alert.setTitle(I18nUtils.get("smc.menubar.help.about.title"));
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.initOwner(stage);
-
-        if (stage.getIcons().size() > 0) {
-            ImageView imageView = new ImageView(stage.getIcons().get(0));
-            imageView.setFitHeight(80);
-            imageView.setFitWidth(80);
-            alert.setGraphic(imageView);
-        }
-
-        ButtonType closeButton = new ButtonType(I18nUtils.get("smc.menubar.help.about.button.close"),
-                ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().addAll(closeButton);
-        Map<String, String> map = new HashMap<>(32);
-        map.put("versionLabel", I18nUtils.get("smc.menubar.help.about.contentText.version"));
-        map.put("version", Config.JAVAFX_TOOL_VERSION);
-        map.put("dateLabel", I18nUtils.get("smc.menubar.help.about.contentText.date"));
-        map.put("date", Config.JAVAFX_TOOL_PUBLISHDATE);
-        map.put("licenseNameLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseName"));
-        map.put("licenseName", SmcConstant.PROJECT_LICENSE_NAME);
-        map.put("licenseUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl"));
-        map.put("licenseUrl", SmcConstant.PROJECT_LICENSE_URL);
-        map.put("authorLabel", I18nUtils.get("smc.menubar.help.about.contentText.author"));
-        map.put("author", SmcConstant.PROJECT_AUTHOR);
-        map.put("projectUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.projectUrl"));
-        map.put("projectUrl", SmcConstant.GITHUB_PROJECT_URL);
-        map.put("technicalSupport", I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport"));
-        map.put("openSourceSoftware", I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"));
-        map.put("copyright", SmcConstant.PROJECT_COPYRIGHT);
-        String context = """
-                {versionLabel}: {version}
-                {dateLabel}: {date}
-                {licenseNameLabel}: {licenseName}
-                {licenseUrlLabel}: {licenseUrl}
-
-                {authorLabel}: {author}
-                {projectUrlLabel}: {projectUrl}
-
-                {technicalSupport}: [{openSourceSoftware}]
-                {copyright}
-                """;
-        alert.setContentText(StrUtil.format(context, map));
-        alert.show();
-        alert.resultProperty().addListener(o -> {
-            if (closeButton.equals(alert.getResult())) {
-                alert.close();
-            }
-        });
+        SystemSettingDialog.openSystemSettings(I18nUtils.get("smc.menubar.setting.systemSetting"));
     });
 
     private final Action contactSupport = new Action(I18nUtils.get("smc.menubar.help.contactSupport"),

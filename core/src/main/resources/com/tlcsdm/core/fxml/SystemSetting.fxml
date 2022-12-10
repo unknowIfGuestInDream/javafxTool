@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" spacing="15"
+      fx:controller="com.tlcsdm.core.javafx.controller.SystemSettingController">
+
+    <padding>
+        <Insets topRightBottomLeft="30"/>
+    </padding>
+
+    <!--退出时是否显示确认对话框-->
+    <CheckBox fx:id="exitShowAlertCheckBox" selected="true" text="%core.dialog.systemSetting.check.exitShowAlert"/>
+    <!--    是否在退出时保存窗口大小及位置信息-->
+    <CheckBox fx:id="saveStageBoundCheckBox" selected="true" text="%core.dialog.systemSetting.check.saveStageBound"/>
+</VBox>
