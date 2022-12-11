@@ -2,6 +2,7 @@ package com.tlcsdm.smc.tools;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.IntegerSpinner;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -42,7 +43,10 @@ public class TestSpecGeneral extends SmcSample {
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        IntegerSpinner i = new IntegerSpinner(0, Integer.MAX_VALUE, 50, 1);
+
         grid.add(toolBar, 0, 0);
+        grid.add(i, 0, 1);
         return grid;
     }
 
