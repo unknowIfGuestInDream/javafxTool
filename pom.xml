@@ -112,6 +112,24 @@
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>tlcsdm-common</artifactId>
                 <version>${tlcsdm-common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-lang3</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>cn.hutool</groupId>
+                        <artifactId>hutool-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>eu.bitwalker</groupId>
+                        <artifactId>UserAgentUtils</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

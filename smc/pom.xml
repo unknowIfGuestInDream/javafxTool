@@ -27,6 +27,10 @@
             <artifactId>java-diff-utils</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.tlcsdm</groupId>
+            <artifactId>tlcsdm-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
         </dependency>
