@@ -1,16 +1,6 @@
 package com.tlcsdm.smc.tools;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -18,8 +8,6 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,6 +20,16 @@ import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -170,7 +168,7 @@ public class FileDiff extends SmcSample {
 
 				{downloadButton}:
 				{downloadDesc}
-				{required} {originalLabel}, {compareLabel}, {outputLabel}
+				{Required} {originalLabel}, {compareLabel}, {outputLabel}
 				""";
 		Map<String, String> map = new HashMap<>();
 		map.put("generateButton", I18nUtils.get("smc.tool.button.generate"));

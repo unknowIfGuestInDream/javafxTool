@@ -20,10 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
+ *
  * @author: 唐 亮
  * @date: 2022/12/8 23:12
  */
-public class TestSpecGeneral extends SmcSample {
+public class SpecGeneralTest extends SmcSample {
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
         ExceptionDialog exceptionDialog = new ExceptionDialog(new RuntimeException("request called failed."));
@@ -88,7 +90,7 @@ public class TestSpecGeneral extends SmcSample {
 
     @Override
     public String getSampleId() {
-        return "TestSpecGeneral";
+        return "specGeneralTest";
     }
 
     @Override
@@ -103,7 +105,7 @@ public class TestSpecGeneral extends SmcSample {
 
     @Override
     public String getOrderKey() {
-        return "TestSpecGeneral";
+        return "SpecGeneralTest";
     }
 
     @Override

@@ -77,6 +77,11 @@ public interface Sample {
     Node getControlPanel();
 
     /**
+     * Note that initialize() is called after getPanel()
+     */
+    void initialize();
+
+    /**
      * Provides a place to dispose of any resources when sample is deselected
      */
     void dispose();

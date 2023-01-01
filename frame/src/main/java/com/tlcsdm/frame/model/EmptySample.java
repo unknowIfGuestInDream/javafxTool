@@ -88,6 +88,11 @@ public class EmptySample implements Sample {
     }
 
     @Override
+    public void initialize() {
+
+    }
+
+    @Override
     public void dispose() {
         // Do nothing
     }
