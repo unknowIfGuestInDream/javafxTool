@@ -1,6 +1,5 @@
-package com.tlcsdm.smc.tool;
+package com.tlcsdm.core.util;
 
-import com.tlcsdm.common.base.BaseUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +14,6 @@ public class MoneyToChineseTest {
     @Test
     @Disabled
     public void moneyToChinese() {
-        System.out.println(BaseUtils.number2CNMonetaryUnit(new BigDecimal("203.5")));
+        System.out.println(MoneyToChineseUtil.number2CNMonetaryUnit(new BigDecimal("203.5")));
     }
 }
