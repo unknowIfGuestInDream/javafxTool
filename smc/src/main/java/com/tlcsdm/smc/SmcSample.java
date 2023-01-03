@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,23 @@ public abstract class SmcSample extends SampleBase {
         if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
             return;
         }
-        //todo
+        userData.forEach((key, value) -> {
+            String k = getSampleXmlPrefix() + "." + key;
+            String val = FxXmlUtil.get(k, "");
+            if (value instanceof FileChooser v) {
+                v.setInitialDirectory(new File(val));
+            } else if (value instanceof DirectoryChooser v) {
+                v.setInitialDirectory(new File(val));
+            } else if (value instanceof TextInputControl v) {
+                v.setText(val);
+            } else if (value instanceof CheckBox v) {
+                v.setSelected(Boolean.parseBoolean(val));
+            } else if (value instanceof ComboBoxBase v) {
+                v.setValue(val);
+            } else {
+                // do nothing
+            }
+        });
     }
 
     /**
