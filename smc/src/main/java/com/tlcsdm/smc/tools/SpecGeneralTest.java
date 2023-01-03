@@ -1,6 +1,7 @@
 package com.tlcsdm.smc.tools;
 
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.IntegerSpinner;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class SpecGeneralTest extends SmcSample {
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
-        ExceptionDialog exceptionDialog = new ExceptionDialog(new RuntimeException("request called failed."));
+        ExceptionDialog exceptionDialog = new ExceptionDialog(new UnExpectedResultException("request called failed."));
         exceptionDialog.show();
     });
 
