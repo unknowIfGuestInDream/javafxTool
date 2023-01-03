@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.helper;
 
+import com.tlcsdm.core.exception.ResourceNotFoundException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -92,7 +93,7 @@ public class LayoutHelper {
     public static Image icon(String resourcePath) {
         URL resource = LayoutHelper.class.getResource(resourcePath);
         if (resource == null) {
-            throw new RuntimeException("Resource '" + resourcePath + "' not found.");
+            throw new ResourceNotFoundException("Resource '" + resourcePath + "' not found.");
         } else {
             return new Image(resource.toExternalForm());
         }
@@ -100,7 +101,7 @@ public class LayoutHelper {
 
     public static Image icon(URL resource) {
         if (resource == null) {
-            throw new RuntimeException("Resource not found.");
+            throw new ResourceNotFoundException();
         } else {
             return new Image(resource.toExternalForm());
         }
