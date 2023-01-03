@@ -20,5 +20,6 @@ module com.tlcsdm.core {
 	exports com.tlcsdm.core.javafx.helper;
 	exports com.tlcsdm.core.javafx.util;
 	exports com.tlcsdm.core.util;
+	exports com.tlcsdm.core.exception;
 
 }

@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.util;
 
+import com.tlcsdm.core.exception.ResourceNotFoundException;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class FxmlUtil {
             fxmlLoader.load();
             return fxmlLoader;
         } catch (IOException var4) {
-            throw new RuntimeException(var4);
+            throw new ResourceNotFoundException(var4);
         }
     }
 }

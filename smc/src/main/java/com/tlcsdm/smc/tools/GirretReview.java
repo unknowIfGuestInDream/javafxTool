@@ -13,6 +13,7 @@ import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
+import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -156,7 +157,7 @@ public class GirretReview extends SmcSample {
 						}
 						paramS = paramS + paramN;
 					} else {
-						throw new RuntimeException(response.body());
+						throw new UnExpectedResultException(response.body());
 					}
 				}
 				handleComments(commentsRequestUrl, resultPath, resultFileName);

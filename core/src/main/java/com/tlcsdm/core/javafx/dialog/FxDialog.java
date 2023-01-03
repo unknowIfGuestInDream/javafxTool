@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.dialog;
 
+import com.tlcsdm.core.exception.CoreException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import javafx.event.ActionEvent;
@@ -131,7 +132,7 @@ public class FxDialog<T> {
             stage.show();
             return null;
         } else {
-            throw new RuntimeException();
+            throw new CoreException();
         }
     }
 
@@ -146,7 +147,7 @@ public class FxDialog<T> {
             stage.showAndWait();
             return null;
         } else {
-            throw new RuntimeException();
+            throw new CoreException();
         }
     }
 
