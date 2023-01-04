@@ -23,6 +23,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 
@@ -104,6 +105,7 @@ public class CodeStyleLength120 extends SmcSample {
 			handleResult();
 			notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
 			notificationBuilder.showInformation();
+			bindUserData();
 		}
 	});
 
@@ -147,6 +149,12 @@ public class CodeStyleLength120 extends SmcSample {
 		ignoreFileField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
 		checkFileTypeField.setText("c,h");
+
+		userData.put("checkDir", checkDirField);
+		userData.put("checkFileType", checkFileTypeField);
+		userData.put("ignoreFile", ignoreFileField);
+		userData.put("outPut", outPutChooser);
+
 		grid.add(toolBar, 0, 0, 3, 1);
 		grid.add(checkDirLabel, 0, 1);
 		grid.add(checkDirButton, 1, 1);
@@ -159,6 +167,15 @@ public class CodeStyleLength120 extends SmcSample {
 		grid.add(ignoreFileField, 1, 3, 2, 1);
 
 		return grid;
+	}
+
+	@Override
+	protected void initializeUserData() {
+		super.initializeUserData();
+		if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
+			return;
+		}
+		generateFilesParentPath = new File(FxXmlUtil.get(getSampleXmlPrefix(), "checkDir", ""));
 	}
 
 	@Override
