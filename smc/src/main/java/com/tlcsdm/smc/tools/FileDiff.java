@@ -51,6 +51,7 @@ public class FileDiff extends SmcSample {
 		webView.getEngine().loadContent(template);
 		notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
 		notificationBuilder.showInformation();
+		bindUserData();
 	});
 
 	private final Action download = new Action(I18nUtils.get("smc.tool.button.download"), actionEvent -> {
@@ -64,6 +65,7 @@ public class FileDiff extends SmcSample {
 		DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + "\\diff.html");
 		notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.download.success"));
 		notificationBuilder.showInformation();
+		bindUserData();
 	});
 
 	private final Collection<? extends Action> actions = List.of(generate, download);
@@ -143,6 +145,10 @@ public class FileDiff extends SmcSample {
 		webView = new WebView();
 		webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		GridPane.setVgrow(webView, Priority.ALWAYS);
+
+		userData.put("original", originalField);
+		userData.put("compare", compareField);
+		userData.put("output", outputField);
 
 		grid.add(toolBar, 0, 0, 3, 1);
 		grid.add(originalLabel, 0, 1);
