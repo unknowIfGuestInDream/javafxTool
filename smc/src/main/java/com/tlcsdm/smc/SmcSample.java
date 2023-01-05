@@ -1,6 +1,7 @@
 package com.tlcsdm.smc;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import com.tlcsdm.frame.SampleBase;
 
 import cn.hutool.core.util.StrUtil;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBoxBase;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -46,15 +47,21 @@ public abstract class SmcSample extends SampleBase {
 			String k = getSampleXmlPrefix() + "." + key;
 			String val = FxXmlUtil.get(k, "");
 			if (value instanceof FileChooser v) {
-				v.setInitialDirectory(new File(val));
+				if (!StrUtil.isEmpty(val)) {
+					v.setInitialDirectory(new File(val));
+				}
 			} else if (value instanceof DirectoryChooser v) {
-				v.setInitialDirectory(new File(val));
+				if (!StrUtil.isEmpty(val)) {
+					v.setInitialDirectory(new File(val));
+				}
 			} else if (value instanceof TextInputControl v) {
 				v.setText(val);
 			} else if (value instanceof CheckBox v) {
 				v.setSelected(Boolean.parseBoolean(val));
-			} else if (value instanceof ComboBoxBase v) {
-				v.setValue(val);
+			} else if (value instanceof DatePicker v) {
+				if (!StrUtil.isEmpty(val)) {
+					v.setValue(LocalDate.parse(val));
+				}
 			} else {
 				// do nothing
 			}
@@ -81,7 +88,7 @@ public abstract class SmcSample extends SampleBase {
 				FxXmlUtil.set(k, v.getText());
 			} else if (value instanceof CheckBox v) {
 				FxXmlUtil.set(k, v.isSelected());
-			} else if (value instanceof ComboBoxBase v) {
+			} else if (value instanceof DatePicker v) {
 				FxXmlUtil.set(k, v.getValue());
 			} else {
 				// do nothing

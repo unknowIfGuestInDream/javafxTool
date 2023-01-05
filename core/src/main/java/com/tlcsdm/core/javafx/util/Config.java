@@ -1,5 +1,8 @@
 package com.tlcsdm.core.javafx.util;
 
+import java.io.File;
+import java.util.Locale;
+
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -7,9 +10,6 @@ import org.apache.commons.configuration2.builder.fluent.PropertiesBuilderParamet
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.math.NumberUtils;
-
-import java.io.File;
-import java.util.Locale;
 
 /**
  * 存取框架配置
@@ -19,6 +19,7 @@ import java.util.Locale;
 public class Config {
 
 	public static final String CONFIG_FILE_NAME = "systemConfigure.properties";
+	public static final String USERDATA_FILE_NAME = "data.xml";
 
 	public static Locale defaultLocale = Locale.getDefault();// 设置系统语言
 
