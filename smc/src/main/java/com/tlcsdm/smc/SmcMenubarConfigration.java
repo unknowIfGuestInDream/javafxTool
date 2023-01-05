@@ -1,23 +1,6 @@
 package com.tlcsdm.smc;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionGroup;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.util.Config;
@@ -27,8 +10,6 @@ import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -38,6 +19,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.*;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
@@ -162,7 +156,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 		about.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/about.png"));
 		openLogDir.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/folder.png"));
 		openSysConfig.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/sysConfig.png"));
-		openUserData.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/sysConfig.png"));
+		openUserData.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/userData.png"));
 		release.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/release.png"));
 		// 语言设置
 		if (Config.defaultLocale.equals(Locale.ENGLISH)) {

@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
+ * 金额转换为中文大写金额
  *
  * @author: 唐 亮
  * @date: 2022/12/8 23:12
  */
-public class SpecGeneralTest extends SmcSample {
+public class MoneyToChinese extends SmcSample {
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
         ExceptionDialog exceptionDialog = new ExceptionDialog(new UnExpectedResultException("request called failed."));
