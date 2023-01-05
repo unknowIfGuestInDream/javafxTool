@@ -1,5 +1,17 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.tlcsdm.smc.util.DiffHandleUtils;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.thread.ThreadUtil;
@@ -9,18 +21,10 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
-import com.tlcsdm.smc.util.DiffHandleUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
+ * general spec 测试，生成差异文件。
+ * 
  * @author: 唐 亮
  * @date: 2022/8/24 20:18
  * @since: 1.0
@@ -153,18 +157,18 @@ public class GeneralTest {
 	 */
 	private void logHandler(String message, int level) {
 		switch (level) {
-			case 1:
-				Console.log(message);
-				break;
-			case 2:
-				Console.log("Warning: {}", message);
-				break;
-			case 3:
-				Console.error(message);
-				break;
-			case 0:
-			default:
-				break;
+		case 1:
+			Console.log(message);
+			break;
+		case 2:
+			Console.log("Warning: {}", message);
+			break;
+		case 3:
+			Console.error(message);
+			break;
+		case 0:
+		default:
+			break;
 		}
 
 	}

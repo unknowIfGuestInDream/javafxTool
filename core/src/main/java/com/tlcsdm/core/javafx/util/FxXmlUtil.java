@@ -29,7 +29,7 @@ public class FxXmlUtil {
 		}
 
 		Parameters params = new Parameters();
-		File propertiesFile = ConfigureUtil.getConfigureXmlFile("data.xml");
+		File propertiesFile = ConfigureUtil.getConfigureXmlFile(Config.USERDATA_FILE_NAME);
 		XMLBuilderParameters xmlBuilderParameters = params.xml().setFile(propertiesFile).setEncoding("UTF-8")
 				.setListDelimiterHandler(new DefaultListDelimiterHandler(',')).setThrowExceptionOnMissing(false);
 		ReloadingFileBasedConfigurationBuilder<XMLPropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(
