@@ -5,6 +5,7 @@ module com.tlcsdm.frame {
 	requires javafx.graphics;
 	requires javafx.base;
     requires com.tlcsdm.core;
+	requires hutool.core;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
