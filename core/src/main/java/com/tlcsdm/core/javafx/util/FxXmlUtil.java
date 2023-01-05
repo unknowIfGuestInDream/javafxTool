@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import org.apache.commons.configuration2.XMLPropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
@@ -61,7 +62,13 @@ public class FxXmlUtil {
 
 	public static String get(String key, String def) {
 		Object value = getConfig().getProperty(key);
-		return value == null ? def : value.toString();
+		if (value == null) {
+			return def;
+		}
+		if (value instanceof List v) {
+			return toString(v);
+		}
+		return value.toString();
 	}
 
 	public static String get(String key) {
@@ -123,5 +130,13 @@ public class FxXmlUtil {
 			String key = iter.next();
 			set(key, map.get(key));
 		}
+	}
+
+	private static String toString(List<Object> list) {
+		StringJoiner sj = new StringJoiner(", ");
+		for (Object object : list) {
+			sj.add(object.toString());
+		}
+		return sj.toString();
 	}
 }
