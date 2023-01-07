@@ -209,8 +209,8 @@ public class FileDiff extends SmcSample {
 	}
 
 	private void initActions() {
-		generate.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/generate.png")));
-		download.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/download.png")));
+		generate.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+		download.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/download.png")));
 		notificationBuilder.owner(FxApp.primaryStage);
 	}
 
