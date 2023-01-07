@@ -1,24 +1,11 @@
 package com.tlcsdm.smc.tools;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.LineHandler;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
+import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -26,13 +13,6 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.LineHandler;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.ExcelWriter;
-import cn.hutool.poi.excel.style.StyleUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -43,6 +23,16 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.*;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -237,7 +227,7 @@ public class CodeStyleLength120 extends SmcSample {
 		outPutChooser.getExtensionFilters().add(extFilter);
 		outPutChooser.setInitialFileName(resultFileName);
 
-		generate.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/generate.png")));
+		generate.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
 		notificationBuilder.owner(FxApp.primaryStage);
 	}
 

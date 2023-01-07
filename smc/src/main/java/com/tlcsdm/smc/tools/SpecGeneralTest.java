@@ -2,6 +2,7 @@ package com.tlcsdm.smc.tools;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.IntegerSpinner;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
@@ -116,7 +117,7 @@ public class SpecGeneralTest extends SmcSample {
     }
 
     private void initComponment() {
-        generate.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/generate.png")));
+        generate.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
 }

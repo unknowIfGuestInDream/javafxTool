@@ -1,18 +1,24 @@
 package com.tlcsdm.smc.tools;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.IntegerSpinner;
+import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.MoneyToChineseUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
@@ -29,12 +35,23 @@ import java.util.Map;
  */
 public class MoneyToChinese extends SmcSample {
 
-    private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
-        ExceptionDialog exceptionDialog = new ExceptionDialog(new UnExpectedResultException("request called failed."));
-        exceptionDialog.show();
+    private NumberTextField amountField;
+    private TextField chineseAmountField;
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
+
+    private final Action convert = new Action(I18nUtils.get("smc.tool.button.convert"), actionEvent -> {
+        try {
+            String chineseAmount = MoneyToChineseUtil.number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
+            chineseAmountField.setText(chineseAmount);
+            notificationBuilder.text(I18nUtils.get("smc.tool.moneyToChinese.button.convert.success"));
+            notificationBuilder.showInformation();
+        } catch (NumberFormatException e) {
+            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+            exceptionDialog.show();
+        }
     });
 
-    private final Collection<? extends Action> actions = List.of(generate);
+    private final Collection<? extends Action> actions = List.of(convert);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -46,43 +63,38 @@ public class MoneyToChinese extends SmcSample {
 
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        toolBar.setPrefWidth(Double.MAX_VALUE);
 
-        IntegerSpinner i = new IntegerSpinner(0, Integer.MAX_VALUE, 50, 1);
+        Label amountLabel = new Label(I18nUtils.get("smc.tool.moneyToChinese.label.amount") + ": ");
+        amountField = new NumberTextField();
 
-        grid.add(toolBar, 0, 0);
-        grid.add(i, 0, 1);
+        Label chineseAmountLabel = new Label(I18nUtils.get("smc.tool.moneyToChinese.label.chineseAmount") + ": ");
+        chineseAmountField = new TextField();
+        chineseAmountField.setEditable(false);
+
+        grid.add(toolBar, 0, 0, 2, 1);
+
+        grid.add(amountLabel, 0, 1);
+        grid.add(amountField, 1, 1);
+
+        grid.add(chineseAmountLabel, 0, 2);
+        grid.add(chineseAmountField, 1, 2);
+
         return grid;
     }
 
     @Override
     public Node getControlPanel() {
         String content = """
-                GerritAccount&XSRF_TOKEN{tokenDesc}
-                {userName}&{passwd}{girretUserDesc}
-                {ownerEmail}{ownerEmailDesc}
-                {limit}{limitDesc}
-                {ignoreGirretNumber}{ignoreGirretNumberDesc}
-                {startDate}: {startDateDesc}
-                {reserveJson}: {reserveJsonDesc}
-                {girretUrl}{girretUrlDesc}
+                {convertButton}:
+                {convertDesc}
+                {Required} {amountLabel}
                 """;
-        Map<String, String> map = new HashMap<>(32);
-        map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
-        map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
-        map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
-        map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
-        map.put("ownerEmail", I18nUtils.get("smc.tool.girretReview.label.ownerEmail"));
-        map.put("ownerEmailDesc", I18nUtils.get("smc.tool.girretReview.control.textarea3"));
-        map.put("limit", I18nUtils.get("smc.tool.girretReview.label.limit"));
-        map.put("limitDesc", I18nUtils.get("smc.tool.girretReview.control.textarea4"));
-        map.put("ignoreGirretNumber", I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber"));
-        map.put("ignoreGirretNumberDesc", I18nUtils.get("smc.tool.girretReview.control.textarea5"));
-        map.put("startDate", I18nUtils.get("smc.tool.girretReview.label.startDate"));
-        map.put("startDateDesc", I18nUtils.get("smc.tool.girretReview.control.textarea6"));
-        map.put("reserveJson", I18nUtils.get("smc.tool.girretReview.label.reserveJson"));
-        map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
-        map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
-        map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
+        Map<String, String> map = new HashMap<>();
+        map.put("convertButton", I18nUtils.get("smc.tool.button.convert"));
+        map.put("convertDesc", I18nUtils.get("smc.tool.moneyToChinese.control.textarea"));
+        map.put("Required", I18nUtils.get("smc.tool.control.required"));
+        map.put("amountLabel", I18nUtils.get("smc.tool.moneyToChinese.label.amount"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -92,12 +104,12 @@ public class MoneyToChinese extends SmcSample {
 
     @Override
     public String getSampleId() {
-        return "specGeneralTest";
+        return "moneyToChinese";
     }
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest");
+        return I18nUtils.get("smc.sampleName.moneyToChinese");
     }
 
     @Override
@@ -107,16 +119,16 @@ public class MoneyToChinese extends SmcSample {
 
     @Override
     public String getOrderKey() {
-        return "SpecGeneralTest";
+        return "MoneyToChinese";
     }
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+        return I18nUtils.get("smc.sampleName.moneyToChinese.description");
     }
 
     private void initComponment() {
-        generate.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/generate.png")));
+        convert.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/convert.png")));
     }
 
 }

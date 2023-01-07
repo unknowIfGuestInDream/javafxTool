@@ -1,6 +1,7 @@
 package com.tlcsdm.smc;
 
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.util.Config;
@@ -134,13 +135,13 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 	CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
 	private final Collection<? extends Action> actions = List.of(
-			new ActionGroup(I18nUtils.get("smc.menubar.file"), getImageView("/com/tlcsdm/smc/static/menubar/file.png"),
+			new ActionGroup(I18nUtils.get("smc.menubar.file"), getImageView("/com/tlcsdm/core/static/menubar/file.png"),
 					restart, exit),
 			new ActionGroup(I18nUtils.get("smc.menubar.setting"),
-					getImageView("/com/tlcsdm/smc/static/menubar/setting.png"), systemSetting,
+					getImageView("/com/tlcsdm/core/static/menubar/setting.png"), systemSetting,
 					new ActionGroup(I18nUtils.get("smc.menubar.setting.language"),
-							getImageView("/com/tlcsdm/smc/static/menubar/language.png"), chinese, english, japanese)),
-			new ActionGroup(I18nUtils.get("smc.menubar.help"), getImageView("/com/tlcsdm/smc/static/menubar/help.png"),
+							getImageView("/com/tlcsdm/core/static/menubar/language.png"), chinese, english, japanese)),
+			new ActionGroup(I18nUtils.get("smc.menubar.help"), getImageView("/com/tlcsdm/core/static/menubar/help.png"),
 					openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
 					ACTION_SEPARATOR, release, about));
 
@@ -148,16 +149,16 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 	 * 初始化action
 	 */
 	private void initActions() {
-		restart.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/restart.png"));
-		exit.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/exit.png"));
-		systemSetting.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/system.png"));
-		contactSupport.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/support.png"));
-		submitFeedback.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/feedback.png"));
-		about.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/about.png"));
-		openLogDir.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/folder.png"));
-		openSysConfig.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/sysConfig.png"));
-		openUserData.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/userData.png"));
-		release.setGraphic(getImageView("/com/tlcsdm/smc/static/menubar/release.png"));
+		restart.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/restart.png"));
+		exit.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/exit.png"));
+		systemSetting.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/system.png"));
+		contactSupport.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/support.png"));
+		submitFeedback.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/feedback.png"));
+		about.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/about.png"));
+		openLogDir.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/folder.png"));
+		openSysConfig.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/sysConfig.png"));
+		openUserData.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/userData.png"));
+		release.setGraphic(getImageView("/com/tlcsdm/core/static/menubar/release.png"));
 		// 语言设置
 		if (Config.defaultLocale.equals(Locale.ENGLISH)) {
 			english.setSelected(true);
@@ -203,7 +204,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 	}
 
 	private ImageView getImageView(String url) {
-		return new ImageView(new Image(Objects.requireNonNull(getClass().getResource(url)).toExternalForm()));
+		return new ImageView(new Image(Objects.requireNonNull(FxApp.class.getResource(url)).toExternalForm()));
 	}
 
 	private void openWeb(String url) {
