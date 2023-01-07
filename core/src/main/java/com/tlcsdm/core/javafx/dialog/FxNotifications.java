@@ -1,5 +1,6 @@
 package com.tlcsdm.core.javafx.dialog;
 
+import com.tlcsdm.core.javafx.FxApp;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -16,7 +17,7 @@ public class FxNotifications {
 
     public static Notifications notifications(Duration duration, Pos position) {
         return Notifications.create().hideAfter(duration)
-                .position(position);
+                .position(position).owner(FxApp.primaryStage);
     }
 
 }
