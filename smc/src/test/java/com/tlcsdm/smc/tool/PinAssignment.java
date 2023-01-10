@@ -1,19 +1,18 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
+import cn.hutool.poi.excel.cell.CellLocation;
+import cn.hutool.poi.excel.cell.CellUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
-import cn.hutool.poi.excel.cell.CellUtil;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * pin数据整理
@@ -21,7 +20,8 @@ import cn.hutool.poi.excel.cell.CellUtil;
 public class PinAssignment {
 
 	// excel的父级目录路径
-	private final String parentDirectoryPath = "C:\\workspace\\test";
+	//private final String parentDirectoryPath = "C:\\workspace\\test";
+	private final String parentDirectoryPath = "E:\\testPlace\\spec";
 	// excel文件名称
 	private final String excelName = "E02_01_List_of_Pin_Assignment.xlsx";
 
@@ -78,7 +78,7 @@ public class PinAssignment {
 		}
 		reader.close();
 
-		BigExcelWriter excelWriter = ExcelUtil.getBigWriter(file, "result");
+		ExcelWriter excelWriter = ExcelUtil.getWriter(file, "result");
 
 		for (int i = 0; i < putList.size(); i++) {
 			List<String> l = putList.get(i);
@@ -87,15 +87,13 @@ public class PinAssignment {
 					List<String> p = pinList.get(i);
 					for (int k = 0; k < p.size(); k++) {
 						if (StrUtil.isNotEmpty(p.get(k))) {
-							System.out.println(p.get(k));
-							excelWriter.writeCellValue(k + 1, 2, p.get(k));
+							excelWriter.getCell("B3").setCellValue(p.get(k));
 						}
 					}
 				}
 			}
 		}
-		File result = FileUtil.newFile(parentDirectoryPath + "\\pinAssignment\\result.xlsx");
-		excelWriter.flush(result);
+		excelWriter.flush();
 		excelWriter.close();
 
 	}
