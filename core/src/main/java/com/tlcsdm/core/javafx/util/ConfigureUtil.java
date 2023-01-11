@@ -55,6 +55,7 @@ public class ConfigureUtil {
 			list.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			list.add("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">");
 			list.add("<properties>");
+			list.add("  <comment>smc desc</comment>");
 			list.add("</properties>");
 			FileUtil.appendUtf8Lines(list, file);
 		}
