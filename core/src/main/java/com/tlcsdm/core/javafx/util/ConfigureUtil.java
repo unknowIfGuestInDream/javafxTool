@@ -1,11 +1,11 @@
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.core.io.FileUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.hutool.core.io.FileUtil;
 
 /**
  * @author: 唐 亮
@@ -55,7 +55,7 @@ public class ConfigureUtil {
 			list.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			list.add("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">");
 			list.add("<properties>");
-			list.add("  <comment>smc desc</comment>");
+			list.add("  <comment>this file was auto-generated. Do not modify it manually</comment>");
 			list.add("</properties>");
 			FileUtil.appendUtf8Lines(list, file);
 		}
