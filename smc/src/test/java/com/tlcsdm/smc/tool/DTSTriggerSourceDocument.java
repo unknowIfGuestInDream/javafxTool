@@ -139,9 +139,9 @@ public class DTSTriggerSourceDocument {
 					List<Map<Integer, String>> list = conditionList.get(k);
 					for (int l = 0; l < list.size(); l++) {
 						if (l == i) {
-							excelWriter.writeCellValue(x, (line + j), list.get(l).get(group));
+							excelWriter.writeCellValue(x, (line + j - 1), list.get(l).get(group));
 						} else {
-							excelWriter.writeCellValue(x, (line + j), "-");
+							excelWriter.writeCellValue(x, (line + j - 1), "-");
 						}
 						x++;
 					}
