@@ -45,7 +45,7 @@ public class DTSU2CTriggerSourceDocument {
 	private final String labelEn = "Trigger resource";
 	private final String labelJa = "起動要因";
 	private final String condition = "Always enable";
-	private final String conditionCol = "D";
+	private final String conditionCol = "CL";
 	// 数据开始写入行
 	private final int beginWriteRowNum = 3;
 	private int startConditionX;
@@ -60,10 +60,10 @@ public class DTSU2CTriggerSourceDocument {
 	@BeforeEach
 	public void init() {
 		initGroupLine("L", "M", "N", "O", "P"); // U2C8-B
-		initGroupLine("V", "W", "X", "Y", "Z"); // U2C4-B
-		initGroupLine("AA", "AB", "AC", "AD", "AE"); // U2C2-B
 		initGroupLine("AU", "AV", "AW", "AX", "AY"); // U2C8-D
+		initGroupLine("V", "W", "X", "Y", "Z"); // U2C4-B
 		initGroupLine("BE", "BF", "BG", "BH", "BI"); // U2C4-D
+		initGroupLine("AA", "AB", "AC", "AD", "AE"); // U2C2-B
 		initGroupLine("BJ", "BK", "BL", "BM", "BN"); // U2C2-D
 		CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
 		startConditionX = cellLocation.getX();
@@ -109,35 +109,35 @@ public class DTSU2CTriggerSourceDocument {
 
 				if (j == 0) {
 					excelWriter.writeCellValue("B" + line, number + String.format("%03d", i));
-//					excelWriter.writeCellValue("C" + line, control);
-//					excelWriter.writeCellValue("D" + line, rowNum);
-//					excelWriter.writeCellValue("E" + line, labelEn);
-//					excelWriter.writeCellValue("F" + line, labelJa);
-//					excelWriter.writeCellValue("G" + line, condition);
-//						excelWriter.writeCellValue("S" + line, "Group " + group + " : " + map.get(group));
-//					excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
-//					excelWriter.writeCellValue("T" + line, condition);
+					excelWriter.writeCellValue("C" + line, control);
+					excelWriter.writeCellValue("D" + line, rowNum);
+					excelWriter.writeCellValue("E" + line, labelEn);
+					excelWriter.writeCellValue("F" + line, labelJa);
+					excelWriter.writeCellValue("G" + line, condition);
+					excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
+					excelWriter.writeCellValue("T" + line, condition);
 				}
-				excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
-//				excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
-//				excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
-//				excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
-//				excelWriter.writeCellValue("BK" + (line + j), "Config.c");
-//				excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
-//				excelWriter.writeCellValue("BM" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
-//				excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
-//				excelWriter.writeCellValue("BO" + (line + j), "Config.c");
-//				excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
-//				excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
+//				excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
+				excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
+				excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
+				excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
+				excelWriter.writeCellValue("BK" + (line + j), "Config.c");
+				excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
+				excelWriter.writeCellValue("BM" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
+				excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
+				excelWriter.writeCellValue("BO" + (line + j), "Config.c");
+				excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
+				excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
 
 				int x = startConditionX;
 				for (int k = 0; k < conditionList.size(); k++) {
 					List<Map<Integer, String>> list = conditionList.get(k);
 					for (int l = 0; l < list.size(); l++) {
+
 						if (l == i) {
-							excelWriter.writeCellValue(x, (line + j), list.get(l).get(group));
+							excelWriter.writeCellValue(x, (line + j - 1), list.get(l).get(group));
 						} else {
-							excelWriter.writeCellValue(x, (line + j), "-");
+							excelWriter.writeCellValue(x, (line + j - 1), "-");
 						}
 						x++;
 					}

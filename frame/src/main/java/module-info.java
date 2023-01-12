@@ -6,6 +6,7 @@ module com.tlcsdm.frame {
 	requires javafx.base;
     requires com.tlcsdm.core;
 	requires hutool.core;
+	requires hutool.crypto;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
