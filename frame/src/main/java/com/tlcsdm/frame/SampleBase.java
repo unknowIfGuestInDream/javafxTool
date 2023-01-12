@@ -37,6 +37,8 @@ import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.frame.util.I18nUtils;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.DES;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -64,6 +66,7 @@ import javafx.stage.Stage;
 public abstract class SampleBase extends Application implements Sample {
 
 	protected Map<String, Object> userData = new LinkedHashMap<>();
+	protected String aesSeed = "3f4eefd3525675154a5e3a0183d8087b";
 
 	/**
 	 * {@inheritDoc}
@@ -153,7 +156,10 @@ public abstract class SampleBase extends Application implements Sample {
 					v.setInitialDirectory(new File(val));
 				}
 			} else if (value instanceof PasswordField v) {
-				v.setText(val);
+				if (!StrUtil.isEmpty(val)) {
+					DES des = SecureUtil.des(aesSeed.getBytes());
+					v.setText(des.decryptStr(val));
+				}
 			} else if (value instanceof TextInputControl v) {
 				v.setText(val);
 			} else if (value instanceof CheckBox v) {
@@ -162,6 +168,8 @@ public abstract class SampleBase extends Application implements Sample {
 				if (!StrUtil.isEmpty(val)) {
 					v.setValue(LocalDate.parse(val));
 				}
+			} else if (value instanceof String v) {
+				v = val;
 			} else {
 				// do nothing
 			}
@@ -185,13 +193,16 @@ public abstract class SampleBase extends Application implements Sample {
 			} else if (value instanceof DirectoryChooser v) {
 				FxXmlUtil.set(k, v.getInitialDirectory());
 			} else if (value instanceof PasswordField v) {
-				FxXmlUtil.set(k, v.getText());
+				DES des = SecureUtil.des(aesSeed.getBytes());
+				FxXmlUtil.set(k, des.encryptHex(v.getText()));
 			} else if (value instanceof TextInputControl v) {
 				FxXmlUtil.set(k, v.getText());
 			} else if (value instanceof CheckBox v) {
 				FxXmlUtil.set(k, v.isSelected());
 			} else if (value instanceof DatePicker v) {
 				FxXmlUtil.set(k, v.getValue());
+			} else if (value instanceof String v) {
+				FxXmlUtil.set(k, v);
 			} else {
 				// do nothing
 			}
