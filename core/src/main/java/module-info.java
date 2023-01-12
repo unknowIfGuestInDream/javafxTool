@@ -10,6 +10,7 @@ module com.tlcsdm.core {
 	requires hutool.log;
 	requires hutool.core;
 	requires commons.beanutils;
+	requires hutool.crypto;
 
 	opens com.tlcsdm.core.javafx.controller to javafx.fxml;
 	opens com.tlcsdm.core.javafx.view to javafx.fxml;
