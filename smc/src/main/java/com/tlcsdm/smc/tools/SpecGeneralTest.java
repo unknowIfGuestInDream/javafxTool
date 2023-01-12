@@ -4,19 +4,25 @@ import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.IntegerSpinner;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +35,10 @@ import java.util.Map;
  * @date: 2022/12/8 23:12
  */
 public class SpecGeneralTest extends SmcSample {
+
+    private TextField originalField;
+    private FileChooser originalFileChooser;
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
         ExceptionDialog exceptionDialog = new ExceptionDialog(new UnExpectedResultException("request called failed."));
@@ -47,11 +57,28 @@ public class SpecGeneralTest extends SmcSample {
 
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        toolBar.setPrefWidth(Double.MAX_VALUE);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-        IntegerSpinner i = new IntegerSpinner(0, Integer.MAX_VALUE, 50, 1);
+        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+        originalField = new TextField();
+        originalField.setMaxWidth(Double.MAX_VALUE);
+        originalFileChooser = new FileChooser();
+        originalFileChooser.getExtensionFilters().add(extFilter);
+        Button originalButton = new Button(I18nUtils.get("smc.tool.button.choose"));
+        originalField.setEditable(false);
+        originalButton.setOnAction(arg0 -> {
+            File file = originalFileChooser.showOpenDialog(stage);
+            if (file != null) {
+                originalField.setText(file.getPath());
+                originalFileChooser.setInitialDirectory(file.getParentFile());
+            }
+        });
 
-        grid.add(toolBar, 0, 0);
-        grid.add(i, 0, 1);
+        grid.add(toolBar, 0, 0, 3, 1);
+        grid.add(originalLabel, 0, 1);
+        grid.add(originalButton, 1, 1);
+        grid.add(originalField, 2, 1);
         return grid;
     }
 
