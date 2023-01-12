@@ -44,6 +44,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SplitPane;
@@ -151,6 +152,8 @@ public abstract class SampleBase extends Application implements Sample {
 				if (!StrUtil.isEmpty(val)) {
 					v.setInitialDirectory(new File(val));
 				}
+			} else if (value instanceof PasswordField v) {
+				v.setText(val);
 			} else if (value instanceof TextInputControl v) {
 				v.setText(val);
 			} else if (value instanceof CheckBox v) {
@@ -181,6 +184,8 @@ public abstract class SampleBase extends Application implements Sample {
 				FxXmlUtil.set(k, v.getInitialDirectory());
 			} else if (value instanceof DirectoryChooser v) {
 				FxXmlUtil.set(k, v.getInitialDirectory());
+			} else if (value instanceof PasswordField v) {
+				FxXmlUtil.set(k, v.getText());
 			} else if (value instanceof TextInputControl v) {
 				FxXmlUtil.set(k, v.getText());
 			} else if (value instanceof CheckBox v) {
