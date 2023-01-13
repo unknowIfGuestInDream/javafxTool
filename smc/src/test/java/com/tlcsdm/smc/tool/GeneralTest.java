@@ -41,7 +41,7 @@ public class GeneralTest {
 	// excel的父级目录路径
 	private final String parentDirectoryPath = "C:\\workspace\\test";
 	// excel文件名称
-	private final String excelName = "TestSpec_General_RH850F1KH-D8.xlsx";
+	private final String excelName = "TestSpec_General_RH850F1KM.xlsx";
 	// excel中待读取内容的左上角Cell
 	private final String startCell = "C19";
 	// excel中待读取内容的右下角Cell列名, endCell = endCellColumn + 计算获取的最后一行行号 - 2
@@ -49,7 +49,7 @@ public class GeneralTest {
 	// excel中Generate Files值对应的Cell
 	private final String generateFileCell = "C15";
 	// 待比对文件的父级路径, 如果为空，则默认为parentDirectoryPath值
-	private final String generateFilesParentPath = "C:\\runtime-smc.rh850.product\\src\\smc_gen\\general";
+	private final String generateFilesParentPath = "C:\\Users\\os_tangliang\\runtime-smc.rh850.product\\src\\smc_gen\\general";
 	// 初始化清理resultPath路径
 	private final boolean initClean = true;
 
