@@ -14,7 +14,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 /**
  * 存取框架配置
  *
- * @author 唐 亮
+ * @author unknowIfGuestInDream
  */
 public class Config {
 

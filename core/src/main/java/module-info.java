@@ -17,6 +17,7 @@ module com.tlcsdm.core {
 
 	exports com.tlcsdm.core.javafx;
 	exports com.tlcsdm.core.javafx.control;
+	exports com.tlcsdm.core.javafx.controlsfx;
 	exports com.tlcsdm.core.javafx.dialog;
 	exports com.tlcsdm.core.javafx.helper;
 	exports com.tlcsdm.core.javafx.util;
