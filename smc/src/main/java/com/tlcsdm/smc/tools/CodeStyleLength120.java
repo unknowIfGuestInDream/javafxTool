@@ -1,18 +1,39 @@
 package com.tlcsdm.smc.tools;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.LineHandler;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -23,16 +44,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.*;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 检测指定路径下文件内容长度是否超过120
@@ -72,7 +83,7 @@ public class CodeStyleLength120 extends SmcSample {
 	private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 	FileChooser outPutChooser = new FileChooser();
 
-	private final Action generate = new Action(I18nUtils.get("smc.tool.button.generate"), actionEvent -> {
+	private final Action generate = FxAction.generate(actionEvent -> {
 		ignoreFilesList = StrUtil.splitTrim(ignoreFileField.getText(), ",");
 		fileTypeList = StrUtil.splitTrim(checkFileTypeField.getText(), ",");
 		if (generateFilesParentPath == null) {
@@ -117,7 +128,7 @@ public class CodeStyleLength120 extends SmcSample {
 		checkDirField = new TextField();
 		checkDirField.setMaxWidth(Double.MAX_VALUE);
 		DirectoryChooser checkDirChooser = new DirectoryChooser();
-		Button checkDirButton = new Button(I18nUtils.get("smc.tool.button.choose"));
+		Button checkDirButton = FxButton.choose();
 		checkDirField.setEditable(false);
 		checkDirButton.setOnAction(arg0 -> {
 			File file = checkDirChooser.showDialog(stage);
@@ -180,7 +191,7 @@ public class CodeStyleLength120 extends SmcSample {
 				{ignoreFileLabel} {emptyDesc} {promptTextList}
 				""";
 		Map<String, String> map = new HashMap<>();
-		map.put("generateButton", I18nUtils.get("smc.tool.button.generate"));
+		map.put("generateButton", generate.getText());
 		map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));
 		map.put("Required", I18nUtils.get("smc.tool.control.required"));
 		map.put("checkDirLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkDir"));
@@ -226,9 +237,6 @@ public class CodeStyleLength120 extends SmcSample {
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 		outPutChooser.getExtensionFilters().add(extFilter);
 		outPutChooser.setInitialFileName(resultFileName);
-
-		generate.setGraphic(LayoutHelper.iconView(FxApp.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
-		notificationBuilder.owner(FxApp.primaryStage);
 	}
 
 	/**

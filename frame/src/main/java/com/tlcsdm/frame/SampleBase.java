@@ -144,6 +144,9 @@ public abstract class SampleBase extends Application implements Sample {
 		if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
 			return;
 		}
+		if (!getSampleVersion().equals(FxXmlUtil.get(getSampleXmlPrefix(), "version", ""))) {
+			updateForVersionUpgrade();
+		}
 		userData.forEach((key, value) -> {
 			String k = getSampleXmlPrefix() + "." + key;
 			String val = FxXmlUtil.get(k, "");
@@ -207,6 +210,13 @@ public abstract class SampleBase extends Application implements Sample {
 				// do nothing
 			}
 		});
+	}
+
+	/**
+	 * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
+	 */
+	protected void updateForVersionUpgrade() {
+		// do nothing
 	}
 
 	protected String getSampleXmlPrefix() {
