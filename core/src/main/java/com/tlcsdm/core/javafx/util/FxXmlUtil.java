@@ -16,7 +16,7 @@ import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 /**
- * @author: 唐 亮
+ * @author: unknowIfGuestInDream
  * @date: 2022/12/11 19:03
  */
 public class FxXmlUtil {

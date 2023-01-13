@@ -13,7 +13,7 @@ import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.DES;
 
 /**
- * @author: 唐 亮
+ * @author: unknowIfGuestInDream
  * @date: 2023/1/11 19:57
  */
 public class CryptoTest {

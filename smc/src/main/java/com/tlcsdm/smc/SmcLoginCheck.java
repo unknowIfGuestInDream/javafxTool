@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * @author: 唐 亮
+ * @author: unknowIfGuestInDream
  * @date: 2022/10/22 9:16
  */
 public class SmcLoginCheck implements LoginCheck {
