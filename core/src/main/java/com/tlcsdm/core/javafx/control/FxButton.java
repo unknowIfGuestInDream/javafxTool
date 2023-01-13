@@ -45,4 +45,15 @@ public class FxButton {
 		return button;
 	}
 
+	public static Button copy() {
+		Button button = new Button(I18nUtils.get("core.button.copy"));
+		return button;
+	}
+
+	public static Button copyWithGrapgic() {
+		Button button = new Button(I18nUtils.get("core.button.copy"),
+				LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/copy.png")));
+		return button;
+	}
+
 }
