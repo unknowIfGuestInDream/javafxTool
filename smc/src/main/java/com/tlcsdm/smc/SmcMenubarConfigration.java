@@ -1,6 +1,23 @@
 package com.tlcsdm.smc;
 
-import cn.hutool.core.util.StrUtil;
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
@@ -11,6 +28,8 @@ import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -20,19 +39,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionGroup;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.*;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
@@ -80,12 +86,10 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.initOwner(stage);
 
-		if (stage.getIcons().size() > 0) {
-			ImageView imageView = new ImageView(stage.getIcons().get(0));
-			imageView.setFitHeight(80);
-			imageView.setFitWidth(80);
-			alert.setGraphic(imageView);
-		}
+		ImageView imageView = new ImageView(FxApp.appIcon);
+		imageView.setFitHeight(80);
+		imageView.setFitWidth(80);
+		alert.setGraphic(imageView);
 
 		ButtonType closeButton = new ButtonType(I18nUtils.get("smc.menubar.help.about.button.close"),
 				ButtonData.CANCEL_CLOSE);
