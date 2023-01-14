@@ -1,9 +1,6 @@
 package com.tlcsdm.core.javafx.helper;
 
-import java.net.URL;
-
 import com.tlcsdm.core.exception.ResourceNotFoundException;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.net.URL;
 
 /**
  * @author: unknowIfGuestInDream
@@ -120,6 +119,13 @@ public class LayoutHelper {
 		ImageView imageView = iconView(icon);
 		imageView.setFitHeight(size);
 		imageView.setFitWidth(size);
+		return imageView;
+	}
+
+	public static ImageView imageView(String path, double width, double height) {
+		ImageView imageView = new ImageView(ImageHelper.image(path));
+		imageView.setFitWidth(width);
+		imageView.setFitHeight(height);
 		return imageView;
 	}
 
