@@ -1,13 +1,12 @@
 package com.tlcsdm.core.javafx.dialog;
 
-import java.util.ResourceBundle;
-
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controller.SystemSettingController;
 import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.I18nUtils;
-
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.control.ButtonType;
+
+import java.util.ResourceBundle;
 
 /**
  * @author: unknowIfGuestInDream

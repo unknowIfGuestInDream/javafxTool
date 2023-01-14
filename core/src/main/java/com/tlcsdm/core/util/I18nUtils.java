@@ -1,4 +1,6 @@
-package com.tlcsdm.core.javafx.util;
+package com.tlcsdm.core.util;
+
+import com.tlcsdm.core.javafx.util.Config;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;

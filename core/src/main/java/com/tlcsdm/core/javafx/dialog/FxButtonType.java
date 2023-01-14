@@ -1,7 +1,6 @@
 package com.tlcsdm.core.javafx.dialog;
 
-import com.tlcsdm.core.javafx.util.I18nUtils;
-
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 
