@@ -1,25 +1,22 @@
 package com.tlcsdm.smc.tools;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import com.tlcsdm.core.exception.UnExpectedResultException;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
+import cn.hutool.poi.excel.cell.CellUtil;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -30,6 +27,13 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
@@ -39,169 +43,282 @@ import javafx.stage.Stage;
  */
 public class SpecGeneralTest extends SmcSample {
 
-	private TextField excelField;
-	private FileChooser excelFileChooser;
-	private TextField generalField;
-	private DirectoryChooser generalChooser;
-	private TextField ignoreSheetField;
-	private TextField markSheetField;
-	private TextField startCellField;
-	private TextField generalFileCellField;
-	private TextField endCellColumnField;
-	private final Notifications notificationBuilder = FxNotifications.defaultNotify();
+    private TextField excelField;
+    private FileChooser excelFileChooser;
+    private TextField generalField;
+    private DirectoryChooser generalChooser;
+    private TextField ignoreSheetField;
+    private TextField markSheetField;
+    private TextField startCellField;
+    private TextField generalFileCellField;
+    private TextField endCellColumnField;
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
-	private final Action generate = FxAction.generate(actionEvent -> {
-		ExceptionDialog exceptionDialog = new ExceptionDialog(new UnExpectedResultException("request called failed."));
-		exceptionDialog.show();
-	});
+    /**
+     * 结果文件结构:
+     * <blockquote><pre>
+     *  excelField同级目录下
+     *    excelField同名文件夹
+     *      html差分文件
+     *      files文件夹
+     *        ud读取后生成的用于差分的文件
+     *        ud读取后生成的excel
+     * </pre></blockquote>
+     */
+    private final Action generate = FxAction.generate(actionEvent -> {
+        //输入值获取
+        List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
+        List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
+        String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
+        String excelName = FileUtil.getName(excelField.getText());
+        String startCell = startCellField.getText();
+        String endCellColumn = endCellColumnField.getText();
+        String generateFileCell = generalFileCellField.getText();
+        String generateFilesParentPath = generalField.getText();
+        //需要数据抽取
+        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
+        List<String> sheetNames = reader.getSheetNames().stream()
+                .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                        || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+                .collect(Collectors.toList());
+        reader.close();
+        String resultPath = parentDirectoryPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
+        String filesPath = resultPath + "\\files";
+        //清空resultPath下文件
+        FileUtil.clean(resultPath);
+        //处理数据
+        File udFile = FileUtil.file(parentDirectoryPath, excelName);
+        Map<String, String> generateFileMap = new HashMap<>();
+        for (String sheetName : sheetNames) {
+            BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
+            StaticLog.info("========================= Begin Reading {} =========================", sheetName);
+            ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
+            String endCell = getEndCell(endCellColumn, r);
+            StaticLog.info("endCell: {}", endCell);
+            CellLocation start = ExcelUtil.toLocation(startCell);
+            CellLocation end = ExcelUtil.toLocation(endCell);
+            int startX = start.getX();
+            int startY = start.getY();
+            int endX = end.getX();
+            int endY = end.getY();
+            String generateFileName = r.getCell(generateFileCell).getStringCellValue();
+            generateFileMap.put(sheetName, generateFileName);
+            excelWriter.renameSheet(0, sheetName);
+            List<List<String>> list = new ArrayList<>(endY - startY + 1);
+            for (int j = startY; j <= endY; j++) {
+                List<String> l = new ArrayList<>(endX - startX + 1);
+                boolean isDefine = false;
+                //第一列发现是define 或者 ifndef 即在后面添加空格
+                String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
+                if ("#define".equals(StrUtil.trim(firstValue)) || "#ifndef".equals(StrUtil.trim(firstValue))) {
+                    isDefine = true;
+                }
+                for (int j2 = startX; j2 <= endX; j2++) {
+                    String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
+                    if (isDefine && j2 < endX) {
+                        cellValue = StrUtil.trimEnd(cellValue) + " ";
+                    }
+                    l.add(cellValue);
+                }
+                list.add(l);
+            }
+            //将从UD中的内容生成到指定路径, 用来后续进行差分
+            excelWriter.write(list, false);
+            File file = FileUtil.file(filesPath, sheetName + ".xlsx");
+            excelWriter.flush(file);
+            excelWriter.close();
+            StaticLog.info("========================= End Reading {} =========================", sheetName);
+        }
+        //将之前读取的内容与generalField文件夹下的文件进行差分
+        for (String sheetName : sheetNames) {
+            ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
+            String generateFileName = generateFileMap.get(sheetName);
+            FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
+                    FileUtil.file(filesPath, generateFileName));
+            //todo 待验证是否要在此处关闭流
+            r.close();
+            StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
+            File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
+            if (FileUtil.exist(generateFile)) {
+                List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
+                        generateFilesParentPath + "\\" + generateFileName);
+                DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
+            }
+            //此处睡眠, 防止出现读取上的错误
+            ThreadUtil.safeSleep(500);
+            StaticLog.info("========================= End Comparing {} =========================", generateFileName);
+        }
+        notificationBuilder.text("General successfully.");
+        notificationBuilder.showInformation();
+        bindUserData();
+    });
 
-	private final Collection<? extends Action> actions = List.of(generate);
+    private final Collection<? extends Action> actions = List.of(generate);
 
-	@Override
-	public Node getPanel(Stage stage) {
-		GridPane grid = new GridPane();
-		grid.setVgap(12);
-		grid.setHgap(12);
-		grid.setPadding(new Insets(24));
+    @Override
+    public Node getPanel(Stage stage) {
+        GridPane grid = new GridPane();
+        grid.setVgap(12);
+        grid.setHgap(12);
+        grid.setPadding(new Insets(24));
 
-		ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
-		toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		toolBar.setPrefWidth(Double.MAX_VALUE);
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
+        toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        toolBar.setPrefWidth(Double.MAX_VALUE);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-		Label excelLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
-		excelField = new TextField();
-		excelField.setMaxWidth(Double.MAX_VALUE);
-		excelFileChooser = new FileChooser();
-		excelFileChooser.getExtensionFilters().add(extFilter);
+        Label excelLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+        excelField = new TextField();
+        excelField.setMaxWidth(Double.MAX_VALUE);
+        excelFileChooser = new FileChooser();
+        excelFileChooser.getExtensionFilters().add(extFilter);
 
-		Button excelButton = FxButton.choose();
-		excelField.setEditable(false);
-		excelButton.setOnAction(arg0 -> {
-			File file = excelFileChooser.showOpenDialog(stage);
-			if (file != null) {
-				excelField.setText(file.getPath());
-				excelFileChooser.setInitialDirectory(file.getParentFile());
-			}
-		});
+        Button excelButton = FxButton.choose();
+        excelField.setEditable(false);
+        excelButton.setOnAction(arg0 -> {
+            File file = excelFileChooser.showOpenDialog(stage);
+            if (file != null) {
+                excelField.setText(file.getPath());
+                excelFileChooser.setInitialDirectory(file.getParentFile());
+            }
+        });
 
-		Label generalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
-		generalField = new TextField();
-		generalField.setMaxWidth(Double.MAX_VALUE);
-		generalChooser = new DirectoryChooser();
-		Button generalButton = FxButton.choose();
-		generalField.setEditable(false);
-		generalButton.setOnAction(arg0 -> {
-			File file = generalChooser.showDialog(stage);
-			if (file != null) {
-				generalField.setText(file.getPath());
-				generalChooser.setInitialDirectory(file);
-			}
-		});
+        Label generalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        generalField = new TextField();
+        generalField.setMaxWidth(Double.MAX_VALUE);
+        generalChooser = new DirectoryChooser();
+        Button generalButton = FxButton.choose();
+        generalField.setEditable(false);
+        generalButton.setOnAction(arg0 -> {
+            File file = generalChooser.showDialog(stage);
+            if (file != null) {
+                generalField.setText(file.getPath());
+                generalChooser.setInitialDirectory(file);
+            }
+        });
 
-		Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
-		ignoreSheetField = new TextField();
-		ignoreSheetField.setPrefWidth(Double.MAX_VALUE);
-		ignoreSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
+        ignoreSheetField = new TextField();
+        ignoreSheetField.setPrefWidth(Double.MAX_VALUE);
+        ignoreSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-		Label markSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
-		markSheetField = new TextField();
-		markSheetField.setPrefWidth(Double.MAX_VALUE);
-		markSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Label markSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
+        markSheetField = new TextField();
+        markSheetField.setPrefWidth(Double.MAX_VALUE);
+        markSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-		Label startCellLabel = new Label("startCell: ");
-		startCellField = new TextField();
+        Label startCellLabel = new Label("startCell: ");
+        startCellField = new TextField();
 
-		Label endCellColumnLabel = new Label("endCellColumn: ");
-		endCellColumnField = new TextField();
+        Label endCellColumnLabel = new Label("endCellColumn: ");
+        endCellColumnField = new TextField();
 
-		Label generalFileCellLabel = new Label("generalFileCell: ");
-		generalFileCellField = new TextField();
+        Label generalFileCellLabel = new Label("generalFileCell: ");
+        generalFileCellField = new TextField();
 
-		ignoreSheetField.setText("Overview, Summary, Sample-CT");
-		startCellField.setText("C19");
-		endCellColumnField.setText("F");
-		generalFileCellField.setText("C15");
+        ignoreSheetField.setText("Overview, Summary, Sample-CT");
+        startCellField.setText("C19");
+        endCellColumnField.setText("F");
+        generalFileCellField.setText("C15");
 
-		grid.add(toolBar, 0, 0, 3, 1);
-		grid.add(excelLabel, 0, 1);
-		grid.add(excelButton, 1, 1);
-		grid.add(excelField, 2, 1);
-		grid.add(generalLabel, 0, 2);
-		grid.add(generalButton, 1, 2);
-		grid.add(generalField, 2, 2);
-		grid.add(ignoreSheetLabel, 0, 3);
-		grid.add(ignoreSheetField, 1, 3, 2, 1);
-		grid.add(markSheetLabel, 0, 4);
-		grid.add(markSheetField, 1, 4, 2, 1);
-		grid.add(startCellLabel, 0, 5);
-		grid.add(startCellField, 1, 5, 2, 1);
-		grid.add(endCellColumnLabel, 0, 6);
-		grid.add(endCellColumnField, 1, 6, 2, 1);
-		grid.add(generalFileCellLabel, 0, 7);
-		grid.add(generalFileCellField, 1, 7, 2, 1);
-		return grid;
-	}
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("general", generalField);
+        userData.put("generalChooser", generalChooser);
+        userData.put("ignoreSheet", ignoreSheetField);
+        userData.put("markSheet", markSheetField);
+        userData.put("startCell", startCellField);
+        userData.put("generalFileCell", generalFileCellField);
+        userData.put("endCellColumn", endCellColumnField);
 
-	@Override
-	public Node getControlPanel() {
-		String content = """
-				GerritAccount&XSRF_TOKEN{tokenDesc}
-				{userName}&{passwd}{girretUserDesc}
-				{ownerEmail}{ownerEmailDesc}
-				{limit}{limitDesc}
-				{ignoreGirretNumber}{ignoreGirretNumberDesc}
-				{startDate}: {startDateDesc}
-				{reserveJson}: {reserveJsonDesc}
-				{girretUrl}{girretUrlDesc}
-				""";
-		Map<String, String> map = new HashMap<>(32);
-		map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
-		map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
-		map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
-		map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
-		map.put("ownerEmail", I18nUtils.get("smc.tool.girretReview.label.ownerEmail"));
-		map.put("ownerEmailDesc", I18nUtils.get("smc.tool.girretReview.control.textarea3"));
-		map.put("limit", I18nUtils.get("smc.tool.girretReview.label.limit"));
-		map.put("limitDesc", I18nUtils.get("smc.tool.girretReview.control.textarea4"));
-		map.put("ignoreGirretNumber", I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber"));
-		map.put("ignoreGirretNumberDesc", I18nUtils.get("smc.tool.girretReview.control.textarea5"));
-		map.put("startDate", I18nUtils.get("smc.tool.girretReview.label.startDate"));
-		map.put("startDateDesc", I18nUtils.get("smc.tool.girretReview.control.textarea6"));
-		map.put("reserveJson", I18nUtils.get("smc.tool.girretReview.label.reserveJson"));
-		map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
-		map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
-		map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
-		return FxTextInput.textArea(StrUtil.format(content, map));
-	}
+        grid.add(toolBar, 0, 0, 3, 1);
+        grid.add(excelLabel, 0, 1);
+        grid.add(excelButton, 1, 1);
+        grid.add(excelField, 2, 1);
+        grid.add(generalLabel, 0, 2);
+        grid.add(generalButton, 1, 2);
+        grid.add(generalField, 2, 2);
+        grid.add(ignoreSheetLabel, 0, 3);
+        grid.add(ignoreSheetField, 1, 3, 2, 1);
+        grid.add(markSheetLabel, 0, 4);
+        grid.add(markSheetField, 1, 4, 2, 1);
+        grid.add(startCellLabel, 0, 5);
+        grid.add(startCellField, 1, 5, 2, 1);
+        grid.add(endCellColumnLabel, 0, 6);
+        grid.add(endCellColumnField, 1, 6, 2, 1);
+        grid.add(generalFileCellLabel, 0, 7);
+        grid.add(generalFileCellField, 1, 7, 2, 1);
+        return grid;
+    }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    @Override
+    public Node getControlPanel() {
+        String content = """
+                GerritAccount&XSRF_TOKEN{tokenDesc}
+                {userName}&{passwd}{girretUserDesc}
+                {ownerEmail}{ownerEmailDesc}
+                {limit}{limitDesc}
+                {ignoreGirretNumber}{ignoreGirretNumberDesc}
+                {startDate}: {startDateDesc}
+                {reserveJson}: {reserveJsonDesc}
+                {girretUrl}{girretUrlDesc}
+                """;
+        Map<String, String> map = new HashMap<>(32);
+        map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
+        map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
+        map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
+        map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
+        map.put("ownerEmail", I18nUtils.get("smc.tool.girretReview.label.ownerEmail"));
+        map.put("ownerEmailDesc", I18nUtils.get("smc.tool.girretReview.control.textarea3"));
+        map.put("limit", I18nUtils.get("smc.tool.girretReview.label.limit"));
+        map.put("limitDesc", I18nUtils.get("smc.tool.girretReview.control.textarea4"));
+        map.put("ignoreGirretNumber", I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber"));
+        map.put("ignoreGirretNumberDesc", I18nUtils.get("smc.tool.girretReview.control.textarea5"));
+        map.put("startDate", I18nUtils.get("smc.tool.girretReview.label.startDate"));
+        map.put("startDateDesc", I18nUtils.get("smc.tool.girretReview.control.textarea6"));
+        map.put("reserveJson", I18nUtils.get("smc.tool.girretReview.label.reserveJson"));
+        map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
+        map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
+        map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
+    }
 
-	@Override
-	public String getSampleId() {
-		return "specGeneralTest";
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-	@Override
-	public String getSampleName() {
-		return I18nUtils.get("smc.sampleName.specGeneralTest");
-	}
+    @Override
+    public String getSampleId() {
+        return "specGeneralTest";
+    }
 
-	@Override
-	public String getSampleVersion() {
-		return "1.0.0";
-	}
+    @Override
+    public String getSampleName() {
+        return I18nUtils.get("smc.sampleName.specGeneralTest");
+    }
 
-	@Override
-	public String getOrderKey() {
-		return "SpecGeneralTest";
-	}
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0";
+    }
 
-	@Override
-	public String getSampleDescription() {
-		return I18nUtils.get("smc.sampleName.specGeneralTest.description");
-	}
+    @Override
+    public String getOrderKey() {
+        return "SpecGeneralTest";
+    }
+
+    @Override
+    public String getSampleDescription() {
+        return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+    }
+
+    /**
+     * 获取EndCell值
+     * <p>
+     * 为End Sheet 所在行数 -2
+     */
+    private String getEndCell(String endCellColumn, ExcelReader reader) {
+        return endCellColumn + (reader.getRowCount() - 2);
+    }
 
 }
