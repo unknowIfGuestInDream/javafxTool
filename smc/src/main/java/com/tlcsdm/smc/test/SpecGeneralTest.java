@@ -1,4 +1,26 @@
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.smc.test;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.DiffHandleUtils;
+import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -9,14 +31,6 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.util.CoreUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.DiffHandleUtils;
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,13 +41,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
@@ -47,6 +54,8 @@ public class SpecGeneralTest extends SmcSample {
     private FileChooser excelFileChooser;
     private TextField generalField;
     private DirectoryChooser generalChooser;
+    private TextField outputField;
+    private DirectoryChooser outputChooser;
     private TextField ignoreSheetField;
     private TextField markSheetField;
     private TextField startCellField;
@@ -56,17 +65,18 @@ public class SpecGeneralTest extends SmcSample {
 
     /**
      * 结果文件结构:
-     * <blockquote><pre>
+     * 
+     * <pre>
      *  excelField同级目录下
      *    excelField同名文件夹
      *      html差分文件
      *      files文件夹
      *        ud读取后生成的用于差分的文件
      *        ud读取后生成的excel
-     * </pre></blockquote>
+     * </pre>
      */
-    private final Action generate = FxAction.generate(actionEvent -> {
-        //输入值获取
+    private final Action diff = FxAction.create("diff", actionEvent -> {
+        // 输入值获取
         List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
         List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
         String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
@@ -75,18 +85,19 @@ public class SpecGeneralTest extends SmcSample {
         String endCellColumn = endCellColumnField.getText();
         String generateFileCell = generalFileCellField.getText();
         String generateFilesParentPath = generalField.getText();
-        //需要数据抽取
+        String outputPath = outputField.getText();
+        // 需要数据抽取
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
         List<String> sheetNames = reader.getSheetNames().stream()
                 .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
                         || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
                 .collect(Collectors.toList());
         reader.close();
-        String resultPath = parentDirectoryPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
+        String resultPath = outputPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
         String filesPath = resultPath + "\\files";
-        //清空resultPath下文件
+        // 清空resultPath下文件
         FileUtil.clean(resultPath);
-        //处理数据
+        // 处理数据
         File udFile = FileUtil.file(parentDirectoryPath, excelName);
         Map<String, String> generateFileMap = new HashMap<>();
         for (String sheetName : sheetNames) {
@@ -108,7 +119,7 @@ public class SpecGeneralTest extends SmcSample {
             for (int j = startY; j <= endY; j++) {
                 List<String> l = new ArrayList<>(endX - startX + 1);
                 boolean isDefine = false;
-                //第一列发现是define 或者 ifndef 即在后面添加空格
+                // 第一列发现是define 或者 ifndef 即在后面添加空格
                 String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
                 if ("#define".equals(StrUtil.trim(firstValue)) || "#ifndef".equals(StrUtil.trim(firstValue))) {
                     isDefine = true;
@@ -122,20 +133,20 @@ public class SpecGeneralTest extends SmcSample {
                 }
                 list.add(l);
             }
-            //将从UD中的内容生成到指定路径, 用来后续进行差分
+            r.close();
+            // 将从UD中的内容生成到指定路径, 用来后续进行差分
             excelWriter.write(list, false);
             File file = FileUtil.file(filesPath, sheetName + ".xlsx");
             excelWriter.flush(file);
             excelWriter.close();
             StaticLog.info("========================= End Reading {} =========================", sheetName);
         }
-        //将之前读取的内容与generalField文件夹下的文件进行差分
+        // 将之前读取的内容与generalField文件夹下的文件进行差分
         for (String sheetName : sheetNames) {
             ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
             String generateFileName = generateFileMap.get(sheetName);
             FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
                     FileUtil.file(filesPath, generateFileName));
-            //todo 待验证是否要在此处关闭流
             r.close();
             StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
             File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
@@ -143,17 +154,20 @@ public class SpecGeneralTest extends SmcSample {
                 List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
                         generateFilesParentPath + "\\" + generateFileName);
                 DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
+            } else {
+                StaticLog.info("========================= Not Found {} =========================", generateFileName);
+                continue;
             }
-            //此处睡眠, 防止出现读取上的错误
+            // 此处睡眠, 防止出现读取上的错误
             ThreadUtil.safeSleep(500);
             StaticLog.info("========================= End Comparing {} =========================", generateFileName);
         }
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
         bindUserData();
-    });
+    }, LayoutHelper.iconView(this.getClass().getResource("/com/tlcsdm/smc/static/icon/diff.png")));
 
-    private final Collection<? extends Action> actions = List.of(generate);
+    private final Collection<? extends Action> actions = List.of(diff);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -197,6 +211,20 @@ public class SpecGeneralTest extends SmcSample {
             }
         });
 
+        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        outputField = new TextField();
+        outputField.setMaxWidth(Double.MAX_VALUE);
+        outputChooser = new DirectoryChooser();
+        Button outputButton = FxButton.choose();
+        outputField.setEditable(false);
+        outputButton.setOnAction(arg0 -> {
+            File file = outputChooser.showDialog(stage);
+            if (file != null) {
+                outputField.setText(file.getPath());
+                outputChooser.setInitialDirectory(file);
+            }
+        });
+
         Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
         ignoreSheetField = new TextField();
         ignoreSheetField.setPrefWidth(Double.MAX_VALUE);
@@ -225,6 +253,8 @@ public class SpecGeneralTest extends SmcSample {
         userData.put("excelFileChooser", excelFileChooser);
         userData.put("general", generalField);
         userData.put("generalChooser", generalChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
         userData.put("ignoreSheet", ignoreSheetField);
         userData.put("markSheet", markSheetField);
         userData.put("startCell", startCellField);
@@ -238,16 +268,19 @@ public class SpecGeneralTest extends SmcSample {
         grid.add(generalLabel, 0, 2);
         grid.add(generalButton, 1, 2);
         grid.add(generalField, 2, 2);
-        grid.add(ignoreSheetLabel, 0, 3);
-        grid.add(ignoreSheetField, 1, 3, 2, 1);
-        grid.add(markSheetLabel, 0, 4);
-        grid.add(markSheetField, 1, 4, 2, 1);
-        grid.add(startCellLabel, 0, 5);
-        grid.add(startCellField, 1, 5, 2, 1);
-        grid.add(endCellColumnLabel, 0, 6);
-        grid.add(endCellColumnField, 1, 6, 2, 1);
-        grid.add(generalFileCellLabel, 0, 7);
-        grid.add(generalFileCellField, 1, 7, 2, 1);
+        grid.add(outputLabel, 0, 3);
+        grid.add(outputButton, 1, 3);
+        grid.add(outputField, 2, 3);
+        grid.add(ignoreSheetLabel, 0, 4);
+        grid.add(ignoreSheetField, 1, 4, 2, 1);
+        grid.add(markSheetLabel, 0, 5);
+        grid.add(markSheetField, 1, 5, 2, 1);
+        grid.add(startCellLabel, 0, 6);
+        grid.add(startCellField, 1, 6, 2, 1);
+        grid.add(endCellColumnLabel, 0, 7);
+        grid.add(endCellColumnField, 1, 7, 2, 1);
+        grid.add(generalFileCellLabel, 0, 8);
+        grid.add(generalFileCellField, 1, 8, 2, 1);
         return grid;
     }
 

@@ -26,14 +26,26 @@
  */
 package com.tlcsdm.frame;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ServiceLoader;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
-import com.tlcsdm.frame.model.*;
+import com.tlcsdm.frame.model.EmptyCenterPanel;
+import com.tlcsdm.frame.model.EmptySample;
+import com.tlcsdm.frame.model.Project;
+import com.tlcsdm.frame.model.SampleTree;
+import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -41,7 +53,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -49,8 +66,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import java.util.*;
 
 public final class FXSampler extends Application {
 
@@ -70,13 +85,13 @@ public final class FXSampler extends Application {
     private Project selectedProject;
 
     public static void main(String[] args) {
-        JavaFxSystemUtil.initSystemLocal();
         launch(args);
     }
 
     @Override
     public void start(final Stage primaryStage) {
         stage = primaryStage;
+        JavaFxSystemUtil.initSystemLocal();
         FxApp.init(primaryStage, getClass().getResource("/fxsampler/logo.png"));
         ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
                 .load(FXSamplerConfiguration.class);
@@ -197,7 +212,7 @@ public final class FXSampler extends Application {
         stage.setMinWidth(1000);
 //        stage.setResizable(false);
         stage.setTitle(I18nUtils.get("frame.stage.title"));
-        //加载上次位置
+        // 加载上次位置
         StageUtils.loadPrimaryStageBound(primaryStage);
 //        stage.getIcons()
 //                .add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
@@ -251,7 +266,8 @@ public final class FXSampler extends Application {
 
     public static void confirmExit(Event event) {
         if (Config.getBoolean(Config.Keys.ConfirmExit, true)) {
-            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"), I18nUtils.get("frame.main.confirmExit.message"))) {
+            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"),
+                    I18nUtils.get("frame.main.confirmExit.message"))) {
                 doExit();
             } else if (event != null) {
                 event.consume();
