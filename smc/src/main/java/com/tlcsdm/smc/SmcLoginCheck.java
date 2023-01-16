@@ -1,6 +1,5 @@
 package com.tlcsdm.smc;
 
-import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.login.LoginCheck;
 import com.tlcsdm.login.LoginNodes;
@@ -83,7 +82,6 @@ public class SmcLoginCheck implements LoginCheck {
 
 	private void login() {
 		FXSampler fxSampler = new FXSampler();
-		JavaFxSystemUtil.initSystemLocal();
 		fxSampler.start(new Stage());
 	}
 
