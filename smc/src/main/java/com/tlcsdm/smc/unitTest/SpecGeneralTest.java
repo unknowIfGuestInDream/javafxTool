@@ -1,4 +1,4 @@
-package com.tlcsdm.smc.test;
+package com.tlcsdm.smc.unitTest;
 
 import java.io.File;
 import java.util.ArrayList;
