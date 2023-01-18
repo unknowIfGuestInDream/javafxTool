@@ -65,251 +65,253 @@ import javafx.stage.Stage;
  */
 public abstract class SampleBase extends Application implements Sample {
 
-	protected Map<String, Object> userData = new LinkedHashMap<>();
-	protected String aesSeed = "3f4eefd3525675154a5e3a0183d8087b";
+    protected Map<String, Object> userData = new LinkedHashMap<>();
+    protected String aesSeed = "3f4eefd3525675154a5e3a0183d8087b";
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void start(Stage primaryStage) {
-		ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
-				.load(FXSamplerConfiguration.class);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(Stage primaryStage) {
+        ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
+                .load(FXSamplerConfiguration.class);
 
-		primaryStage.setTitle(getSampleName());
+        primaryStage.setTitle(getSampleName());
 
-		Scene scene = new Scene((Parent) buildSample(this, primaryStage), 800, 800);
-		scene.getStylesheets()
-				.add(Objects.requireNonNull(SampleBase.class.getResource("/fxsampler/fxsampler.css")).toExternalForm());
-		for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
-			String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
-			if (stylesheet != null) {
-				scene.getStylesheets().add(stylesheet);
-			}
-		}
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
+        Scene scene = new Scene((Parent) buildSample(this, primaryStage), 800, 800);
+        scene.getStylesheets()
+                .add(Objects.requireNonNull(SampleBase.class.getResource("/fxsampler/fxsampler.css")).toExternalForm());
+        for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
+            String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
+            if (stylesheet != null) {
+                scene.getStylesheets().add(stylesheet);
+            }
+        }
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isVisible() {
-		return true;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isVisible() {
+        return true;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Node getControlPanel() {
-		return null;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Node getControlPanel() {
+        return null;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public double getControlPanelDividerPosition() {
-		return 0.6;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getControlPanelDividerPosition() {
+        return 0.6;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getSampleDescription() {
-		return "";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSampleDescription() {
+        return "";
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getProjectName() {
-		return "ControlsFX";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProjectName() {
+        return "ControlsFX";
+    }
 
-	@Override
-	public void initialize() {
-		initializeUserData();
-	}
+    @Override
+    public void initialize() {
+        initializeUserData();
+    }
 
-	/**
-	 * Because initialize() is called after getPanel() so userData needs to be
-	 * initialized in getPanel()
-	 */
-	protected void initializeUserData() {
-		if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
-			return;
-		}
-		if (!getSampleVersion().equals(FxXmlUtil.get(getSampleXmlPrefix(), "version", ""))) {
-			updateForVersionUpgrade();
-		}
-		userData.forEach((key, value) -> {
-			String k = getSampleXmlPrefix() + "." + key;
-			String val = FxXmlUtil.get(k, "");
-			if (value instanceof FileChooser v) {
-				if (!StrUtil.isEmpty(val)) {
-					v.setInitialDirectory(new File(val));
-				}
-			} else if (value instanceof DirectoryChooser v) {
-				if (!StrUtil.isEmpty(val)) {
-					v.setInitialDirectory(new File(val));
-				}
-			} else if (value instanceof PasswordField v) {
-				if (!StrUtil.isEmpty(val)) {
-					DES des = SecureUtil.des(aesSeed.getBytes());
-					v.setText(des.decryptStr(val));
-				}
-			} else if (value instanceof TextInputControl v) {
-				v.setText(val);
-			} else if (value instanceof CheckBox v) {
-				v.setSelected(Boolean.parseBoolean(val));
-			} else if (value instanceof DatePicker v) {
-				if (!StrUtil.isEmpty(val)) {
-					v.setValue(LocalDate.parse(val));
-				}
-			} else if (value instanceof String v) {
-				v = val;
-			} else {
-				// do nothing
-			}
-		});
-	}
+    /**
+     * Because initialize() is called after getPanel() so userData needs to be
+     * initialized in getPanel()
+     */
+    protected void initializeUserData() {
+        if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
+            return;
+        }
+        if (!getSampleVersion().equals(FxXmlUtil.get(getSampleXmlPrefix(), "version", ""))) {
+            updateForVersionUpgrade();
+        }
+        userData.forEach((key, value) -> {
+            String k = getSampleXmlPrefix() + "." + key;
+            String val = FxXmlUtil.get(k, "");
+            if (value instanceof FileChooser v) {
+                if (!StrUtil.isEmpty(val)) {
+                    v.setInitialDirectory(new File(val));
+                }
+            } else if (value instanceof DirectoryChooser v) {
+                if (!StrUtil.isEmpty(val)) {
+                    v.setInitialDirectory(new File(val));
+                }
+            } else if (value instanceof PasswordField v) {
+                if (!StrUtil.isEmpty(val)) {
+                    DES des = SecureUtil.des(aesSeed.getBytes());
+                    v.setText(des.decryptStr(val));
+                }
+            } else if (value instanceof TextInputControl v) {
+                if (!StrUtil.isEmpty(val)) {
+                    v.setText(val);
+                }
+            } else if (value instanceof CheckBox v) {
+                v.setSelected(Boolean.parseBoolean(val));
+            } else if (value instanceof DatePicker v) {
+                if (!StrUtil.isEmpty(val)) {
+                    v.setValue(LocalDate.parse(val));
+                }
+            } else if (value instanceof String v) {
+                v = val;
+            } else {
+                // do nothing
+            }
+        });
+    }
 
-	/**
-	 * Manually call the current method after the function completes For example
-	 * manually calling the current method after clicking the generate button
-	 */
-	protected void bindUserData() {
-		if (userData.size() == 0 || StrUtil.isEmpty(getSampleId())) {
-			return;
-		}
-		FxXmlUtil.set(getSampleXmlPrefix(), "id", getSampleId());
-		FxXmlUtil.set(getSampleXmlPrefix(), "version", getSampleVersion());
-		userData.forEach((key, value) -> {
-			String k = getSampleXmlPrefix() + "." + key;
-			if (value instanceof FileChooser v) {
-				FxXmlUtil.set(k, v.getInitialDirectory());
-			} else if (value instanceof DirectoryChooser v) {
-				FxXmlUtil.set(k, v.getInitialDirectory());
-			} else if (value instanceof PasswordField v) {
-				DES des = SecureUtil.des(aesSeed.getBytes());
-				FxXmlUtil.set(k, des.encryptHex(v.getText()));
-			} else if (value instanceof TextInputControl v) {
-				FxXmlUtil.set(k, v.getText());
-			} else if (value instanceof CheckBox v) {
-				FxXmlUtil.set(k, v.isSelected());
-			} else if (value instanceof DatePicker v) {
-				FxXmlUtil.set(k, v.getValue());
-			} else if (value instanceof String v) {
-				FxXmlUtil.set(k, v);
-			} else {
-				// do nothing
-			}
-		});
-	}
+    /**
+     * Manually call the current method after the function completes For example
+     * manually calling the current method after clicking the generate button
+     */
+    protected void bindUserData() {
+        if (userData.size() == 0 || StrUtil.isEmpty(getSampleId())) {
+            return;
+        }
+        FxXmlUtil.set(getSampleXmlPrefix(), "id", getSampleId());
+        FxXmlUtil.set(getSampleXmlPrefix(), "version", getSampleVersion());
+        userData.forEach((key, value) -> {
+            String k = getSampleXmlPrefix() + "." + key;
+            if (value instanceof FileChooser v) {
+                FxXmlUtil.set(k, v.getInitialDirectory());
+            } else if (value instanceof DirectoryChooser v) {
+                FxXmlUtil.set(k, v.getInitialDirectory());
+            } else if (value instanceof PasswordField v) {
+                DES des = SecureUtil.des(aesSeed.getBytes());
+                FxXmlUtil.set(k, des.encryptHex(v.getText()));
+            } else if (value instanceof TextInputControl v) {
+                FxXmlUtil.set(k, v.getText());
+            } else if (value instanceof CheckBox v) {
+                FxXmlUtil.set(k, v.isSelected());
+            } else if (value instanceof DatePicker v) {
+                FxXmlUtil.set(k, v.getValue());
+            } else if (value instanceof String v) {
+                FxXmlUtil.set(k, v);
+            } else {
+                // do nothing
+            }
+        });
+    }
 
-	/**
-	 * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
-	 */
-	protected void updateForVersionUpgrade() {
-		// do nothing
-	}
+    /**
+     * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
+     */
+    protected void updateForVersionUpgrade() {
+        // do nothing
+    }
 
-	protected String getSampleXmlPrefix() {
-		return getProjectName() + "." + getSampleId();
-	}
+    protected String getSampleXmlPrefix() {
+        return getProjectName() + "." + getSampleId();
+    }
 
-	/**
-	 * Utility method to create the default look for samples.
-	 */
-	public static Node buildSample(Sample sample, Stage stage) {
-		SplitPane splitPane = new SplitPane();
-		// we guarantee that the build order is panel then control panel.
-		final Node samplePanel = sample.getPanel(stage);
-		final Node controlPanel = sample.getControlPanel();
-		sample.initialize();
-		splitPane.setDividerPosition(0, sample.getControlPanelDividerPosition());
+    /**
+     * Utility method to create the default look for samples.
+     */
+    public static Node buildSample(Sample sample, Stage stage) {
+        SplitPane splitPane = new SplitPane();
+        // we guarantee that the build order is panel then control panel.
+        final Node samplePanel = sample.getPanel(stage);
+        final Node controlPanel = sample.getControlPanel();
+        sample.initialize();
+        splitPane.setDividerPosition(0, sample.getControlPanelDividerPosition());
 
-		if (samplePanel != null) {
-			samplePanel.getStyleClass().add("center-panel");
-			splitPane.getItems().add(samplePanel);
-		}
+        if (samplePanel != null) {
+            samplePanel.getStyleClass().add("center-panel");
+            splitPane.getItems().add(samplePanel);
+        }
 
-		final VBox rightPanel = new VBox();
-		rightPanel.getStyleClass().add("right-panel");
-		rightPanel.setMaxHeight(Double.MAX_VALUE);
+        final VBox rightPanel = new VBox();
+        rightPanel.getStyleClass().add("right-panel");
+        rightPanel.setMaxHeight(Double.MAX_VALUE);
 
-		boolean addRightPanel = false;
+        boolean addRightPanel = false;
 
-		Label sampleName = new Label(sample.getSampleName());
-		sampleName.getStyleClass().add("sample-name");
-		rightPanel.getChildren().add(sampleName);
+        Label sampleName = new Label(sample.getSampleName());
+        sampleName.getStyleClass().add("sample-name");
+        rightPanel.getChildren().add(sampleName);
 
-		// --- project name & version
-		String version = sample.getProjectVersion();
-		version = version == null ? "" : "@version@".equals(version) ? "" : " " + version.trim();
+        // --- project name & version
+        String version = sample.getProjectVersion();
+        version = version == null ? "" : "@version@".equals(version) ? "" : " " + version.trim();
 
-		final String projectName = sample.getProjectName() + version;
-		if (!projectName.isEmpty()) {
-			Label projectNameTitleLabel = new Label(I18nUtils.get("frame.sample.rightPanel.project") + ": ");
-			projectNameTitleLabel.getStyleClass().add("project-name-title");
+        final String projectName = sample.getProjectName() + version;
+        if (!projectName.isEmpty()) {
+            Label projectNameTitleLabel = new Label(I18nUtils.get("frame.sample.rightPanel.project") + ": ");
+            projectNameTitleLabel.getStyleClass().add("project-name-title");
 
-			Label projectNameLabel = new Label(projectName);
-			projectNameLabel.getStyleClass().add("project-name");
-			projectNameLabel.setWrapText(true);
+            Label projectNameLabel = new Label(projectName);
+            projectNameLabel.getStyleClass().add("project-name");
+            projectNameLabel.setWrapText(true);
 
-			TextFlow textFlow = new TextFlow(projectNameTitleLabel, projectNameLabel);
-			rightPanel.getChildren().add(textFlow);
-		}
+            TextFlow textFlow = new TextFlow(projectNameTitleLabel, projectNameLabel);
+            rightPanel.getChildren().add(textFlow);
+        }
 
-		// --- sample version
-		final String sampleVersion = sample.getSampleVersion();
-		if (sampleVersion != null && !sampleVersion.isEmpty()) {
-			Label sampleVersionLabel = new Label(
-					I18nUtils.get("frame.sample.rightPanel.sampleVersion") + ": " + sampleVersion);
-			sampleVersionLabel.getStyleClass().add("sampleVersion");
-			sampleVersionLabel.setWrapText(true);
-			rightPanel.getChildren().add(sampleVersionLabel);
-			addRightPanel = true;
-		}
+        // --- sample version
+        final String sampleVersion = sample.getSampleVersion();
+        if (sampleVersion != null && !sampleVersion.isEmpty()) {
+            Label sampleVersionLabel = new Label(
+                    I18nUtils.get("frame.sample.rightPanel.sampleVersion") + ": " + sampleVersion);
+            sampleVersionLabel.getStyleClass().add("sampleVersion");
+            sampleVersionLabel.setWrapText(true);
+            rightPanel.getChildren().add(sampleVersionLabel);
+            addRightPanel = true;
+        }
 
-		// --- description
-		final String description = sample.getSampleDescription();
-		if (description != null && !description.isEmpty()) {
-			Label descriptionLabel = new Label(description);
-			descriptionLabel.getStyleClass().add("description");
-			descriptionLabel.setWrapText(true);
-			rightPanel.getChildren().add(descriptionLabel);
+        // --- description
+        final String description = sample.getSampleDescription();
+        if (description != null && !description.isEmpty()) {
+            Label descriptionLabel = new Label(description);
+            descriptionLabel.getStyleClass().add("description");
+            descriptionLabel.setWrapText(true);
+            rightPanel.getChildren().add(descriptionLabel);
 
-			addRightPanel = true;
-		}
+            addRightPanel = true;
+        }
 
-		if (controlPanel != null) {
-			rightPanel.getChildren().add(new Separator());
+        if (controlPanel != null) {
+            rightPanel.getChildren().add(new Separator());
 
-			controlPanel.getStyleClass().add("control-panel");
-			rightPanel.getChildren().add(controlPanel);
-			VBox.setVgrow(controlPanel, Priority.ALWAYS);
-			addRightPanel = true;
-		}
+            controlPanel.getStyleClass().add("control-panel");
+            rightPanel.getChildren().add(controlPanel);
+            VBox.setVgrow(controlPanel, Priority.ALWAYS);
+            addRightPanel = true;
+        }
 
-		if (addRightPanel) {
-			ScrollPane scrollPane = new ScrollPane(rightPanel);
-			scrollPane.setMaxHeight(Double.MAX_VALUE);
-			scrollPane.setFitToWidth(true);
-			scrollPane.setFitToHeight(true);
-			SplitPane.setResizableWithParent(scrollPane, false);
-			splitPane.getItems().add(scrollPane);
-		}
+        if (addRightPanel) {
+            ScrollPane scrollPane = new ScrollPane(rightPanel);
+            scrollPane.setMaxHeight(Double.MAX_VALUE);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setFitToHeight(true);
+            SplitPane.setResizableWithParent(scrollPane, false);
+            splitPane.getItems().add(scrollPane);
+        }
 
-		return splitPane;
-	}
+        return splitPane;
+    }
 
-	@Override
-	public void dispose() {
-	}
+    @Override
+    public void dispose() {
+    }
 }

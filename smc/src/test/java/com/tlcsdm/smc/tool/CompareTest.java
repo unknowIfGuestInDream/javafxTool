@@ -44,4 +44,10 @@ public class CompareTest {
         String s4 = s.substring(i3);
         System.out.println(s4);
     }
+
+    @Test
+    public void path() {
+        System.out.println(ResourceUtil.getResource("/com/tlcsdm/smc/static/templates").getPath());
+    }
+
 }
