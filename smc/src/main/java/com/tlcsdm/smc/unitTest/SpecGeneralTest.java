@@ -14,6 +14,7 @@ import org.controlsfx.control.action.ActionUtils;
 
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -23,6 +24,7 @@ import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
@@ -56,6 +58,7 @@ public class SpecGeneralTest extends SmcSample {
     private DirectoryChooser generalChooser;
     private TextField outputField;
     private DirectoryChooser outputChooser;
+    private NumberTextField macroLengthField;
     private TextField ignoreSheetField;
     private TextField markSheetField;
     private TextField startCellField;
@@ -75,7 +78,7 @@ public class SpecGeneralTest extends SmcSample {
      *        ud读取后生成的excel
      * </pre>
      */
-    private final Action diff = FxAction.create("diff", actionEvent -> {
+    private final Action diff = FxAction.create(I18nUtils.get("smc.tool.specGeneralTest.button.diff"), actionEvent -> {
         // 输入值获取
         List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
         List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
@@ -86,6 +89,8 @@ public class SpecGeneralTest extends SmcSample {
         String generateFileCell = generalFileCellField.getText();
         String generateFilesParentPath = generalField.getText();
         String outputPath = outputField.getText();
+        // 此处传入的是从头文件获取的列索引，长度需要-1
+        int macroLength = Integer.parseInt(macroLengthField.getText()) - 1;
         // 需要数据抽取
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
         List<String> sheetNames = reader.getSheetNames().stream()
@@ -127,7 +132,18 @@ public class SpecGeneralTest extends SmcSample {
                 for (int j2 = startX; j2 <= endX; j2++) {
                     String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
                     if (isDefine && j2 < endX) {
-                        cellValue = StrUtil.trimEnd(cellValue) + " ";
+                        String cellSubString = " ";
+                        String cv = StrUtil.trimEnd(cellValue);
+                        // 给macro值填充空格
+                        if (j2 == startX + 1) {
+                            String s = "#define " + cv;
+                            if (s.length() < macroLength
+                                    && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
+                                            .length() != 0) {
+                                cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
+                            }
+                        }
+                        cellValue = cv + cellSubString;
                     }
                     l.add(cellValue);
                 }
@@ -164,6 +180,7 @@ public class SpecGeneralTest extends SmcSample {
         }
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
+
         bindUserData();
     }, LayoutHelper.iconView(this.getClass().getResource("/com/tlcsdm/smc/static/icon/diff.png")));
 
@@ -181,7 +198,7 @@ public class SpecGeneralTest extends SmcSample {
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-        Label excelLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+        Label excelLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.excel") + ": ");
         excelField = new TextField();
         excelField.setMaxWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
@@ -197,7 +214,7 @@ public class SpecGeneralTest extends SmcSample {
             }
         });
 
-        Label generalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        Label generalLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.general") + ": ");
         generalField = new TextField();
         generalField.setMaxWidth(Double.MAX_VALUE);
         generalChooser = new DirectoryChooser();
@@ -211,7 +228,7 @@ public class SpecGeneralTest extends SmcSample {
             }
         });
 
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -225,23 +242,26 @@ public class SpecGeneralTest extends SmcSample {
             }
         });
 
-        Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
+        Label macroLengthLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
+        macroLengthField = new NumberTextField();
+
+        Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.ignoreSheet") + ": ");
         ignoreSheetField = new TextField();
         ignoreSheetField.setPrefWidth(Double.MAX_VALUE);
         ignoreSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label markSheetLabel = new Label(I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile") + ": ");
+        Label markSheetLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.markSheet") + ": ");
         markSheetField = new TextField();
         markSheetField.setPrefWidth(Double.MAX_VALUE);
         markSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label startCellLabel = new Label("startCell: ");
+        Label startCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
         startCellField = new TextField();
 
-        Label endCellColumnLabel = new Label("endCellColumn: ");
+        Label endCellColumnLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.endCellColumn") + ": ");
         endCellColumnField = new TextField();
 
-        Label generalFileCellLabel = new Label("generalFileCell: ");
+        Label generalFileCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.generalFileCell") + ": ");
         generalFileCellField = new TextField();
 
         ignoreSheetField.setText("Overview, Summary, Sample-CT");
@@ -255,6 +275,7 @@ public class SpecGeneralTest extends SmcSample {
         userData.put("generalChooser", generalChooser);
         userData.put("output", outputField);
         userData.put("outputChooser", outputChooser);
+        userData.put("macroLength", macroLengthField);
         userData.put("ignoreSheet", ignoreSheetField);
         userData.put("markSheet", markSheetField);
         userData.put("startCell", startCellField);
@@ -271,33 +292,46 @@ public class SpecGeneralTest extends SmcSample {
         grid.add(outputLabel, 0, 3);
         grid.add(outputButton, 1, 3);
         grid.add(outputField, 2, 3);
-        grid.add(ignoreSheetLabel, 0, 4);
-        grid.add(ignoreSheetField, 1, 4, 2, 1);
-        grid.add(markSheetLabel, 0, 5);
-        grid.add(markSheetField, 1, 5, 2, 1);
-        grid.add(startCellLabel, 0, 6);
-        grid.add(startCellField, 1, 6, 2, 1);
-        grid.add(endCellColumnLabel, 0, 7);
-        grid.add(endCellColumnField, 1, 7, 2, 1);
-        grid.add(generalFileCellLabel, 0, 8);
-        grid.add(generalFileCellField, 1, 8, 2, 1);
+        grid.add(macroLengthLabel, 0, 4);
+        grid.add(macroLengthField, 1, 4, 2, 1);
+        grid.add(ignoreSheetLabel, 0, 5);
+        grid.add(ignoreSheetField, 1, 5, 2, 1);
+        grid.add(markSheetLabel, 0, 6);
+        grid.add(markSheetField, 1, 6, 2, 1);
+        grid.add(startCellLabel, 0, 7);
+        grid.add(startCellField, 1, 7, 2, 1);
+        grid.add(endCellColumnLabel, 0, 8);
+        grid.add(endCellColumnField, 1, 8, 2, 1);
+        grid.add(generalFileCellLabel, 0, 9);
+        grid.add(generalFileCellField, 1, 9, 2, 1);
         return grid;
     }
 
     @Override
     public Node getControlPanel() {
         String content = """
-                GerritAccount&XSRF_TOKEN{tokenDesc}
-                {userName}&{passwd}{girretUserDesc}
-                {ownerEmail}{ownerEmailDesc}
+                {diffButton}:
+                {diffDesc}
+                {Required} {amountLabel}
+
+                {excelLabel}{excelDesc}
                 {limit}{limitDesc}
                 {ignoreGirretNumber}{ignoreGirretNumberDesc}
                 {startDate}: {startDateDesc}
                 {reserveJson}: {reserveJsonDesc}
                 {girretUrl}{girretUrlDesc}
+
+                {Note}
+                {checkFileTypeLabel} {emptyDesc} {promptTextList}
+                {ignoreFileLabel} {emptyDesc} {promptTextList}
                 """;
+
         Map<String, String> map = new HashMap<>(32);
-        map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
+        map.put("diffButton", diff.getText());
+        map.put("diffDesc", I18nUtils.get("smc.tool.moneyToChinese.control.textarea"));
+        map.put("Required", I18nUtils.get("smc.tool.control.required"));
+        map.put("excelLabel", I18nUtils.get("smc.tool.moneyToChinese.label.amount"));
+        map.put("excelDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
         map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
         map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
         map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
@@ -313,6 +347,10 @@ public class SpecGeneralTest extends SmcSample {
         map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
         map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
         map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
+
+        map.put("Note", I18nUtils.get("smc.tool.control.note"));
+        map.put("emptyDesc", I18nUtils.get("smc.tool.textfield.empty.desc"));
+        map.put("promptTextList", I18nUtils.get("smc.tool.textfield.promptText.list"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
