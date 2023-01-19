@@ -19,6 +19,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools;
     exports com.tlcsdm.smc.unitTest;
+    exports com.tlcsdm.smc.codeDev;
 
     provides com.tlcsdm.frame.FXSamplerProject with com.tlcsdm.smc.SmcSamplerProject;
     provides com.tlcsdm.frame.MenubarConfigration with com.tlcsdm.smc.SmcMenubarConfigration;
