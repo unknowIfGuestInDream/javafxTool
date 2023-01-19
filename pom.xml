@@ -26,7 +26,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
-        <javafx-controls.version>17.0.0.1</javafx-controls.version>
+        <javafx-controls.version>18.0.2</javafx-controls.version>
         <javafx-fxml.version>17.0.0.1</javafx-fxml.version>
         <javafx-web.version>17.0.0.1</javafx-web.version>
         <javafx-graphics.version>17.0.0.1</javafx-graphics.version>
