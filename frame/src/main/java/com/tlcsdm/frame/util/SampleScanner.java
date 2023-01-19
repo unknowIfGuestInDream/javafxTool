@@ -26,24 +26,30 @@
  */
 package com.tlcsdm.frame.util;
 
-import com.tlcsdm.frame.FXSamplerProject;
-import com.tlcsdm.frame.Sample;
-import com.tlcsdm.frame.model.EmptySample;
-import com.tlcsdm.frame.model.Project;
-
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.module.ModuleReader;
 import java.lang.module.ResolvedModule;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.ServiceLoader;
+import java.util.Set;
+
+import com.tlcsdm.frame.FXSamplerProject;
+import com.tlcsdm.frame.Sample;
+import com.tlcsdm.frame.model.EmptySample;
+import com.tlcsdm.frame.model.Project;
 
 /**
  * All the code related to classpath scanning, etc for samples.
  */
 public class SampleScanner {
-    
+
     private static List<String> ILLEGAL_CLASS_NAMES = new ArrayList<>();
     static {
         ILLEGAL_CLASS_NAMES.add("/com/javafx/main/Main.class");
@@ -61,10 +67,10 @@ public class SampleScanner {
             final String projectName = project.getProjectName();
             final String basePackage = project.getSampleBasePackage();
             packageToProjectMap.put(basePackage, project);
-            System.out.println("\t\tFound project '" + projectName + 
-                    "', with sample base package '" + basePackage + "'");
+            System.out
+                    .println("\t\tFound project '" + projectName + "', with sample base package '" + basePackage + "'");
         }
-        
+
         if (packageToProjectMap.isEmpty()) {
             System.out.println("\tError: Did not find any projects!");
         }
@@ -78,16 +84,16 @@ public class SampleScanner {
      * @return The classes
      */
     public Map<String, Project> discoverSamples() {
-        Class<?>[] results = new Class[] { };
+        Class<?>[] results = new Class[] {};
 
         try {
-              results = loadFromPathScanning();
+            results = loadFromPathScanning();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         for (Class<?> sampleClass : results) {
-            if (! Sample.class.isAssignableFrom(sampleClass)) {
+            if (!Sample.class.isAssignableFrom(sampleClass)) {
                 continue;
             }
             if (sampleClass.isInterface()) {
@@ -100,14 +106,15 @@ public class SampleScanner {
             if (sampleClass == EmptySample.class) {
                 continue;
             }
-            
+
             Sample sample = null;
             try {
-                sample = (Sample)sampleClass.getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                sample = (Sample) sampleClass.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
+                    | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            if (sample == null || ! sample.isVisible()) {
+            if (sample == null || !sample.isVisible()) {
                 continue;
             }
 
@@ -131,7 +138,7 @@ public class SampleScanner {
             }
         }
         return projectsMap;
-    } 
+    }
 
     /**
      * Scans all classes.
@@ -143,10 +150,8 @@ public class SampleScanner {
 
         final Set<Class<?>> classes = new LinkedHashSet<>();
         // scan the module-path
-        ModuleLayer.boot().configuration().modules().stream()
-                .map(ResolvedModule::reference)
-                .filter(rm -> !isSystemModule(rm.descriptor().name()))
-                .forEach(mref -> {
+        ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference)
+                .filter(rm -> !isSystemModule(rm.descriptor().name())).forEach(mref -> {
                     try (ModuleReader reader = mref.open()) {
                         reader.list().forEach(c -> {
                             final Class<?> clazz = processClassName(c);
@@ -164,10 +169,10 @@ public class SampleScanner {
     private Class<?> processClassName(final String name) {
         String className = name.replace("\\", ".");
         className = className.replace("/", ".");
-        
+
         // some cleanup code
         if (className.contains("$")) {
-            // we don't care about samples as inner classes, so 
+            // we don't care about samples as inner classes, so
             // we jump out
             return null;
         }
@@ -195,14 +200,15 @@ public class SampleScanner {
     }
 
     /**
-     * Return true if the given module name is a system module. There can be
-     * system modules in layers above the boot layer.
+     * Return true if the given module name is a system module. There can be system
+     * modules in layers above the boot layer.
      */
     private static boolean isSystemModule(final String moduleName) {
-        return moduleName.startsWith("java.")
-                || moduleName.startsWith("javax.")
-                || moduleName.startsWith("javafx.")
-                || moduleName.startsWith("jdk.")
-                || moduleName.startsWith("oracle.");
+        return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith("javafx.")
+                || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith("hutool.")
+                || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith("org.apache.")
+                || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(moduleName)
+                || "org.slf4j".equals(moduleName) || "commons.math3".equals(moduleName)
+                || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(moduleName);
     }
 }

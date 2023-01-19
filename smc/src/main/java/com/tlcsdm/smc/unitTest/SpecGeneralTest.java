@@ -312,45 +312,30 @@ public class SpecGeneralTest extends SmcSample {
         String content = """
                 {diffButton}:
                 {diffDesc}
-                {Required} {amountLabel}
 
-                {excelLabel}{excelDesc}
-                {limit}{limitDesc}
-                {ignoreGirretNumber}{ignoreGirretNumberDesc}
-                {startDate}: {startDateDesc}
-                {reserveJson}: {reserveJsonDesc}
-                {girretUrl}{girretUrlDesc}
+                {excelLabel}: {excelDesc}
+                {generalLabel}: {generalDesc}
+                {macroLengthLabel}: {macroLengthDesc}
+                {markSheetLabel}: {markSheetDesc}
 
-                {Note}
-                {checkFileTypeLabel} {emptyDesc} {promptTextList}
-                {ignoreFileLabel} {emptyDesc} {promptTextList}
+                {note}
+                {noteDesc}
                 """;
 
         Map<String, String> map = new HashMap<>(32);
         map.put("diffButton", diff.getText());
-        map.put("diffDesc", I18nUtils.get("smc.tool.moneyToChinese.control.textarea"));
+        map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
         map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("excelLabel", I18nUtils.get("smc.tool.moneyToChinese.label.amount"));
-        map.put("excelDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
-        map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
-        map.put("passwd", I18nUtils.get("smc.tool.girretReview.label.passwd"));
-        map.put("girretUserDesc", I18nUtils.get("smc.tool.girretReview.control.textarea2"));
-        map.put("ownerEmail", I18nUtils.get("smc.tool.girretReview.label.ownerEmail"));
-        map.put("ownerEmailDesc", I18nUtils.get("smc.tool.girretReview.control.textarea3"));
-        map.put("limit", I18nUtils.get("smc.tool.girretReview.label.limit"));
-        map.put("limitDesc", I18nUtils.get("smc.tool.girretReview.control.textarea4"));
-        map.put("ignoreGirretNumber", I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber"));
-        map.put("ignoreGirretNumberDesc", I18nUtils.get("smc.tool.girretReview.control.textarea5"));
-        map.put("startDate", I18nUtils.get("smc.tool.girretReview.label.startDate"));
-        map.put("startDateDesc", I18nUtils.get("smc.tool.girretReview.control.textarea6"));
-        map.put("reserveJson", I18nUtils.get("smc.tool.girretReview.label.reserveJson"));
-        map.put("reserveJsonDesc", I18nUtils.get("smc.tool.girretReview.control.textarea7"));
-        map.put("girretUrl", I18nUtils.get("smc.tool.girretReview.label.girretUrl"));
-        map.put("girretUrlDesc", I18nUtils.get("smc.tool.girretReview.control.textarea8"));
-
-        map.put("Note", I18nUtils.get("smc.tool.control.note"));
-        map.put("emptyDesc", I18nUtils.get("smc.tool.textfield.empty.desc"));
-        map.put("promptTextList", I18nUtils.get("smc.tool.textfield.promptText.list"));
+        map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
+        map.put("excelDesc", "eg: TestSpec_General_RH850U2A.xlsx");
+        map.put("generalLabel", I18nUtils.get("smc.tool.specGeneralTest.label.general"));
+        map.put("generalDesc", "eg: {user.dir}\\src\\smc_gen\\general");
+        map.put("macroLengthLabel", I18nUtils.get("smc.tool.specGeneralTest.label.macroLength"));
+        map.put("macroLengthDesc", I18nUtils.get("smc.tool.specGeneralTest.control.macroLengthDesc"));
+        map.put("markSheetLabel", I18nUtils.get("smc.tool.specGeneralTest.label.markSheet"));
+        map.put("markSheetDesc", I18nUtils.get("smc.tool.specGeneralTest.control.markSheetDesc"));
+        map.put("note", I18nUtils.get("smc.tool.control.note"));
+        map.put("noteDesc", I18nUtils.get("smc.tool.specGeneralTest.control.noteDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
