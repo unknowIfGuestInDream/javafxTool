@@ -1,4 +1,4 @@
-package com.tlcsdm.smc.codeDev;
+package com.tlcsdm.smc.unitDesign;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
@@ -29,12 +29,12 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 根据DTS的trigger source文档生成xml数据文件，协助CD开发
+ * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
  *
  * @author: unknowIfGuestInDream
  * @date: 2022/12/8 23:12
  */
-public class DtsTriggerSourceXml extends SmcSample {
+public class DtsTriggerSourceDoc extends SmcSample {
 
     private TextField excelField;
     private FileChooser excelFileChooser;
@@ -249,7 +249,7 @@ public class DtsTriggerSourceXml extends SmcSample {
 
     @Override
     public String getSampleId() {
-        return "dtsTriggerSourceXml";
+        return "dtsTriggerSourceDoc";
     }
 
     @Override
@@ -264,7 +264,7 @@ public class DtsTriggerSourceXml extends SmcSample {
 
     @Override
     public String getOrderKey() {
-        return "DtsTriggerSourceXml";
+        return "DtsTriggerSourceDoc";
     }
 
     @Override
