@@ -1,42 +1,36 @@
 package com.tlcsdm.smc.codeDev;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
+import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
-import cn.hutool.poi.excel.cell.CellUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
@@ -54,137 +48,76 @@ public class DtsTriggerSourceXml extends SmcSample {
 
     private TextField excelField;
     private FileChooser excelFileChooser;
-    private TextField generalField;
-    private DirectoryChooser generalChooser;
     private TextField outputField;
     private DirectoryChooser outputChooser;
-    private NumberTextField macroLengthField;
-    private TextField ignoreSheetField;
-    private TextField markSheetField;
-    private TextField startCellField;
-    private TextField generalFileCellField;
-    private TextField endCellColumnField;
+    private TextField groupField;
+    private TextArea xmlFileNameAndStartColField;
+    private TextField sheetNameField;
+    private NumberTextField startRowField;
+    private NumberTextField endRowField;
+    private TextField xmlNameTemplateField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
-    /**
-     * 结果文件结构:
-     * 
-     * <pre>
-     *  excelField同级目录下
-     *    excelField同名文件夹
-     *      html差分文件
-     *      files文件夹
-     *        ud读取后生成的用于差分的文件
-     *        ud读取后生成的excel
-     * </pre>
-     */
-    private final Action diff = FxAction.create(I18nUtils.get("smc.tool.specGeneralTest.button.diff"), actionEvent -> {
+    private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
-        List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
-        List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
         String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
+        List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
         String excelName = FileUtil.getName(excelField.getText());
-        String startCell = startCellField.getText();
-        String endCellColumn = endCellColumnField.getText();
-        String generateFileCell = generalFileCellField.getText();
-        String generateFilesParentPath = generalField.getText();
         String outputPath = outputField.getText();
-        // 此处传入的是从头文件获取的列索引，长度需要-1
-        int macroLength = Integer.parseInt(macroLengthField.getText()) - 1;
-        // 需要数据抽取
-        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
-        List<String> sheetNames = reader.getSheetNames().stream()
-                .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                        || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                .collect(Collectors.toList());
-        reader.close();
-        String resultPath = outputPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
-        String filesPath = resultPath + "\\files";
+        int groupNum = groups.size();
+        String xmlFileNameAndStartCol = xmlFileNameAndStartColField.getText();
+        String sheetName = sheetNameField.getText();
+        int startRow = Integer.parseInt(startRowField.getText());
+        int endRow = Integer.parseInt(endRowField.getText());
+        String xmlNameTemplate = xmlNameTemplateField.getText();
+
+        List<String> xmlFileNames = new ArrayList<>();
+        List<String> startCols = new ArrayList<>();
+        parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
+
+        String resultPath = outputPath + "\\triggerSource";
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
         // 处理数据
-        File udFile = FileUtil.file(parentDirectoryPath, excelName);
-        Map<String, String> generateFileMap = new HashMap<>();
-        for (String sheetName : sheetNames) {
-            BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
-            StaticLog.info("========================= Begin Reading {} =========================", sheetName);
-            ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
-            String endCell = getEndCell(endCellColumn, r);
-            StaticLog.info("endCell: {}", endCell);
-            CellLocation start = ExcelUtil.toLocation(startCell);
-            CellLocation end = ExcelUtil.toLocation(endCell);
-            int startX = start.getX();
-            int startY = start.getY();
-            int endX = end.getX();
-            int endY = end.getY();
-            String generateFileName = r.getCell(generateFileCell).getStringCellValue();
-            generateFileMap.put(sheetName, generateFileName);
-            excelWriter.renameSheet(0, sheetName);
-            List<List<String>> list = new ArrayList<>(endY - startY + 1);
-            for (int j = startY; j <= endY; j++) {
-                List<String> l = new ArrayList<>(endX - startX + 1);
-                boolean isDefine = false;
-                // 第一列发现是define 或者 ifndef 即在后面添加空格
-                String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
-                if ("#define".equals(StrUtil.trim(firstValue)) || "#ifndef".equals(StrUtil.trim(firstValue))) {
-                    isDefine = true;
-                }
-                for (int j2 = startX; j2 <= endX; j2++) {
-                    String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
-                    if (isDefine && j2 < endX) {
-                        String cellSubString = " ";
-                        String cv = StrUtil.trimEnd(cellValue);
-                        // 给macro值填充空格
-                        if (j2 == startX + 1) {
-                            String s = "#define " + cv;
-                            if (s.length() < macroLength
-                                    && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
-                                            .length() != 0) {
-                                cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
-                            }
-                        }
-                        cellValue = cv + cellSubString;
+        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
+        for (int i = 0; i < xmlFileNames.size(); i++) {
+            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
+            if (file.exists()) {
+                FileUtil.del(file);
+            }
+            List<String> contentsList = new ArrayList<>();
+            contentsList.add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            contentsList.add("<!DOCTYPE xml>");
+            contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
+            contentsList.add("<DTCTriggerSource>");
+            contentsList.add("\t<Dependence Dependence=\"\" />");
+
+            int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
+            for (int j = startRow; j <= endRow; j++) {
+                contentsList.add("\t<TriggerSource Channel=\"" + (j - startRow) + "\"");
+                for (int k = 0; k < groupNum; k++) {
+                    String getGroupLine = ExcelUtil.indexToColName(startCol + k);
+                    String content = "\t\tGroup" + k + "TriggerInfo=\""
+                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
+                    if (k == groupNum - 1) {
+                        content += " />";
                     }
-                    l.add(cellValue);
+                    contentsList.add(content);
                 }
-                list.add(l);
             }
-            r.close();
-            // 将从UD中的内容生成到指定路径, 用来后续进行差分
-            excelWriter.write(list, false);
-            File file = FileUtil.file(filesPath, sheetName + ".xlsx");
-            excelWriter.flush(file);
-            excelWriter.close();
-            StaticLog.info("========================= End Reading {} =========================", sheetName);
+
+            contentsList.add("</DTCTriggerSource>");
+            contentsList.add("");
+            FileUtil.appendUtf8Lines(contentsList, file);
         }
-        // 将之前读取的内容与generalField文件夹下的文件进行差分
-        for (String sheetName : sheetNames) {
-            ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
-            String generateFileName = generateFileMap.get(sheetName);
-            FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
-                    FileUtil.file(filesPath, generateFileName));
-            r.close();
-            StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
-            File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
-            if (FileUtil.exist(generateFile)) {
-                List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
-                        generateFilesParentPath + "\\" + generateFileName);
-                DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
-            } else {
-                StaticLog.info("========================= Not Found {} =========================", generateFileName);
-                continue;
-            }
-            // 此处睡眠, 防止出现读取上的错误
-            ThreadUtil.safeSleep(500);
-            StaticLog.info("========================= End Comparing {} =========================", generateFileName);
-        }
+        reader.close();
+
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
-
         bindUserData();
-    }, LayoutHelper.iconView(this.getClass().getResource("/com/tlcsdm/smc/static/icon/diff.png")));
+    });
 
-    private final Collection<? extends Action> actions = List.of(diff);
+    private final Collection<? extends Action> actions = List.of(generate);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -214,20 +147,6 @@ public class DtsTriggerSourceXml extends SmcSample {
             }
         });
 
-        Label generalLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.general") + ": ");
-        generalField = new TextField();
-        generalField.setMaxWidth(Double.MAX_VALUE);
-        generalChooser = new DirectoryChooser();
-        Button generalButton = FxButton.choose();
-        generalField.setEditable(false);
-        generalButton.setOnAction(arg0 -> {
-            File file = generalChooser.showDialog(stage);
-            if (file != null) {
-                generalField.setText(file.getPath());
-                generalChooser.setInitialDirectory(file);
-            }
-        });
-
         Label outputLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
@@ -242,68 +161,63 @@ public class DtsTriggerSourceXml extends SmcSample {
             }
         });
 
-        Label macroLengthLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
-        macroLengthField = new NumberTextField();
+        Label groupLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        groupField = new TextField();
+        groupField.setPrefWidth(Double.MAX_VALUE);
+        groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label ignoreSheetLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.ignoreSheet") + ": ");
-        ignoreSheetField = new TextField();
-        ignoreSheetField.setPrefWidth(Double.MAX_VALUE);
-        ignoreSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Label xmlFileNameAndStartColLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        xmlFileNameAndStartColField = new TextArea();
 
-        Label markSheetLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.markSheet") + ": ");
-        markSheetField = new TextField();
-        markSheetField.setPrefWidth(Double.MAX_VALUE);
-        markSheetField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        sheetNameField = new TextField();
 
-        Label startCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
-        startCellField = new TextField();
+        Label startRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
+        startRowField = new NumberTextField();
 
-        Label endCellColumnLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.endCellColumn") + ": ");
-        endCellColumnField = new TextField();
+        Label endRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
+        endRowField = new NumberTextField();
 
-        Label generalFileCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.generalFileCell") + ": ");
-        generalFileCellField = new TextField();
+        Label xmlNameTemplateLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        xmlNameTemplateField = new TextField();
 
-        ignoreSheetField.setText("Overview, Summary, Sample-CT");
-        startCellField.setText("C19");
-        endCellColumnField.setText("F");
-        generalFileCellField.setText("C15");
+        sheetNameField.setText("DTS trigger");
+        startRowField.setNumber(BigDecimal.valueOf(5));
+        endRowField.setNumber(BigDecimal.valueOf(132));
+        xmlFileNameAndStartColField.setPromptText("多个实例请换行");
+        xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
-        userData.put("general", generalField);
-        userData.put("generalChooser", generalChooser);
         userData.put("output", outputField);
         userData.put("outputChooser", outputChooser);
-        userData.put("macroLength", macroLengthField);
-        userData.put("ignoreSheet", ignoreSheetField);
-        userData.put("markSheet", markSheetField);
-        userData.put("startCell", startCellField);
-        userData.put("generalFileCell", generalFileCellField);
-        userData.put("endCellColumn", endCellColumnField);
+        userData.put("group", groupField);
+        userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
+        userData.put("sheetName", sheetNameField);
+        userData.put("startRow", startRowField);
+        userData.put("endRow", endRowField);
+        userData.put("xmlNameTemplate", xmlNameTemplateField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
         grid.add(excelField, 2, 1);
-        grid.add(generalLabel, 0, 2);
-        grid.add(generalButton, 1, 2);
-        grid.add(generalField, 2, 2);
-        grid.add(outputLabel, 0, 3);
-        grid.add(outputButton, 1, 3);
-        grid.add(outputField, 2, 3);
-        grid.add(macroLengthLabel, 0, 4);
-        grid.add(macroLengthField, 1, 4, 2, 1);
-        grid.add(ignoreSheetLabel, 0, 5);
-        grid.add(ignoreSheetField, 1, 5, 2, 1);
-        grid.add(markSheetLabel, 0, 6);
-        grid.add(markSheetField, 1, 6, 2, 1);
-        grid.add(startCellLabel, 0, 7);
-        grid.add(startCellField, 1, 7, 2, 1);
-        grid.add(endCellColumnLabel, 0, 8);
-        grid.add(endCellColumnField, 1, 8, 2, 1);
-        grid.add(generalFileCellLabel, 0, 9);
-        grid.add(generalFileCellField, 1, 9, 2, 1);
+        grid.add(outputLabel, 0, 2);
+        grid.add(outputButton, 1, 2);
+        grid.add(outputField, 2, 2);
+        grid.add(groupLabel, 0, 3);
+        grid.add(groupField, 1, 3, 2, 1);
+        grid.add(xmlFileNameAndStartColLabel, 0, 4);
+        grid.add(xmlFileNameAndStartColField, 1, 4, 2, 1);
+        grid.add(sheetNameLabel, 0, 5);
+        grid.add(sheetNameField, 1, 5, 2, 1);
+        grid.add(startRowLabel, 0, 6);
+        grid.add(startRowField, 1, 6, 2, 1);
+        grid.add(endRowLabel, 0, 7);
+        grid.add(endRowField, 1, 7, 2, 1);
+        grid.add(xmlNameTemplateLabel, 0, 8);
+        grid.add(xmlNameTemplateField, 1, 8, 2, 1);
+
         return grid;
     }
 
@@ -323,7 +237,7 @@ public class DtsTriggerSourceXml extends SmcSample {
                 """;
 
         Map<String, String> map = new HashMap<>(32);
-        map.put("diffButton", diff.getText());
+        map.put("diffButton", generate.getText());
         map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
         map.put("Required", I18nUtils.get("smc.tool.control.required"));
         map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
@@ -350,7 +264,7 @@ public class DtsTriggerSourceXml extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest");
+        return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml");
     }
 
     @Override
@@ -365,16 +279,32 @@ public class DtsTriggerSourceXml extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+        return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml.description");
     }
 
     /**
-     * 获取EndCell值
-     * <p>
-     * 为End Sheet 所在行数 -2
+     * 解析 xmlFileNameAndStartCol 的配置，获取xml文件名和读取的列信息
      */
-    private String getEndCell(String endCellColumn, ExcelReader reader) {
-        return endCellColumn + (reader.getRowCount() - 2);
+    private void parseXmlConfig(String xmlFileNameAndStartCol, List<String> xmlFileNames, List<String> startCols) {
+        List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
+        for (String xmlConfig : xmlConfigs) {
+            List<String> l = StrUtil.split(xmlConfig, "-");
+            xmlFileNames.add(l.get(0));
+            startCols.add(l.get(1));
+        }
+        if (xmlFileNames.size() != startCols.size()) {
+            FxAlerts.exception(new UnExpectedResultException());
+        }
+    }
+
+    /**
+     * 读取单元格的值
+     */
+    private String getXmlGroupValue(ExcelReader reader, String groupLineCell, String groupValueLineCell) {
+        if ("-".equals(reader.getCell(groupLineCell).getStringCellValue())) {
+            return "Reserved";
+        }
+        return reader.getCell(groupValueLineCell).getStringCellValue();
     }
 
 }
