@@ -178,7 +178,7 @@ public class SpecGeneralTest extends SmcSample {
             ThreadUtil.safeSleep(500);
             StaticLog.info("========================= End Comparing {} =========================", generateFileName);
         }
-        notificationBuilder.text("General successfully.");
+        notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
         notificationBuilder.showInformation();
 
         bindUserData();
