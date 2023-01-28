@@ -1,9 +1,17 @@
 package com.tlcsdm.smc.unitDesign;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -13,20 +21,22 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -254,7 +264,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml");
+        return I18nUtils.get("smc.sampleName.dtsTriggerSourceDoc");
     }
 
     @Override
@@ -269,7 +279,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml.description");
+        return I18nUtils.get("smc.sampleName.dtsTriggerSourceDoc.description");
     }
 
     /**
