@@ -1,9 +1,17 @@
 package com.tlcsdm.smc.codeDev;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -13,20 +21,22 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成xml数据文件，协助CD开发
@@ -80,14 +90,14 @@ public class DtsTriggerSourceXml extends SmcSample {
             contentsList.add("<!DOCTYPE xml>");
             contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
             contentsList.add("<DTCTriggerSource>");
-            contentsList.add("\t<Dependence Dependence=\"\" />");
+            contentsList.add("    <Dependence Dependence=\"\" />");
 
             int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
             for (int j = startRow; j <= endRow; j++) {
-                contentsList.add("\t<TriggerSource Channel=\"" + (j - startRow) + "\"");
+                contentsList.add("    <TriggerSource Channel=\"" + (j - startRow) + "\"");
                 for (int k = 0; k < groupNum; k++) {
                     String getGroupLine = ExcelUtil.indexToColName(startCol + k);
-                    String content = "\t\tGroup" + k + "TriggerInfo=\""
+                    String content = "        Group" + k + "TriggerInfo=\""
                             + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
                     if (k == groupNum - 1) {
                         content += " />";
@@ -102,7 +112,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         }
         reader.close();
 
-        notificationBuilder.text("General successfully.");
+        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });
@@ -121,7 +131,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-        Label excelLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.excel") + ": ");
+        Label excelLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel") + ": ");
         excelField = new TextField();
         excelField.setMaxWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
@@ -137,7 +147,7 @@ public class DtsTriggerSourceXml extends SmcSample {
             }
         });
 
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -151,30 +161,33 @@ public class DtsTriggerSourceXml extends SmcSample {
             }
         });
 
-        Label groupLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        Label groupLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group") + ": ");
         groupField = new TextField();
         groupField.setPrefWidth(Double.MAX_VALUE);
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label xmlFileNameAndStartColLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        Label xmlFileNameAndStartColLabel = new Label(
+                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol") + ": ");
         xmlFileNameAndStartColField = new TextArea();
 
-        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.sheetName") + ": ");
         sheetNameField = new TextField();
 
-        Label startRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
+        Label startRowLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.startRow") + ": ");
         startRowField = new NumberTextField();
 
-        Label endRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
+        Label endRowLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.endRow") + ": ");
         endRowField = new NumberTextField();
 
-        Label xmlNameTemplateLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        Label xmlNameTemplateLabel = new Label(
+                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate") + ": ");
         xmlNameTemplateField = new TextField();
 
         sheetNameField.setText("DTS trigger");
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
-        xmlFileNameAndStartColField.setPromptText("多个实例请换行");
+        xmlFileNameAndStartColField
+                .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
         xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
         userData.put("excel", excelField);
@@ -214,32 +227,23 @@ public class DtsTriggerSourceXml extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {diffButton}:
-                {diffDesc}
-
                 {excelLabel}: {excelDesc}
-                {generalLabel}: {generalDesc}
-                {macroLengthLabel}: {macroLengthDesc}
-                {markSheetLabel}: {markSheetDesc}
-
-                {note}
-                {noteDesc}
+                {groupLabel}: {groupDesc}
+                {xmlFileNameAndStartColLabel}: {xmlFileNameAndStartColDesc}
+                {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
                 """;
 
         Map<String, String> map = new HashMap<>(32);
-        map.put("diffButton", generate.getText());
-        map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
-        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
-        map.put("excelDesc", "eg: TestSpec_General_RH850U2A.xlsx");
-        map.put("generalLabel", I18nUtils.get("smc.tool.specGeneralTest.label.general"));
-        map.put("generalDesc", "eg: {user.dir}\\src\\smc_gen\\general");
-        map.put("macroLengthLabel", I18nUtils.get("smc.tool.specGeneralTest.label.macroLength"));
-        map.put("macroLengthDesc", I18nUtils.get("smc.tool.specGeneralTest.control.macroLengthDesc"));
-        map.put("markSheetLabel", I18nUtils.get("smc.tool.specGeneralTest.label.markSheet"));
-        map.put("markSheetDesc", I18nUtils.get("smc.tool.specGeneralTest.control.markSheetDesc"));
-        map.put("note", I18nUtils.get("smc.tool.control.note"));
-        map.put("noteDesc", I18nUtils.get("smc.tool.specGeneralTest.control.noteDesc"));
+        map.put("excelLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel"));
+        map.put("excelDesc", "eg: DTS_Transfer_request_Table.xlsx");
+        map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group"));
+        map.put("groupDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.groupDesc"));
+        map.put("xmlFileNameAndStartColLabel",
+                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol"));
+        map.put("xmlFileNameAndStartColDesc",
+                I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlFileNameAndStartColDesc"));
+        map.put("xmlNameTemplateLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate"));
+        map.put("xmlNameTemplateDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlNameTemplateDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
