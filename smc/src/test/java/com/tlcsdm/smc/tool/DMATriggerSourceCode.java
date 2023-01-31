@@ -3,13 +3,13 @@ package com.tlcsdm.smc.tool;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.javafx.dialog.FxAlerts;
-
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -26,86 +26,108 @@ public class DMATriggerSourceCode {
         List<String> groups = StrUtil.splitTrim("C,E", ",");
         String excelName = "u2c_sDMAC_Transfer_request_Table.xlsx";
         String outputPath = "C:\\workspace\\test";
-        int groupNum = groups.size();
+        String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-                RH850/U2C8-B#F
-                RH850/U2C4-B#J
-                RH850/U2C2-B#L
-                RH850/U2C8-D#T
-                RH850/U2C4-D#X
-                RH850/U2C2-D#Z
+                RH850U2C8-B#F
+                RH850U2C4-B#J
+                RH850U2C2-B#L
+                RH850U2C8-D#T
+                RH850U2C4-D#X
+                RH850U2C2-D#Z
                 """;
         String sheetName = "sDMAC transfer request";
+        String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
+        String tagTemplate = """
+                {offset}<tagBinding id="Trigger{factor}" key="Trigger_Source" value="{macro}">
+                {offset}    <and>
+                {offset}        <simpleCondition optionId="requestSource" valueId="HWRequestGrp{groupNum}">
+                {offset}        </simpleCondition>
+                {offset}        <simpleCondition optionId="triggerSourceGrp{groupNum}" valueId="{factor}">
+                {offset}        </simpleCondition>
+                {offset}    </and>
+                {offset}</tagBinding>""";
         int startRow = 5;
         int endRow = 260;
-        String xmlNameTemplate = "";
+        int offset = 4;
+        int defineLength = 70;
+        String offsetString = CharSequenceUtil.repeat(" ", offset);
+        String macroValueTemplate = "({hex}) /* DMAC group {groupNum} {factor} */";
 
-        List<String> xmlFileNames = new ArrayList<>();
-        List<String> startCols = new ArrayList<>();
-        parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
+        List<TransferRequest> transferRequests = new ArrayList<>();
+        List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
+        for (String xmlConfig : xmlConfigs) {
+            List<String> l = StrUtil.split(xmlConfig, "#");
+            TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1));
+            transferRequests.add(transferRequest);
+        }
 
-        String resultPath = outputPath + "\\dmaCode";
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
 
-        for (int i = 0; i < xmlFileNames.size(); i++) {
-            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
-            if (file.exists()) {
-                FileUtil.del(file);
-            }
-            List<String> contentsList = new ArrayList<>();
-            contentsList.add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            contentsList.add("<!DOCTYPE xml>");
-            contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
-            contentsList.add("<DTCTriggerSource>");
-            contentsList.add("    <Dependence Dependence=\"\" />");
-
-            int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
-            for (int j = startRow; j <= endRow; j++) {
-                contentsList.add("    <TriggerSource Channel=\"" + (j - startRow) + "\"");
-                for (int k = 0; k < groupNum; k++) {
-                    String getGroupLine = ExcelUtil.indexToColName(startCol + k);
-                    String content = "        Group" + k + "TriggerInfo=\""
-                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
-                    if (k == groupNum - 1) {
-                        content += " />";
-                    }
-                    contentsList.add(content);
+        // 文件内容获取
+        List<String> settingContent = new ArrayList<>();
+        List<String> bindingContent = new ArrayList<>();
+        List<String> cgdmaContent = new ArrayList<>();
+        int groupNum = 0;
+        for (String group : groups) {
+            List<String> triggerContent = new ArrayList<>();
+            List<String> tagContent = new ArrayList<>();
+            List<String> defineContent = new ArrayList<>();
+            String defaultSelection = "";
+            Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
+                    .put("groupNum", String.valueOf(groupNum)).build();
+            for (int i = startRow; i <= endRow; i++) {
+                String factor = reader.getCell(group + i).getStringCellValue();
+                if ("Reserve".equals(factor)) {
+                    continue;
                 }
-            }
+                if (defaultSelection.length() == 0) {
+                    defaultSelection = factor;
+                }
+                paramMap.put("factor", factor);
+                // setting
+                String staticItem = StrUtil.format("""
+                        {offset}    <staticItem enabled="true" id="{factor}" name="{factor}"/>""", paramMap);
+                triggerContent.add(staticItem);
 
-            contentsList.add("</DTCTriggerSource>");
-            contentsList.add("");
-            FileUtil.appendUtf8Lines(contentsList, file);
+                String macro = StrUtil.format(macroTemplate, paramMap);
+                paramMap.put("macro", macro);
+                // bingding
+                String tag = StrUtil.format(tagTemplate, paramMap);
+                tagContent.add(tag);
+                // r_cg_dma
+                StringBuilder define = new StringBuilder("#define " + macro);
+                paramMap.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
+                if (macro.length() < defineLength - 8) {
+                    define.append(CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
+                    define.append(StrUtil.format(macroValueTemplate, paramMap));
+                }
+                defineContent.add(define.toString());
+            }
+            // 后置处理
+            triggerContent.add(0, StrUtil.format(
+                    """
+                            {offset}<option defaultSelection="{defaultSelection}" enabled="true" id="triggerSourceGrp{groupNum}" name="triggerSourceGrp{groupNum}">""",
+                    MapUtil.builder(paramMap).put("defaultSelection", defaultSelection).build()));
+            triggerContent.add(offsetString + "</option>");
+            // 当前循环结束，开始下一次循环
+            settingContent.addAll(triggerContent);
+            bindingContent.addAll(tagContent);
+            cgdmaContent.addAll(defineContent);
+            groupNum++;
         }
+        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+        FileUtil.appendUtf8Lines(settingContent, setting);
+        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
+        FileUtil.appendUtf8Lines(bindingContent, binding);
+        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+        FileUtil.appendUtf8Lines(cgdmaContent, cgdma);
 
         reader.close();
     }
 
-    /**
-     * 解析 xmlFileNameAndStartCol 的配置，获取xml文件名和读取的列信息
-     */
-    private void parseXmlConfig(String xmlFileNameAndStartCol, List<String> xmlFileNames, List<String> startCols) {
-        List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
-        for (String xmlConfig : xmlConfigs) {
-            List<String> l = StrUtil.split(xmlConfig, "-");
-            xmlFileNames.add(l.get(0));
-            startCols.add(l.get(1));
-        }
-        if (xmlFileNames.size() != startCols.size()) {
-            FxAlerts.exception(new UnExpectedResultException());
-        }
-    }
-
-    /**
-     * 读取单元格的值
-     */
-    private String getXmlGroupValue(ExcelReader reader, String groupLineCell, String groupValueLineCell) {
-        if ("-".equals(reader.getCell(groupLineCell).getStringCellValue())) {
-            return "Reserved";
-        }
-        return reader.getCell(groupValueLineCell).getStringCellValue();
+    record TransferRequest(String device, String startCol) {
     }
 }
