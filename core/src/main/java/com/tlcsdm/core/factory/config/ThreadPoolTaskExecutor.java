@@ -12,11 +12,11 @@ import java.util.concurrent.TimeUnit;
  * @date: 2023/2/5 8:36
  */
 public class ThreadPoolTaskExecutor implements InitializingFactory {
-    public static ThreadPoolExecutor CoreThreadPool;
+    public static ThreadPoolExecutor CORE_THREADPOOL;
 
     @Override
     public void initialize() throws Exception {
-        CoreThreadPool = new ThreadPoolExecutor(2,
+        CORE_THREADPOOL = new ThreadPoolExecutor(2,
                 50,
                 30,
                 TimeUnit.SECONDS,
@@ -27,6 +27,6 @@ public class ThreadPoolTaskExecutor implements InitializingFactory {
     }
 
     public static ThreadPoolExecutor get() {
-        return CoreThreadPool;
+        return CORE_THREADPOOL;
     }
 }

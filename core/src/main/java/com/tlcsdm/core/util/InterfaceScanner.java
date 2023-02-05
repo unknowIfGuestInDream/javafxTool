@@ -21,7 +21,7 @@ public class InterfaceScanner {
      *
      * @return The classes
      */
-    public static List<Class<?>> discover(Class clazz) {
+    public static List<Class<?>> discover(Class<?> clazz) {
         Class<?>[] results = new Class[]{};
         List<Class<?>> list = new ArrayList<>();
         try {
@@ -45,7 +45,7 @@ public class InterfaceScanner {
         return list;
     }
 
-    public static void invoke(Class clazz, String name, Class<?>... parameterTypes) {
+    public static void invoke(Class<?> clazz, String name, Class<?>... parameterTypes) {
         List<Class<?>> list = discover(clazz);
         for (Class<?> i : list) {
             try {
@@ -56,7 +56,7 @@ public class InterfaceScanner {
         }
     }
 
-    private static Class<?>[] loadFromPathScanning(Class cls) {
+    private static Class<?>[] loadFromPathScanning(Class<?> cls) {
         final Set<Class<?>> classes = new LinkedHashSet<>();
         // scan the module-path
         ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference)
