@@ -26,37 +26,30 @@
  */
 package com.tlcsdm.frame;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.Mode;
+import cn.hutool.crypto.Padding;
+import cn.hutool.crypto.symmetric.AES;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.frame.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.DES;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ServiceLoader;
 
 /**
  * A base class for samples - it is recommended that they extend this class
@@ -160,8 +153,8 @@ public abstract class SampleBase extends Application implements Sample {
                 }
             } else if (value instanceof PasswordField v) {
                 if (!StrUtil.isEmpty(val)) {
-                    DES des = SecureUtil.des(aesSeed.getBytes());
-                    v.setText(des.decryptStr(val));
+                    AES aes = new AES(Mode.ECB, Padding.PKCS5Padding, aesSeed.getBytes());
+                    v.setText(aes.decryptStr(val));
                 }
             } else if (value instanceof TextInputControl v) {
                 if (!StrUtil.isEmpty(val)) {
@@ -176,7 +169,7 @@ public abstract class SampleBase extends Application implements Sample {
             } else if (value instanceof String v) {
                 v = val;
             } else {
-                // do nothing
+                // Do nothing
             }
         });
     }
@@ -198,8 +191,8 @@ public abstract class SampleBase extends Application implements Sample {
             } else if (value instanceof DirectoryChooser v) {
                 FxXmlUtil.set(k, v.getInitialDirectory());
             } else if (value instanceof PasswordField v) {
-                DES des = SecureUtil.des(aesSeed.getBytes());
-                FxXmlUtil.set(k, des.encryptHex(v.getText()));
+                AES aes = new AES(Mode.ECB, Padding.PKCS5Padding, aesSeed.getBytes());
+                FxXmlUtil.set(k, aes.encryptHex(v.getText()));
             } else if (value instanceof TextInputControl v) {
                 FxXmlUtil.set(k, v.getText());
             } else if (value instanceof CheckBox v) {
@@ -209,7 +202,7 @@ public abstract class SampleBase extends Application implements Sample {
             } else if (value instanceof String v) {
                 FxXmlUtil.set(k, v);
             } else {
-                // do nothing
+                // Do nothing
             }
         });
     }
@@ -218,7 +211,7 @@ public abstract class SampleBase extends Application implements Sample {
      * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
      */
     protected void updateForVersionUpgrade() {
-        // do nothing
+        // Do nothing
     }
 
     protected String getSampleXmlPrefix() {
