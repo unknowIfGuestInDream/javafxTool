@@ -19,8 +19,8 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DiffHandleUtils;
 import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.DiffHandleUtils;
 import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;

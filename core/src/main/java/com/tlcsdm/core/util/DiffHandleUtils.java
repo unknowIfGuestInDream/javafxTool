@@ -1,4 +1,4 @@
-package com.tlcsdm.smc.util;
+package com.tlcsdm.core.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

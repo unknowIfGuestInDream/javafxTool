@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.tlcsdm.smc.util.DiffHandleUtils;
+import com.tlcsdm.core.util.DiffHandleUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
