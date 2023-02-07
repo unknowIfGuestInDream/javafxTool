@@ -45,6 +45,7 @@ import java.util.ServiceLoader;
 
 /**
  * 扫描TemplateLoaderService实现类
+ * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
  */
 public class TemplateLoaderScanner implements InitializingFactory {
 
@@ -68,7 +69,7 @@ public class TemplateLoaderScanner implements InitializingFactory {
         list.add(0, new FileTemplateLoader(file));
         TemplateLoader[] loaders = list.toArray(new TemplateLoader[list.size()]);
         MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
-        Configuration configuration = FreemarkerUtil.configuration();
+        Configuration configuration = FreemarkerUtil.init();
         configuration.setTemplateLoader(mtl);
         configuration.setDefaultEncoding("utf-8");
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2019, ${.now?string('yyyy')} unknowIfGuestInDream
+/*
+ * Copyright (c) 2019, 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,3 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package com.tlcsdm.core.exception;
+
+/**
+ * 不支持的功能
+ *
+ * @author: TangLiang
+ * @date: 2022/1/7 9:21
+ * @since: 1.0
+ */
+public class UnsupportedFeatureException extends RuntimeException {
+    public UnsupportedFeatureException() {
+    }
+
+    public UnsupportedFeatureException(String message) {
+        super(message);
+    }
+
+    public UnsupportedFeatureException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public UnsupportedFeatureException(Throwable cause) {
+        super(cause);
+    }
+}
