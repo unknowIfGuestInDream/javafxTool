@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+/**
+ * Copyright (c) 2019, ${.now?string('yyyy')} unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,28 +24,3 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-package com.tlcsdm.core.exception;
-
-/**
- * core模块异常
- *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/3 21:08
- */
-public class CoreException extends RuntimeException {
-    public CoreException() {
-    }
-
-    public CoreException(String message) {
-        super(message);
-    }
-
-    public CoreException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public CoreException(Throwable cause) {
-        super(cause);
-    }
-}

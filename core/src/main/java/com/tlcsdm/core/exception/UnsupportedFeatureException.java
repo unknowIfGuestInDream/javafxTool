@@ -28,24 +28,25 @@
 package com.tlcsdm.core.exception;
 
 /**
- * core模块异常
+ * 不支持的功能
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/3 21:08
+ * @author: TangLiang
+ * @date: 2022/1/7 9:21
+ * @since: 1.0
  */
-public class CoreException extends RuntimeException {
-    public CoreException() {
+public class UnsupportedFeatureException extends RuntimeException {
+    public UnsupportedFeatureException() {
     }
 
-    public CoreException(String message) {
+    public UnsupportedFeatureException(String message) {
         super(message);
     }
 
-    public CoreException(String message, Throwable cause) {
+    public UnsupportedFeatureException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public CoreException(Throwable cause) {
+    public UnsupportedFeatureException(Throwable cause) {
         super(cause);
     }
 }

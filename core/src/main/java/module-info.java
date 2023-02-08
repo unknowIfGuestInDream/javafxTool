@@ -10,7 +10,8 @@ module com.tlcsdm.core {
     requires hutool.log;
     requires hutool.core;
     requires commons.beanutils;
-    requires hutool.crypto;
+    requires static io.github.javadiffutils;
+    requires static freemarker;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -25,5 +26,9 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.exception;
     exports com.tlcsdm.core.factory;
     exports com.tlcsdm.core.factory.config;
+    exports com.tlcsdm.core.freemarker;
+    exports com.tlcsdm.core.freemarker.template;
+
+    uses com.tlcsdm.core.freemarker.TemplateLoaderService;
 
 }
