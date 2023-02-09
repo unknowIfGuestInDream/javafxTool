@@ -64,6 +64,9 @@
         <appender-ref ref="FILTERERS"/>
     </appender>
 
+    <!-- 排除启动时的提示日志 -->
+    <logger name="org.apache.commons.beanutils.FluentPropertyBeanIntrospector" level="error"></logger>
+
     <root>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>

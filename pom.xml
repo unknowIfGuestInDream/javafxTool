@@ -64,6 +64,7 @@
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.3</poi-ooxml.version>
         <freemarker.version>2.3.32</freemarker.version>
+        <aviator.version>5.3.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.11</hutool.version>
@@ -181,6 +182,12 @@
                 <artifactId>commons-configuration2</artifactId>
                 <version>${commons-configuration2.version}</version>
             </dependency>
+            <!-- 使用aviator需要手动日内与关联依赖commons-beanutils，解决版本问题 -->
+            <dependency>
+			    <groupId>com.googlecode.aviator</groupId>
+			    <artifactId>aviator</artifactId>
+			    <version>${aviator.version}</version>
+		    </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
