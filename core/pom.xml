@@ -71,6 +71,11 @@
             <artifactId>hutool-crypto</artifactId>
         </dependency>
         <dependency>
+			<groupId>com.googlecode.aviator</groupId>
+			<artifactId>aviator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <scope>provided</scope>
