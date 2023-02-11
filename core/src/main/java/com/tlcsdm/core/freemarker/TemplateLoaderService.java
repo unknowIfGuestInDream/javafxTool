@@ -38,7 +38,6 @@ public interface TemplateLoaderService {
     /**
      * 获取TemplateLoader
      */
-    @SuppressWarnings("exports")
     TemplateLoader getTemplateLoader();
 
 }

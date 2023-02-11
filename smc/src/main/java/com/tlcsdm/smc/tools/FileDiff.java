@@ -82,9 +82,6 @@ public class FileDiff extends SmcSample {
         webView.getEngine().loadContent(template);
         notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
         notificationBuilder.showInformation();
-        System.out.println(FreemarkerUtil.getTemplateContent("license.ftl"));
-        System.out.println(FreemarkerUtil.configuration());
-        System.out.println(FreemarkerUtil.init());
         bindUserData();
     });
 

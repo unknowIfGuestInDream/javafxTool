@@ -24,39 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.tlcsdm.frame
 
-package com.tlcsdm.frame;
-
-import com.tlcsdm.frame.model.Project;
-import com.tlcsdm.frame.model.WelcomePage;
-
-import javafx.scene.Node;
+import com.tlcsdm.frame.Sample
+import com.tlcsdm.frame.model.Project
+import com.tlcsdm.frame.model.WelcomePage
+import javafx.scene.Node
 
 /**
  * BorderPane的center组件(应用模块实现)
  */
-public interface CenterPanelService {
-
+interface CenterPanelService {
     /**
      * 设置CenterPanel
      */
-    Node getCenterPanel();
+    val centerPanel: Node?
 
     /**
      * 点击菜单时触发的CenterPanel action
      */
-    void changeSample();
+    fun changeSample()
 
     /**
      * CenterPanel 内部组件的切换
      */
-    void updateSampleChild(Sample selectedSample, Project selectedProject);
-
+    fun updateSampleChild(selectedSample: Sample?, selectedProject: Project?)
     // WelcomePage 处理
-
     /**
      * WelcomePage 处理
      */
-    void handleWelcomePage(WelcomePage wPage);
-
+    fun handleWelcomePage(wPage: WelcomePage?)
 }

@@ -4,12 +4,12 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
  *
@@ -24,36 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.tlcsdm.frame;
+package com.tlcsdm.frame
 
-import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.model.WelcomePage
 
-public interface FXSamplerProject {
-
+interface FXSamplerProject {
     /**
      * Returns the pretty name of the project, e.g. 'JFXtras' or 'ControlsFX'
      */
-    String getProjectName();
+    val projectName: String?
 
     /**
      * All samples should be beneath this base package. For example, in ControlsFX,
      * this may be 'org.controlsfx.samples'.
      */
-    String getSampleBasePackage();
+    val sampleBasePackage: String?
 
     /**
      * Node that will be displayed in welcome tab, when project's root is
-     * selected in the tree. If this method returns null, default page will 
+     * selected in the tree. If this method returns null, default page will
      * be used
      */
-    WelcomePage getWelcomePage();
+    val welcomePage: WelcomePage?
 
     /**
      * Module name of the project for which the sampler is to be used.
      * For example, in case of ControlsFX this is "org.controlsfx.controls".
      * Can be left blank if the sampler application is running on classpath.
      */
-    default String getModuleName() {
-        return "";
-    }
+    val moduleName: String?
+        get() = ""
 }

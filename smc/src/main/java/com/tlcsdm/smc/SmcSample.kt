@@ -24,22 +24,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.tlcsdm.smc
 
-package com.tlcsdm.smc;
+import com.tlcsdm.core.javafx.util.Config
+import com.tlcsdm.frame.SampleBase
 
-import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.frame.SampleBase;
-
-public abstract class SmcSample extends SampleBase {
-
-    @Override
-    public String getProjectName() {
-        return "smc";
-    }
-
-    @Override
-    public String getProjectVersion() {
-        return Config.JAVAFX_TOOL_VERSION;
-    }
-
+abstract class SmcSample : SampleBase() {
+    override val projectName: String
+        get() = "smc"
+    override val projectVersion: String
+        get() = Config.JAVAFX_TOOL_VERSION
 }
