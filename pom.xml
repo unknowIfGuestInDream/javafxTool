@@ -190,10 +190,10 @@
             </dependency>
             <!-- 使用aviator需要手动日内与关联依赖commons-beanutils，解决版本问题 -->
             <dependency>
-			    <groupId>com.googlecode.aviator</groupId>
-			    <artifactId>aviator</artifactId>
-			    <version>${aviator.version}</version>
-		    </dependency>
+                <groupId>com.googlecode.aviator</groupId>
+                <artifactId>aviator</artifactId>
+                <version>${aviator.version}</version>
+            </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
@@ -315,6 +315,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
 
 </project>
