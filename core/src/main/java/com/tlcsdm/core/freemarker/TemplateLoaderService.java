@@ -31,6 +31,7 @@ import freemarker.cache.TemplateLoader;
 
 /**
  * freemarker TemplateLoader发现
+ *
  * @author unknowIfGuestInDream
  */
 public interface TemplateLoaderService {
