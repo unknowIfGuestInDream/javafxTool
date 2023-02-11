@@ -33,7 +33,6 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.util.DiffHandleUtils;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -82,9 +81,6 @@ public class FileDiff extends SmcSample {
         webView.getEngine().loadContent(template);
         notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
         notificationBuilder.showInformation();
-        System.out.println(FreemarkerUtil.getTemplateContent("license.ftl"));
-        System.out.println(FreemarkerUtil.configuration());
-        System.out.println(FreemarkerUtil.init());
         bindUserData();
     });
 
