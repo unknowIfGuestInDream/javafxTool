@@ -29,7 +29,6 @@ package com.tlcsdm.frame;
 
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
-
 import javafx.scene.Node;
 
 /**
@@ -51,8 +50,6 @@ public interface CenterPanelService {
      * CenterPanel 内部组件的切换
      */
     void updateSampleChild(Sample selectedSample, Project selectedProject);
-
-    // WelcomePage 处理
 
     /**
      * WelcomePage 处理
