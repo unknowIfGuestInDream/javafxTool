@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Base logback configuration provided for javafxTool
+need define property APP_NAME
+-->
+
+<included>
+    <include file="core/src/main/java/com/tlcsdm/core/logging/logback/defaults.xml"/>
+    <include file="core/src/main/java/com/tlcsdm/core/logging/logback/console-appender.xml"/>
+    <include file="core/src/main/java/com/tlcsdm/core/logging/logback/file-appender.xml"/>
+
+    <root>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+        <appender-ref ref="ASYNC_FILTERERS"/>
+    </root>
+</included>
