@@ -12,6 +12,8 @@ module com.tlcsdm.core {
     requires commons.beanutils;
     requires static io.github.javadiffutils;
     requires static freemarker;
+    requires ch.qos.logback.classic;
+    requires ch.qos.logback.core;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -28,6 +30,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.factory.config;
     exports com.tlcsdm.core.freemarker;
     exports com.tlcsdm.core.freemarker.template;
+    exports com.tlcsdm.core.logging.logback;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
 
