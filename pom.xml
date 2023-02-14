@@ -188,7 +188,6 @@
                 <artifactId>commons-configuration2</artifactId>
                 <version>${commons-configuration2.version}</version>
             </dependency>
-            <!-- 使用aviator需要手动日内与关联依赖commons-beanutils，解决版本问题 -->
             <dependency>
                 <groupId>com.googlecode.aviator</groupId>
                 <artifactId>aviator</artifactId>
