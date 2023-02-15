@@ -27,18 +27,17 @@
 
 package com.tlcsdm.smc;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SmcSamplerProject implements FXSamplerProject {
 
@@ -75,11 +74,8 @@ public class SmcSamplerProject implements FXSamplerProject {
         vBox.getStyleClass().add("welcomePage");
         ImageView imgView = new ImageView();
         imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/SmcTool.png');");
-//		imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/JavaFXTool.png');");
         StackPane pane = new StackPane();
         pane.setPrefHeight(207);
-//		pane.setStyle(
-//				"-fx-background-image: url('com/tlcsdm/smc/static/javaFXToolBar.png');-fx-background-repeat: repeat-x;");
         pane.setStyle(
                 "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
         pane.getChildren().add(imgView);
