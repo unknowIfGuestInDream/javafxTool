@@ -65,7 +65,7 @@ public interface FXSamplerProject {
      *
      * @return Pane
      */
-    default Pane getWelcomeBackgroundImage() {
+    default Pane getWelcomeBackgroundImagePane() {
         ImageView imgView = new ImageView();
         imgView.setStyle("-fx-image: url('com/tlcsdm/frame/static/JavaFXTool.png');");
         StackPane pane = new StackPane();
