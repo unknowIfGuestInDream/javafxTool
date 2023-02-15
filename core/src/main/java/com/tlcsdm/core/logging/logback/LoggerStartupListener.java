@@ -57,7 +57,6 @@ public class LoggerStartupListener extends ContextAwareBase implements LoggerCon
             return;
         }
         String userHome = System.getProperty("user.home");
-        System.out.println(userHome);
         Context context = getContext();
         context.putProperty("userHome", userHome);
     }
