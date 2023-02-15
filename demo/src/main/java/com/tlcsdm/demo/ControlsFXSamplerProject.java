@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2022, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,53 +28,52 @@ package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
-
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class ControlsFXSamplerProject implements FXSamplerProject {
 
-	/** {@inheritDoc} */
-	@Override
-	public String getProjectName() {
-		return "ControlsFX";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProjectName() {
+        return "ControlsFX";
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String getSampleBasePackage() {
-		return "com.tlcsdm.demo";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSampleBasePackage() {
+        return "com.tlcsdm.demo";
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public String getModuleName() {
-		return "com.tlcsdm.demo";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getModuleName() {
+        return "com.tlcsdm.demo";
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public WelcomePage getWelcomePage() {
-		VBox vBox = new VBox();
-		ImageView imgView = new ImageView();
-		imgView.setStyle("-fx-image: url('com/tlcsdm/demo/ControlsFX.png');");
-		StackPane pane = new StackPane();
-		pane.setPrefHeight(207);
-		pane.setStyle("-fx-background-image: url('com/tlcsdm/demo/bar.png');" + "-fx-background-repeat: repeat-x;");
-		pane.getChildren().add(imgView);
-		Label label = new Label();
-		label.setWrapText(true);
-		StringBuilder desc = new StringBuilder();
-		desc.append("ControlsFX is an open source project for JavaFX that aims ");
-		desc.append("to provide really high quality UI controls and other tools to ");
-		desc.append("complement the core JavaFX distribution.");
-		desc.append("\n\n");
-		desc.append("Explore the available UI controls by clicking on the options to the left.");
-		label.setText(desc.toString());
-		label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
-		vBox.getChildren().addAll(pane, label);
-		return new WelcomePage("Welcome to Controls FX!", vBox);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public WelcomePage getWelcomePage() {
+        VBox vBox = new VBox();
+        Label label = new Label();
+        label.setWrapText(true);
+        StringBuilder desc = new StringBuilder();
+        desc.append("ControlsFX is an open source project for JavaFX that aims ");
+        desc.append("to provide really high quality UI controls and other tools to ");
+        desc.append("complement the core JavaFX distribution.");
+        desc.append("\n\n");
+        desc.append("Explore the available UI controls by clicking on the options to the left.");
+        label.setText(desc.toString());
+        label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
+        vBox.getChildren().addAll(getWelcomeBackgroundImagePane(), label);
+        return new WelcomePage("Welcome to Controls FX!", vBox);
+    }
 }

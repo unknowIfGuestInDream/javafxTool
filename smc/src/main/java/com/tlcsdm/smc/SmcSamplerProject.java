@@ -33,6 +33,7 @@ import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -72,13 +73,6 @@ public class SmcSamplerProject implements FXSamplerProject {
     public WelcomePage getWelcomePage() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("welcomePage");
-        ImageView imgView = new ImageView();
-        imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/SmcTool.png');");
-        StackPane pane = new StackPane();
-        pane.setPrefHeight(207);
-        pane.setStyle(
-                "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
-        pane.getChildren().add(imgView);
         Label label = new Label();
         label.setWrapText(true);
         String desc = """
@@ -122,7 +116,19 @@ public class SmcSamplerProject implements FXSamplerProject {
 //			}
 //		});
 
-        vBox.getChildren().addAll(pane, label);
+        vBox.getChildren().addAll(getWelcomeBackgroundImagePane(), label);
         return new WelcomePage("Welcome to SMC Tool!", vBox);
+    }
+
+    @Override
+    public Pane getWelcomeBackgroundImagePane() {
+        ImageView imgView = new ImageView();
+        imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/SmcTool.png');");
+        StackPane pane = new StackPane();
+        pane.setPrefHeight(207);
+        pane.setStyle(
+                "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
+        pane.getChildren().add(imgView);
+        return pane;
     }
 }
