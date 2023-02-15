@@ -74,10 +74,14 @@ public class SmcSamplerProject implements FXSamplerProject {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("welcomePage");
         ImageView imgView = new ImageView();
-        imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/ControlsFX.png');");
+        imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/SmcTool.png');");
+//		imgView.setStyle("-fx-image: url('com/tlcsdm/smc/static/JavaFXTool.png');");
         StackPane pane = new StackPane();
         pane.setPrefHeight(207);
-        pane.setStyle("-fx-background-image: url('com/tlcsdm/smc/static/bar.png');-fx-background-repeat: repeat-x;");
+//		pane.setStyle(
+//				"-fx-background-image: url('com/tlcsdm/smc/static/javaFXToolBar.png');-fx-background-repeat: repeat-x;");
+        pane.setStyle(
+                "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
         pane.getChildren().add(imgView);
         Label label = new Label();
         label.setWrapText(true);
