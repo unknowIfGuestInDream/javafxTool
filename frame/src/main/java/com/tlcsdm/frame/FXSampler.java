@@ -27,13 +27,9 @@
 
 package com.tlcsdm.frame;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
+import cn.hutool.core.date.StopWatch;
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
@@ -41,16 +37,9 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
 import com.tlcsdm.core.util.InterfaceScanner;
-import com.tlcsdm.frame.model.EmptyCenterPanel;
-import com.tlcsdm.frame.model.EmptySample;
-import com.tlcsdm.frame.model.Project;
-import com.tlcsdm.frame.model.SampleTree;
-import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.model.*;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
-
-import cn.hutool.core.date.StopWatch;
-import cn.hutool.core.lang.Console;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -58,12 +47,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -71,6 +55,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.util.*;
 
 public final class FXSampler extends Application {
 
@@ -208,6 +194,9 @@ public final class FXSampler extends Application {
             if (stylesheet != null) {
                 scene.getStylesheets().add(stylesheet);
             }
+            String title = fxsamplerConfiguration.getStageTitle();
+            FxApp.setTitle(title);
+            FxApp.setAppIcon(fxsamplerConfiguration.getAppIcon());
         }
         stage.setScene(scene);
         stage.setMinWidth(1000);
@@ -220,7 +209,11 @@ public final class FXSampler extends Application {
         stage.setMinHeight(750);
         stage.setMinWidth(1000);
 //        stage.setResizable(false);
-        stage.setTitle(I18nUtils.get("frame.stage.title"));
+        if (StrUtil.isEmpty(FxApp.title)) {
+            stage.setTitle(I18nUtils.get("frame.stage.title"));
+        } else {
+            stage.setTitle(FxApp.title);
+        }
         // 加载上次位置
         StageUtils.loadPrimaryStageBound(primaryStage);
 //        stage.getIcons()
