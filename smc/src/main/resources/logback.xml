@@ -3,5 +3,5 @@
     <!--应用名称-->
     <property name="APP_NAME" value="smc"/>
     <contextName>${APP_NAME}</contextName>
-    <include file="core/src/main/java/com/tlcsdm/core/logging/logback/base.xml"/>
+    <include file="${user.dir}/core/src/main/java/com/tlcsdm/core/logging/logback/base.xml"/>
 </configuration>

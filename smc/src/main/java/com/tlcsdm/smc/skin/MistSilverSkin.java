@@ -27,11 +27,11 @@
 
 package com.tlcsdm.smc.skin;
 
+import com.tlcsdm.smc.SmcConfiguration;
+
 import java.util.Objects;
 
-import com.tlcsdm.frame.FXSamplerConfiguration;
-
-public class MistSilverSkin implements FXSamplerConfiguration {
+public class MistSilverSkin extends SmcConfiguration {
 
     @Override
     public String getSceneStylesheet() {
