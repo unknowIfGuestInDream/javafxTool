@@ -26,6 +26,18 @@
  */
 package com.tlcsdm.frame;
 
+import javafx.scene.image.Image;
+
 public interface FXSamplerConfiguration {
     String getSceneStylesheet();
+
+    /**
+     * UI的名称
+     */
+    String getStageTitle();
+
+    /**
+     * 程序logo
+     */
+    Image getAppIcon();
 }

@@ -27,18 +27,7 @@
 
 package com.tlcsdm.smc;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
@@ -52,8 +41,6 @@ import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.MenubarConfigration;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -62,6 +49,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.util.*;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigration implements MenubarConfigration {
 
@@ -99,8 +93,8 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
         alert.setResizable(false);
-        alert.setTitle(I18nUtils.get("smc.menubar.help.about.title"));
-        alert.setHeaderText(I18nUtils.get("smc.menubar.help.about.headerText"));
+        alert.setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title);
+        alert.setHeaderText(FxApp.title);
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.initOwner(stage);
         ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);

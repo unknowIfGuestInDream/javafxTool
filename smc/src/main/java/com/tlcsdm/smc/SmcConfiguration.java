@@ -27,9 +27,11 @@
 
 package com.tlcsdm.smc;
 
-import java.util.Objects;
-
 import com.tlcsdm.frame.FXSamplerConfiguration;
+import com.tlcsdm.smc.util.I18nUtils;
+import javafx.scene.image.Image;
+
+import java.util.Objects;
 
 public class SmcConfiguration implements FXSamplerConfiguration {
 
@@ -37,6 +39,16 @@ public class SmcConfiguration implements FXSamplerConfiguration {
     public String getSceneStylesheet() {
         return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/fxsampler.css"))
                 .toExternalForm();
+    }
+
+    @Override
+    public String getStageTitle() {
+        return I18nUtils.get("smc.stage.title");
+    }
+
+    @Override
+    public Image getAppIcon() {
+        return null;
     }
 
 }
