@@ -13,18 +13,9 @@ login: 登录模块(提供SPI接口)
 demo: demo示例  
 smc: 个人应用(无需参考)
 
-## 打包命令示例
+## 问题
 
-在windows上执行需要安装wix310.exe  
-先执行javafx:jlink打包镜像
-
-```shell
-javafx: jlink
-```
-
-```shell
-D:\JDK\JDK17\bin\jpackage.exe --type app-image -n tlcsdm-demo -m com.tlcsdm.demo/com.tlcsdm.demo.ControlsFXSampler --runtime-image E:\javaWorkSpace\javafxTool\javafxTool\demo\target\image --temp F:/temp --dest F:/TM --app-version 1.0.0 --copyright unknowIfGuestInDream --vendor unknowIfGuestInDream --description demo工具
-```
+在eclipse环境下，logback路径寻找出现问题时，可以为程序添加VM 参数: `-Duser.dir=xxx/xxx/javafxTool`
 
 ## 联系
 
