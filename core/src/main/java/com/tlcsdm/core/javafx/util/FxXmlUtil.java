@@ -1,19 +1,14 @@
 package com.tlcsdm.core.javafx.util;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-
 import org.apache.commons.configuration2.XMLPropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.builder.fluent.XMLBuilderParameters;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+
+import java.io.File;
+import java.util.*;
 
 /**
  * @author: unknowIfGuestInDream
@@ -89,6 +84,10 @@ public class FxXmlUtil {
 
 	public static List<Object> getList(String key, List<String> def) {
 		return getConfig().getList(key, def);
+	}
+
+	public static void del(String prefix, String key) {
+		del(prefix + "." + key);
 	}
 
 	public static void del(String key) {
