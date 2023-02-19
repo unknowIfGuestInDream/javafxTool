@@ -331,10 +331,16 @@ public class GirretReview extends SmcSample {
         //时间超过12小时，清除girret token信息
         String today = LocalDateTimeUtil.now().format(DatePattern.NORM_DATETIME_FORMATTER);
         String value = FxXmlUtil.get(getSampleXmlPrefix(), "lastUpdateDate", today);
-        Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER), LocalDateTimeUtil.now());
-        if (dur.toHours() >= 12) {
-            gerritAccountField.setText("");
-            tokenField.setText("");
+        if (StrUtil.isEmpty(value)) {
+            return;
+        }
+        try {
+            Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER), LocalDateTimeUtil.now());
+            if (dur.toHours() >= 12) {
+                gerritAccountField.setText("");
+                tokenField.setText("");
+            }
+        } catch (Exception ignored) {
         }
     }
 
