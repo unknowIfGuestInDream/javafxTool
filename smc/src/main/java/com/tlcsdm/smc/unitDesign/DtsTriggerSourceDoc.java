@@ -50,9 +50,11 @@ import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -79,9 +81,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private DirectoryChooser outputChooser;
     private TextField groupField;
     private TextArea xmlFileNameAndStartColField;
+    private TextField templateField;
+    private FileChooser templateChooser;
     private TextField sheetNameField;
+    private TextField conditionColField;
     private NumberTextField startRowField;
     private NumberTextField endRowField;
+    private NumberTextField beginWriteRowNumField;
     private TextField xmlNameTemplateField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
@@ -94,53 +100,64 @@ public class DtsTriggerSourceDoc extends SmcSample {
         int groupNum = groups.size();
         String xmlFileNameAndStartCol = xmlFileNameAndStartColField.getText();
         String sheetName = sheetNameField.getText();
+        String conditionCol = conditionColField.getText();
         int startRow = Integer.parseInt(startRowField.getText());
         int endRow = Integer.parseInt(endRowField.getText());
+        int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
         String xmlNameTemplate = xmlNameTemplateField.getText();
+        String templatePath = templateField.getText();
 
         List<String> xmlFileNames = new ArrayList<>();
         List<String> startCols = new ArrayList<>();
         parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
-
-        String resultPath = outputPath + "\\triggerSource";
-        // 清空resultPath下文件
-        FileUtil.clean(resultPath);
-        // 处理数据
-        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
-        for (int i = 0; i < xmlFileNames.size(); i++) {
-            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
-            if (file.exists()) {
-                FileUtil.del(file);
-            }
-            List<String> contentsList = new ArrayList<>();
-            contentsList.add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            contentsList.add("<!DOCTYPE xml>");
-            contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
-            contentsList.add("<DTCTriggerSource>");
-            contentsList.add("\t<Dependence Dependence=\"\" />");
-
-            int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
-            for (int j = startRow; j <= endRow; j++) {
-                contentsList.add("\t<TriggerSource Channel=\"" + (j - startRow) + "\"");
-                for (int k = 0; k < groupNum; k++) {
-                    String getGroupLine = ExcelUtil.indexToColName(startCol + k);
-                    String content = "\t\tGroup" + k + "TriggerInfo=\""
-                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
-                    if (k == groupNum - 1) {
-                        content += " />";
-                    }
-                    contentsList.add(content);
-                }
-            }
-
-            contentsList.add("</DTCTriggerSource>");
-            contentsList.add("");
-            FileUtil.appendUtf8Lines(contentsList, file);
+        File templateFile;
+        if (StrUtil.isEmpty(templatePath)) {
+            templateFile = new File(ResourceUtil
+                    .getResource("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx").getPath());
+        } else {
+            templateFile = new File(templatePath);
         }
-        reader.close();
+        CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
+        int startConditionX = cellLocation.getX();
+        String resultPath = outputPath + "\\triggerSource";
+
+        // 处理数据
+//        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
+//        for (int i = 0; i < xmlFileNames.size(); i++) {
+//            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
+//            if (file.exists()) {
+//                FileUtil.del(file);
+//            }
+//            List<String> contentsList = new ArrayList<>();
+//            contentsList.add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+//            contentsList.add("<!DOCTYPE xml>");
+//            contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
+//            contentsList.add("<DTCTriggerSource>");
+//            contentsList.add("\t<Dependence Dependence=\"\" />");
+//
+//            int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
+//            for (int j = startRow; j <= endRow; j++) {
+//                contentsList.add("\t<TriggerSource Channel=\"" + (j - startRow) + "\"");
+//                for (int k = 0; k < groupNum; k++) {
+//                    String getGroupLine = ExcelUtil.indexToColName(startCol + k);
+//                    String content = "\t\tGroup" + k + "TriggerInfo=\""
+//                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
+//                    if (k == groupNum - 1) {
+//                        content += " />";
+//                    }
+//                    contentsList.add(content);
+//                }
+//            }
+//
+//            contentsList.add("</DTCTriggerSource>");
+//            contentsList.add("");
+//            FileUtil.appendUtf8Lines(contentsList, file);
+//        }
+//        reader.close();
 
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
+
         bindUserData();
     });
 
@@ -196,8 +213,26 @@ public class DtsTriggerSourceDoc extends SmcSample {
         Label xmlFileNameAndStartColLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
         xmlFileNameAndStartColField = new TextArea();
 
+        Label templateLabel = new Label("template: ");
+        templateField = new TextField();
+        templateChooser = new FileChooser();
+        templateChooser.getExtensionFilters().add(extFilter);
+
+        Button templateButton = FxButton.choose();
+        templateField.setEditable(false);
+        templateButton.setOnAction(arg0 -> {
+            File file = templateChooser.showOpenDialog(stage);
+            if (file != null) {
+                templateField.setText(file.getPath());
+                templateChooser.setInitialDirectory(file.getParentFile());
+            }
+        });
+
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
         sheetNameField = new TextField();
+
+        Label conditionColLabel = new Label("conditionCol: ");
+        conditionColField = new TextField();
 
         Label startRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
         startRowField = new NumberTextField();
@@ -205,12 +240,17 @@ public class DtsTriggerSourceDoc extends SmcSample {
         Label endRowLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.macroLength") + ": ");
         endRowField = new NumberTextField();
 
+        Label beginWriteRowNumLabel = new Label("beginWriteRowNumField: ");
+        beginWriteRowNumField = new NumberTextField();
+
         Label xmlNameTemplateLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
         xmlNameTemplateField = new TextField();
 
         sheetNameField.setText("DTS trigger");
+        conditionColField.setText("CL");
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
+        beginWriteRowNumField.setNumber(BigDecimal.valueOf(3));
         xmlFileNameAndStartColField.setPromptText("多个实例请换行");
         xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
@@ -220,9 +260,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
         userData.put("outputChooser", outputChooser);
         userData.put("group", groupField);
         userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
+        userData.put("template", templateField);
+        userData.put("templateChooser", templateChooser);
         userData.put("sheetName", sheetNameField);
+        userData.put("conditionCol", conditionColField);
         userData.put("startRow", startRowField);
         userData.put("endRow", endRowField);
+        userData.put("beginWriteRowNum", beginWriteRowNumField);
         userData.put("xmlNameTemplate", xmlNameTemplateField);
 
         grid.add(toolBar, 0, 0, 3, 1);
@@ -236,14 +280,21 @@ public class DtsTriggerSourceDoc extends SmcSample {
         grid.add(groupField, 1, 3, 2, 1);
         grid.add(xmlFileNameAndStartColLabel, 0, 4);
         grid.add(xmlFileNameAndStartColField, 1, 4, 2, 1);
-        grid.add(sheetNameLabel, 0, 5);
-        grid.add(sheetNameField, 1, 5, 2, 1);
-        grid.add(startRowLabel, 0, 6);
-        grid.add(startRowField, 1, 6, 2, 1);
-        grid.add(endRowLabel, 0, 7);
-        grid.add(endRowField, 1, 7, 2, 1);
-        grid.add(xmlNameTemplateLabel, 0, 8);
-        grid.add(xmlNameTemplateField, 1, 8, 2, 1);
+        grid.add(templateLabel, 0, 5);
+        grid.add(templateButton, 1, 5);
+        grid.add(templateField, 2, 5);
+        grid.add(sheetNameLabel, 0, 6);
+        grid.add(sheetNameField, 1, 6, 2, 1);
+        grid.add(conditionColLabel, 0, 7);
+        grid.add(conditionColField, 1, 7, 2, 1);
+        grid.add(startRowLabel, 0, 8);
+        grid.add(startRowField, 1, 8, 2, 1);
+        grid.add(endRowLabel, 0, 9);
+        grid.add(endRowField, 1, 9, 2, 1);
+        grid.add(beginWriteRowNumLabel, 0, 10);
+        grid.add(beginWriteRowNumField, 1, 10, 2, 1);
+        grid.add(xmlNameTemplateLabel, 0, 11);
+        grid.add(xmlNameTemplateField, 1, 11, 2, 1);
 
         return grid;
     }
