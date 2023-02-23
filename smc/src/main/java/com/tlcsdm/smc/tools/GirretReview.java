@@ -27,6 +27,52 @@
 
 package com.tlcsdm.smc.tools;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.Authenticator;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpClient.Redirect;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+import org.controlsfx.control.textfield.TextFields;
+
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
+
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -40,42 +86,18 @@ import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.NumberTextField;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.*;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-import org.controlsfx.control.textfield.TextFields;
-
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient.Redirect;
-import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * 用于收集girret上指定用户的指摘信息
@@ -144,7 +166,7 @@ public class GirretReview extends SmcSample {
                 Authenticator authenticator = new UserPassAuthenticator(userNameField.getText(),
                         passwdField.getText().toCharArray());
                 client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                        .connectTimeout(Duration.ofMillis(5000)).authenticator(authenticator).cookieHandler(manager)
+                        .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator).cookieHandler(manager)
                         .build();
                 // changes请求路径
                 String changesRequestUrl = girretUrlField.getText() + "changes/?O=%s&S=%s&n=%s&q=%s";
@@ -165,12 +187,12 @@ public class GirretReview extends SmcSample {
                 }
                 int paramN = Integer.parseInt(limitField.getText());
                 // 开始获取结果
-                for (; ; ) {
+                for (;;) {
                     String url = String.format(changesRequestUrl, URLEncoder.encode(paramO, StandardCharsets.UTF_8),
                             paramS, paramN, URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
                     HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-                                    "application/json", "User-Agent",
-                                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+                            "application/json", "User-Agent",
+                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
                             .build();
                     HttpResponse<String> response = null;
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -328,14 +350,16 @@ public class GirretReview extends SmcSample {
     @Override
     protected void initializeUserData() {
         super.initializeUserData();
-        //时间超过12小时，清除girret token信息
-        String today = LocalDateTimeUtil.now().format(DatePattern.NORM_DATETIME_FORMATTER);
-        String value = FxXmlUtil.get(getSampleXmlPrefix(), "lastUpdateDate", today);
+        // 时间超过12小时，清除girret token信息
+        String value = FxXmlUtil.get(getSampleXmlPrefix(), "lastUpdateDate", "");
         if (StrUtil.isEmpty(value)) {
+            gerritAccountField.setText("");
+            tokenField.setText("");
             return;
         }
         try {
-            Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER), LocalDateTimeUtil.now());
+            Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER),
+                    LocalDateTimeUtil.now());
             if (dur.toHours() >= 12) {
                 gerritAccountField.setText("");
                 tokenField.setText("");
@@ -466,8 +490,8 @@ public class GirretReview extends SmcSample {
                     URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
                     changesList.get(i).get("girretNum"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-                            "application/json", "User-Agent",
-                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+                    "application/json", "User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
