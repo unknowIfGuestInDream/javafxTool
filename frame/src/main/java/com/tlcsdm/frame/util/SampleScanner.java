@@ -27,17 +27,17 @@
 
 package com.tlcsdm.frame.util;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ServiceLoader;
-
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.model.Project;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * All the code related to classpath scanning, etc for samples.
@@ -98,6 +98,9 @@ public class SampleScanner {
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                     | InvocationTargetException e) {
                 e.printStackTrace();
+            } catch (ExceptionInInitializerError e) {
+                e.printStackTrace();
+                continue;
             }
             if (sample == null || !sample.isVisible()) {
                 continue;
