@@ -26,6 +26,7 @@
  */
 package com.tlcsdm.demo.samples.actions;
 
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.demo.ControlsFXSample;
 import com.tlcsdm.demo.samples.Utils;
 import javafx.beans.property.BooleanProperty;
@@ -37,7 +38,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -57,12 +57,12 @@ import static org.controlsfx.control.action.ActionUtils.ACTION_SPAN;
 public class HelloActionProxy extends ControlsFXSample {
 
     private static final String imagePath = "/com/tlcsdm/demo/security-low.png";
-    private static final ImageView image = new ImageView(new Image(imagePath));
+    private static final ImageView image = LayoutHelper.iconView(HelloActionProxy.class.getResource(imagePath));
 
     private Collection<? extends Action> actions;
 
     public HelloActionProxy() {
-        ActionMap.register(this);
+        //ActionMap.register(this);
         actions = Arrays.asList(
                 new ActionGroup("Group 1", image, actions("action11", "action12")),
                 new ActionGroup("Group 2", image, actions("action21", "---", "action22", "action221", "action222", "action23")),

@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.log.StaticLog;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ConfigurationBuilder;
@@ -87,6 +88,9 @@ public class InterfaceScanner {
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
                     | InstantiationException e) {
                 e.printStackTrace();
+            } catch (NoClassDefFoundError e) {
+                // fix freemarker 依赖找不到却进行初始化的问题
+                StaticLog.info("NoClassDefFoundError: {}", e.getMessage());
             }
         }
     }
