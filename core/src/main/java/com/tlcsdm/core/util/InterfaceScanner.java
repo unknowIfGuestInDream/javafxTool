@@ -27,6 +27,11 @@
 
 package com.tlcsdm.core.util;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.module.ModuleReader;
@@ -43,13 +48,18 @@ import java.util.Set;
  */
 public class InterfaceScanner {
 
+    public static Reflections reflections = new Reflections(
+            new ConfigurationBuilder()
+                    .forPackage("com.tlcsdm")
+                    .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
+
     /**
      * Gets the list of sample classes to load
      *
      * @return The classes
      */
     public static List<Class<?>> discover(Class<?> clazz) {
-        Class<?>[] results = new Class[] {};
+        Class<?>[] results = new Class[]{};
         List<Class<?>> list = new ArrayList<>();
         try {
             results = loadFromPathScanning(clazz);
@@ -82,21 +92,9 @@ public class InterfaceScanner {
     }
 
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
-        final Set<Class<?>> classes = new LinkedHashSet<>();
         // scan the module-path
-        ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference)
-                .filter(rm -> !isSystemModule(rm.descriptor().name())).forEach(mref -> {
-                    try (ModuleReader reader = mref.open()) {
-                        reader.list().forEach(c -> {
-                            final Class<?> clazz = processClassName(c);
-                            if (clazz != null && cls.isAssignableFrom(clazz)) {
-                                classes.add(clazz);
-                            }
-                        });
-                    } catch (IOException ioe) {
-                        throw new UncheckedIOException(ioe);
-                    }
-                });
+        Set<Class<?>> classes =
+                reflections.get(Scanners.SubTypes.of(cls).asClass());
         return classes.toArray(new Class[classes.size()]);
     }
 
