@@ -24,6 +24,7 @@ documentation:
   - CHANGELOG.md
   - LICENSE
   - README.md
+  - docs/**
 
 dependencies:
   - pom.xml
