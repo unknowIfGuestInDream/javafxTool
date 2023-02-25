@@ -27,12 +27,11 @@
 
 package com.tlcsdm.smc.tools;
 
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -46,7 +45,6 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
-import java.time.Duration;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -64,12 +62,8 @@ public class TestTool extends SmcSample {
     private TextField outputField;
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        String s = LocalDateTimeUtil.now().format(DatePattern.NORM_DATETIME_FORMATTER);
-        String v = FxXmlUtil.get(getSampleXmlPrefix(), "lastUpdateDate", s);
-        Duration dur = Duration.between(LocalDateTimeUtil.parse(v, DatePattern.NORM_DATETIME_FORMATTER), LocalDateTimeUtil.now());
-        System.out.println(dur.toSeconds());
-        System.out.println(dur.toHours());
-//        userData.put("lastUpdateDate", LocalDateTimeUtil.now().format(DatePattern.NORM_DATETIME_FORMATTER));
+        System.out.println(FreemarkerUtil.getTemplateContent("license.ftl"));
+        System.out.println(FreemarkerUtil.getTemplateContent("copyright.ftl"));
         bindUserData();
     });
 

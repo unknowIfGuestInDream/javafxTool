@@ -22,6 +22,10 @@
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-login</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

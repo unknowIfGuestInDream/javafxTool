@@ -27,11 +27,11 @@
 
 package com.tlcsdm.core.factory.config;
 
-import cn.hutool.core.io.FileUtil;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
+import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -60,7 +60,7 @@ public class TemplateLoaderScanner implements InitializingFactory {
             return;
         }
         //core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
-        list.add(new FileTemplateLoader(FileUtil.file(getClass().getResource("/com/tlcsdm/core/static/templates"))));
+        list.add(new ClassTemplateLoader(TemplateLoaderScanner.class, "/com/tlcsdm/core/static/templates"));
         //系统模板路径
         File file = new File(ConfigureUtil.getConfigureTemplatePath());
         if (!file.exists()) {

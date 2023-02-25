@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2019, ${.now?string('yyyy')} unknowIfGuestInDream
+ * Copyright (c) 2022, ${.now?string('yyyy')} unknowIfGuestInDream
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

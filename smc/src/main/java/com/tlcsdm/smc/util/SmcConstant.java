@@ -61,7 +61,7 @@ public class SmcConstant {
     /**
      * 项目版权声明
      */
-    public static final String PROJECT_COPYRIGHT = "Copyright © 2022 unknowIfGuestInDream";
+    public static final String PROJECT_COPYRIGHT = "Copyright © 2023 unknowIfGuestInDream";
     /**
      * 发布版本
      */

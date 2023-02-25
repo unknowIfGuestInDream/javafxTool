@@ -14,6 +14,7 @@ module com.tlcsdm.core {
     requires static freemarker;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
+    requires org.reflections;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
