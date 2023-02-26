@@ -82,6 +82,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private NumberTextField beginWriteRowNumField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
     private final String defaultTemplateName = "DTS_request_table.xlsx";
+    private final String defaultTemplatePath = "com/tlcsdm/smc/static/templates/DTS_request_table.xlsx";
 
     @Override
     public boolean isVisible() {
@@ -89,7 +90,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
     }
 
     private final Action download = FxAction.download("下载模板", actionEvent -> {
-        InputStream templateFile = ResourceUtil.getStream("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx");
+        InputStream templateFile = ResourceUtil.getStream(defaultTemplatePath);
         FileUtil.writeFromStream(templateFile, "E:\\testPlace\\result\\DTS_request_table.xlsx");
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
@@ -100,6 +101,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
         List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
         String excelName = FileUtil.getName(excelField.getText());
+        String excel = excelField.getText();
         String outputPath = outputField.getText();
         int groupNum = groups.size();
         String deviceNameAndStartCol = deviceNameAndStartColField.getText();
@@ -109,67 +111,56 @@ public class DtsTriggerSourceDoc extends SmcSample {
         int endRow = Integer.parseInt(endRowField.getText());
         int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
         String templatePath = templateField.getText();
-
+        //所需变量赋值
         List<String> deviceNames = new ArrayList<>();
         List<String> startCols = new ArrayList<>();
         String resultFileName = defaultTemplateName;
         parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
+        //数据读取列
+        List<ArrayList<String>> groupLines = new ArrayList<>();
+        buildGroupLines(groupLines, startCols, groupNum);
         // trigger factor信息
         List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
         List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
         List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
-        //数据开始写入行
-        List<ArrayList<String>> groupLines = new ArrayList<>();
+        //文件模板
         InputStream templateFile;
         if (StrUtil.isEmpty(templatePath)) {
-            templateFile = ResourceUtil.getStream("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx");
+            templateFile = ResourceUtil.getStream(defaultTemplatePath);
         } else {
             templateFile = FileUtil.getInputStream(templatePath);
             resultFileName = FileUtil.getName(templatePath);
         }
-
         CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
         int startConditionX = cellLocation.getX();
-
         // 处理数据
-        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
+        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
         int initialCapacity = CoreUtil.newHashMapWithExpectedSize(groupNum);
         for (int i = startRow; i <= endRow; i++) {
             Map<Integer, String> map = new HashMap<>(initialCapacity);
-//            String group0Value = reader.getCell(group0ValueLine + i).getStringCellValue();
-//            String group1Value = reader.getCell(group1ValueLine + i).getStringCellValue();
-//            String group2Value = reader.getCell(group2ValueLine + i).getStringCellValue();
-//            String group3Value = reader.getCell(group3ValueLine + i).getStringCellValue();
-//            String group4Value = reader.getCell(group4ValueLine + i).getStringCellValue();
-//
-//            map.put(0, group0Value);
-//            map.put(1, group1Value);
-//            map.put(2, group2Value);
-//            map.put(3, group3Value);
-//            map.put(4, group4Value);
+            for (int j = 0; j < groupNum; j++) {
+                String groupValue = reader.getCell(groups.get(j) + i).getStringCellValue();
+                map.put(j, groupValue);
+            }
             triggerFactorRowNumList.add(groupNum);
             triggerFactorList.add(map);
         }
-
         for (ArrayList<String> arrayList : groupLines) {
             List<Map<Integer, String>> list = new ArrayList<>();
             for (int i = startRow; i <= endRow; i++) {
-                Map<Integer, String> map = new HashMap<>(16);
-                map.put(0, reader.getCell(arrayList.get(0) + i).getStringCellValue());
-                map.put(1, reader.getCell(arrayList.get(1) + i).getStringCellValue());
-                map.put(2, reader.getCell(arrayList.get(2) + i).getStringCellValue());
-                map.put(3, reader.getCell(arrayList.get(3) + i).getStringCellValue());
-                map.put(4, reader.getCell(arrayList.get(4) + i).getStringCellValue());
+                Map<Integer, String> map = new HashMap<>(initialCapacity);
+                for (int j = 0; j < groupNum; j++) {
+                    map.put(j, reader.getCell(arrayList.get(j) + i).getStringCellValue());
+                }
                 list.add(map);
             }
             conditionList.add(list);
         }
-
         reader.close();
+        //数据写入
 
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
-
         bindUserData();
     });
 
@@ -377,6 +368,22 @@ public class DtsTriggerSourceDoc extends SmcSample {
         }
         if (deviceNames.size() != startCols.size()) {
             FxAlerts.exception(new UnExpectedResultException());
+        }
+    }
+
+    /**
+     * groupLines 数据列明配置
+     */
+    private void buildGroupLines(List<ArrayList<String>> groupLines, List<String> startCols, int groupNum) {
+        for (String col : startCols) {
+            ArrayList<String> l = new ArrayList<>();
+            l.add(col);
+            int startCol = ExcelUtil.colNameToIndex(col);
+            for (int j = 1; j < groupNum; j++) {
+                String getGroupLine = ExcelUtil.indexToColName(startCol + j);
+                l.add(getGroupLine);
+            }
+            groupLines.add(l);
         }
     }
 
