@@ -1,22 +1,21 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DTSU2CTriggerSourceDocument {
     // excel的父级目录路径
@@ -154,6 +153,9 @@ public class DTSU2CTriggerSourceDocument {
 
             line += rowNum;
         }
+        if (FileUtil.exist(parentDirectoryPath + "\\triggerSource\\" + resultFileName)) {
+            FileUtil.del(parentDirectoryPath + "\\triggerSource\\" + resultFileName);
+        }
         File file = FileUtil.newFile(parentDirectoryPath + "\\triggerSource\\" + resultFileName);
         excelWriter.flush(file);
         excelWriter.close();
@@ -162,10 +164,6 @@ public class DTSU2CTriggerSourceDocument {
     // 读取数据
     private void readData() {
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
-        File file = FileUtil.newFile(parentDirectoryPath + "\\triggerSource\\" + resultFileName);
-        if (file.exists()) {
-            FileUtil.del(file);
-        }
         for (int i = beginRowNum; i <= endRowNum; i++) {
             Map<Integer, String> map = new HashMap<>(8);
             int rowNum = 5;

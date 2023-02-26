@@ -40,6 +40,7 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -54,6 +55,7 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -70,7 +72,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private TextField outputField;
     private DirectoryChooser outputChooser;
     private TextField groupField;
-    private TextArea xmlFileNameAndStartColField;
+    private TextArea deviceNameAndStartColField;
     private TextField templateField;
     private FileChooser templateChooser;
     private TextField sheetNameField;
@@ -78,13 +80,20 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private NumberTextField startRowField;
     private NumberTextField endRowField;
     private NumberTextField beginWriteRowNumField;
-    private TextField xmlNameTemplateField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
+    private final String defaultTemplateName = "DTS_request_table.xlsx";
 
     @Override
     public boolean isVisible() {
         return true;
     }
+
+    private final Action download = FxAction.download("下载模板", actionEvent -> {
+        InputStream templateFile = ResourceUtil.getStream("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx");
+        FileUtil.writeFromStream(templateFile, "E:\\testPlace\\result\\DTS_request_table.xlsx");
+        notificationBuilder.text("General successfully.");
+        notificationBuilder.showInformation();
+    });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
@@ -93,62 +102,70 @@ public class DtsTriggerSourceDoc extends SmcSample {
         String excelName = FileUtil.getName(excelField.getText());
         String outputPath = outputField.getText();
         int groupNum = groups.size();
-        String xmlFileNameAndStartCol = xmlFileNameAndStartColField.getText();
+        String deviceNameAndStartCol = deviceNameAndStartColField.getText();
         String sheetName = sheetNameField.getText();
         String conditionCol = conditionColField.getText();
         int startRow = Integer.parseInt(startRowField.getText());
         int endRow = Integer.parseInt(endRowField.getText());
         int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
-        String xmlNameTemplate = xmlNameTemplateField.getText();
         String templatePath = templateField.getText();
 
-        List<String> xmlFileNames = new ArrayList<>();
+        List<String> deviceNames = new ArrayList<>();
         List<String> startCols = new ArrayList<>();
-        parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
-        File templateFile;
+        String resultFileName = defaultTemplateName;
+        parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
+        // trigger factor信息
+        List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
+        List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
+        List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
+        //数据开始写入行
+        List<ArrayList<String>> groupLines = new ArrayList<>();
+        InputStream templateFile;
         if (StrUtil.isEmpty(templatePath)) {
-            templateFile = new File(ResourceUtil
-                    .getResource("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx").getPath());
+            templateFile = ResourceUtil.getStream("com/tlcsdm/smc/static/templates/DTS_RH850U2C_request_table.xlsx");
         } else {
-            templateFile = new File(templatePath);
+            templateFile = FileUtil.getInputStream(templatePath);
+            resultFileName = FileUtil.getName(templatePath);
         }
+
         CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
         int startConditionX = cellLocation.getX();
-        String resultPath = outputPath + "\\triggerSource";
 
         // 处理数据
-//        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
-//        for (int i = 0; i < xmlFileNames.size(); i++) {
-//            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
-//            if (file.exists()) {
-//                FileUtil.del(file);
-//            }
-//            List<String> contentsList = new ArrayList<>();
-//            contentsList.add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-//            contentsList.add("<!DOCTYPE xml>");
-//            contentsList.add("<!-- this file was auto-generated. Do not modify it manually -->");
-//            contentsList.add("<DTCTriggerSource>");
-//            contentsList.add("\t<Dependence Dependence=\"\" />");
+        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
+        int initialCapacity = CoreUtil.newHashMapWithExpectedSize(groupNum);
+        for (int i = startRow; i <= endRow; i++) {
+            Map<Integer, String> map = new HashMap<>(initialCapacity);
+//            String group0Value = reader.getCell(group0ValueLine + i).getStringCellValue();
+//            String group1Value = reader.getCell(group1ValueLine + i).getStringCellValue();
+//            String group2Value = reader.getCell(group2ValueLine + i).getStringCellValue();
+//            String group3Value = reader.getCell(group3ValueLine + i).getStringCellValue();
+//            String group4Value = reader.getCell(group4ValueLine + i).getStringCellValue();
 //
-//            int startCol = ExcelUtil.colNameToIndex(startCols.get(i));
-//            for (int j = startRow; j <= endRow; j++) {
-//                contentsList.add("\t<TriggerSource Channel=\"" + (j - startRow) + "\"");
-//                for (int k = 0; k < groupNum; k++) {
-//                    String getGroupLine = ExcelUtil.indexToColName(startCol + k);
-//                    String content = "\t\tGroup" + k + "TriggerInfo=\""
-//                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
-//                    if (k == groupNum - 1) {
-//                        content += " />";
-//                    }
-//                    contentsList.add(content);
-//                }
-//            }
-//
-//            contentsList.add("</DTCTriggerSource>");
-//            contentsList.add("");
-//            FileUtil.appendUtf8Lines(contentsList, file);
-//        }
-//        reader.close();
+//            map.put(0, group0Value);
+//            map.put(1, group1Value);
+//            map.put(2, group2Value);
+//            map.put(3, group3Value);
+//            map.put(4, group4Value);
+            triggerFactorRowNumList.add(groupNum);
+            triggerFactorList.add(map);
+        }
+
+        for (ArrayList<String> arrayList : groupLines) {
+            List<Map<Integer, String>> list = new ArrayList<>();
+            for (int i = startRow; i <= endRow; i++) {
+                Map<Integer, String> map = new HashMap<>(16);
+                map.put(0, reader.getCell(arrayList.get(0) + i).getStringCellValue());
+                map.put(1, reader.getCell(arrayList.get(1) + i).getStringCellValue());
+                map.put(2, reader.getCell(arrayList.get(2) + i).getStringCellValue());
+                map.put(3, reader.getCell(arrayList.get(3) + i).getStringCellValue());
+                map.put(4, reader.getCell(arrayList.get(4) + i).getStringCellValue());
+                list.add(map);
+            }
+            conditionList.add(list);
+        }
+
+        reader.close();
 
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
@@ -156,7 +173,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate);
+    private final Collection<? extends Action> actions = List.of(generate, download);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -205,8 +222,8 @@ public class DtsTriggerSourceDoc extends SmcSample {
         groupField.setPrefWidth(Double.MAX_VALUE);
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label xmlFileNameAndStartColLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
-        xmlFileNameAndStartColField = new TextArea();
+        Label deviceNameAndStartColLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
+        deviceNameAndStartColField = new TextArea();
 
         Label templateLabel = new Label("template: ");
         templateField = new TextField();
@@ -238,23 +255,19 @@ public class DtsTriggerSourceDoc extends SmcSample {
         Label beginWriteRowNumLabel = new Label("beginWriteRowNumField: ");
         beginWriteRowNumField = new NumberTextField();
 
-        Label xmlNameTemplateLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
-        xmlNameTemplateField = new TextField();
-
         sheetNameField.setText("DTS trigger");
         conditionColField.setText("CL");
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
         beginWriteRowNumField.setNumber(BigDecimal.valueOf(3));
-        xmlFileNameAndStartColField.setPromptText("多个实例请换行");
-        xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
+        deviceNameAndStartColField.setPromptText("多个实例请换行");
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
         userData.put("output", outputField);
         userData.put("outputChooser", outputChooser);
         userData.put("group", groupField);
-        userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
+        userData.put("deviceNameAndStartCol", deviceNameAndStartColField);
         userData.put("template", templateField);
         userData.put("templateChooser", templateChooser);
         userData.put("sheetName", sheetNameField);
@@ -262,7 +275,6 @@ public class DtsTriggerSourceDoc extends SmcSample {
         userData.put("startRow", startRowField);
         userData.put("endRow", endRowField);
         userData.put("beginWriteRowNum", beginWriteRowNumField);
-        userData.put("xmlNameTemplate", xmlNameTemplateField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -273,8 +285,8 @@ public class DtsTriggerSourceDoc extends SmcSample {
         grid.add(outputField, 2, 2);
         grid.add(groupLabel, 0, 3);
         grid.add(groupField, 1, 3, 2, 1);
-        grid.add(xmlFileNameAndStartColLabel, 0, 4);
-        grid.add(xmlFileNameAndStartColField, 1, 4, 2, 1);
+        grid.add(deviceNameAndStartColLabel, 0, 4);
+        grid.add(deviceNameAndStartColField, 1, 4, 2, 1);
         grid.add(templateLabel, 0, 5);
         grid.add(templateButton, 1, 5);
         grid.add(templateField, 2, 5);
@@ -288,8 +300,6 @@ public class DtsTriggerSourceDoc extends SmcSample {
         grid.add(endRowField, 1, 9, 2, 1);
         grid.add(beginWriteRowNumLabel, 0, 10);
         grid.add(beginWriteRowNumField, 1, 10, 2, 1);
-        grid.add(xmlNameTemplateLabel, 0, 11);
-        grid.add(xmlNameTemplateField, 1, 11, 2, 1);
 
         return grid;
     }
@@ -356,28 +366,18 @@ public class DtsTriggerSourceDoc extends SmcSample {
     }
 
     /**
-     * 解析 xmlFileNameAndStartCol 的配置，获取xml文件名和读取的列信息
+     * 解析 device和StartCol 的配置，获取device名和读取的开始列信息
      */
-    private void parseXmlConfig(String xmlFileNameAndStartCol, List<String> xmlFileNames, List<String> startCols) {
-        List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
+    private void parseXmlConfig(String deviceNameAndStartCol, List<String> deviceNames, List<String> startCols) {
+        List<String> xmlConfigs = StrUtil.splitTrim(deviceNameAndStartCol, "\n");
         for (String xmlConfig : xmlConfigs) {
-            List<String> l = StrUtil.split(xmlConfig, "-");
-            xmlFileNames.add(l.get(0));
+            List<String> l = StrUtil.split(xmlConfig, ";");
+            deviceNames.add(l.get(0));
             startCols.add(l.get(1));
         }
-        if (xmlFileNames.size() != startCols.size()) {
+        if (deviceNames.size() != startCols.size()) {
             FxAlerts.exception(new UnExpectedResultException());
         }
-    }
-
-    /**
-     * 读取单元格的值
-     */
-    private String getXmlGroupValue(ExcelReader reader, String groupLineCell, String groupValueLineCell) {
-        if ("-".equals(reader.getCell(groupLineCell).getStringCellValue())) {
-            return "Reserved";
-        }
-        return reader.getCell(groupValueLineCell).getStringCellValue();
     }
 
 }
