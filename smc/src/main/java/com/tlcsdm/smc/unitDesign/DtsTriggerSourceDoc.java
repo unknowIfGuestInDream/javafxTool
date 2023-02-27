@@ -27,13 +27,21 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -44,23 +52,26 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -114,12 +125,12 @@ public class DtsTriggerSourceDoc extends SmcSample {
         int endRow = Integer.parseInt(endRowField.getText());
         int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
         String templatePath = templateField.getText();
-        //所需变量赋值
+        // 所需变量赋值
         List<String> deviceNames = new ArrayList<>();
         List<String> startCols = new ArrayList<>();
         String resultFileName = defaultTemplateName;
         parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
-        //数据读取列
+        // 数据读取列
         List<ArrayList<String>> groupLines = new ArrayList<>();
         buildGroupLines(groupLines, startCols, groupNum);
         // trigger factor信息
@@ -131,7 +142,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         final String labelEn = "Trigger resource";
         final String labelJa = "起動要因";
         final String condition = "Always enable";
-        //文件模板
+        // 文件模板
         InputStream templateFile;
         if (StrUtil.isEmpty(templatePath)) {
             templateFile = ResourceUtil.getStream(defaultTemplatePath);
@@ -165,9 +176,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
             conditionList.add(list);
         }
         reader.close();
-        //数据写入
-        BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-                sheetName);
+        // 数据写入
+        String tmpName = UUID.fastUUID() + ".xlsx";
+        File tmpFile = FileUtil.newFile(outputPath + "\\" + tmpName);
+        FileUtil.writeFromStream(templateFile, tmpFile);
+        BigExcelWriter excelWriter = ExcelUtil.getBigWriter(tmpFile, sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {
@@ -235,13 +248,14 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
             line += rowNum;
         }
+
         if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
             FileUtil.del(outputPath + "\\" + resultFileName);
         }
         File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
         excelWriter.flush(file);
         excelWriter.close();
-
+        // FileUtil.del(tmpFile);
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
         bindUserData();
