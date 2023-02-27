@@ -49,6 +49,7 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -108,6 +109,16 @@ public class DtsTriggerSourceDoc extends SmcSample {
         FileUtil.writeFromStream(templateFile, "E:\\testPlace\\result\\DTS_request_table.xlsx");
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
+    });
+
+    private final Action openDir = FxAction.openDir("打开结果文件夹", actionEvent -> {
+        String outPath = outputField.getText();
+        if (StrUtil.isEmpty(outPath)) {
+            notificationBuilder.text("Please Choose " + I18nUtils.get("smc.tool.specGeneralTest.label.output") + ".");
+            notificationBuilder.showWarning();
+            return;
+        }
+        JavaFxSystemUtil.openDirectory(outPath);
     });
 
     private final Action generate = FxAction.generate(actionEvent -> {
@@ -255,13 +266,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
         File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
         excelWriter.flush(file);
         excelWriter.close();
-        // FileUtil.del(tmpFile);
+        FileUtil.del(tmpFile);
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, download);
+    private final Collection<? extends Action> actions = List.of(generate, download, openDir);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -277,7 +288,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
         Label excelLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.excel") + ": ");
         excelField = new TextField();
-        excelField.setMaxWidth(Double.MAX_VALUE);
+        excelField.setPrefWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
         excelFileChooser.getExtensionFilters().add(extFilter);
 
@@ -293,7 +304,6 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
         Label outputLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.output") + ": ");
         outputField = new TextField();
-        outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
         Button outputButton = FxButton.choose();
         outputField.setEditable(false);
@@ -326,6 +336,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 templateField.setText(file.getPath());
                 templateChooser.setInitialDirectory(file.getParentFile());
             }
+        });
+
+        Button templateClearButton = FxButton.clear();
+        templateClearButton.setOnAction(arg0 -> {
+            templateField.setText("");
         });
 
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
@@ -364,30 +379,31 @@ public class DtsTriggerSourceDoc extends SmcSample {
         userData.put("endRow", endRowField);
         userData.put("beginWriteRowNum", beginWriteRowNumField);
 
-        grid.add(toolBar, 0, 0, 3, 1);
+        grid.add(toolBar, 0, 0, 4, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
-        grid.add(excelField, 2, 1);
+        grid.add(excelField, 2, 1, 2, 1);
         grid.add(outputLabel, 0, 2);
         grid.add(outputButton, 1, 2);
-        grid.add(outputField, 2, 2);
+        grid.add(outputField, 2, 2, 2, 1);
         grid.add(groupLabel, 0, 3);
-        grid.add(groupField, 1, 3, 2, 1);
+        grid.add(groupField, 1, 3, 3, 1);
         grid.add(deviceNameAndStartColLabel, 0, 4);
-        grid.add(deviceNameAndStartColField, 1, 4, 2, 1);
+        grid.add(deviceNameAndStartColField, 1, 4, 3, 1);
         grid.add(templateLabel, 0, 5);
         grid.add(templateButton, 1, 5);
-        grid.add(templateField, 2, 5);
+        grid.add(templateClearButton, 2, 5);
+        grid.add(templateField, 3, 5);
         grid.add(sheetNameLabel, 0, 6);
-        grid.add(sheetNameField, 1, 6, 2, 1);
+        grid.add(sheetNameField, 1, 6, 3, 1);
         grid.add(conditionColLabel, 0, 7);
-        grid.add(conditionColField, 1, 7, 2, 1);
+        grid.add(conditionColField, 1, 7, 3, 1);
         grid.add(startRowLabel, 0, 8);
-        grid.add(startRowField, 1, 8, 2, 1);
+        grid.add(startRowField, 1, 8, 3, 1);
         grid.add(endRowLabel, 0, 9);
-        grid.add(endRowField, 1, 9, 2, 1);
+        grid.add(endRowField, 1, 9, 3, 1);
         grid.add(beginWriteRowNumLabel, 0, 10);
-        grid.add(beginWriteRowNumField, 1, 10, 2, 1);
+        grid.add(beginWriteRowNumField, 1, 10, 3, 1);
 
         return grid;
     }
