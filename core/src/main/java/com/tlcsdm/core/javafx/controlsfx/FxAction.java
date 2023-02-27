@@ -1,15 +1,13 @@
 package com.tlcsdm.core.javafx.controlsfx;
 
-import java.util.function.Consumer;
-
-import org.controlsfx.control.action.Action;
-
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
-
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import org.controlsfx.control.action.Action;
+
+import java.util.function.Consumer;
 
 /**
  * controlsfx Action的初始化封装
@@ -131,6 +129,10 @@ public class FxAction {
 
     public static Action openLogDir(Consumer<ActionEvent> eventHandler) {
         return openDir(I18nUtils.get("core.menubar.help.openLogDir"), eventHandler);
+    }
+
+    public static Action openOutDir(Consumer<ActionEvent> eventHandler) {
+        return openDir(I18nUtils.get("core.menubar.help.openOutDir"), eventHandler);
     }
 
     public static Action openDir(String text, Consumer<ActionEvent> eventHandler) {
