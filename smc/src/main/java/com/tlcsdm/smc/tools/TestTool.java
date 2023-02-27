@@ -71,7 +71,7 @@ public class TestTool extends SmcSample {
 
     @Override
     public boolean isVisible() {
-        return true;
+        return false;
     }
 
     @Override
