@@ -27,22 +27,16 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -53,26 +47,23 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -99,22 +90,45 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private final String defaultTemplateName = "DTS_request_table.xlsx";
     private final String defaultTemplatePath = "com/tlcsdm/smc/static/templates/DTS_request_table.xlsx";
 
+    private final FileChooser downloadChooser = new FileChooser();
+
     @Override
     public boolean isVisible() {
         return true;
     }
 
-    private final Action download = FxAction.download("下载模板", actionEvent -> {
-        InputStream templateFile = ResourceUtil.getStream(defaultTemplatePath);
-        FileUtil.writeFromStream(templateFile, "E:\\testPlace\\result\\DTS_request_table.xlsx");
-        notificationBuilder.text("General successfully.");
-        notificationBuilder.showInformation();
+    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.button.download"), actionEvent -> {
+        String templatePath = templateField.getText();
+        String resultFileName = defaultTemplateName;
+        InputStream templateFile;
+        if (StrUtil.isEmpty(templatePath)) {
+            templateFile = ResourceUtil.getStream(defaultTemplatePath);
+        } else {
+            templateFile = FileUtil.getInputStream(templatePath);
+            resultFileName = FileUtil.getName(templatePath);
+            downloadChooser.setInitialDirectory(new File(FileUtil.getParent(templatePath, 1)));
+        }
+        downloadChooser.setInitialFileName(resultFileName);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        downloadChooser.getExtensionFilters().add(extFilter);
+        File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+        if (file != null) {
+            if (!StrUtil.endWith(file.getName(), ".xlsx")) {
+                notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
+                notificationBuilder.showWarning();
+                return;
+            }
+            if (file.exists()) {
+                FileUtil.del(file);
+            }
+            FileUtil.writeFromStream(templateFile, file);
+        }
     });
 
-    private final Action openDir = FxAction.openDir("打开结果文件夹", actionEvent -> {
+    private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
         String outPath = outputField.getText();
         if (StrUtil.isEmpty(outPath)) {
-            notificationBuilder.text("Please Choose " + I18nUtils.get("smc.tool.specGeneralTest.label.output") + ".");
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.openOutDir.warnMsg"));
             notificationBuilder.showWarning();
             return;
         }
@@ -123,9 +137,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
-        String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
         List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
-        String excelName = FileUtil.getName(excelField.getText());
         String excel = excelField.getText();
         String outputPath = outputField.getText();
         int groupNum = groups.size();
@@ -200,7 +212,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
             int regnum = i / 8;
             int n = i % 8;
             int group = 0;
-            for (int j = 0; j < rowNum; j++) {
+            for (int j = 0; j < groupNum; j++) {
                 Map<Integer, String> map = triggerFactorList.get(i);
 //					for (int k = 0; k < 4; k++) {
 //						if (!map.containsKey(group)) {
@@ -243,8 +255,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
 
                 int x = startConditionX;
-                for (int k = 0; k < conditionList.size(); k++) {
-                    List<Map<Integer, String>> list = conditionList.get(k);
+                for (List<Map<Integer, String>> list : conditionList) {
                     for (int l = 0; l < list.size(); l++) {
                         if (l == i) {
                             excelWriter.writeCellValue(x, (line + j - 1), list.get(l).get(group));
@@ -254,7 +265,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         x++;
                     }
                 }
-                group++;
+                groupNum++;
             }
 
             line += rowNum;
@@ -272,7 +283,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, download, openDir);
+    private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
 
     @Override
     public Node getPanel(Stage stage) {

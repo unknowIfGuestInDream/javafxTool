@@ -27,29 +27,6 @@
 
 package com.tlcsdm.smc.unitTest;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.NumberTextField;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.util.CoreUtil;
-import com.tlcsdm.core.util.DiffHandleUtils;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -60,6 +37,17 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DiffHandleUtils;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -70,6 +58,13 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
@@ -93,9 +88,19 @@ public class SpecGeneralTest extends SmcSample {
     private TextField endCellColumnField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
+    private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
+        String outPath = outputField.getText();
+        if (StrUtil.isEmpty(outPath)) {
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.openOutDir.warnMsg"));
+            notificationBuilder.showWarning();
+            return;
+        }
+        JavaFxSystemUtil.openDirectory(outPath);
+    });
+
     /**
      * 结果文件结构:
-     * 
+     *
      * <pre>
      *  excelField同级目录下
      *    excelField同名文件夹
@@ -166,7 +171,7 @@ public class SpecGeneralTest extends SmcSample {
                             String s = "#define " + cv;
                             if (s.length() < macroLength
                                     && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
-                                            .length() != 0) {
+                                    .length() != 0) {
                                 cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
                             }
                         }
@@ -211,7 +216,7 @@ public class SpecGeneralTest extends SmcSample {
         bindUserData();
     }, LayoutHelper.iconView(this.getClass().getResource("/com/tlcsdm/smc/static/icon/diff.png")));
 
-    private final Collection<? extends Action> actions = List.of(diff);
+    private final Collection<? extends Action> actions = List.of(diff, openOutDir);
 
     @Override
     public Node getPanel(Stage stage) {
