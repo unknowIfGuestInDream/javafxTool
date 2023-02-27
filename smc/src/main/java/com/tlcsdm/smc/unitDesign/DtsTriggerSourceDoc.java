@@ -27,13 +27,21 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -41,26 +49,30 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -99,6 +111,16 @@ public class DtsTriggerSourceDoc extends SmcSample {
         notificationBuilder.showInformation();
     });
 
+    private final Action openDir = FxAction.openDir("打开结果文件夹", actionEvent -> {
+        String outPath = outputField.getText();
+        if (StrUtil.isEmpty(outPath)) {
+            notificationBuilder.text("Please Choose " + I18nUtils.get("smc.tool.specGeneralTest.label.output") + ".");
+            notificationBuilder.showWarning();
+            return;
+        }
+        JavaFxSystemUtil.openDirectory(outPath);
+    });
+
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
         String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
@@ -114,12 +136,12 @@ public class DtsTriggerSourceDoc extends SmcSample {
         int endRow = Integer.parseInt(endRowField.getText());
         int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
         String templatePath = templateField.getText();
-        //所需变量赋值
+        // 所需变量赋值
         List<String> deviceNames = new ArrayList<>();
         List<String> startCols = new ArrayList<>();
         String resultFileName = defaultTemplateName;
         parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
-        //数据读取列
+        // 数据读取列
         List<ArrayList<String>> groupLines = new ArrayList<>();
         buildGroupLines(groupLines, startCols, groupNum);
         // trigger factor信息
@@ -131,7 +153,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         final String labelEn = "Trigger resource";
         final String labelJa = "起動要因";
         final String condition = "Always enable";
-        //文件模板
+        // 文件模板
         InputStream templateFile;
         if (StrUtil.isEmpty(templatePath)) {
             templateFile = ResourceUtil.getStream(defaultTemplatePath);
@@ -165,9 +187,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
             conditionList.add(list);
         }
         reader.close();
-        //数据写入
-        BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-                sheetName);
+        // 数据写入
+        String tmpName = UUID.fastUUID() + ".xlsx";
+        File tmpFile = FileUtil.newFile(outputPath + "\\" + tmpName);
+        FileUtil.writeFromStream(templateFile, tmpFile);
+        BigExcelWriter excelWriter = ExcelUtil.getBigWriter(tmpFile, sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {
@@ -235,19 +259,20 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
             line += rowNum;
         }
+
         if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
             FileUtil.del(outputPath + "\\" + resultFileName);
         }
         File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
         excelWriter.flush(file);
         excelWriter.close();
-
+        FileUtil.del(tmpFile);
         notificationBuilder.text("General successfully.");
         notificationBuilder.showInformation();
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, download);
+    private final Collection<? extends Action> actions = List.of(generate, download, openDir);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -263,7 +288,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
         Label excelLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.excel") + ": ");
         excelField = new TextField();
-        excelField.setMaxWidth(Double.MAX_VALUE);
+        excelField.setPrefWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
         excelFileChooser.getExtensionFilters().add(extFilter);
 
@@ -279,7 +304,6 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
         Label outputLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.output") + ": ");
         outputField = new TextField();
-        outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
         Button outputButton = FxButton.choose();
         outputField.setEditable(false);
@@ -312,6 +336,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 templateField.setText(file.getPath());
                 templateChooser.setInitialDirectory(file.getParentFile());
             }
+        });
+
+        Button templateClearButton = FxButton.clear();
+        templateClearButton.setOnAction(arg0 -> {
+            templateField.setText("");
         });
 
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.startCell") + ": ");
@@ -350,30 +379,31 @@ public class DtsTriggerSourceDoc extends SmcSample {
         userData.put("endRow", endRowField);
         userData.put("beginWriteRowNum", beginWriteRowNumField);
 
-        grid.add(toolBar, 0, 0, 3, 1);
+        grid.add(toolBar, 0, 0, 4, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
-        grid.add(excelField, 2, 1);
+        grid.add(excelField, 2, 1, 2, 1);
         grid.add(outputLabel, 0, 2);
         grid.add(outputButton, 1, 2);
-        grid.add(outputField, 2, 2);
+        grid.add(outputField, 2, 2, 2, 1);
         grid.add(groupLabel, 0, 3);
-        grid.add(groupField, 1, 3, 2, 1);
+        grid.add(groupField, 1, 3, 3, 1);
         grid.add(deviceNameAndStartColLabel, 0, 4);
-        grid.add(deviceNameAndStartColField, 1, 4, 2, 1);
+        grid.add(deviceNameAndStartColField, 1, 4, 3, 1);
         grid.add(templateLabel, 0, 5);
         grid.add(templateButton, 1, 5);
-        grid.add(templateField, 2, 5);
+        grid.add(templateClearButton, 2, 5);
+        grid.add(templateField, 3, 5);
         grid.add(sheetNameLabel, 0, 6);
-        grid.add(sheetNameField, 1, 6, 2, 1);
+        grid.add(sheetNameField, 1, 6, 3, 1);
         grid.add(conditionColLabel, 0, 7);
-        grid.add(conditionColField, 1, 7, 2, 1);
+        grid.add(conditionColField, 1, 7, 3, 1);
         grid.add(startRowLabel, 0, 8);
-        grid.add(startRowField, 1, 8, 2, 1);
+        grid.add(startRowField, 1, 8, 3, 1);
         grid.add(endRowLabel, 0, 9);
-        grid.add(endRowField, 1, 9, 2, 1);
+        grid.add(endRowField, 1, 9, 3, 1);
         grid.add(beginWriteRowNumLabel, 0, 10);
-        grid.add(beginWriteRowNumField, 1, 10, 2, 1);
+        grid.add(beginWriteRowNumField, 1, 10, 3, 1);
 
         return grid;
     }
