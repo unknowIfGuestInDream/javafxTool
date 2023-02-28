@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.unitTest;
+package com.tlcsdm.smc.unitDesign;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ import javafx.stage.Stage;
  * @author: unknowIfGuestInDream
  * @date: 2022/12/8 23:12
  */
-public class SpecGeneralTest extends SmcSample {
+public class HconvertExcel extends SmcSample {
 
     private TextField excelField;
     private FileChooser excelFileChooser;
@@ -387,12 +387,13 @@ public class SpecGeneralTest extends SmcSample {
 
     @Override
     public String getSampleId() {
-        return "specGeneralTest";
+        return "hconvertExcel";
     }
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest");
+        return "HconvertExcel";
+        // return I18nUtils.get("smc.sampleName.specGeneralTest");
     }
 
     @Override
@@ -402,7 +403,7 @@ public class SpecGeneralTest extends SmcSample {
 
     @Override
     public String getOrderKey() {
-        return "SpecGeneralTest";
+        return "HconvertExcel";
     }
 
     @Override
