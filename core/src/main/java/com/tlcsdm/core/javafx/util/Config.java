@@ -1,5 +1,8 @@
 package com.tlcsdm.core.javafx.util;
 
+import java.io.File;
+import java.util.Locale;
+
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -7,9 +10,6 @@ import org.apache.commons.configuration2.builder.fluent.PropertiesBuilderParamet
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.math.NumberUtils;
-
-import java.io.File;
-import java.util.Locale;
 
 /**
  * 存取框架配置
@@ -23,8 +23,8 @@ public class Config {
 
     public static Locale defaultLocale = Locale.getDefault();// 设置系统语言
 
-    public static final String JAVAFX_TOOL_VERSION = "1.0.0-beta.1";// JavaFxTool版本信息
-    public static final String JAVAFX_TOOL_PUBLISHDATE = "2023-02-25";// 发布日期
+    public static final String JAVAFX_TOOL_VERSION = "1.0.0";// JavaFxTool版本信息
+    public static final String JAVAFX_TOOL_PUBLISHDATE = "2023-02-28";// 发布日期
 
     public enum Keys {
         MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft, Locale, NotepadEnabled,
