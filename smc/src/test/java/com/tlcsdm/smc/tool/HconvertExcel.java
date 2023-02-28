@@ -5,10 +5,16 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.junit.jupiter.api.Test;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 
 /**
  * 既有头文件转换格式，方便后续粘到excel中
@@ -25,10 +31,11 @@ public class HconvertExcel {
     private final List<String> markFileNames = List.of();
     // 支持的文件类型，默认只支持h文件
     private final List<String> supportFileType = List.of("h");
+    private final String resultFileName = "result.xlsx";
 
     @Test
     public void hconvertExcel() {
-        FileUtil.clean(resultPath);
+        // FileUtil.clean(resultPath);
         List<File> files = FileUtil.loopFiles(generateFilesParentPath, new FileFilter() {
             @Override
             public boolean accept(File file) {
@@ -50,11 +57,29 @@ public class HconvertExcel {
             }
         });
 
-        for (File file : files) {
+        if (FileUtil.exist(resultPath + "\\" + resultFileName)) {
+            FileUtil.del(resultPath + "\\" + resultFileName);
+        }
+        ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
+        writer.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+        writer.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
+        for (int i = 0; i < files.size(); i++) {
+            File file = files.get(i);
+            if (i == 0) {
+                writer.renameSheet(file.getName());
+            } else {
+                writer.setSheet(file.getName());
+            }
+            writer.setColumnWidth(0, 15);
+            writer.setColumnWidth(1, 60);
+            writer.setColumnWidth(2, 18);
+            writer.setColumnWidth(3, 38);
             List<String> content = FileUtil.readUtf8Lines(file);
             List<String> newContent = new ArrayList<>();
             boolean f = false;
-            for (String s : content) {
+            for (int j = 0; j < content.size(); j++) {
+                List<String> l = new ArrayList<>();
+                String s = content.get(j);
                 // 去除原文件的脏内容
                 s.replaceAll("\\t", "    ");
                 // 为换行的注释添加tab
@@ -63,23 +88,24 @@ public class HconvertExcel {
                     f = false;
                 }
                 if (s.startsWith("#define")) {
-                    s = dealLine(s);
+                    s = dealLine(s, l);
                     if (s.contains("/*") && !s.contains("*/")) {
                         f = true;
                     }
                 }
                 if ("r_smc_interrupt.h".equals(file.getName())) {
-                    s = dealSmcInterrupt(s);
+                    s = dealSmcInterrupt(s, l);
                 }
                 newContent.add(s);
             }
-            FileUtil.writeUtf8Lines(newContent,
-                    FileUtil.file(resultPath, FileUtil.getPrefix(file) + "_refer." + FileUtil.getSuffix(file)));
+            writer.write(newContent, false);
+//            FileUtil.writeUtf8Lines(newContent,
+//                    FileUtil.file(resultPath, FileUtil.getPrefix(file) + "_refer." + FileUtil.getSuffix(file)));
         }
-
+        writer.close();
     }
 
-    private String dealLine(String s) {
+    private String dealLine(String s, List<String> l) {
         if (s.length() < 8) {
             return s;
         }
@@ -103,7 +129,7 @@ public class HconvertExcel {
     /**
      * r_smc_interrupt.h 特殊处理
      */
-    private String dealSmcInterrupt(String s) {
+    private String dealSmcInterrupt(String s, List<String> l) {
         if (s.length() < 8) {
             return s;
         }
