@@ -57,7 +57,7 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
         keepAliveTime = 30;
         unit = TimeUnit.SECONDS;
         queueSize = 200;
-        threadPreName = "sample-";
+        threadPreName = "sample-%d";
         handler = new ThreadPoolExecutor.CallerRunsPolicy();
     }
 
@@ -68,6 +68,6 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
     private static class SingletonInstance {
         private static final ThreadPoolExecutor INSTANCE = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
                 keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
-                new BasicThreadFactory.Builder().namingPattern(threadPreName).build(), handler);
+                new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true).build(), handler);
     }
 }
