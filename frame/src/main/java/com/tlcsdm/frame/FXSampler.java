@@ -86,7 +86,7 @@ public final class FXSampler extends Application {
         stage = primaryStage;
         JavaFxSystemUtil.initSystemLocal();
         FxApp.init(primaryStage, getClass().getResource("/fxsampler/logo.png"));
-        ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
+        ServiceLoader<FXSamplerConfiguration> samplerConfigurations = ServiceLoader
                 .load(FXSamplerConfiguration.class);
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
         MenubarConfigration menubarConfigration = null;
@@ -189,7 +189,7 @@ public final class FXSampler extends Application {
         Scene scene = new Scene(bp);
         scene.getStylesheets()
                 .add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
-        for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
+        for (FXSamplerConfiguration fxsamplerConfiguration : samplerConfigurations) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
                 scene.getStylesheets().add(stylesheet);
@@ -206,8 +206,6 @@ public final class FXSampler extends Application {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setWidth(screenBounds.getWidth() * 0.75);
         stage.setHeight(screenBounds.getHeight() * .75);
-        stage.setMinHeight(750);
-        stage.setMinWidth(1000);
 //        stage.setResizable(false);
         if (StrUtil.isEmpty(FxApp.title)) {
             stage.setTitle(I18nUtils.get("frame.stage.title"));
@@ -216,8 +214,6 @@ public final class FXSampler extends Application {
         }
         // 加载上次位置
         StageUtils.loadPrimaryStageBound(primaryStage);
-//        stage.getIcons()
-//                .add(new Image(Objects.requireNonNull(getClass().getResource("/fxsampler/logo.png")).toExternalForm()));
         stage.show();
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));

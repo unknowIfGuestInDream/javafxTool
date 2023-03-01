@@ -140,7 +140,7 @@ public class HconvertExcel extends SmcSample {
                 boolean f = false;
                 for (String s : content) {
                     // 去除原文件的脏内容(tab)
-                    s.replaceAll("\\t", "    ");
+                    s = s.replaceAll("\\t", "    ");
                     // 为换行的注释添加tab
                     if (f) {
                         s = "\t\t\t" + StrUtil.trim(s);
