@@ -1,20 +1,19 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.junit.jupiter.api.Test;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.ExcelWriter;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 既有头文件转换格式，方便后续粘到excel中
@@ -88,13 +87,13 @@ public class HconvertExcel {
                     f = false;
                 }
                 if (s.startsWith("#define")) {
-                    s = dealLine(s, l);
+                    s = dealLine(s);
                     if (s.contains("/*") && !s.contains("*/")) {
                         f = true;
                     }
                 }
                 if ("r_smc_interrupt.h".equals(file.getName())) {
-                    s = dealSmcInterrupt(s, l);
+                    s = dealSmcInterrupt(s);
                 }
                 newContent.add(s);
             }
@@ -105,7 +104,7 @@ public class HconvertExcel {
         writer.close();
     }
 
-    private String dealLine(String s, List<String> l) {
+    private String dealLine(String s) {
         if (s.length() < 8) {
             return s;
         }
@@ -129,7 +128,7 @@ public class HconvertExcel {
     /**
      * r_smc_interrupt.h 特殊处理
      */
-    private String dealSmcInterrupt(String s, List<String> l) {
+    private String dealSmcInterrupt(String s) {
         if (s.length() < 8) {
             return s;
         }

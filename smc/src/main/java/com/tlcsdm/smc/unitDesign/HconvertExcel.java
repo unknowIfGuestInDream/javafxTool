@@ -29,6 +29,8 @@ package com.tlcsdm.smc.unitDesign;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -46,15 +48,17 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.FileFilter;
+import java.util.*;
 
 /**
  * 头文件转换为excel UD
@@ -64,7 +68,7 @@ import java.util.Map;
  */
 public class HconvertExcel extends SmcSample {
 
-    private FileChooser outputChooser = new FileChooser();
+    private final FileChooser outputChooser = new FileChooser();
     private TextField generalField;
     private DirectoryChooser generalChooser;
     private TextField ignoreFileNamesField;
@@ -76,23 +80,87 @@ public class HconvertExcel extends SmcSample {
     private final Action generate = FxAction.generate(actionEvent -> {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
         outputChooser.getExtensionFilters().add(extFilter);
-        File file = outputChooser.showSaveDialog(FxApp.primaryStage);
-        if (file != null) {
-            if (!StrUtil.endWith(file.getName(), ".xlsx")) {
+        File output = outputChooser.showSaveDialog(FxApp.primaryStage);
+        if (output != null) {
+            if (!StrUtil.endWith(output.getName(), ".xlsx")) {
                 notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
                 notificationBuilder.showWarning();
                 return;
             }
-            if (file.exists()) {
-                FileUtil.del(file);
+            String resultFileName = output.getName();
+            String resultPath = output.getParent();
+            outputChooser.setInitialDirectory(output.getParentFile());
+            outputChooser.setInitialFileName(output.getName());
+
+            if (output.exists()) {
+                FileUtil.del(output);
             }
             // 输入值获取
-            List<String> ignoreFileNamesNames = StrUtil.splitTrim(ignoreFileNamesField.getText(), ",");
-            List<String> markFileNamesNames = StrUtil.splitTrim(markFileNamesField.getText(), ",");
+            List<String> ignoreFileNames = StrUtil.splitTrim(ignoreFileNamesField.getText(), ",");
+            List<String> markFileNames = StrUtil.splitTrim(markFileNamesField.getText(), ",");
             List<String> supportFileType = StrUtil.splitTrim(supportFileTypeField.getText(), ",");
             String generateFilesPath = generalField.getText();
+            //要生成UD的文件
+            List<File> files = FileUtil.loopFiles(generateFilesPath, new FileFilter() {
+                @Override
+                public boolean accept(File file) {
+                    if (markFileNames.size() != 0) {
+                        for (String markFile : markFileNames) {
+                            if (file.isFile() && markFile.equals(file.getName())) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (markFileNames.size() == 0 && file.isFile() && !ignoreFileNames.contains(file.getName())) {
+                        for (String fileType : supportFileType) {
+                            if (fileType.equals(FileUtil.getSuffix(file))) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
+            ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
+            writer.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+            writer.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
+            for (int i = 0; i < files.size(); i++) {
+                File file = files.get(i);
+                if (i == 0) {
+                    writer.renameSheet(file.getName());
+                } else {
+                    writer.setSheet(file.getName());
+                }
+                writer.setColumnWidth(0, 15);
+                writer.setColumnWidth(1, 60);
+                writer.setColumnWidth(2, 18);
+                writer.setColumnWidth(3, 38);
+                List<String> content = FileUtil.readUtf8Lines(file);
+                List<List<String>> newContent = new ArrayList<>();
+                boolean f = false;
+                for (String s : content) {
+                    // 去除原文件的脏内容(tab)
+                    s.replaceAll("\\t", "    ");
+                    // 为换行的注释添加tab
+                    if (f) {
+                        s = "\t\t\t" + StrUtil.trim(s);
+                        f = false;
+                    }
+                    if (s.startsWith("#define")) {
+                        s = dealLine(s);
+                        if (s.contains("/*") && !s.contains("*/")) {
+                            f = true;
+                        }
+                    }
+                    if ("r_smc_interrupt.h".equals(file.getName())) {
+                        s = dealSmcInterrupt(s);
+                    }
+                    newContent.add(StrUtil.split(s, "\t"));
+                }
+                writer.write(newContent, false);
+            }
+            writer.close();
 
-            //FileUtil.writeFromStream(templateFile, file);
             notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
             notificationBuilder.showInformation();
             bindUserData();
@@ -126,21 +194,22 @@ public class HconvertExcel extends SmcSample {
             }
         });
 
-        Label ignoreFileNamesLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.ignoreSheet") + ": ");
+        Label ignoreFileNamesLabel = new Label(I18nUtils.get("smc.tool.hconvertExcel.label.ignoreFileNames") + ": ");
         ignoreFileNamesField = new TextField();
         ignoreFileNamesField.setPrefWidth(Double.MAX_VALUE);
         ignoreFileNamesField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label markFileNamesLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.markSheet") + ": ");
+        Label markFileNamesLabel = new Label(I18nUtils.get("smc.tool.hconvertExcel.label.markFileNames") + ": ");
         markFileNamesField = new TextField();
         markFileNamesField.setPrefWidth(Double.MAX_VALUE);
         markFileNamesField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label supportFileTypeLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.markSheet") + ": ");
+        Label supportFileTypeLabel = new Label(I18nUtils.get("smc.tool.hconvertExcel.label.supportFileType") + ": ");
         supportFileTypeField = new TextField();
         supportFileTypeField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
         supportFileTypeField.setText("h");
+        outputChooser.setInitialFileName("hconvert.xlsx");
 
         userData.put("general", generalField);
         userData.put("generalChooser", generalChooser);
@@ -165,32 +234,15 @@ public class HconvertExcel extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {diffButton}:
-                {diffDesc}
-
-                {excelLabel}: {excelDesc}
-                {generalLabel}: {generalDesc}
-                {macroLengthLabel}: {macroLengthDesc}
-                {markFileNamesLabel}: {markFileNamesDesc}
-
-                {note}
-                {noteDesc}
+                {markFileNames}: {markFileNamesDesc}
+                {supportFileType}: {supportFileTypeDesc}
                 """;
 
-        Map<String, String> map = new HashMap<>(32);
-        map.put("diffButton", generate.getText());
-        map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
-        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
-        map.put("excelDesc", "eg: TestSpec_General_RH850U2A.xlsx");
-        map.put("generalLabel", I18nUtils.get("smc.tool.specGeneralTest.label.general"));
-        map.put("generalDesc", "eg: {user.dir}\\src\\smc_gen\\general");
-        map.put("macroLengthLabel", I18nUtils.get("smc.tool.specGeneralTest.label.macroLength"));
-        map.put("macroLengthDesc", I18nUtils.get("smc.tool.specGeneralTest.control.macroLengthDesc"));
-        map.put("markFileNamesLabel", I18nUtils.get("smc.tool.specGeneralTest.label.markSheet"));
-        map.put("markFileNamesDesc", I18nUtils.get("smc.tool.specGeneralTest.control.markSheetDesc"));
-        map.put("note", I18nUtils.get("smc.tool.control.note"));
-        map.put("noteDesc", I18nUtils.get("smc.tool.specGeneralTest.control.noteDesc"));
+        Map<String, String> map = new HashMap<>(8);
+        map.put("markFileNames", I18nUtils.get("smc.tool.hconvertExcel.label.markFileNames"));
+        map.put("markFileNamesDesc", I18nUtils.get("smc.tool.hconvertExcel.control.markFileNamesDesc"));
+        map.put("supportFileType", I18nUtils.get("smc.tool.hconvertExcel.label.supportFileType"));
+        map.put("supportFileTypeDesc", I18nUtils.get("smc.tool.hconvertExcel.control.supportFileTypeDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -205,8 +257,7 @@ public class HconvertExcel extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return "HconvertExcel";
-        // return I18nUtils.get("smc.sampleName.specGeneralTest");
+        return I18nUtils.get("smc.sampleName.hconvertExcel");
     }
 
     @Override
@@ -221,7 +272,49 @@ public class HconvertExcel extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+        return I18nUtils.get("smc.sampleName.hconvertExcel.description");
+    }
+
+    /**
+     * 处理文本
+     */
+    private String dealLine(String s) {
+        if (s.length() < 8) {
+            return s;
+        }
+        int i1 = s.indexOf("(");
+        int i2 = s.indexOf(")");
+        int i3 = s.indexOf("/*");
+        if (i1 < 0 || i2 < 0) {
+            return s;
+        }
+        String s1 = s.substring(0, 7);
+        String s2 = s.substring(7, i1);
+        s2 = StrUtil.trim(s2);
+        String s3 = s.substring(i1, i2 + 1);
+        if (i3 < 0) {
+            return s1 + "\t" + s2 + "\t" + s3;
+        }
+        String s4 = s.substring(i3);
+        return s1 + "\t" + s2 + "\t" + s3 + "\t" + s4;
+    }
+
+    /**
+     * r_smc_interrupt.h 特殊处理
+     */
+    private String dealSmcInterrupt(String s) {
+        if (s.length() < 8) {
+            return s;
+        }
+        int i1 = s.indexOf("_INT_PRIORITY");
+        if (i1 < 0) {
+            return s;
+        }
+        String s1 = s.substring(0, 7);
+        String s2 = s.substring(7, i1);
+        s2 = StrUtil.trim(s2);
+        String s3 = s.substring(i1);
+        return s1 + "\t" + s2 + "\t" + s3;
     }
 
 }
