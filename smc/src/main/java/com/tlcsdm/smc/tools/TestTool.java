@@ -27,28 +27,37 @@
 
 package com.tlcsdm.smc.tools;
 
-import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.controlsfx.control.PropertySheet;
+import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.PropertySheet.Mode;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.smc.SmcSample;
+
+import cn.hutool.core.util.StrUtil;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * 测试用，发布时设置可见性为false
@@ -61,56 +70,77 @@ public class TestTool extends SmcSample {
     private TextField compareField;
     private TextField outputField;
 
+    private static Map<String, Object> customDataMap = new LinkedHashMap<>();
+
+    static {
+        customDataMap.put("1. Name#First Name", "Jonathan");
+        customDataMap.put("1. Name#Last Name", "Giles");
+        customDataMap.put("1. Name#Birthday", LocalDate.of(1985, Month.JANUARY, 12));
+        customDataMap.put("2. Billing Address#Address 1", "");
+        customDataMap.put("2. Billing Address#Address 2", "");
+        customDataMap.put("2. Billing Address#City", "");
+        customDataMap.put("2. Billing Address#State", "");
+        customDataMap.put("2. Billing Address#Zip", "");
+        customDataMap.put("3. Phone#Home", "123-123-1234");
+        customDataMap.put("3. Phone#Mobile", "234-234-2345");
+        customDataMap.put("3. Phone#Work", "");
+    }
+
+    private PropertySheet propertySheet = new PropertySheet();
+
     private final Action generate = FxAction.generate(actionEvent -> {
-        System.out.println(FreemarkerUtil.getTemplateContent("license.ftl"));
-        System.out.println(FreemarkerUtil.getTemplateContent("copyright.ftl"));
-        bindUserData();
+        propertySheet.getItems().forEach(e -> {
+            System.out.println(e.getName());
+            System.out.println(e.getValue());
+        });
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
 
     @Override
     public boolean isVisible() {
-        return false;
+        return true;
     }
 
     @Override
     public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
-        grid.setVgap(12);
-        grid.setHgap(12);
+        grid.setVgap(2);
+        grid.setHgap(0);
         grid.setPadding(new Insets(24));
-
+//
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
-
-        // original
-        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
-        originalField = new TextField();
-        originalField.setMaxWidth(Double.MAX_VALUE);
-
-        // compare
-        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
-        compareField = new TextField();
-        compareField.setMaxWidth(Double.MAX_VALUE);
-
-        // output
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
-        outputField = new TextField();
-        outputField.setMaxWidth(Double.MAX_VALUE);
-
-        userData.put("original", originalField);
-        userData.put("compare", compareField);
-        userData.put("output", outputField);
-
+//
+//        // original
+//        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+//        originalField = new TextField();
+//        originalField.setMaxWidth(Double.MAX_VALUE);
+//
+//        // compare
+//        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
+//        compareField = new TextField();
+//        compareField.setMaxWidth(Double.MAX_VALUE);
+//
+//        // output
+//        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+//        outputField = new TextField();
+//        outputField.setMaxWidth(Double.MAX_VALUE);
+//
+//        userData.put("original", originalField);
+//        userData.put("compare", compareField);
+//        userData.put("output", outputField);
+//
+        propertySheet.getItems().setAll(getCustomModelProperties());
+        propertySheet.setMode(Mode.CATEGORY);
         grid.add(toolBar, 0, 0, 2, 1);
-        grid.add(originalLabel, 0, 1);
-        grid.add(originalField, 1, 1);
-        grid.add(compareLabel, 0, 2);
-        grid.add(compareField, 1, 2);
-        grid.add(outputLabel, 0, 3);
-        grid.add(outputField, 1, 3);
+        grid.add(propertySheet, 0, 1, 2, 1);
+//        grid.add(originalField, 1, 1);
+//        grid.add(compareLabel, 0, 2);
+//        grid.add(compareField, 1, 2);
+//        grid.add(outputLabel, 0, 3);
+//        grid.add(outputField, 1, 3);
 
         return grid;
     }
@@ -156,7 +186,64 @@ public class TestTool extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0-Beta.0";
+        return "1.0.0-Beta";
+    }
+
+    private ObservableList<Item> getCustomModelProperties() {
+        ObservableList<Item> list = FXCollections.observableArrayList();
+        for (String key : customDataMap.keySet()) {
+            list.add(new CustomPropertyItem(key));
+        }
+        return list;
+    }
+
+    class CustomPropertyItem implements Item {
+
+        private String key;
+        private String category, name;
+
+        public CustomPropertyItem(String key) {
+            this.key = key;
+            String[] skey = key.split("#");
+            category = skey[0];
+            name = skey[1];
+        }
+
+        @Override
+        public Class<?> getType() {
+            return customDataMap.get(key).getClass();
+        }
+
+        @Override
+        public String getCategory() {
+            return category;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String getDescription() {
+            return null;
+        }
+
+        @Override
+        public Object getValue() {
+            return customDataMap.get(key);
+        }
+
+        @Override
+        public void setValue(Object value) {
+            customDataMap.put(key, value);
+        }
+
+        @Override
+        public Optional<ObservableValue<? extends Object>> getObservableValue() {
+            return Optional.empty();
+        }
+
     }
 
 }
