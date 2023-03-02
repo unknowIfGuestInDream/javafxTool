@@ -27,28 +27,11 @@
 
 package com.tlcsdm.smc.tools;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.control.PropertySheet.Mode;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,6 +41,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.PropertySheet;
+import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.PropertySheet.Mode;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.*;
 
 /**
  * 测试用，发布时设置可见性为false
@@ -106,7 +99,7 @@ public class TestTool extends SmcSample {
     public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
         grid.setVgap(2);
-        grid.setHgap(0);
+        grid.setHgap(12);
         grid.setPadding(new Insets(24));
 //
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
