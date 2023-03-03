@@ -33,6 +33,7 @@ import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
@@ -48,12 +49,14 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.util.*;
@@ -63,17 +66,20 @@ public final class FXSampler extends Application {
     private Map<String, Project> projectsMap;
 
     private static Stage stage;
-    private GridPane grid;
-    private BorderPane bp;
 
     private Sample selectedSample;
     private CenterPanelService centerPanelService;
 
     private TreeView<Sample> samplesTreeView;
     private TreeItem<Sample> root;
-    private Node centerPanel;
 
     private Project selectedProject;
+    // 用于闪屏功能
+    private Label infoLb;
+    private final StopWatch stopWatch = new StopWatch();
+    //用于 初始化UI
+    private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
+    private MenubarConfigration menubarConfigration = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -81,15 +87,69 @@ public final class FXSampler extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         stage = primaryStage;
-        JavaFxSystemUtil.initSystemLocal();
-        FxApp.init(primaryStage, getClass().getResource("/fxsampler/logo.png"));
-        ServiceLoader<FXSamplerConfiguration> samplerConfigurations = ServiceLoader
+        loadSplash();
+        new Thread(() -> {
+            JavaFxSystemUtil.initSystemLocal();
+            showInfo(I18nUtils.get("frame.splash.init.version"));
+            initializeSystem();
+            Platform.runLater(() -> {
+                try {
+                    initializeUI();
+                } catch (Throwable e) {
+                    FxAlerts.exception(e);
+                }
+            });
+        }).start();
+    }
+
+    /**
+     * 加载闪屏图片
+     */
+    public void loadSplash() {
+        Image image = null;
+        //加载闪屏图片
+        ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
+        for (SplashScreen s : splashScreens) {
+            image = s.getImage();
+        }
+        if (image == null) {
+            image = LayoutHelper.icon(getClass().getResource("/com/tlcsdm/frame/static/splash.png"));
+        }
+        ImageView view = new ImageView(image);
+        infoLb = new Label();
+        infoLb.setTextFill(Color.WHITE);
+        AnchorPane.setRightAnchor(infoLb, 10.0);
+        AnchorPane.setBottomAnchor(infoLb, 10.0);
+
+        AnchorPane page = new AnchorPane();
+        page.getChildren().addAll(view, infoLb);
+        Stage loadingStage = new Stage();
+        loadingStage.setScene(new Scene(page));
+        loadingStage.setWidth(image.getWidth());
+        loadingStage.setHeight(image.getHeight());
+        loadingStage.initStyle(StageStyle.UNDECORATED);
+        loadingStage.show();
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.hide());
+    }
+
+    /**
+     * 闪屏图片信息展示
+     */
+    public void showInfo(String info) {
+        FxApp.runLater(() -> infoLb.setText(info));
+    }
+
+    /**
+     * 初始化系统配置
+     */
+    public void initializeSystem() {
+        showInfo(I18nUtils.get("frame.splash.init.system"));
+        FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"));
+        samplerConfigurations = ServiceLoader
                 .load(FXSamplerConfiguration.class);
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
-        MenubarConfigration menubarConfigration = null;
         for (MenubarConfigration m : menubarConfigrations) {
             menubarConfigration = m;
         }
@@ -101,17 +161,21 @@ public final class FXSampler extends Application {
             centerPanelService = new EmptyCenterPanel();
         }
         projectsMap = new SampleScanner().discoverSamples();
-        buildSampleTree(null);
-
         InterfaceScanner.invoke(InitializingFactory.class, "initialize");
+    }
 
+    /**
+     * 初始化
+     */
+    public void initializeUI() {
+        buildSampleTree(null);
         // simple layout: TreeView on left, sample area on right
-        grid = new GridPane();
+        GridPane grid = new GridPane();
         grid.setPadding(new Insets(5, 10, 10, 10));
         grid.setHgap(10);
         grid.setVgap(10);
 
-        bp = new BorderPane();
+        BorderPane bp = new BorderPane();
         bp.setPadding(new Insets(10, 20, 10, 20));
 
         // menubar
@@ -172,7 +236,7 @@ public final class FXSampler extends Application {
         grid.add(samplesTreeView, 0, 2);
         bp.setLeft(grid);
 
-        centerPanel = centerPanelService.getCenterPanel();
+        Node centerPanel = centerPanelService.getCenterPanel();
         bp.setCenter(centerPanel);
 
         // by default we'll show the welcome message of first project in the tree
@@ -206,14 +270,14 @@ public final class FXSampler extends Application {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setWidth(screenBounds.getWidth() * 0.75);
         stage.setHeight(screenBounds.getHeight() * .75);
-//        stage.setResizable(false);
+        // stage.setResizable(false);
         if (StrUtil.isEmpty(FxApp.title)) {
             stage.setTitle(I18nUtils.get("frame.stage.title"));
         } else {
             stage.setTitle(FxApp.title);
         }
         // 加载上次位置
-        StageUtils.loadPrimaryStageBound(primaryStage);
+        StageUtils.loadPrimaryStageBound(stage);
         stage.show();
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
@@ -263,6 +327,9 @@ public final class FXSampler extends Application {
         return stage;
     }
 
+    /**
+     * 确认退出系统
+     */
     public static void confirmExit(Event event) {
         if (Config.getBoolean(Config.Keys.ConfirmExit, true)) {
             if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"),
@@ -276,6 +343,9 @@ public final class FXSampler extends Application {
         }
     }
 
+    /**
+     * 退出系统
+     */
     public static void doExit() {
         StageUtils.savePrimaryStageBound(stage);
         Platform.exit();
