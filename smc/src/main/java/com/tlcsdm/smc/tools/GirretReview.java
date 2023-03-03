@@ -68,6 +68,7 @@ import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -149,74 +150,80 @@ public class GirretReview extends SmcSample {
         outPutChooser.setInitialFileName("GirretComments_" + queryEmail + ".xlsx");
         File file = outPutChooser.showSaveDialog(FxApp.primaryStage);
         if (file != null) {
-            try {
-                if (!StrUtil.endWith(file.getName(), ".xlsx")) {
-                    notificationBuilder
-                            .text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
-                    notificationBuilder.showWarning();
-                    return;
-                }
-                // 变量初始化
-                CookieManager manager = new CookieManager();
-                manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-                HttpCookie gerritAccount = new HttpCookie("GerritAccount", gerritAccountField.getText());
-                HttpCookie token = new HttpCookie("XSRF_TOKEN", tokenField.getText());
-                manager.getCookieStore().add(URI.create(girretUrlField.getText()), gerritAccount);
-                manager.getCookieStore().add(URI.create(girretUrlField.getText()), token);
-                Authenticator authenticator = new UserPassAuthenticator(userNameField.getText(),
-                        passwdField.getText().toCharArray());
-                client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                        .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator).cookieHandler(manager)
-                        .build();
-                // changes请求路径
-                String changesRequestUrl = girretUrlField.getText() + "changes/?O=%s&S=%s&n=%s&q=%s";
-                // comments请求路径
-                String commentsRequestUrl = girretUrlField.getText() + "changes/{}~{}/comments";
-                int paramS = 0;
-                String paramQ = defaultParamQ;
-                if (StrUtil.isNotEmpty(ownerEmailField.getText())
-                        && !ownerEmailField.getText().startsWith(userNameField.getText())) {
-                    paramQ = "owner:" + ownerEmailField.getText();
-                }
-                String resultFileName = file.getName();
-                String resultPath = file.getParent();
-                outPutChooser.setInitialDirectory(file.getParentFile());
-                outPutChooser.setInitialFileName(resultFileName);
-                if (file.exists()) {
-                    FileUtil.del(file);
-                }
-                int paramN = Integer.parseInt(limitField.getText());
-                // 开始获取结果
-                for (;;) {
-                    String url = String.format(changesRequestUrl, URLEncoder.encode(paramO, StandardCharsets.UTF_8),
-                            paramS, paramN, URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
-                    HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-                            "application/json", "User-Agent",
-                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                            .build();
-                    HttpResponse<String> response = null;
-                    response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    if (response.statusCode() == 200) {
-                        String result = response.body();
-                        if (result.startsWith(")]}'")) {
-                            result = result.substring(4);
+            if (!StrUtil.endWith(file.getName(), ".xlsx")) {
+                notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
+                notificationBuilder.showWarning();
+                return;
+            }
+            FxApp.runLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        // 变量初始化
+                        CookieManager manager = new CookieManager();
+                        manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+                        HttpCookie gerritAccount = new HttpCookie("GerritAccount", gerritAccountField.getText());
+                        HttpCookie token = new HttpCookie("XSRF_TOKEN", tokenField.getText());
+                        manager.getCookieStore().add(URI.create(girretUrlField.getText()), gerritAccount);
+                        manager.getCookieStore().add(URI.create(girretUrlField.getText()), token);
+                        Authenticator authenticator = new UserPassAuthenticator(userNameField.getText(),
+                                passwdField.getText().toCharArray());
+                        client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
+                                .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
+                                .cookieHandler(manager).build();
+                        // changes请求路径
+                        String changesRequestUrl = girretUrlField.getText() + "changes/?O=%s&S=%s&n=%s&q=%s";
+                        // comments请求路径
+                        String commentsRequestUrl = girretUrlField.getText() + "changes/{}~{}/comments";
+                        int paramS = 0;
+                        String paramQ = defaultParamQ;
+                        if (StrUtil.isNotEmpty(ownerEmailField.getText())
+                                && !ownerEmailField.getText().startsWith(userNameField.getText())) {
+                            paramQ = "owner:" + ownerEmailField.getText();
                         }
-                        JSONArray array = JSONUtil.parseArray(result);
-                        handleChanges(array, paramN);
-                        if (changesEnd) {
-                            break;
+                        String resultFileName = file.getName();
+                        String resultPath = file.getParent();
+                        outPutChooser.setInitialDirectory(file.getParentFile());
+                        outPutChooser.setInitialFileName(resultFileName);
+                        if (file.exists()) {
+                            FileUtil.del(file);
                         }
-                        paramS = paramS + paramN;
-                    } else {
-                        throw new UnExpectedResultException(response.body());
+                        int paramN = Integer.parseInt(limitField.getText());
+                        // 开始获取结果
+                        for (;;) {
+                            String url = String.format(changesRequestUrl,
+                                    URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
+                                    URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
+                            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
+                                    "application/json", "User-Agent",
+                                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+                                    .build();
+                            HttpResponse<String> response = null;
+                            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                            if (response.statusCode() == 200) {
+                                String result = response.body();
+                                if (result.startsWith(")]}'")) {
+                                    result = result.substring(4);
+                                }
+                                JSONArray array = JSONUtil.parseArray(result);
+                                handleChanges(array, paramN);
+                                if (changesEnd) {
+                                    break;
+                                }
+                                paramS = paramS + paramN;
+                            } else {
+                                throw new UnExpectedResultException(response.body());
+                            }
+                        }
+                        handleComments(commentsRequestUrl, resultPath, resultFileName);
+                        bindUserData();
+                    } catch (Exception e) {
+                        FxAlerts.exception(e);
+                        e.printStackTrace();
                     }
                 }
-                handleComments(commentsRequestUrl, resultPath, resultFileName);
-                bindUserData();
-            } catch (Exception e) {
-                // FxAlerts.exception(e);
-                e.printStackTrace();
-            }
+            });
         }
     });
 
