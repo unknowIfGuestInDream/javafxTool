@@ -15,4 +15,5 @@ module com.tlcsdm.frame {
     uses com.tlcsdm.frame.MenubarConfigration;
     uses com.tlcsdm.frame.FXSamplerConfiguration;
     uses com.tlcsdm.frame.CenterPanelService;
+    uses com.tlcsdm.frame.SplashScreen;
 }
