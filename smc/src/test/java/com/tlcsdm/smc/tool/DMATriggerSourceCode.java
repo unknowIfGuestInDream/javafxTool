@@ -1,18 +1,17 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
@@ -28,12 +27,12 @@ public class DMATriggerSourceCode {
         String outputPath = "C:\\workspace\\test";
         String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-                RH850U2C8-B#F
-                RH850U2C4-B#J
-                RH850U2C2-B#L
-                RH850U2C8-D#T
-                RH850U2C4-D#X
-                RH850U2C2-D#Z
+                RH850U2C8-B;F
+                RH850U2C4-B;J
+                RH850U2C2-B;L
+                RH850U2C8-D;T
+                RH850U2C4-D;X
+                RH850U2C2-D;Z
                 """;
         String sheetName = "sDMAC transfer request";
         String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
@@ -56,7 +55,7 @@ public class DMATriggerSourceCode {
         List<TransferRequest> transferRequests = new ArrayList<>();
         List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
         for (String xmlConfig : xmlConfigs) {
-            List<String> l = StrUtil.split(xmlConfig, "#");
+            List<String> l = StrUtil.split(xmlConfig, ";");
             TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1));
             transferRequests.add(transferRequest);
         }
