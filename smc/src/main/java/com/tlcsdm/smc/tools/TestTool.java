@@ -27,14 +27,18 @@
 
 package com.tlcsdm.smc.tools;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.ProgressStage;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -82,9 +86,12 @@ public class TestTool extends SmcSample {
     private PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        propertySheet.getItems().forEach(e -> {
-            System.out.println(e.getName());
-            System.out.println(e.getValue());
+        ProgressStage ps = ProgressStage.of();
+        ps.show();
+
+        ThreadPoolTaskExecutor.get().execute(() -> {
+            ThreadUtil.safeSleep(5000);
+            ps.close();
         });
     });
 
@@ -92,7 +99,7 @@ public class TestTool extends SmcSample {
 
     @Override
     public boolean isVisible() {
-        return true;
+        return false;
     }
 
     @Override
@@ -237,6 +244,15 @@ public class TestTool extends SmcSample {
             return Optional.empty();
         }
 
+    }
+
+    class VideoConvertWork extends Task<Void> {
+
+        @Override
+        protected Void call() throws Exception {
+            ThreadUtil.safeSleep(5000);
+            return null;
+        }
     }
 
 }
