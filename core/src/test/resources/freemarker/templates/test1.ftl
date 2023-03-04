@@ -10,12 +10,14 @@
 Hello ${message}
 
 <#assign users = [{"name":"Joe",        "hidden":false},
-                  {"name":"James Bond", "hidden":true},
-                  {"name":"Julia",      "hidden":false}]>
+{"name":"James Bond", "hidden":true},
+{"name":"Julia",      "hidden":false}]>
 List of users:
 <#list users as user>
-  <#if !user.hidden>
-  - ${user.name}
-  </#if>
+    <#if !user.hidden>
+        - ${user.name}
+    </#if>
 </#list>
 That's all.
+
+${.now?iso_utc}
