@@ -34,6 +34,9 @@ dependencies:
   - smc/pom.xml
   - core/pom.xml
 
+i18ns:
+- any: ['**/i18n/*.properties']
+
 automerge:
   - all: [ 'README.md' ]
   - all: [ 'CHANGELOG.md' ]
