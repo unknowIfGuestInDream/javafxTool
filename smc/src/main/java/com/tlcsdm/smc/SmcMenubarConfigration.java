@@ -104,9 +104,9 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         alert.getButtonTypes().addAll(closeButton);
         Map<String, String> map = new HashMap<>(32);
         map.put("versionLabel", I18nUtils.get("smc.menubar.help.about.contentText.version"));
-        map.put("version", Config.JAVAFX_TOOL_VERSION);
+        map.put("version", SmcSample.PROJECT_INFO.getVersion());
         map.put("dateLabel", I18nUtils.get("smc.menubar.help.about.contentText.date"));
-        map.put("date", Config.JAVAFX_TOOL_PUBLISHDATE);
+        map.put("date", SmcSample.PROJECT_INFO.getDate());
         map.put("licenseNameLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseName"));
         map.put("licenseName", SmcConstant.PROJECT_LICENSE_NAME);
         map.put("licenseUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl"));
