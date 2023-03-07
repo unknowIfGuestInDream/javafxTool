@@ -27,10 +27,15 @@
 
 package com.tlcsdm.smc;
 
-import com.tlcsdm.core.javafx.util.Config;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.SampleBase;
 
+import java.io.InputStream;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
+
 public abstract class SmcSample extends SampleBase {
+    public static final ProjectInfo PROJECT_INFO = new ProjectInfo();
 
     @Override
     public String getProjectName() {
@@ -39,7 +44,38 @@ public abstract class SmcSample extends SampleBase {
 
     @Override
     public String getProjectVersion() {
-        return Config.JAVAFX_TOOL_VERSION;
+        return PROJECT_INFO.getVersion();
+    }
+
+    public static class ProjectInfo {
+
+        private String version;
+        private String date;
+
+        public ProjectInfo() {
+
+            try {
+                InputStream s =
+                        SmcSampler.class.getModule().getResourceAsStream(
+                                "META-INF/MANIFEST.MF");
+                Manifest manifest = new Manifest(s);
+                Attributes attr = manifest.getMainAttributes();
+                version = attr.getValue("Implementation-Version");
+                date = attr.getValue("Build-Day");
+            } catch (Throwable e) {
+                version = "";
+                date = "";
+                StaticLog.error("MANIFEST信息获取失败");
+            }
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public String getDate() {
+            return date;
+        }
     }
 
 }
