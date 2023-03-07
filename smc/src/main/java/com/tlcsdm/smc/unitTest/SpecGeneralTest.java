@@ -163,17 +163,21 @@ public class SpecGeneralTest extends SmcSample {
             generateFileMap.put(sheetName, generateFileName);
             excelWriter.renameSheet(0, sheetName);
             List<List<String>> list = new ArrayList<>(endY - startY + 1);
+            boolean isIfnDef = false;
             for (int j = startY; j <= endY; j++) {
                 List<String> l = new ArrayList<>(endX - startX + 1);
                 boolean isDefine = false;
                 // 第一列发现是define 或者 ifndef 即在后面添加空格
                 String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
-                if ("#define".equals(StrUtil.trim(firstValue)) || "#ifndef".equals(StrUtil.trim(firstValue))) {
+                if ("#define".equals(StrUtil.trim(firstValue))) {
                     isDefine = true;
+                }
+                if ("#ifndef".equals(StrUtil.trim(firstValue))) {
+                    isIfnDef = true;
                 }
                 for (int j2 = startX; j2 <= endX; j2++) {
                     String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
-                    if (isDefine && j2 < endX) {
+                    if (isDefine && !isIfnDef && j2 < endX) {
                         String cellSubString = " ";
                         String cv = StrUtil.trimEnd(cellValue);
                         // 给macro值填充空格
@@ -187,7 +191,13 @@ public class SpecGeneralTest extends SmcSample {
                         }
                         cellValue = cv + cellSubString;
                     }
+                    if (isIfnDef && j2 == startX) {
+                        cellValue = cellValue + " ";
+                    }
                     l.add(cellValue);
+                }
+                if (isIfnDef && isDefine) {
+                    isIfnDef = false;
                 }
                 list.add(l);
             }
