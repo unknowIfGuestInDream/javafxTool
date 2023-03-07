@@ -22,10 +22,6 @@ public class Config {
     public static final String USERDATA_FILE_NAME = "data.xml";
     // 设置系统语言
     public static Locale defaultLocale = Locale.getDefault();
-    // JavaFxTool版本信息
-    public static final String JAVAFX_TOOL_VERSION = "1.0.0";
-    // 发布日期
-    public static final String JAVAFX_TOOL_PUBLISHDATE = "2023-03-01";
 
     public enum Keys {
         MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft, Locale, NotepadEnabled,
