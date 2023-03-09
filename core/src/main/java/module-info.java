@@ -27,6 +27,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.javafx.util;
     exports com.tlcsdm.core.util;
     exports com.tlcsdm.core.exception;
+    exports com.tlcsdm.core.annotation;
     exports com.tlcsdm.core.factory;
     exports com.tlcsdm.core.factory.config;
     exports com.tlcsdm.core.freemarker;
