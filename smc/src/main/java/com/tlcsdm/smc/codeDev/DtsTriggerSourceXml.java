@@ -93,7 +93,11 @@ public class DtsTriggerSourceXml extends SmcSample {
             notificationBuilder.showWarning();
             return;
         }
-        JavaFxSystemUtil.openDirectory(outPath + "\\triggerSource");
+        String path = outPath + "\\triggerSource";
+        if (!FileUtil.exist(path)) {
+            path = outPath;
+        }
+        JavaFxSystemUtil.openDirectory(path);
     });
 
     private final Action generate = FxAction.generate(actionEvent -> {

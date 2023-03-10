@@ -1,5 +1,17 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -11,14 +23,6 @@ import cn.hutool.poi.excel.ExcelUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
@@ -31,8 +35,7 @@ public class DMATemplateTriggerSourceCode {
     public static void init() {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
         try {
-            configuration.setDirectoryForTemplateLoading(
-                    new File(ResourceUtil.getResource("templates").getPath()));
+            configuration.setDirectoryForTemplateLoading(new File(ResourceUtil.getResource("templates").getPath()));
             configuration.setDefaultEncoding("utf-8");
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20,soft:250");
@@ -71,7 +74,7 @@ public class DMATemplateTriggerSourceCode {
         int startRow = 5;
         int endRow = 260;
         int offset = 4;
-        int defineLength = 70;
+        int defineLength = 60;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
         String macroValueTemplate = "({hex}) /* DMAC group {groupNum} {factor} */";
 
@@ -83,6 +86,9 @@ public class DMATemplateTriggerSourceCode {
             transferRequests.add(transferRequest);
         }
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("offset", offsetString);
+
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
         // 处理数据
@@ -90,10 +96,14 @@ public class DMATemplateTriggerSourceCode {
 
         // 文件内容获取
         List<String> settingContent = new ArrayList<>();
-        List<String> bindingContent = new ArrayList<>();
-        List<String> cgdmaContent = new ArrayList<>();
+        List<Map<String, Object>> bindingContent = new ArrayList<>();
+        List<Map<String, Object>> cgdmaContent = new ArrayList<>();
+
+        map.put("bindingContent", bindingContent);
+        map.put("cgdmaContent", cgdmaContent);
         int groupNum = 0;
         for (String group : groups) {
+
             List<String> triggerContent = new ArrayList<>();
             List<String> tagContent = new ArrayList<>();
             List<String> defineContent = new ArrayList<>();
@@ -101,6 +111,8 @@ public class DMATemplateTriggerSourceCode {
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
                     .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
+                Map<String, Object> cgdma = new HashMap<>();
+                Map<String, Object> binding = new HashMap<>();
                 String factor = reader.getCell(group + i).getStringCellValue();
                 if ("Reserve".equals(factor)) {
                     continue;
@@ -109,6 +121,8 @@ public class DMATemplateTriggerSourceCode {
                     defaultSelection = factor;
                 }
                 paramMap.put("factor", factor);
+                binding.put("factor", factor);
+                binding.put("groupNum", groupNum);
                 // setting
                 String staticItem = StrUtil.format("""
                         {offset}    <staticItem enabled="true" id="{factor}" name="{factor}"/>""", paramMap);
@@ -116,17 +130,25 @@ public class DMATemplateTriggerSourceCode {
 
                 String macro = StrUtil.format(macroTemplate, paramMap);
                 paramMap.put("macro", macro);
+                cgdma.put("macro", macro);
+                binding.put("macro", macro);
                 // bingding
                 String tag = StrUtil.format(tagTemplate, paramMap);
                 tagContent.add(tag);
                 // r_cg_dma
                 StringBuilder define = new StringBuilder("#define " + macro);
                 paramMap.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
+                cgdma.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
+                cgdma.put("offset", "");
                 if (macro.length() < defineLength - 8) {
+                    cgdma.put("offset", CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
                     define.append(CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
                     define.append(StrUtil.format(macroValueTemplate, paramMap));
                 }
                 defineContent.add(define.toString());
+                cgdma.put("macroDesc", "/* DMAC group " + groupNum + " " + factor + " */");
+                cgdmaContent.add(cgdma);
+                bindingContent.add(binding);
             }
             // 后置处理
             triggerContent.add(0, StrUtil.format(
@@ -136,16 +158,18 @@ public class DMATemplateTriggerSourceCode {
             triggerContent.add(offsetString + "</option>");
             // 当前循环结束，开始下一次循环
             settingContent.addAll(triggerContent);
-            bindingContent.addAll(tagContent);
-            cgdmaContent.addAll(defineContent);
+
             groupNum++;
         }
-        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
-        FileUtil.appendUtf8Lines(settingContent, setting);
-        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
-        FileUtil.appendUtf8Lines(bindingContent, binding);
-        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
-        FileUtil.appendUtf8Lines(cgdmaContent, cgdma);
+
+        System.out.println(FreemarkerUtil.getTemplateContent(configuration, map, "cgdma.ftl"));
+        System.out.println(FreemarkerUtil.getTemplateContent(configuration, map, "binding.ftl"));
+//        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+//        FileUtil.appendUtf8Lines(settingContent, setting);
+//        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
+//        FileUtil.appendUtf8Lines(bindingContent, binding);
+//        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+//        FileUtil.appendUtf8Lines(cgdmaContent, cgdma);
 
         reader.close();
     }

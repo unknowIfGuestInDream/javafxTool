@@ -28,6 +28,7 @@
 package com.tlcsdm.smc.unitTest;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -102,10 +103,14 @@ public class SpecGeneralTest extends SmcSample {
             return;
         }
         String excelName = FileUtil.getName(excelField.getText());
+        String path = "";
         if (!StrUtil.isEmpty(excelName)) {
-            outPath = outPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
+            path = outPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
         }
-        JavaFxSystemUtil.openDirectory(outPath);
+        if (!FileUtil.exist(path)) {
+            path = outPath;
+        }
+        JavaFxSystemUtil.openDirectory(path);
     });
 
     /**
@@ -320,6 +325,7 @@ public class SpecGeneralTest extends SmcSample {
         startCellField.setText("C19");
         endCellColumnField.setText("F");
         generalFileCellField.setText("C15");
+        macroLengthField.setNumber(new BigDecimal("60"));
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
