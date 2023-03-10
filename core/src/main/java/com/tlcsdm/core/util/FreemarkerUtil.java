@@ -27,17 +27,18 @@
 
 package com.tlcsdm.core.util;
 
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.exception.UnsupportedFeatureException;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.exception.UnsupportedFeatureException;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 /**
  * freemarker 引擎工具
@@ -70,15 +71,20 @@ public class FreemarkerUtil {
      */
     public static Configuration configuration() {
         if (configuration == null) {
-            throw new UnsupportedFeatureException("Freemarker is not supported, please confirm whether there is a freemarker dependency.");
+            throw new UnsupportedFeatureException(
+                    "Freemarker is not supported, please confirm whether there is a freemarker dependency.");
         }
         return configuration;
     }
 
     public static Template getTemplate(String name) {
+        return getTemplate(configuration, name);
+    }
+
+    public static Template getTemplate(Configuration conf, String name) {
         Template template = null;
         try {
-            template = configuration.getTemplate(name);
+            template = conf.getTemplate(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,10 +92,14 @@ public class FreemarkerUtil {
     }
 
     public static String getTemplateContent(Map<String, Object> objectMap, String name) {
+        return getTemplateContent(configuration, objectMap, name);
+    }
+
+    public static String getTemplateContent(Configuration conf, Map<String, Object> objectMap, String name) {
         StringWriter stringWriter = new StringWriter();
         Template template;
         try {
-            template = configuration.getTemplate(name);
+            template = conf.getTemplate(name);
             template.process(objectMap, stringWriter);
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
@@ -99,5 +109,9 @@ public class FreemarkerUtil {
 
     public static String getTemplateContent(String name) {
         return getTemplateContent(new HashMap<>(0), name);
+    }
+
+    public static String getTemplateContent(Configuration conf, String name) {
+        return getTemplateContent(conf, new HashMap<>(0), name);
     }
 }
