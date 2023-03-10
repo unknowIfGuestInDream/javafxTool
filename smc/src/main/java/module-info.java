@@ -8,10 +8,10 @@ module com.tlcsdm.smc {
     requires com.tlcsdm.frame;
     requires com.tlcsdm.login;
     requires org.controlsfx.controls;
-    requires hutool.core;
-    requires hutool.poi;
-    requires hutool.log;
-    requires hutool.json;
+    requires cn.hutool.core;
+    requires cn.hutool.poi;
+    requires cn.hutool.log;
+    requires cn.hutool.json;
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
