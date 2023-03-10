@@ -7,8 +7,8 @@ module com.tlcsdm.core {
     requires javafx.controls;
     requires org.apache.commons.configuration2;
     requires org.controlsfx.controls;
-    requires hutool.log;
-    requires hutool.core;
+    requires cn.hutool.log;
+    requires cn.hutool.core;
     requires commons.beanutils;
     requires static io.github.javadiffutils;
     requires static freemarker;

@@ -2,11 +2,11 @@ module com.tlcsdm.frame {
 
     requires transitive javafx.controls;
     requires transitive javafx.web;
-	requires javafx.graphics;
-	requires javafx.base;
+    requires javafx.graphics;
+    requires javafx.base;
     requires com.tlcsdm.core;
-	requires hutool.core;
-	requires hutool.crypto;
+    requires cn.hutool.core;
+    requires cn.hutool.crypto;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
