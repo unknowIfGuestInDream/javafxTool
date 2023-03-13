@@ -27,7 +27,17 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import cn.hutool.core.util.StrUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -35,23 +45,20 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -70,18 +77,22 @@ public class DmaTriggerSourceCode extends SmcSample {
     private TextField sheetNameField;
     private NumberTextField startRowField;
     private NumberTextField endRowField;
-    private TextField xmlNameTemplateField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
+
+    private final String templateBindingPath = "smc/dmaTriggerSourceCode/binding.ftl";
+    private final String templateSettingPath = "smc/dmaTriggerSourceCode/setting.ftl";
+    private final String templateCgdmaPath = "smc/dmaTriggerSourceCode/cgdma.ftl";
 
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
     });
 
     @Override
     public boolean isVisible() {
-        return false;
+        return true;
     }
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        // FreemarkerUtil.getTemplateContent("smc/dmaTriggerSourceCode/");
 
     });
 
@@ -147,18 +158,13 @@ public class DmaTriggerSourceCode extends SmcSample {
         Label endRowLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.endRow") + ": ");
         endRowField = new NumberTextField();
 
-        Label xmlNameTemplateLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate") + ": ");
-        xmlNameTemplateField = new TextField();
-
         sheetNameField.setText("DTS trigger");
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
         xmlFileNameAndStartColField
                 .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
-        xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
-        TitledPane tilePane1 = new TitledPane("tilePane1",new Button("button1"));
+        TitledPane tilePane1 = new TitledPane("Template", new Button("Template"));
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
@@ -169,7 +175,6 @@ public class DmaTriggerSourceCode extends SmcSample {
         userData.put("sheetName", sheetNameField);
         userData.put("startRow", startRowField);
         userData.put("endRow", endRowField);
-        userData.put("xmlNameTemplate", xmlNameTemplateField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -188,9 +193,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.add(startRowField, 1, 6, 2, 1);
         grid.add(endRowLabel, 0, 7);
         grid.add(endRowField, 1, 7, 2, 1);
-        grid.add(xmlNameTemplateLabel, 0, 8);
-        grid.add(xmlNameTemplateField, 1, 8, 2, 1);
-        grid.add(tilePane1, 0, 9, 3, 1);
+        grid.add(tilePane1, 0, 8, 3, 1);
 
         return grid;
     }
@@ -230,7 +233,7 @@ public class DmaTriggerSourceCode extends SmcSample {
     @Override
     public String getSampleName() {
         return "DmaTriggerSourceCode";
-        //return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml");
+        // return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml");
     }
 
     @Override
@@ -246,6 +249,9 @@ public class DmaTriggerSourceCode extends SmcSample {
     @Override
     public String getSampleDescription() {
         return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml.description");
+    }
+
+    record TransferRequest(String device, String pins, String startCol) {
     }
 
 }

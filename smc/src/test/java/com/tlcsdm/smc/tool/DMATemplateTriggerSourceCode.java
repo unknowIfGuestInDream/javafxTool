@@ -53,41 +53,28 @@ public class DMATemplateTriggerSourceCode {
         String outputPath = "C:\\workspace\\test";
         String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-                RH850U2C8-B;F
-                RH850U2C4-B;J
-                RH850U2C2-B;L
-                RH850U2C8-D;T
-                RH850U2C4-D;X
-                RH850U2C2-D;Z
+                RH850U2C8;292;F
+                RH850U2C4;292;J
+                RH850U2C2;176;L
+                RH850U2C8;176;T
+                RH850U2C4;156;X
+                RH850U2C2;144;Z
                 """;
         String sheetName = "sDMAC transfer request";
         String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
-        String tagTemplate = """
-                {offset}<tagBinding id="Trigger{factor}" key="Trigger_Source" value="{macro}">
-                {offset}    <and>
-                {offset}        <simpleCondition optionId="requestSource" valueId="HWRequestGrp{groupNum}">
-                {offset}        </simpleCondition>
-                {offset}        <simpleCondition optionId="triggerSourceGrp{groupNum}" valueId="{factor}">
-                {offset}        </simpleCondition>
-                {offset}    </and>
-                {offset}</tagBinding>""";
         int startRow = 5;
         int endRow = 260;
         int offset = 4;
         int defineLength = 60;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
-        String macroValueTemplate = "({hex}) /* DMAC group {groupNum} {factor} */";
 
         List<TransferRequest> transferRequests = new ArrayList<>();
         List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
         for (String xmlConfig : xmlConfigs) {
             List<String> l = StrUtil.split(xmlConfig, ";");
-            TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1));
+            TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1), l.get(2));
             transferRequests.add(transferRequest);
         }
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("offset", offsetString);
 
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
@@ -95,22 +82,28 @@ public class DMATemplateTriggerSourceCode {
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
 
         // 文件内容获取
-        List<String> settingContent = new ArrayList<>();
         List<Map<String, Object>> bindingContent = new ArrayList<>();
         List<Map<String, Object>> cgdmaContent = new ArrayList<>();
+        List<Map<String, Object>> groupList = new ArrayList<>();
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("offset", offsetString);
+        map.put("groups", groupList);
         map.put("bindingContent", bindingContent);
         map.put("cgdmaContent", cgdmaContent);
         int groupNum = 0;
         for (String group : groups) {
+            Map<String, Object> g = new HashMap<>();
+            List<Map<String, Object>> settingContent = new ArrayList<>();
+            g.put("groupNum", groupNum);
+            g.put("settingContent", settingContent);
 
-            List<String> triggerContent = new ArrayList<>();
-            List<String> tagContent = new ArrayList<>();
-            List<String> defineContent = new ArrayList<>();
             String defaultSelection = "";
+            // 模板赋值使用
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
                     .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
+                Map<String, Object> setting = new HashMap<>();
                 Map<String, Object> cgdma = new HashMap<>();
                 Map<String, Object> binding = new HashMap<>();
                 String factor = reader.getCell(group + i).getStringCellValue();
@@ -121,59 +114,43 @@ public class DMATemplateTriggerSourceCode {
                     defaultSelection = factor;
                 }
                 paramMap.put("factor", factor);
+                String macro = StrUtil.format(macroTemplate, paramMap);
+
+                setting.put("factor", factor);
+
                 binding.put("factor", factor);
                 binding.put("groupNum", groupNum);
-                // setting
-                String staticItem = StrUtil.format("""
-                        {offset}    <staticItem enabled="true" id="{factor}" name="{factor}"/>""", paramMap);
-                triggerContent.add(staticItem);
-
-                String macro = StrUtil.format(macroTemplate, paramMap);
-                paramMap.put("macro", macro);
-                cgdma.put("macro", macro);
                 binding.put("macro", macro);
-                // bingding
-                String tag = StrUtil.format(tagTemplate, paramMap);
-                tagContent.add(tag);
-                // r_cg_dma
-                StringBuilder define = new StringBuilder("#define " + macro);
-                paramMap.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
+
+                cgdma.put("factor", factor);
+                cgdma.put("groupNum", groupNum);
+                cgdma.put("macro", macro);
                 cgdma.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
-                cgdma.put("offset", "");
+                cgdma.put("offset", " ");
                 if (macro.length() < defineLength - 8) {
                     cgdma.put("offset", CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
-                    define.append(CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
-                    define.append(StrUtil.format(macroValueTemplate, paramMap));
                 }
-                defineContent.add(define.toString());
-                cgdma.put("macroDesc", "/* DMAC group " + groupNum + " " + factor + " */");
                 cgdmaContent.add(cgdma);
                 bindingContent.add(binding);
+                settingContent.add(setting);
             }
+            g.put("defaultSelection", defaultSelection);
             // 后置处理
-            triggerContent.add(0, StrUtil.format(
-                    """
-                            {offset}<option defaultSelection="{defaultSelection}" enabled="true" id="triggerSourceGrp{groupNum}" name="triggerSourceGrp{groupNum}">""",
-                    MapUtil.builder(paramMap).put("defaultSelection", defaultSelection).build()));
-            triggerContent.add(offsetString + "</option>");
+            groupList.add(g);
             // 当前循环结束，开始下一次循环
-            settingContent.addAll(triggerContent);
-
             groupNum++;
         }
 
-        System.out.println(FreemarkerUtil.getTemplateContent(configuration, map, "cgdma.ftl"));
-        System.out.println(FreemarkerUtil.getTemplateContent(configuration, map, "binding.ftl"));
-//        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
-//        FileUtil.appendUtf8Lines(settingContent, setting);
-//        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
-//        FileUtil.appendUtf8Lines(bindingContent, binding);
-//        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
-//        FileUtil.appendUtf8Lines(cgdmaContent, cgdma);
+        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(configuration, map, "setting.ftl"), setting);
+        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(configuration, map, "binding.ftl"), binding);
+        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(configuration, map, "cgdma.ftl"), cgdma);
 
         reader.close();
     }
 
-    record TransferRequest(String device, String startCol) {
+    record TransferRequest(String device, String pins, String startCol) {
     }
 }
