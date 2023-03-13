@@ -28,12 +28,16 @@
 package com.tlcsdm.smc.codeDev;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -50,6 +54,7 @@ import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +80,11 @@ public class DmaTriggerSourceCode extends SmcSample {
     private NumberTextField offsetField;
     private NumberTextField defineLengthField;
     private TextField macroTemplateField;
+
+    private final String defaultTemplateName = "dmaTemplate.zip";
+    //结果输出到 dmaCode 文件夹下
+    private final String outParentFolder = "\\dmaCode";
+    private final FileChooser downloadChooser = new FileChooser();
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final String templateBindingPath = "smc/dmaTriggerSourceCode/binding.ftl";
@@ -82,9 +92,39 @@ public class DmaTriggerSourceCode extends SmcSample {
     private final String templateCgdmaPath = "smc/dmaTriggerSourceCode/cgdma.ftl";
 
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
+        String outPath = outputField.getText();
+        if (StrUtil.isEmpty(outPath)) {
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.openOutDir.warnMsg"));
+            notificationBuilder.showWarning();
+            return;
+        }
+        String path = outPath + outParentFolder;
+        if (!FileUtil.exist(path)) {
+            path = outPath;
+        }
+        JavaFxSystemUtil.openDirectory(path);
     });
 
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"), actionEvent -> {
+        downloadChooser.setInitialFileName(defaultTemplateName);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+        downloadChooser.getExtensionFilters().add(extFilter);
+        File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+        if (file != null) {
+            if (!StrUtil.endWith(file.getName(), ".zip")) {
+                notificationBuilder
+                        .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                notificationBuilder.showWarning();
+                return;
+            }
+            if (file.exists()) {
+                FileUtil.del(file);
+            }
+            ZipUtil.zip(file, Charset.defaultCharset(), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding.ftl",
+                    getClass().getClassLoader()), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
+                    getClass().getClassLoader()), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
+                    getClass().getClassLoader()));
+        }
     });
 
     private final Action generate = FxAction.generate(actionEvent -> {
