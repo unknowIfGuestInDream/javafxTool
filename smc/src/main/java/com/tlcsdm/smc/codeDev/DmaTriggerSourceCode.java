@@ -49,6 +49,7 @@ import com.tlcsdm.smc.util.I18nUtils;
 import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -56,6 +57,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -77,6 +79,9 @@ public class DmaTriggerSourceCode extends SmcSample {
     private TextField sheetNameField;
     private NumberTextField startRowField;
     private NumberTextField endRowField;
+    private NumberTextField offsetField;
+    private NumberTextField defineLengthField;
+    private TextField macroTemplateField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final String templateBindingPath = "smc/dmaTriggerSourceCode/binding.ftl";
@@ -85,11 +90,6 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
     });
-
-    @Override
-    public boolean isVisible() {
-        return true;
-    }
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // FreemarkerUtil.getTemplateContent("smc/dmaTriggerSourceCode/");
@@ -164,7 +164,11 @@ public class DmaTriggerSourceCode extends SmcSample {
         xmlFileNameAndStartColField
                 .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
 
-        TitledPane tilePane1 = new TitledPane("Template", new Button("Template"));
+        TitledPane templatePane = createTemplateControl();
+        // 折叠面板
+        Accordion accordion = new Accordion();
+        accordion.getPanes().addAll(templatePane);
+        accordion.setExpandedPane(templatePane);
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
@@ -193,9 +197,41 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.add(startRowField, 1, 6, 2, 1);
         grid.add(endRowLabel, 0, 7);
         grid.add(endRowField, 1, 7, 2, 1);
-        grid.add(tilePane1, 0, 8, 3, 1);
+        grid.add(accordion, 0, 8, 3, 1);
 
         return grid;
+    }
+
+    /**
+     * Template 设置
+     */
+    private TitledPane createTemplateControl() {
+        GridPane grid = new GridPane();
+        grid.setVgap(5);
+        grid.setHgap(5);
+        grid.setPadding(new Insets(5));
+
+        Label offsetLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.startRow") + ": ");
+        offsetField = new NumberTextField();
+        offsetField.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setHgrow(offsetField, Priority.ALWAYS);
+
+        Label defineLengthLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.endRow") + ": ");
+        defineLengthField = new NumberTextField();
+        defineLengthField.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setHgrow(defineLengthField, Priority.ALWAYS);
+
+        Label macroTemplateLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.sheetName") + ": ");
+        macroTemplateField = new TextField();
+
+        grid.add(offsetLabel, 0, 0);
+        grid.add(offsetField, 1, 0);
+        grid.add(defineLengthLabel, 0, 1);
+        grid.add(defineLengthField, 1, 1);
+        grid.add(macroTemplateLabel, 0, 2);
+        grid.add(macroTemplateField, 1, 2);
+
+        return new TitledPane("Template", grid);
     }
 
     @Override
