@@ -27,17 +27,8 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -45,22 +36,24 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -75,7 +68,7 @@ public class DmaTriggerSourceCode extends SmcSample {
     private TextField outputField;
     private DirectoryChooser outputChooser;
     private TextField groupField;
-    private TextArea xmlFileNameAndStartColField;
+    private TextArea deviceAndStartColField;
     private TextField sheetNameField;
     private NumberTextField startRowField;
     private NumberTextField endRowField;
@@ -91,12 +84,29 @@ public class DmaTriggerSourceCode extends SmcSample {
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
     });
 
-    private final Action generate = FxAction.generate(actionEvent -> {
-        // FreemarkerUtil.getTemplateContent("smc/dmaTriggerSourceCode/");
-
+    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"), actionEvent -> {
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, openOutDir);
+    private final Action generate = FxAction.generate(actionEvent -> {
+        // 输入值获取
+        String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
+        List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
+        String excelName = FileUtil.getName(excelField.getText());
+        String outputPath = outputField.getText();
+        int groupSize = groups.size();
+        String deviceAndStartCol = deviceAndStartColField.getText();
+        String sheetName = sheetNameField.getText();
+        int startRow = Integer.parseInt(startRowField.getText());
+        int endRow = Integer.parseInt(endRowField.getText());
+        int offset = Integer.parseInt(offsetField.getText());
+        int defineLength = Integer.parseInt(defineLengthField.getText());
+        String macroTemplate = macroTemplateField.getText();
+
+        //FreemarkerUtil.getTemplateContent("smc/dmaTriggerSourceCode/");
+        bindUserData();
+    });
+
+    private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -110,7 +120,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-        Label excelLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel") + ": ");
+        Label excelLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.excel") + ": ");
         excelField = new TextField();
         excelField.setMaxWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
@@ -126,7 +136,7 @@ public class DmaTriggerSourceCode extends SmcSample {
             }
         });
 
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -140,29 +150,23 @@ public class DmaTriggerSourceCode extends SmcSample {
             }
         });
 
-        Label groupLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group") + ": ");
+        Label groupLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.group") + ": ");
         groupField = new TextField();
         groupField.setPrefWidth(Double.MAX_VALUE);
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
-        Label xmlFileNameAndStartColLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol") + ": ");
-        xmlFileNameAndStartColField = new TextArea();
+        Label deviceAndStartColLabel = new Label(
+                I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
+        deviceAndStartColField = new TextArea();
 
-        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.sheetName") + ": ");
+        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.sheetName") + ": ");
         sheetNameField = new TextField();
 
-        Label startRowLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.startRow") + ": ");
+        Label startRowLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.startRow") + ": ");
         startRowField = new NumberTextField();
 
-        Label endRowLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.endRow") + ": ");
+        Label endRowLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.endRow") + ": ");
         endRowField = new NumberTextField();
-
-        sheetNameField.setText("DTS trigger");
-        startRowField.setNumber(BigDecimal.valueOf(5));
-        endRowField.setNumber(BigDecimal.valueOf(132));
-        xmlFileNameAndStartColField
-                .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
 
         TitledPane templatePane = createTemplateControl();
         // 折叠面板
@@ -170,15 +174,27 @@ public class DmaTriggerSourceCode extends SmcSample {
         accordion.getPanes().addAll(templatePane);
         accordion.setExpandedPane(templatePane);
 
+        sheetNameField.setText("sDMAC transfer request");
+        startRowField.setNumber(BigDecimal.valueOf(5));
+        endRowField.setNumber(BigDecimal.valueOf(260));
+        deviceAndStartColField
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        offsetField.setNumber(BigDecimal.valueOf(4));
+        defineLengthField.setNumber(BigDecimal.valueOf(60));
+        macroTemplateField.setText("_DMAC_GRP{groupNum}_REQUEST_{factor}");
+
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
         userData.put("output", outputField);
         userData.put("outputChooser", outputChooser);
         userData.put("group", groupField);
-        userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
+        userData.put("deviceAndStartCol", deviceAndStartColField);
         userData.put("sheetName", sheetNameField);
         userData.put("startRow", startRowField);
         userData.put("endRow", endRowField);
+        userData.put("offset", offsetField);
+        userData.put("defineLength", defineLengthField);
+        userData.put("macroTemplate", macroTemplateField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -189,8 +205,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.add(outputField, 2, 2);
         grid.add(groupLabel, 0, 3);
         grid.add(groupField, 1, 3, 2, 1);
-        grid.add(xmlFileNameAndStartColLabel, 0, 4);
-        grid.add(xmlFileNameAndStartColField, 1, 4, 2, 1);
+        grid.add(deviceAndStartColLabel, 0, 4);
+        grid.add(deviceAndStartColField, 1, 4, 2, 1);
         grid.add(sheetNameLabel, 0, 5);
         grid.add(sheetNameField, 1, 5, 2, 1);
         grid.add(startRowLabel, 0, 6);
@@ -211,17 +227,17 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.setHgap(5);
         grid.setPadding(new Insets(5));
 
-        Label offsetLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.startRow") + ": ");
+        Label offsetLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.offset") + ": ");
         offsetField = new NumberTextField();
         offsetField.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(offsetField, Priority.ALWAYS);
 
-        Label defineLengthLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.endRow") + ": ");
+        Label defineLengthLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.defineLength") + ": ");
         defineLengthField = new NumberTextField();
         defineLengthField.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(defineLengthField, Priority.ALWAYS);
 
-        Label macroTemplateLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.sheetName") + ": ");
+        Label macroTemplateLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
         macroTemplateField = new TextField();
 
         grid.add(offsetLabel, 0, 0);
@@ -231,7 +247,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.add(macroTemplateLabel, 0, 2);
         grid.add(macroTemplateField, 1, 2);
 
-        return new TitledPane("Template", grid);
+        return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
     }
 
     @Override
@@ -239,8 +255,6 @@ public class DmaTriggerSourceCode extends SmcSample {
         String content = """
                 {excelLabel}: {excelDesc}
                 {groupLabel}: {groupDesc}
-                {xmlFileNameAndStartColLabel}: {xmlFileNameAndStartColDesc}
-                {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
                 """;
 
         Map<String, String> map = new HashMap<>(32);
@@ -248,12 +262,6 @@ public class DmaTriggerSourceCode extends SmcSample {
         map.put("excelDesc", "eg: DTS_Transfer_request_Table.xlsx");
         map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group"));
         map.put("groupDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.groupDesc"));
-        map.put("xmlFileNameAndStartColLabel",
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol"));
-        map.put("xmlFileNameAndStartColDesc",
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlFileNameAndStartColDesc"));
-        map.put("xmlNameTemplateLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate"));
-        map.put("xmlNameTemplateDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlNameTemplateDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -268,8 +276,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return "DmaTriggerSourceCode";
-        // return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml");
+        return I18nUtils.get("smc.sampleName.dmaTriggerSourceCode");
     }
 
     @Override
@@ -284,9 +291,12 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.dtsTriggerSourceXml.description");
+        return I18nUtils.get("smc.sampleName.dmaTriggerSourceCode.description");
     }
 
+    /**
+     * device 相关信息
+     */
     record TransferRequest(String device, String pins, String startCol) {
     }
 
