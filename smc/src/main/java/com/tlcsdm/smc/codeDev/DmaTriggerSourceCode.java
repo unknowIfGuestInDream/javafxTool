@@ -27,10 +27,19 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -38,27 +47,32 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -82,7 +96,7 @@ public class DmaTriggerSourceCode extends SmcSample {
     private TextField macroTemplateField;
 
     private final String defaultTemplateName = "dmaTemplate.zip";
-    //结果输出到 dmaCode 文件夹下
+    // 结果输出到 dmaCode 文件夹下
     private final String outParentFolder = "\\dmaCode";
     private final FileChooser downloadChooser = new FileChooser();
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
@@ -105,35 +119,39 @@ public class DmaTriggerSourceCode extends SmcSample {
         JavaFxSystemUtil.openDirectory(path);
     });
 
-    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"), actionEvent -> {
-        downloadChooser.setInitialFileName(defaultTemplateName);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
-        downloadChooser.getExtensionFilters().add(extFilter);
-        File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
-        if (file != null) {
-            if (!StrUtil.endWith(file.getName(), ".zip")) {
-                notificationBuilder
-                        .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
-                notificationBuilder.showWarning();
-                return;
-            }
-            if (file.exists()) {
-                FileUtil.del(file);
-            }
-            ZipUtil.zip(file, Charset.defaultCharset(), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding.ftl",
-                    getClass().getClassLoader()), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
-                    getClass().getClassLoader()), new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
-                    getClass().getClassLoader()));
-        }
-    });
+    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"),
+            actionEvent -> {
+                downloadChooser.setInitialFileName(defaultTemplateName);
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+                downloadChooser.getExtensionFilters().add(extFilter);
+                File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+                if (file != null) {
+                    if (!StrUtil.endWith(file.getName(), ".zip")) {
+                        notificationBuilder
+                                .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                        notificationBuilder.showWarning();
+                        return;
+                    }
+                    if (file.exists()) {
+                        FileUtil.del(file);
+                    }
+                    ZipUtil.zip(file, Charset.defaultCharset(),
+                            new ClassPathResource(
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding.ftl",
+                                    getClass().getClassLoader()),
+                            new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
+                                    getClass().getClassLoader()),
+                            new ClassPathResource(
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
+                                    getClass().getClassLoader()));
+                }
+            });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
-        String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
+        String excel = excelField.getText();
         List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
-        String excelName = FileUtil.getName(excelField.getText());
         String outputPath = outputField.getText();
-        int groupSize = groups.size();
         String deviceAndStartCol = deviceAndStartColField.getText();
         String sheetName = sheetNameField.getText();
         int startRow = Integer.parseInt(startRowField.getText());
@@ -142,7 +160,90 @@ public class DmaTriggerSourceCode extends SmcSample {
         int defineLength = Integer.parseInt(defineLengthField.getText());
         String macroTemplate = macroTemplateField.getText();
 
-        //FreemarkerUtil.getTemplateContent("smc/dmaTriggerSourceCode/");
+        String resultPath = outputPath + outParentFolder;
+        String offsetString = CharSequenceUtil.repeat(" ", offset);
+        List<TransferRequest> transferRequests = new ArrayList<>();
+        List<String> xmlConfigs = StrUtil.splitTrim(deviceAndStartCol, "\n");
+        for (String xmlConfig : xmlConfigs) {
+            List<String> l = StrUtil.split(xmlConfig, ";");
+            TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1), l.get(2));
+            transferRequests.add(transferRequest);
+        }
+
+        // 清空resultPath下文件
+        FileUtil.clean(resultPath);
+        // 处理数据
+        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
+        // 文件内容获取
+        List<Map<String, Object>> bindingContent = new ArrayList<>();
+        List<Map<String, Object>> cgdmaContent = new ArrayList<>();
+        List<Map<String, Object>> groupList = new ArrayList<>();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("offset", offsetString);
+        map.put("groups", groupList);
+        map.put("bindingContent", bindingContent);
+        map.put("cgdmaContent", cgdmaContent);
+        int groupNum = 0;
+        for (String group : groups) {
+            Map<String, Object> g = new HashMap<>();
+            List<Map<String, Object>> settingContent = new ArrayList<>();
+            g.put("groupNum", groupNum);
+            g.put("settingContent", settingContent);
+
+            String defaultSelection = "";
+            // 模板赋值使用
+            Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
+                    .put("groupNum", String.valueOf(groupNum)).build();
+            for (int i = startRow; i <= endRow; i++) {
+                Map<String, Object> setting = new HashMap<>();
+                Map<String, Object> cgdma = new HashMap<>();
+                Map<String, Object> binding = new HashMap<>();
+                String factor = reader.getCell(group + i).getStringCellValue();
+                if ("Reserve".equals(factor)) {
+                    continue;
+                }
+                if (defaultSelection.length() == 0) {
+                    defaultSelection = factor;
+                }
+                paramMap.put("factor", factor);
+                String macro = StrUtil.format(macroTemplate, paramMap);
+
+                setting.put("factor", factor);
+
+                binding.put("factor", factor);
+                binding.put("groupNum", groupNum);
+                binding.put("macro", macro);
+
+                cgdma.put("factor", factor);
+                cgdma.put("groupNum", groupNum);
+                cgdma.put("macro", macro);
+                cgdma.put("hex", "0x" + String.format("%08x", i - startRow).toUpperCase() + "UL");
+                cgdma.put("offset", " ");
+                if (macro.length() < defineLength - 8) {
+                    cgdma.put("offset", CharSequenceUtil.repeat(" ", defineLength - macro.length() - 8));
+                }
+                cgdmaContent.add(cgdma);
+                bindingContent.add(binding);
+                settingContent.add(setting);
+            }
+            g.put("defaultSelection", defaultSelection);
+            // 后置处理
+            groupList.add(g);
+            // 当前循环结束，开始下一次循环
+            groupNum++;
+        }
+
+        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
+        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingPath), binding);
+        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
+        reader.close();
+
+        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+        notificationBuilder.showInformation();
         bindUserData();
     });
 
@@ -293,15 +394,15 @@ public class DmaTriggerSourceCode extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {excelLabel}: {excelDesc}
-                {groupLabel}: {groupDesc}
+                {templateDesc}
+
+                {deviceAndStartColLabel}: {deviceAndStartColDesc}
                 """;
 
-        Map<String, String> map = new HashMap<>(32);
-        map.put("excelLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel"));
-        map.put("excelDesc", "eg: DTS_Transfer_request_Table.xlsx");
-        map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group"));
-        map.put("groupDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.groupDesc"));
+        Map<String, String> map = new HashMap<>(8);
+        map.put("deviceAndStartColLabel", I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol"));
+        map.put("deviceAndStartColDesc", I18nUtils.get("smc.tool.dmaTriggerSourceCode.control.deviceAndStartColDesc"));
+        map.put("templateDesc", I18nUtils.get("smc.tool.dmaTriggerSourceCode.control.templateDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
