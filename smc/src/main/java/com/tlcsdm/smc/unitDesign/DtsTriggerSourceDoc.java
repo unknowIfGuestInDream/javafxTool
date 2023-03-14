@@ -4,12 +4,12 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * Neither the name of unknowIfGuestInDream, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
  *
@@ -27,21 +27,14 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
@@ -55,26 +48,23 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -111,16 +101,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.button.download"),
             actionEvent -> {
                 String templatePath = templateField.getText();
-                String resultFileName = defaultTemplateName;
-                InputStream templateFile;
-                if (StrUtil.isEmpty(templatePath)) {
-                    templateFile = ResourceUtil.getStream(defaultTemplatePath);
-                } else {
-                    templateFile = FileUtil.getInputStream(templatePath);
-                    resultFileName = FileUtil.getName(templatePath);
+                InputStream templateFile = ResourceUtil.getStream(defaultTemplatePath);
+                if (StrUtil.isNotEmpty(templatePath)) {
                     downloadChooser.setInitialDirectory(new File(FileUtil.getParent(templatePath, 1)));
                 }
-                downloadChooser.setInitialFileName(resultFileName);
+                downloadChooser.setInitialFileName(defaultTemplateName);
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
                 downloadChooser.getExtensionFilters().add(extFilter);
                 File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
@@ -135,6 +120,9 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         FileUtil.del(file);
                     }
                     FileUtil.writeFromStream(templateFile, file);
+                    notificationBuilder
+                            .text(I18nUtils.get("smc.tool.button.download.success"));
+                    notificationBuilder.showInformation();
                 }
             });
 
