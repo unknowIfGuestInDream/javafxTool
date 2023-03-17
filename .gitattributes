@@ -1,0 +1,16 @@
+# Normalize line endings to LF.
+* text eol=lf
+
+# Ensure that line endings for DOS batch files are not modified.
+*.bat -text
+
+*.ftl linguist-language=freemarker
+# Ensure the following are treated as binary.
+*.gif   binary
+*.jar   binary
+*.jpeg  binary
+*.jpg   binary
+*.png   binary
+*.vsd   binary
+*.xls   binary
+*.xlsx   binary
