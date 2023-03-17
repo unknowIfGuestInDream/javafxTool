@@ -1,169 +1,128 @@
-# CONTRIBUTING
+# Contributor Covenant Code of Conduct
 
-We'd be glad for you to contribute to our source code and to make this project better!
+## Our Pledge
 
-Feel free to submit a pull request or an issue, but make sure to use the templates
+We as members, contributors, and leaders pledge to make participation in our
+community a harassment-free experience for everyone, regardless of age, body
+size, visible or invisible disability, ethnicity, sex characteristics, gender
+identity and expression, level of experience, education, socio-economic status,
+nationality, personal appearance, race, religion, or sexual identity
+and orientation.
 
-We adopt a series of automation tools to check, contributions not following the conventions may be rejected
+We pledge to act and interact in ways that contribute to an open, welcoming,
+diverse, inclusive, and healthy community.
 
-Here are the contributing conventions we'd like you to follow:
+## Our Standards
 
-## Style Guide
+Examples of behavior that contributes to a positive environment for our
+community include:
 
-### Commit Message Convention
+* Demonstrating empathy and kindness toward other people
+* Being respectful of differing opinions, viewpoints, and experiences
+* Giving and gracefully accepting constructive feedback
+* Accepting responsibility and apologizing to those affected by our mistakes,
+  and learning from the experience
+* Focusing on what is best not just for us as individuals, but for the
+  overall community
 
-Each commit should contain relatively independent change (that is, a hodgepodge of multiple types of modifications is not allowed to be submitted in one commit), and the specific changes need to be clarified in the message
+Examples of unacceptable behavior include:
 
-The commit message conventions of this project mainly refers to the most widely used [AngularJS Git Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.uyo6cb12dt6w)
+* The use of sexualized language or imagery, and sexual attention or
+  advances of any kind
+* Trolling, insulting or derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or email
+  address, without their explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+  professional setting
 
-Here is the message format:
+## Enforcement Responsibilities
 
-> `<type>(<scope>): <subject>`
->
-> // blank line
->
-> `<body>`
->
-> // blank line
->
-> `<footer>`
+Community leaders are responsible for clarifying and enforcing our standards of
+acceptable behavior and will take appropriate and fair corrective action in
+response to any behavior that they deem inappropriate, threatening, offensive,
+or harmful.
 
-The `<header>` section(the first line) is mandatory for any project. The `<body>` section and `<footer>` section are optional according to the actual situation
+Community leaders have the right and responsibility to remove, edit, or reject
+comments, commits, code, wiki edits, issues, and other contributions that are
+not aligned to this Code of Conduct, and will communicate reasons for moderation
+decisions when appropriate.
 
-A blank line is required between sections
+## Scope
 
-Also, the `<header>` section(only contains one line) cannot be longer than 50 characters and any line of the `<body>` section cannot be longer than 72 characters
+This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.
 
-This allows the commit message to be easier to read on GitHub as well as in various git tools.
+## Enforcement
 
-#### About `<header>` Section
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement at
+tang97155@gmail.com.
+All complaints will be reviewed and investigated promptly and fairly.
 
-The `<header>` section only contains one line and three fields(`<type>`, `<scope>` and `<subject>`) need to meet the requirements:
+All community leaders are obligated to respect the privacy and security of the
+reporter of any incident.
 
-The `type` field mainly explains the type of the commit. Only the following 9 types are allowed to be used in `AngularJS Git Commit Message Conventions`:
+## Enforcement Guidelines
 
-- feat: A new feature
-- fix: A bug fix
-- docs: Documentation only changes
-- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- refactor: A code change that neither fixes a bug nor adds a feature
-- perf: A code change that improves performance
-- test: Adding missing or correcting existing tests
-- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
-- revert: If the commit reverts a previous commit, it should be followed by the `<header>`of the reverted commit and in the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted
+Community leaders will follow these Community Impact Guidelines in determining
+the consequences for any action they deem in violation of this Code of Conduct:
 
-For this project, the following 2 types can also be used if necessary:
+### 1. Correction
 
-- build: Changes to the build tools or dependencies (webpack, npm, etc)
-- ci: Changes to Continuous Integration
+**Community Impact**: Use of inappropriate language or other behavior deemed
+unprofessional or unwelcome in the community.
 
-If a commit is related to multiple `<type>`, use `feat` and `fix` in priority, followed by the remaining seven types specified in `AngularJS Git Commit Message Conventions`, and the remaining two are for special needs
+**Consequence**: A private, written warning from community leaders, providing
+clarity around the nature of the violation and an explanation of why the
+behavior was inappropriate. A public apology may be requested.
 
-The `<scope>` section mainly describes the influence scope of this commit, usually file, path or functionality. For example, name of modified file can be filled in this section (Module name of project name can be used if multiple files are modified), and feature influenced can be filled in this section. If it is a global influence, character `*` can be used
+### 2. Warning
 
-The `<subject>` section mainly summarizes the purpose and changes of this commit. It should begin with verb and use the imperative, present tense. The first letter should be lowercase and have no dot(.) at the end
+**Community Impact**: A violation through a single incident or series
+of actions.
 
-#### About `<body>` Section
+**Consequence**: A warning with consequences for continued behavior. No
+interaction with the people involved, including unsolicited interaction with
+those enforcing the Code of Conduct, for a specified period of time. This
+includes avoiding interactions in community spaces as well as external channels
+like social media. Violating these terms may lead to a temporary or
+permanent ban.
 
-The `<body>` section is the text section, which contains the detailed description of this commit. It should use the imperative, present tense
+### 3. Temporary Ban
 
-This section can be bypassed if the `<header>` section is enough to summarize the entire change of this commit
+**Community Impact**: A serious violation of community standards, including
+sustained inappropriate behavior.
 
-It is recommended to use the dashes(-) to create an unordered list, and it should explain what problem this commit solves, how to solve it, and whether other changes have been introduced (such as necessary document updates, etc.)
+**Consequence**: A temporary ban from any sort of interaction or public
+communication with the community for a specified period of time. No public or
+private interaction with the people involved, including unsolicited interaction
+with those enforcing the Code of Conduct, is allowed during this period.
+Violating these terms may lead to a permanent ban.
 
-#### About `<footer>` Section
+### 4. Permanent Ban
 
-The `<footer>` section is bypassed except 2 situations:
+**Community Impact**: Demonstrating a pattern of violation of community
+standards, including sustained inappropriate behavior,  harassment of an
+individual, or aggression toward or disparagement of classes of individuals.
 
-One is breaking change, that is, the current version is not compatible with the previous version. It should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the breaking change block is then the description of the change, justification and migration notes.
+**Consequence**: A permanent ban from any sort of public interaction within
+the community.
 
-The other is to reference GitHub issues that this commit closes. Use format `Closes #123, #456` to close one or more issues
+## Attribution
 
-#### Commit Message Examples
+This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+version 2.0, available at
+https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
 
-Here are some examples of commit message:
+Community Impact Guidelines were inspired by [Mozilla's code of conduct
+enforcement ladder](https://github.com/mozilla/diversity).
 
-> For example, if a new feature is to add a option for round contributor's avatar, the commit message can be written as:
+[homepage]: https://www.contributor-covenant.org
 
-```text
-feat(contributor): add a option for round avatar
-
-- add a option to choose the avatar in circle or in square
-- add new template in the python script to handle it
-- update usage and example in README.md
-
-Closes #123
-```
-
-> If a new documentation of linux command ls is added, the commit message can be written as:
-
-```text
-docs(command): add linux command ls
-
-- add basic usage format of command ls
-- add arguments of command ls
-- add considerations of command ls
-- plan to add more typical examples in future
-- plan to add descriptions in the future
-```
-
-> If it fixes a typo found in the documentation ls.md, the commit message can be written as:
-
-```text
-docs(ls.md): fix a typo
-
-- change `-` to `--`
-
-Closes #456
-```
-
-### Pull Request Convention
-
-> **NOTE**: Use `rebase` method or `pull --rebase` method to update your branch so as to make the commit history clean.
-
-The project has configured several automation check tools. Please wait a moment after your Pull Request submitted and deal with some issues according to the comments and details of check tools.
-
-#### Branch Name
-
-You are recommended to submit a Pull Request (PR) from a new branch with a name related to the changes. **Pull Request from master branch may cause trouble to your future work**. This is because when you open a Pull Request from a branch, you can still update the Pull Request by committing and pushing to the branch. And your master branch can be used to track the latest changes.
-
-As for this project, the branch name of the Pull Request should follow the conventions below:
-
-- If it is for a new feature, the branch name should begin with `feature/`, followed by the specific feature name, e.g. `feature/md2pdf` for developing a new feature `md2pdf` and `feature/optimize_md2pdf` for optimizing the feature `md2pdf`
-- If it is a bug fix to a feature, the branch name should begin with `fix/`, followed by the fixed feature name, e.g. `fix/yapf` for fixing bug of feature `yapf`
-- If it is only a change to documentation, the branch name should begin with `docs/`, followed by the scope of documentation change, e.g. `docs/usage` for changing the documentation of usage
-- In other cases, please submit an issue to discuss with the maintainer first
-
-#### Title of Pull Request
-
-The title of the Pull Request should summarize the changes. It should begin with type that represents the changes. Here are some examples:
-
-For a new feature, the title should begin with **`feature(<Your-New-Feature>):`**
-
-For a bug fix, the title should begin with **`fix(<Your-Bugfix-Feature>)`**
-
-For documentation changes, the title should begin with **`docs(<Your-Documentation-change-scope>)`**
-
-#### Description of Pull Request
-
-Please follow [pull_request_template](.github/PULL_REQUEST_TEMPLATE.md) to describe the changes of the Pull Request so that the reviewers can understand your changes more clearly. This part cannot be empty.
-
-Motivation of this Pull Request(e.g. what problem is solved and what feature is optimized) should be clarified in the description. What feature has been implemented in this Pull Request should be described in details and the technology stack of this feature should also be introduced. Other necessary changes (e.g. relevant documentation update) also need to be declared in the description.
-
-It is recommended to use `Tasklist` format to describe the steps or technology stack of the changes. Any `draft pull request` is recommended to contain a `Tasklist` in the description and update it when the development progresses.
-
-> Following is the Tasklist format:
->
-> [x] This is what you have done and how you achieve this.
->
-> [ ] This is what you plan to do and how you plan to achieve it.
-
-If this Pull Request fixes a issue, you should use the right format to link it in the description. You can use format like `Resolves: #123` or `Closes: #123` to close that issue when this Pull Request is merged and use format like `Ref: #123` just for reference.
-
-Besides, please make sure that your Pull Request is not a duplicate to any assigned issue or existing Pull Request. **Screenshots** are needed for changes to html files or css files
-
-### Language Style
-
-Files of different languages should be checked locally according to the following conventions
-
-Commits should be made after all checks pass
+For answers to common questions about this code of conduct, see the FAQ at
+https://www.contributor-covenant.org/faq. Translations are available at
+https://www.contributor-covenant.org/translations.
