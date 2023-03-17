@@ -8,7 +8,7 @@ pull_request_rules:
       comment:
         message: |
           Thanks for opening this pull request!
-          Please check out the [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CODE_OF_CONDUCT.md).
+          Please check out the [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md).
   - name: Assign author
     conditions:
       - "-closed"
@@ -93,7 +93,7 @@ pull_request_rules:
         message: |
           @{{author}}
           Wrong PR Title: {{title}}
-          Please check [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CODE_OF_CONDUCT.md) for more information.
+          Please check [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
   - name: mergefreeze check comment
     conditions:
       - "status-failure=mergefreeze"
