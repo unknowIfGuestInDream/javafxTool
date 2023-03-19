@@ -47,7 +47,7 @@ public class SmcSamplerProject implements FXSamplerProject {
      */
     @Override
     public String getProjectName() {
-        return "SMC";
+        return "Smc";
     }
 
     /**
