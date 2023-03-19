@@ -30,6 +30,7 @@ package com.tlcsdm.smc.codeDev;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -154,8 +155,8 @@ public class DmaTriggerSourceCode extends SmcSample {
 
         String resultPath = outputPath + outParentFolder;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
-        List<TransferRequest> transferRequests = new ArrayList<>();
         List<String> xmlConfigs = StrUtil.splitTrim(deviceAndStartCol, "\n");
+        List<TransferRequest> transferRequests = new ArrayList<>(xmlConfigs.size());
         for (String xmlConfig : xmlConfigs) {
             List<String> l = StrUtil.split(xmlConfig, ";");
             TransferRequest transferRequest = new TransferRequest(l.get(0), l.get(1), l.get(2));
@@ -167,9 +168,12 @@ public class DmaTriggerSourceCode extends SmcSample {
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
         // 文件内容获取
-        List<Map<String, Object>> bindingContent = new ArrayList<>();
-        List<Map<String, Object>> cgdmaContent = new ArrayList<>();
-        List<Map<String, Object>> groupList = new ArrayList<>();
+        int groupSize = groups.size();
+        int factorSize = endRow - startRow + 1;
+        int initCapacity = groupSize * factorSize;
+        List<Map<String, Object>> bindingContent = new ArrayList<>(initCapacity);
+        List<Map<String, Object>> cgdmaContent = new ArrayList<>(initCapacity);
+        List<Map<String, Object>> groupList = new ArrayList<>(groupSize);
 
         Map<String, Object> map = new HashMap<>();
         map.put("offset", offsetString);
@@ -179,7 +183,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int groupNum = 0;
         for (String group : groups) {
             Map<String, Object> g = new HashMap<>();
-            List<Map<String, Object>> settingContent = new ArrayList<>();
+            List<Map<String, Object>> settingContent = new ArrayList<>(factorSize);
             g.put("groupNum", groupNum);
             g.put("settingContent", settingContent);
 
@@ -200,23 +204,36 @@ public class DmaTriggerSourceCode extends SmcSample {
                 }
                 paramMap.put("factor", factor);
                 String macro = StrUtil.format(macroTemplate, paramMap);
-
+                // setting
                 setting.put("factor", factor);
                 boolean hasCondition = false;
-                String parameter = "";
+                ListValueMap<String, String> entries = new ListValueMap<>();
                 for (TransferRequest transferRequest : transferRequests) {
                     int x = groupNum + ExcelUtil.colNameToIndex(transferRequest.startCol);
-                    if ("-".equals(reader.getCell(x, i).getStringCellValue())) {
+                    if ("-".equals(reader.getCell(x, i - 1).getStringCellValue())) {
                         hasCondition = true;
+                    } else {
+                        entries.putValue(transferRequest.device, transferRequest.pins);
                     }
                 }
                 setting.put("hasCondition", hasCondition);
-                setting.put("parameter", parameter);
-
+                if (hasCondition) {
+                    StringJoiner parameter = new StringJoiner("||");
+                    for (String key : entries.keySet()) {
+                        List<String> pinList = entries.get(key);
+                        StringJoiner parameterMeta = new StringJoiner(";", key + "##", "");
+                        for (String pin : pinList) {
+                            parameterMeta.add(pin);
+                        }
+                        parameter.add(parameterMeta.toString());
+                    }
+                    setting.put("parameter", parameter.toString());
+                }
+                // binding
                 binding.put("factor", factor);
                 binding.put("groupNum", groupNum);
                 binding.put("macro", macro);
-
+                // cgdma
                 cgdma.put("factor", factor);
                 cgdma.put("groupNum", groupNum);
                 cgdma.put("macro", macro);
