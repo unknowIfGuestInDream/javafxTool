@@ -15,6 +15,7 @@ module com.tlcsdm.smc {
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
+    requires java.xml;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
@@ -22,6 +23,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
+    exports com.tlcsdm.smc.model.ecm;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
     opens com.tlcsdm.smc.tools to javafx.graphics;
