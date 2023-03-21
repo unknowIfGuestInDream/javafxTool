@@ -101,28 +101,33 @@ public class U2CEcmTest {
         String errorSourceenNameCol = "D";
         String errorSourcejpNameCol = "W";
 
+        int optErrortIndex = 0;
         LinkedHashMap<String, String> operationMap = new LinkedHashMap<>();
         List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
-        for (String operationConfig : operationConfigs) {
+        for (int i = 0; i < operationConfigs.size(); i++) {
+            String operationConfig = operationConfigs.get(i);
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
+            if ("optErrort".equals(l.get(0))) {
+                optErrortIndex = i;
+            }
         }
         String products = """
-                RH850U2A16516;N
-                RH850U2A16373;O
-                RH850U2A16292;P
-                RH850U2A8516;Q
-                RH850U2A8373;R
-                RH850U2A8292;S
-                RH850U2A6292176;T
-                RH850U2A6156;U
-                RH850U2A6144;V
+                RH850U2A16;516;N
+                RH850U2A16;373;O
+                RH850U2A16;292;P
+                RH850U2A8;516;Q
+                RH850U2A8;373;R
+                RH850U2A8;292;S
+                RH850U2A6;292176;T
+                RH850U2A6;156;U
+                RH850U2A6;144;V
                 """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         for (String productConfig : productConfigs) {
             List<String> l = StrUtil.split(productConfig, ";");
-            productMap.put(l.get(0), l.get(1));
+            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
         }
         // category 配置数据
         LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
@@ -160,6 +165,7 @@ public class U2CEcmTest {
         int endRow = reader.getRowCount();
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
+        // 差分map
         // 便利products
         for (String key : productMap.keySet()) {
             List<Map<String, Object>> ErrorSourceInfos = new ArrayList<>();
@@ -186,17 +192,21 @@ public class U2CEcmTest {
                 String errorSourceenName = reader.getCell(errorSourceenNameCol + i).getStringCellValue();
                 String errorSourcejpName = reader.getCell(errorSourcejpNameCol + i).getStringCellValue();
                 List<Map<String, Object>> function = new ArrayList<>();
+                boolean optMaskintStatus = false;
                 for (String funcId : operationMap.keySet()) {
                     String funcCol = operationMap.get(funcId);
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
+                    if ("optMaskint".equals(funcId)) {
+                        optMaskintStatus = support;
+                    }
                     Map<String, Object> operation = new HashMap<>();
                     operation.put("funcId", funcId);
                     operation.put("support", String.valueOf(support));
                     operation.put("errorNote", "");
                     // 数据后置处理
-                    handlerOperationSupport(operation, funcSupCondition);
+                    handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
                     function.add(operation);
                 }
                 Map<String, Object> errorSource = new HashMap<>();
@@ -206,7 +216,7 @@ public class U2CEcmTest {
                 errorSource.put("errorSourceenName", errorSourceenName);
                 errorSource.put("errorSourcejpName", errorSourcejpName);
                 errorSource.put("function", function);
-                handlerErrorSourceMap(errorSource, key);
+                handlerErrorSourceMap(errorSource, key, optErrortIndex);
                 ErrorSourceInfos.add(errorSource);
             }
             Map<String, Object> paramMap = new HashMap<>();
@@ -223,7 +233,7 @@ public class U2CEcmTest {
     /**
      * errorSource 数据后续处理
      */
-    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product) {
+    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceenName");
         String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
@@ -241,21 +251,22 @@ public class U2CEcmTest {
                 int size = 0;
                 if (product.startsWith("RH850U2A16")) {
                     size = 4;
-                    generateErrort(size, support, errorNote, extraFunc);
+                    generateErrort(size, support, errorNote, extraFunc, function);
                     function.remove(map);
                 } else if (product.startsWith("RH850U2A8") || product.startsWith("RH850U2A6")) {
                     size = 2;
-                    generateErrort(size, support, errorNote, extraFunc);
+                    generateErrort(size, support, errorNote, extraFunc, function);
                     function.remove(map);
                 } else {
                     break;
                 }
             }
         }
-        function.addAll(extraFunc);
+        function.addAll(optErrortIndex, extraFunc);
     }
 
-    private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc) {
+    private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
+            List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -268,7 +279,8 @@ public class U2CEcmTest {
     /**
      *  处理使能条件的 * 信息, 默认是support = true下的
      */
-    private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition) {
+    private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
+            boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
@@ -277,7 +289,7 @@ public class U2CEcmTest {
             if ("5".equals(mesNum)) {
                 String funcId = operation.get("funcId").toString();
                 if ("optDCLS".equals(funcId)) {
-                    operation.put("support", "true");
+                    operation.put("support", String.valueOf(optMaskintStatus));
                 }
                 if ("optIntg".equals(funcId)) {
                     operation.put("support", "false");
@@ -289,7 +301,7 @@ public class U2CEcmTest {
                 operation.put("support", "false");
             }
             if ("optIntg".equals(funcId)) {
-                operation.put("support", "true");
+                operation.put("support", String.valueOf(optMaskintStatus));
             }
         }
 
@@ -299,6 +311,7 @@ public class U2CEcmTest {
      * 清洗ErrorSource数据
      */
     private String cleanErrorSourceData(String data) {
+        data = data.replaceAll("  ", " ");
         if (data.contains(" (")) {
             data = StrUtil.replace(data, " (", "(");
         }
