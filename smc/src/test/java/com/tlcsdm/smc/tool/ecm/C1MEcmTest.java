@@ -27,31 +27,26 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.map.multi.ListValueMap;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.tlcsdm.core.util.FreemarkerUtil;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
-
-public class U2CEcmTest {
+public class C1MEcmTest {
 
     private static Configuration configuration;
 
@@ -84,7 +79,7 @@ public class U2CEcmTest {
                 """;
 
         String resultPath = outputPath + "\\ecm";
-        String deviceSheetName = "U2A";
+        String deviceSheetName = "C1M";
         int startRow = 3;
         String functions = """
                 optMaskint;G
@@ -125,9 +120,11 @@ public class U2CEcmTest {
                 """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
+        ListValueMap<String, String> productsInfo = new ListValueMap<>();
         for (String productConfig : productConfigs) {
             List<String> l = StrUtil.split(productConfig, ";");
             productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
+            productsInfo.putValue(l.get(0), l.get(1));
         }
         // category 配置数据
         LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
@@ -172,7 +169,6 @@ public class U2CEcmTest {
             String productCol = productMap.get(key);
             // 遍历excel sheet数据
             for (int i = startRow; i <= endRow; i++) {
-                // todo 判断合并的key计算 ArrayList equals
                 Cell cell = reader.getCell(errorSourceIdCol + i);
                 if (cell == null) {
                     continue;
@@ -184,7 +180,6 @@ public class U2CEcmTest {
                 if (productCondition.contains("—") || productCondition.contains("-")) {
                     continue;
                 }
-                // todo 合并标记
                 String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
                 String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
                 String errorSourceNumber = String
@@ -222,12 +217,26 @@ public class U2CEcmTest {
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("categoryInfos", categoryInfos);
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
-            // todo 触发合并条件，中断
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(
                     FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
         }
         reader.close();
+        // 后续文件合并
+        for (String device : productsInfo.keySet()) {
+            List<String> list = productsInfo.get(device);
+            if (list.size() < 2) {
+                continue;
+            }
+            for (int i = 0; i < list.size() - 1; i++) {
+                for (int j = i + 1; j < list.size(); j++) {
+                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, device + "_" + list.get(i) + ".xml"),
+                            FileUtil.file(resultPath, device + "_" + list.get(j) + ".xml"));
+                    System.out.println(device + ": " + list.get(i) + " and" + list.get(j) + " : " + b);
+                }
+            }
+
+        }
     }
 
     /**
@@ -266,7 +275,7 @@ public class U2CEcmTest {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-            List<Map<String, Object>> function) {
+                                List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -277,10 +286,10 @@ public class U2CEcmTest {
     }
 
     /**
-     *  处理使能条件的 * 信息, 默认是support = true下的
+     * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                         boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
@@ -330,7 +339,7 @@ public class U2CEcmTest {
     }
 
     private String getFtlPath(String sheetName) {
-        if ("U2A".equals(sheetName)) {
+        if ("C1M".equals(sheetName)) {
             return "ecm/u2a.ftl";
         }
         return null;
