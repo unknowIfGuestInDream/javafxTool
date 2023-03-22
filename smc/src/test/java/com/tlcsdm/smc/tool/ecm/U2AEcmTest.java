@@ -44,6 +44,7 @@ import com.tlcsdm.core.util.FreemarkerUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
@@ -117,10 +118,10 @@ public class U2AEcmTest {
                 RH850U2A16;516;N
                 RH850U2A16;373;O
                 RH850U2A16;292;P
-                RH850U2A8;516;Q
                 RH850U2A8;373;R
                 RH850U2A8;292;S
-                RH850U2A6;292176;T
+                RH850U2A6;292;T
+                RH850U2A6;176;T
                 RH850U2A6;156;U
                 RH850U2A6;144;V
                 """;
@@ -228,21 +229,42 @@ public class U2AEcmTest {
         }
         reader.close();
         // 后续文件合并
+        // 待删除文件
+        List<String> delFileNames = new ArrayList<>();
         for (String device : productsInfo.keySet()) {
             List<String> list = productsInfo.get(device);
-            if (list.size() < 2) {
+            if (list.size() == 1) {
+                FileUtil.rename(FileUtil.file(resultPath, device + "_" + list.get(0) + ".xml"), device + ".xml", true);
                 continue;
             }
             for (int i = 0; i < list.size() - 1; i++) {
                 for (int j = i + 1; j < list.size(); j++) {
-                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, device + "_" + list.get(i) + ".xml"),
-                            FileUtil.file(resultPath, device + "_" + list.get(j) + ".xml"));
-                    System.out.println(device + ": " + list.get(i) + " and" + list.get(j) + " : " + b);
+                    String orgName = device + "_" + list.get(i) + ".xml";
+                    String comName = device + "_" + list.get(j) + ".xml";
+                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
+                            FileUtil.file(resultPath, comName));
+                    if (b) {
+                        if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
+                            String deviceName = device + ".xml";
+                            if (FileUtil.file(resultPath, deviceName).exists()) {
+                                deviceName = device + "-" + UUID.fastUUID() + ".xml";
+                            }
+                            FileUtil.copyFile(FileUtil.file(resultPath, orgName),
+                                    FileUtil.file(resultPath, deviceName));
+                        }
+                        if (!delFileNames.contains(orgName)) {
+                            delFileNames.add(orgName);
+                        }
+                        if (!delFileNames.contains(comName)) {
+                            delFileNames.add(comName);
+                        }
+                    }
                 }
             }
-
         }
-
+        for (String fileName : delFileNames) {
+            FileUtil.del(FileUtil.file(resultPath, fileName));
+        }
     }
 
     /**
@@ -340,6 +362,18 @@ public class U2AEcmTest {
         }
         data = data.replaceAll("-", " - ");
         data = data.replaceAll("  ", " ");
+        if (data.contains(" - bit")) {
+            data = data.replaceAll(" - bit", "-bit");
+        }
+        if (data.contains("P - Bus")) {
+            data = data.replaceAll("P - Bus", "P-Bus");
+        }
+        if (data.contains("I - Bus")) {
+            data = data.replaceAll("I - Bus", "I-Bus");
+        }
+        if (data.contains("H - Bus")) {
+            data = data.replaceAll("H - Bus", "H-Bus");
+        }
         if (data.endsWith("*7")) {
             data = StrUtil.replaceLast(data, "*7", "(For debug purpose only)");
         }
