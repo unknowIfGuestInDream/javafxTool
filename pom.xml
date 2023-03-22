@@ -54,10 +54,7 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
-        <javafx-controls.version>17.0.0.1</javafx-controls.version>
-        <javafx-fxml.version>17.0.0.1</javafx-fxml.version>
-        <javafx-web.version>17.0.0.1</javafx-web.version>
-        <javafx-graphics.version>17.0.0.1</javafx-graphics.version>
+        <javafx.version>17.0.2</javafx.version>
         <controlsfx.version>11.1.2</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.3</tlcsdm-common.version>
@@ -84,23 +81,28 @@
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx-controls.version}</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx-fxml.version}</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>${javafx-web.version}</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>${javafx-graphics.version}</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -111,6 +113,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-media</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-swing</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-core</artifactId>
