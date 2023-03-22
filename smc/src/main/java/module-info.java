@@ -15,7 +15,6 @@ module com.tlcsdm.smc {
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
-    requires java.xml;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
