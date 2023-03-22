@@ -27,6 +27,20 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -34,17 +48,9 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.poi.ss.usermodel.Cell;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 public class U2AEcmTest {
 
@@ -162,8 +168,7 @@ public class U2AEcmTest {
         int endRow = reader.getRowCount();
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
-        // 差分map
-        // 便利products
+        // 遍历productMap
         for (String key : productMap.keySet()) {
             List<Map<String, Object>> ErrorSourceInfos = new ArrayList<>();
             String productCol = productMap.get(key);
@@ -237,6 +242,7 @@ public class U2AEcmTest {
             }
 
         }
+
     }
 
     /**
@@ -275,7 +281,7 @@ public class U2AEcmTest {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-                                List<Map<String, Object>> function) {
+            List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -289,7 +295,7 @@ public class U2AEcmTest {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
@@ -332,6 +338,8 @@ public class U2AEcmTest {
                 data += list.get(i).replaceFirst("- ", "-");
             }
         }
+        data = data.replaceAll("-", " - ");
+        data = data.replaceAll("  ", " ");
         if (data.endsWith("*7")) {
             data = StrUtil.replaceLast(data, "*7", "(For debug purpose only)");
         }
