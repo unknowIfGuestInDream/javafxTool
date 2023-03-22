@@ -146,11 +146,17 @@ public abstract class SampleBase extends Application implements Sample {
             String val = FxXmlUtil.get(k, "");
             if (value instanceof FileChooser v) {
                 if (!StrUtil.isEmpty(val)) {
-                    v.setInitialDirectory(new File(val));
+                    File file = new File(val);
+                    if (file.exists()) {
+                        v.setInitialDirectory(file);
+                    }
                 }
             } else if (value instanceof DirectoryChooser v) {
                 if (!StrUtil.isEmpty(val)) {
-                    v.setInitialDirectory(new File(val));
+                    File file = new File(val);
+                    if (file.exists()) {
+                        v.setInitialDirectory(file);
+                    }
                 }
             } else if (value instanceof PasswordField v) {
                 if (!StrUtil.isEmpty(val)) {

@@ -31,6 +31,7 @@ import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
@@ -87,12 +88,17 @@ public class FileDiff extends SmcSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 对比 两个文件，获得不同点
-        List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
-        String template = DiffHandleUtils.getDiffHtml(diffString);
-        webView.getEngine().loadContent(template);
-        notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
-        notificationBuilder.showInformation();
-        bindUserData();
+        try {
+            List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
+            String template = DiffHandleUtils.getDiffHtml(diffString);
+            webView.getEngine().loadContent(template);
+            notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+            notificationBuilder.showInformation();
+            bindUserData();
+        } catch (Exception e) {
+            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+            exceptionDialog.show();
+        }
     });
 
     private final Action download = FxAction.download(actionEvent -> {
