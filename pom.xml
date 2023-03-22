@@ -114,6 +114,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-media</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-swing</artifactId>
+                <version>${javafx.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-core</artifactId>
                 <version>${javafxTool.version}</version>
