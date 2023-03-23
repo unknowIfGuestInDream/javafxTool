@@ -27,14 +27,21 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
@@ -48,23 +55,26 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -120,8 +130,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         FileUtil.del(file);
                     }
                     FileUtil.writeFromStream(templateFile, file);
-                    notificationBuilder
-                            .text(I18nUtils.get("smc.tool.button.download.success"));
+                    notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                     notificationBuilder.showInformation();
                 }
             });
@@ -218,13 +227,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     int group = 0;
                     for (int j = 0; j < groupNum; j++) {
                         Map<Integer, String> map = triggerFactorList.get(i);
-//                  for (int k = 0; k < 4; k++) {
-//                      if (!map.containsKey(group)) {
-//                          group++;
-//                      } else {
-//                          break;
+//                      for (int k = 0; k < 4; k++) {
+//                          if (!map.containsKey(group)) {
+//                              group++;
+//                          } else {
+//                              break;
+//                          }
 //                      }
-//                  }
                         int initx = group;
                         String initValue = "";
                         for (int k = 0; k < groupNum; k++) {
@@ -246,7 +255,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                             excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
                             excelWriter.writeCellValue("T" + line, condition);
                         }
-//              excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
+//                  excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
                         excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
                         excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
                         excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");

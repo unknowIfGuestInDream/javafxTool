@@ -27,14 +27,17 @@
 
 package com.tlcsdm.core.javafx.controlsfx;
 
+import java.util.function.Consumer;
+
+import org.controlsfx.control.action.Action;
+
+import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import org.controlsfx.control.action.Action;
-
-import java.util.function.Consumer;
 
 /**
  * controlsfx Action的初始化封装
@@ -51,7 +54,14 @@ public class FxAction {
      * create action
      */
     public static Action create(String text, Consumer<ActionEvent> eventHandler, Node graphic) {
-        Action action = new Action(text, eventHandler);
+        Action action = new Action(text, actionEvent -> {
+            try {
+                eventHandler.accept(actionEvent);
+            } catch (Exception e) {
+                ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+                exceptionDialog.show();
+            }
+        });
         action.setGraphic(graphic);
         return action;
     }
