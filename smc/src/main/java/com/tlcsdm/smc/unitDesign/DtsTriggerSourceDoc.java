@@ -450,6 +450,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 {excelLabel}: {excelDesc}
                 {groupLabel}: {groupDesc}
                 {deviceNameAndStartColLabel}: {deviceNameAndStartColDesc}
+                eg: C8292;Q
                 {templateLabel}: {templateDesc}
                 {conditionColLabel}: {conditionColDesc}
                 {startRowLabel}: {startRowDesc}
