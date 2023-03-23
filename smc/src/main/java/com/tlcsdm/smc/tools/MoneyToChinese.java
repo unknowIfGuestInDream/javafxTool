@@ -39,7 +39,6 @@ import org.controlsfx.control.action.ActionUtils;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.util.MoneyToChineseUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -68,16 +67,10 @@ public class MoneyToChinese extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final Action convert = FxAction.convert(actionEvent -> {
-        try {
-            String chineseAmount = MoneyToChineseUtil
-                    .number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
-            chineseAmountField.setText(chineseAmount);
-            notificationBuilder.text(I18nUtils.get("smc.tool.moneyToChinese.button.convert.success"));
-            notificationBuilder.showInformation();
-        } catch (NumberFormatException e) {
-            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
-            exceptionDialog.show();
-        }
+        String chineseAmount = MoneyToChineseUtil.number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
+        chineseAmountField.setText(chineseAmount);
+        notificationBuilder.text(I18nUtils.get("smc.tool.moneyToChinese.button.convert.success"));
+        notificationBuilder.showInformation();
     });
 
     private final Collection<? extends Action> actions = List.of(convert);

@@ -36,6 +36,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -65,6 +69,7 @@ import cn.hutool.poi.excel.cell.CellUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
@@ -81,6 +86,8 @@ import javafx.stage.Stage;
  */
 public class SpecGeneralTest extends SmcSample {
 
+    // 只生成测试文件
+    private CheckBox onlyGenerateCheck;
     private TextField excelField;
     private FileChooser excelFileChooser;
     private TextField generalField;
@@ -136,6 +143,7 @@ public class SpecGeneralTest extends SmcSample {
         String generateFileCell = generalFileCellField.getText();
         String generateFilesParentPath = generalField.getText();
         String outputPath = outputField.getText();
+        boolean onlyGenerate = onlyGenerateCheck.isSelected();
         // 此处传入的是从头文件获取的列索引，长度需要-1
         int macroLength = Integer.parseInt(macroLengthField.getText()) - 1;
         // 需要数据抽取
@@ -166,9 +174,16 @@ public class SpecGeneralTest extends SmcSample {
             int endY = end.getY();
             String generateFileName = r.getCell(generateFileCell).getStringCellValue();
             generateFileMap.put(sheetName, generateFileName);
+            excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+            excelWriter.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
             excelWriter.renameSheet(0, sheetName);
+            excelWriter.setColumnWidth(0, 15);
+            excelWriter.setColumnWidth(1, 60);
+            excelWriter.setColumnWidth(2, 18);
+            excelWriter.setColumnWidth(3, 38);
             List<List<String>> list = new ArrayList<>(endY - startY + 1);
             boolean isIfnDef = false;
+            boolean isMultDesc = false;
             for (int j = startY; j <= endY; j++) {
                 List<String> l = new ArrayList<>(endX - startX + 1);
                 boolean isDefine = false;
@@ -199,10 +214,26 @@ public class SpecGeneralTest extends SmcSample {
                     if (isIfnDef && j2 == startX) {
                         cellValue = cellValue + " ";
                     }
+                    // 多行注释处理
+                    if (isDefine && j2 == endX) {
+                        if (cellValue.contains("/*") && !cellValue.contains("*/")) {
+                            isMultDesc = true;
+                        }
+                    }
                     l.add(cellValue);
                 }
                 if (isIfnDef && isDefine) {
                     isIfnDef = false;
+                }
+                // 多行注释处理
+                if (!isDefine && isMultDesc) {
+                    List<String> pre = list.get(list.size() - 1);
+                    int length = 0;
+                    for (int i = 0; i < pre.size() - 1; i++) {
+                        length += pre.get(i).length();
+                    }
+                    l.add(0, CharSequenceUtil.repeat(" ", length));
+                    isMultDesc = false;
                 }
                 list.add(l);
             }
@@ -221,6 +252,9 @@ public class SpecGeneralTest extends SmcSample {
             FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
                     FileUtil.file(filesPath, generateFileName));
             r.close();
+            if (onlyGenerate) {
+                continue;
+            }
             StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
             File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
             if (FileUtil.exist(generateFile)) {
@@ -235,6 +269,7 @@ public class SpecGeneralTest extends SmcSample {
             ThreadUtil.safeSleep(500);
             StaticLog.info("========================= End Comparing {} =========================", generateFileName);
         }
+
         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
         notificationBuilder.showInformation();
 
@@ -254,6 +289,9 @@ public class SpecGeneralTest extends SmcSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+
+        Label onlyGenerateLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.onlyGenerate") + ": ");
+        onlyGenerateCheck = new CheckBox();
 
         Label excelLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.excel") + ": ");
         excelField = new TextField();
@@ -327,6 +365,7 @@ public class SpecGeneralTest extends SmcSample {
         generalFileCellField.setText("C15");
         macroLengthField.setNumber(new BigDecimal("60"));
 
+        userData.put("onlyGenerate", onlyGenerateCheck);
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
         userData.put("general", generalField);
@@ -341,27 +380,29 @@ public class SpecGeneralTest extends SmcSample {
         userData.put("endCellColumn", endCellColumnField);
 
         grid.add(toolBar, 0, 0, 3, 1);
-        grid.add(excelLabel, 0, 1);
-        grid.add(excelButton, 1, 1);
-        grid.add(excelField, 2, 1);
-        grid.add(generalLabel, 0, 2);
-        grid.add(generalButton, 1, 2);
-        grid.add(generalField, 2, 2);
-        grid.add(outputLabel, 0, 3);
-        grid.add(outputButton, 1, 3);
-        grid.add(outputField, 2, 3);
-        grid.add(macroLengthLabel, 0, 4);
-        grid.add(macroLengthField, 1, 4, 2, 1);
-        grid.add(ignoreSheetLabel, 0, 5);
-        grid.add(ignoreSheetField, 1, 5, 2, 1);
-        grid.add(markSheetLabel, 0, 6);
-        grid.add(markSheetField, 1, 6, 2, 1);
-        grid.add(startCellLabel, 0, 7);
-        grid.add(startCellField, 1, 7, 2, 1);
-        grid.add(endCellColumnLabel, 0, 8);
-        grid.add(endCellColumnField, 1, 8, 2, 1);
-        grid.add(generalFileCellLabel, 0, 9);
-        grid.add(generalFileCellField, 1, 9, 2, 1);
+        grid.add(onlyGenerateLabel, 0, 1);
+        grid.add(onlyGenerateCheck, 1, 1, 2, 1);
+        grid.add(excelLabel, 0, 2);
+        grid.add(excelButton, 1, 2);
+        grid.add(excelField, 2, 2);
+        grid.add(generalLabel, 0, 3);
+        grid.add(generalButton, 1, 3);
+        grid.add(generalField, 2, 3);
+        grid.add(outputLabel, 0, 4);
+        grid.add(outputButton, 1, 4);
+        grid.add(outputField, 2, 4);
+        grid.add(macroLengthLabel, 0, 5);
+        grid.add(macroLengthField, 1, 5, 2, 1);
+        grid.add(ignoreSheetLabel, 0, 6);
+        grid.add(ignoreSheetField, 1, 6, 2, 1);
+        grid.add(markSheetLabel, 0, 7);
+        grid.add(markSheetField, 1, 7, 2, 1);
+        grid.add(startCellLabel, 0, 8);
+        grid.add(startCellField, 1, 8, 2, 1);
+        grid.add(endCellColumnLabel, 0, 9);
+        grid.add(endCellColumnField, 1, 9, 2, 1);
+        grid.add(generalFileCellLabel, 0, 10);
+        grid.add(generalFileCellField, 1, 10, 2, 1);
         return grid;
     }
 
@@ -413,7 +454,7 @@ public class SpecGeneralTest extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
