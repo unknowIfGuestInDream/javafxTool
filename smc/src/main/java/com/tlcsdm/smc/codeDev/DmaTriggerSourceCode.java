@@ -27,20 +27,15 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.map.multi.ListValueMap;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -51,30 +46,22 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.map.multi.ListValueMap;
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.*;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -103,7 +90,8 @@ public class DmaTriggerSourceCode extends SmcSample {
     private final FileChooser downloadChooser = new FileChooser();
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
-    private final String templateBindingPath = "smc/dmaTriggerSourceCode/binding.ftl";
+    private final String templateBindingTriggerPath = "smc/dmaTriggerSourceCode/binding_trigger.ftl";
+    private final String templateBindingGrpPath = "smc/dmaTriggerSourceCode/binding_grp.ftl";
     private final String templateSettingPath = "smc/dmaTriggerSourceCode/setting.ftl";
     private final String templateCgdmaPath = "smc/dmaTriggerSourceCode/cgdma.ftl";
 
@@ -139,7 +127,10 @@ public class DmaTriggerSourceCode extends SmcSample {
                     }
                     ZipUtil.zip(file, Charset.defaultCharset(),
                             new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding.ftl",
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_trigger.ftl",
+                                    getClass().getClassLoader()),
+                            new ClassPathResource(
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_grp.ftl",
                                     getClass().getClassLoader()),
                             new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
                                     getClass().getClassLoader()),
@@ -184,6 +175,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int factorSize = endRow - startRow + 1;
         int initCapacity = groupSize * factorSize;
         List<Map<String, Object>> bindingContent = new ArrayList<>(initCapacity);
+        List<Map<String, Object>> bindingGrpContent = new ArrayList<>(factorSize);
         List<Map<String, Object>> cgdmaContent = new ArrayList<>(initCapacity);
         List<Map<String, Object>> groupList = new ArrayList<>(groupSize);
 
@@ -191,6 +183,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         map.put("offset", offsetString);
         map.put("groups", groupList);
         map.put("bindingContent", bindingContent);
+        map.put("bindingGrpContent", bindingGrpContent);
         map.put("cgdmaContent", cgdmaContent);
         int groupNum = 0;
         for (String group : groups) {
@@ -267,8 +260,10 @@ public class DmaTriggerSourceCode extends SmcSample {
 
         File setting = FileUtil.newFile(resultPath + "\\setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
-        File binding = FileUtil.newFile(resultPath + "\\binding.xml");
-        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingPath), binding);
+        File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
+        File bindingGrp = FileUtil.newFile(resultPath + "\\binding_grp.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingGrpPath), bindingGrp);
         File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
         reader.close();
@@ -454,7 +449,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
