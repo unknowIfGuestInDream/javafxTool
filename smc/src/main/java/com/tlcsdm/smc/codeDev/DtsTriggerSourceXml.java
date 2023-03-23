@@ -272,6 +272,7 @@ public class DtsTriggerSourceXml extends SmcSample {
                 {excelLabel}: {excelDesc}
                 {groupLabel}: {groupDesc}
                 {xmlFileNameAndStartColLabel}: {xmlFileNameAndStartColDesc}
+                eg: C8292;Q
                 {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
                 """;
 
@@ -324,7 +325,7 @@ public class DtsTriggerSourceXml extends SmcSample {
     private void parseXmlConfig(String xmlFileNameAndStartCol, List<String> xmlFileNames, List<String> startCols) {
         List<String> xmlConfigs = StrUtil.splitTrim(xmlFileNameAndStartCol, "\n");
         for (String xmlConfig : xmlConfigs) {
-            List<String> l = StrUtil.split(xmlConfig, "-");
+            List<String> l = StrUtil.split(xmlConfig, ";");
             xmlFileNames.add(l.get(0));
             startCols.add(l.get(1));
         }

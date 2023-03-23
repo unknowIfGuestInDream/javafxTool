@@ -12,7 +12,6 @@ import org.controlsfx.control.textfield.TextFields;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -41,21 +40,16 @@ public class ExcelColNameCalculator extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        try {
-            List<String> colNameList = StrUtil.splitTrim(colNameField.getText(), ",");
-            int offset = Integer.parseInt(offsetField.getText());
-            StringJoiner sj = new StringJoiner(", ");
-            for (int i = 0; i < colNameList.size(); i++) {
-                int index = ExcelUtil.colNameToIndex(colNameList.get(i));
-                sj.add(ExcelUtil.indexToColName(index + offset));
-            }
-            resultField.setText(sj.toString());
-            notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
-            notificationBuilder.showInformation();
-        } catch (NumberFormatException e) {
-            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
-            exceptionDialog.show();
+        List<String> colNameList = StrUtil.splitTrim(colNameField.getText(), ",");
+        int offset = Integer.parseInt(offsetField.getText());
+        StringJoiner sj = new StringJoiner(", ");
+        for (int i = 0; i < colNameList.size(); i++) {
+            int index = ExcelUtil.colNameToIndex(colNameList.get(i));
+            sj.add(ExcelUtil.indexToColName(index + offset));
         }
+        resultField.setText(sj.toString());
+        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+        notificationBuilder.showInformation();
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
