@@ -27,20 +27,15 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.map.multi.ListValueMap;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -51,30 +46,22 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.map.multi.ListValueMap;
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.*;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -280,6 +267,22 @@ public class DmaTriggerSourceCode extends SmcSample {
         // bindingSelContent
         // triggerSourceList
         // channelNum
+        // SEL14_Setting
+        // - group
+        //      - 16 channelNum 遍历
+        //          - Map:
+        //          - channelNum eg: 14
+        //          - macroValue _DMAC_REQUEST_16M_14_GRP0
+        //          - groupNum
+        //          - List simpleCondition
+
+        // SELRegNum
+        // - group
+        //     - channelNum遍历
+        //         - Map:
+        //         - channelNum eg: 14
+        //         - groupNum
+        //         - List<List> condition
         for (int i = 0; i < channelNum; i++) {
             Map<String, String> sel = new HashMap<>();
 

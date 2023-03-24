@@ -36,6 +36,7 @@ import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateExceptionHandler;
 
 import java.io.File;
@@ -72,6 +73,7 @@ public class TemplateLoaderScanner implements InitializingFactory {
         Configuration configuration = FreemarkerUtil.init();
         configuration.setTemplateLoader(mtl);
         configuration.setDefaultEncoding("utf-8");
+        configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_32));
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20, soft:250");
     }
