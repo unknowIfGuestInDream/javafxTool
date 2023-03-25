@@ -91,7 +91,8 @@ public class DmaTriggerSourceCode extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final String templateBindingTriggerPath = "smc/dmaTriggerSourceCode/binding_trigger.ftl";
-    private final String templateBindingGrpPath = "smc/dmaTriggerSourceCode/binding_grp.ftl";
+    private final String templateBindingSelPath = "smc/dmaTriggerSourceCode/binding_selSetting.ftl";
+    private final String templateBindingRegNumPath = "smc/dmaTriggerSourceCode/binding_selRegNum.ftl";
     private final String templateSettingPath = "smc/dmaTriggerSourceCode/setting.ftl";
     private final String templateCgdmaPath = "smc/dmaTriggerSourceCode/cgdma.ftl";
 
@@ -130,7 +131,10 @@ public class DmaTriggerSourceCode extends SmcSample {
                                     "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_trigger.ftl",
                                     getClass().getClassLoader()),
                             new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_grp.ftl",
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selSetting.ftl",
+                                    getClass().getClassLoader()),
+                            new ClassPathResource(
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selRegNum.ftl",
                                     getClass().getClassLoader()),
                             new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
                                     getClass().getClassLoader()),
@@ -177,6 +181,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int initCapacity = groupSize * factorSize;
         List<Map<String, Object>> bindingContent = new ArrayList<>(initCapacity);
         List<Map<String, Object>> bindingSelContent = new ArrayList<>(factorSize);
+        List<Map<String, Object>> bindingRegNumContent = new ArrayList<>(factorSize);
         List<Map<String, Object>> cgdmaContent = new ArrayList<>(initCapacity);
         List<Map<String, Object>> groupList = new ArrayList<>(groupSize);
 
@@ -185,6 +190,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         map.put("groups", groupList);
         map.put("bindingContent", bindingContent);
         map.put("bindingSelContent", bindingSelContent);
+        map.put("bindingRegNumContent", bindingRegNumContent);
         map.put("cgdmaContent", cgdmaContent);
         int groupNum = 0;
         List<List<String>> triggerSourceList = new ArrayList<>();
@@ -276,6 +282,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         //          - groupNum
         //          - List simpleCondition
 
+        // bindingRegNumContent
         // SELRegNum
         // - group
         //     - channelNum遍历
@@ -283,17 +290,21 @@ public class DmaTriggerSourceCode extends SmcSample {
         //         - channelNum eg: 14
         //         - groupNum
         //         - List<List> condition
-        for (int i = 0; i < channelNum; i++) {
-            Map<String, String> sel = new HashMap<>();
+        for (int i = 0; i < groupSize; i++) {
+            for (int j = 0; j < channelNum; j++) {
+                Map<String, String> sel = new HashMap<>();
 
+            }
         }
 
         File setting = FileUtil.newFile(resultPath + "\\setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
         File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
-        File bindingGrp = FileUtil.newFile(resultPath + "\\binding_grp.xml");
-        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingGrpPath), bindingGrp);
+        File bindingSelSetting = FileUtil.newFile(resultPath + "\\binding_selSetting.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelSetting);
+        File bindingSelRegNum = FileUtil.newFile(resultPath + "\\binding_selRegNum.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelRegNum);
         File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
 
