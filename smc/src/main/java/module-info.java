@@ -20,6 +20,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitTest to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
+    exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
 

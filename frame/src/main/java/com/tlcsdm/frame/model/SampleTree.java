@@ -27,12 +27,11 @@
 
 package com.tlcsdm.frame.model;
 
+import com.tlcsdm.frame.Sample;
+import javafx.scene.control.TreeItem;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tlcsdm.frame.Sample;
-
-import javafx.scene.control.TreeItem;
 
 public class SampleTree {
     private TreeNode root;
@@ -40,7 +39,7 @@ public class SampleTree {
     private int count = 0;
 
     public SampleTree(Sample rootSample) {
-        root = new TreeNode(null, null, rootSample);
+        root = new TreeNode(null, null, rootSample, 0);
     }
 
     public TreeNode getRoot() {
@@ -62,7 +61,7 @@ public class SampleTree {
             if (n.containsChild(packageName)) {
                 n = n.getChild(packageName);
             } else {
-                TreeNode newNode = new TreeNode(packageName);
+                TreeNode newNode = new TreeNode(packageName, n.getDepth() + 1);
                 n.addNode(newNode);
                 n = newNode;
             }
@@ -82,23 +81,20 @@ public class SampleTree {
     public static class TreeNode {
         private final Sample sample;
         private final String packageName;
-
         private final TreeNode parent;
         private List<TreeNode> children;
+        private int depth;
 
-        public TreeNode() {
-            this(null, null, null);
+        public TreeNode(String packageName, int depth) {
+            this(null, packageName, null, depth);
         }
 
-        public TreeNode(String packageName) {
-            this(null, packageName, null);
-        }
-
-        public TreeNode(TreeNode parent, String packageName, Sample sample) {
+        public TreeNode(TreeNode parent, String packageName, Sample sample, int depth) {
             this.children = new ArrayList<>();
             this.sample = sample;
             this.parent = parent;
             this.packageName = packageName;
+            this.depth = depth;
         }
 
         public boolean containsChild(String packageName) {
@@ -128,7 +124,7 @@ public class SampleTree {
         }
 
         public void addSample(Sample sample) {
-            children.add(new TreeNode(this, null, sample));
+            children.add(new TreeNode(this, null, sample, depth + 1));
         }
 
         public void addNode(TreeNode n) {
@@ -139,8 +135,16 @@ public class SampleTree {
             return sample;
         }
 
+        public TreeNode getParent() {
+            return parent;
+        }
+
         public String getPackageName() {
             return packageName;
+        }
+
+        public int getDepth() {
+            return depth;
         }
 
         public TreeItem<Sample> createTreeItem() {
@@ -156,6 +160,10 @@ public class SampleTree {
 
             // recursively add in children
             for (TreeNode n : children) {
+                if (n.getDepth() > 2) {
+                    treeItem.setExpanded(false);
+                }
+                // if(StrUtil.isNotEmpty(n.getPackageName()) && )
                 treeItem.getChildren().add(n.createTreeItem());
             }
 
