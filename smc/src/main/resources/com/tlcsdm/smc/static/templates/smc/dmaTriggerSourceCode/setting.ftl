@@ -10,5 +10,6 @@ ${offset}    </staticItem>
 ${offset}    <staticItem enabled="true" id="${item.factor}" name="${item.factor}"/>
 </#if>
 </#list>
+${offset}    <simpleCondition optionId="requestSource" valueId="HWRequestGrp${group.groupNum}"></simpleCondition>
 ${offset}</option>
 </#list>
