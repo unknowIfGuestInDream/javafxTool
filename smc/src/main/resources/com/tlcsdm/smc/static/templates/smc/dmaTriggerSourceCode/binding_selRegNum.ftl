@@ -1,10 +1,18 @@
 <#list bindingRegNumContent as item>
-${offset}<tagBinding id="Trigger${item.factor}" key="Trigger_Source" value="${item.macro}">
-${offset}    <and failOnChildMasked="true">
-${offset}        <simpleCondition optionId="requestSource" valueId="HWRequestGrp${item.groupNum}">
-${offset}        </simpleCondition>
-${offset}        <simpleCondition optionId="triggerSourceGrp${item.groupNum}" valueId="${item.factor}">
-${offset}        </simpleCondition>
-${offset}    </and>
-${offset}</tagBinding>
+<#if item.condition?? && item.condition?size gt 0>
+<tagBinding id="SELRegNum${item.channelNum}" key="SELRegNum" value="${item.channelNum}">
+    <or>
+<#list item.condition as meta>
+        <and failOnChildMasked="true">
+            <simpleCondition optionId="requestSource" valueId="HWRequestGrp${meta.groupNum}">
+            </simpleCondition>
+            <or>
+                <simpleCondition optionId="triggerSourceGrp${meta.groupNum}" valueId="${meta.factor}">
+                </simpleCondition>
+            </or>
+        </and>
+</#list>
+    </or>
+</tagBinding>
+</#if>
 </#list>

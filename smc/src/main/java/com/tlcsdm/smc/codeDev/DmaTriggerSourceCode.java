@@ -180,8 +180,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         int factorSize = endRow - startRow + 1;
         int initCapacity = groupSize * factorSize;
         List<Map<String, Object>> bindingContent = new ArrayList<>(initCapacity);
-        List<Map<String, Object>> bindingSelContent = new ArrayList<>(factorSize);
-        List<Map<String, Object>> bindingRegNumContent = new ArrayList<>(factorSize);
+        List<Map<String, Object>> bindingSelContent = new ArrayList<>(groupSize * channelNum);
+        List<Map<String, Object>> bindingRegNumContent = new ArrayList<>(channelNum);
         List<Map<String, Object>> cgdmaContent = new ArrayList<>(initCapacity);
         List<Map<String, Object>> groupList = new ArrayList<>(groupSize);
 
@@ -195,7 +195,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int groupNum = 0;
         List<List<String>> triggerSourceList = new ArrayList<>();
         for (String group : groups) {
-            List<String> triggerSource = new ArrayList<>();
+            List<String> triggerSource = new ArrayList<>(factorSize);
             Map<String, Object> g = new HashMap<>();
             List<Map<String, Object>> settingContent = new ArrayList<>(factorSize);
             g.put("groupNum", groupNum);
@@ -270,31 +270,38 @@ public class DmaTriggerSourceCode extends SmcSample {
         }
         reader.close();
 
-        // bindingSelContent
-        // triggerSourceList
-        // channelNum
-        // SEL14_Setting
-        // - group
-        //      - 16 channelNum 遍历
-        //          - Map:
-        //          - channelNum eg: 14
-        //          - macroValue _DMAC_REQUEST_16M_14_GRP0
-        //          - groupNum
-        //          - List simpleCondition
+        for (int i = 0; i < channelNum; i++) {
+            Map<String, Object> reg = new HashMap<>();
+            List<Map<String, Object>> regConditionList = new ArrayList<>();
+            reg.put("channelNum", i);
+            reg.put("condition", regConditionList);
+            for (int j = 0; j < groupSize; j++) {
+                List<String> triggerSource = triggerSourceList.get(j);
+                Map<String, Object> sel = new HashMap<>();
 
-        // bindingRegNumContent
-        // SELRegNum
-        // - group
-        //     - channelNum遍历
-        //         - Map:
-        //         - channelNum eg: 14
-        //         - groupNum
-        //         - List<List> condition
-        for (int i = 0; i < groupSize; i++) {
-            for (int j = 0; j < channelNum; j++) {
-                Map<String, String> sel = new HashMap<>();
+                sel.put("channelNum", i);
+                sel.put("groupNum", j);
 
+                List<String> selCondition = new ArrayList<>();
+                sel.put("condition", selCondition);
+                for (int k = 0; k < triggerSource.size(); k++) {
+                    String factor = triggerSource.get(k);
+                    if ("Reserve".equals(factor)) {
+                        continue;
+                    }
+                    if (k % channelNum == i) {
+                        selCondition.add(factor);
+                    }
+                    if (k / channelNum == i) {
+                        Map<String, Object> regCondition = new HashMap<>();
+                        regCondition.put("groupNum", j);
+                        regCondition.put("factor", factor);
+                        regConditionList.add(regCondition);
+                    }
+                }
+                bindingSelContent.add(sel);
             }
+            bindingRegNumContent.add(reg);
         }
 
         File setting = FileUtil.newFile(resultPath + "\\setting.xml");
@@ -302,9 +309,9 @@ public class DmaTriggerSourceCode extends SmcSample {
         File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
         File bindingSelSetting = FileUtil.newFile(resultPath + "\\binding_selSetting.xml");
-        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelSetting);
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelSetting);
         File bindingSelRegNum = FileUtil.newFile(resultPath + "\\binding_selRegNum.xml");
-        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelRegNum);
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelRegNum);
         File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
 
