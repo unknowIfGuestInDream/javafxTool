@@ -91,7 +91,8 @@ public class DmaTriggerSourceCode extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final String templateBindingTriggerPath = "smc/dmaTriggerSourceCode/binding_trigger.ftl";
-    private final String templateBindingGrpPath = "smc/dmaTriggerSourceCode/binding_grp.ftl";
+    private final String templateBindingSelPath = "smc/dmaTriggerSourceCode/binding_selSetting.ftl";
+    private final String templateBindingRegNumPath = "smc/dmaTriggerSourceCode/binding_selRegNum.ftl";
     private final String templateSettingPath = "smc/dmaTriggerSourceCode/setting.ftl";
     private final String templateCgdmaPath = "smc/dmaTriggerSourceCode/cgdma.ftl";
 
@@ -130,7 +131,10 @@ public class DmaTriggerSourceCode extends SmcSample {
                                     "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_trigger.ftl",
                                     getClass().getClassLoader()),
                             new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_grp.ftl",
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selSetting.ftl",
+                                    getClass().getClassLoader()),
+                            new ClassPathResource(
+                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selRegNum.ftl",
                                     getClass().getClassLoader()),
                             new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
                                     getClass().getClassLoader()),
@@ -155,6 +159,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int offset = Integer.parseInt(offsetField.getText());
         int defineLength = Integer.parseInt(defineLengthField.getText());
         String macroTemplate = macroTemplateField.getText();
+        int channelNum = 16;
 
         String resultPath = outputPath + outParentFolder;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
@@ -175,7 +180,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         int factorSize = endRow - startRow + 1;
         int initCapacity = groupSize * factorSize;
         List<Map<String, Object>> bindingContent = new ArrayList<>(initCapacity);
-        List<Map<String, Object>> bindingGrpContent = new ArrayList<>(factorSize);
+        List<Map<String, Object>> bindingSelContent = new ArrayList<>(groupSize * channelNum);
+        List<Map<String, Object>> bindingRegNumContent = new ArrayList<>(channelNum);
         List<Map<String, Object>> cgdmaContent = new ArrayList<>(initCapacity);
         List<Map<String, Object>> groupList = new ArrayList<>(groupSize);
 
@@ -183,10 +189,13 @@ public class DmaTriggerSourceCode extends SmcSample {
         map.put("offset", offsetString);
         map.put("groups", groupList);
         map.put("bindingContent", bindingContent);
-        map.put("bindingGrpContent", bindingGrpContent);
+        map.put("bindingSelContent", bindingSelContent);
+        map.put("bindingRegNumContent", bindingRegNumContent);
         map.put("cgdmaContent", cgdmaContent);
         int groupNum = 0;
+        List<List<String>> triggerSourceList = new ArrayList<>();
         for (String group : groups) {
+            List<String> triggerSource = new ArrayList<>(factorSize);
             Map<String, Object> g = new HashMap<>();
             List<Map<String, Object>> settingContent = new ArrayList<>(factorSize);
             g.put("groupNum", groupNum);
@@ -201,6 +210,7 @@ public class DmaTriggerSourceCode extends SmcSample {
                 Map<String, Object> cgdma = new HashMap<>();
                 Map<String, Object> binding = new HashMap<>();
                 String factor = reader.getCell(group + i).getStringCellValue();
+                triggerSource.add(factor);
                 if ("Reserve".equals(factor)) {
                     continue;
                 }
@@ -251,22 +261,59 @@ public class DmaTriggerSourceCode extends SmcSample {
                 bindingContent.add(binding);
                 settingContent.add(setting);
             }
+            triggerSourceList.add(triggerSource);
             g.put("defaultSelection", defaultSelection);
             // 后置处理
             groupList.add(g);
             // 当前循环结束，开始下一次循环
             groupNum++;
         }
+        reader.close();
+
+        for (int i = 0; i < channelNum; i++) {
+            Map<String, Object> reg = new HashMap<>();
+            List<Map<String, Object>> regConditionList = new ArrayList<>();
+            reg.put("channelNum", i);
+            reg.put("condition", regConditionList);
+            for (int j = 0; j < groupSize; j++) {
+                List<String> triggerSource = triggerSourceList.get(j);
+                Map<String, Object> sel = new HashMap<>();
+
+                sel.put("channelNum", i);
+                sel.put("groupNum", j);
+
+                List<String> selCondition = new ArrayList<>();
+                sel.put("condition", selCondition);
+                for (int k = 0; k < triggerSource.size(); k++) {
+                    String factor = triggerSource.get(k);
+                    if ("Reserve".equals(factor)) {
+                        continue;
+                    }
+                    if (k % channelNum == i) {
+                        selCondition.add(factor);
+                    }
+                    if (k / channelNum == i) {
+                        Map<String, Object> regCondition = new HashMap<>();
+                        regCondition.put("groupNum", j);
+                        regCondition.put("factor", factor);
+                        regConditionList.add(regCondition);
+                    }
+                }
+                bindingSelContent.add(sel);
+            }
+            bindingRegNumContent.add(reg);
+        }
 
         File setting = FileUtil.newFile(resultPath + "\\setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
         File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
-        File bindingGrp = FileUtil.newFile(resultPath + "\\binding_grp.xml");
-        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingGrpPath), bindingGrp);
+        File bindingSelSetting = FileUtil.newFile(resultPath + "\\binding_selSetting.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelSetting);
+        File bindingSelRegNum = FileUtil.newFile(resultPath + "\\binding_selRegNum.xml");
+        FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelRegNum);
         File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
-        reader.close();
 
         notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
         notificationBuilder.showInformation();
