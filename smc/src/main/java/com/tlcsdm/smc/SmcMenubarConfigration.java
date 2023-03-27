@@ -74,7 +74,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
     private final Action logConsole = FxAction.create("test", actionEvent -> {
         LogConsoleDialog.addLogConsole();
-    }, "/com/tlcsdm/core/static/menubar/system.png");
+    }, "/com/tlcsdm/core/static/icon/console.png");
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
