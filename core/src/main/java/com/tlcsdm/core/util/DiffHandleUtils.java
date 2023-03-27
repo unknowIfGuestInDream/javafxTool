@@ -169,10 +169,11 @@ public class DiffHandleUtils {
         // ResourceUtil.getResource("static/public/diff/diff2html-ui.min.js").getPath();
         String template = "<!DOCTYPE html>\n" + "<html lang=\"en-us\">\n" + "  <head>\n"
                 + "    <meta charset=\"utf-8\" />\n" + "    <meta name=\"google\" content=\"notranslate\"/>\n"
-                + "    <meta name=\"author\" content=\"tang97155@163.com\">\n" + "    <link rel=\"stylesheet\" href=\""
-                + githubCss + "\" />\n" + "    <link rel=\"stylesheet\" type=\"text/css\" href=\"" + diff2htmlCss
-                + "\" />\n" + "    <script type=\"text/javascript\" src=\"" + diff2htmlJs + "\"></script>\n"
-                + "  </head>\n" + "  <script>\n" + "    const diffString = `\n" + "temp\n" + "`;\n" + "\n" + "\n"
+                + "    <meta name=\"author\" content=\"tangliang0213@163.com\">\n"
+                + "    <link rel=\"stylesheet\" href=\"" + githubCss + "\" />\n"
+                + "    <link rel=\"stylesheet\" type=\"text/css\" href=\"" + diff2htmlCss + "\" />\n"
+                + "    <script type=\"text/javascript\" src=\"" + diff2htmlJs + "\"></script>\n" + "  </head>\n"
+                + "  <script>\n" + "    const diffString = `\n" + "temp\n" + "`;\n" + "\n" + "\n"
                 + "     document.addEventListener('DOMContentLoaded', function () {\n"
                 + "      var targetElement = document.getElementById('myDiffElement');\n"
                 + "      var configuration = {\n" + "        drawFileList: true,\n" + "        fileListToggle: true,\n"
