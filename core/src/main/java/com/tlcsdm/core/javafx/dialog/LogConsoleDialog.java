@@ -25,58 +25,47 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.logging.logback;
+package com.tlcsdm.core.javafx.dialog;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.OutputStreamAppender;
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
- * 日志打印控制台
+ * 日志输出控制台
  *
  * @author: unknowIfGuestInDream
- * @date: 2023/3/26 20:56
+ * @date: 2023/3/27 21:07
  */
-public class ConsoleLogAppender extends OutputStreamAppender<ILoggingEvent> {
-    public final static List<TextArea> textAreaList = new ArrayList<>();
+public class LogConsoleDialog {
 
-    @Override
-    public void start() {
-        OutputStream targetStream = new OutputStream() {
-            @Override
-            public void write(int b) {
-                for (TextArea textArea : textAreaList) {
-                    textArea.appendText(String.valueOf(b));
-                }
-            }
-
-            @Override
-            public void write(byte[] b) {
-                for (TextArea textArea : textAreaList) {
-                    textArea.appendText(new String(b));
-                }
-            }
-        };
-        setOutputStream(targetStream);
-        super.start();
-    }
-
-    @Override
-    protected void append(ILoggingEvent eventObject) {
-        if (eventObject.getLevel() == Level.ERROR) {
-            try {
-                TooltipUtil.showToast("Error message:\n" + eventObject.getFormattedMessage());
-            } catch (Exception e) {
-                StaticLog.error(e);
-            }
+    public static void addLogConsole() {
+        TextArea textArea = new TextArea();
+        textArea.setFocusTraversable(true);
+        ConsoleLogAppender.textAreaList.add(textArea);
+        Stage newStage = new Stage();
+        VBox dialogContainer = new VBox(textArea);
+        VBox.setVgrow(textArea, Priority.ALWAYS);
+        dialogContainer.setPadding(new Insets(5.0D));
+        dialogContainer.setSpacing(5.0D);
+        double[] screenSize = JavaFxSystemUtil.getScreenSizeByScale(0.54D, 0.6D);
+        newStage.setTitle("test");
+        newStage.setScene(new Scene(dialogContainer, screenSize[0], screenSize[1]));
+        newStage.setResizable(true);
+        if (FxApp.appIcon != null) {
+            newStage.getIcons().add(FxApp.appIcon);
         }
-        super.append(eventObject);
+        newStage.initModality(Modality.NONE);
+        newStage.show();
+        newStage.setOnCloseRequest(event1 -> {
+            ConsoleLogAppender.textAreaList.remove(textArea);
+        });
     }
 }

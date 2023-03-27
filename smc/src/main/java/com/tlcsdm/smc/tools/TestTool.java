@@ -29,11 +29,11 @@ package com.tlcsdm.smc.tools;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.ProgressStage;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.smc.SmcSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,6 +41,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
@@ -86,13 +87,17 @@ public class TestTool extends SmcSample {
     private PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        ProgressStage ps = ProgressStage.of();
-        ps.show();
+//        ProgressStage ps = ProgressStage.of();
+//        ps.show();
+//
+//        ThreadPoolTaskExecutor.get().execute(() -> {
+//            ThreadUtil.safeSleep(5000);
+//            ps.close();
+//        });
 
-        ThreadPoolTaskExecutor.get().execute(() -> {
-            ThreadUtil.safeSleep(5000);
-            ps.close();
-        });
+        StaticLog.info("hello log");
+        StaticLog.error("hello log");
+        StaticLog.warn("hello log");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -132,10 +137,14 @@ public class TestTool extends SmcSample {
 //        userData.put("compare", compareField);
 //        userData.put("output", outputField);
 //
+        TextArea textArea = new TextArea();
+        textArea.setFocusTraversable(true);
+        ConsoleLogAppender.textAreaList.add(textArea);
         propertySheet.getItems().setAll(getCustomModelProperties());
         propertySheet.setMode(Mode.CATEGORY);
         grid.add(toolBar, 0, 0, 2, 1);
         grid.add(propertySheet, 0, 1, 2, 1);
+        grid.add(textArea, 0, 2, 2, 1);
 //        grid.add(originalField, 1, 1);
 //        grid.add(compareLabel, 0, 2);
 //        grid.add(compareField, 1, 2);

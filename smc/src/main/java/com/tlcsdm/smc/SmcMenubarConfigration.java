@@ -32,6 +32,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
@@ -70,6 +71,10 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         }
         new FXSampler().start(new Stage());
     }));
+
+    private final Action logConsole = FxAction.create("test", actionEvent -> {
+        LogConsoleDialog.addLogConsole();
+    }, "/com/tlcsdm/core/static/menubar/system.png");
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
@@ -147,7 +152,7 @@ public class SmcMenubarConfigration implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
             FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-            FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport,
+            FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, logConsole, contactSupport,
                     submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
