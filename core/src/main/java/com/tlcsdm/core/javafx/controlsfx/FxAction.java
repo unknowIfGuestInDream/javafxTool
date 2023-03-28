@@ -27,17 +27,15 @@
 
 package com.tlcsdm.core.javafx.controlsfx;
 
-import java.util.function.Consumer;
-
-import org.controlsfx.control.action.Action;
-
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
-
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import org.controlsfx.control.action.Action;
+
+import java.util.function.Consumer;
 
 /**
  * controlsfx Action的初始化封装
@@ -206,5 +204,13 @@ public class FxAction {
 
     public static Action clear(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/clear.png");
+    }
+
+    public static Action logConsole(Consumer<ActionEvent> eventHandler) {
+        return logConsole(I18nUtils.get("core.button.logConsole"), eventHandler);
+    }
+
+    public static Action logConsole(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/console.png");
     }
 }

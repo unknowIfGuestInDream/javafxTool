@@ -72,9 +72,9 @@ public class SmcMenubarConfigration implements MenubarConfigration {
         new FXSampler().start(new Stage());
     }));
 
-    private final Action logConsole = FxAction.create("test", actionEvent -> {
+    private final Action logConsole = FxAction.logConsole(actionEvent -> {
         LogConsoleDialog.addLogConsole();
-    }, "/com/tlcsdm/core/static/icon/console.png");
+    });
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 

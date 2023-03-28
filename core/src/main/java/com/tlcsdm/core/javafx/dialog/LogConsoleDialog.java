@@ -30,6 +30,7 @@ package com.tlcsdm.core.javafx.dialog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -40,6 +41,18 @@ import javafx.stage.Stage;
 
 /**
  * 日志输出控制台
+ * 配合logback使用
+ * <pre><code>
+ *     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+ *         <encoder>
+ *             <pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] %logger{3600} - %msg%n</pattern>
+ *         </encoder>
+ *     </appender>
+ *
+ *         <root>
+ *         <appender-ref ref="CONSOLELOGAPPENDER"/>
+ *     </root>
+ * </code></pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/27 21:07
@@ -56,7 +69,7 @@ public class LogConsoleDialog {
         dialogContainer.setPadding(new Insets(5.0D));
         dialogContainer.setSpacing(5.0D);
         double[] screenSize = JavaFxSystemUtil.getScreenSizeByScale(0.54D, 0.6D);
-        newStage.setTitle("test");
+        newStage.setTitle(I18nUtils.get("core.dialog.logConsole.title"));
         newStage.setScene(new Scene(dialogContainer, screenSize[0], screenSize[1]));
         newStage.setResizable(true);
         if (FxApp.appIcon != null) {
