@@ -78,7 +78,7 @@ public class C1MEcmTest {
         String outputPath = "C:\\workspace\\test";
 
         String categorySheetName = "Category";
-        int categoryStartRow = 2;
+        int categoryStartRow = 3;
         String categorys = """
                 categoryId;B
                 categoryEnName;C
@@ -307,7 +307,7 @@ public class C1MEcmTest {
 
     private String getFtlPath(String sheetName) {
         if ("C1M".equals(sheetName)) {
-            return "ecm/u2a.ftl";
+            return "ecm/c1m.ftl";
         }
         return null;
     }
