@@ -76,6 +76,8 @@
         <log4j-over-slf4j.version>2.0.7</log4j-over-slf4j.version>
         <guava.version>31.1-jre</guava.version>
         <java-diff-utils.version>4.12</java-diff-utils.version>
+        <dom4j.version>2.1.4</dom4j.version>
+        <pdfbox.version>2.0.27</pdfbox.version>
     </properties>
 
     <dependencies>
@@ -153,6 +155,11 @@
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
                 <version>${jaxen.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sikulix</groupId>
@@ -307,6 +314,12 @@
                 <artifactId>junit-jupiter-params</artifactId>
                 <version>${junit.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
