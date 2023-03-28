@@ -62,13 +62,14 @@ public class LogConsoleDialog {
     public static void addLogConsole() {
         TextArea textArea = new TextArea();
         textArea.setFocusTraversable(true);
+        textArea.setEditable(false);
         ConsoleLogAppender.textAreaList.add(textArea);
         Stage newStage = new Stage();
         VBox dialogContainer = new VBox(textArea);
         VBox.setVgrow(textArea, Priority.ALWAYS);
         dialogContainer.setPadding(new Insets(5.0D));
         dialogContainer.setSpacing(5.0D);
-        double[] screenSize = JavaFxSystemUtil.getScreenSizeByScale(0.54D, 0.6D);
+        double[] screenSize = JavaFxSystemUtil.getScreenSizeByScale(0.5D, 0.54D);
         newStage.setTitle(I18nUtils.get("core.dialog.logConsole.title"));
         newStage.setScene(new Scene(dialogContainer, screenSize[0], screenSize[1]));
         newStage.setResizable(true);
