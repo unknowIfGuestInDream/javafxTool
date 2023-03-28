@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.util;
 
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,6 +43,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * 提示组件，可以使用FxNotifications
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/26 20:59
  */
@@ -89,7 +92,7 @@ public class TooltipUtil {
     }
 
     public static void showToast(String title, String message) {
-        showToast(title, message, (Node) null, 3.0D, Pos.BOTTOM_CENTER, (EventHandler) null, (Object) null, true, true);
+        showToast(title, message, (Node) null, 3.0D, Pos.TOP_CENTER, (EventHandler) null, (Object) null, true, true);
     }
 
     public static void showToast(String title, String message, Pos pos) {
@@ -97,7 +100,7 @@ public class TooltipUtil {
     }
 
     public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos, EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
-        Notifications notificationBuilder = Notifications.create().title(title).text(message).graphic(graphic).hideAfter(Duration.seconds(hideTime)).position(pos).onAction(onAction);
+        Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title).text(message).graphic(graphic).onAction(onAction);
         if (owner != null) {
             notificationBuilder.owner(owner);
         }

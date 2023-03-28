@@ -33,6 +33,7 @@ import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.smc.SmcSample;
 import javafx.beans.value.ObservableValue;
@@ -87,6 +88,7 @@ public class TestTool extends SmcSample {
     private PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        TooltipUtil.showToast("message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //
