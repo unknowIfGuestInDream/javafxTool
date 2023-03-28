@@ -27,15 +27,20 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.map.multi.ListValueMap;
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -46,22 +51,30 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.map.multi.ListValueMap;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.*;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -160,6 +173,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         int defineLength = Integer.parseInt(defineLengthField.getText());
         String macroTemplate = macroTemplateField.getText();
         int channelNum = 16;
+        String settingComplexCondition = "com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition";
 
         String resultPath = outputPath + outParentFolder;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
@@ -188,6 +202,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         Map<String, Object> map = new HashMap<>();
         map.put("offset", offsetString);
         map.put("groups", groupList);
+        map.put("settingComplexCondition", settingComplexCondition);
         map.put("bindingContent", bindingContent);
         map.put("bindingSelContent", bindingSelContent);
         map.put("bindingRegNumContent", bindingRegNumContent);
