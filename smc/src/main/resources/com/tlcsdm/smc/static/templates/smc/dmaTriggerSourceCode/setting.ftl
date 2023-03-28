@@ -3,7 +3,7 @@ ${offset}<option defaultSelection="${group.defaultSelection}" enabled="true" id=
 <#list group.settingContent as item>
 <#if item.hasCondition!false>
 ${offset}    <staticItem enabled="true" id="${item.factor}" name="${item.factor}">
-${offset}        <complexCondition class="com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition" parameter="${item.parameter}">
+${offset}        <complexCondition class="${settingComplexCondition}" parameter="${item.parameter}">
 ${offset}        </complexCondition>
 ${offset}    </staticItem>
 <#else>
