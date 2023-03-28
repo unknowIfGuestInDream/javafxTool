@@ -96,6 +96,8 @@ public class DmaTriggerSourceCode extends SmcSample {
     private NumberTextField offsetField;
     private NumberTextField defineLengthField;
     private TextField macroTemplateField;
+    private NumberTextField channelNumField;
+    private TextField settingComplexConditionField;
 
     private final String defaultTemplateName = "dmaTemplate.zip";
     // 结果输出到 dmaCode 文件夹下
@@ -172,8 +174,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         int offset = Integer.parseInt(offsetField.getText());
         int defineLength = Integer.parseInt(defineLengthField.getText());
         String macroTemplate = macroTemplateField.getText();
-        int channelNum = 16;
-        String settingComplexCondition = "com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition";
+        int channelNum = Integer.parseInt(channelNumField.getText());
+        String settingComplexCondition = settingComplexConditionField.getText();
 
         String resultPath = outputPath + outParentFolder;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
@@ -387,6 +389,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         Label deviceAndStartColLabel = new Label(
                 I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
         deviceAndStartColField = new TextArea();
+        deviceAndStartColField.setMinHeight(100);
 
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.sheetName") + ": ");
         sheetNameField = new TextField();
@@ -411,6 +414,9 @@ public class DmaTriggerSourceCode extends SmcSample {
         offsetField.setNumber(BigDecimal.valueOf(4));
         defineLengthField.setNumber(BigDecimal.valueOf(60));
         macroTemplateField.setText("_DMAC_GRP{groupNum}_REQUEST_{factor}");
+        channelNumField.setNumber(BigDecimal.valueOf(16));
+        settingComplexConditionField
+                .setText("com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition");
 
         userData.put("excel", excelField);
         userData.put("excelFileChooser", excelFileChooser);
@@ -424,6 +430,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         userData.put("offset", offsetField);
         userData.put("defineLength", defineLengthField);
         userData.put("macroTemplate", macroTemplateField);
+        userData.put("channelNum", channelNumField);
+        userData.put("settingComplexCondition", settingComplexConditionField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -454,7 +462,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         GridPane grid = new GridPane();
         grid.setVgap(5);
         grid.setHgap(5);
-        grid.setPadding(new Insets(5));
+        grid.setPadding(new Insets(10));
 
         Label offsetLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.offset") + ": ");
         offsetField = new NumberTextField();
@@ -469,12 +477,23 @@ public class DmaTriggerSourceCode extends SmcSample {
         Label macroTemplateLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
         macroTemplateField = new TextField();
 
+        Label channelNumLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.channelNum") + ": ");
+        channelNumField = new NumberTextField();
+
+        Label settingComplexConditionLabel = new Label(
+                I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.settingComplexCondition") + ": ");
+        settingComplexConditionField = new TextField();
+
         grid.add(offsetLabel, 0, 0);
         grid.add(offsetField, 1, 0);
         grid.add(defineLengthLabel, 0, 1);
         grid.add(defineLengthField, 1, 1);
         grid.add(macroTemplateLabel, 0, 2);
         grid.add(macroTemplateField, 1, 2);
+        grid.add(channelNumLabel, 0, 3);
+        grid.add(channelNumField, 1, 3);
+        grid.add(settingComplexConditionLabel, 0, 4);
+        grid.add(settingComplexConditionField, 1, 4);
 
         return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
     }
