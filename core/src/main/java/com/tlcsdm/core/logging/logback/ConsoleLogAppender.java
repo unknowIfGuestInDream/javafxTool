@@ -27,11 +27,8 @@
 
 package com.tlcsdm.core.logging.logback;
 
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.OutputStreamAppender;
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
 import javafx.scene.control.TextArea;
 
 import java.io.OutputStream;
@@ -70,13 +67,6 @@ public class ConsoleLogAppender extends OutputStreamAppender<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent eventObject) {
-        if (eventObject.getLevel() == Level.ERROR) {
-            try {
-                TooltipUtil.showToast("Error message:\n" + eventObject.getFormattedMessage());
-            } catch (Exception e) {
-                StaticLog.error(e);
-            }
-        }
         super.append(eventObject);
     }
 }

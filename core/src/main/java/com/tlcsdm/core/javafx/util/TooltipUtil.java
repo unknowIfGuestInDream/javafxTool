@@ -76,7 +76,7 @@ public class TooltipUtil {
         tooltip.setWrapText(true);
         tooltip.show(window, x, y);
         tooltip.setAnchorX(tooltip.getAnchorX() - tooltip.getWidth() / 2.0D);
-        tooltip.setAnchorY(tooltip.getAnchorY() - tooltip.getHeight());
+        tooltip.setAnchorY(tooltip.getAnchorY() / 5.0D);
         if (time > 0L) {
             new Timer().schedule(new TimerTask() {
                 @Override
