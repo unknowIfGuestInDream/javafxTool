@@ -78,7 +78,7 @@ public class U2AEcmTest {
         String outputPath = "C:\\workspace\\test";
 
         String categorySheetName = "Category";
-        int categoryStartRow = 2;
+        int categoryStartRow = 3;
         String categorys = """
                 categoryId;F
                 categoryEnName;G
@@ -101,6 +101,7 @@ public class U2AEcmTest {
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
         String errorSourceenNameCol = "D";
+        String errorSourceDescCol = "E";
         String errorSourcejpNameCol = "W";
 
         int optErrortIndex = 0;
@@ -188,10 +189,15 @@ public class U2AEcmTest {
                 }
                 String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
                 String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
-                String errorSourceNumber = String
-                        .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
+                int errorSourceNum = (int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue();
+                String errorSourceNumber = String.valueOf(errorSourceNum);
                 String errorSourceenName = reader.getCell(errorSourceenNameCol + i).getStringCellValue();
                 String errorSourcejpName = reader.getCell(errorSourcejpNameCol + i).getStringCellValue();
+                String errorSourceDesc = reader.getCell(errorSourceDescCol + i).getStringCellValue();
+                // 特殊处理 24-29添加description信息
+                if (errorSourceNum < 24 || errorSourceNum > 29) {
+                    errorSourceDesc = "";
+                }
                 List<Map<String, Object>> function = new ArrayList<>();
                 boolean optMaskintStatus = false;
                 for (String funcId : operationMap.keySet()) {
@@ -216,6 +222,7 @@ public class U2AEcmTest {
                 errorSource.put("errorSourceNumber", errorSourceNumber);
                 errorSource.put("errorSourceenName", errorSourceenName);
                 errorSource.put("errorSourcejpName", errorSourcejpName);
+                errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
                 errorSource.put("function", function);
                 handlerErrorSourceMap(errorSource, key, optErrortIndex);
                 ErrorSourceInfos.add(errorSource);
