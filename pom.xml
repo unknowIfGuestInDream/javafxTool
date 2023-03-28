@@ -66,7 +66,7 @@
         <aviator.version>5.3.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
-        <hutool.version>5.8.15</hutool.version>
+        <hutool.version>5.8.16</hutool.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <logback-classic.version>1.4.6</logback-classic.version>
         <commons-configuration2.version>2.8.0</commons-configuration2.version>
