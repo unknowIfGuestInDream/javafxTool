@@ -74,6 +74,11 @@ public class U2AEcmScript extends AbstractEcmScript {
     }
 
     @Override
+    public boolean isVisible() {
+        return false;
+    }
+
+    @Override
     protected String getFtlPath() {
         return "ecm/u2a.ftl";
     }
