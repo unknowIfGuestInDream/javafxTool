@@ -27,13 +27,11 @@
 
 package com.tlcsdm.frame;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
+import cn.hutool.core.date.StopWatch;
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
@@ -42,17 +40,10 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
 import com.tlcsdm.core.util.InterfaceScanner;
-import com.tlcsdm.frame.model.EmptyCenterPanel;
-import com.tlcsdm.frame.model.EmptySample;
-import com.tlcsdm.frame.model.Project;
-import com.tlcsdm.frame.model.SampleTree;
-import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.model.*;
 import com.tlcsdm.frame.util.I18nUtils;
+import com.tlcsdm.frame.util.SampleFactory;
 import com.tlcsdm.frame.util.SampleScanner;
-
-import cn.hutool.core.date.StopWatch;
-import cn.hutool.core.lang.Console;
-import cn.hutool.core.util.StrUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -60,25 +51,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+
+import java.util.*;
 
 public final class FXSampler extends Application {
 
@@ -91,6 +75,7 @@ public final class FXSampler extends Application {
 
     private TreeView<Sample> samplesTreeView;
     private TreeItem<Sample> root;
+    private List<TreeItem<Sample>> projects;
 
     private Project selectedProject;
     // 用于闪屏功能
@@ -108,19 +93,27 @@ public final class FXSampler extends Application {
     public void start(final Stage primaryStage) {
         stopWatch.start();
         stage = primaryStage;
+        StaticLog.debug("Load splash screen image");
         loadSplash();
-        new Thread(() -> {
+        ThreadUtil.execute(() -> {
+            StaticLog.debug("Initialize the system environment");
             JavaFxSystemUtil.initSystemLocal();
             showInfo(I18nUtils.get("frame.splash.init.version"));
+            StaticLog.debug("Initialize system resources");
             initializeSystem();
             Platform.runLater(() -> {
                 try {
+                    StaticLog.debug("Initialize UI resources");
                     initializeUI();
+                    ThreadUtil.execAsync(() -> {
+                        StaticLog.debug("Initialize resources");
+                        initializeSource();
+                    }).get();
                 } catch (Throwable e) {
                     FxAlerts.exception(e);
                 }
             });
-        }).start();
+        });
     }
 
     /**
@@ -259,7 +252,7 @@ public final class FXSampler extends Application {
 
         // by default we'll show the welcome message of first project in the tree
         // if no projects are available, we'll show the default page
-        List<TreeItem<Sample>> projects = samplesTreeView.getRoot().getChildren();
+        projects = samplesTreeView.getRoot().getChildren();
         if (!projects.isEmpty()) {
             TreeItem<Sample> firstProject = projects.get(0);
             samplesTreeView.getSelectionModel().select(firstProject);
@@ -300,6 +293,14 @@ public final class FXSampler extends Application {
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
+    }
+
+    /**
+     * 启动后初始化资源
+     */
+    public void initializeSource() {
+        // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
+        SampleFactory.Samples.addAll(projects);
     }
 
     void buildSampleTree(String searchText) {
