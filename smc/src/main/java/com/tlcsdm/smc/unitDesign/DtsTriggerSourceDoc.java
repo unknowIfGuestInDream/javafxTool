@@ -60,6 +60,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -149,6 +150,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         ThreadPoolTaskExecutor.get().execute(new Runnable() {
             @Override
             public void run() {
+                StaticLog.info("Extracting data...");
                 // 输入值获取
                 List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
                 String excel = excelField.getText();
@@ -188,6 +190,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 }
                 CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
                 int startConditionX = cellLocation.getX();
+                StaticLog.info("Processing data...");
                 // 处理数据
                 ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
                 int initialCapacity = CoreUtil.newHashMapWithExpectedSize(groupNum);
@@ -283,6 +286,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
                     line += rowNum;
                 }
+                StaticLog.info("Generate result...");
                 if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
                     FileUtil.del(outputPath + "\\" + resultFileName);
                 }

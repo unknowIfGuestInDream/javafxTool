@@ -52,6 +52,7 @@ import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
@@ -101,6 +102,7 @@ public class DtsTriggerSourceXml extends SmcSample {
     });
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        StaticLog.info("Extracting data...");
         // 输入值获取
         String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
         List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
@@ -120,6 +122,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         String resultPath = outputPath + "\\triggerSource";
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
+        StaticLog.info("Processing data...");
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
         for (int i = 0; i < xmlFileNames.size(); i++) {
@@ -153,7 +156,7 @@ public class DtsTriggerSourceXml extends SmcSample {
             FileUtil.appendUtf8Lines(contentsList, file);
         }
         reader.close();
-
+        StaticLog.info("Generate result...");
         notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
