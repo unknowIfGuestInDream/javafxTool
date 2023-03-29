@@ -29,6 +29,7 @@ package com.tlcsdm.smc;
 
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.SampleBase;
+import com.tlcsdm.smc.util.SmcConstant;
 
 import java.io.InputStream;
 import java.util.jar.Attributes;
@@ -62,9 +63,16 @@ public abstract class SmcSample extends SampleBase {
                 Attributes attr = manifest.getMainAttributes();
                 version = attr.getValue("Implementation-Version");
                 date = attr.getValue("Build-Day");
+                //在构建exe可执行文件时，此配置会读取不到
+                if (version == null) {
+                    version = SmcConstant.PROJECT_VERSION;
+                }
+                if (date == null) {
+                    date = SmcConstant.PROJECT_BUILD_DAY;
+                }
             } catch (Throwable e) {
-                version = "";
-                date = "";
+                version = SmcConstant.PROJECT_VERSION;
+                date = SmcConstant.PROJECT_BUILD_DAY;
                 StaticLog.error("MANIFEST信息获取失败");
             }
         }
