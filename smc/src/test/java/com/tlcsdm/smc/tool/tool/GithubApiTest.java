@@ -27,12 +27,6 @@
 
 package com.tlcsdm.smc.tool.tool;
 
-import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONUtil;
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Test;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -43,6 +37,14 @@ import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import org.junit.jupiter.api.Test;
+
+import com.tlcsdm.core.exception.UnExpectedResultException;
+
+import cn.hutool.core.net.SSLContextBuilder;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
 
 /**
  * github api 测试
@@ -57,8 +59,7 @@ public class GithubApiTest {
     @Test
     public void release() {
         HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                .sslContext(SSLContextBuilder.create().build())
-                .connectTimeout(Duration.ofMillis(1000)).build();
+                .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
 
         HttpRequest request = HttpRequest
                 .newBuilder(URI.create("https://api.github.com/repos/unknowIfGuestInDream/javafxTool/releases")).GET()

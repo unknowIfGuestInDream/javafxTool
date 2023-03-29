@@ -31,6 +31,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.core.util.I18nUtils;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -40,9 +41,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * 日志输出控制台
- * 配合logback使用
- * <pre><code>
+ * 日志输出控制台 配合logback.xml使用
+ * 
+ * <pre>
+ * <code>
  *     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
  *         <encoder>
  *             <pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] %logger{3600} - %msg%n</pattern>
@@ -52,7 +54,8 @@ import javafx.stage.Stage;
  *         <root>
  *         <appender-ref ref="CONSOLELOGAPPENDER"/>
  *     </root>
- * </code></pre>
+ * </code>
+ * </pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/27 21:07
@@ -62,7 +65,6 @@ public class LogConsoleDialog {
     public static void addLogConsole() {
         TextArea textArea = new TextArea();
         textArea.setFocusTraversable(true);
-        textArea.setEditable(false);
         ConsoleLogAppender.textAreaList.add(textArea);
         Stage newStage = new Stage();
         VBox dialogContainer = new VBox(textArea);
