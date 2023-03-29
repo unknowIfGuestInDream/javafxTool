@@ -82,8 +82,8 @@ public class SampleTree {
         private final Sample sample;
         private final String packageName;
         private final TreeNode parent;
-        private List<TreeNode> children;
-        private int depth;
+        private final List<TreeNode> children;
+        private final int depth;
 
         public TreeNode(String packageName, int depth) {
             this(null, packageName, null, depth);
