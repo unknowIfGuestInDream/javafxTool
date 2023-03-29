@@ -269,6 +269,9 @@ public class DmaTriggerSourceCode extends SmcSample {
                 binding.put("groupNum", groupNum);
                 binding.put("macro", macro);
                 // cgdma
+                if (i == startRow) {
+                    cgdma.put("hasNote", true);
+                }
                 cgdma.put("factor", factor);
                 cgdma.put("groupNum", groupNum);
                 cgdma.put("macro", macro);
