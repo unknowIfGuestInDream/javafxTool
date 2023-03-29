@@ -241,7 +241,7 @@ public class SpecGeneralTest extends SmcSample {
                             for (int i = 0; i < pre.size() - 1; i++) {
                                 length += pre.get(i).length();
                             }
-                            l.add(0, CharSequenceUtil.repeat(" ", length));
+                            l.add(0, CharSequenceUtil.repeat(" ", length + 3));
                             isMultDesc = false;
                         }
                         list.add(l);
