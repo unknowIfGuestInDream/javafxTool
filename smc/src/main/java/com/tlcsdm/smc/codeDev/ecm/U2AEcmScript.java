@@ -32,6 +32,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
+ * U2A的ECM脚本
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/26 21:17
  */
@@ -69,5 +71,10 @@ public class U2AEcmScript extends AbstractEcmScript {
     @Override
     public String getOrderKey() {
         return "U2AEcmScript";
+    }
+
+    @Override
+    protected String getFtlPath() {
+        return "ecm/u2a.ftl";
     }
 }

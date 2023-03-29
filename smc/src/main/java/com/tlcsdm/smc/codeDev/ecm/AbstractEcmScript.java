@@ -55,6 +55,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * EcmScript脚本超类
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/26 21:13
  */
@@ -107,6 +109,45 @@ public abstract class AbstractEcmScript extends SmcSample {
         String resultPath = outputPath + outParentFolder;
         String offsetString = CharSequenceUtil.repeat(" ", offset);
         List<String> xmlConfigs = StrUtil.splitTrim(deviceAndStartCol, "\n");
+
+        //Category
+        String categorySheetName = "Category";
+        int categoryStartRow = 3;
+        String categorys = """
+                categoryId;F
+                categoryEnName;G
+                categoryJpName;H
+                """;
+        // device
+        String deviceSheetName = "U2A";
+        int deviceStartRow = 3;
+        String functions = """
+                optMaskint;G
+                optIntg;G
+                optDCLS;G
+                optIntrg;I
+                optErroroutput;J
+                optErrort;K
+                optDelayt;L
+                """;
+        String errorSourceIdCol = "A";
+        String categoryIdCol = "B";
+        String errorSourceNumberCol = "C";
+        String errorSourceenNameCol = "D";
+        String errorSourceDescCol = "E";
+        String errorSourcejpNameCol = "W";
+
+        String products = """
+                RH850U2A16;516;N
+                RH850U2A16;373;O
+                RH850U2A16;292;P
+                RH850U2A8;373;R
+                RH850U2A8;292;S
+                RH850U2A6;292;T
+                RH850U2A6;176;T
+                RH850U2A6;156;U
+                RH850U2A6;144;V
+                """;
 
         notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
         notificationBuilder.showInformation();
@@ -253,4 +294,6 @@ public abstract class AbstractEcmScript extends SmcSample {
 
         return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
     }
+
+    protected abstract String getFtlPath();
 }
