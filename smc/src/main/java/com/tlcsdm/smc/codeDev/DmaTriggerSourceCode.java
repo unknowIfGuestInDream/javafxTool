@@ -59,6 +59,7 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
+import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
@@ -164,6 +165,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
+        StaticLog.info("Extracting data...");
         String excel = excelField.getText();
         List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
         String outputPath = outputField.getText();
@@ -189,6 +191,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
+        StaticLog.info("Processing data...");
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
         // 文件内容获取
@@ -320,7 +323,7 @@ public class DmaTriggerSourceCode extends SmcSample {
             }
             bindingRegNumContent.add(reg);
         }
-
+        StaticLog.info("Generate result...");
         File setting = FileUtil.newFile(resultPath + "\\setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
         File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
