@@ -140,6 +140,7 @@ public class GirretReview extends SmcSample {
     FileChooser outPutChooser = new FileChooser();
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        StaticLog.info("Extracting data...");
         String queryEmail = userNameField.getText();
         if (StrUtil.isNotEmpty(ownerEmailField.getText())) {
             queryEmail = StrUtil.subBefore(ownerEmailField.getText(), "@", false);
@@ -160,6 +161,7 @@ public class GirretReview extends SmcSample {
                 @Override
                 public void run() {
                     try {
+                        StaticLog.info("Http request configuration");
                         // 变量初始化
                         CookieManager manager = new CookieManager();
                         manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -190,6 +192,7 @@ public class GirretReview extends SmcSample {
                             FileUtil.del(file);
                         }
                         int paramN = Integer.parseInt(limitField.getText());
+                        StaticLog.info("Get request result...");
                         // 开始获取结果
                         for (;;) {
                             String url = String.format(changesRequestUrl,

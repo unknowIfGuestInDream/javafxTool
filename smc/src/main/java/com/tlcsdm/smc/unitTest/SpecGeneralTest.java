@@ -44,6 +44,8 @@ import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -133,147 +135,163 @@ public class SpecGeneralTest extends SmcSample {
      * </pre>
      */
     private final Action diff = FxAction.create(I18nUtils.get("smc.tool.specGeneralTest.button.diff"), actionEvent -> {
-        // 输入值获取
-        List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
-        List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
-        String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
-        String excelName = FileUtil.getName(excelField.getText());
-        String startCell = startCellField.getText();
-        String endCellColumn = endCellColumnField.getText();
-        String generateFileCell = generalFileCellField.getText();
-        String generateFilesParentPath = generalField.getText();
-        String outputPath = outputField.getText();
-        boolean onlyGenerate = onlyGenerateCheck.isSelected();
-        // 此处传入的是从头文件获取的列索引，长度需要-1
-        int macroLength = Integer.parseInt(macroLengthField.getText()) - 1;
-        // 需要数据抽取
-        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
-        List<String> sheetNames = reader.getSheetNames().stream()
-                .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                        || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                .collect(Collectors.toList());
-        reader.close();
-        String resultPath = outputPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
-        String filesPath = resultPath + "\\files";
-        // 清空resultPath下文件
-        FileUtil.clean(resultPath);
-        // 处理数据
-        File udFile = FileUtil.file(parentDirectoryPath, excelName);
-        Map<String, String> generateFileMap = new HashMap<>();
-        for (String sheetName : sheetNames) {
-            BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
-            StaticLog.info("========================= Begin Reading {} =========================", sheetName);
-            ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
-            String endCell = getEndCell(endCellColumn, r);
-            StaticLog.info("endCell: {}", endCell);
-            CellLocation start = ExcelUtil.toLocation(startCell);
-            CellLocation end = ExcelUtil.toLocation(endCell);
-            int startX = start.getX();
-            int startY = start.getY();
-            int endX = end.getX();
-            int endY = end.getY();
-            String generateFileName = r.getCell(generateFileCell).getStringCellValue();
-            generateFileMap.put(sheetName, generateFileName);
-            excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-            excelWriter.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
-            excelWriter.renameSheet(0, sheetName);
-            excelWriter.setColumnWidth(0, 15);
-            excelWriter.setColumnWidth(1, 60);
-            excelWriter.setColumnWidth(2, 18);
-            excelWriter.setColumnWidth(3, 38);
-            List<List<String>> list = new ArrayList<>(endY - startY + 1);
-            boolean isIfnDef = false;
-            boolean isMultDesc = false;
-            for (int j = startY; j <= endY; j++) {
-                List<String> l = new ArrayList<>(endX - startX + 1);
-                boolean isDefine = false;
-                // 第一列发现是define 或者 ifndef 即在后面添加空格
-                String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
-                if ("#define".equals(StrUtil.trim(firstValue))) {
-                    isDefine = true;
-                }
-                if ("#ifndef".equals(StrUtil.trim(firstValue))) {
-                    isIfnDef = true;
-                }
-                for (int j2 = startX; j2 <= endX; j2++) {
-                    String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
-                    if (isDefine && !isIfnDef && j2 < endX) {
-                        String cellSubString = " ";
-                        String cv = StrUtil.trimEnd(cellValue);
-                        // 给macro值填充空格
-                        if (j2 == startX + 1) {
-                            String s = "#define " + cv;
-                            if (s.length() < macroLength
-                                    && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
+        ThreadPoolTaskExecutor.get().execute(new Runnable() {
+
+            @Override
+            public void run() {
+                StaticLog.info("Extracting data...");
+                // 输入值获取
+                List<String> ignoreSheetNames = StrUtil.splitTrim(ignoreSheetField.getText(), ",");
+                List<String> markSheetNames = StrUtil.splitTrim(markSheetField.getText(), ",");
+                String parentDirectoryPath = FileUtil.getParent(excelField.getText(), 1);
+                String excelName = FileUtil.getName(excelField.getText());
+                String startCell = startCellField.getText();
+                String endCellColumn = endCellColumnField.getText();
+                String generateFileCell = generalFileCellField.getText();
+                String generateFilesParentPath = generalField.getText();
+                String outputPath = outputField.getText();
+                boolean onlyGenerate = onlyGenerateCheck.isSelected();
+                // 此处传入的是从头文件获取的列索引，长度需要-1
+                int macroLength = Integer.parseInt(macroLengthField.getText()) - 1;
+                StaticLog.info("Processing data...");
+                // 需要数据抽取
+                ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
+                List<String> sheetNames = reader.getSheetNames().stream()
+                        .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                                || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+                        .collect(Collectors.toList());
+                reader.close();
+                String resultPath = outputPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
+                String filesPath = resultPath + "\\files";
+                // 清空resultPath下文件
+                FileUtil.clean(resultPath);
+                StaticLog.info("Processing data...");
+                // 处理数据
+                File udFile = FileUtil.file(parentDirectoryPath, excelName);
+                Map<String, String> generateFileMap = new HashMap<>();
+                for (String sheetName : sheetNames) {
+                    BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
+                    StaticLog.info("========================= Begin Reading {} =========================", sheetName);
+                    ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
+                    String endCell = getEndCell(endCellColumn, r);
+                    StaticLog.info("endCell: {}", endCell);
+                    CellLocation start = ExcelUtil.toLocation(startCell);
+                    CellLocation end = ExcelUtil.toLocation(endCell);
+                    int startX = start.getX();
+                    int startY = start.getY();
+                    int endX = end.getX();
+                    int endY = end.getY();
+                    String generateFileName = r.getCell(generateFileCell).getStringCellValue();
+                    generateFileMap.put(sheetName, generateFileName);
+                    excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+                    excelWriter.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
+                    excelWriter.renameSheet(0, sheetName);
+                    excelWriter.setColumnWidth(0, 15);
+                    excelWriter.setColumnWidth(1, 60);
+                    excelWriter.setColumnWidth(2, 18);
+                    excelWriter.setColumnWidth(3, 38);
+                    List<List<String>> list = new ArrayList<>(endY - startY + 1);
+                    boolean isIfnDef = false;
+                    boolean isMultDesc = false;
+                    for (int j = startY; j <= endY; j++) {
+                        List<String> l = new ArrayList<>(endX - startX + 1);
+                        boolean isDefine = false;
+                        // 第一列发现是define 或者 ifndef 即在后面添加空格
+                        String firstValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(startX, j)));
+                        if ("#define".equals(StrUtil.trim(firstValue))) {
+                            isDefine = true;
+                        }
+                        if ("#ifndef".equals(StrUtil.trim(firstValue))) {
+                            isIfnDef = true;
+                        }
+                        for (int j2 = startX; j2 <= endX; j2++) {
+                            String cellValue = CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2, j)));
+                            if (isDefine && !isIfnDef && j2 < endX) {
+                                String cellSubString = " ";
+                                String cv = StrUtil.trimEnd(cellValue);
+                                // 给macro值填充空格
+                                if (j2 == startX + 1) {
+                                    String s = "#define " + cv;
+                                    if (s.length() < macroLength && StrUtil
+                                            .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
                                             .length() != 0) {
-                                cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
+                                        cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
+                                    }
+                                }
+                                cellValue = cv + cellSubString;
                             }
+                            if (isIfnDef && j2 == startX) {
+                                cellValue = cellValue + " ";
+                            }
+                            // 多行注释处理
+                            if (isDefine && j2 == endX) {
+                                if (cellValue.contains("/*") && !cellValue.contains("*/")) {
+                                    isMultDesc = true;
+                                }
+                            }
+                            l.add(cellValue);
                         }
-                        cellValue = cv + cellSubString;
-                    }
-                    if (isIfnDef && j2 == startX) {
-                        cellValue = cellValue + " ";
-                    }
-                    // 多行注释处理
-                    if (isDefine && j2 == endX) {
-                        if (cellValue.contains("/*") && !cellValue.contains("*/")) {
-                            isMultDesc = true;
+                        if (isIfnDef && isDefine) {
+                            isIfnDef = false;
                         }
+                        // 多行注释处理
+                        if (!isDefine && isMultDesc) {
+                            List<String> pre = list.get(list.size() - 1);
+                            int length = 0;
+                            for (int i = 0; i < pre.size() - 1; i++) {
+                                length += pre.get(i).length();
+                            }
+                            l.add(0, CharSequenceUtil.repeat(" ", length));
+                            isMultDesc = false;
+                        }
+                        list.add(l);
                     }
-                    l.add(cellValue);
+                    r.close();
+                    // 将从UD中的内容生成到指定路径, 用来后续进行差分
+                    excelWriter.write(list, false);
+                    File file = FileUtil.file(filesPath, sheetName + ".xlsx");
+                    excelWriter.flush(file);
+                    excelWriter.close();
+                    StaticLog.info("========================= End Reading {} =========================", sheetName);
                 }
-                if (isIfnDef && isDefine) {
-                    isIfnDef = false;
-                }
-                // 多行注释处理
-                if (!isDefine && isMultDesc) {
-                    List<String> pre = list.get(list.size() - 1);
-                    int length = 0;
-                    for (int i = 0; i < pre.size() - 1; i++) {
-                        length += pre.get(i).length();
+                StaticLog.info("Generate result...");
+                // 将之前读取的内容与generalField文件夹下的文件进行差分
+                for (String sheetName : sheetNames) {
+                    ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
+                    String generateFileName = generateFileMap.get(sheetName);
+                    FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
+                            FileUtil.file(filesPath, generateFileName));
+                    r.close();
+                    if (onlyGenerate) {
+                        continue;
                     }
-                    l.add(0, CharSequenceUtil.repeat(" ", length));
-                    isMultDesc = false;
+                    StaticLog.info("========================= Begin Comparing {} =========================",
+                            generateFileName);
+                    File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
+                    if (FileUtil.exist(generateFile)) {
+                        List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
+                                generateFilesParentPath + "\\" + generateFileName);
+                        DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
+                    } else {
+                        StaticLog.info("========================= Not Found {} =========================",
+                                generateFileName);
+                        continue;
+                    }
+                    // 此处睡眠, 防止出现读取上的错误
+                    ThreadUtil.safeSleep(500);
+                    StaticLog.info("========================= End Comparing {} =========================",
+                            generateFileName);
                 }
-                list.add(l);
+                FxApp.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
+                        notificationBuilder.showInformation();
+                    }
+                });
+                bindUserData();
             }
-            r.close();
-            // 将从UD中的内容生成到指定路径, 用来后续进行差分
-            excelWriter.write(list, false);
-            File file = FileUtil.file(filesPath, sheetName + ".xlsx");
-            excelWriter.flush(file);
-            excelWriter.close();
-            StaticLog.info("========================= End Reading {} =========================", sheetName);
-        }
-        // 将之前读取的内容与generalField文件夹下的文件进行差分
-        for (String sheetName : sheetNames) {
-            ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
-            String generateFileName = generateFileMap.get(sheetName);
-            FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
-                    FileUtil.file(filesPath, generateFileName));
-            r.close();
-            if (onlyGenerate) {
-                continue;
-            }
-            StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
-            File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
-            if (FileUtil.exist(generateFile)) {
-                List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
-                        generateFilesParentPath + "\\" + generateFileName);
-                DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
-            } else {
-                StaticLog.info("========================= Not Found {} =========================", generateFileName);
-                continue;
-            }
-            // 此处睡眠, 防止出现读取上的错误
-            ThreadUtil.safeSleep(500);
-            StaticLog.info("========================= End Comparing {} =========================", generateFileName);
-        }
-
-        notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
-        notificationBuilder.showInformation();
-
-        bindUserData();
+        });
     }, LayoutHelper.iconView(this.getClass().getResource("/com/tlcsdm/smc/static/icon/diff.png")));
 
     private final Collection<? extends Action> actions = List.of(diff, openOutDir);

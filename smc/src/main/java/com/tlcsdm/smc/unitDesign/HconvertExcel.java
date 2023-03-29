@@ -53,6 +53,7 @@ import com.tlcsdm.smc.util.I18nUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import javafx.geometry.Insets;
@@ -127,6 +128,7 @@ public class HconvertExcel extends SmcSample {
                     return false;
                 }
             });
+            StaticLog.info("Generate result...");
             ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
             writer.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
             writer.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
