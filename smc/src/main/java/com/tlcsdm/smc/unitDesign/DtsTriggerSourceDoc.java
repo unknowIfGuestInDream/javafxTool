@@ -237,10 +237,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
 //                              break;
 //                          }
 //                      }
+
                         int initx = group;
                         String initValue = "";
                         for (int k = 0; k < groupNum; k++) {
-                            if ("Reserved".equals(map.get(initx))) {
+                            if ("Reserved".equals(map.get(initx)) || "Reserve".equals(map.get(initx))) {
                                 initx++;
                             } else {
                                 initValue = map.get(initx);
