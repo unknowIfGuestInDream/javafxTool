@@ -27,6 +27,7 @@
 
 package com.tlcsdm.smc;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.smc.util.SmcConstant;
@@ -56,20 +57,12 @@ public abstract class SmcSample extends SampleBase {
         public ProjectInfo() {
 
             try {
-                InputStream s =
-                        SmcSampler.class.getModule().getResourceAsStream(
-                                "META-INF/MANIFEST.MF");
+                InputStream s = SmcSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
                 Manifest manifest = new Manifest(s);
                 Attributes attr = manifest.getMainAttributes();
-                version = attr.getValue("Implementation-Version");
-                date = attr.getValue("Build-Day");
-                //在构建exe可执行文件时，此配置会读取不到
-                if (version == null) {
-                    version = SmcConstant.PROJECT_VERSION;
-                }
-                if (date == null) {
-                    date = SmcConstant.PROJECT_BUILD_DAY;
-                }
+                //SmcConstant变量是为了打包exe时使用
+                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), SmcConstant.PROJECT_VERSION);
+                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), SmcConstant.PROJECT_BUILD_DAY);
             } catch (Throwable e) {
                 version = SmcConstant.PROJECT_VERSION;
                 date = SmcConstant.PROJECT_BUILD_DAY;

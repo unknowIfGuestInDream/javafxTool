@@ -47,8 +47,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 
 /**
- * github api 测试
- * 用于检查更新功能
+ * github api 测试 用于检查更新功能
  *
  * @author os_tangliang
  */
@@ -62,7 +61,7 @@ public class GithubApiTest {
                 .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
 
         HttpRequest request = HttpRequest
-                .newBuilder(URI.create("https://api.github.com/repos/unknowIfGuestInDream/javafxTool/releases")).GET()
+                .newBuilder(URI.create("https://api.github.com/repos/unknowIfGuestInDream/genCode/releases")).GET()
                 .headers("Content-Type", "application/json", "User-Agent",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
                         "accept", "application/vnd.github+json")
