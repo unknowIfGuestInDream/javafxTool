@@ -24,33 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.tlcsdm.frame.service;
 
-package com.tlcsdm.smc;
+import com.tlcsdm.frame.model.WelcomePage;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
-import java.util.Objects;
+public interface FXSamplerProject {
 
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.frame.FXSamplerConfiguration;
-import com.tlcsdm.smc.util.I18nUtils;
+    /**
+     * Returns the pretty name of the project, e.g. 'JFXtras' or 'ControlsFX'
+     */
+    String getProjectName();
 
-import javafx.scene.image.Image;
+    /**
+     * All samples should be beneath this base package. For example, in ControlsFX,
+     * this may be 'org.controlsfx.samples'.
+     */
+    String getSampleBasePackage();
 
-public class SmcConfiguration implements FXSamplerConfiguration {
+    /**
+     * Node that will be displayed in welcome tab, when project's root is
+     * selected in the tree. If this method returns null, default page will
+     * be used
+     */
+    WelcomePage getWelcomePage();
 
-    @Override
-    public String getSceneStylesheet() {
-        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/fxsampler.css"))
-                .toExternalForm();
+    /**
+     * Module name of the project for which the sampler is to be used.
+     * For example, in case of ControlsFX this is "org.controlsfx.controls".
+     * Can be left blank if the sampler application is running on classpath.
+     */
+    default String getModuleName() {
+        return "";
     }
 
-    @Override
-    public String getStageTitle() {
-        return I18nUtils.get("smc.stage.title");
+    /**
+     * 获取默认背景图
+     *
+     * @return Pane
+     */
+    default Pane getWelcomeBackgroundImagePane() {
+        ImageView imgView = new ImageView();
+        imgView.setStyle("-fx-image: url('com/tlcsdm/frame/static/JavaFXTool.png');");
+        StackPane pane = new StackPane();
+        pane.setPrefHeight(207);
+        pane.setStyle(
+                "-fx-background-image: url('com/tlcsdm/frame/static/JavaFXToolBar.png');-fx-background-repeat: repeat-x;");
+        pane.getChildren().add(imgView);
+        return pane;
     }
-
-    @Override
-    public Image getAppIcon() {
-        return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/fxsampler/smc_256.png"));
-    }
-
 }

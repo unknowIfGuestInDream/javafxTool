@@ -25,33 +25,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.login;
+package com.tlcsdm.smc.provider;
 
-import javafx.stage.Stage;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.frame.service.SplashScreen;
+import javafx.scene.image.Image;
 
 /**
- * 登录校验(应用模块实现)
+ * 闪屏图片
+ *
+ * @author: unknowIfGuestInDream
+ * @date: 2023/3/3 22:47
  */
-public interface LoginCheck {
-
-    /**
-     * 判断信息是否填写完全
-     */
-    boolean checkInformation(LoginNodes loginNodes);
-
-    /**
-     * 登录按钮功能实现
-     */
-    void loginAction(Stage stage, LoginNodes loginNodes);
-
-    /**
-     * 注册按钮功能实现
-     */
-    void signAction(LoginNodes loginNodes);
-
-    /**
-     * 登录页组件设定
-     */
-    void initNode(LoginNodes loginNodes);
-
+public class SmcSplashProvider implements SplashScreen {
+    @Override
+    public Image getImage() {
+        return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/static/splash.png"));
+    }
 }

@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.smc.provider;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
@@ -39,7 +39,8 @@ import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.frame.MenubarConfigration;
+import com.tlcsdm.frame.service.MenubarConfigration;
+import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;
@@ -58,7 +59,7 @@ import java.util.*;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
-public class SmcMenubarConfigration implements MenubarConfigration {
+public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 

@@ -27,38 +27,31 @@
 
 package com.tlcsdm.frame;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.frame.util.I18nUtils;
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.frame.service.FXSamplerConfiguration;
+import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ServiceLoader;
 
 /**
  * A base class for samples - it is recommended that they extend this class

@@ -25,18 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.skin;
+package com.tlcsdm.frame.service;
 
-import com.tlcsdm.smc.provider.SmcConfigurationProvider;
+import javafx.scene.image.Image;
 
-import java.util.Objects;
+/**
+ * 闪屏图片
+ *
+ * @author: unknowIfGuestInDream
+ * @date: 2023/3/3 22:41
+ */
+public interface SplashScreen {
 
-public class MistSilverSkin extends SmcConfigurationProvider {
-
-    @Override
-    public String getSceneStylesheet() {
-        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/mistSilverSkin.css"))
-                .toExternalForm();
-    }
-
+    Image getImage();
 }

@@ -27,21 +27,12 @@
 
 package com.tlcsdm.demo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Optional;
-import java.util.function.Function;
-
-import com.tlcsdm.frame.CenterPanelService;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
-
+import com.tlcsdm.frame.service.CenterPanelService;
 import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressIndicator;
@@ -53,6 +44,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * @author: unknowIfGuestInDream
