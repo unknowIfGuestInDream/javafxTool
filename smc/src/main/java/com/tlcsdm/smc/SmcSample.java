@@ -27,15 +27,14 @@
 
 package com.tlcsdm.smc;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
+import com.tlcsdm.frame.SampleBase;
+import com.tlcsdm.smc.util.SmcConstant;
+
 import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
-
-import com.tlcsdm.frame.SampleBase;
-
-import cn.hutool.core.io.ManifestUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 
 public abstract class SmcSample extends SampleBase {
     public static final ProjectInfo PROJECT_INFO = new ProjectInfo();
@@ -58,26 +57,15 @@ public abstract class SmcSample extends SampleBase {
         public ProjectInfo() {
 
             try {
-//                List<URL> list = ResourceUtil.getResources("META-INF/MANIFEST.MF", new Filter<URL>() {
-//
-//                    @Override
-//                    public boolean accept(URL t) {
-//                        System.out.println(t);
-//                        return false;
-//                    }
-//                });
                 InputStream s = SmcSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
                 Manifest manifest = new Manifest(s);
-                // 在构建exe可执行文件时，通过模块化获会读取不到MANIFEST
-                if (manifest == null) {
-                    manifest = ManifestUtil.getManifest(SmcSampler.class);
-                }
                 Attributes attr = manifest.getMainAttributes();
-                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), "Unknow");
-                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), "Unknow");
+                //SmcConstant变量是为了打包exe时使用
+                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), SmcConstant.PROJECT_VERSION);
+                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), SmcConstant.PROJECT_BUILD_DAY);
             } catch (Throwable e) {
-                version = "";
-                date = "";
+                version = SmcConstant.PROJECT_VERSION;
+                date = SmcConstant.PROJECT_BUILD_DAY;
                 StaticLog.error("MANIFEST信息获取失败");
             }
         }
