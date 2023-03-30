@@ -25,20 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.util;
-
-import com.tlcsdm.frame.Sample;
-import javafx.scene.control.TreeItem;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.tlcsdm.core.exception;
 
 /**
- * Sample 对象工厂
+ * Sample组件定义错误
  *
  * @author: unknowIfGuestInDream
- * @date: 2023/3/29 20:52
+ * @date: 2023/1/3 21:10
  */
-public class SampleFactory {
-    public static List<TreeItem<Sample>> Samples = new ArrayList<>();
+public class SampleDefinitionException extends RuntimeException {
+    public SampleDefinitionException() {
+
+    }
+
+    public SampleDefinitionException(String message) {
+        super(message);
+    }
+
+    public SampleDefinitionException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public SampleDefinitionException(Throwable cause) {
+        super(cause);
+    }
 }
