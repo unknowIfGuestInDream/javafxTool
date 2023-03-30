@@ -78,14 +78,6 @@ public class SmcConstant {
      * 日文
      */
     public static final String LANGUAGE_JAPANESE = "日本語";
-    /**
-     * 默认项目版本号
-     */
-    public static final String PROJECT_VERSION = "1.0.1";
-    /**
-     * 项目构建日期
-     */
-    public static final String PROJECT_BUILD_DAY = "2023-03-19";
 
     private SmcConstant() {
     }
