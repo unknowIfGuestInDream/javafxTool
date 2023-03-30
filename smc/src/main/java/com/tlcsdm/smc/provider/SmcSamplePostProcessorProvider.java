@@ -48,6 +48,10 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
 
     @Override
     public void postProcessBeanFactory() {
+        // 防止重启带来的重复数据
+        if (sampleNodeList.size() > 0) {
+            return;
+        }
         SamplePostProcessorService.Samples.forEach(s -> {
             Sample sample = s.getValue();
             TreeNode<String> node = new TreeNode<>();

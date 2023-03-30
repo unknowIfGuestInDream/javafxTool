@@ -27,11 +27,8 @@
 
 package com.tlcsdm.login;
 
-import java.util.Objects;
-import java.util.ServiceLoader;
-
+import com.tlcsdm.login.service.LoginCheck;
 import com.tlcsdm.login.util.I18nUtils;
-
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -43,6 +40,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Objects;
+import java.util.ServiceLoader;
 
 /**
  * 登录框架

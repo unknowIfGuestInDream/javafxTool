@@ -13,10 +13,10 @@ module com.tlcsdm.frame {
     exports com.tlcsdm.frame.model;
     exports com.tlcsdm.frame.service;
 
-    uses com.tlcsdm.frame.FXSamplerProject;
-    uses com.tlcsdm.frame.MenubarConfigration;
-    uses com.tlcsdm.frame.FXSamplerConfiguration;
-    uses com.tlcsdm.frame.CenterPanelService;
-    uses com.tlcsdm.frame.SplashScreen;
+    uses com.tlcsdm.frame.service.FXSamplerProject;
+    uses com.tlcsdm.frame.service.MenubarConfigration;
+    uses com.tlcsdm.frame.service.FXSamplerConfiguration;
+    uses com.tlcsdm.frame.service.CenterPanelService;
+    uses com.tlcsdm.frame.service.SplashScreen;
     uses com.tlcsdm.frame.service.SamplePostProcessorService;
 }

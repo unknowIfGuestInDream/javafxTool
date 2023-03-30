@@ -25,28 +25,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.smc.provider;
 
-import org.controlsfx.control.MaskerPane;
-
-import com.tlcsdm.frame.CenterPanelService;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
-
+import com.tlcsdm.frame.service.CenterPanelService;
+import com.tlcsdm.smc.SmcSample;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import org.controlsfx.control.MaskerPane;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2022/10/22 21:00
  */
-public class SmcCenterPanelService implements CenterPanelService {
+public class SmcCenterPanelProvider implements CenterPanelService {
 
     private SmcSample selectedSample;
     private Project selectedProject;

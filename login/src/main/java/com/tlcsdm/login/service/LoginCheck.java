@@ -1,22 +1,22 @@
-/**
- * Copyright (c) 2015, 2020, ControlsFX
+/*
+ * Copyright (c) 2019, 2023 unknowIfGuestInDream
  * All rights reserved.
- * <p>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * * Redistributions of source code must retain the above copyright
+ *     * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright
+ *     * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- * * Neither the name of ControlsFX, any associated website, nor the
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- * <p>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL CONTROLSFX BE LIABLE FOR ANY
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -24,20 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.tlcsdm.frame;
 
-import javafx.scene.image.Image;
+package com.tlcsdm.login.service;
 
-public interface FXSamplerConfiguration {
-    String getSceneStylesheet();
+import com.tlcsdm.login.LoginNodes;
+import javafx.stage.Stage;
+
+/**
+ * 登录校验(应用模块实现)
+ */
+public interface LoginCheck {
 
     /**
-     * UI的名称
+     * 判断信息是否填写完全
      */
-    String getStageTitle();
+    boolean checkInformation(LoginNodes loginNodes);
 
     /**
-     * 程序logo
+     * 登录按钮功能实现
      */
-    Image getAppIcon();
+    void loginAction(Stage stage, LoginNodes loginNodes);
+
+    /**
+     * 注册按钮功能实现
+     */
+    void signAction(LoginNodes loginNodes);
+
+    /**
+     * 登录页组件设定
+     */
+    void initNode(LoginNodes loginNodes);
+
 }
