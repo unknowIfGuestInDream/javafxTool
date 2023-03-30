@@ -28,9 +28,8 @@
 package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.login.LoginCheck;
 import com.tlcsdm.login.LoginNodes;
-
+import com.tlcsdm.login.service.LoginCheck;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

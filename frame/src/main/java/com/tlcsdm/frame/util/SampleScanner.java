@@ -28,10 +28,10 @@
 package com.tlcsdm.frame.util;
 
 import com.tlcsdm.core.util.InterfaceScanner;
-import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.model.Project;
+import com.tlcsdm.frame.service.FXSamplerProject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;

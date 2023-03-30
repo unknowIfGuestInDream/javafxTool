@@ -27,9 +27,8 @@
 
 package com.tlcsdm.frame.model;
 
-import com.tlcsdm.frame.CenterPanelService;
 import com.tlcsdm.frame.Sample;
-
+import com.tlcsdm.frame.service.CenterPanelService;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

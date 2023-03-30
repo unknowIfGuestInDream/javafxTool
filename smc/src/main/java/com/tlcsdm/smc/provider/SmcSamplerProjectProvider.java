@@ -25,11 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.smc.provider;
 
 import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.frame.FXSamplerProject;
 import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.service.FXSamplerProject;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -40,7 +40,7 @@ import javafx.scene.layout.VBox;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SmcSamplerProject implements FXSamplerProject {
+public class SmcSamplerProjectProvider implements FXSamplerProject {
 
     /**
      * {@inheritDoc}

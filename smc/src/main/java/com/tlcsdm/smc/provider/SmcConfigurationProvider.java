@@ -25,18 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.skin;
+package com.tlcsdm.smc.provider;
 
-import com.tlcsdm.smc.provider.SmcConfigurationProvider;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.frame.service.FXSamplerConfiguration;
+import com.tlcsdm.smc.util.I18nUtils;
+import javafx.scene.image.Image;
 
 import java.util.Objects;
 
-public class MistSilverSkin extends SmcConfigurationProvider {
+public class SmcConfigurationProvider implements FXSamplerConfiguration {
 
     @Override
     public String getSceneStylesheet() {
-        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/mistSilverSkin.css"))
+        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/fxsampler.css"))
                 .toExternalForm();
+    }
+
+    @Override
+    public String getStageTitle() {
+        return I18nUtils.get("smc.stage.title");
+    }
+
+    @Override
+    public Image getAppIcon() {
+        return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/fxsampler/smc_256.png"));
     }
 
 }

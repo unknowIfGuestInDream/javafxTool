@@ -25,18 +25,30 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.skin;
+package com.tlcsdm.frame.service;
 
-import com.tlcsdm.smc.provider.SmcConfigurationProvider;
+import com.tlcsdm.frame.FXSampler;
+import javafx.scene.control.MenuBar;
+import javafx.stage.Stage;
 
-import java.util.Objects;
+/**
+ * 菜单栏配置(应用模块实现)
+ */
+public interface MenubarConfigration {
 
-public class MistSilverSkin extends SmcConfigurationProvider {
+    MenuBar menuBar = new MenuBar();
 
-    @Override
-    public String getSceneStylesheet() {
-        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/mistSilverSkin.css"))
-                .toExternalForm();
+    MenuBar setMenuBar(MenuBar menuBar);
+
+    default MenuBar getMenuBar() {
+        Stage primaryStage = FXSampler.getStage();
+        setMenuBar(menuBar);
+        // 设置菜单条长度
+        menuBar.setPrefWidth(primaryStage.getWidth());
+        // 宽度监听设置菜单条长度
+        menuBar.widthProperty()
+                .addListener((observable, oldValue, newValue) -> menuBar.setPrefWidth(newValue.doubleValue()));
+        return menuBar;
     }
 
 }

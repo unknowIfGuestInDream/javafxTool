@@ -25,12 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.smc.provider;
 
 import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.login.LoginCheck;
 import com.tlcsdm.login.LoginNodes;
-
+import com.tlcsdm.login.service.LoginCheck;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -41,7 +40,7 @@ import javafx.stage.Stage;
  * @author: unknowIfGuestInDream
  * @date: 2022/10/22 9:16
  */
-public class SmcLoginCheck implements LoginCheck {
+public class SmcLoginCheckProvider implements LoginCheck {
     @Override
     public boolean checkInformation(LoginNodes loginNodes) {
         if ("".equals(loginNodes.tfUser().getText()) || "".equals(loginNodes.tfPassword().getText())) {
