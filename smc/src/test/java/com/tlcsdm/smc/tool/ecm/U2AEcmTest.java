@@ -282,6 +282,14 @@ public class U2AEcmTest {
         String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
+        if (errorSourceenName.endsWith("*7")) {
+            errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*7", "(For debug purpose only)");
+            if (errorSourcejpName.endsWith("*7")) {
+                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグのみを目的とする)");
+            } else {
+                errorSourcejpName += "(デバッグのみを目的とする)";
+            }
+        }
         errorSource.put("errorSourceenName", errorSourceenName);
         errorSource.put("errorSourcejpName", errorSourcejpName);
 
@@ -380,9 +388,6 @@ public class U2AEcmTest {
         }
         if (data.contains("H - Bus")) {
             data = data.replaceAll("H - Bus", "H-Bus");
-        }
-        if (data.endsWith("*7")) {
-            data = StrUtil.replaceLast(data, "*7", "(For debug purpose only)");
         }
         return data;
     }
