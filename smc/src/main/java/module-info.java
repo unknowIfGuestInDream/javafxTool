@@ -48,6 +48,7 @@ module com.tlcsdm.smc {
     requires freemarker;
 
     exports com.tlcsdm.smc;
+    exports com.tlcsdm.smc.provider to com.tlcsdm.frame, com.tlcsdm.login;
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitTest to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
@@ -59,7 +60,6 @@ module com.tlcsdm.smc {
     opens com.tlcsdm.smc.tools to javafx.graphics;
     opens com.tlcsdm.smc.unitDesign to javafx.graphics;
     opens com.tlcsdm.smc.unitTest to javafx.graphics;
-    exports com.tlcsdm.smc.provider;
 
     provides FXSamplerProject with SmcSamplerProjectProvider;
     provides MenubarConfigration with SmcMenubarConfigrationProvider;
@@ -68,6 +68,5 @@ module com.tlcsdm.smc {
     provides SplashScreen with SmcSplashProvider;
     provides LoginCheck with SmcLoginCheckProvider;
     provides com.tlcsdm.core.freemarker.TemplateLoaderService with com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
-    provides com.tlcsdm.frame.service.SamplePostProcessorService
-            with com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
+    provides com.tlcsdm.frame.service.SamplePostProcessorService with com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
 }

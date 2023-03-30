@@ -16,6 +16,7 @@ smc: 个人应用(无需参考)
 ## 接口
 ### core
 - TemplateLoaderService: freemarker TemplateLoader加载，子类实现以添加子模块的模板路径
+
 ### frame
 - FXSamplerProject: project信息，包含project名，模块，包名，欢迎页
 - MenubarConfigration: 菜单栏配置
@@ -23,6 +24,7 @@ smc: 个人应用(无需参考)
 - CenterPanelService: 中心区域的Node配置, 包含点击和切换组件时的接口
 - SplashScreen: 闪屏图片
 - SamplePostProcessorService: Sample资源后置处理
+
 ### login
 - LoginCheck: 登录校验
 
