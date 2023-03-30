@@ -9,7 +9,7 @@ module com.tlcsdm.demo {
     exports com.tlcsdm.demo.samples to javafx.graphics;
     exports com.tlcsdm.demo.samples.actions to com.tlcsdm.frame;
     exports com.tlcsdm.demo.samples.button to com.tlcsdm.frame;
-    exports com.tlcsdm.demo.samples.checked to com.tlcsdm.frame;
+    exports com.tlcsdm.demo.samples.checked to com.tlcsdm.frame, javafx.graphics;
     exports com.tlcsdm.demo.samples.dialogs to com.tlcsdm.frame;
     exports com.tlcsdm.demo.samples.propertysheet to com.tlcsdm.frame;
     exports com.tlcsdm.demo.samples.tablefilter to com.tlcsdm.frame;
