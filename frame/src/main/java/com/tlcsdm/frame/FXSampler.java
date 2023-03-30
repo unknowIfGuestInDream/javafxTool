@@ -32,6 +32,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
@@ -41,8 +42,8 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.model.*;
+import com.tlcsdm.frame.service.SamplePostProcessorService;
 import com.tlcsdm.frame.util.I18nUtils;
-import com.tlcsdm.frame.util.SampleFactory;
 import com.tlcsdm.frame.util.SampleScanner;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -300,7 +301,17 @@ public final class FXSampler extends Application {
      */
     public void initializeSource() {
         // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
-        SampleFactory.Samples.addAll(projects);
+        SamplePostProcessorService.Samples.addAll(projects);
+        ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader
+                .load(SamplePostProcessorService.class);
+        try {
+            for (SamplePostProcessorService samplePostProcessor : samplePostProcessorServices) {
+                samplePostProcessor.postProcessBeanFactory();
+            }
+        } catch (SampleDefinitionException e) {
+            StaticLog.error(e);
+        }
+
     }
 
     void buildSampleTree(String searchText) {

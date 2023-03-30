@@ -22,6 +22,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
+    exports com.tlcsdm.smc.provider to com.tlcsdm.frame, com.tlcsdm.login;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
@@ -36,4 +37,6 @@ module com.tlcsdm.smc {
     provides com.tlcsdm.frame.SplashScreen with com.tlcsdm.smc.SmcSplash;
     provides com.tlcsdm.login.LoginCheck with com.tlcsdm.smc.SmcLoginCheck;
     provides com.tlcsdm.core.freemarker.TemplateLoaderService with com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
+    provides com.tlcsdm.frame.service.SamplePostProcessorService
+            with com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
 }
