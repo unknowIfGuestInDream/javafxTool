@@ -48,7 +48,7 @@
     </appender>
     <appender name="CONSOLELOGAPPENDER" class="com.tlcsdm.core.logging.logback.ConsoleLogAppender">
         <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{3600} - %msg%n</pattern>
             <charset>${CONSOLE_LOG_CHARSET}</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">

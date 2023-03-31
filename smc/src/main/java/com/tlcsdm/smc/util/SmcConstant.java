@@ -64,8 +64,9 @@ public class SmcConstant {
     public static final String PROJECT_COPYRIGHT = "Copyright © 2023 unknowIfGuestInDream";
     /**
      * 发布版本
+     * 可由VersionCheckerService实现类修改数据
      */
-    public static final String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases";
+    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases";
     /**
      * 简体中文
      */
@@ -86,6 +87,14 @@ public class SmcConstant {
      * 项目构建日期
      */
     public static final String PROJECT_BUILD_DAY = "2023-03-19";
+    /**
+     * 检查更新所用的api
+     */
+    public static final String PROJECT_VERSION_CHECK_URL = "https://api.github.com/repos/unknowIfGuestInDream/javafxTool/releases";
+    /**
+     * 用于校验的tag后缀
+     */
+    public static final String PROJECT_TAG_SUBFIX = "-smc";
 
     private SmcConstant() {
     }

@@ -29,11 +29,11 @@ package com.tlcsdm.frame;
 
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -96,24 +96,22 @@ public final class FXSampler extends Application {
         stage = primaryStage;
         StaticLog.debug("Load splash screen image");
         loadSplash();
-        ThreadUtil.execute(() -> {
-            StaticLog.debug("Initialize the system environment");
-            JavaFxSystemUtil.initSystemLocal();
-            showInfo(I18nUtils.get("frame.splash.init.version"));
-            StaticLog.debug("Initialize system resources");
-            initializeSystem();
-            Platform.runLater(() -> {
-                try {
-                    StaticLog.debug("Initialize UI resources");
-                    initializeUI();
-                    ThreadUtil.execAsync(() -> {
-                        StaticLog.debug("Initialize resources");
-                        initializeSource();
-                    }).get();
-                } catch (Throwable e) {
-                    FxAlerts.exception(e);
-                }
-            });
+        StaticLog.debug("Initialize the system environment");
+        JavaFxSystemUtil.initSystemLocal();
+        showInfo(I18nUtils.get("frame.splash.init.version"));
+        StaticLog.debug("Initialize system resources");
+        initializeSystem();
+        Platform.runLater(() -> {
+            try {
+                StaticLog.debug("Initialize UI resources");
+                initializeUI();
+                ThreadPoolTaskExecutor.get().execute(() -> {
+                    StaticLog.debug("Initialize resources");
+                    initializeSource();
+                });
+            } catch (Throwable e) {
+                FxAlerts.exception(e);
+            }
         });
     }
 
@@ -290,6 +288,19 @@ public final class FXSampler extends Application {
         }
         // 加载上次位置
         StageUtils.loadPrimaryStageBound(stage);
+        stage.setOnShown(windowEvent -> {
+            if (Config.getBoolean(Config.Keys.CheckForUpdatesAtStartup, true)) {
+                // 检查更新
+                StaticLog.debug("Version Checker...");
+                ThreadPoolTaskExecutor.get().execute(() -> {
+                    ServiceLoader<VersionCheckerService> versionCheckerServices = ServiceLoader
+                            .load(VersionCheckerService.class);
+                    for (VersionCheckerService versionCheckerService : versionCheckerServices) {
+                        versionCheckerService.checkNewVersion();
+                    }
+                });
+            }
+        });
         stage.show();
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
@@ -311,7 +322,6 @@ public final class FXSampler extends Application {
         } catch (SampleDefinitionException e) {
             StaticLog.error(e);
         }
-
     }
 
     void buildSampleTree(String searchText) {
