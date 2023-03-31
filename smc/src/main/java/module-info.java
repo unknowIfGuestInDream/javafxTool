@@ -25,9 +25,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.tlcsdm.frame.service.*;
+import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import com.tlcsdm.frame.service.CenterPanelService;
+import com.tlcsdm.frame.service.FXSamplerConfiguration;
+import com.tlcsdm.frame.service.FXSamplerProject;
+import com.tlcsdm.frame.service.MenubarConfigration;
+import com.tlcsdm.frame.service.SamplePostProcessorService;
+import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.login.service.LoginCheck;
-import com.tlcsdm.smc.provider.*;
+import com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
+import com.tlcsdm.smc.provider.SmcCenterPanelProvider;
+import com.tlcsdm.smc.provider.SmcConfigurationProvider;
+import com.tlcsdm.smc.provider.SmcLoginCheckProvider;
+import com.tlcsdm.smc.provider.SmcMenubarConfigrationProvider;
+import com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
+import com.tlcsdm.smc.provider.SmcSamplerProjectProvider;
+import com.tlcsdm.smc.provider.SmcSplashProvider;
 
 module com.tlcsdm.smc {
     requires java.desktop;
@@ -67,6 +80,6 @@ module com.tlcsdm.smc {
     provides FXSamplerConfiguration with SmcConfigurationProvider;
     provides SplashScreen with SmcSplashProvider;
     provides LoginCheck with SmcLoginCheckProvider;
-    provides com.tlcsdm.core.freemarker.TemplateLoaderService with com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
-    provides com.tlcsdm.frame.service.SamplePostProcessorService with com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
+    provides TemplateLoaderService with SmcTemplateLoaderProvider;
+    provides SamplePostProcessorService with SmcSamplePostProcessorProvider;
 }
