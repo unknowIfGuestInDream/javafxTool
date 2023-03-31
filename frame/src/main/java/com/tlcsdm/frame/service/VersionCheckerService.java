@@ -25,33 +25,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.view;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+package com.tlcsdm.frame.service;
 
 /**
- * 设置页面
+ * 检查更新
  *
- * @author xufeng
+ * @author: unknowIfGuestInDream
+ * @date: 2023/3/31 20:49
  */
+public interface VersionCheckerService {
 
-public abstract class SystemSettingView implements Initializable {
-
-    @FXML
-    protected CheckBox exitShowAlertCheckBox;
-
-    @FXML
-    protected CheckBox saveStageBoundCheckBox;
-
-    @FXML
-    protected CheckBox checkForUpdatesAtStartupCheckBox;
-
-    @FXML
-    protected Button saveButton;
-
-    @FXML
-    protected Button cancelButton;
+    /**
+     * 检查更新
+     */
+    void checkNewVersion();
 }
