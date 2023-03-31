@@ -4,12 +4,12 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright
+ *     * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
+ *     * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
  *
@@ -27,35 +27,6 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import java.io.File;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.NumberTextField;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxAlerts;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.util.CoreUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.UUID;
@@ -65,17 +36,37 @@ import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -150,86 +141,87 @@ public class DtsTriggerSourceDoc extends SmcSample {
         ThreadPoolTaskExecutor.get().execute(new Runnable() {
             @Override
             public void run() {
-                StaticLog.info("Extracting data...");
-                // 输入值获取
-                List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
-                String excel = excelField.getText();
-                String outputPath = outputField.getText();
-                int groupNum = groups.size();
-                String deviceNameAndStartCol = deviceNameAndStartColField.getText();
-                String sheetName = sheetNameField.getText();
-                String conditionCol = conditionColField.getText();
-                int startRow = Integer.parseInt(startRowField.getText());
-                int endRow = Integer.parseInt(endRowField.getText());
-                int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
-                String templatePath = templateField.getText();
-                // 所需变量赋值
-                List<String> deviceNames = new ArrayList<>();
-                List<String> startCols = new ArrayList<>();
-                String resultFileName = defaultTemplateName;
-                parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
-                // 数据读取列
-                List<ArrayList<String>> groupLines = new ArrayList<>();
-                buildGroupLines(groupLines, startCols, groupNum);
-                // trigger factor信息
-                List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
-                List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
-                List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
-                final String number = "2-02-001-";
-                final String control = "ComboBox";
-                final String labelEn = "Trigger resource";
-                final String labelJa = "起動要因";
-                final String condition = "Always enable";
-                // 文件模板
-                InputStream templateFile;
-                if (StrUtil.isEmpty(templatePath)) {
-                    templateFile = ResourceUtil.getStream(defaultTemplatePath);
-                } else {
-                    templateFile = FileUtil.getInputStream(templatePath);
-                    resultFileName = FileUtil.getName(templatePath);
-                }
-                CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
-                int startConditionX = cellLocation.getX();
-                StaticLog.info("Processing data...");
-                // 处理数据
-                ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
-                int initialCapacity = CoreUtil.newHashMapWithExpectedSize(groupNum);
-                for (int i = startRow; i <= endRow; i++) {
-                    Map<Integer, String> map = new HashMap<>(initialCapacity);
-                    for (int j = 0; j < groupNum; j++) {
-                        String groupValue = reader.getCell(groups.get(j) + i).getStringCellValue();
-                        map.put(j, groupValue);
+                try {
+                    StaticLog.info("Extracting data...");
+                    // 输入值获取
+                    List<String> groups = StrUtil.splitTrim(groupField.getText(), ",");
+                    String excel = excelField.getText();
+                    String outputPath = outputField.getText();
+                    int groupNum = groups.size();
+                    String deviceNameAndStartCol = deviceNameAndStartColField.getText();
+                    String sheetName = sheetNameField.getText();
+                    String conditionCol = conditionColField.getText();
+                    int startRow = Integer.parseInt(startRowField.getText());
+                    int endRow = Integer.parseInt(endRowField.getText());
+                    int beginWriteRowNum = Integer.parseInt(beginWriteRowNumField.getText());
+                    String templatePath = templateField.getText();
+                    // 所需变量赋值
+                    List<String> deviceNames = new ArrayList<>();
+                    List<String> startCols = new ArrayList<>();
+                    String resultFileName = defaultTemplateName;
+                    parseXmlConfig(deviceNameAndStartCol, deviceNames, startCols);
+                    // 数据读取列
+                    List<ArrayList<String>> groupLines = new ArrayList<>();
+                    buildGroupLines(groupLines, startCols, groupNum);
+                    // trigger factor信息
+                    List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
+                    List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
+                    List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
+                    final String number = "2-02-001-";
+                    final String control = "ComboBox";
+                    final String labelEn = "Trigger resource";
+                    final String labelJa = "起動要因";
+                    final String condition = "Always enable";
+                    // 文件模板
+                    InputStream templateFile;
+                    if (StrUtil.isEmpty(templatePath)) {
+                        templateFile = ResourceUtil.getStream(defaultTemplatePath);
+                    } else {
+                        templateFile = FileUtil.getInputStream(templatePath);
+                        resultFileName = FileUtil.getName(templatePath);
                     }
-                    triggerFactorRowNumList.add(groupNum);
-                    triggerFactorList.add(map);
-                }
-                for (ArrayList<String> arrayList : groupLines) {
-                    List<Map<Integer, String>> list = new ArrayList<>();
+                    CellLocation cellLocation = ExcelUtil.toLocation(conditionCol + beginWriteRowNum);
+                    int startConditionX = cellLocation.getX();
+                    StaticLog.info("Processing data...");
+                    // 处理数据
+                    ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), sheetName);
+                    int initialCapacity = CoreUtil.newHashMapWithExpectedSize(groupNum);
                     for (int i = startRow; i <= endRow; i++) {
                         Map<Integer, String> map = new HashMap<>(initialCapacity);
                         for (int j = 0; j < groupNum; j++) {
-                            map.put(j, reader.getCell(arrayList.get(j) + i).getStringCellValue());
+                            String groupValue = reader.getCell(groups.get(j) + i).getStringCellValue();
+                            map.put(j, groupValue);
                         }
-                        list.add(map);
+                        triggerFactorRowNumList.add(groupNum);
+                        triggerFactorList.add(map);
                     }
-                    conditionList.add(list);
-                }
-                reader.close();
-                // 数据写入
-                String tmpName = UUID.fastUUID() + ".xlsx";
-                File tmpFile = FileUtil.newFile(outputPath + "\\" + tmpName);
-                FileUtil.writeFromStream(templateFile, tmpFile);
-                BigExcelWriter excelWriter = ExcelUtil.getBigWriter(tmpFile, sheetName);
-                excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
-                int line = beginWriteRowNum;
-                for (int i = 0; i < 128; i++) {
-                    // int rowNum = triggerFactorRowNumList.get(i);
-                    int rowNum = groupNum;
-                    int regnum = i / 8;
-                    int n = i % 8;
-                    int group = 0;
-                    for (int j = 0; j < groupNum; j++) {
-                        Map<Integer, String> map = triggerFactorList.get(i);
+                    for (ArrayList<String> arrayList : groupLines) {
+                        List<Map<Integer, String>> list = new ArrayList<>();
+                        for (int i = startRow; i <= endRow; i++) {
+                            Map<Integer, String> map = new HashMap<>(initialCapacity);
+                            for (int j = 0; j < groupNum; j++) {
+                                map.put(j, reader.getCell(arrayList.get(j) + i).getStringCellValue());
+                            }
+                            list.add(map);
+                        }
+                        conditionList.add(list);
+                    }
+                    reader.close();
+                    // 数据写入
+                    String tmpName = UUID.fastUUID() + ".xlsx";
+                    File tmpFile = FileUtil.newFile(outputPath + "\\" + tmpName);
+                    FileUtil.writeFromStream(templateFile, tmpFile);
+                    BigExcelWriter excelWriter = ExcelUtil.getBigWriter(tmpFile, sheetName);
+                    excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
+                    int line = beginWriteRowNum;
+                    for (int i = 0; i < 128; i++) {
+                        // int rowNum = triggerFactorRowNumList.get(i);
+                        int rowNum = groupNum;
+                        int regnum = i / 8;
+                        int n = i % 8;
+                        int group = 0;
+                        for (int j = 0; j < groupNum; j++) {
+                            Map<Integer, String> map = triggerFactorList.get(i);
 //                      for (int k = 0; k < 4; k++) {
 //                          if (!map.containsKey(group)) {
 //                              group++;
@@ -238,72 +230,78 @@ public class DtsTriggerSourceDoc extends SmcSample {
 //                          }
 //                      }
 
-                        int initx = group;
-                        String initValue = "";
-                        for (int k = 0; k < groupNum; k++) {
-                            if ("Reserved".equals(map.get(initx)) || "Reserve".equals(map.get(initx))) {
-                                initx++;
-                            } else {
-                                initValue = map.get(initx);
-                                break;
-                            }
-                        }
-
-                        if (j == 0) {
-                            excelWriter.writeCellValue("B" + line, number + String.format("%03d", i));
-                            excelWriter.writeCellValue("C" + line, control);
-                            excelWriter.writeCellValue("D" + line, rowNum);
-                            excelWriter.writeCellValue("E" + line, labelEn);
-                            excelWriter.writeCellValue("F" + line, labelJa);
-                            excelWriter.writeCellValue("G" + line, condition);
-                            excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
-                            excelWriter.writeCellValue("T" + line, condition);
-                        }
-//                  excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
-                        excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
-                        excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
-                        excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
-                        excelWriter.writeCellValue("BK" + (line + j), "Config.c");
-                        excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
-                        excelWriter.writeCellValue("BM" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
-                        excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
-                        excelWriter.writeCellValue("BO" + (line + j), "Config.c");
-                        excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
-                        excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
-
-                        int x = startConditionX;
-                        for (List<Map<Integer, String>> list : conditionList) {
-                            for (int l = 0; l < list.size(); l++) {
-                                if (l == i) {
-                                    excelWriter.writeCellValue(x, (line + j - 1), list.get(l).get(group));
+                            int initx = group;
+                            String initValue = "";
+                            for (int k = 0; k < groupNum; k++) {
+                                if ("Reserved".equals(map.get(initx)) || "Reserve".equals(map.get(initx))) {
+                                    initx++;
                                 } else {
-                                    excelWriter.writeCellValue(x, (line + j - 1), "-");
+                                    initValue = map.get(initx);
+                                    break;
                                 }
-                                x++;
                             }
-                        }
-                        group++;
-                    }
 
-                    line += rowNum;
-                }
-                StaticLog.info("Generate result...");
-                if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
-                    FileUtil.del(outputPath + "\\" + resultFileName);
-                }
-                File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
-                excelWriter.flush(file);
-                excelWriter.close();
-                FileUtil.del(tmpFile);
-                FxApp.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        notificationBuilder
-                                .text((I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success")));
-                        notificationBuilder.showInformation();
+                            if (j == 0) {
+                                excelWriter.writeCellValue("B" + line, number + String.format("%03d", i));
+                                excelWriter.writeCellValue("C" + line, control);
+                                excelWriter.writeCellValue("D" + line, rowNum);
+                                excelWriter.writeCellValue("E" + line, labelEn);
+                                excelWriter.writeCellValue("F" + line, labelJa);
+                                excelWriter.writeCellValue("G" + line, condition);
+                                excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
+                                excelWriter.writeCellValue("T" + line, condition);
+                            }
+//                  excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
+                            excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
+                            excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
+                            excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
+                            excelWriter.writeCellValue("BK" + (line + j), "Config.c");
+                            excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
+                            excelWriter.writeCellValue("BM" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
+                            excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
+                            excelWriter.writeCellValue("BO" + (line + j), "Config.c");
+                            excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
+                            excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
+
+                            int x = startConditionX;
+                            for (List<Map<Integer, String>> list : conditionList) {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (l == i) {
+                                        excelWriter.writeCellValue(x, (line + j - 1), list.get(l).get(group));
+                                    } else {
+                                        excelWriter.writeCellValue(x, (line + j - 1), "-");
+                                    }
+                                    x++;
+                                }
+                            }
+                            group++;
+                        }
+
+                        line += rowNum;
                     }
-                });
-                bindUserData();
+                    StaticLog.info("Generate result...");
+                    if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
+                        FileUtil.del(outputPath + "\\" + resultFileName);
+                    }
+                    File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
+                    excelWriter.flush(file);
+                    excelWriter.close();
+                    FileUtil.del(tmpFile);
+                    FxApp.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            notificationBuilder
+                                    .text((I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success")));
+                            notificationBuilder.showInformation();
+                        }
+                    });
+                    bindUserData();
+                } catch (Exception e) {
+                    FxApp.runLater(() -> {
+                        ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+                        exceptionDialog.show();
+                    });
+                }
             }
         });
     });

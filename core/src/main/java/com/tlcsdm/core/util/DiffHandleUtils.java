@@ -27,19 +27,17 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.util.StrUtil;
+import com.github.difflib.UnifiedDiffUtils;
+import com.github.difflib.patch.Patch;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import com.github.difflib.UnifiedDiffUtils;
-import com.github.difflib.patch.Patch;
 
 /**
  * @author: unknowIfGuestInDream
@@ -67,7 +65,7 @@ public class DiffHandleUtils {
      * @param revisedFileName  对比文件名
      */
     public static List<String> diffString(List<String> original, List<String> revised, String originalFileName,
-            String revisedFileName) {
+                                          String revisedFileName) {
         originalFileName = originalFileName == null ? "原始文件" : originalFileName;
         revisedFileName = revisedFileName == null ? "对比文件" : revisedFileName;
         // 两文件的不同点
@@ -114,15 +112,16 @@ public class DiffHandleUtils {
         return diffString(original, revised, originalFile.getName(), revisedFile.getName());
     }
 
+    public static void generateDiffHtml(List<String> diffString, String htmlPath) {
+        generateDiffHtml(htmlPath, List.of(diffString));
+    }
+
     /**
      * 通过两文件的差异diff生成 html文件，打开此 html文件便可看到文件对比的明细内容
-     *
-     * @param diffString 调用上面 diffString方法获取到的对比结果
-     * @param htmlPath   生成的html路径，如:/user/var/mbos/ent/21231/diff.html
      */
-    public static void generateDiffHtml(List<String> diffString, String htmlPath) {
-        String template = getDiffHtml(diffString);
-        FileWriter f = null; // 文件读取为字符流
+    public static void generateDiffHtml(String htmlPath, List<List<String>> diffStringList) {
+        String template = getDiffHtml(diffStringList);
+        FileWriter f; // 文件读取为字符流
         try {
             f = new FileWriter(htmlPath);
             BufferedWriter buf = new BufferedWriter(f); // 文件加入缓冲区
@@ -136,56 +135,91 @@ public class DiffHandleUtils {
 
     /**
      * 通过两文件的差异diff生成 html文件，打开此 html文件便可看到文件对比的明细内容
-     *
-     * @param diffString 调用上面 diffString方法获取到的对比结果
-     * @param htmlPath   生成的html路径，如:/user/var/mbos/ent/21231/diff.html
      */
-    public static String getDiffHtml(List<String> diffString) {
-        StringBuilder builder = new StringBuilder();
-        for (String line : diffString) {
-            builder.append(line);
-            builder.append("\n");
-        }
+    public static String getDiffHtml(List<List<String>> diffStringList) {
         // 如果打开html为空白界面，可能cdn加载githubCss失败 ,githubCss 链接可替换为
         // https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css
-        // String githubCss =
-        // "https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/css/github.min.css";
         String githubCss = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css";
-        // String githubCss =
-        // ResourceUtil.getResource("static/public/diff/github.min.css").getPath();
-        // 如果打开html为空白界面，可能cdn加载diff2htmlCss失败 ,diff2htmlCss 链接可替换为
-        // https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css
-        // String diff2htmlCss =
-        // "https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/css/diff2html.min.css";
+        // String githubCss = ResourceUtil.getResource("static/public/diff/github.min.css").getPath();
         String diff2htmlCss = "https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css";
-        // String diff2htmlCss =
-        // ResourceUtil.getResource("static/public/diff/diff2html.min.css").getPath();
-        // 如果打开html为空白界面，可能cdn加载diff2htmlJs失败, diff2htmlJs 链接可替换为
-        // https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js
-        // String diff2htmlJs =
-        // "https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/js/diff2html-ui.min.js";
         String diff2htmlJs = "https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js";
-        // String diff2htmlJs =
-        // ResourceUtil.getResource("static/public/diff/diff2html-ui.min.js").getPath();
-        String template = "<!DOCTYPE html>\n" + "<html lang=\"en-us\">\n" + "  <head>\n"
-                + "    <meta charset=\"utf-8\" />\n" + "    <meta name=\"google\" content=\"notranslate\"/>\n"
-                + "    <meta name=\"author\" content=\"tangliang0213@163.com\">\n"
-                + "    <link rel=\"stylesheet\" href=\"" + githubCss + "\" />\n"
-                + "    <link rel=\"stylesheet\" type=\"text/css\" href=\"" + diff2htmlCss + "\" />\n"
-                + "    <script type=\"text/javascript\" src=\"" + diff2htmlJs + "\"></script>\n" + "  </head>\n"
-                + "  <script>\n" + "    const diffString = `\n" + "temp\n" + "`;\n" + "\n" + "\n"
-                + "     document.addEventListener('DOMContentLoaded', function () {\n"
-                + "      var targetElement = document.getElementById('myDiffElement');\n"
-                + "      var configuration = {\n" + "        drawFileList: true,\n" + "        fileListToggle: true,\n"
-                + "        fileListStartVisible: true,\n" + "        fileContentToggle: true,\n"
-                + "        matching: 'lines',\n" + "        outputFormat: 'side-by-side',\n"
-                + "        synchronisedScroll: true,\n" + "        highlight: true,\n"
-                + "        renderNothingWhenEmpty: true,\n" + "      };\n"
-                + "      var diff2htmlUi = new Diff2HtmlUI(targetElement, diffString, configuration);\n"
-                + "      diff2htmlUi.draw();\n" + "      diff2htmlUi.highlightCode();\n" + "    });\n" + "  </script>\n"
-                + "  <body>\n" + "    <div id=\"myDiffElement\"></div>\n" + "  </body>\n" + "</html>";
-        template = template.replace("temp", builder.toString());
-        return template;
+        Map<String, Object> map = new HashMap<>();
+        map.put("githubCss", githubCss);
+        map.put("diff2htmlCss", diff2htmlCss);
+        map.put("diff2htmlJs", diff2htmlJs);
+        String template = """
+                <!DOCTYPE html>
+                <html lang="en-us">
+                    
+                <head>
+                  <meta charset="utf-8" />
+                  <meta name="google" content="notranslate" />
+                  <meta name="author" content="liang.tang.cx@gmail.com">
+                  <link rel="stylesheet" href="{githubCss}" />
+                  <link rel="stylesheet" type="text/css" href="{diff2htmlCss}" />
+                  <script type="text/javascript" src="{diff2htmlJs}"></script>
+                </head>
+                <script>
+                {diffString}
+                                
+                  document.addEventListener('DOMContentLoaded', function () {
+                {targetElement}
+                    var configuration = {
+                      drawFileList: true,
+                      fileListToggle: true,
+                      fileListStartVisible: true,
+                      fileContentToggle: true,
+                      matching: 'lines',
+                      outputFormat: 'side-by-side',
+                      synchronisedScroll: true,
+                      highlight: true,
+                      renderNothingWhenEmpty: true,
+                    };
+                {diff2htmlUi}
+                  });
+                </script>
+                <body>
+                {divElement}
+                </body>
+                </html>
+                """;
+        StringJoiner diffStringJoiner = new StringJoiner("\n");
+        StringJoiner targetElementJoiner = new StringJoiner("\n");
+        StringJoiner divElementJoiner = new StringJoiner("\n");
+        StringJoiner diff2htmlUiJoiner = new StringJoiner("\n");
+        for (int i = 0; i < diffStringList.size(); i++) {
+            List<String> diffString = diffStringList.get(i);
+            StringBuilder builder = new StringBuilder();
+            for (String line : diffString) {
+                // 特殊处理 $
+                builder.append(StrUtil.replace(line, "$", "\\$"));
+                builder.append("\n");
+            }
+            Map<String, Object> joinMap = new HashMap<>();
+            joinMap.put("index", i);
+            joinMap.put("temp", builder.toString());
+            diffStringJoiner.add(StrUtil.format("""
+                      const diffString{index} = `
+                    {temp}
+                    `;
+                    """, joinMap));
+            targetElementJoiner.add(StrUtil.format("""
+                        var targetElement{index} = document.getElementById('myDiffElement{index}');
+                    """, joinMap));
+            divElementJoiner.add(StrUtil.format("""
+                      <div id="myDiffElement{index}"></div>
+                    """, joinMap));
+            diff2htmlUiJoiner.add(StrUtil.format("""
+                        var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
+                        diff2htmlUi{index}.draw();
+                        diff2htmlUi{index}.highlightCode();
+                    """, joinMap));
+        }
+        map.put("diffString", diffStringJoiner.toString());
+        map.put("targetElement", targetElementJoiner.toString());
+        map.put("divElement", divElementJoiner.toString());
+        map.put("diff2htmlUi", diff2htmlUiJoiner.toString());
+        return StrUtil.format(template, map);
     }
 
     // 统一差异格式插入到原始文件
