@@ -43,7 +43,7 @@ public class ConfigureUtil {
     }
 
     public static String getConfigurePath() {
-        return System.getProperty("user.home") + "/javafxTool/";
+        return System.getProperty("user.home") + "/javafxTool";
     }
 
     public static String getConfigureTemplatePath() {
