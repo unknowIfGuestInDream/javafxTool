@@ -27,10 +27,10 @@
 
 package com.tlcsdm.frame.util;
 
+import com.tlcsdm.core.javafx.util.Config;
+
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
-
-import com.tlcsdm.core.javafx.util.Config;
 
 /**
  * @author: unknowIfGuestInDream

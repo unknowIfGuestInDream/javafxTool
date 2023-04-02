@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleTree {
-    private TreeNode root;
+    private final TreeNode root;
 
     private int count = 0;
 

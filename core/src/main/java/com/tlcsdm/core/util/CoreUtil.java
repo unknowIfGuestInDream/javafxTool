@@ -27,12 +27,8 @@
 
 package com.tlcsdm.core.util;
 
-import java.awt.Desktop;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.awt.*;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
