@@ -28,12 +28,17 @@
 package com.tlcsdm.smc.codeDev.ecm;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.io.resource.Resource;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -56,6 +61,7 @@ import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -85,6 +91,9 @@ public abstract class AbstractEcmScript extends SmcSample {
     protected TextArea functionConfigField;
     protected TextArea productConfigField;
 
+    private final String defaultTemplateName = "ecm.zip";
+    private final FileChooser downloadChooser = new FileChooser();
+
     protected String outParentFolder = File.separator + "ecm";
     protected Notifications notificationBuilder = FxNotifications.defaultNotify();
 
@@ -102,6 +111,35 @@ public abstract class AbstractEcmScript extends SmcSample {
         JavaFxSystemUtil.openDirectory(path);
     });
 
+    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"),
+            actionEvent -> {
+                downloadChooser.setInitialFileName(defaultTemplateName);
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+                downloadChooser.getExtensionFilters().add(extFilter);
+                File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+                if (file != null) {
+                    if (!StrUtil.endWith(file.getName(), ".zip")) {
+                        notificationBuilder
+                                .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                        notificationBuilder.showWarning();
+                        return;
+                    }
+                    if (file.exists()) {
+                        FileUtil.del(file);
+                    }
+                    String path = "com/tlcsdm/smc/static/templates/smc/ecm";
+                    List<String> fileNames = FileUtil.listFileNames(path);
+                    Resource[] resources = new Resource[fileNames.size()];
+                    for (int i = 0; i < fileNames.size(); i++) {
+                        resources[i] = new ClassPathResource(path + File.separator + fileNames.get(i), getClass().getClassLoader());
+                    }
+                    ZipUtil.zip(file, Charset.defaultCharset(), resources);
+
+                    notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
+                    notificationBuilder.showInformation();
+                }
+            });
+
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
 
@@ -110,7 +148,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, openOutDir);
+    private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -124,7 +162,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
-        Label excelLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.excel") + ": ");
+        Label excelLabel = new Label(I18nUtils.get("smc.tool.ecm.label.excel") + ": ");
         excelField = new TextField();
         excelField.setMaxWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
@@ -140,7 +178,7 @@ public abstract class AbstractEcmScript extends SmcSample {
             }
         });
 
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("smc.tool.ecm.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -154,11 +192,11 @@ public abstract class AbstractEcmScript extends SmcSample {
             }
         });
 
-        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.sheetName") + ": ");
+        Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.ecm.label.sheetName") + ": ");
         sheetNameField = new TextField();
         sheetNameField.setPrefWidth(Double.MAX_VALUE);
 
-        Label startRowLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.startRow") + ": ");
+        Label startRowLabel = new Label(I18nUtils.get("smc.tool.ecm.label.startRow") + ": ");
         startRowField = new NumberTextField();
 
         TitledPane errorSourcePane = createErrorSourceControl();
@@ -212,31 +250,32 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.setHgap(5);
         grid.setPadding(new Insets(5));
 
-        Label errorSourceIdColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.offset") + ": ");
+        Label errorSourceIdColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.errorSourceIdCol") + ": ");
         errorSourceIdColField = new TextField();
+        errorSourceIdColLabel.setMinWidth(130);
         errorSourceIdColField.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(errorSourceIdColField, Priority.ALWAYS);
 
-        Label categoryIdColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.defineLength") + ": ");
+        Label categoryIdColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categoryIdCol") + ": ");
         categoryIdColField = new TextField();
 
-        Label errorSourceNumberColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
+        Label errorSourceNumberColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.errorSourceNumberCol") + ": ");
         errorSourceNumberColField = new TextField();
 
-        Label errorSourcEenNameColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
+        Label errorSourceEnNameColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.errorSourceEnNameCol") + ": ");
         errorSourceEnNameColField = new TextField();
 
-        errorSourceDescColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
+        errorSourceDescColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.errorSourceDescCol") + ": ");
         errorSourceDescColField = new TextField();
 
-        Label errorSourceJpNameColLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.macroTemplate") + ": ");
+        Label errorSourceJpNameColLabel = new Label(I18nUtils.get("smc.tool.ecm.label.errorSourceJpNameCol") + ": ");
         errorSourceJpNameColField = new TextField();
 
-        Label functionConfigLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
+        Label functionConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.functionConfig") + ": ");
         functionConfigField = new TextArea();
         functionConfigField.setMinHeight(130);
 
-        Label productConfigLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
+        Label productConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.productConfig") + ": ");
         productConfigField = new TextArea();
         productConfigField.setMinHeight(150);
 
@@ -246,7 +285,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.add(categoryIdColField, 1, 1);
         grid.add(errorSourceNumberColLabel, 0, 2);
         grid.add(errorSourceNumberColField, 1, 2);
-        grid.add(errorSourcEenNameColLabel, 0, 3);
+        grid.add(errorSourceEnNameColLabel, 0, 3);
         grid.add(errorSourceEnNameColField, 1, 3);
         grid.add(errorSourceDescColLabel, 0, 4);
         grid.add(errorSourceDescColField, 1, 4);
@@ -257,7 +296,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.add(productConfigLabel, 0, 7);
         grid.add(productConfigField, 1, 7);
 
-        return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
+        return new TitledPane(I18nUtils.get("smc.tool.ecm.title.errorSource"), grid);
     }
 
     /**
@@ -269,15 +308,15 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.setHgap(5);
         grid.setPadding(new Insets(5));
 
-        Label categorySheetNameLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.offset") + ": ");
+        Label categorySheetNameLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categorySheetName") + ": ");
         categorySheetNameField = new TextField();
         categorySheetNameField.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(categorySheetNameField, Priority.ALWAYS);
 
-        Label categoryStartRowLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.endRow") + ": ");
+        Label categoryStartRowLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categoryStartRow") + ": ");
         categoryStartRowField = new NumberTextField();
 
-        Label categoryConfigLabel = new Label(I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
+        Label categoryConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categoryConfig") + ": ");
         categoryConfigField = new TextArea();
         categoryConfigField.setMinHeight(60);
         categoryConfigField.setPrefHeight(80);
@@ -289,7 +328,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.add(categoryConfigLabel, 0, 2);
         grid.add(categoryConfigField, 1, 2);
 
-        return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
+        return new TitledPane(I18nUtils.get("smc.tool.ecm.title.category"), grid);
     }
 
     /**
@@ -608,5 +647,36 @@ public abstract class AbstractEcmScript extends SmcSample {
         return data;
     }
 
+    /**
+     * 获取freemarker模板路径
+     */
     protected abstract String getFtlPath();
+
+    @Override
+    public String getSampleDescription() {
+        return I18nUtils.get("smc.sampleName.ecm.description");
+    }
+
+    @Override
+    public Node getControlPanel() {
+        String content = """
+                {templateDesc}
+
+                {categoryConfigLabel}: key;colName
+                eg: categoryId;F
+                {functionConfigLabel}: key;colName
+                eg: optMaskint;G
+                {productConfigLabel}: device;pin;colName
+                {productConfigDesc}
+                eg: RH850U2A16;516;N
+                """;
+
+        Map<String, String> map = new HashMap<>(8);
+        map.put("categoryConfigLabel", I18nUtils.get("smc.tool.ecm.label.categoryConfig"));
+        map.put("functionConfigLabel", I18nUtils.get("smc.tool.ecm.label.functionConfig"));
+        map.put("productConfigLabel", I18nUtils.get("smc.tool.ecm.label.productConfig"));
+        map.put("productConfigDesc", I18nUtils.get("smc.tool.ecm.control.productConfig"));
+        map.put("templateDesc", I18nUtils.get("smc.tool.ecm.control.templateDesc"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
+    }
 }

@@ -34,7 +34,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.Cell;
@@ -249,10 +248,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         launch(args);
     }
 
-    @Override
-    public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.dmaTriggerSourceCode.description");
-    }
+
 
     @Override
     public String getSampleId() {
