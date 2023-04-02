@@ -27,7 +27,6 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -78,11 +77,6 @@ public class U2AEcmScript extends AbstractEcmScript {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.dmaTriggerSourceCode.description");
     }
 
     @Override
