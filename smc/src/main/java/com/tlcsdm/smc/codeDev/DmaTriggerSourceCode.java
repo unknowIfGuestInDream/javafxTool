@@ -27,31 +27,6 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.NumberTextField;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.map.MapUtil;
@@ -62,20 +37,32 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.*;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -102,7 +89,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     private final String defaultTemplateName = "dmaTemplate.zip";
     // 结果输出到 dmaCode 文件夹下
-    private final String outParentFolder = "\\dmaCode";
+    private final String outParentFolder = File.separator + "dmaCode";
     private final FileChooser downloadChooser = new FileChooser();
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
@@ -327,15 +314,15 @@ public class DmaTriggerSourceCode extends SmcSample {
             bindingRegNumContent.add(reg);
         }
         StaticLog.info("Generate result...");
-        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+        File setting = FileUtil.newFile(resultPath + File.separator + "setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
-        File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
+        File binding = FileUtil.newFile(resultPath + File.separator + "binding_trigger.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
-        File bindingSelSetting = FileUtil.newFile(resultPath + "\\binding_selSetting.xml");
+        File bindingSelSetting = FileUtil.newFile(resultPath + File.separator + "binding_selSetting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelSetting);
-        File bindingSelRegNum = FileUtil.newFile(resultPath + "\\binding_selRegNum.xml");
+        File bindingSelRegNum = FileUtil.newFile(resultPath + File.separator + "binding_selRegNum.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelRegNum);
-        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+        File cgdma = FileUtil.newFile(resultPath + File.separator + "r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
 
         notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));

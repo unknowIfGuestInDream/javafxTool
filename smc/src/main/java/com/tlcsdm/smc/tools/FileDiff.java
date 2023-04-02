@@ -103,7 +103,7 @@ public class FileDiff extends SmcSample {
         }
         List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
         // 生成一个diff.html文件，打开便可看到两个文件的对比
-        DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + "\\diff.html");
+        DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + File.separator + "diff.html");
         notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.download.success"));
         notificationBuilder.showInformation();
         bindUserData();

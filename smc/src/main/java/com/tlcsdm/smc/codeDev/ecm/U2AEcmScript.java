@@ -27,7 +27,6 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -39,13 +38,45 @@ import javafx.stage.Stage;
  */
 public class U2AEcmScript extends AbstractEcmScript {
 
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    protected void initDefaultValue() {
+        super.initDefaultValue();
+        sheetNameField.setText("U2A");
+        categoryConfigField.setText("""
+                categoryId;F
+                categoryEnName;G
+                categoryJpName;H
+                """);
+        functionConfigField.setText("""
+                optMaskint;G
+                optIntg;G
+                optDCLS;G
+                optIntrg;I
+                optErroroutput;J
+                optErrort;K
+                optDelayt;L
+                """);
+        errorSourceIdColField.setText("A");
+        categoryIdColField.setText("B");
+        errorSourceNumberColField.setText("C");
+        errorSourceEnNameColField.setText("D");
+        errorSourceDescColField.setText("E");
+        errorSourceJpNameColField.setText("W");
+        productConfigField.setText("""
+                RH850U2A16;516;N
+                RH850U2A16;373;O
+                RH850U2A16;292;P
+                RH850U2A8;373;R
+                RH850U2A8;292;S
+                RH850U2A6;292;T
+                RH850U2A6;176;T
+                RH850U2A6;156;U
+                RH850U2A6;144;V      
+                """);
     }
 
-    @Override
-    public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.dmaTriggerSourceCode.description");
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -74,12 +105,7 @@ public class U2AEcmScript extends AbstractEcmScript {
     }
 
     @Override
-    public boolean isVisible() {
-        return false;
-    }
-
-    @Override
     protected String getFtlPath() {
-        return "ecm/u2a.ftl";
+        return "smc/ecm/u2a.ftl";
     }
 }

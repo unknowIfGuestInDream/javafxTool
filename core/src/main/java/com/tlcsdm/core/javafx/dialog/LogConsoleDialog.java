@@ -31,7 +31,6 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.core.util.I18nUtils;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -42,7 +41,7 @@ import javafx.stage.Stage;
 
 /**
  * 日志输出控制台 配合logback.xml使用
- * 
+ *
  * <pre>
  * <code>
  *     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

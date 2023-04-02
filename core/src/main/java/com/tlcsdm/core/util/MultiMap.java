@@ -37,7 +37,7 @@ import java.util.*;
  * @date: 2023/3/19 18:41
  */
 public class MultiMap<K, V> {
-    private Map<K, Collection<V>> map = new HashMap<>();
+    private final Map<K, Collection<V>> map = new HashMap<>();
 
     /**
      * 在这个multimap中用指定的键添加指定的值。

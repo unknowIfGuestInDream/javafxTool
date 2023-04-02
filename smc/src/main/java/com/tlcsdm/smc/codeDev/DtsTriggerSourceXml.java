@@ -27,18 +27,11 @@
 
 package com.tlcsdm.smc.codeDev;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -49,23 +42,20 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 根据DTS的trigger source文档生成xml数据文件，协助CD开发
@@ -94,7 +84,7 @@ public class DtsTriggerSourceXml extends SmcSample {
             notificationBuilder.showWarning();
             return;
         }
-        String path = outPath + "\\triggerSource";
+        String path = outPath + File.separator + "triggerSource";
         if (!FileUtil.exist(path)) {
             path = outPath;
         }
@@ -119,14 +109,14 @@ public class DtsTriggerSourceXml extends SmcSample {
         List<String> startCols = new ArrayList<>();
         parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
 
-        String resultPath = outputPath + "\\triggerSource";
+        String resultPath = outputPath + File.separator + "triggerSource";
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
         StaticLog.info("Processing data...");
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
         for (int i = 0; i < xmlFileNames.size(); i++) {
-            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
+            File file = FileUtil.newFile(resultPath + File.separator + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
             if (file.exists()) {
                 FileUtil.del(file);
             }
