@@ -29,7 +29,6 @@ package com.tlcsdm.smc.codeDev.ecm;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.io.resource.Resource;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
@@ -128,12 +127,11 @@ public abstract class AbstractEcmScript extends SmcSample {
                         FileUtil.del(file);
                     }
                     String path = "com/tlcsdm/smc/static/templates/smc/ecm";
-                    List<String> fileNames = FileUtil.listFileNames(path);
-                    Resource[] resources = new Resource[fileNames.size()];
-                    for (int i = 0; i < fileNames.size(); i++) {
-                        resources[i] = new ClassPathResource(path + File.separator + fileNames.get(i), getClass().getClassLoader());
-                    }
-                    ZipUtil.zip(file, Charset.defaultCharset(), resources);
+                    ZipUtil.zip(file, Charset.defaultCharset(), new ClassPathResource(
+                            path + File.separator + "u2a.ftl",
+                            getClass().getClassLoader()), new ClassPathResource(
+                            path + File.separator + "c1m.ftl",
+                            getClass().getClassLoader()));
 
                     notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                     notificationBuilder.showInformation();
