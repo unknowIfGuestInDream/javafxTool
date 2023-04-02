@@ -12,12 +12,16 @@ module com.tlcsdm.core {
     requires commons.beanutils;
     requires static io.github.javadiffutils;
     requires static freemarker;
+    requires static com.fasterxml.jackson.core;
+    requires static com.fasterxml.jackson.databind;
+    requires static com.fasterxml.jackson.annotation;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
     requires org.reflections;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
+    opens com.tlcsdm.core.util to org.junit.platform.engine;
 
     exports com.tlcsdm.core.javafx;
     exports com.tlcsdm.core.javafx.control;
