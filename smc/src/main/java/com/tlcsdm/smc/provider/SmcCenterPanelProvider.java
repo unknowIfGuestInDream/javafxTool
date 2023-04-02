@@ -51,7 +51,7 @@ public class SmcCenterPanelProvider implements CenterPanelService {
     private Project selectedProject;
     private Stage stage;
     private ScrollPane scrollPane;
-    private MaskerPane masker = new MaskerPane();
+    private final MaskerPane masker = new MaskerPane();
 
     @Override
     public Node getCenterPanel() {

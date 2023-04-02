@@ -27,28 +27,23 @@
 
 package com.tlcsdm.core.freemarker.template;
 
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import freemarker.core.Environment;
+import freemarker.template.*;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import com.tlcsdm.core.exception.UnExpectedResultException;
-
-import freemarker.core.Environment;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateDirectiveModel;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-
 /**
- *  FreeMarker user-defined directive that progressively transforms
- *  the output of its nested content to upper-case.
- *  
- *  <p><b>Directive info</b></p>
- * 
- *  <p>Directive parameters: None
- *  <p>Loop variables: None
- *  <p>Directive nested content: Yes
+ * FreeMarker user-defined directive that progressively transforms
+ * the output of its nested content to upper-case.
+ *
+ * <p><b>Directive info</b></p>
+ *
+ * <p>Directive parameters: None
+ * <p>Loop variables: None
+ * <p>Directive nested content: Yes
  */
 public class UpperDirective implements TemplateDirectiveModel {
 
