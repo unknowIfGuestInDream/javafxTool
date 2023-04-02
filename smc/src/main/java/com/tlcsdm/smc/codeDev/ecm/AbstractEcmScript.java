@@ -75,9 +75,9 @@ public abstract class AbstractEcmScript extends SmcSample {
     protected NumberTextField defineLengthField;
     protected TextField macroTemplateField;
 
-    protected final String outParentFolder = "\\ecm";
-    protected final FileChooser downloadChooser = new FileChooser();
-    protected final Notifications notificationBuilder = FxNotifications.defaultNotify();
+    protected String outParentFolder = "\\ecm";
+    protected FileChooser downloadChooser = new FileChooser();
+    protected Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     protected final Action openOutDir = FxAction.openOutDir(actionEvent -> {
         String outPath = outputField.getText();
