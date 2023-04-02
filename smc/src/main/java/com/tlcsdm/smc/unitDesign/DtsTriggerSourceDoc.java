@@ -209,7 +209,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     reader.close();
                     // 数据写入
                     String tmpName = UUID.fastUUID() + ".xlsx";
-                    File tmpFile = FileUtil.newFile(outputPath + "\\" + tmpName);
+                    File tmpFile = FileUtil.newFile(outputPath + File.separator + tmpName);
                     FileUtil.writeFromStream(templateFile, tmpFile);
                     BigExcelWriter excelWriter = ExcelUtil.getBigWriter(tmpFile, sheetName);
                     excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
@@ -280,10 +280,10 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         line += rowNum;
                     }
                     StaticLog.info("Generate result...");
-                    if (FileUtil.exist(outputPath + "\\" + resultFileName)) {
-                        FileUtil.del(outputPath + "\\" + resultFileName);
+                    if (FileUtil.exist(outputPath + File.separator + resultFileName)) {
+                        FileUtil.del(outputPath + File.separator + resultFileName);
                     }
-                    File file = FileUtil.newFile(outputPath + "\\" + resultFileName);
+                    File file = FileUtil.newFile(outputPath + File.separator + resultFileName);
                     excelWriter.flush(file);
                     excelWriter.close();
                     FileUtil.del(tmpFile);
