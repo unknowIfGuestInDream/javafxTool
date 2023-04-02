@@ -106,14 +106,14 @@ public class SpecGeneralTest extends SmcSample {
         String excelName = FileUtil.getName(excelField.getText());
         String path = "";
         if (!StrUtil.isEmpty(excelName)) {
-            path = outPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
+            path = outPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
         }
         if (!FileUtil.exist(path)) {
             path = outPath;
         } else {
             boolean onlyGenerate = onlyGenerateCheck.isSelected();
-            if (onlyGenerate && FileUtil.exist(path + "\\files")) {
-                path = path + "\\files";
+            if (onlyGenerate && FileUtil.exist(path + File.separator + "files")) {
+                path = path + File.separator + "files";
             }
         }
         JavaFxSystemUtil.openDirectory(path);
@@ -160,8 +160,8 @@ public class SpecGeneralTest extends SmcSample {
                                     || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
                             .collect(Collectors.toList());
                     reader.close();
-                    String resultPath = outputPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
-                    String filesPath = resultPath + "\\files";
+                    String resultPath = outputPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
+                    String filesPath = resultPath + File.separator + "files";
                     // 清空resultPath下文件
                     FileUtil.clean(resultPath);
                     StaticLog.info("Processing data...");
@@ -269,12 +269,12 @@ public class SpecGeneralTest extends SmcSample {
                                 generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
-                            List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
-                                    generateFilesParentPath + "\\" + generateFileName);
+                            List<String> diffString = DiffHandleUtils.diffString(filesPath + File.separator + generateFileName,
+                                    generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
-                                DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
+                                DiffHandleUtils.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
                             }
                         } else {
                             StaticLog.info("========================= Not Found {} =========================",
@@ -287,7 +287,7 @@ public class SpecGeneralTest extends SmcSample {
                                 generateFileName);
                     }
                     if (mergeResult) {
-                        DiffHandleUtils.generateDiffHtml(resultPath + "\\overview.html", diffStringList);
+                        DiffHandleUtils.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
                     }
                     FxApp.runLater(() -> {
                         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));

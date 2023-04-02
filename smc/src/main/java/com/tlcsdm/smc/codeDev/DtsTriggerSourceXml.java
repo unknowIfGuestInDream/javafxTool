@@ -84,7 +84,7 @@ public class DtsTriggerSourceXml extends SmcSample {
             notificationBuilder.showWarning();
             return;
         }
-        String path = outPath + "\\triggerSource";
+        String path = outPath + File.separator + "triggerSource";
         if (!FileUtil.exist(path)) {
             path = outPath;
         }
@@ -109,14 +109,14 @@ public class DtsTriggerSourceXml extends SmcSample {
         List<String> startCols = new ArrayList<>();
         parseXmlConfig(xmlFileNameAndStartCol, xmlFileNames, startCols);
 
-        String resultPath = outputPath + "\\triggerSource";
+        String resultPath = outputPath + File.separator + "triggerSource";
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
         StaticLog.info("Processing data...");
         // 处理数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName), sheetName);
         for (int i = 0; i < xmlFileNames.size(); i++) {
-            File file = FileUtil.newFile(resultPath + "\\" + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
+            File file = FileUtil.newFile(resultPath + File.separator + StrUtil.format(xmlNameTemplate, xmlFileNames.get(i)));
             if (file.exists()) {
                 FileUtil.del(file);
             }

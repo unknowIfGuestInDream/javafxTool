@@ -89,7 +89,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     private final String defaultTemplateName = "dmaTemplate.zip";
     // 结果输出到 dmaCode 文件夹下
-    private final String outParentFolder = "\\dmaCode";
+    private final String outParentFolder = File.separator + "dmaCode";
     private final FileChooser downloadChooser = new FileChooser();
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
@@ -314,15 +314,15 @@ public class DmaTriggerSourceCode extends SmcSample {
             bindingRegNumContent.add(reg);
         }
         StaticLog.info("Generate result...");
-        File setting = FileUtil.newFile(resultPath + "\\setting.xml");
+        File setting = FileUtil.newFile(resultPath + File.separator + "setting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateSettingPath), setting);
-        File binding = FileUtil.newFile(resultPath + "\\binding_trigger.xml");
+        File binding = FileUtil.newFile(resultPath + File.separator + "binding_trigger.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingTriggerPath), binding);
-        File bindingSelSetting = FileUtil.newFile(resultPath + "\\binding_selSetting.xml");
+        File bindingSelSetting = FileUtil.newFile(resultPath + File.separator + "binding_selSetting.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingSelPath), bindingSelSetting);
-        File bindingSelRegNum = FileUtil.newFile(resultPath + "\\binding_selRegNum.xml");
+        File bindingSelRegNum = FileUtil.newFile(resultPath + File.separator + "binding_selRegNum.xml");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateBindingRegNumPath), bindingSelRegNum);
-        File cgdma = FileUtil.newFile(resultPath + "\\r_cg_dma.h");
+        File cgdma = FileUtil.newFile(resultPath + File.separator + "r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
 
         notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
