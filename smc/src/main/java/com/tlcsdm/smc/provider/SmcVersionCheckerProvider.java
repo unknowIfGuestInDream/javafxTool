@@ -95,7 +95,9 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
                         String content = new StringBuilder()
                                 .append(I18nUtils.get("smc.versionCheck.versionNum")).append(": ").append(version).append("\r\n")
                                 .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(array.getByPath("[" + i + "].body"))
-                                .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc")).toString();
+                                .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
+                                .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
+
                         SmcConstant.PROJECT_RELEASE_URL = String.valueOf(array.getByPath("[" + i + "].html_url"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
