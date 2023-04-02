@@ -41,12 +41,12 @@ public class MoneyToChineseUtil {
     /**
      * 汉语中数字大写
      */
-    private static final String[] CN_UPPER_NUMBER = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
+    private static final String[] CN_UPPER_NUMBER = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
     /**
      * 汉语中货币单位大写，这样的设计类似于占位符
      */
-    private static final String[] CN_UPPER_MONETARY_UNIT = { "分", "角", "元", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾",
-            "佰", "仟", "兆", "拾", "佰", "仟" };
+    private static final String[] CN_UPPER_MONETARY_UNIT = {"分", "角", "元", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾",
+            "佰", "仟", "兆", "拾", "佰", "仟"};
     /**
      * 特殊字符：整
      */

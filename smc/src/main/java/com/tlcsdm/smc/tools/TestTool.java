@@ -69,7 +69,7 @@ public class TestTool extends SmcSample {
     private TextField compareField;
     private TextField outputField;
 
-    private static Map<String, Object> customDataMap = new LinkedHashMap<>();
+    private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
 
     static {
         customDataMap.put("1. Name#First Name", "Jonathan");
@@ -85,7 +85,7 @@ public class TestTool extends SmcSample {
         customDataMap.put("3. Phone#Work", "");
     }
 
-    private PropertySheet propertySheet = new PropertySheet();
+    private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
         TooltipUtil.showToast("message");
@@ -210,8 +210,9 @@ public class TestTool extends SmcSample {
 
     class CustomPropertyItem implements Item {
 
-        private String key;
-        private String category, name;
+        private final String key;
+        private final String category;
+        private final String name;
 
         public CustomPropertyItem(String key) {
             this.key = key;

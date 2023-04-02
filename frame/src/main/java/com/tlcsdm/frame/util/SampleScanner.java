@@ -73,7 +73,7 @@ public class SampleScanner {
      * @return The classes
      */
     public Map<String, Project> discoverSamples() {
-        Class<?>[] results = new Class[] {};
+        Class<?>[] results = new Class[]{};
 
         try {
             results = InterfaceScanner.loadFromPathScanning(Sample.class);

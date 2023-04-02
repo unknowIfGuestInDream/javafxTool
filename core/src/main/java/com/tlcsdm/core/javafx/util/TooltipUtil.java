@@ -88,15 +88,15 @@ public class TooltipUtil {
     }
 
     public static void showToast(String message, Pos pos) {
-        showToast((String) null, message, (Node) null, 3.0D, pos, (EventHandler) null, (Object) null, true, true);
+        showToast(null, message, null, 3.0D, pos, null, null, true, true);
     }
 
     public static void showToast(String title, String message) {
-        showToast(title, message, (Node) null, 3.0D, Pos.TOP_CENTER, (EventHandler) null, (Object) null, true, true);
+        showToast(title, message, null, 3.0D, Pos.TOP_CENTER, null, null, true, true);
     }
 
     public static void showToast(String title, String message, Pos pos) {
-        showToast(title, message, (Node) null, 3.0D, pos, (EventHandler) null, (Object) null, true, true);
+        showToast(title, message, null, 3.0D, pos, null, null, true, true);
     }
 
     public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos, EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
