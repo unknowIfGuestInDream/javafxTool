@@ -87,9 +87,9 @@ public class C1MEcmTest {
 
         String resultPath = outputPath + "\\ecm";
         String deviceSheetName = "C1M";
-        int startRow = 3;
+        int startRow = 2;
         String functions = """
-                optMaskint;G
+                optMaskableInpt;G
                 optEFInpt;H
                 optIntrg;I
                 optErroroutput;J
@@ -108,8 +108,9 @@ public class C1MEcmTest {
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
         }
+
         String products = """
-                RH850C1M;252;M
+                RH850C1MA2;252;M
                 """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
@@ -180,7 +181,7 @@ public class C1MEcmTest {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
+                    if ("optMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
