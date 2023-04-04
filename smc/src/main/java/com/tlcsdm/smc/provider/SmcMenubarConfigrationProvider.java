@@ -27,7 +27,18 @@
 
 package com.tlcsdm.smc.provider;
 
-import cn.hutool.core.util.StrUtil;
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
@@ -43,6 +54,8 @@ import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -51,13 +64,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.util.*;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -151,8 +157,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
             FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-            FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, logConsole, contactSupport,
-                    submitFeedback, ACTION_SEPARATOR, release, about));
+            FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+                    ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
