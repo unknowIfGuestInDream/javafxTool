@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -52,6 +53,7 @@ public class C1MEcmScript extends AbstractEcmScript {
     @Override
     protected void initDefaultValue() {
         super.initDefaultValue();
+        startRowField.setNumber(BigDecimal.valueOf(2));
         sheetNameField.setText("C1M");
         categoryConfigField.setText("""
                 categoryId;B
@@ -59,7 +61,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                 categoryJpName;D
                 """);
         functionConfigField.setText("""
-                optMaskint;G
+                optMaskableInpt;G
                 optEFInpt;H
                 optIntrg;I
                 optErroroutput;J
@@ -71,7 +73,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         errorSourceEnNameColField.setText("E");
         errorSourceJpNameColField.setText("L");
         productConfigField.setText("""
-                RH850C1M;252;-     
+                RH850C1MA2;252;252;-     
                 """);
 
         errorSourceDescColLabel.setDisable(true);
@@ -176,7 +178,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
+                    if ("optMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
@@ -247,8 +249,6 @@ public class C1MEcmScript extends AbstractEcmScript {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
     @Override
     public String getSampleId() {
