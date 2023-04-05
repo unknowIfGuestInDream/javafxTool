@@ -63,7 +63,7 @@ module com.tlcsdm.smc {
     opens com.tlcsdm.smc.tools to javafx.graphics;
     opens com.tlcsdm.smc.unitDesign to javafx.graphics;
     opens com.tlcsdm.smc.unitTest to javafx.graphics;
-    opens com.tlcsdm.smc.controller to javafx.fxml;
+    opens com.tlcsdm.smc.controller;
 
     provides FXSamplerProject with SmcSamplerProjectProvider;
     provides MenubarConfigration with SmcMenubarConfigrationProvider;
