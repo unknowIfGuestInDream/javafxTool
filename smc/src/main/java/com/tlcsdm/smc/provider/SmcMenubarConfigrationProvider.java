@@ -27,22 +27,12 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
@@ -52,10 +42,9 @@ import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.controller.SampleTreeController;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -64,10 +53,31 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.util.*;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
+
+    private final Action export = FxAction.restart(actionEvent -> Platform.runLater(() -> {
+        FxDialog<SampleTreeController> dialog = new FxDialog<SampleTreeController>()
+                .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle("title")
+                .setBodyFxml(SmcMenubarConfigrationProvider.class.getResource("/com/tlcsdm/smc/fxml/sampleTree.fxml"))
+                .setOwner(FxApp.primaryStage).setButtonTypes(ButtonType.OK, ButtonType.CANCEL);
+
+        SampleTreeController controller = dialog.show();
+
+        dialog.setButtonHandler(ButtonType.OK, (ae, stage) -> {
+            //controller.applySettings();
+            stage.close();
+        }).setButtonHandler(ButtonType.CANCEL, (ae, stage) -> stage.close());
+    }));
 
     private final Action restart = FxAction.restart(actionEvent -> Platform.runLater(() -> {
         stage.close();
@@ -155,7 +165,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction english = new CheckLangAction(SmcConstant.LANGUAGE_ENGLISH);
     CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
-    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
+    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(export, ACTION_SEPARATOR, restart, exit),
             FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
             FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
                     ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));

@@ -31,17 +31,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import org.controlsfx.control.CheckTreeView?>
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.tlcsdm.smc.controller.SampleTreeController">
     <top>
         <ToolBar BorderPane.alignment="CENTER">
-            <items>
-                <Button fx:id="exportButton" mnemonicParsing="false" text="export"/>
-            </items>
+            <Button fx:id="exportButton" mnemonicParsing="false" text="export"/>
         </ToolBar>
     </top>
     <center>
-        <CheckTreeView fx:id="sampleTree" BorderPane.alignment="CENTER"/>
+        <StackPane>
+            <CheckTreeView fx:id="sampleTree" BorderPane.alignment="CENTER"/>
+        </StackPane>
     </center>
 </BorderPane>

@@ -57,11 +57,13 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
+    exports com.tlcsdm.smc.controller;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
     opens com.tlcsdm.smc.tools to javafx.graphics;
     opens com.tlcsdm.smc.unitDesign to javafx.graphics;
     opens com.tlcsdm.smc.unitTest to javafx.graphics;
+    opens com.tlcsdm.smc.controller to javafx.fxml;
 
     provides FXSamplerProject with SmcSamplerProjectProvider;
     provides MenubarConfigration with SmcMenubarConfigrationProvider;

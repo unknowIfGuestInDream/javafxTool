@@ -27,20 +27,18 @@
 
 package com.tlcsdm.smc.controller;
 
-import cn.hutool.core.lang.tree.TreeNode;
-import com.tlcsdm.frame.Sample;
-import com.tlcsdm.frame.service.SamplePostProcessorService;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
+import cn.hutool.core.lang.tree.TreeUtil;
 import com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import org.controlsfx.control.CheckTreeView;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -54,47 +52,81 @@ public class SampleTreeController implements Initializable {
     protected Button exportButton;
 
     @FXML
-    protected CheckTreeView<String> sampleTree;
-
-    private CheckTreeView<String> checkTreeView;
+    protected CheckTreeView<Tree<String>> sampleTree;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>(SmcSamplePostProcessorProvider.SAMPLES_ROOTID);
+        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
+        // 自定义属性名 都要默认值的
+        treeNodeConfig.setIdKey("rid");
+        //转换器
+        List<Tree<String>> treeNodes = TreeUtil.build(SmcSamplePostProcessorProvider.getSampleNodeList(),
+                SmcSamplePostProcessorProvider.SAMPLES_ROOTID, treeNodeConfig,
+                (treeNode, tree) -> {
+                    tree.setId(treeNode.getId());
+                    tree.setParentId(treeNode.getParentId());
+                    tree.setName(treeNode.getName());
+                    tree.putExtra("depth", treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_DEPTH));
+                    tree.putExtra("order", treeNode.getWeight());
+                });
+        treeNodes = treeNodes.stream().sorted(Comparator.comparing(o -> o.get("order").toString())).toList();
+        Tree<String> rootTree = new Tree<>();
+        rootTree.setId(SmcSamplePostProcessorProvider.SAMPLES_ROOTID);
+        CheckBoxTreeItem<Tree<String>> root = new CheckBoxTreeItem<>(rootTree);
+        for (Tree<String> tree : treeNodes) {
+            root.getChildren().add(buildTreeItem(tree));
+        }
+        buildTreeItem(rootTree);
         root.setExpanded(true);
-
-        checkTreeView = new CheckTreeView<>(root);
-        checkTreeView.setShowRoot(false);
-        checkTreeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        checkTreeView.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<TreeItem<String>>() {
+        sampleTree.setRoot(root);
+        sampleTree.setShowRoot(false);
+        sampleTree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        sampleTree.setMinWidth(300);
+        sampleTree.setMaxWidth(400);
+        sampleTree.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<TreeItem<Tree<String>>>() {
             @Override
-            public void onChanged(ListChangeListener.Change<? extends TreeItem<String>> c) {
-                System.out.println("update");
+            public void onChanged(Change<? extends TreeItem<Tree<String>>> change) {
+                System.out.println(change.getList());
             }
         });
-        List<TreeItem<Sample>> list = SamplePostProcessorService.Samples;
-        List<TreeNode<String>> sampleList = SmcSamplePostProcessorProvider.getSampleNodeList();
+
+        sampleTree.getCheckModel().getCheckedItems().addListener(new ListChangeListener<TreeItem<Tree<String>>>() {
+            @Override
+            public void onChanged(Change<? extends TreeItem<Tree<String>>> change) {
+                System.out.println(change.getList());
+
+                while (change.next()) {
+                    System.out.println("============================================");
+                    System.out.println("Change: " + change);
+                    System.out.println("Added sublist " + change.getAddedSubList());
+                    System.out.println("Removed sublist " + change.getRemoved());
+                    System.out.println("List " + change.getList());
+                    System.out.println("Added " + change.wasAdded() + " Permutated " + change.wasPermutated() + " Removed " + change.wasRemoved() + " Replaced "
+                            + change.wasReplaced() + " Updated " + change.wasUpdated());
+                    System.out.println("============================================");
+                }
+            }
+        });
+        sampleTree.setCellFactory(treeTreeView -> new TreeCell<Tree<String>>() {
+            @Override
+            protected void updateItem(Tree<String> item, boolean empty) {
+                if (empty) {
+                    setText("");
+                } else {
+                    setText(item.getName().toString());
+                }
+            }
+        });
     }
 
-    private CheckBoxTreeItem<String> createTreeItem(TreeNode<String> node) {
-        CheckBoxTreeItem<String> treeItem = new CheckBoxTreeItem<>(node.getName().toString());
+    public CheckBoxTreeItem<Tree<String>> buildTreeItem(Tree<String> node) {
+        CheckBoxTreeItem<Tree<String>> treeItem = new CheckBoxTreeItem<>(node);
         treeItem.setExpanded(true);
+        if (node.hasChild()) {
+            for (Tree<String> n : node.getChildren()) {
+                treeItem.getChildren().add(buildTreeItem(n));
+            }
+        }
         return treeItem;
     }
-
-//    public CheckBoxTreeItem<String> createTreeItem() {
-//        CheckBoxTreeItem<String> treeItem = new CheckBoxTreeItem<>(node.getName().toString());
-//
-//        treeItem.setExpanded(true);
-//        // recursively add in children
-//        for (SampleTree.TreeNode n : children) {
-//            if (n.getDepth() > 2) {
-//                treeItem.setExpanded(false);
-//            }
-//            // if(StrUtil.isNotEmpty(n.getPackageName()) && )
-//            treeItem.getChildren().add(n.createTreeItem());
-//        }
-//
-//        return treeItem;
-//    }
 }
