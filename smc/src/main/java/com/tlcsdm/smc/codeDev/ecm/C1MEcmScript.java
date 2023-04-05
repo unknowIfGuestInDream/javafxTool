@@ -250,8 +250,6 @@ public class C1MEcmScript extends AbstractEcmScript {
         launch(args);
     }
 
-
-
     @Override
     public String getSampleId() {
         return "c1MEcmScript";
