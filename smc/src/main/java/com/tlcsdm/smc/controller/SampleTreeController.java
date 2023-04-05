@@ -35,6 +35,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.controlsfx.control.CheckTreeView;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -51,7 +52,7 @@ public class SampleTreeController implements Initializable {
     protected Button exportButton;
 
     @FXML
-    protected TreeView<Tree<String>> sampleTree;
+    protected CheckTreeView<Tree<String>> sampleTree;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,23 +89,23 @@ public class SampleTreeController implements Initializable {
             }
         });
 
-//        sampleTree.getCheckModel().getCheckedItems().addListener(new ListChangeListener<TreeItem<Tree<String>>>() {
-//            @Override
-//            public void onChanged(Change<? extends TreeItem<Tree<String>>> change) {
-//                System.out.println(change.getList());
-//
-//                while (change.next()) {
-//                    System.out.println("============================================");
-//                    System.out.println("Change: " + change);
-//                    System.out.println("Added sublist " + change.getAddedSubList());
-//                    System.out.println("Removed sublist " + change.getRemoved());
-//                    System.out.println("List " + change.getList());
-//                    System.out.println("Added " + change.wasAdded() + " Permutated " + change.wasPermutated() + " Removed " + change.wasRemoved() + " Replaced "
-//                            + change.wasReplaced() + " Updated " + change.wasUpdated());
-//                    System.out.println("============================================");
-//                }
-//            }
-//        });
+        sampleTree.getCheckModel().getCheckedItems().addListener(new ListChangeListener<TreeItem<Tree<String>>>() {
+            @Override
+            public void onChanged(Change<? extends TreeItem<Tree<String>>> change) {
+                System.out.println(change.getList());
+
+                while (change.next()) {
+                    System.out.println("============================================");
+                    System.out.println("Change: " + change);
+                    System.out.println("Added sublist " + change.getAddedSubList());
+                    System.out.println("Removed sublist " + change.getRemoved());
+                    System.out.println("List " + change.getList());
+                    System.out.println("Added " + change.wasAdded() + " Permutated " + change.wasPermutated() + " Removed " + change.wasRemoved() + " Replaced "
+                            + change.wasReplaced() + " Updated " + change.wasUpdated());
+                    System.out.println("============================================");
+                }
+            }
+        });
         sampleTree.setCellFactory(treeTreeView -> new TreeCell<>() {
             @Override
             protected void updateItem(Tree<String> item, boolean empty) {

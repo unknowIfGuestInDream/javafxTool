@@ -3,16 +3,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import org.controlsfx.control.CheckTreeView?>
 <ScrollPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.tlcsdm.smc.controller.SampleTreeController">
     <AnchorPane>
-        <ToolBar BorderPane.alignment="CENTER">
-            <Button fx:id="exportButton" mnemonicParsing="false" text="export"/>
-        </ToolBar>
-        <TreeView fx:id="sampleTree" BorderPane.alignment="CENTER"/>
+        <children>
+            <ToolBar BorderPane.alignment="CENTER">
+                <Button fx:id="exportButton" mnemonicParsing="false" text="export"/>
+            </ToolBar>
+            <CheckTreeView fx:id="sampleTree"/>
+        </children>
     </AnchorPane>
 
 </ScrollPane>

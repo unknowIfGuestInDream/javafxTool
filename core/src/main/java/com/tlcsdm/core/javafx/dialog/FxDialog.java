@@ -46,6 +46,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.BuilderFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.net.URL;
@@ -75,6 +76,7 @@ public class FxDialog<T> {
     private final Map<ButtonType, BiConsumer<ActionEvent, Stage>> buttonHandlers = new HashMap<>();
     private Consumer<Stage> withStage;
     private ResourceBundle resourceBundle;
+    private BuilderFactory builderFactory;
 
     public FxDialog<T> setResizable(boolean resizable) {
         this.resizable = resizable;
@@ -122,6 +124,11 @@ public class FxDialog<T> {
         return this;
     }
 
+    public FxDialog<T> setBuilderFactory(BuilderFactory builderFactory) {
+        this.builderFactory = builderFactory;
+        return this;
+    }
+
     public FxDialog<T> setButtonTypes(ButtonType... buttonTypes) {
         this.buttonTypes = buttonTypes;
         return this;
@@ -150,7 +157,7 @@ public class FxDialog<T> {
     public T show() {
         if (this.bodyFxmlPath != null) {
             FXMLLoader fxmlLoader = this.resourceBundle == null ? FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath)
-                    : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle);
+                    : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle, this.builderFactory);
             Stage stage = this.createStage(fxmlLoader.getRoot());
             stage.show();
             return fxmlLoader.getController();

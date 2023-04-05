@@ -42,6 +42,7 @@ import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.controller.CheckTreeViewBuilderFactory;
 import com.tlcsdm.smc.controller.SampleTreeController;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
@@ -69,6 +70,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         FxDialog<SampleTreeController> dialog = new FxDialog<SampleTreeController>()
                 .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle("title")
                 .setBodyFxml(SmcMenubarConfigrationProvider.class.getResource("/com/tlcsdm/smc/fxml/sampleTree.fxml"))
+                .setBuilderFactory(new CheckTreeViewBuilderFactory())
                 .setOwner(FxApp.primaryStage).setButtonTypes(ButtonType.OK, ButtonType.CANCEL);
 
         SampleTreeController controller = dialog.show();

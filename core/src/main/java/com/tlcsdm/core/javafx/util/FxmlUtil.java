@@ -29,6 +29,8 @@ package com.tlcsdm.core.javafx.util;
 
 import com.tlcsdm.core.exception.ResourceNotFoundException;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.util.BuilderFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,10 +47,18 @@ public class FxmlUtil {
     }
 
     public static FXMLLoader loadFxmlFromResource(URL location, ResourceBundle resourceBundle) {
+        return loadFxmlFromResource(location, resourceBundle, null);
+    }
+
+    public static FXMLLoader loadFxmlFromResource(URL location, ResourceBundle resourceBundle, BuilderFactory builderFactory) {
+        if (builderFactory == null) {
+            builderFactory = new JavaFXBuilderFactory();
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(location);
             fxmlLoader.setResources(resourceBundle);
+            fxmlLoader.setBuilderFactory(builderFactory);
             fxmlLoader.load();
             return fxmlLoader;
         } catch (IOException var4) {
