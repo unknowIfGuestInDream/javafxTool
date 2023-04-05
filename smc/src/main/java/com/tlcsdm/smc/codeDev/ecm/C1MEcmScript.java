@@ -74,6 +74,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         errorSourceJpNameColField.setText("L");
         productConfigField.setText("""
                 RH850C1MA2;252;-     
+                RH850C1MA2;252;252;-     
                 """);
 
         errorSourceDescColLabel.setDisable(true);
@@ -249,8 +250,6 @@ public class C1MEcmScript extends AbstractEcmScript {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
     @Override
     public String getSampleId() {
