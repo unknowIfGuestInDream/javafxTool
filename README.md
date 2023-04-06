@@ -24,6 +24,7 @@ smc: 个人应用(无需参考)
 - CenterPanelService: 中心区域的Node配置, 包含点击和切换组件时的接口
 - SplashScreen: 闪屏图片
 - SamplePostProcessorService: Sample资源后置处理
+- VersionCheckerService: 版本更新检查
 
 ### login
 - LoginCheck: 登录校验
