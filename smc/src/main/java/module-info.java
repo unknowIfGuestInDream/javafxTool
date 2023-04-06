@@ -74,4 +74,5 @@ module com.tlcsdm.smc {
     provides TemplateLoaderService with SmcTemplateLoaderProvider;
     provides SamplePostProcessorService with SmcSamplePostProcessorProvider;
     provides VersionCheckerService with SmcVersionCheckerProvider;
+    provides SamplesTreeViewConfiguration with SmcSampleTreeViewConfiguration;
 }

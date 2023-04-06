@@ -20,4 +20,5 @@ module com.tlcsdm.frame {
     uses com.tlcsdm.frame.service.SplashScreen;
     uses com.tlcsdm.frame.service.SamplePostProcessorService;
     uses com.tlcsdm.frame.service.VersionCheckerService;
+    uses com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 }

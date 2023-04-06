@@ -258,7 +258,18 @@ public final class FXSampler extends Application {
         } else {
             changeToWelcomeTab(null);
         }
-
+        // 配置samplesTreeView
+        ServiceLoader<SamplesTreeViewConfiguration> samplesTreeViewConfigurations = ServiceLoader
+                .load(SamplesTreeViewConfiguration.class);
+        for (SamplesTreeViewConfiguration samplesTreeViewConfiguration : samplesTreeViewConfigurations) {
+            Callback<TreeView<Sample>, TreeCell<Sample>> cellFactory = samplesTreeViewConfiguration.cellFactory();
+            if (cellFactory != null) {
+                samplesTreeView.setCellFactory(cellFactory);
+            }
+            SampleTreeViewModel model = new SampleTreeViewModel(samplesTreeView);
+            samplesTreeViewConfiguration.configSampleTreeView(model);
+        }
+        setUserAgentStylesheet(STYLESHEET_MODENA);
         // put it all together
         Scene scene = new Scene(bp);
         scene.getStylesheets()
