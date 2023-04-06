@@ -1,5 +1,48 @@
 # CHANGELOG
 
+## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
+
+1. 新增Ecm数据生成组件
+2. 适配macOS
+3. SpecGeneral组件增加结果合并和只生成文件功能
+4. 新增启动检查更新
+5. DmaTriggerSourceCode组件增强
+6. 新增日志打印控制台组件
+7. UI优化
+8. 新增sample菜单树展开规则，以及启动时sample数据处理，校验
+9. 解决打包为exe后版本号获取失败的问题
+10. 修复FileDiff 特殊字符处理失败的问题
+
+### Feature
+
+- general:
+  - 完善ecm国际化 (#433) ([ad2ef52](https://github.com/unknowIfGuestInDream/javafxTool/commit/ad2ef5246c64ade0efa2667f9caa5bbf6728e83c)) ([#433](https://github.com/unknowIfGuestInDream/javafxTool/pull/433))
+  - Ecm功能实现 (#432) ([eb40840](https://github.com/unknowIfGuestInDream/javafxTool/commit/eb408408d9fa6b73698c3e5e8400c84529fdc169)) ([#432](https://github.com/unknowIfGuestInDream/javafxTool/pull/432))
+  - 新增jackson依赖以及工具类 (#430) ([939c1ea](https://github.com/unknowIfGuestInDream/javafxTool/commit/939c1eac687815a32832c175862e2a3d985e7451)) ([#430](https://github.com/unknowIfGuestInDream/javafxTool/pull/430))
+  - diff工具增强，新增合并结果功能 (#426) ([b861749](https://github.com/unknowIfGuestInDream/javafxTool/commit/b861749150109e4bdec48985eda441e4ed54f402)) ([#426](https://github.com/unknowIfGuestInDream/javafxTool/pull/426))
+  - 新增启动检查更新功能 (#425) ([bcd8235](https://github.com/unknowIfGuestInDream/javafxTool/commit/bcd8235c879341b5f328a83758f2d534c1d63e48)) ([#425](https://github.com/unknowIfGuestInDream/javafxTool/pull/425))
+  - 新增sample后置处理 (#418) ([84c237b](https://github.com/unknowIfGuestInDream/javafxTool/commit/84c237b9825b333ca0c631eb63ff3cb5897555ef)) ([#418](https://github.com/unknowIfGuestInDream/javafxTool/pull/418))
+  - 新增sample展开规则，初始化ecm组件 (#379) ([9c7fd32](https://github.com/unknowIfGuestInDream/javafxTool/commit/9c7fd3278c039d5ca263cbe8dd4dcd119d9547b9)) ([#379](https://github.com/unknowIfGuestInDream/javafxTool/pull/379))
+  - specGeneral 打开输出位置功能增强 (#406) ([e50b509](https://github.com/unknowIfGuestInDream/javafxTool/commit/e50b5093267fcf66edb80ed8340cccf7c7bdbf79)) ([#406](https://github.com/unknowIfGuestInDream/javafxTool/pull/406))
+  - 新增日志打印控制台组件 (#378) ([af45f83](https://github.com/unknowIfGuestInDream/javafxTool/commit/af45f83a49e83ef00503def60825da5942c19f8d)) ([#378](https://github.com/unknowIfGuestInDream/javafxTool/pull/378))
+  - DMATriggerSourceCode修改 (#377) ([47bee35](https://github.com/unknowIfGuestInDream/javafxTool/commit/47bee3520130ae892e7c5f92e19f800898d2d081)) ([#377](https://github.com/unknowIfGuestInDream/javafxTool/pull/377))
+  - DmaTriggerSourceCode组件增强 (#374) ([96e35b2](https://github.com/unknowIfGuestInDream/javafxTool/commit/96e35b263f58041df582e71a0fc6ed3e8d4c80ca)) ([#374](https://github.com/unknowIfGuestInDream/javafxTool/pull/374))
+  - FxButton增强，优化specGeneral组件 (#371) ([d1bbbc5](https://github.com/unknowIfGuestInDream/javafxTool/commit/d1bbbc512d73317c2c5343c44814440b2e138d3b)) ([#371](https://github.com/unknowIfGuestInDream/javafxTool/pull/371))
+
+### Bug Fixes
+
+- general:
+  - 修复ecm模板下载失败问题 (#434) ([f0864d3](https://github.com/unknowIfGuestInDream/javafxTool/commit/f0864d3a4f2a0e8872af2dc9ec273bdc9d981528)) ([#434](https://github.com/unknowIfGuestInDream/javafxTool/pull/434))
+  - 修复macos下打开配置文件错误问题 (#429) ([1ff5221](https://github.com/unknowIfGuestInDream/javafxTool/commit/1ff52216ba8e1317686de9ad9b57883bbb9f4c07)) ([#429](https://github.com/unknowIfGuestInDream/javafxTool/pull/429))
+  - 修复可执行文件获取清单数据失败问题 (#414) ([eb8ba36](https://github.com/unknowIfGuestInDream/javafxTool/commit/eb8ba36f2a6567f340520bd335bdc7e3139a0442)) ([#414](https://github.com/unknowIfGuestInDream/javafxTool/pull/414))
+  - 修复DtsTriggerSourceDoc 初始值设定的判断问题 (#412) ([35616f7](https://github.com/unknowIfGuestInDream/javafxTool/commit/35616f7cca70133551a385428a941345e08131c9)) ([#412](https://github.com/unknowIfGuestInDream/javafxTool/pull/412))
+  - 解决打包为执行文件后项目配置获取不到的问题 (#408) ([c2436e6](https://github.com/unknowIfGuestInDream/javafxTool/commit/c2436e6c7a3383a32e490f50558e2517479d445e)) ([#408](https://github.com/unknowIfGuestInDream/javafxTool/pull/408))
+  - DmaTriggerSourceCode 头文件模板新增注释 (#404) ([4087533](https://github.com/unknowIfGuestInDream/javafxTool/commit/4087533d0d74e19cd079f071154ac7cce112d24c)) ([#404](https://github.com/unknowIfGuestInDream/javafxTool/pull/404))
+  - 修复specGeneral组件对多行注释的处理 (#402) ([97a68c8](https://github.com/unknowIfGuestInDream/javafxTool/commit/97a68c879692079202c4577d52bf6211d2bcc806)) ([#402](https://github.com/unknowIfGuestInDream/javafxTool/pull/402))
+  - dmaTriggerSourceCode 修改使能类输入 (#391) ([f3d7775](https://github.com/unknowIfGuestInDream/javafxTool/commit/f3d7775fd998c1bb74a8b14081b0be9c315d1c2a)) ([#391](https://github.com/unknowIfGuestInDream/javafxTool/pull/391))
+  - dmaTriggerSourceCode模板完善 (#380) ([4832c57](https://github.com/unknowIfGuestInDream/javafxTool/commit/4832c5726b85718a2e8d0cab52274585853ce35e)) ([#380](https://github.com/unknowIfGuestInDream/javafxTool/pull/380))
+  - 修复smc中文件选择错误 (#368) ([abc7f07](https://github.com/unknowIfGuestInDream/javafxTool/commit/abc7f0707e09b31875caeedeedd7c74603a611bf)) ([#368](https://github.com/unknowIfGuestInDream/javafxTool/pull/368))
+
 ## [v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45
 
 1. smcTool工具初次发布
@@ -9,6 +52,8 @@
 
 - general:
   - DmaTriggerSourceCode setting完善 (#353) ([1f0ce5d](https://github.com/unknowIfGuestInDream/javafxTool/commit/1f0ce5d916a082e31f57d5c7066fb366b0fa2949)) ([#353](https://github.com/unknowIfGuestInDream/javafxTool/pull/353))
+  - update .gitattributes (#345) ([5ba442f](https://github.com/unknowIfGuestInDream/javafxTool/commit/5ba442fc0a46cf6112560fd08776985fcc546ce5)) ([#345](https://github.com/unknowIfGuestInDream/javafxTool/pull/345))
+  - Add .gitattributes (#344) ([7846f65](https://github.com/unknowIfGuestInDream/javafxTool/commit/7846f651743173453b452a3957dfb49eaac7e15b)) ([#344](https://github.com/unknowIfGuestInDream/javafxTool/pull/344))
   - DmaTriggerSourceCode setting完善 (#342) ([c9539fb](https://github.com/unknowIfGuestInDream/javafxTool/commit/c9539fb55a1cde5476c48d00403fddd422c4e686)) ([#342](https://github.com/unknowIfGuestInDream/javafxTool/pull/342))
   - DmaTriggerSourceCode 模板完善 (#341) ([52671bd](https://github.com/unknowIfGuestInDream/javafxTool/commit/52671bdce2906f42052ee0f1053139199d72f3f6)) ([#341](https://github.com/unknowIfGuestInDream/javafxTool/pull/341))
   - DmaTriggerSourceCode 模板完善 (#340) ([d17624d](https://github.com/unknowIfGuestInDream/javafxTool/commit/d17624d7a13a0d46f3ccfa52069c3cfb1eb60146)) ([#340](https://github.com/unknowIfGuestInDream/javafxTool/pull/340))
@@ -89,6 +134,9 @@
   - smc 国际化功能实现 (#157) ([dac94b6](https://github.com/unknowIfGuestInDream/javafxTool/commit/dac94b6f546e0808b1454eb2df36e76a07e1a5d7)) ([#157](https://github.com/unknowIfGuestInDream/javafxTool/pull/157))
   - 系统功能完善 (#155) ([22030a5](https://github.com/unknowIfGuestInDream/javafxTool/commit/22030a52c99687d3f08977a22f6cd6b6879fb56d)) ([#155](https://github.com/unknowIfGuestInDream/javafxTool/pull/155))
   - 增加logback日志功能 (#154) ([3456555](https://github.com/unknowIfGuestInDream/javafxTool/commit/3456555bd5d8462f673b790c53402fa75bbfd577)) ([#154](https://github.com/unknowIfGuestInDream/javafxTool/pull/154))
+  - code style 组件完善 (#153) ([f936c8f](https://github.com/unknowIfGuestInDream/javafxTool/commit/f936c8fd88c75133199cfda2a7a06646e06326c7)) ([#153](https://github.com/unknowIfGuestInDream/javafxTool/pull/153))
+  - code style组件完善 (#150) ([bc8d643](https://github.com/unknowIfGuestInDream/javafxTool/commit/bc8d643ae1861d17b8f85c7f0a9c6b4ffaf503aa)) ([#150](https://github.com/unknowIfGuestInDream/javafxTool/pull/150))
+  - code style组件完善 (#149) ([9f784bf](https://github.com/unknowIfGuestInDream/javafxTool/commit/9f784bfabf74fee36c48f602fce9f1ce0db12f50)) ([#149](https://github.com/unknowIfGuestInDream/javafxTool/pull/149))
   - 修改工作流组件 (#132) ([43d6708](https://github.com/unknowIfGuestInDream/javafxTool/commit/43d6708773f1f0d417d4ebdbd5a5730306ec1c2d)) ([#132](https://github.com/unknowIfGuestInDream/javafxTool/pull/132))
   - 新增组件版本号 (#130) ([6534203](https://github.com/unknowIfGuestInDream/javafxTool/commit/65342032b11abfe6b5fb78fc472b85b93608e71b)) ([#130](https://github.com/unknowIfGuestInDream/javafxTool/pull/130))
   - core功能完善 (#127) ([7d0fb3d](https://github.com/unknowIfGuestInDream/javafxTool/commit/7d0fb3dd02ec7d3e85cf114a32158482e8ddc446)) ([#127](https://github.com/unknowIfGuestInDream/javafxTool/pull/127))
@@ -99,6 +147,24 @@
   - 新增文件差异比对功能 (#119) ([b41b030](https://github.com/unknowIfGuestInDream/javafxTool/commit/b41b0304859091925963022021d72d736d1178c1)) ([#119](https://github.com/unknowIfGuestInDream/javafxTool/pull/119))
   - 完善smc (#115) ([f11644b](https://github.com/unknowIfGuestInDream/javafxTool/commit/f11644b99790525897d8672d43c4b9d627fb877f)) ([#115](https://github.com/unknowIfGuestInDream/javafxTool/pull/115))
   - 完善welcomePage (#114) ([1f7c22a](https://github.com/unknowIfGuestInDream/javafxTool/commit/1f7c22a8c3db38df4f61eebf73bd1ca017f25fa7)) ([#114](https://github.com/unknowIfGuestInDream/javafxTool/pull/114))
+  - 完善工作流 ([8fb4531](https://github.com/unknowIfGuestInDream/javafxTool/commit/8fb45312ed6b83a39098e2c62f4c48732358945f)) ([#111](https://github.com/unknowIfGuestInDream/javafxTool/pull/111))
+  - 完善工作流 ([b6a3275](https://github.com/unknowIfGuestInDream/javafxTool/commit/b6a3275a953a267a849d722084418f45ee8ba495)) ([#107](https://github.com/unknowIfGuestInDream/javafxTool/pull/107))
+  - 完善工作流 ([473b748](https://github.com/unknowIfGuestInDream/javafxTool/commit/473b74864ad15c244d149ba189bcd10ee3e6d8a6)) ([#105](https://github.com/unknowIfGuestInDream/javafxTool/pull/105))
+  - 完善工作流 ([4636288](https://github.com/unknowIfGuestInDream/javafxTool/commit/4636288178c625c8c22e7b4c4517413841dfc716)) ([#103](https://github.com/unknowIfGuestInDream/javafxTool/pull/103))
+  - 完善工作流 ([08427ae](https://github.com/unknowIfGuestInDream/javafxTool/commit/08427ae92ca1a95ce9785cf0f1c084edbd42e017)) ([#101](https://github.com/unknowIfGuestInDream/javafxTool/pull/101))
+  - 完善工作流 ([2b8d587](https://github.com/unknowIfGuestInDream/javafxTool/commit/2b8d587d93dad4e542c4bc1c9ff7b089aadf59da)) ([#99](https://github.com/unknowIfGuestInDream/javafxTool/pull/99))
+  - 完善工作流 ([116d387](https://github.com/unknowIfGuestInDream/javafxTool/commit/116d387ba7e06591d7f4ac6ed5f91baee4b880be)) ([#98](https://github.com/unknowIfGuestInDream/javafxTool/pull/98))
+  - 完善工作流 ([a17a012](https://github.com/unknowIfGuestInDream/javafxTool/commit/a17a01276a32324739a3c3c3fde26b47138a6ab8)) ([#97](https://github.com/unknowIfGuestInDream/javafxTool/pull/97))
+  - 完善工作流 ([3eb47ba](https://github.com/unknowIfGuestInDream/javafxTool/commit/3eb47bad032acc79a5ece49e0dbc469e4f96f78f)) ([#95](https://github.com/unknowIfGuestInDream/javafxTool/pull/95))
+  - 完善工作流 (#93) ([152994d](https://github.com/unknowIfGuestInDream/javafxTool/commit/152994d69c2576fb231b6ac64d14c58ad4cda79f)) ([#93](https://github.com/unknowIfGuestInDream/javafxTool/pull/93))
+  - 完善工作流 (#91) ([262058d](https://github.com/unknowIfGuestInDream/javafxTool/commit/262058d23a33136952828b1f25879d6ccebf5e64)) ([#91](https://github.com/unknowIfGuestInDream/javafxTool/pull/91))
+  - 完善工作流 ([0af2253](https://github.com/unknowIfGuestInDream/javafxTool/commit/0af2253d7620b7f95afbb20a712196dbd43eebac)) ([#89](https://github.com/unknowIfGuestInDream/javafxTool/pull/89))
+  - 完善工作流 ([f73a310](https://github.com/unknowIfGuestInDream/javafxTool/commit/f73a310fe6dfa2432b8574cef1f45e1238b00301)) ([#87](https://github.com/unknowIfGuestInDream/javafxTool/pull/87))
+  - 完善工作流 ([edabb46](https://github.com/unknowIfGuestInDream/javafxTool/commit/edabb468c953ede1597ea7f5dc176d44a0eb1158)) ([#85](https://github.com/unknowIfGuestInDream/javafxTool/pull/85))
+  - 完善工作流 ([a65456f](https://github.com/unknowIfGuestInDream/javafxTool/commit/a65456f8ca0d31ce2d20cb7c5fb4e6b130fa57bd)) ([#83](https://github.com/unknowIfGuestInDream/javafxTool/pull/83))
+  - 完善工作流 ([cb7838c](https://github.com/unknowIfGuestInDream/javafxTool/commit/cb7838c134d85e5a4494b95cc00a504d87a94393)) ([#78](https://github.com/unknowIfGuestInDream/javafxTool/pull/78))
+  - 完善工作流 ([72fb935](https://github.com/unknowIfGuestInDream/javafxTool/commit/72fb935960a7982496a8ecfa4c68bb94e7ef1d8d)) ([#76](https://github.com/unknowIfGuestInDream/javafxTool/pull/76))
+  - 完善工作流 (#74) ([1d69073](https://github.com/unknowIfGuestInDream/javafxTool/commit/1d69073bdc037f9082a31c208162960a0ee98545)) ([#74](https://github.com/unknowIfGuestInDream/javafxTool/pull/74))
   - smc menubar增加图标 (#71) ([83f1d4a](https://github.com/unknowIfGuestInDream/javafxTool/commit/83f1d4a733b7f04918a4b66e38ef83091f0cee11)) ([#71](https://github.com/unknowIfGuestInDream/javafxTool/pull/71))
   - 新增语言功能 (#70) ([98b18aa](https://github.com/unknowIfGuestInDream/javafxTool/commit/98b18aa55212a44c3645a25dccd414b4edc207a3)) ([#70](https://github.com/unknowIfGuestInDream/javafxTool/pull/70))
   - smc menubar 完善 (#66) ([97e4cae](https://github.com/unknowIfGuestInDream/javafxTool/commit/97e4cae7856448e1b5e395eb65f312f8dbfffc82)) ([#66](https://github.com/unknowIfGuestInDream/javafxTool/pull/66))
@@ -113,10 +179,19 @@
   - 修改module.info文件 (#50) ([8cf4b2a](https://github.com/unknowIfGuestInDream/javafxTool/commit/8cf4b2aae400e0ddfa09255d419c09582a8c5b36)) ([#50](https://github.com/unknowIfGuestInDream/javafxTool/pull/50))
   - smc初始化 (#47) ([6921467](https://github.com/unknowIfGuestInDream/javafxTool/commit/6921467e3de2e44a2f82eaee71f08754f2bdf837)) ([#47](https://github.com/unknowIfGuestInDream/javafxTool/pull/47))
   - Sample 设计调整 (#46) ([0178bbd](https://github.com/unknowIfGuestInDream/javafxTool/commit/0178bbd73d8da8e4aecfdbcc26879b7a30185858)) ([#46](https://github.com/unknowIfGuestInDream/javafxTool/pull/46))
+  - 完善工作流配置文件 ([96d9c30](https://github.com/unknowIfGuestInDream/javafxTool/commit/96d9c30057ad0bcdf3a569ca3c57b9ca55e9a4b3))
+  - 完善工作流 (#41) ([7bb2ece](https://github.com/unknowIfGuestInDream/javafxTool/commit/7bb2ece230a96226dd7454c9e78eeb25cd634145)) ([#41](https://github.com/unknowIfGuestInDream/javafxTool/pull/41))
   - 完善demo (#39) ([29e6fad](https://github.com/unknowIfGuestInDream/javafxTool/commit/29e6fadc6f32b1b13d891a95fc68fd6e84b922fb)) ([#39](https://github.com/unknowIfGuestInDream/javafxTool/pull/39))
   - 添加工作流 (#38) ([ef84ae9](https://github.com/unknowIfGuestInDream/javafxTool/commit/ef84ae962f615c0584eff63ad9aaa78d59d19918)) ([#38](https://github.com/unknowIfGuestInDream/javafxTool/pull/38))
   - 初始化smc模块 (#33) ([cce9b46](https://github.com/unknowIfGuestInDream/javafxTool/commit/cce9b46051b91464c9d491ea255f89c27fb4d52c)) ([#33](https://github.com/unknowIfGuestInDream/javafxTool/pull/33))
+  - codecov工作流 ([8712577](https://github.com/unknowIfGuestInDream/javafxTool/commit/8712577f4c8523499ca81178ad71907a06d7dfa6)) ([#32](https://github.com/unknowIfGuestInDream/javafxTool/pull/32))
+  - codecov工作流 ([a61d5b1](https://github.com/unknowIfGuestInDream/javafxTool/commit/a61d5b19f4eb8ac7a45ae207e1073a67f32e92ed)) ([#31](https://github.com/unknowIfGuestInDream/javafxTool/pull/31))
   - smc引用模块 (#30) ([bc444ad](https://github.com/unknowIfGuestInDream/javafxTool/commit/bc444ade7ea8ad23b59f26a7897b086394190981)) ([#30](https://github.com/unknowIfGuestInDream/javafxTool/pull/30))
+  - 完善README (#29) ([22e073f](https://github.com/unknowIfGuestInDream/javafxTool/commit/22e073fb6b9fcf5e51edb81ad8b391c93feef1c6)) ([#29](https://github.com/unknowIfGuestInDream/javafxTool/pull/29))
+  - 完善README ([a35486d](https://github.com/unknowIfGuestInDream/javafxTool/commit/a35486d6d98057aead78d0d987c9cc9dc873085e)) ([#28](https://github.com/unknowIfGuestInDream/javafxTool/pull/28))
+  - 完善label工作流 ([0ea1df4](https://github.com/unknowIfGuestInDream/javafxTool/commit/0ea1df41d8fb565aff77144021de47bcb017b765))
+  - 完善label工作流 ([6308bcf](https://github.com/unknowIfGuestInDream/javafxTool/commit/6308bcf4012dc1d8afd89f1f8f8cda6fda7bdd0a))
+  - 完善label工作流 (#27) ([87d7119](https://github.com/unknowIfGuestInDream/javafxTool/commit/87d71199c2606f9208d4cd4a7c29c2aab1efed74)) ([#27](https://github.com/unknowIfGuestInDream/javafxTool/pull/27))
   - improve centerPanel SPI (#24) ([186f163](https://github.com/unknowIfGuestInDream/javafxTool/commit/186f163a620c8519a26da756faa38776b9b75f51)) ([#24](https://github.com/unknowIfGuestInDream/javafxTool/pull/24))
   - 新增国际化支持 (#23) ([3ec2dab](https://github.com/unknowIfGuestInDream/javafxTool/commit/3ec2dab716fe3e785e39f942c737f7700bceff25)) ([#23](https://github.com/unknowIfGuestInDream/javafxTool/pull/23))
   - improve登录模块 ([fe7d424](https://github.com/unknowIfGuestInDream/javafxTool/commit/fe7d4247a2230e192c36742cfd58ecd78213ef92))
@@ -128,6 +203,7 @@
   - support menubar (#12) ([9b6d01e](https://github.com/unknowIfGuestInDream/javafxTool/commit/9b6d01eda2f9ee20ca2033373c9396c7fa7ef84a)) ([#12](https://github.com/unknowIfGuestInDream/javafxTool/pull/12))
   - 修改菜单栏 (#10) ([fccdb23](https://github.com/unknowIfGuestInDream/javafxTool/commit/fccdb2385cae9d96e02fa96015c657c5947ab030)) ([#10](https://github.com/unknowIfGuestInDream/javafxTool/pull/10))
   - menubar ([edcbaf2](https://github.com/unknowIfGuestInDream/javafxTool/commit/edcbaf262fc9ca67ba8e1f8921ec709fa1e141aa))
+  - modify config. ([6374177](https://github.com/unknowIfGuestInDream/javafxTool/commit/63741773ea1f1ca2ec89b43925a8d3465261375a))
 
 - smc:
   - girret review results功能完善 (#161) ([ed2f403](https://github.com/unknowIfGuestInDream/javafxTool/commit/ed2f4038ecfdaf3606ca2111227d6217c1c0de4e)) ([#161](https://github.com/unknowIfGuestInDream/javafxTool/pull/161))
@@ -148,5 +224,9 @@
   - 优化CenterPanelService 接口设计 (#53) ([29a1ef1](https://github.com/unknowIfGuestInDream/javafxTool/commit/29a1ef100e9ae5a7f33ff572021c7eef0ab4a274)) ([#53](https://github.com/unknowIfGuestInDream/javafxTool/pull/53))
   - 优化模块配置 (#49) ([9bbb502](https://github.com/unknowIfGuestInDream/javafxTool/commit/9bbb502fadf6afd9910b78979defccb2a8200435)) ([#49](https://github.com/unknowIfGuestInDream/javafxTool/pull/49))
   - 修复javafx:Jlink打包镜像错误 (#42) ([aa73df6](https://github.com/unknowIfGuestInDream/javafxTool/commit/aa73df68c8b008cd2bf4b4f800c128ad4e19ae6f)) ([#42](https://github.com/unknowIfGuestInDream/javafxTool/pull/42))
+  - 修改工作流配置 ([a833a52](https://github.com/unknowIfGuestInDream/javafxTool/commit/a833a52e1da29946cf7d5fa614073f98c7415eb5))
+  - 修改工作流配置 ([70a9012](https://github.com/unknowIfGuestInDream/javafxTool/commit/70a9012cae52084171666b284a08d895352fbf03))
   - 修复编译错误 ([ef73aed](https://github.com/unknowIfGuestInDream/javafxTool/commit/ef73aedd004f7a8f917b5cacd63a076bf285bb52))
   - 修复静态文件路径 (#6) ([827614c](https://github.com/unknowIfGuestInDream/javafxTool/commit/827614c6199d3f1da4fece02d4f32692dd852846)) ([#6](https://github.com/unknowIfGuestInDream/javafxTool/pull/6))
+
+\* *This CHANGELOG was automatically generated by [auto-generate-changelog](https://github.com/BobAnkh/auto-generate-changelog)*
