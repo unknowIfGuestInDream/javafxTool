@@ -80,6 +80,8 @@
         <pdfbox.version>2.0.27</pdfbox.version>
         <jackson.version>2.14.2</jackson.version>
         <testfx.version>4.0.16-alpha</testfx.version>
+        <bootstrapfx.version>0.4.0</bootstrapfx.version>
+        <ikonli-javafx.version>12.3.1</ikonli-javafx.version>
     </properties>
 
     <dependencies>
@@ -330,6 +332,16 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kordamp.bootstrapfx</groupId>
+                <artifactId>bootstrapfx-core</artifactId>
+                <version>${bootstrapfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kordamp.ikonli</groupId>
+                <artifactId>ikonli-javafx</artifactId>
+                <version>${ikonli-javafx.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
