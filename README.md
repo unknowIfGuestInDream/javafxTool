@@ -14,10 +14,13 @@ demo: demo示例
 smc: 个人应用(无需参考)
 
 ## 接口
+
 ### core
+
 - TemplateLoaderService: freemarker TemplateLoader加载，子类实现以添加子模块的模板路径
 
 ### frame
+
 - FXSamplerProject: project信息，包含project名，模块，包名，欢迎页
 - MenubarConfigration: 菜单栏配置
 - FXSamplerConfiguration: 项目style, title和icon配置
@@ -25,13 +28,18 @@ smc: 个人应用(无需参考)
 - SplashScreen: 闪屏图片
 - SamplePostProcessorService: Sample资源后置处理
 - VersionCheckerService: 版本更新检查
+- SamplesTreeViewConfiguration: 菜单树配置
 
 ### login
+
 - LoginCheck: 登录校验
 
 ## 打包
+
 推荐通过IDEA打包  
 配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成  
 打包: 构建 -> 构建工件 -> 构建
+
 ## 联系
+
 如果有什么问题，可以发邮件到 liang.tang.cx@gmail.com
