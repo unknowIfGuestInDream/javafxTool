@@ -27,20 +27,26 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * C1M的ECM脚本
@@ -61,8 +67,8 @@ public class C1MEcmScript extends AbstractEcmScript {
                 categoryJpName;D
                 """);
         functionConfigField.setText("""
-                optMaskableInpt;G
-                optEFInpt;H
+                opMaskableInpt;G
+                opEFInpt;H
                 optIntrg;I
                 optErroroutput;J
                 optDelayt;K
@@ -73,8 +79,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         errorSourceEnNameColField.setText("E");
         errorSourceJpNameColField.setText("L");
         productConfigField.setText("""
-                RH850C1MA2;252;-     
-                RH850C1MA2;252;252;-     
+                RH850C1MA2;252;252;-
                 """);
 
         errorSourceDescColLabel.setDisable(true);
@@ -126,8 +131,7 @@ public class C1MEcmScript extends AbstractEcmScript {
             categoryMap.put(l.get(0), l.get(1));
         }
         // category 数据处理
-        ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(excel),
-                categorySheetName);
+        ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(excel), categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
         List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
@@ -179,7 +183,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskableInpt".equals(funcId)) {
+                    if ("opMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
@@ -194,8 +198,8 @@ public class C1MEcmScript extends AbstractEcmScript {
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
                 errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceenName", errorSourceenName);
-                errorSource.put("errorSourcejpName", errorSourcejpName);
+                errorSource.put("errorSourceEnName", errorSourceenName);
+                errorSource.put("errorSourceJpName", errorSourcejpName);
                 errorSource.put("function", function);
                 handlerErrorSourceMap(errorSource, key, 0);
                 ErrorSourceInfos.add(errorSource);
@@ -204,8 +208,7 @@ public class C1MEcmScript extends AbstractEcmScript {
             paramMap.put("categoryInfos", categoryInfos);
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
-            FileUtil.appendUtf8String(
-                    FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
+            FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
         }
         reader.close();
         // 后续文件合并
@@ -280,19 +283,19 @@ public class C1MEcmScript extends AbstractEcmScript {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceenName");
-        String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
+        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
-        errorSource.put("errorSourceenName", errorSourceenName);
-        errorSource.put("errorSourcejpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
     }
 
     /**
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         // Do nothing
     }
 

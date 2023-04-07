@@ -27,14 +27,21 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.map.multi.ListValueMap;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
+import java.io.File;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -45,23 +52,29 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.map.multi.ListValueMap;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.*;
 
 /**
  * EcmScript脚本超类
@@ -127,11 +140,9 @@ public abstract class AbstractEcmScript extends SmcSample {
                         FileUtil.del(file);
                     }
                     String path = "com/tlcsdm/smc/static/templates/smc/ecm";
-                    ZipUtil.zip(file, Charset.defaultCharset(), new ClassPathResource(
-                            path + File.separator + "u2a.ftl",
-                            getClass().getClassLoader()), new ClassPathResource(
-                            path + File.separator + "c1m.ftl",
-                            getClass().getClassLoader()));
+                    ZipUtil.zip(file, Charset.defaultCharset(),
+                            new ClassPathResource(path + File.separator + "u2a.ftl", getClass().getClassLoader()),
+                            new ClassPathResource(path + File.separator + "c1m.ftl", getClass().getClassLoader()));
 
                     notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                     notificationBuilder.showInformation();
@@ -334,9 +345,12 @@ public abstract class AbstractEcmScript extends SmcSample {
      */
     protected void initDefaultValue() {
         startRowField.setNumber(BigDecimal.valueOf(3));
-        categoryConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
-        functionConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
-        productConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        categoryConfigField
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        functionConfigField
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        productConfigField
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         categoryStartRowField.setNumber(BigDecimal.valueOf(3));
         categorySheetNameField.setText("Category");
     }
@@ -457,7 +471,7 @@ public abstract class AbstractEcmScript extends SmcSample {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
+                    if ("opMaskint".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
@@ -483,8 +497,7 @@ public abstract class AbstractEcmScript extends SmcSample {
             paramMap.put("categoryInfos", categoryInfos);
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
-            FileUtil.appendUtf8String(
-                    FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
+            FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
         }
         reader.close();
 
@@ -531,8 +544,8 @@ public abstract class AbstractEcmScript extends SmcSample {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceenName");
-        String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
+        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
         if (errorSourceenName.endsWith("*7")) {
@@ -543,8 +556,8 @@ public abstract class AbstractEcmScript extends SmcSample {
                 errorSourcejpName += "(デバッグのみを目的とする)";
             }
         }
-        errorSource.put("errorSourceenName", errorSourceenName);
-        errorSource.put("errorSourcejpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
 
         List<Map<String, Object>> function = (List<Map<String, Object>>) errorSource.get("function");
         List<Map<String, Object>> extraFunc = new ArrayList<>();
@@ -571,7 +584,7 @@ public abstract class AbstractEcmScript extends SmcSample {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-                                List<Map<String, Object>> function) {
+            List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -585,7 +598,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
