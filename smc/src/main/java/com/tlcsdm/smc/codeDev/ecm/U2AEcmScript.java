@@ -90,11 +90,6 @@ public class U2AEcmScript extends AbstractEcmScript {
     }
 
     @Override
-    public String getSampleVersion() {
-        return "1.0.0";
-    }
-
-    @Override
     public Node getPanel(Stage stage) {
         return super.getPanel(stage);
     }
