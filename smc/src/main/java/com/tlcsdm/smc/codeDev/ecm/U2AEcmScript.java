@@ -48,7 +48,7 @@ public class U2AEcmScript extends AbstractEcmScript {
                 categoryJpName;H
                 """);
         functionConfigField.setText("""
-                optMaskint;G
+                opMaskint;G
                 optIntg;G
                 optDCLS;G
                 optIntrg;I
@@ -71,7 +71,7 @@ public class U2AEcmScript extends AbstractEcmScript {
                 RH850U2A6;292;T
                 RH850U2A6;176;T
                 RH850U2A6;156;U
-                RH850U2A6;144;V      
+                RH850U2A6;144;V
                 """);
     }
 

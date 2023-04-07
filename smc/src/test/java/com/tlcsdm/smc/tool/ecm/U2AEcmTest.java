@@ -89,7 +89,7 @@ public class U2AEcmTest {
         String deviceSheetName = "U2A";
         int startRow = 3;
         String functions = """
-                optMaskint;G
+                opMaskint;G
                 optIntg;G
                 optDCLS;G
                 optIntrg;I
@@ -205,7 +205,7 @@ public class U2AEcmTest {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
+                    if ("opMaskint".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
