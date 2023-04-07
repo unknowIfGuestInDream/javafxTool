@@ -265,11 +265,6 @@ public class C1MEcmScript extends AbstractEcmScript {
     }
 
     @Override
-    public String getSampleVersion() {
-        return "1.0.0";
-    }
-
-    @Override
     public Node getPanel(Stage stage) {
         return super.getPanel(stage);
     }
