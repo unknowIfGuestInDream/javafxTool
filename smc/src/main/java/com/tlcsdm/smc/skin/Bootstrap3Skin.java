@@ -27,15 +27,16 @@
 
 package com.tlcsdm.smc.skin;
 
+import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.smc.provider.SmcConfigurationProvider;
 
 import java.util.Objects;
 
-public class MistSilverSkin extends SmcConfigurationProvider {
+public class Bootstrap3Skin extends SmcConfigurationProvider {
 
     @Override
     public String getSceneStylesheet() {
-        return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/smc/fxsampler/mistSilverSkin.css"))
+        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/bootstrap3.css"))
                 .toExternalForm();
     }
 

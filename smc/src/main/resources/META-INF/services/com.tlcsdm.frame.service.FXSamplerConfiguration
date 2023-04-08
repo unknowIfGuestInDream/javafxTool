@@ -26,3 +26,4 @@
 #
 
 com.tlcsdm.smc.provider.SmcConfigurationProvider
+com.tlcsdm.smc.skin.Bootstrap3Skin
