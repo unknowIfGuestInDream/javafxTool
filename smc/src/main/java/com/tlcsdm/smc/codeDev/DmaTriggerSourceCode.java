@@ -48,6 +48,8 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -428,6 +430,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         userData.put("channelNum", channelNumField);
         userData.put("settingComplexCondition", settingComplexConditionField);
 
+        setupBindings();
+
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
@@ -491,6 +495,33 @@ public class DmaTriggerSourceCode extends SmcSample {
         grid.add(settingComplexConditionField, 1, 4);
 
         return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
+    }
+
+    private void setupBindings() {
+        BooleanBinding excelValidation = Bindings.createBooleanBinding(() -> excelField.getText().isEmpty(), excelField.textProperty());
+        BooleanBinding outputValidation = Bindings.createBooleanBinding(() -> outputField.getText().isEmpty(), outputField.textProperty());
+        BooleanBinding groupValidation = Bindings.createBooleanBinding(() -> groupField.getText().isEmpty(), groupField.textProperty());
+        BooleanBinding deviceConfValidation = Bindings.createBooleanBinding(() -> deviceAndStartColField.getText().isEmpty(),
+                deviceAndStartColField.textProperty());
+        BooleanBinding sheetNameValidation = Bindings.createBooleanBinding(() -> sheetNameField.getText().isEmpty(),
+                sheetNameField.textProperty());
+        BooleanBinding startRowValidation = Bindings.createBooleanBinding(() -> startRowField.getText().isEmpty(), startRowField.textProperty());
+        BooleanBinding endRowValidation = Bindings.createBooleanBinding(() -> endRowField.getText().isEmpty(), endRowField.textProperty());
+        BooleanBinding offsetValidation = Bindings.createBooleanBinding(() -> offsetField.getText().isEmpty(), offsetField.textProperty());
+        BooleanBinding defineLengthValidation = Bindings.createBooleanBinding(() -> defineLengthField.getText().isEmpty(),
+                defineLengthField.textProperty());
+        BooleanBinding macroTemplateValidation = Bindings.createBooleanBinding(() -> macroTemplateField.getText().isEmpty(),
+                macroTemplateField.textProperty());
+        BooleanBinding channelNumValidation = Bindings.createBooleanBinding(() -> channelNumField.getText().isEmpty(),
+                channelNumField.textProperty());
+        BooleanBinding settingComplexConditionValidation = Bindings.createBooleanBinding(() ->
+                settingComplexConditionField.getText().isEmpty(), settingComplexConditionField.textProperty());
+
+        generate.disabledProperty().bind(excelValidation.or(outputValidation).or(groupValidation).or(deviceConfValidation)
+                .or(sheetNameValidation).or(startRowValidation).or(endRowValidation).or(offsetValidation).or(defineLengthValidation)
+                .or(macroTemplateValidation).or(channelNumValidation).or(settingComplexConditionValidation));
+
+        openOutDir.disabledProperty().bind(outputValidation);
     }
 
     @Override
