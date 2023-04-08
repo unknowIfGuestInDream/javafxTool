@@ -41,7 +41,7 @@
     -fx-background-color: #DCDCDC;
 }
 
-/* 
+/*
  * The area beneath the description specifically to allow people to interact with
  * the sample.
  */
@@ -90,4 +90,9 @@
 
 .tree-cell:expanded .tree-disclosure-node .arrow {
     -fx-rotate: 90;
+}
+
+.tree-cell:filled:selected {
+    -color-cell-fg: #ECEFF4;
+    -fx-background-color: rgba(67, 159, 240, 0.8);
 }
