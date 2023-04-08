@@ -28,6 +28,7 @@ package com.tlcsdm.frame.model;
 
 import com.tlcsdm.frame.Sample;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class EmptySample implements Sample {
@@ -64,6 +65,11 @@ public class EmptySample implements Sample {
 
     @Override
     public String getSampleVersion() {
+        return null;
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
         return null;
     }
 

@@ -27,13 +27,14 @@
 
 package com.tlcsdm.demo;
 
+import com.tlcsdm.demo.samples.Utils;
+import com.tlcsdm.frame.SampleBase;
+import javafx.scene.image.ImageView;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
-
-import com.tlcsdm.demo.samples.Utils;
-import com.tlcsdm.frame.SampleBase;
 
 public abstract class ControlsFXSample extends SampleBase {
 
@@ -63,6 +64,11 @@ public abstract class ControlsFXSample extends SampleBase {
     @Override
     public String getSampleId() {
         return "controlsFX";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return null;
     }
 
     /**

@@ -27,13 +27,10 @@
 
 package com.tlcsdm.frame;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
+import cn.hutool.core.date.StopWatch;
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
@@ -44,26 +41,10 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.StageUtils;
 import com.tlcsdm.core.util.InterfaceScanner;
-import com.tlcsdm.frame.model.EmptyCenterPanel;
-import com.tlcsdm.frame.model.EmptySample;
-import com.tlcsdm.frame.model.Project;
-import com.tlcsdm.frame.model.SampleTree;
-import com.tlcsdm.frame.model.SampleTreeViewModel;
-import com.tlcsdm.frame.model.WelcomePage;
-import com.tlcsdm.frame.service.CenterPanelService;
-import com.tlcsdm.frame.service.FXSamplerConfiguration;
-import com.tlcsdm.frame.service.MenubarConfigration;
-import com.tlcsdm.frame.service.SamplePostProcessorService;
-import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
-import com.tlcsdm.frame.service.SplashScreen;
-import com.tlcsdm.frame.service.VersionCheckerService;
+import com.tlcsdm.frame.model.*;
+import com.tlcsdm.frame.service.*;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
-
-import cn.hutool.core.date.StopWatch;
-import cn.hutool.core.lang.Console;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -71,25 +52,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+
+import java.util.*;
 
 public final class FXSampler extends Application {
 
@@ -233,24 +207,9 @@ public final class FXSampler extends Application {
         samplesTreeView = new TreeView<>(root);
         samplesTreeView.setShowRoot(false);
         samplesTreeView.getStyleClass().add("samples-tree");
-        samplesTreeView.setMinWidth(200);
-        samplesTreeView.setMaxWidth(200);
-        samplesTreeView.setCellFactory(new Callback<>() {
-            @Override
-            public TreeCell<Sample> call(TreeView<Sample> param) {
-                return new TreeCell<>() {
-                    @Override
-                    protected void updateItem(Sample item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText("");
-                        } else {
-                            setText(item.getSampleName());
-                        }
-                    }
-                };
-            }
-        });
+        samplesTreeView.setMinWidth(210);
+        samplesTreeView.setMaxWidth(210);
+        samplesTreeView.setCellFactory(new DefaultTreeViewCellFactory());
         samplesTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newSample) -> {
             if (newSample == null) {
                 return;
