@@ -58,8 +58,8 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
