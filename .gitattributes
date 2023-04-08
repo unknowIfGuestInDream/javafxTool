@@ -5,6 +5,7 @@
 *.bat -text
 
 *.ftl linguist-language=freemarker
+frame/src/main/resources/com/tlcsdm/frame/static/css/* linguist-vendored
 # Ensure the following are treated as binary.
 *.gif   binary
 *.jar   binary
@@ -13,4 +14,5 @@
 *.png   binary
 *.vsd   binary
 *.xls   binary
-*.xlsx   binary
+*.xlsx  binary
+*.ttf   binary

@@ -36,7 +36,7 @@ public class Bootstrap3Skin extends SmcConfigurationProvider {
 
     @Override
     public String getSceneStylesheet() {
-        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/bootstrap3.css"))
+        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css"))
                 .toExternalForm();
     }
 
