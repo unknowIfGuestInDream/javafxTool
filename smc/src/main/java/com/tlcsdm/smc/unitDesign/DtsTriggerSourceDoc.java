@@ -46,6 +46,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -53,6 +54,7 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -502,6 +504,11 @@ public class DtsTriggerSourceDoc extends SmcSample {
     @Override
     public String getSampleVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/xlsx.png"));
     }
 
     @Override

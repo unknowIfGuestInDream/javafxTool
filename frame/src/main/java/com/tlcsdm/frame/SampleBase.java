@@ -39,6 +39,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
@@ -119,6 +120,11 @@ public abstract class SampleBase extends Application implements Sample {
     @Override
     public String getSampleDescription() {
         return "";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return null;
     }
 
     /**
