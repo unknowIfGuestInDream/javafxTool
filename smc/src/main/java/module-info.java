@@ -30,6 +30,7 @@ import com.tlcsdm.frame.service.*;
 import com.tlcsdm.login.service.LoginCheck;
 import com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
 import com.tlcsdm.smc.provider.*;
+import com.tlcsdm.smc.skin.Bootstrap3Skin;
 
 module com.tlcsdm.smc {
     requires java.desktop;
@@ -56,6 +57,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
+    exports com.tlcsdm.smc.skin to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
@@ -66,7 +68,7 @@ module com.tlcsdm.smc {
     provides FXSamplerProject with SmcSamplerProjectProvider;
     provides MenubarConfigration with SmcMenubarConfigrationProvider;
     provides CenterPanelService with SmcCenterPanelProvider;
-    provides FXSamplerConfiguration with SmcConfigurationProvider;
+    provides FXSamplerConfiguration with SmcConfigurationProvider, Bootstrap3Skin;
     provides SplashScreen with SmcSplashProvider;
     provides LoginCheck with SmcLoginCheckProvider;
     provides TemplateLoaderService with SmcTemplateLoaderProvider;
