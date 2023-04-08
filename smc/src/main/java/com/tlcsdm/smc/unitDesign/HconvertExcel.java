@@ -37,6 +37,7 @@ import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -45,6 +46,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -265,6 +267,11 @@ public class HconvertExcel extends SmcSample {
     @Override
     public String getSampleVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/xlsx.png"));
     }
 
     @Override

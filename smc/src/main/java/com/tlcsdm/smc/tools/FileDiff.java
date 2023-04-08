@@ -32,6 +32,7 @@ import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
 import com.tlcsdm.smc.SmcSample;
@@ -42,6 +43,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.web.WebView;
@@ -250,6 +252,11 @@ public class FileDiff extends SmcSample {
     @Override
     public String getSampleVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/diff1.png"));
     }
 
 }
