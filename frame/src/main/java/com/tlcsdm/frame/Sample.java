@@ -28,6 +28,7 @@
 package com.tlcsdm.frame;
 
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -65,6 +66,11 @@ public interface Sample {
      * sample version
      */
     String getSampleVersion();
+
+    /**
+     * sample icon
+     */
+    ImageView getSampleImageIcon();
 
     /**
      * Returns the main sample panel.
