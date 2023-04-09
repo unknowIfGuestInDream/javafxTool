@@ -28,6 +28,8 @@
 package com.tlcsdm.smc.tools;
 
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
@@ -37,6 +39,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -189,13 +192,6 @@ public class FileDiff extends SmcSample {
         webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         GridPane.setVgrow(webView, Priority.ALWAYS);
 
-        userData.put("original", originalField);
-        userData.put("originalChoose", originalFileChooser);
-        userData.put("compare", compareField);
-        userData.put("compareChoose", compareFileChooser);
-        userData.put("output", outputField);
-        userData.put("outputChoose", outputChooser);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(originalLabel, 0, 1);
         grid.add(originalButton, 1, 1);
@@ -209,6 +205,28 @@ public class FileDiff extends SmcSample {
         grid.add(webView, 0, 4, 3, 1);
 
         return grid;
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(originalField, compareField).build();
+
+        generate.disabledProperty().bind(emptyValidation);
+        download.disabledProperty().bind(emptyValidation.or(outputValidation));
+        openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("original", originalField);
+        userData.put("originalChoose", originalFileChooser);
+        userData.put("compare", compareField);
+        userData.put("compareChoose", compareFileChooser);
+        userData.put("output", outputField);
+        userData.put("outputChoose", outputChooser);
     }
 
     @Override

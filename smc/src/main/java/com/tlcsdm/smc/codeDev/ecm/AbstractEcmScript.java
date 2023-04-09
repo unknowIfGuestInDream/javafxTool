@@ -36,6 +36,8 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -46,6 +48,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -128,10 +131,9 @@ public abstract class AbstractEcmScript extends SmcSample {
                     if (file.exists()) {
                         FileUtil.del(file);
                     }
-                    String path = "com/tlcsdm/smc/static/templates/smc/ecm";
+                    String path = "com/tlcsdm/smc/static/templates/";
                     ZipUtil.zip(file, Charset.defaultCharset(),
-                            new ClassPathResource(path + File.separator + "u2a.ftl", getClass().getClassLoader()),
-                            new ClassPathResource(path + File.separator + "c1m.ftl", getClass().getClassLoader()));
+                            new ClassPathResource(path + getFtlPath(), getClass().getClassLoader()));
 
                     notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                     notificationBuilder.showInformation();
@@ -205,23 +207,6 @@ public abstract class AbstractEcmScript extends SmcSample {
         accordion.setExpandedPane(categoryPane);
 
         initDefaultValue();
-
-        userData.put("excel", excelField);
-        userData.put("excelFileChooser", excelFileChooser);
-        userData.put("output", outputField);
-        userData.put("outputChooser", outputChooser);
-        userData.put("sheetName", sheetNameField);
-        userData.put("startRow", startRowField);
-        userData.put("categorySheetName", categorySheetNameField);
-        userData.put("categoryConfig", categoryConfigField);
-        userData.put("errorSourceIdCol", errorSourceIdColField);
-        userData.put("categoryIdCol", categoryIdColField);
-        userData.put("errorSourceNumberCol", errorSourceNumberColField);
-        userData.put("errorSourceEnNameCol", errorSourceEnNameColField);
-        userData.put("errorSourceDesc", errorSourceDescColField);
-        userData.put("errorSourceJpNameCol", errorSourceJpNameColField);
-        userData.put("functionConfig", functionConfigField);
-        userData.put("productConfig", productConfigField);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -327,6 +312,39 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.add(categoryConfigField, 1, 2);
 
         return new TitledPane(I18nUtils.get("smc.tool.ecm.title.category"), grid);
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField, startRowField,
+                categorySheetNameField, categoryStartRowField, categoryConfigField, errorSourceIdColField, categoryIdColField,
+                errorSourceNumberColField, errorSourceEnNameColField, errorSourceDescColField, errorSourceJpNameColField,
+                functionConfigField, productConfigField).build();
+        generate.disabledProperty().bind(emptyValidation);
+        openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
+        userData.put("sheetName", sheetNameField);
+        userData.put("startRow", startRowField);
+        userData.put("categorySheetName", categorySheetNameField);
+        userData.put("categoryConfig", categoryConfigField);
+        userData.put("errorSourceIdCol", errorSourceIdColField);
+        userData.put("categoryIdCol", categoryIdColField);
+        userData.put("errorSourceNumberCol", errorSourceNumberColField);
+        userData.put("errorSourceEnNameCol", errorSourceEnNameColField);
+        userData.put("errorSourceDesc", errorSourceDescColField);
+        userData.put("errorSourceJpNameCol", errorSourceJpNameColField);
+        userData.put("functionConfig", functionConfigField);
+        userData.put("productConfig", productConfigField);
     }
 
     /**
@@ -573,7 +591,7 @@ public abstract class AbstractEcmScript extends SmcSample {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-            List<Map<String, Object>> function) {
+                                List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -587,7 +605,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                         boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {

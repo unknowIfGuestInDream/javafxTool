@@ -34,6 +34,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
@@ -42,6 +43,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -170,11 +172,6 @@ public class CodeStyleLength120 extends SmcSample {
 
         checkFileTypeField.setText("c,h");
 
-        userData.put("checkDir", checkDirField);
-        userData.put("checkFileType", checkFileTypeField);
-        userData.put("ignoreFile", ignoreFileField);
-        userData.put("outPut", outPutChooser);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(checkDirLabel, 0, 1);
         grid.add(checkDirButton, 1, 1);
@@ -196,6 +193,22 @@ public class CodeStyleLength120 extends SmcSample {
             return;
         }
         generateFilesParentPath = new File(FxXmlUtil.get(getSampleXmlPrefix(), "checkDir", ""));
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding checkDirValidation = new TextInputControlEmptyBinding(checkDirField).build();
+        generate.disabledProperty().bind(checkDirValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("checkDir", checkDirField);
+        userData.put("checkFileType", checkFileTypeField);
+        userData.put("ignoreFile", ignoreFileField);
+        userData.put("outPut", outPutChooser);
     }
 
     @Override
