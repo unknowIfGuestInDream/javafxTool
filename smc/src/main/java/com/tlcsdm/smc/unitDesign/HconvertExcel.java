@@ -33,6 +33,7 @@ import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
@@ -40,6 +41,7 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -215,13 +217,6 @@ public class HconvertExcel extends SmcSample {
         supportFileTypeField.setText("h");
         outputChooser.setInitialFileName("hconvert.xlsx");
 
-        userData.put("general", generalField);
-        userData.put("generalChooser", generalChooser);
-        userData.put("outputChooser", outputChooser);
-        userData.put("ignoreFileNames", ignoreFileNamesField);
-        userData.put("markFileNames", markFileNamesField);
-        userData.put("supportFileType", supportFileTypeField);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(generalLabel, 0, 1);
         grid.add(generalButton, 1, 1);
@@ -233,6 +228,24 @@ public class HconvertExcel extends SmcSample {
         grid.add(supportFileTypeLabel, 0, 4);
         grid.add(supportFileTypeField, 1, 4, 2, 1);
         return grid;
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField).build();
+        generate.disabledProperty().bind(emptyValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("general", generalField);
+        userData.put("generalChooser", generalChooser);
+        userData.put("outputChooser", outputChooser);
+        userData.put("ignoreFileNames", ignoreFileNamesField);
+        userData.put("markFileNames", markFileNamesField);
+        userData.put("supportFileType", supportFileTypeField);
     }
 
     @Override

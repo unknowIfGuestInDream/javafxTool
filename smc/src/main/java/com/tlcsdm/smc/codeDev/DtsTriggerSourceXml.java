@@ -33,6 +33,8 @@ import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -43,6 +45,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -227,17 +230,6 @@ public class DtsTriggerSourceXml extends SmcSample {
                 .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
         xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
-        userData.put("excel", excelField);
-        userData.put("excelFileChooser", excelFileChooser);
-        userData.put("output", outputField);
-        userData.put("outputChooser", outputChooser);
-        userData.put("group", groupField);
-        userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
-        userData.put("sheetName", sheetNameField);
-        userData.put("startRow", startRowField);
-        userData.put("endRow", endRowField);
-        userData.put("xmlNameTemplate", xmlNameTemplateField);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
@@ -262,6 +254,32 @@ public class DtsTriggerSourceXml extends SmcSample {
     }
 
     @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
+                xmlFileNameAndStartColField, sheetNameField, startRowField, endRowField, xmlNameTemplateField).build();
+
+        generate.disabledProperty().bind(emptyValidation);
+        openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
+        userData.put("group", groupField);
+        userData.put("xmlFileNameAndStartCol", xmlFileNameAndStartColField);
+        userData.put("sheetName", sheetNameField);
+        userData.put("startRow", startRowField);
+        userData.put("endRow", endRowField);
+        userData.put("xmlNameTemplate", xmlNameTemplateField);
+    }
+
+    @Override
     public Node getControlPanel() {
         String content = """
                 {excelLabel}: {excelDesc}
@@ -271,7 +289,7 @@ public class DtsTriggerSourceXml extends SmcSample {
                 {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
                 """;
 
-        Map<String, String> map = new HashMap<>(32);
+        Map<String, String> map = new HashMap<>(16);
         map.put("excelLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel"));
         map.put("excelDesc", "eg: DTS_Transfer_request_Table.xlsx");
         map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group"));
