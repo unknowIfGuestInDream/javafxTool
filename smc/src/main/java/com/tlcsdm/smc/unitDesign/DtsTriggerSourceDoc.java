@@ -39,6 +39,8 @@ import cn.hutool.poi.excel.cell.CellLocation;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -51,6 +53,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -96,11 +99,6 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private final String defaultTemplatePath = "com/tlcsdm/smc/static/templates/DTS_request_table.xlsx";
 
     private final FileChooser downloadChooser = new FileChooser();
-
-    @Override
-    public boolean isVisible() {
-        return true;
-    }
 
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.button.download"),
             actionEvent -> {
@@ -401,21 +399,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
         beginWriteRowNumField.setNumber(BigDecimal.valueOf(3));
-        deviceNameAndStartColField.setPromptText("多个实例请换行");
-
-        userData.put("excel", excelField);
-        userData.put("excelFileChooser", excelFileChooser);
-        userData.put("output", outputField);
-        userData.put("outputChooser", outputChooser);
-        userData.put("group", groupField);
-        userData.put("deviceNameAndStartCol", deviceNameAndStartColField);
-        userData.put("template", templateField);
-        userData.put("templateChooser", templateChooser);
-        userData.put("sheetName", sheetNameField);
-        userData.put("conditionCol", conditionColField);
-        userData.put("startRow", startRowField);
-        userData.put("endRow", endRowField);
-        userData.put("beginWriteRowNum", beginWriteRowNumField);
+        deviceNameAndStartColField.setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
 
         grid.add(toolBar, 0, 0, 4, 1);
         grid.add(excelLabel, 0, 1);
@@ -444,6 +428,34 @@ public class DtsTriggerSourceDoc extends SmcSample {
         grid.add(beginWriteRowNumField, 1, 10, 3, 1);
 
         return grid;
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField, deviceNameAndStartColField,
+                sheetNameField, conditionColField, startRowField, endRowField, beginWriteRowNumField).build();
+        generate.disabledProperty().bind(emptyValidation);
+        openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
+        userData.put("group", groupField);
+        userData.put("deviceNameAndStartCol", deviceNameAndStartColField);
+        userData.put("template", templateField);
+        userData.put("templateChooser", templateChooser);
+        userData.put("sheetName", sheetNameField);
+        userData.put("conditionCol", conditionColField);
+        userData.put("startRow", startRowField);
+        userData.put("endRow", endRowField);
+        userData.put("beginWriteRowNum", beginWriteRowNumField);
     }
 
     @Override

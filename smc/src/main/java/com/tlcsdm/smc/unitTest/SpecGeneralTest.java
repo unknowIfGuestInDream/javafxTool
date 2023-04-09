@@ -39,6 +39,8 @@ import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -51,6 +53,7 @@ import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -397,21 +400,6 @@ public class SpecGeneralTest extends SmcSample {
         generalFileCellField.setText("C15");
         macroLengthField.setNumber(new BigDecimal("60"));
 
-        userData.put("mergeResult", mergeResultCheck);
-        userData.put("onlyGenerate", onlyGenerateCheck);
-        userData.put("excel", excelField);
-        userData.put("excelFileChooser", excelFileChooser);
-        userData.put("general", generalField);
-        userData.put("generalChooser", generalChooser);
-        userData.put("output", outputField);
-        userData.put("outputChooser", outputChooser);
-        userData.put("macroLength", macroLengthField);
-        userData.put("ignoreSheet", ignoreSheetField);
-        userData.put("markSheet", markSheetField);
-        userData.put("startCell", startCellField);
-        userData.put("generalFileCell", generalFileCellField);
-        userData.put("endCellColumn", endCellColumnField);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(mergeResultLabel, 0, 1);
         grid.add(mergeResultCheck, 1, 1, 2, 1);
@@ -439,6 +427,35 @@ public class SpecGeneralTest extends SmcSample {
         grid.add(generalFileCellLabel, 0, 11);
         grid.add(generalFileCellField, 1, 11, 2, 1);
         return grid;
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField, macroLengthField,
+                startCellField, generalFileCellField, endCellColumnField).build();
+        diff.disabledProperty().bind(emptyValidation);
+        openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("mergeResult", mergeResultCheck);
+        userData.put("onlyGenerate", onlyGenerateCheck);
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("general", generalField);
+        userData.put("generalChooser", generalChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
+        userData.put("macroLength", macroLengthField);
+        userData.put("ignoreSheet", ignoreSheetField);
+        userData.put("markSheet", markSheetField);
+        userData.put("startCell", startCellField);
+        userData.put("generalFileCell", generalFileCellField);
+        userData.put("endCellColumn", endCellColumnField);
     }
 
     @Override

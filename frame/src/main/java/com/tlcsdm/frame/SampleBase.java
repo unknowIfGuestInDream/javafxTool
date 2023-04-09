@@ -137,12 +137,28 @@ public abstract class SampleBase extends Application implements Sample {
 
     @Override
     public void initialize() {
+        initializeUserDataBindings();
+        initializeBindings();
         initializeUserData();
     }
 
     /**
+     * 将在getPanel要设置的binding提取出来
+     */
+    protected void initializeBindings() {
+        // init binding
+    }
+
+    /**
+     * 将在getPanel要设置的userData binding提取出来
+     */
+    protected void initializeUserDataBindings() {
+        // init UserData binding
+    }
+
+    /**
      * Because initialize() is called after getPanel() so userData needs to be
-     * initialized in getPanel()
+     * initialized before this func
      */
     protected void initializeUserData() {
         if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {

@@ -38,6 +38,8 @@ import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -48,7 +50,6 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -415,23 +416,6 @@ public class DmaTriggerSourceCode extends SmcSample {
         settingComplexConditionField
                 .setText("com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition");
 
-        userData.put("excel", excelField);
-        userData.put("excelFileChooser", excelFileChooser);
-        userData.put("output", outputField);
-        userData.put("outputChooser", outputChooser);
-        userData.put("group", groupField);
-        userData.put("deviceAndStartCol", deviceAndStartColField);
-        userData.put("sheetName", sheetNameField);
-        userData.put("startRow", startRowField);
-        userData.put("endRow", endRowField);
-        userData.put("offset", offsetField);
-        userData.put("defineLength", defineLengthField);
-        userData.put("macroTemplate", macroTemplateField);
-        userData.put("channelNum", channelNumField);
-        userData.put("settingComplexCondition", settingComplexConditionField);
-
-        setupBindings();
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
         grid.add(excelButton, 1, 1);
@@ -497,31 +481,35 @@ public class DmaTriggerSourceCode extends SmcSample {
         return new TitledPane(I18nUtils.get("smc.tool.dmaTriggerSourceCode.title.template"), grid);
     }
 
-    private void setupBindings() {
-        BooleanBinding excelValidation = Bindings.createBooleanBinding(() -> excelField.getText().isEmpty(), excelField.textProperty());
-        BooleanBinding outputValidation = Bindings.createBooleanBinding(() -> outputField.getText().isEmpty(), outputField.textProperty());
-        BooleanBinding groupValidation = Bindings.createBooleanBinding(() -> groupField.getText().isEmpty(), groupField.textProperty());
-        BooleanBinding deviceConfValidation = Bindings.createBooleanBinding(() -> deviceAndStartColField.getText().isEmpty(),
-                deviceAndStartColField.textProperty());
-        BooleanBinding sheetNameValidation = Bindings.createBooleanBinding(() -> sheetNameField.getText().isEmpty(),
-                sheetNameField.textProperty());
-        BooleanBinding startRowValidation = Bindings.createBooleanBinding(() -> startRowField.getText().isEmpty(), startRowField.textProperty());
-        BooleanBinding endRowValidation = Bindings.createBooleanBinding(() -> endRowField.getText().isEmpty(), endRowField.textProperty());
-        BooleanBinding offsetValidation = Bindings.createBooleanBinding(() -> offsetField.getText().isEmpty(), offsetField.textProperty());
-        BooleanBinding defineLengthValidation = Bindings.createBooleanBinding(() -> defineLengthField.getText().isEmpty(),
-                defineLengthField.textProperty());
-        BooleanBinding macroTemplateValidation = Bindings.createBooleanBinding(() -> macroTemplateField.getText().isEmpty(),
-                macroTemplateField.textProperty());
-        BooleanBinding channelNumValidation = Bindings.createBooleanBinding(() -> channelNumField.getText().isEmpty(),
-                channelNumField.textProperty());
-        BooleanBinding settingComplexConditionValidation = Bindings.createBooleanBinding(() ->
-                settingComplexConditionField.getText().isEmpty(), settingComplexConditionField.textProperty());
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField, deviceAndStartColField,
+                sheetNameField, startRowField, endRowField, offsetField, defineLengthField, macroTemplateField, channelNumField,
+                settingComplexConditionField).build();
 
-        generate.disabledProperty().bind(excelValidation.or(outputValidation).or(groupValidation).or(deviceConfValidation)
-                .or(sheetNameValidation).or(startRowValidation).or(endRowValidation).or(offsetValidation).or(defineLengthValidation)
-                .or(macroTemplateValidation).or(channelNumValidation).or(settingComplexConditionValidation));
-
+        generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("excel", excelField);
+        userData.put("excelFileChooser", excelFileChooser);
+        userData.put("output", outputField);
+        userData.put("outputChooser", outputChooser);
+        userData.put("group", groupField);
+        userData.put("deviceAndStartCol", deviceAndStartColField);
+        userData.put("sheetName", sheetNameField);
+        userData.put("startRow", startRowField);
+        userData.put("endRow", endRowField);
+        userData.put("offset", offsetField);
+        userData.put("defineLength", defineLengthField);
+        userData.put("macroTemplate", macroTemplateField);
+        userData.put("channelNum", channelNumField);
+        userData.put("settingComplexCondition", settingComplexConditionField);
     }
 
     @Override

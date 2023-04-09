@@ -42,6 +42,7 @@ import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
@@ -52,6 +53,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -267,18 +269,6 @@ public class GirretReview extends SmcSample {
         reserveJsonCheck.setSelected(true);
         girretUrlField.setText(defaultGirretUrl);
 
-        userData.put("gerritAccount", gerritAccountField);
-        userData.put("token", tokenField);
-        userData.put("userName", userNameField);
-        userData.put("passwd", passwdField);
-        userData.put("ownerEmail", ownerEmailField);
-        userData.put("limit", limitField);
-        userData.put("ignoreGirretNumber", ignoreGirretNumberField);
-        userData.put("startDate", startDatePicker);
-        userData.put("reserveJson", reserveJsonCheck);
-        userData.put("girretUrl", girretUrlField);
-        userData.put("outPut", outPutChooser);
-
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(gerritAccountLabel, 0, 1);
         grid.add(gerritAccountField, 1, 1, 2, 1);
@@ -303,6 +293,30 @@ public class GirretReview extends SmcSample {
         grid.add(girretUrlField, 1, 10, 2, 1);
 
         return grid;
+    }
+
+    @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(gerritAccountField, tokenField, userNameField,
+                passwdField, limitField, girretUrlField).build();
+        generate.disabledProperty().bind(emptyValidation);
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("gerritAccount", gerritAccountField);
+        userData.put("token", tokenField);
+        userData.put("userName", userNameField);
+        userData.put("passwd", passwdField);
+        userData.put("ownerEmail", ownerEmailField);
+        userData.put("limit", limitField);
+        userData.put("ignoreGirretNumber", ignoreGirretNumberField);
+        userData.put("startDate", startDatePicker);
+        userData.put("reserveJson", reserveJsonCheck);
+        userData.put("girretUrl", girretUrlField);
+        userData.put("outPut", outPutChooser);
     }
 
     @Override
