@@ -13,9 +13,13 @@ smc:
 core:
   - core/**
 
+qe:
+  - qe/**
+
 test:
   - smc/src/test/**
   - core/src/test/**
+  - qe/src/test/**
 
 workflow:
   - .github/**
@@ -33,6 +37,7 @@ dependencies:
   - login/pom.xml
   - smc/pom.xml
   - core/pom.xml
+  - qe/pom.xml
 
 i18ns:
 - any: ['**/i18n/*.properties']
