@@ -25,23 +25,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.qe;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.SampleBase;
-import com.tlcsdm.smc.util.SmcConstant;
+import com.tlcsdm.qe.util.QeConstant;
 
 import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-public abstract class SmcSample extends SampleBase {
+public abstract class QeSample extends SampleBase {
     public static final ProjectInfo PROJECT_INFO = new ProjectInfo();
 
     @Override
     public String getProjectName() {
-        return "smc";
+        return "qe";
     }
 
     @Override
@@ -57,15 +57,15 @@ public abstract class SmcSample extends SampleBase {
         public ProjectInfo() {
 
             try {
-                InputStream s = SmcSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
+                InputStream s = QeSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
                 Manifest manifest = new Manifest(s);
                 Attributes attr = manifest.getMainAttributes();
                 //SmcConstant变量是为了打包exe时使用
-                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), SmcConstant.PROJECT_VERSION);
-                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), SmcConstant.PROJECT_BUILD_DAY);
+                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), QeConstant.PROJECT_VERSION);
+                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), QeConstant.PROJECT_BUILD_DAY);
             } catch (Throwable e) {
-                version = SmcConstant.PROJECT_VERSION;
-                date = SmcConstant.PROJECT_BUILD_DAY;
+                version = QeConstant.PROJECT_VERSION;
+                date = QeConstant.PROJECT_BUILD_DAY;
                 StaticLog.error("Fail to get MANIFEST.MF.");
             }
         }

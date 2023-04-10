@@ -45,6 +45,7 @@
         <module>demo</module>
         <module>login</module>
         <module>core</module>
+        <module>qe</module>
     </modules>
 
     <properties>
