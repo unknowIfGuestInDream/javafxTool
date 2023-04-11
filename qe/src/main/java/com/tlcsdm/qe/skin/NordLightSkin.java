@@ -25,58 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
+package com.tlcsdm.qe.skin;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.frame.SampleBase;
-import com.tlcsdm.smc.util.SmcConstant;
+import com.tlcsdm.frame.FXSampler;
+import com.tlcsdm.qe.provider.QeConfigurationProvider;
 
-import java.io.InputStream;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
+import java.util.Objects;
 
-public abstract class SmcSample extends SampleBase {
-    public static final ProjectInfo PROJECT_INFO = new ProjectInfo();
+public class NordLightSkin extends QeConfigurationProvider {
 
     @Override
-    public String getProjectName() {
-        return "smc";
-    }
-
-    @Override
-    public String getProjectVersion() {
-        return PROJECT_INFO.getVersion();
-    }
-
-    public static class ProjectInfo {
-
-        private String version;
-        private String date;
-
-        public ProjectInfo() {
-
-            try {
-                InputStream s = SmcSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
-                Manifest manifest = new Manifest(s);
-                Attributes attr = manifest.getMainAttributes();
-                //SmcConstant变量是为了打包exe时使用
-                version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), SmcConstant.PROJECT_VERSION);
-                date = StrUtil.blankToDefault(attr.getValue("Build-Day"), SmcConstant.PROJECT_BUILD_DAY);
-            } catch (Throwable e) {
-                version = SmcConstant.PROJECT_VERSION;
-                date = SmcConstant.PROJECT_BUILD_DAY;
-                StaticLog.error("Fail to get MANIFEST.MF.");
-            }
-        }
-
-        public String getVersion() {
-            return version;
-        }
-
-        public String getDate() {
-            return date;
-        }
+    public String getSceneStylesheet() {
+        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css"))
+                .toExternalForm();
     }
 
 }
