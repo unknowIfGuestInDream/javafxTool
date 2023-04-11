@@ -37,10 +37,6 @@
     -fx-text-alignment: justify;
 }
 
-.center-panel > .tool-bar {
-    -fx-background-color: #DCDCDC;
-}
-
 /*
  * The area beneath the description specifically to allow people to interact with
  * the sample.
