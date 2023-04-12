@@ -89,8 +89,8 @@ public class C1MEcmTest {
         String deviceSheetName = "C1M";
         int startRow = 2;
         String functions = """
-                opMaskableInpt;G
-                opEFInpt;H
+                optMaskableInpt;G
+                optEFInpt;H
                 optIntrg;I
                 optErroroutput;J
                 optDelayt;K
@@ -181,7 +181,7 @@ public class C1MEcmTest {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("opMaskableInpt".equals(funcId)) {
+                    if ("optMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
