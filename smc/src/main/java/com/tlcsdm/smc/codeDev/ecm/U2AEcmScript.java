@@ -48,7 +48,7 @@ public class U2AEcmScript extends AbstractEcmScript {
                 categoryJpName;H
                 """);
         functionConfigField.setText("""
-                opMaskint;G
+                optMaskint;G
                 optIntg;G
                 optDCLS;G
                 optIntrg;I

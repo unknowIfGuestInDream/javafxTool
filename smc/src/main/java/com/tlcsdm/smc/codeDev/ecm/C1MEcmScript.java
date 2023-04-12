@@ -67,8 +67,8 @@ public class C1MEcmScript extends AbstractEcmScript {
                 categoryJpName;D
                 """);
         functionConfigField.setText("""
-                opMaskableInpt;G
-                opEFInpt;H
+                optMaskableInpt;G
+                optEFInpt;H
                 optIntrg;I
                 optErroroutput;J
                 optDelayt;K
@@ -183,7 +183,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                     String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
                     // support 向下判断
                     boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("opMaskableInpt".equals(funcId)) {
+                    if ("optMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
                     Map<String, Object> operation = new HashMap<>();
