@@ -27,68 +27,39 @@
 
 package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
-import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.qe.QeSample;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.control.PropertySheet.Mode;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 测试用，发布时设置可见性为false
+ * html 转义工具
  *
  * @author unknowIfGuestInDream
  */
-public class TestTool extends QeSample {
+public class HtmlEscape extends QeSample {
 
     private TextField originalField;
     private TextField compareField;
     private TextField outputField;
 
-    private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
-
-    static {
-        customDataMap.put("1. Name#First Name", "Jonathan");
-        customDataMap.put("1. Name#Last Name", "Giles");
-        customDataMap.put("1. Name#Birthday", LocalDate.of(1985, Month.JANUARY, 12));
-        customDataMap.put("2. Billing Address#Address 1", "");
-        customDataMap.put("2. Billing Address#Address 2", "");
-        customDataMap.put("2. Billing Address#City", "");
-        customDataMap.put("2. Billing Address#State", "");
-        customDataMap.put("2. Billing Address#Zip", "");
-        customDataMap.put("3. Phone#Home", "123-123-1234");
-        customDataMap.put("3. Phone#Mobile", "234-234-2345");
-        customDataMap.put("3. Phone#Work", "");
-    }
-
-    private final PropertySheet propertySheet = new PropertySheet();
-
     private final Action generate = FxAction.generate(actionEvent -> {
-        TooltipUtil.showToast("message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //
@@ -96,18 +67,9 @@ public class TestTool extends QeSample {
 //            ThreadUtil.safeSleep(5000);
 //            ps.close();
 //        });
-
-        StaticLog.info("hello log");
-        StaticLog.error("hello log");
-        StaticLog.warn("hello log");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
-
-    @Override
-    public boolean isVisible() {
-        return true;
-    }
 
     @Override
     public Node getPanel(Stage stage) {
@@ -139,14 +101,8 @@ public class TestTool extends QeSample {
 //        userData.put("compare", compareField);
 //        userData.put("output", outputField);
 //
-        TextArea textArea = new TextArea();
-        textArea.setFocusTraversable(true);
-        ConsoleLogAppender.textAreaList.add(textArea);
-        propertySheet.getItems().setAll(getCustomModelProperties());
-        propertySheet.setMode(Mode.CATEGORY);
         grid.add(toolBar, 0, 0, 2, 1);
-        grid.add(propertySheet, 0, 1, 2, 1);
-        grid.add(textArea, 0, 2, 2, 1);
+        // grid.add(textArea, 0, 2, 2, 1);
 //        grid.add(originalField, 1, 1);
 //        grid.add(compareLabel, 0, 2);
 //        grid.add(compareField, 1, 2);
@@ -154,13 +110,6 @@ public class TestTool extends QeSample {
 //        grid.add(outputField, 1, 3);
 
         return grid;
-    }
-
-    @Override
-    protected void updateForVersionUpgrade() {
-        FxXmlUtil.del(getSampleXmlPrefix(), "original");
-        FxXmlUtil.del(getSampleXmlPrefix(), "compare");
-        FxXmlUtil.del(getSampleXmlPrefix(), "output");
     }
 
     @Override
@@ -176,95 +125,43 @@ public class TestTool extends QeSample {
     }
 
     @Override
+    public void initializeBindings() {
+        super.initializeBindings();
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+    }
+
+    @Override
     public String getSampleId() {
-        return "testTool";
+        return "htmlEscape";
     }
 
     @Override
     public String getSampleName() {
-        return "测试组件";
+        return "Html转义工具";
     }
 
     @Override
     public String getOrderKey() {
-        return "testTool";
+        return "htmlEscape";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/html.png"));
     }
 
     @Override
     public String getSampleDescription() {
-        return "此组件测试用";
+        return "Html转义工具";
     }
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0-Beta";
-    }
-
-    private ObservableList<Item> getCustomModelProperties() {
-        ObservableList<Item> list = FXCollections.observableArrayList();
-        for (String key : customDataMap.keySet()) {
-            list.add(new CustomPropertyItem(key));
-        }
-        return list;
-    }
-
-    class CustomPropertyItem implements Item {
-
-        private final String key;
-        private final String category;
-        private final String name;
-
-        public CustomPropertyItem(String key) {
-            this.key = key;
-            String[] skey = key.split("#");
-            category = skey[0];
-            name = skey[1];
-        }
-
-        @Override
-        public Class<?> getType() {
-            return customDataMap.get(key).getClass();
-        }
-
-        @Override
-        public String getCategory() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String getDescription() {
-            return null;
-        }
-
-        @Override
-        public Object getValue() {
-            return customDataMap.get(key);
-        }
-
-        @Override
-        public void setValue(Object value) {
-            customDataMap.put(key, value);
-        }
-
-        @Override
-        public Optional<ObservableValue<? extends Object>> getObservableValue() {
-            return Optional.empty();
-        }
-
-    }
-
-    class VideoConvertWork extends Task<Void> {
-
-        @Override
-        protected Void call() throws Exception {
-            ThreadUtil.safeSleep(5000);
-            return null;
-        }
+        return "1.0.0";
     }
 
 }

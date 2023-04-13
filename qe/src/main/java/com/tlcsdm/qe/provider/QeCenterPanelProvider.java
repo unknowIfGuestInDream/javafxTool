@@ -89,7 +89,7 @@ public class QeCenterPanelProvider implements CenterPanelService {
             return;
         }
         prepareContent(scrollPane);
-        scrollPane.setContent(buildSmcContent(selectedSample));
+        scrollPane.setContent(buildQeContent(selectedSample));
     }
 
     /**
@@ -99,7 +99,7 @@ public class QeCenterPanelProvider implements CenterPanelService {
         scrollPane.setContent(masker);
     }
 
-    private Node buildSmcContent(Sample sample) {
+    private Node buildQeContent(Sample sample) {
         return SampleBase.buildSample(sample, stage);
     }
 }
