@@ -97,30 +97,30 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
         alert.setResizable(false);
-        alert.setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title);
+        alert.setTitle(I18nUtils.get("qe.menubar.help.about.title") + " " + FxApp.title);
         alert.setHeaderText(FxApp.title);
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.initOwner(stage);
         ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
         alert.setGraphic(imageView);
-        ButtonType closeButton = new ButtonType(I18nUtils.get("smc.menubar.help.about.button.close"),
+        ButtonType closeButton = new ButtonType(I18nUtils.get("qe.menubar.help.about.button.close"),
                 ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().addAll(closeButton);
         Map<String, String> map = new HashMap<>(32);
-        map.put("versionLabel", I18nUtils.get("smc.menubar.help.about.contentText.version"));
+        map.put("versionLabel", I18nUtils.get("qe.menubar.help.about.contentText.version"));
         map.put("version", QeSample.PROJECT_INFO.getVersion());
-        map.put("dateLabel", I18nUtils.get("smc.menubar.help.about.contentText.date"));
+        map.put("dateLabel", I18nUtils.get("qe.menubar.help.about.contentText.date"));
         map.put("date", QeSample.PROJECT_INFO.getDate());
-        map.put("licenseNameLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseName"));
+        map.put("licenseNameLabel", I18nUtils.get("qe.menubar.help.about.contentText.licenseName"));
         map.put("licenseName", QeConstant.PROJECT_LICENSE_NAME);
-        map.put("licenseUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl"));
+        map.put("licenseUrlLabel", I18nUtils.get("qe.menubar.help.about.contentText.licenseUrl"));
         map.put("licenseUrl", QeConstant.PROJECT_LICENSE_URL);
-        map.put("authorLabel", I18nUtils.get("smc.menubar.help.about.contentText.author"));
+        map.put("authorLabel", I18nUtils.get("qe.menubar.help.about.contentText.author"));
         map.put("author", QeConstant.PROJECT_AUTHOR);
-        map.put("projectUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.projectUrl"));
+        map.put("projectUrlLabel", I18nUtils.get("qe.menubar.help.about.contentText.projectUrl"));
         map.put("projectUrl", QeConstant.GITHUB_PROJECT_URL);
-        map.put("technicalSupport", I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport"));
-        map.put("openSourceSoftware", I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"));
+        map.put("technicalSupport", I18nUtils.get("qe.menubar.help.about.contentText.technicalSupport"));
+        map.put("openSourceSoftware", I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"));
         map.put("copyright", QeConstant.PROJECT_COPYRIGHT);
         String context = """
                 {versionLabel}: {version}
@@ -229,8 +229,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                     }
                     Config.set(Config.Keys.Locale, Locale.JAPANESE);
                 }
-                if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
-                        I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
+                if (FxAlerts.confirmOkCancel(I18nUtils.get("qe.menubar.setting.language.dialog.title"),
+                        I18nUtils.get("qe.menubar.setting.language.dialog.message"))) {
                     FXSampler.getStage().close();
                     Platform.runLater(() -> {
                         try {
