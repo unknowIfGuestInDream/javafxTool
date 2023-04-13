@@ -93,14 +93,14 @@ public class QeVersionCheckerProvider implements VersionCheckerService {
                     int compare = VersionComparator.INSTANCE.compare(version, QeSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
                         String content = new StringBuilder()
-                                .append(I18nUtils.get("smc.versionCheck.versionNum")).append(": ").append(version).append("\r\n")
-                                .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(array.getByPath("[" + i + "].body"))
-                                .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
-                                .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
+                                .append(I18nUtils.get("qe.versionCheck.versionNum")).append(": ").append(version).append("\r\n")
+                                .append(I18nUtils.get("qe.versionCheck.body")).append(": \n").append(array.getByPath("[" + i + "].body"))
+                                .append("\r\n").append("\r\n").append(I18nUtils.get("qe.versionCheck.desc"))
+                                .append("\r\n").append(I18nUtils.get("qe.versionCheck.desc.other")).append("\n").toString();
 
                         QeConstant.PROJECT_RELEASE_URL = String.valueOf(array.getByPath("[" + i + "].html_url"));
                         FxApp.runLater(() -> {
-                            FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
+                            FxNotifications.defaultNotify().title(I18nUtils.get("qe.versionCheck.title"))
                                     .graphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/release.png"), 48.0D))
                                     .text(content).show();
                         });
