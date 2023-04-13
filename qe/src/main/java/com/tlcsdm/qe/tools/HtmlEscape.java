@@ -60,13 +60,7 @@ public class HtmlEscape extends QeSample {
     private TextField outputField;
 
     private final Action generate = FxAction.generate(actionEvent -> {
-//        ProgressStage ps = ProgressStage.of();
-//        ps.show();
-//
-//        ThreadPoolTaskExecutor.get().execute(() -> {
-//            ThreadUtil.safeSleep(5000);
-//            ps.close();
-//        });
+
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -77,7 +71,7 @@ public class HtmlEscape extends QeSample {
         grid.setVgap(2);
         grid.setHgap(12);
         grid.setPadding(new Insets(24));
-//
+
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
