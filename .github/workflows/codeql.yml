@@ -57,11 +57,11 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
+    #- name: Autobuild
      # uses: github/codeql-action/autobuild@v2
      # run: mvn -B package --file pom.xml -Dmaven.test.skip=true
-
-    - run: |
+    - name: Autobuild
+      run: |
        echo "mvn -B package --file pom.xml -Dmaven.test.skip=true"
        ./location_of_script_within_repo/buildscript.sh     
 
