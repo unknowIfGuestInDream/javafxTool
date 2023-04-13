@@ -44,7 +44,7 @@ public class QeConfigurationProvider implements FXSamplerConfiguration {
 
     @Override
     public String getStageTitle() {
-        return I18nUtils.get("smc.stage.title");
+        return I18nUtils.get("qe.stage.title");
     }
 
     @Override
