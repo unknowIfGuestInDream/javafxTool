@@ -30,7 +30,6 @@ package com.tlcsdm.smc.tools;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
-import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -121,11 +120,6 @@ public class ExcelColNameCalculator extends SmcSample {
         super.initializeBindings();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(colNameField, offsetField).build();
         generate.disabledProperty().bind(emptyValidation);
-    }
-
-    @Override
-    public Node getControlPanel() {
-        return FxTextInput.textArea("");
     }
 
     public static void main(String[] args) {
