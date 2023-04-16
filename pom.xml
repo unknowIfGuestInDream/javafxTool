@@ -46,6 +46,7 @@
         <module>login</module>
         <module>core</module>
         <module>qe</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -144,6 +145,11 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-login</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-common</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>

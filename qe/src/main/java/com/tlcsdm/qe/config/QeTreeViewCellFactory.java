@@ -35,9 +35,8 @@ public class QeTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCel
             }
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
-                    case "Qe" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png"));
-                    case "Tools" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/tools.png"));
+                    case "Qe", "Common" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png"));
+                    case "Tools" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/tools.png"));
                     default -> emptySample.getSampleImageIcon();
                 };
             }
