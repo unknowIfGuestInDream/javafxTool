@@ -46,6 +46,7 @@
         <module>login</module>
         <module>core</module>
         <module>qe</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -78,7 +79,7 @@
         <guava.version>31.1-jre</guava.version>
         <java-diff-utils.version>4.12</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <pdfbox.version>2.0.27</pdfbox.version>
+        <pdfbox.version>2.0.28</pdfbox.version>
         <jackson.version>2.14.2</jackson.version>
         <testfx.version>4.0.16-alpha</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
@@ -144,6 +145,11 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-login</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-common</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>

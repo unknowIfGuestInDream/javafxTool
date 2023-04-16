@@ -33,7 +33,6 @@ import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.service.CenterPanelService;
-import com.tlcsdm.qe.QeSample;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
@@ -47,7 +46,7 @@ import org.controlsfx.control.MaskerPane;
  */
 public class QeCenterPanelProvider implements CenterPanelService {
 
-    private QeSample selectedSample;
+    private SampleBase selectedSample;
     private Project selectedProject;
     private Stage stage;
     private ScrollPane scrollPane;
@@ -74,7 +73,7 @@ public class QeCenterPanelProvider implements CenterPanelService {
 
     @Override
     public void updateSampleChild(Sample selectedSample, Project selectedProject) {
-        this.selectedSample = (QeSample) selectedSample;
+        this.selectedSample = (SampleBase) selectedSample;
         this.selectedProject = selectedProject;
         updateContent();
     }

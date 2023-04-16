@@ -27,26 +27,24 @@
 
 package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.HtmlUtil;
 import com.tlcsdm.qe.QeSample;
+import com.tlcsdm.qe.util.I18nUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * html 转义工具
@@ -55,73 +53,44 @@ import java.util.Map;
  */
 public class HtmlEscape extends QeSample {
 
-    private TextField originalField;
-    private TextField compareField;
-    private TextField outputField;
+    private TextArea originalField;
+    private TextArea resultField;
 
-    private final Action generate = FxAction.generate(actionEvent -> {
-//        ProgressStage ps = ProgressStage.of();
-//        ps.show();
-//
-//        ThreadPoolTaskExecutor.get().execute(() -> {
-//            ThreadUtil.safeSleep(5000);
-//            ps.close();
-//        });
-    });
+    private final Action escape = FxAction.create(I18nUtils.get("qe.tool.htmlEscape.button.escape"), actionEvent -> {
+        resultField.setText(HtmlUtil.escape(originalField.getText()));
+    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/encode.png")));
 
-    private final Collection<? extends Action> actions = List.of(generate);
+    private final Action unescape = FxAction.create(I18nUtils.get("qe.tool.htmlEscape.button.unescape"), actionEvent -> {
+        resultField.setText(HtmlUtil.unescape(originalField.getText()));
+    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/decode.png")));
+
+    private final Collection<? extends Action> actions = List.of(escape, unescape);
 
     @Override
     public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
-        grid.setVgap(2);
+        grid.setVgap(12);
         grid.setHgap(12);
-        grid.setPadding(new Insets(24));
-//
-        ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
+        grid.setPadding(new Insets(12));
+
+        ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
-//
-//        // original
-//        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
-//        originalField = new TextField();
-//        originalField.setMaxWidth(Double.MAX_VALUE);
-//
-//        // compare
-//        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
-//        compareField = new TextField();
-//        compareField.setMaxWidth(Double.MAX_VALUE);
-//
-//        // output
-//        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
-//        outputField = new TextField();
-//        outputField.setMaxWidth(Double.MAX_VALUE);
-//
-//        userData.put("original", originalField);
-//        userData.put("compare", compareField);
-//        userData.put("output", outputField);
-//
+
+        Label originalLabel = new Label(I18nUtils.get("qe.tool.htmlEscape.label.original"));
+        originalField = new TextArea();
+
+        Label resultLabel = new Label(I18nUtils.get("qe.tool.htmlEscape.label.result"));
+        resultField = new TextArea();
+        resultField.setEditable(false);
+
         grid.add(toolBar, 0, 0, 2, 1);
-        // grid.add(textArea, 0, 2, 2, 1);
-//        grid.add(originalField, 1, 1);
-//        grid.add(compareLabel, 0, 2);
-//        grid.add(compareField, 1, 2);
-//        grid.add(outputLabel, 0, 3);
-//        grid.add(outputField, 1, 3);
+        grid.add(originalLabel, 0, 1, 2, 1);
+        grid.add(originalField, 0, 2, 2, 1);
+        grid.add(resultLabel, 0, 3, 2, 1);
+        grid.add(resultField, 0, 4, 2, 1);
 
         return grid;
-    }
-
-    @Override
-    public Node getControlPanel() {
-        String content = """
-                """;
-        Map<String, String> map = new HashMap<>();
-        return FxTextInput.textArea(StrUtil.format(content, map));
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override
@@ -130,8 +99,22 @@ public class HtmlEscape extends QeSample {
     }
 
     @Override
-    public void initializeUserDataBindings() {
-        super.initializeUserDataBindings();
+    public String getOrderKey() {
+        return getSampleId();
+    }
+
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0";
+    }
+
+    @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/html.png"));
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -141,27 +124,12 @@ public class HtmlEscape extends QeSample {
 
     @Override
     public String getSampleName() {
-        return "Html转义工具";
-    }
-
-    @Override
-    public String getOrderKey() {
-        return "htmlEscape";
-    }
-
-    @Override
-    public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/html.png"));
+        return I18nUtils.get("qe.tool.htmlEscape.sampleName");
     }
 
     @Override
     public String getSampleDescription() {
-        return "Html转义工具";
-    }
-
-    @Override
-    public String getSampleVersion() {
-        return "1.0.0";
+        return I18nUtils.get("qe.tool.htmlEscape.sampleDesc");
     }
 
 }

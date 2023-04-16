@@ -16,10 +16,14 @@ core:
 qe:
   - qe/**
 
+common:
+  - common/**
+
 test:
   - smc/src/test/**
   - core/src/test/**
   - qe/src/test/**
+  - common/src/test/**
 
 workflow:
   - .github/**
@@ -38,6 +42,7 @@ dependencies:
   - smc/pom.xml
   - core/pom.xml
   - qe/pom.xml
+  - common/pom.xml
 
 i18ns:
 - any: ['**/i18n/*.properties']
