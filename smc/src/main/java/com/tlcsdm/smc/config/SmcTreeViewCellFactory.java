@@ -35,16 +35,11 @@ public class SmcTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCe
             }
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
-                    case "Smc" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/folder.png"));
-                    case "CodeDev" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/code.png"));
-                    case "Tools" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/tools.png"));
-                    case "UnitDesign" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/design.png"));
-                    case "UnitTest" ->
-                            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/test.png"));
+                    case "Smc", "Common" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/folder.png"));
+                    case "CodeDev" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/code.png"));
+                    case "Tools" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/tools.png"));
+                    case "UnitDesign" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/design.png"));
+                    case "UnitTest" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/test.png"));
                     case "Ecm" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/ecm.png"));
                     default -> emptySample.getSampleImageIcon();
                 };
