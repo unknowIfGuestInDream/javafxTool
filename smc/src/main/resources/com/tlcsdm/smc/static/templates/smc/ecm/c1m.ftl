@@ -14,6 +14,11 @@
                 <Operation funcId="${oper.funcId}" support="${oper.support}"<#if oper.errorNote?? && oper.errorNote != ""> errorNote="${oper.errorNote}"</#if>/>
 </#list>
             </Function>
+            <Tags>
+<#list item.tag as t>
+                <Tag key="${t.key}" value="${t.value}" />
+</#list>
+            </Tags>
         </ErrorSource>
 </#list>
     </ErrorSourceInfos>
