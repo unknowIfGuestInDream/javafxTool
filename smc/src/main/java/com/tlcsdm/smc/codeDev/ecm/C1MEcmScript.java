@@ -97,7 +97,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         TitledPane titledPane = super.createErrorSourceControl();
         GridPane grid = (GridPane) titledPane.getContent();
 
-        Label tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categoryConfig") + ": ");
+        Label tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.tagConfig") + ": ");
         tagConfigField = new TextArea();
         tagConfigField.setMinHeight(60);
         tagConfigField.setPrefHeight(80);
