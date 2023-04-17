@@ -95,6 +95,12 @@ public class C1MEcmTest {
                 optErroroutput;J
                 optDelayt;K
                 """;
+
+        String tags = """
+                psedu;N
+                funname;O
+                titleabstract;P
+                """;
         String errorSourceIdCol = "A";
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
@@ -107,6 +113,14 @@ public class C1MEcmTest {
             String operationConfig = operationConfigs.get(i);
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
+        }
+
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
+        List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
+        for (int i = 0; i < tagConfigs.size(); i++) {
+            String tagConfig = tagConfigs.get(i);
+            List<String> l = StrUtil.split(tagConfig, ";");
+            tagMap.put(l.get(0), l.get(1));
         }
 
         String products = """
@@ -184,6 +198,7 @@ public class C1MEcmTest {
                     if ("optMaskableInpt".equals(funcId)) {
                         optMaskintStatus = support;
                     }
+
                     Map<String, Object> operation = new HashMap<>();
                     operation.put("funcId", funcId);
                     operation.put("support", String.valueOf(support));
@@ -192,6 +207,19 @@ public class C1MEcmTest {
                     handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
                     function.add(operation);
                 }
+                List<Map<String, Object>> tag = new ArrayList<>();
+                for (String tagkey : tagMap.keySet()) {
+                    String tagCol = tagMap.get(tagkey);
+                    String tagValue = reader.getCell(tagCol + i).getStringCellValue();
+                    Map<String, Object> tagMeta = new HashMap<>();
+                    if ("psedu".equals(tagkey)) {
+                        tagValue = String
+                                .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                    }
+                    tagMeta.put("key", tagkey);
+                    tagMeta.put("value", tagValue);
+                    tag.add(tagMeta);
+                }
                 Map<String, Object> errorSource = new HashMap<>();
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
@@ -199,6 +227,7 @@ public class C1MEcmTest {
                 errorSource.put("errorSourceenName", errorSourceenName);
                 errorSource.put("errorSourcejpName", errorSourcejpName);
                 errorSource.put("function", function);
+                errorSource.put("tag", tag);
                 handlerErrorSourceMap(errorSource, key, 0);
                 ErrorSourceInfos.add(errorSource);
             }
@@ -255,8 +284,15 @@ public class C1MEcmTest {
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceenName");
         String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceNumber = (String) errorSource.get("errorSourceNumber");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
+        if ("1".equals(errorSourceNumber)) {
+            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT0");
+        }
+        if ("2".equals(errorSourceNumber)) {
+            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1");
+        }
         errorSource.put("errorSourceenName", errorSourceenName);
         errorSource.put("errorSourcejpName", errorSourcejpName);
     }
