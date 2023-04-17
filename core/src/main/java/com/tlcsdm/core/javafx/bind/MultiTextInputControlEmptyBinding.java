@@ -20,7 +20,7 @@ public class MultiTextInputControlEmptyBinding extends FxBooleanBindingBuilder {
 
     @Override
     public BooleanBinding build() {
-        Observable[] observables = Arrays.stream(inputs).filter(i -> !i.isDisabled()).map(TextInputControl::textProperty).toArray(Observable[]::new);
+        Observable[] observables = Arrays.stream(inputs).filter(i -> !i.isDisabled() && i.isVisible()).map(TextInputControl::textProperty).toArray(Observable[]::new);
         return Bindings.createBooleanBinding(() -> Arrays.stream(inputs).filter(i -> !i.isDisabled()).anyMatch(i -> i.getText().isEmpty()), observables);
     }
 }

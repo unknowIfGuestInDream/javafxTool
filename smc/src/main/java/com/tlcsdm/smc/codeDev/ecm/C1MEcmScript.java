@@ -27,26 +27,25 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.Cell;
-
-import com.tlcsdm.core.util.FreemarkerUtil;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
+import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Cell;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * C1M的ECM脚本
@@ -55,6 +54,8 @@ import javafx.stage.Stage;
  * @date: 2023/3/26 21:17
  */
 public class C1MEcmScript extends AbstractEcmScript {
+
+    private TextArea tagConfigField;
 
     @Override
     protected void initDefaultValue() {
@@ -79,11 +80,37 @@ public class C1MEcmScript extends AbstractEcmScript {
         errorSourceEnNameColField.setText("E");
         errorSourceJpNameColField.setText("L");
         productConfigField.setText("""
-                RH850C1MA2;252;252;-
+                RH850C1MA2;252;-
+                """);
+        tagConfigField.setText("""
+                psedu;N
+                funname;O
+                titleabstract;P
                 """);
 
         errorSourceDescColLabel.setDisable(true);
         errorSourceDescColField.setDisable(true);
+    }
+
+    @Override
+    public TitledPane createErrorSourceControl() {
+        TitledPane titledPane = super.createErrorSourceControl();
+        GridPane grid = (GridPane) titledPane.getContent();
+
+        Label tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categoryConfig") + ": ");
+        tagConfigField = new TextArea();
+        tagConfigField.setMinHeight(60);
+        tagConfigField.setPrefHeight(80);
+
+        grid.addRow(grid.getRowCount() + 1, tagConfigLabel, tagConfigField);
+        return titledPane;
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("tagConfig", tagConfigField);
+        userData.remove("errorSourceDesc");
     }
 
     @Override
@@ -105,6 +132,7 @@ public class C1MEcmScript extends AbstractEcmScript {
         String errorSourceEnNameCol = errorSourceEnNameColField.getText();
         String errorSourceJpNameCol = errorSourceJpNameColField.getText();
         String products = productConfigField.getText();
+        String tags = tagConfigField.getText();
 
         String resultPath = outputPath + outParentFolder;
 
@@ -122,6 +150,13 @@ public class C1MEcmScript extends AbstractEcmScript {
             List<String> l = StrUtil.split(productConfig, ";");
             productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
             productsInfo.putValue(l.get(0), l.get(1));
+        }
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
+        List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
+        for (int i = 0; i < tagConfigs.size(); i++) {
+            String tagConfig = tagConfigs.get(i);
+            List<String> l = StrUtil.split(tagConfig, ";");
+            tagMap.put(l.get(0), l.get(1));
         }
         // category 配置数据
         LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
@@ -194,6 +229,19 @@ public class C1MEcmScript extends AbstractEcmScript {
                     handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
                     function.add(operation);
                 }
+                List<Map<String, Object>> tag = new ArrayList<>();
+                for (String tagkey : tagMap.keySet()) {
+                    String tagCol = tagMap.get(tagkey);
+                    String tagValue = reader.getCell(tagCol + i).getStringCellValue();
+                    Map<String, Object> tagMeta = new HashMap<>();
+                    if ("psedu".equals(tagkey)) {
+                        tagValue = String
+                                .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                    }
+                    tagMeta.put("key", tagkey);
+                    tagMeta.put("value", tagValue);
+                    tag.add(tagMeta);
+                }
                 Map<String, Object> errorSource = new HashMap<>();
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
@@ -201,6 +249,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                 errorSource.put("errorSourceEnName", errorSourceenName);
                 errorSource.put("errorSourceJpName", errorSourcejpName);
                 errorSource.put("function", function);
+                errorSource.put("tag", tag);
                 handlerErrorSourceMap(errorSource, key, 0);
                 ErrorSourceInfos.add(errorSource);
             }
@@ -280,8 +329,15 @@ public class C1MEcmScript extends AbstractEcmScript {
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceEnName");
         String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
+        String errorSourceNumber = (String) errorSource.get("errorSourceNumber");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
+        if ("1".equals(errorSourceNumber)) {
+            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT0");
+        }
+        if ("2".equals(errorSourceNumber)) {
+            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1");
+        }
         errorSource.put("errorSourceEnName", errorSourceenName);
         errorSource.put("errorSourceJpName", errorSourcejpName);
     }
@@ -290,7 +346,7 @@ public class C1MEcmScript extends AbstractEcmScript {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                         boolean optMaskintStatus) {
         // Do nothing
     }
 
