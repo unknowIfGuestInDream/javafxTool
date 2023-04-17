@@ -103,6 +103,8 @@ public class C1MEcmScript extends AbstractEcmScript {
         tagConfigField.setPrefHeight(80);
 
         grid.addRow(grid.getRowCount() + 1, tagConfigLabel, tagConfigField);
+        grid.getChildren().remove(errorSourceDescColLabel);
+        grid.getChildren().remove(errorSourceDescColField);
         return titledPane;
     }
 
