@@ -6,6 +6,7 @@
 
 *.ftl linguist-language=freemarker
 frame/src/main/resources/com/tlcsdm/frame/static/css/* linguist-vendored
+docs/* linguist-vendored
 # Ensure the following are treated as binary.
 *.gif   binary
 *.jar   binary
