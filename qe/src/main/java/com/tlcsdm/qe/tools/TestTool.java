@@ -25,17 +25,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.controlsfx.control.PropertySheet;
+import org.controlsfx.control.PropertySheet.Item;
+import org.controlsfx.control.PropertySheet.Mode;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
-import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.qe.QeSample;
+
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,23 +64,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.control.PropertySheet.Mode;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
 
 /**
  * 测试用，发布时设置可见性为false
  *
  * @author unknowIfGuestInDream
  */
-public class TestTool extends SmcSample {
+public class TestTool extends QeSample {
 
     private TextField originalField;
     private TextField compareField;
@@ -106,7 +113,7 @@ public class TestTool extends SmcSample {
 
     @Override
     public boolean isVisible() {
-        return false;
+        return true;
     }
 
     @Override

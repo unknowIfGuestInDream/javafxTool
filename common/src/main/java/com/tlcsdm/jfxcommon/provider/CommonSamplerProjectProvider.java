@@ -27,8 +27,14 @@
 
 package com.tlcsdm.jfxcommon.provider;
 
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.service.FXSamplerProject;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author unknowIfGuestInDream
@@ -64,7 +70,27 @@ public class CommonSamplerProjectProvider implements FXSamplerProject {
      */
     @Override
     public WelcomePage getWelcomePage() {
-        return null;
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("welcomePage");
+        Label label = new Label();
+        label.setWrapText(true);
+        String desc = """
+                {introduce}
+
+                {build}
+                {explore}
+                {connect}
+                """;
+        Map<String, String> map = new HashMap<>();
+//        map.put("introduce", I18nUtils.get("qe.welcomePage.desc.introduce"));
+//        map.put("build", I18nUtils.get("qe.welcomePage.desc.build"));
+//        map.put("explore", I18nUtils.get("qe.welcomePage.desc.explore"));
+//        map.put("connect", I18nUtils.get("qe.welcomePage.desc.connect"));
+        label.setText(StrUtil.format(desc, map));
+        label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
+
+        vBox.getChildren().addAll(label);
+        return new WelcomePage("Common", vBox);
     }
 
 }

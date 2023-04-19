@@ -47,6 +47,10 @@
         </dependency>
         <dependency>
             <groupId>com.tlcsdm</groupId>
+            <artifactId>javafxTool-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-login</artifactId>
         </dependency>
         <dependency>

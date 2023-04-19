@@ -27,10 +27,10 @@
 
 package com.tlcsdm.jfxcommon.util;
 
-import com.tlcsdm.core.javafx.util.Config;
-
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
+
+import com.tlcsdm.core.javafx.util.Config;
 
 /**
  * @author: unknowIfGuestInDream
@@ -40,7 +40,7 @@ public class I18nUtils {
     /**
      * 资源包默认路径
      */
-    public static String BASENAME = "com.tlcsdm.common.i18n.messages";
+    public static String BASENAME = "com.tlcsdm.jfxcommon.i18n.messages";
 
     /**
      * gets the string with the given key from the resource bundle for the current

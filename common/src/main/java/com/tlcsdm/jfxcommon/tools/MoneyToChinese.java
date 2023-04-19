@@ -25,17 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.jfxcommon.tools;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
+import com.tlcsdm.core.util.MoneyToChineseUtil;
+import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -48,39 +50,37 @@ import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.textfield.TextFields;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.Map;
 
 /**
- * Excel列名计算器
+ * 金额转换为中文大写金额
  *
  * @author: unknowIfGuestInDream
- * @date: 2022/3/8 8:12
+ * @date: 2022/12/8 23:12
  */
-public class ExcelColNameCalculator extends SmcSample {
+public class MoneyToChinese extends CommonSample {
 
-    private TextField colNameField;
-    private NumberTextField offsetField;
-    private TextField resultField;
+    private NumberTextField amountField;
+    private TextField chineseAmountField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
-    private final Action generate = FxAction.generate(actionEvent -> {
-        List<String> colNameList = StrUtil.splitTrim(colNameField.getText(), ",");
-        int offset = Integer.parseInt(offsetField.getText());
-        StringJoiner sj = new StringJoiner(", ");
-        for (int i = 0; i < colNameList.size(); i++) {
-            int index = ExcelUtil.colNameToIndex(colNameList.get(i));
-            sj.add(ExcelUtil.indexToColName(index + offset));
-        }
-        resultField.setText(sj.toString());
-        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+    private final Action convert = FxAction.convert(actionEvent -> {
+        String chineseAmount = MoneyToChineseUtil.number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
+        chineseAmountField.setText(chineseAmount);
+        notificationBuilder.text(I18nUtils.get("common.tool.moneyToChinese.button.convert.success"));
         notificationBuilder.showInformation();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate);
+    private final Collection<? extends Action> actions = List.of(convert);
+
+    @Override
+    public boolean isVisible() {
+        return false;
+    }
 
     @Override
     public Node getPanel(Stage stage) {
@@ -93,24 +93,20 @@ public class ExcelColNameCalculator extends SmcSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
 
-        Label colNameLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.colName") + ": ");
-        colNameField = TextFields.createClearableTextField();
-        colNameField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        Label amountLabel = new Label(I18nUtils.get("common.tool.moneyToChinese.label.amount") + ": ");
+        amountField = new NumberTextField();
 
-        Label offsetLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.offset") + ": ");
-        offsetField = new NumberTextField();
-
-        Label resultLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.result") + ": ");
-        resultField = new TextField();
-        resultField.setEditable(false);
+        Label chineseAmountLabel = new Label(I18nUtils.get("common.tool.moneyToChinese.label.chineseAmount") + ": ");
+        chineseAmountField = new TextField();
+        chineseAmountField.setEditable(false);
 
         grid.add(toolBar, 0, 0, 2, 1);
-        grid.add(colNameLabel, 0, 1);
-        grid.add(colNameField, 1, 1);
-        grid.add(offsetLabel, 0, 2);
-        grid.add(offsetField, 1, 2);
-        grid.add(resultLabel, 0, 3);
-        grid.add(resultField, 1, 3);
+
+        grid.add(amountLabel, 0, 1);
+        grid.add(amountField, 1, 1);
+
+        grid.add(chineseAmountLabel, 0, 2);
+        grid.add(chineseAmountField, 1, 2);
 
         return grid;
     }
@@ -118,8 +114,23 @@ public class ExcelColNameCalculator extends SmcSample {
     @Override
     public void initializeBindings() {
         super.initializeBindings();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(colNameField, offsetField).build();
-        generate.disabledProperty().bind(emptyValidation);
+        BooleanBinding emptyValidation = new TextInputControlEmptyBinding(amountField).build();
+        convert.disabledProperty().bind(emptyValidation);
+    }
+
+    @Override
+    public Node getControlPanel() {
+        String content = """
+                {convertButton}:
+                {convertDesc}
+                {Required} {amountLabel}
+                """;
+        Map<String, String> map = new HashMap<>();
+        map.put("convertButton", convert.getText());
+        map.put("convertDesc", I18nUtils.get("common.tool.moneyToChinese.control.textarea"));
+        map.put("Required", I18nUtils.get("common.control.required"));
+        map.put("amountLabel", I18nUtils.get("common.tool.moneyToChinese.label.amount"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     public static void main(String[] args) {
@@ -128,12 +139,12 @@ public class ExcelColNameCalculator extends SmcSample {
 
     @Override
     public String getSampleId() {
-        return "excelColNameCalculator";
+        return "moneyToChinese";
     }
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.excelColNameCalculator");
+        return I18nUtils.get("common.tool.moneyToChinese.sampleName");
     }
 
     @Override
@@ -143,16 +154,17 @@ public class ExcelColNameCalculator extends SmcSample {
 
     @Override
     public String getOrderKey() {
-        return "ExcelColNameCalculator";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.excelColNameCalculator.description");
+        return "MoneyToChinese";
     }
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/calculator.png"));
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/money.png"));
     }
+
+    @Override
+    public String getSampleDescription() {
+        return I18nUtils.get("common.tool.moneyToChinese.sampleDesc");
+    }
+
 }
