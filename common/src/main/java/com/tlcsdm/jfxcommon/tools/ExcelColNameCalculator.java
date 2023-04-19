@@ -25,17 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.jfxcommon.tools;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelUtil;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringJoiner;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.textfield.TextFields;
+
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
+import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.I18nUtils;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -45,14 +56,6 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.textfield.TextFields;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * Excel列名计算器
@@ -60,7 +63,7 @@ import java.util.StringJoiner;
  * @author: unknowIfGuestInDream
  * @date: 2022/3/8 8:12
  */
-public class ExcelColNameCalculator extends SmcSample {
+public class ExcelColNameCalculator extends CommonSample {
 
     private TextField colNameField;
     private NumberTextField offsetField;
@@ -76,7 +79,7 @@ public class ExcelColNameCalculator extends SmcSample {
             sj.add(ExcelUtil.indexToColName(index + offset));
         }
         resultField.setText(sj.toString());
-        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+        notificationBuilder.text(I18nUtils.get("common.button.generate.success"));
         notificationBuilder.showInformation();
     });
 
@@ -93,14 +96,15 @@ public class ExcelColNameCalculator extends SmcSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
 
-        Label colNameLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.colName") + ": ");
+        Label colNameLabel = new Label(I18nUtils.get("common.tool.excelColNameCalculator.label.colName") + ": ");
         colNameField = TextFields.createClearableTextField();
-        colNameField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+        colNameField.setPromptText(I18nUtils.get("common.textfield.promptText.list"));
 
-        Label offsetLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.offset") + ": ");
+        Label offsetLabel = new Label(I18nUtils.get("common.tool.excelColNameCalculator.label.offset") + ": ");
         offsetField = new NumberTextField();
+        offsetField.setNumber(new BigDecimal(1));
 
-        Label resultLabel = new Label(I18nUtils.get("smc.tool.excelColNameCalculator.label.result") + ": ");
+        Label resultLabel = new Label(I18nUtils.get("common.tool.excelColNameCalculator.label.result") + ": ");
         resultField = new TextField();
         resultField.setEditable(false);
 
@@ -133,7 +137,7 @@ public class ExcelColNameCalculator extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.excelColNameCalculator");
+        return I18nUtils.get("common.tool.excelColNameCalculator.sampleName");
     }
 
     @Override
@@ -148,11 +152,11 @@ public class ExcelColNameCalculator extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.excelColNameCalculator.description");
+        return I18nUtils.get("common.tool.excelColNameCalculator.sampleDesc");
     }
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/calculator.png"));
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/calculator.png"));
     }
 }

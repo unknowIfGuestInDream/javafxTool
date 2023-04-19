@@ -19,6 +19,10 @@
             <artifactId>javafxTool-frame</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.tlcsdm</groupId>
+            <artifactId>javafxTool-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
         </dependency>
