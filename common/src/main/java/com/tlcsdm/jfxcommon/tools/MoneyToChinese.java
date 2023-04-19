@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.jfxcommon.tools;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
@@ -34,15 +34,17 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.MoneyToChineseUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
+import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
@@ -60,7 +62,7 @@ import java.util.Map;
  * @author: unknowIfGuestInDream
  * @date: 2022/12/8 23:12
  */
-public class MoneyToChinese extends SmcSample {
+public class MoneyToChinese extends CommonSample {
 
     private NumberTextField amountField;
     private TextField chineseAmountField;
@@ -69,7 +71,7 @@ public class MoneyToChinese extends SmcSample {
     private final Action convert = FxAction.convert(actionEvent -> {
         String chineseAmount = MoneyToChineseUtil.number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
         chineseAmountField.setText(chineseAmount);
-        notificationBuilder.text(I18nUtils.get("smc.tool.moneyToChinese.button.convert.success"));
+        notificationBuilder.text(I18nUtils.get("common.tool.moneyToChinese.button.convert.success"));
         notificationBuilder.showInformation();
     });
 
@@ -91,10 +93,10 @@ public class MoneyToChinese extends SmcSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
 
-        Label amountLabel = new Label(I18nUtils.get("smc.tool.moneyToChinese.label.amount") + ": ");
+        Label amountLabel = new Label(I18nUtils.get("common.tool.moneyToChinese.label.amount") + ": ");
         amountField = new NumberTextField();
 
-        Label chineseAmountLabel = new Label(I18nUtils.get("smc.tool.moneyToChinese.label.chineseAmount") + ": ");
+        Label chineseAmountLabel = new Label(I18nUtils.get("common.tool.moneyToChinese.label.chineseAmount") + ": ");
         chineseAmountField = new TextField();
         chineseAmountField.setEditable(false);
 
@@ -125,9 +127,9 @@ public class MoneyToChinese extends SmcSample {
                 """;
         Map<String, String> map = new HashMap<>();
         map.put("convertButton", convert.getText());
-        map.put("convertDesc", I18nUtils.get("smc.tool.moneyToChinese.control.textarea"));
-        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("amountLabel", I18nUtils.get("smc.tool.moneyToChinese.label.amount"));
+        map.put("convertDesc", I18nUtils.get("common.tool.moneyToChinese.control.textarea"));
+        map.put("Required", I18nUtils.get("common.control.required"));
+        map.put("amountLabel", I18nUtils.get("common.tool.moneyToChinese.label.amount"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -142,7 +144,7 @@ public class MoneyToChinese extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.moneyToChinese");
+        return I18nUtils.get("common.tool.moneyToChinese.sampleName");
     }
 
     @Override
@@ -156,8 +158,13 @@ public class MoneyToChinese extends SmcSample {
     }
 
     @Override
+    public ImageView getSampleImageIcon() {
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/money.png"));
+    }
+
+    @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.moneyToChinese.description");
+        return I18nUtils.get("common.tool.moneyToChinese.sampleDesc");
     }
 
 }

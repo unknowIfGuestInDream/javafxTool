@@ -330,7 +330,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         File cgdma = FileUtil.newFile(resultPath + File.separator + "r_cg_dma.h");
         FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(map, templateCgdmaPath), cgdma);
 
-        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+        notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });

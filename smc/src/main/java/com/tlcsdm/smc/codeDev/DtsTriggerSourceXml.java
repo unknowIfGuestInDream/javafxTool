@@ -152,7 +152,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         }
         reader.close();
         StaticLog.info("Generate result...");
-        notificationBuilder.text(I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success"));
+        notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });

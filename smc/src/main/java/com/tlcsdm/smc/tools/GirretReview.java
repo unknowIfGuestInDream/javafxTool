@@ -571,7 +571,7 @@ public class GirretReview extends SmcSample {
                             LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
                                     + "-comments.json"));
         }
-        notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+        notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
         notificationBuilder.showInformation();
     }
 

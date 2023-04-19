@@ -125,7 +125,7 @@ public class CodeStyleLength120 extends SmcSample {
             outPutChooser.setInitialFileName(resultFileName);
             initData();
             handleResult();
-            notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
             bindUserData();
         }

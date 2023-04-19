@@ -27,7 +27,6 @@
 
 module com.tlcsdm.jfxcommon {
     requires java.desktop;
-    requires java.net.http;
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
