@@ -27,7 +27,6 @@
 
 module com.tlcsdm.jfxcommon {
     requires java.desktop;
-    requires java.net.http;
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
@@ -38,6 +37,8 @@ module com.tlcsdm.jfxcommon {
     requires cn.hutool.log;
     requires cn.hutool.json;
     requires org.slf4j;
+    requires cn.hutool.poi;
+    requires org.apache.poi.poi;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;

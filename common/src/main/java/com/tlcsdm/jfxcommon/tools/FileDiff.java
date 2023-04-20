@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tools;
+package com.tlcsdm.jfxcommon.tools;
 
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
@@ -37,8 +37,8 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.util.I18nUtils;
+import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -69,7 +69,7 @@ import java.util.Map;
  *
  * @author unknowIfGuestInDream
  */
-public class FileDiff extends SmcSample {
+public class FileDiff extends CommonSample {
 
     private TextField originalField;
     private FileChooser originalFileChooser;
@@ -83,7 +83,7 @@ public class FileDiff extends SmcSample {
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
         String outPath = outputField.getText();
         if (StrUtil.isEmpty(outPath)) {
-            notificationBuilder.text(I18nUtils.get("smc.tool.button.openOutDir.warnMsg"));
+            notificationBuilder.text(I18nUtils.get("common.button.openOutDir.warnMsg"));
             notificationBuilder.showWarning();
             return;
         }
@@ -95,21 +95,21 @@ public class FileDiff extends SmcSample {
         List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
         String template = DiffHandleUtils.getDiffHtml(List.of(diffString));
         webView.getEngine().loadContent(template);
-        notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.generate.success"));
+        notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });
 
     private final Action download = FxAction.download(actionEvent -> {
         if (StrUtil.isEmpty(outputField.getText())) {
-            notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.label.output.valid"));
+            notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.label.output.valid"));
             notificationBuilder.showWarning();
             return;
         }
         List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
         // 生成一个diff.html文件，打开便可看到两个文件的对比
         DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + File.separator + "diff.html");
-        notificationBuilder.text(I18nUtils.get("smc.tool.fileDiff.button.download.success"));
+        notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.download.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });
@@ -122,7 +122,7 @@ public class FileDiff extends SmcSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("smc.sampleName.fileDiff");
+        return I18nUtils.get("common.tool.fileDiff.sampleName");
     }
 
     @Override
@@ -138,13 +138,13 @@ public class FileDiff extends SmcSample {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files", "*.txt", "*.c", "*.h",
                 "*.java", "*.html", "*.xml");
         // original
-        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+        Label originalLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.original") + ": ");
         originalField = new TextField();
         originalField.setMaxWidth(Double.MAX_VALUE);
         originalFileChooser = new FileChooser();
         originalFileChooser.getExtensionFilters().add(extFilter);
         originalFileChooser.getExtensionFilters()
-                .add(new FileChooser.ExtensionFilter(I18nUtils.get("smc.tool.fileChooser.extensionFilter.all"), "*"));
+                .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button originalButton = FxButton.choose();
         originalField.setEditable(false);
         originalButton.setOnAction(arg0 -> {
@@ -156,12 +156,12 @@ public class FileDiff extends SmcSample {
         });
 
         // compare
-        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
+        Label compareLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.compare") + ": ");
         compareField = new TextField();
         compareField.setMaxWidth(Double.MAX_VALUE);
         compareFileChooser = new FileChooser();
         compareFileChooser.getExtensionFilters().add(extFilter);
-        compareFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("all", "*"));
+        compareFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button compareButton = FxButton.choose();
         compareField.setEditable(false);
         compareButton.setOnAction(arg0 -> {
@@ -173,7 +173,7 @@ public class FileDiff extends SmcSample {
         });
 
         // output
-        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -242,13 +242,13 @@ public class FileDiff extends SmcSample {
                 """;
         Map<String, String> map = new HashMap<>();
         map.put("generateButton", generate.getText());
-        map.put("generateDesc", I18nUtils.get("smc.tool.fileDiff.control.textarea1"));
-        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-        map.put("originalLabel", I18nUtils.get("smc.tool.fileDiff.label.original"));
-        map.put("compareLabel", I18nUtils.get("smc.tool.fileDiff.label.compare"));
+        map.put("generateDesc", I18nUtils.get("common.tool.fileDiff.control.textarea1"));
+        map.put("Required", I18nUtils.get("common.control.required"));
+        map.put("originalLabel", I18nUtils.get("common.tool.fileDiff.label.original"));
+        map.put("compareLabel", I18nUtils.get("common.tool.fileDiff.label.compare"));
         map.put("downloadButton", download.getText());
-        map.put("downloadDesc", I18nUtils.get("smc.tool.fileDiff.control.textarea2"));
-        map.put("outputLabel", I18nUtils.get("smc.tool.fileDiff.label.output"));
+        map.put("downloadDesc", I18nUtils.get("common.tool.fileDiff.control.textarea2"));
+        map.put("outputLabel", I18nUtils.get("common.tool.fileDiff.label.output"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -264,7 +264,7 @@ public class FileDiff extends SmcSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("smc.sampleName.fileDiff.description");
+        return I18nUtils.get("common.tool.fileDiff.sampleDesc");
     }
 
     @Override
@@ -274,7 +274,7 @@ public class FileDiff extends SmcSample {
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/diff1.png"));
+        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/diff.png"));
     }
 
 }

@@ -291,7 +291,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         @Override
                         public void run() {
                             notificationBuilder
-                                    .text((I18nUtils.get("smc.tool.dtsTriggerSourceXml.button.generate.success")));
+                                    .text((I18nUtils.get("smc.tool.button.generate.success")));
                             notificationBuilder.showInformation();
                         }
                     });
