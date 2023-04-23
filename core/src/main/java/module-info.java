@@ -15,6 +15,7 @@ module com.tlcsdm.core {
     requires static com.fasterxml.jackson.core;
     requires static com.fasterxml.jackson.databind;
     requires static com.fasterxml.jackson.annotation;
+    requires static org.dom4j;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
     requires org.reflections;

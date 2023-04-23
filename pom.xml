@@ -56,7 +56,7 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
-        <javafx.version>17.0.6</javafx.version>
+        <javafx.version>17.0.7</javafx.version>
         <controlsfx.version>11.1.2</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.3</tlcsdm-common.version>
@@ -70,7 +70,7 @@
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.18</hutool.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
-        <logback-classic.version>1.4.6</logback-classic.version>
+        <logback-classic.version>1.4.7</logback-classic.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <reflections.version>0.10.2</reflections.version>
