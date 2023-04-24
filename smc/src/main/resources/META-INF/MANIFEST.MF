@@ -1,9 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: com.tlcsdm.smc.SmcSampler
-Implementation-Version: 1.0.2
-Built-By: unknowIfGuestInDream
-Build-OS: Windows 11
-Build-Jdk-Spec: 17
-Build-Jdk: Amazon Corretto version 17.0.6
-Created-By: Manual
-Build-Day: 2023-04-02
+
