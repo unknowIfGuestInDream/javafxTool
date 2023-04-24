@@ -17,6 +17,9 @@ module com.tlcsdm.core {
     requires static com.fasterxml.jackson.annotation;
     requires static org.dom4j;
     requires static commons.jexl3;
+    requires static org.apache.groovy;
+    //JSR223Test测试类时使用
+    requires static java.scripting;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
     requires org.reflections;

@@ -1,19 +1,48 @@
 # Normalize line endings to LF.
 * text eol=lf
 
-# Ensure that line endings for DOS batch files are not modified.
-*.bat -text
+# These are explicitly windows files and should use crlf
+*.bat           text eol=crlf
 
-*.ftl linguist-language=freemarker
-frame/src/main/resources/com/tlcsdm/frame/static/css/* linguist-vendored
-docs/* linguist-vendored
+# These files are text and should be normalized (Convert crlf => lf)
+*.bash          text eol=lf
+*.css           text diff=css
+*.htm           text diff=html
+*.html          text diff=html
+*.java          text diff=java
+*.sh            text eol=lf
+
+# github
+*.ftl           linguist-language=freemarker
+frame/src/main/resources/com/tlcsdm/frame/static/css/*        linguist-vendored
+docs/*          linguist-vendored
+
 # Ensure the following are treated as binary.
-*.gif   binary
-*.jar   binary
-*.jpeg  binary
-*.jpg   binary
-*.png   binary
-*.vsd   binary
-*.xls   binary
-*.xlsx  binary
-*.ttf   binary
+# # (binary is a macro for -text -diff)
+*.a             binary
+*.lib           binary
+*.icns          binary
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.mov           binary
+*.mp4           binary
+*.mp3           binary
+*.flv           binary
+*.fla           binary
+*.swf           binary
+*.gz            binary
+*.zip           binary
+*.jar           binary
+*.tar           binary
+*.tar.gz        binary
+*.7z            binary
+*.ttf           binary
+*.pyc           binary
+*.gpg           binary
+*.bin           binary
+*.vsd           binary
+*.xls           binary
+*.xlsx          binary
