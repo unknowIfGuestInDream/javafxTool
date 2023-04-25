@@ -27,6 +27,20 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -35,17 +49,9 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.poi.ss.usermodel.Cell;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 public class U2CEcmTest {
 
@@ -74,9 +80,9 @@ public class U2CEcmTest {
         String categorySheetName = "Category";
         int categoryStartRow = 3;
         String categorys = """
-                categoryId;F
-                categoryEnName;G
-                categoryJpName;H
+                categoryId;J
+                categoryEnName;K
+                categoryJpName;L
                 """;
 
         String resultPath = outputPath + "\\ecm";
@@ -88,32 +94,31 @@ public class U2CEcmTest {
                 optDCLS;G
                 optIntrg;I
                 optErroroutput;J
-                optErrort;K
+                optErrort0;K
+                optErrort1;K
+                optErrort2;K
+                optErrort3;K
                 optDelayt;L
                 """;
 
         String tags = """
-                psedu;N
-                funname;O
-                titleabstract;P
+                psedu;W
+                funname;X
+                titleabstract;Y
                 """;
         String errorSourceIdCol = "A";
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
         String errorSourceenNameCol = "D";
         String errorSourceDescCol = "E";
-        String errorSourcejpNameCol = "W";
+        String errorSourcejpNameCol = "U";
 
-        int optErrortIndex = 0;
         LinkedHashMap<String, String> operationMap = new LinkedHashMap<>();
         List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
         for (int i = 0; i < operationConfigs.size(); i++) {
             String operationConfig = operationConfigs.get(i);
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
-            if ("optErrort".equals(l.get(0))) {
-                optErrortIndex = i;
-            }
         }
         LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
         List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
@@ -124,15 +129,12 @@ public class U2CEcmTest {
         }
 
         String products = """
-                RH850U2A16;516;N
-                RH850U2A16;373;O
-                RH850U2A16;292;P
-                RH850U2A8;373;R
-                RH850U2A8;292;S
-                RH850U2A6;292;T
-                RH850U2A6;176;T
-                RH850U2A6;156;U
-                RH850U2A6;144;V
+                RH850U2C8;292;O
+                RH850U2C4;292;P
+                RH850U2C4;144;Q
+                RH850U2C4;100;R
+                RH850U2C2;144;S
+                RH850U2C2;100;T
                 """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
@@ -246,7 +248,7 @@ public class U2CEcmTest {
                 errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
                 errorSource.put("function", function);
                 errorSource.put("tag", tag);
-                handlerErrorSourceMap(errorSource, key, optErrortIndex);
+                handlerErrorSourceMap(errorSource, key);
                 ErrorSourceInfos.add(errorSource);
             }
             Map<String, Object> paramMap = new HashMap<>();
@@ -299,7 +301,7 @@ public class U2CEcmTest {
     /**
      * errorSource 数据后续处理
      */
-    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product) {
         String errorSourceenName = (String) errorSource.get("errorSourceenName");
         String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
@@ -314,40 +316,6 @@ public class U2CEcmTest {
         }
         errorSource.put("errorSourceenName", errorSourceenName);
         errorSource.put("errorSourcejpName", errorSourcejpName);
-
-        List<Map<String, Object>> function = (List<Map<String, Object>>) errorSource.get("function");
-        List<Map<String, Object>> extraFunc = new ArrayList<>();
-        for (Map<String, Object> map : function) {
-            String funcId = map.get("funcId").toString();
-            if ("optErrort".equals(funcId)) {
-                String support = map.get("support").toString();
-                String errorNote = map.get("errorNote").toString();
-                int size = 0;
-                if (product.startsWith("RH850U2A16")) {
-                    size = 4;
-                    generateErrort(size, support, errorNote, extraFunc, function);
-                    function.remove(map);
-                } else if (product.startsWith("RH850U2A8") || product.startsWith("RH850U2A6")) {
-                    size = 2;
-                    generateErrort(size, support, errorNote, extraFunc, function);
-                    function.remove(map);
-                } else {
-                    break;
-                }
-            }
-        }
-        function.addAll(optErrortIndex, extraFunc);
-    }
-
-    private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-            List<Map<String, Object>> function) {
-        for (int i = 0; i < size; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("funcId", "optErrort" + i);
-            map.put("support", support);
-            map.put("errorNote", errorNote);
-            extraFunc.add(map);
-        }
     }
 
     /**
