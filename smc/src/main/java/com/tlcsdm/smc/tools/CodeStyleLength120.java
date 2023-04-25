@@ -214,14 +214,14 @@ public class CodeStyleLength120 extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {generateButton}:
-                {generateDesc}
-                {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
+            {generateButton}:
+            {generateDesc}
+            {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
 
-                {Note}
-                {checkFileTypeLabel} {emptyDesc} {promptTextList}
-                {ignoreFileLabel} {emptyDesc} {promptTextList}
-                """;
+            {Note}
+            {checkFileTypeLabel} {emptyDesc} {promptTextList}
+            {ignoreFileLabel} {emptyDesc} {promptTextList}
+            """;
         Map<String, String> map = new HashMap<>();
         map.put("generateButton", generate.getText());
         map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));

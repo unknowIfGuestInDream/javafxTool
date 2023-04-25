@@ -84,7 +84,7 @@ public class DTSU2CTriggerSourceDocument {
     public void dealData() {
         readData();
         BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-                sheetName);
+            sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {
@@ -220,7 +220,7 @@ public class DTSU2CTriggerSourceDocument {
 
     // 初始化变量
     private void initGroupLine(String group0Line, String group1Line, String group2Line, String group3Line,
-            String group4Line) {
+                               String group4Line) {
         List<String> list = new ArrayList<>();
         list.add(group0Line);
         list.add(group1Line);

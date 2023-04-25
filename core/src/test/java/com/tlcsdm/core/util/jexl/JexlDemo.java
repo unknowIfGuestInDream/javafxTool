@@ -45,10 +45,10 @@ public class JexlDemo {
         JexlContext context = new MapContext(person);
 
         JexlEngine engine = new JexlBuilder()
-                .strict(false)
-                .imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(null)
-                .cache(128).create();
+            .strict(false)
+            .imports(Arrays.asList("java.lang", "java.math"))
+            .permissions(null)
+            .cache(128).create();
 
         // 看看这个人是否年龄在30岁以上，并且身上有超过100元现金
         boolean yes = (Boolean) engine.createExpression("age>30 && cash>100").evaluate(context);
@@ -63,10 +63,10 @@ public class JexlDemo {
     @Test
     public void demo1() {
         JexlEngine engine = new JexlBuilder()
-                .strict(false)
-                .imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(null)
-                .cache(128).create();
+            .strict(false)
+            .imports(Arrays.asList("java.lang", "java.math"))
+            .permissions(null)
+            .cache(128).create();
         String calculateTax = "((G1 + G2 + G3) * 0.1) + G4";
         JexlContext context = new MapContext();
         context.set("G1", 1);
@@ -81,29 +81,29 @@ public class JexlDemo {
     public void demo2() {
         // Restricting features; no loops, no side effects
         JexlFeatures features = new JexlFeatures()
-                .loops(true)
-                .sideEffectGlobal(false)
-                .sideEffect(false);
+            .loops(true)
+            .sideEffectGlobal(false)
+            .sideEffect(false);
         // Restricted permissions to a safe set but with URI allowed
         JexlPermissions permissions = new JexlPermissions.ClassPermissions(java.net.URI.class);
         JexlEngine jexl = new JexlBuilder()
-                .features(features)
-                .strict(false)
-                .imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(permissions)
-                .cache(128).create();
+            .features(features)
+            .strict(false)
+            .imports(Arrays.asList("java.lang", "java.math"))
+            .permissions(permissions)
+            .cache(128).create();
         // let's assume a collection of uris need to be processed and transformed to be simplified ;
         // we want only http/https ones, only the host part and forcing an https scheme
         List<URI> uris = Arrays.asList(
-                URI.create("http://user@www.apache.org:8000?qry=true"),
-                URI.create("https://commons.apache.org/releases/prepare.html"),
-                URI.create("mailto:henrib@apache.org")
+            URI.create("http://user@www.apache.org:8000?qry=true"),
+            URI.create("https://commons.apache.org/releases/prepare.html"),
+            URI.create("mailto:henrib@apache.org")
         );
         // Create the test control, the expected result of our script evaluation
         List<?> control = uris.stream()
-                .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
-                .filter(x -> x != null)
-                .collect(Collectors.toList());
+            .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
+            .filter(x -> x != null)
+            .collect(Collectors.toList());
         Assertions.assertEquals(2, control.size());
 
         // Create scripts:
@@ -113,7 +113,7 @@ public class JexlDemo {
         JexlScript mapper = jexl.createScript("uri.scheme =^ 'http'? `https://${uri.host}` : null", "uri");
         // using the bang-bang / !! - JScript like -  is the way to coerce to boolean in the filter
         JexlScript transform = jexl.createScript(
-                "list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
+            "list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
 
         // Execute scripts:
         JexlContext sctxt = new StreamContext();

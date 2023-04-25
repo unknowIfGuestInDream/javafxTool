@@ -63,30 +63,30 @@ public class C1MEcmScript extends AbstractEcmScript {
         startRowField.setNumber(BigDecimal.valueOf(2));
         sheetNameField.setText("C1M");
         categoryConfigField.setText("""
-                categoryId;B
-                categoryEnName;C
-                categoryJpName;D
-                """);
+            categoryId;B
+            categoryEnName;C
+            categoryJpName;D
+            """);
         functionConfigField.setText("""
-                optMaskableInpt;G
-                optEFInpt;H
-                optIntrg;I
-                optErroroutput;J
-                optDelayt;K
-                """);
+            optMaskableInpt;G
+            optEFInpt;H
+            optIntrg;I
+            optErroroutput;J
+            optDelayt;K
+            """);
         errorSourceIdColField.setText("A");
         categoryIdColField.setText("B");
         errorSourceNumberColField.setText("C");
         errorSourceEnNameColField.setText("E");
         errorSourceJpNameColField.setText("L");
         productConfigField.setText("""
-                RH850C1MA2;252;-
-                """);
+            RH850C1MA2;252;-
+            """);
         tagConfigField.setText("""
-                psedu;N
-                funname;O
-                titleabstract;P
-                """);
+            psedu;N
+            funname;O
+            titleabstract;P
+            """);
 
         errorSourceDescColLabel.setDisable(true);
         errorSourceDescColField.setDisable(true);
@@ -210,7 +210,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                 String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
                 String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
                 String errorSourceNumber = String
-                        .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
+                    .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
                 String errorSourceenName = reader.getCell(errorSourceEnNameCol + i).getStringCellValue();
                 String errorSourcejpName = reader.getCell(errorSourceJpNameCol + i).getStringCellValue();
                 List<Map<String, Object>> function = new ArrayList<>();
@@ -238,7 +238,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                     Map<String, Object> tagMeta = new HashMap<>();
                     if ("psedu".equals(tagkey)) {
                         tagValue = String
-                                .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                            .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
                     }
                     tagMeta.put("key", tagkey);
                     tagMeta.put("value", tagValue);
@@ -276,7 +276,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
                     boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                            FileUtil.file(resultPath, comName));
+                        FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
@@ -284,7 +284,7 @@ public class C1MEcmScript extends AbstractEcmScript {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
                             FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                    FileUtil.file(resultPath, deviceName));
+                                FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);

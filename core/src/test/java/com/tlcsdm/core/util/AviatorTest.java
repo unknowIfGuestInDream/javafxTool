@@ -1,18 +1,5 @@
 package com.tlcsdm.core.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
 import com.googlecode.aviator.Options;
@@ -20,6 +7,14 @@ import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.function.FunctionUtils;
 import com.googlecode.aviator.runtime.type.AviatorDouble;
 import com.googlecode.aviator.runtime.type.AviatorObject;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * 规则引擎aviator
@@ -79,7 +74,7 @@ public class AviatorTest {
         System.out.println("string.length('hello') = " + AviatorEvaluator.execute("string.length('hello')"));
         // 判断字符串中是否包含某个字符串
         System.out.println(
-                "string.contains('hello', 'h') = " + AviatorEvaluator.execute("string.contains('hello', 'h')"));
+            "string.contains('hello', 'h') = " + AviatorEvaluator.execute("string.contains('hello', 'h')"));
         System.out.println("math.pow(-3, 2) = " + AviatorEvaluator.execute("math.pow(-3, 2)"));
         System.out.println("math.sqrt(9.0) = " + AviatorEvaluator.execute("math.sqrt(9.0)"));
         System.out.println("max: " + AviatorEvaluator.execute("max(2,4,8)"));
@@ -124,9 +119,9 @@ public class AviatorTest {
     /**
      * 其实每次执行Aviator.execute()时，背后都经过了编译和执行的操作。
      * 那么我们可以先编译表达式，返回一个编译后的结果，然后传入不同的env来重复使用编译的结果，这样可以提高性能。
-     * 
+     * <p>
      * 编译表达式和未编译表达式性能测试
-     * 
+     * <p>
      * 编译后的结果可以自己缓存，也可以交给Aviator来帮你缓存，AviatorEvaluator内部又一个全局的缓存池，如果想通过Aviator来帮你缓存，可以通过如下方法：
      * public static Expression complie(String expression, boolean cached);
      */
@@ -173,17 +168,17 @@ public class AviatorTest {
         env.put("mmap", map);
         assertEquals("hello world", AviatorEvaluator.execute("list[0]+list[1]", env));
         assertEquals("array[0]+array[1]+array[2]=4",
-                AviatorEvaluator.execute("'array[0]+array[1]+array[2]=' + (array[0]+array[1]+array[2])", env));
+            AviatorEvaluator.execute("'array[0]+array[1]+array[2]=' + (array[0]+array[1]+array[2])", env));
         System.out.println(AviatorEvaluator.execute("'today is ' + mmap.date ", env));
     }
 
     /**
      * 正则表达式
-     * 
+     * <p>
      * Aviator 支持类 Ruby 和 Perl 风格的表达式匹配运算,通过=~操作符, 如下面这个例子匹配 email 并提取用户名返回:
-     * email与正则表达式/([\w0-8]+@\w+[\.\w+]+)/通过=~操作符来匹配,结果为一个 Boolean 类 型, 
+     * email与正则表达式/([\w0-8]+@\w+[\.\w+]+)/通过=~操作符来匹配,结果为一个 Boolean 类 型,
      * 因此可以用于三元表达式判断,匹配成功的时候返回$1,指代正则表达式的分组 1,也就是用户名,否则返回unknown。
-     * 
+     * <p>
      * Aviator 在表达式级别支持正则表达式,通过//括起来的字符序列构成一个正则表达式,正则表 达式可以用于匹配(作为=~的右操作数)、
      * 比较大小,匹配仅能与字符串进行匹配。匹配成功后, Aviator 会自动将匹配成功的分组放入$num的变量中,
      * 其中$0 指代整个匹配的字符串,而$1表示第一个分组,以此类推。
@@ -195,14 +190,14 @@ public class AviatorTest {
         Map<String, Object> env = new HashMap<String, Object>();
         env.put("email", email);
         String username = (String) AviatorEvaluator.execute("email=~/([\\w0-8]+)@\\w+[\\.\\w+]+/ ? $1 : 'unknow' ",
-                env);
+            env);
         assertEquals("killme2008", username);
     }
 
     /**
-     * Aviator 有个方便用户使用变量的语法糖, 当你要访问变量a中的某个属性b, 那么你可以通过a.b访问到, 
+     * Aviator 有个方便用户使用变量的语法糖, 当你要访问变量a中的某个属性b, 那么你可以通过a.b访问到,
      * 更进一步, a.b.c将访问变量a的b属性中的c属性值, 推广开来也就是说 Aviator 可以将变量声明为嵌套访问的形式。
-     * 
+     * <p>
      * nil是 Aviator 内置的常量,类似 java 中的null,表示空的值。nil跟null不同的在于,在 java 中null只能使用在==、!=的比较运算符,
      * 而nil还可以使用>、>=、<、<=等比较运算符。 Aviator 规定,任何对象都比nil大除了nil本身。用户传入的变量如果为null,将自动以nil替代。
      */
@@ -233,9 +228,9 @@ public class AviatorTest {
     }
 
     /**
-     * aviator 拥有强大的操作集合和数组的 seq 库。整个库风格类似函数式编程中的高阶函数。在 aviator 中, 
+     * aviator 拥有强大的操作集合和数组的 seq 库。整个库风格类似函数式编程中的高阶函数。在 aviator 中,
      * 数组以及java.util.Collection下的子类都称为seq,可以直接利用 seq 库进行遍历、过滤和聚合等操作。
-     * 
+     * <p>
      * 求长度: count(list)
      * 求和: reduce(list,+,0), reduce函数接收三个参数,第一个是seq,第二个是聚合的函数,如+等,第三个是聚合的初始值
      * 过滤: filter(list,seq.gt(9)), 过滤出list中所有大于9的元素并返回集合; seq.gt函数用于生成一个谓词,表示大于某个值

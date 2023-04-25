@@ -63,12 +63,12 @@ public class JacksonTest {
     public void jsonToEntity() throws Exception {
         //JSON内容
         String json = "{\n" +
-                "\t\"userName\": \"pan_junbiao的博客\",\n" +
-                "\t\"password\": \"123456\",\n" +
-                "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
-                "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
-                "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
-                "}";
+            "\t\"userName\": \"pan_junbiao的博客\",\n" +
+            "\t\"password\": \"123456\",\n" +
+            "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
+            "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
+            "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
+            "}";
 
         //将JSON转换为实体类
         ObjectMapper mapper = new ObjectMapper();
@@ -102,12 +102,12 @@ public class JacksonTest {
     public void json2Bean() {
         //JSON内容
         String json = "{\n" +
-                "\t\"userName\": \"pan_junbiao的博客\",\n" +
-                "\t\"password\": \"123456\",\n" +
-                "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
-                "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
-                "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
-                "}";
+            "\t\"userName\": \"pan_junbiao的博客\",\n" +
+            "\t\"password\": \"123456\",\n" +
+            "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
+            "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
+            "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
+            "}";
 
         //将JSON转换为实体类
         UserInfo userInfo = JacksonUtil.json2Bean(json, UserInfo.class);

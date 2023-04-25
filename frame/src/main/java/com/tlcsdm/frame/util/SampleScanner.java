@@ -57,7 +57,7 @@ public class SampleScanner {
             final String basePackage = project.getSampleBasePackage();
             PACKAGE_TO_PROJECT_MAP.put(basePackage, project);
             System.out
-                    .println("\t\tFound project '" + projectName + "', with sample base package '" + basePackage + "'");
+                .println("\t\tFound project '" + projectName + "', with sample base package '" + basePackage + "'");
         }
 
         if (PACKAGE_TO_PROJECT_MAP.isEmpty()) {
@@ -96,7 +96,7 @@ public class SampleScanner {
             try {
                 sample = (Sample) sampleClass.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
-                    | InvocationTargetException e) {
+                | InvocationTargetException e) {
                 e.printStackTrace();
             } catch (ExceptionInInitializerError e) {
                 e.printStackTrace();

@@ -1,21 +1,5 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.LineHandler;
 import cn.hutool.core.lang.Assert;
@@ -24,6 +8,17 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
+import org.apache.poi.ss.usermodel.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 生成代码长度检测
@@ -50,7 +45,7 @@ public class CodeStyleLength120Test {
     @BeforeEach
     public void init() {
         Assert.isTrue(FileUtil.isDirectory(generateFilesParentPath),
-                "The variable generateFilesParentPath must be a folder");
+            "The variable generateFilesParentPath must be a folder");
         Assert.isTrue(FileUtil.isDirectory(resultPath), "The variable resultPath must be a folder");
         Assert.isTrue(StrUtil.endWith(resultFileName, ".xlsx"), "The variable resultFileName must end with \".xlsx\"");
         files = FileUtil.loopFiles(generateFilesParentPath, new FileFilter() {

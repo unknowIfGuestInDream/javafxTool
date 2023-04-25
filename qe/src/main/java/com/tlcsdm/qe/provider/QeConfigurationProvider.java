@@ -39,7 +39,7 @@ public class QeConfigurationProvider implements FXSamplerConfiguration {
     @Override
     public String getSceneStylesheet() {
         return Objects.requireNonNull(getClass().getResource("/com/tlcsdm/qe/fxsampler/fxsampler.css"))
-                .toExternalForm();
+            .toExternalForm();
     }
 
     @Override

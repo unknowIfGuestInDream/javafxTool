@@ -59,14 +59,14 @@ public class GroovyClassLoaderTest {
     public void test3() {
         GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
         String helloScript = """
-                package com.vivo.groovy.util
-                class Hello {
-                String say(String name) {
-                System.out.println("hello, " + name)
-                return name + " result";
-                }
-                }
-                """;
+            package com.vivo.groovy.util
+            class Hello {
+            String say(String name) {
+            System.out.println("hello, " + name)
+            return name + " result";
+            }
+            }
+            """;
         Class helloClass = groovyClassLoader.parseClass(helloScript);
         GroovyObject object = null;
         try {

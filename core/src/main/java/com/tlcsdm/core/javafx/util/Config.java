@@ -64,10 +64,10 @@ public class Config {
         Parameters params = new Parameters();
         File propertiesFile = ConfigureUtil.getConfigureFile(CONFIG_FILE_NAME);
         PropertiesBuilderParameters propertiesBuilderParameters = params.properties().setFile(propertiesFile)
-                .setEncoding("UTF-8").setListDelimiterHandler(new DefaultListDelimiterHandler(','))
-                .setThrowExceptionOnMissing(false);
+            .setEncoding("UTF-8").setListDelimiterHandler(new DefaultListDelimiterHandler(','))
+            .setThrowExceptionOnMissing(false);
         ReloadingFileBasedConfigurationBuilder<PropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(
-                PropertiesConfiguration.class).configure(propertiesBuilderParameters);
+            PropertiesConfiguration.class).configure(propertiesBuilderParameters);
         builder.setAutoSave(true);
         try {
             conf = builder.getConfiguration();

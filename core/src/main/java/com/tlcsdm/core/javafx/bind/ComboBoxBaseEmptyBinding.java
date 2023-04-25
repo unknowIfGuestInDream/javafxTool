@@ -18,6 +18,6 @@ public class ComboBoxBaseEmptyBinding<T> extends FxBooleanBindingBuilder {
     @Override
     public BooleanBinding build() {
         return Bindings.createBooleanBinding(() ->
-                combo.getValue() == null || combo.getValue().toString().length() == 0, combo.valueProperty());
+            combo.getValue() == null || combo.getValue().toString().length() == 0, combo.valueProperty());
     }
 }

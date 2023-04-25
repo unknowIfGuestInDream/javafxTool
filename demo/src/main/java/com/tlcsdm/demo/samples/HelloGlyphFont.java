@@ -47,19 +47,16 @@ public class HelloGlyphFont extends ControlsFXSample {
         //GlyphFontRegistry.register("icomoon", HelloGlyphFont.class.getResourceAsStream("/com/tlcsdm/demo/icomoon.ttf"), 16);
     }
 
-
     private GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
     private GlyphFont icoMoon = GlyphFontRegistry.font("icomoon");
 
     //	private static char FAW_TRASH = '\uf014';
-    private static char FAW_GEAR  = '\uf013';
+    private static char FAW_GEAR = '\uf013';
 //	private static char FAW_STAR  = '\uf005';
 
-    private static char IM_BOLD        = '\ue027';
+    private static char IM_BOLD = '\ue027';
     private static char IM_UNDERSCORED = '\ue02b';
-    private static char IM_ITALIC      = '\ue13e';
-
-
+    private static char IM_ITALIC = '\ue13e';
 
     @Override
     public String getSampleName() {
@@ -82,77 +79,75 @@ public class HelloGlyphFont extends ControlsFXSample {
         root.getChildren().add(title);
         ToolBar toolbar = new ToolBar(
 
-                // There are many ways how you can define a Glyph:
+            // There are many ways how you can define a Glyph:
 
-                new Button("", new Glyph("FontAwesome", "TRASH_ALT")),              // Use the Glyph-class with a icon name
-                new Button("", new Glyph("FontAwesome", FontAwesome.Glyph.STAR)),   // Use the Glyph-class with a known enum value
-                new Button("", Glyph.create("FontAwesome|BUG")),                    // Use the static Glyph-class create protocol
-                new Button("", fontAwesome.create("REBEL")),                        // Use the font-instance with a name
-                new Button("", fontAwesome.create(FontAwesome.Glyph.SMILE_ALT)),    // Use the font-instance with a enum
-                new Button("", fontAwesome.create(FAW_GEAR).color(Color.RED))       // Use the font-instance with a unicode char
+            new Button("", new Glyph("FontAwesome", "TRASH_ALT")),              // Use the Glyph-class with a icon name
+            new Button("", new Glyph("FontAwesome", FontAwesome.Glyph.STAR)),   // Use the Glyph-class with a known enum value
+            new Button("", Glyph.create("FontAwesome|BUG")),                    // Use the static Glyph-class create protocol
+            new Button("", fontAwesome.create("REBEL")),                        // Use the font-instance with a name
+            new Button("", fontAwesome.create(FontAwesome.Glyph.SMILE_ALT)),    // Use the font-instance with a enum
+            new Button("", fontAwesome.create(FAW_GEAR).color(Color.RED))       // Use the font-instance with a unicode char
         );
         root.getChildren().add(toolbar);
         title = new Label("Using IcoMoon (Local)");
         root.getChildren().add(title);
 
         Glyph effectGlyph = icoMoon.create(IM_UNDERSCORED)
-                .color(Color.BLUE)
-                .size(48)
-                .useHoverEffect();
+            .color(Color.BLUE)
+            .size(48)
+            .useHoverEffect();
 
         Glyph effectGlyph2 = icoMoon.create(IM_UNDERSCORED)
-                .color(Color.BLUE)
-                .size(48)
-                .useGradientEffect().useHoverEffect();
+            .color(Color.BLUE)
+            .size(48)
+            .useGradientEffect().useHoverEffect();
 
         toolbar = new ToolBar(
 
-                // Since we have a custom font without named characters,
-                // we have to use unicode character codes for the icons:
+            // Since we have a custom font without named characters,
+            // we have to use unicode character codes for the icons:
 
-                new Button("", icoMoon.create(IM_BOLD).size(16)),
-                new Button("", icoMoon.create(IM_UNDERSCORED).color(Color.GREEN).size(32)),
-                new Button("", icoMoon.create(IM_ITALIC).size(48)),
-                new Button("", effectGlyph),
-                new Button("", effectGlyph2));
+            new Button("", icoMoon.create(IM_BOLD).size(16)),
+            new Button("", icoMoon.create(IM_UNDERSCORED).color(Color.GREEN).size(32)),
+            new Button("", icoMoon.create(IM_ITALIC).size(48)),
+            new Button("", effectGlyph),
+            new Button("", effectGlyph2));
         root.getChildren().add(toolbar);
-        
+
         GridPane fontDemo = new GridPane();
         fontDemo.setHgap(5);
         fontDemo.setVgap(5);
         int maxColumns = 10;
         int col = 0;
         int row = 0;
-        
-        for ( FontAwesome.Glyph glyph:  FontAwesome.Glyph.values() ){
-        	Color randomColor = new Color( Math.random(), Math.random(), Math.random(), 1);
-        	Glyph graphic = Glyph.create( "FontAwesome|" + glyph.name()).sizeFactor(2).color(randomColor).useGradientEffect();
-        	Button button = new Button(glyph.name(), graphic);
-        	button.setContentDisplay(ContentDisplay.TOP);
-        	button.setMaxWidth(Double.MAX_VALUE);
-        	col = col % maxColumns + 1;
-        	if ( col == 1 ) row++;
-        	fontDemo.add( button, col, row);
-        	GridPane.setFillHeight(button, true);
-        	GridPane.setFillWidth(button, true);
+
+        for (FontAwesome.Glyph glyph : FontAwesome.Glyph.values()) {
+            Color randomColor = new Color(Math.random(), Math.random(), Math.random(), 1);
+            Glyph graphic = Glyph.create("FontAwesome|" + glyph.name()).sizeFactor(2).color(randomColor).useGradientEffect();
+            Button button = new Button(glyph.name(), graphic);
+            button.setContentDisplay(ContentDisplay.TOP);
+            button.setMaxWidth(Double.MAX_VALUE);
+            col = col % maxColumns + 1;
+            if (col == 1) row++;
+            fontDemo.add(button, col, row);
+            GridPane.setFillHeight(button, true);
+            GridPane.setFillWidth(button, true);
         }
-        
+
         ScrollPane scroller = new ScrollPane(fontDemo);
         scroller.setFitToWidth(true);
-        
+
         TabPane tabs = new TabPane();
         Tab tab = new Tab("FontAwesome Glyph Demo");
         tab.setContent(scroller);
         tabs.getTabs().add(tab);
 
-        
         root.getChildren().add(tabs);
         VBox.setVgrow(tabs, Priority.ALWAYS);
-        
+
         return root;
 
     }
-    
 
     public static void main(String[] args) {
         launch(args);

@@ -1,3 +1,4 @@
+package groovy
 // 数组
 String[] arrStr = ['Ananas', 'Banana', 'Kiwi']
 

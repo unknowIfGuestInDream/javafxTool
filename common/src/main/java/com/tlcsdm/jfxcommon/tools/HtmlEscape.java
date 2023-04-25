@@ -27,18 +27,11 @@
 
 package com.tlcsdm.jfxcommon.tools;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.HtmlUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
-
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -47,6 +40,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * html 转义工具
@@ -59,14 +57,14 @@ public class HtmlEscape extends CommonSample {
     private TextArea resultField;
 
     private final Action escape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.escape"),
-            actionEvent -> {
-                resultField.setText(HtmlUtil.escape(originalField.getText()));
-            }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
+        actionEvent -> {
+            resultField.setText(HtmlUtil.escape(originalField.getText()));
+        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
 
     private final Action unescape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.unescape"),
-            actionEvent -> {
-                resultField.setText(HtmlUtil.unescape(originalField.getText()));
-            }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
+        actionEvent -> {
+            resultField.setText(HtmlUtil.unescape(originalField.getText()));
+        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
 
     private final Collection<? extends Action> actions = List.of(escape, unescape);
 

@@ -63,7 +63,7 @@ public class HelloBreadCrumbBar extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "The BreadCrumbBar provides an easy way to navigate hirarchical structures " +
-                "such as file systems.";
+            "such as file systems.";
     }
 
     @Override

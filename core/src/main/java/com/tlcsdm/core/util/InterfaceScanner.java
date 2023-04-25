@@ -50,9 +50,9 @@ import java.util.Set;
 public class InterfaceScanner {
 
     public static Reflections reflections = new Reflections(
-            new ConfigurationBuilder()
-                    .forPackage("com.tlcsdm")
-                    .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
+        new ConfigurationBuilder()
+            .forPackage("com.tlcsdm")
+            .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
 
     /**
      * Gets the list of sample classes to load
@@ -86,7 +86,7 @@ public class InterfaceScanner {
             try {
                 i.getDeclaredMethod(name, parameterTypes).invoke(i.getDeclaredConstructor().newInstance());
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
-                    | InstantiationException e) {
+                | InstantiationException e) {
                 e.printStackTrace();
             } catch (NoClassDefFoundError e) {
                 // fix freemarker 依赖找不到却进行初始化的问题
@@ -98,7 +98,7 @@ public class InterfaceScanner {
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
         Set<Class<?>> classes =
-                reflections.get(Scanners.SubTypes.of(cls).asClass());
+            reflections.get(Scanners.SubTypes.of(cls).asClass());
         return classes.toArray(new Class[classes.size()]);
     }
 
@@ -111,18 +111,18 @@ public class InterfaceScanner {
         final Set<Class<?>> classes = new LinkedHashSet<>();
         // scan the module-path
         ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference)
-                .filter(rm -> !InterfaceScanner.isSystemModule(rm.descriptor().name())).forEach(mref -> {
-                    try (ModuleReader reader = mref.open()) {
-                        reader.list().forEach(c -> {
-                            final Class<?> clazz = processClassName(c);
-                            if (clazz != null) {
-                                classes.add(clazz);
-                            }
-                        });
-                    } catch (IOException ioe) {
-                        throw new UncheckedIOException(ioe);
-                    }
-                });
+            .filter(rm -> !InterfaceScanner.isSystemModule(rm.descriptor().name())).forEach(mref -> {
+                try (ModuleReader reader = mref.open()) {
+                    reader.list().forEach(c -> {
+                        final Class<?> clazz = processClassName(c);
+                        if (clazz != null) {
+                            classes.add(clazz);
+                        }
+                    });
+                } catch (IOException ioe) {
+                    throw new UncheckedIOException(ioe);
+                }
+            });
         return classes.toArray(new Class[classes.size()]);
     }
 
@@ -162,12 +162,12 @@ public class InterfaceScanner {
      */
     public static boolean isSystemModule(final String moduleName) {
         return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith("javafx.")
-                || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith("hutool.")
-                || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith("org.apache.")
-                || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(moduleName)
-                || "org.slf4j".equals(moduleName) || "commons.math3".equals(moduleName)
-                || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(moduleName)
-                || "freemarker".equals(moduleName);
+            || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith("hutool.")
+            || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith("org.apache.")
+            || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(moduleName)
+            || "org.slf4j".equals(moduleName) || "commons.math3".equals(moduleName)
+            || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(moduleName)
+            || "freemarker".equals(moduleName);
     }
 
 }

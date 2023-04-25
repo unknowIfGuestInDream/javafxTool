@@ -44,7 +44,7 @@ public class FxButton {
 
     public static Button chooseWithGrapgic() {
         return new Button(I18nUtils.get("core.button.choose"),
-                LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/choose.png")));
+            LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/choose.png")));
     }
 
     public static Button clear() {
@@ -53,7 +53,7 @@ public class FxButton {
 
     public static Button clearWithGrapgic() {
         return new Button(I18nUtils.get("core.button.clear"),
-                LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/clear.png")));
+            LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/clear.png")));
     }
 
     public static Button reset() {
@@ -62,7 +62,7 @@ public class FxButton {
 
     public static Button resetWithGrapgic() {
         return new Button(I18nUtils.get("core.button.reset"),
-                LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/reset.png")));
+            LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/reset.png")));
     }
 
     public static Button copy() {
@@ -71,7 +71,7 @@ public class FxButton {
 
     public static Button copyWithGrapgic() {
         return new Button(I18nUtils.get("core.button.copy"),
-                LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/copy.png")));
+            LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/copy.png")));
     }
 
 }

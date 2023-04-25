@@ -107,14 +107,14 @@ public class NumberSpinner extends HBox {
         Path arrowUp = new Path();
         arrowUp.setId(ARROW);
         arrowUp.getElements().addAll(new MoveTo(-ARROW_SIZE, 0), new LineTo(ARROW_SIZE, 0), new LineTo(0, -ARROW_SIZE),
-                new LineTo(-ARROW_SIZE, 0));
+            new LineTo(-ARROW_SIZE, 0));
         // mouse clicks should be forwarded to the underlying button
         arrowUp.setMouseTransparent(true);
 
         Path arrowDown = new Path();
         arrowDown.setId(ARROW);
         arrowDown.getElements().addAll(new MoveTo(-ARROW_SIZE, 0), new LineTo(ARROW_SIZE, 0), new LineTo(0, ARROW_SIZE),
-                new LineTo(-ARROW_SIZE, 0));
+            new LineTo(-ARROW_SIZE, 0));
         arrowDown.setMouseTransparent(true);
 
         // the spinner buttons scale with the textfield size

@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2015, 2021, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -34,19 +34,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.ToggleSwitch;
 
-public class HelloToggleSwitch extends ControlsFXSample
-{
+public class HelloToggleSwitch extends ControlsFXSample {
     static final String RESOURCE = "ToggleSwitch.fxml";
 
     @Override
-    public String getSampleName()
-    {
+    public String getSampleName() {
         return "ToggleSwitch";
     }
 
     @Override
-    public Node getPanel(Stage stage)
-    {
+    public Node getPanel(Stage stage) {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefHeight(316);
         anchorPane.setPrefWidth(444);
@@ -84,12 +81,12 @@ public class HelloToggleSwitch extends ControlsFXSample
         toggleSwitch3.setLayoutX(70);
         toggleSwitch3.setLayoutY(250);
         toggleSwitch3.setSelected(true);
-        
+
         Label itemTitle4 = new Label("Styled");
         itemTitle4.getStyleClass().add("item-title");
         itemTitle4.setLayoutX(70);
         itemTitle4.setLayoutY(309);
-        
+
         ToggleSwitch toggleSwitch4 = new ToggleSwitch("Styled");
         toggleSwitch4.getStyleClass().add("styled-toggle");
         toggleSwitch4.setLayoutX(70);
@@ -101,15 +98,14 @@ public class HelloToggleSwitch extends ControlsFXSample
         anchorPane.getStylesheets().add(getClass().getResource("/com/tlcsdm/demo/toggleSwitchSample.css").toExternalForm());
         return anchorPane;
     }
-    
+
     @Override
     public String getControlStylesheetURL() {
         return "/com/tlcsdm/demo/toggleSwitchSample.css";
     }
 
     @Override
-    public String getJavaDocURL()
-    {
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/ToggleSwitch.html";
     }
 

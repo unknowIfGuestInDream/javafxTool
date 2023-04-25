@@ -80,18 +80,18 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
     private final Action systemSetting = FxAction.systemSetting();
 
     private final Action contactSupport = FxAction
-            .contactSupport(actionEvent -> CoreUtil.openWeb(QeConstant.GITHUB_PROJECT_SUPPORT_URL));
+        .contactSupport(actionEvent -> CoreUtil.openWeb(QeConstant.GITHUB_PROJECT_SUPPORT_URL));
 
     private final Action submitFeedback = FxAction
-            .submitFeedback(actionEvent -> CoreUtil.openWeb(QeConstant.GITHUB_PROJECT_FEEDBACK_URL));
+        .submitFeedback(actionEvent -> CoreUtil.openWeb(QeConstant.GITHUB_PROJECT_FEEDBACK_URL));
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/qe/"));
 
     private final Action openSysConfig = FxAction.openSysConfig(
-            actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
 
     private final Action openUserData = FxAction.openUserData(
-            actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
 
     private final Action about = FxAction.about(actionEvent -> {
         Alert alert = new Alert(Alert.AlertType.NONE);
@@ -104,7 +104,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
         alert.setGraphic(imageView);
         ButtonType closeButton = new ButtonType(I18nUtils.get("qe.menubar.help.about.button.close"),
-                ButtonData.CANCEL_CLOSE);
+            ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().addAll(closeButton);
         Map<String, String> map = new HashMap<>(32);
         map.put("versionLabel", I18nUtils.get("qe.menubar.help.about.contentText.version"));
@@ -123,17 +123,17 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         map.put("openSourceSoftware", I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"));
         map.put("copyright", QeConstant.PROJECT_COPYRIGHT);
         String context = """
-                {versionLabel}: {version}
-                {dateLabel}: {date}
-                {licenseNameLabel}: {licenseName}
-                {licenseUrlLabel}: {licenseUrl}
+            {versionLabel}: {version}
+            {dateLabel}: {date}
+            {licenseNameLabel}: {licenseName}
+            {licenseUrlLabel}: {licenseUrl}
 
-                {authorLabel}: {author}
-                {projectUrlLabel}: {projectUrl}
+            {authorLabel}: {author}
+            {projectUrlLabel}: {projectUrl}
 
-                {technicalSupport}: [{openSourceSoftware}]
-                {copyright}
-                """;
+            {technicalSupport}: [{openSourceSoftware}]
+            {copyright}
+            """;
         alert.setContentText(StrUtil.format(context, map));
         alert.show();
         alert.resultProperty().addListener(o -> {
@@ -150,9 +150,9 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction japanese = new CheckLangAction(QeConstant.LANGUAGE_JAPANESE);
 
     private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
-            FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-            FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
-                    ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
@@ -230,7 +230,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                     Config.set(Config.Keys.Locale, Locale.JAPANESE);
                 }
                 if (FxAlerts.confirmOkCancel(I18nUtils.get("qe.menubar.setting.language.dialog.title"),
-                        I18nUtils.get("qe.menubar.setting.language.dialog.message"))) {
+                    I18nUtils.get("qe.menubar.setting.language.dialog.message"))) {
                     FXSampler.getStage().close();
                     Platform.runLater(() -> {
                         try {

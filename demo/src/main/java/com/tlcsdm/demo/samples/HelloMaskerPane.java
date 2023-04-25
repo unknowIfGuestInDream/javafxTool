@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2015, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -44,13 +44,24 @@ public class HelloMaskerPane extends ControlsFXSample {
 
     private MaskerPane masker = new MaskerPane();
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    @Override public String getSampleName() { return "MaskerPane"; } //$NON-NLS-1$
+    @Override
+    public String getSampleName() {
+        return "MaskerPane";
+    } //$NON-NLS-1$
 
-    @Override public String getJavaDocURL() { return Utils.JAVADOC_BASE + "org/controlsfx/control/MaskerPane.html"; } //$NON-NLS-1$
+    @Override
+    public String getJavaDocURL() {
+        return Utils.JAVADOC_BASE + "org/controlsfx/control/MaskerPane.html";
+    } //$NON-NLS-1$
 
-    @Override public String getControlStylesheetURL() { return "/org/controlsfx/control/maskerpane.css"; } //$NON-NLS-1$
+    @Override
+    public String getControlStylesheetURL() {
+        return "/org/controlsfx/control/maskerpane.css";
+    } //$NON-NLS-1$
 
     @Override
     public Node getPanel(Stage stage) {
@@ -107,9 +118,9 @@ public class HelloMaskerPane extends ControlsFXSample {
         vBox.setPadding(new Insets(20));
 
         Label description = new Label("This is an example form where you may wish to block user interaction for a short period, possibly after " +
-                "selecting 'Submit'. This allows for client-server communication to finish, and the user is notified that the application is not " +
-                "frozen.\n\n" +
-                "While the masker is visible, the form elements underneath are effectively disabled (that is, the user cannot interact with them).");
+            "selecting 'Submit'. This allows for client-server communication to finish, and the user is notified that the application is not " +
+            "frozen.\n\n" +
+            "While the masker is visible, the form elements underneath are effectively disabled (that is, the user cannot interact with them).");
         description.setWrapText(true);
         description.setPadding(new Insets(0, 0, 20, 0));
 

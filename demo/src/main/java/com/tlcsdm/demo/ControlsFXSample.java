@@ -113,8 +113,8 @@ public abstract class ControlsFXSample extends SampleBase {
                 version = attr.getValue("Implementation-Version");
             } catch (IOException e) {
                 System.out.println("Unable to load project version for ControlsFX "
-                        + "samples project as the manifest file can't be read "
-                        + "or the Implementation-Version attribute is unavailable.");
+                    + "samples project as the manifest file can't be read "
+                    + "or the Implementation-Version attribute is unavailable.");
                 version = "";
             }
         }
