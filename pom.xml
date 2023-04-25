@@ -399,6 +399,11 @@
                 <artifactId>groovy-jsr223</artifactId>
                 <version>${groovy.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy-test-junit5</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
             <!-- groovy end -->
         </dependencies>
     </dependencyManagement>
