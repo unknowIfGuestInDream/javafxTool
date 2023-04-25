@@ -16,7 +16,7 @@
             </Function>
             <Tags>
 <#list item.tag as t>
-                <Tag key="${t.key}" value="${t.value}" />
+                <Tag key="${t.key}" value="${t.value}"/>
 </#list>
             </Tags>
         </ErrorSource>
