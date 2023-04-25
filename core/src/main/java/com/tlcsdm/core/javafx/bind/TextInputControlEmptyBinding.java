@@ -18,6 +18,6 @@ public class TextInputControlEmptyBinding extends FxBooleanBindingBuilder {
     @Override
     public BooleanBinding build() {
         return Bindings.createBooleanBinding(() ->
-                input.getText().isEmpty(), input.textProperty());
+            input.getText().isEmpty(), input.textProperty());
     }
 }

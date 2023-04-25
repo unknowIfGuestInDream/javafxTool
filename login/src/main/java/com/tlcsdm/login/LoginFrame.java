@@ -74,7 +74,7 @@ public class LoginFrame extends Application {
             ref.loginCheck = lc;
         }
         LoginNodes loginNodes = new LoginNodes(nameLabel, passwordLabel, user, password, tfUser, tfPassword, btLogIn,
-                btSignIn, h3);
+            btSignIn, h3);
 
         user.getChildren().addAll(nameLabel, tfUser);
         user.setAlignment(Pos.CENTER);
@@ -95,7 +95,7 @@ public class LoginFrame extends Application {
         pane.getChildren().addAll(user, password, h3);
 
         stage.getIcons()
-                .add(new Image(Objects.requireNonNull(getClass().getResource("/static/logo.png")).toExternalForm()));
+            .add(new Image(Objects.requireNonNull(getClass().getResource("/static/logo.png")).toExternalForm()));
         stage.setScene(new Scene(pane, 400, 250));
         stage.setTitle(I18nUtils.get("login.title"));
         stage.show();

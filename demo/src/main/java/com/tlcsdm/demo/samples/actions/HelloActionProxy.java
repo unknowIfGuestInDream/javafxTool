@@ -64,12 +64,12 @@ public class HelloActionProxy extends ControlsFXSample {
     public HelloActionProxy() {
         //ActionMap.register(this);
         actions = Arrays.asList(
-                new ActionGroup("Group 1", image, actions("action11", "action12")),
-                new ActionGroup("Group 2", image, actions("action21", "---", "action22", "action221", "action222", "action23")),
-                ACTION_SPAN,
-                ACTION_SEPARATOR,
-                action("action3"),
-                new ActionGroup("Group 4", image, actions("action41", "action42"))
+            new ActionGroup("Group 1", image, actions("action11", "action12")),
+            new ActionGroup("Group 2", image, actions("action21", "---", "action22", "action221", "action222", "action23")),
+            ACTION_SPAN,
+            ACTION_SEPARATOR,
+            action("action3"),
+            new ActionGroup("Group 4", image, actions("action41", "action42"))
         );
     }
 
@@ -153,7 +153,7 @@ public class HelloActionProxy extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "MenuBar, ToolBar and ContextMenu presented here are effortlessly built out of the same action tree. " +
-                "Action properties can be dynamically changed, triggering changes in all related controls";
+            "Action properties can be dynamically changed, triggering changes in all related controls";
     }
 
     @Override

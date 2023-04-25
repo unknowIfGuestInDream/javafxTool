@@ -27,20 +27,6 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import com.tlcsdm.core.util.FreemarkerUtil;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -49,9 +35,17 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.poi.ss.usermodel.Cell;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class U2AEcmTest {
 
@@ -80,23 +74,23 @@ public class U2AEcmTest {
         String categorySheetName = "Category";
         int categoryStartRow = 3;
         String categorys = """
-                categoryId;F
-                categoryEnName;G
-                categoryJpName;H
-                """;
+            categoryId;F
+            categoryEnName;G
+            categoryJpName;H
+            """;
 
         String resultPath = outputPath + "\\ecm";
         String deviceSheetName = "U2A";
         int startRow = 3;
         String functions = """
-                optMaskint;G
-                optIntg;G
-                optDCLS;G
-                optIntrg;I
-                optErroroutput;J
-                optErrort;K
-                optDelayt;L
-                """;
+            optMaskint;G
+            optIntg;G
+            optDCLS;G
+            optIntrg;I
+            optErroroutput;J
+            optErrort;K
+            optDelayt;L
+            """;
         String errorSourceIdCol = "A";
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
@@ -116,16 +110,16 @@ public class U2AEcmTest {
             }
         }
         String products = """
-                RH850U2A16;516;N
-                RH850U2A16;373;O
-                RH850U2A16;292;P
-                RH850U2A8;373;R
-                RH850U2A8;292;S
-                RH850U2A6;292;T
-                RH850U2A6;176;T
-                RH850U2A6;156;U
-                RH850U2A6;144;V
-                """;
+            RH850U2A16;516;N
+            RH850U2A16;373;O
+            RH850U2A16;292;P
+            RH850U2A8;373;R
+            RH850U2A8;292;S
+            RH850U2A6;292;T
+            RH850U2A6;176;T
+            RH850U2A6;156;U
+            RH850U2A6;144;V
+            """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         ListValueMap<String, String> productsInfo = new ListValueMap<>();
@@ -143,7 +137,7 @@ public class U2AEcmTest {
         }
         // category 数据处理
         ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName),
-                categorySheetName);
+            categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
         List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
@@ -232,7 +226,7 @@ public class U2AEcmTest {
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(
-                    FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
+                FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
         }
         reader.close();
         // 后续文件合并
@@ -249,7 +243,7 @@ public class U2AEcmTest {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
                     boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                            FileUtil.file(resultPath, comName));
+                        FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
@@ -257,7 +251,7 @@ public class U2AEcmTest {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
                             FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                    FileUtil.file(resultPath, deviceName));
+                                FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);
@@ -318,7 +312,7 @@ public class U2AEcmTest {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-            List<Map<String, Object>> function) {
+                                List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -332,7 +326,7 @@ public class U2AEcmTest {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                         boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {

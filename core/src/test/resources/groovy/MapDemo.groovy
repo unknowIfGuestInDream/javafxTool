@@ -1,15 +1,17 @@
+package groovy
+
 def colors = [red: '#FF0000', green: '#00FF00', blue: '#0000FF']
 
 assert colors['red'] == '#FF0000'
-assert colors.green  == '#00FF00'
+assert colors.green == '#00FF00'
 
 colors['pink'] = '#FF00FF'
-colors.yellow  = '#FFFF00'
+colors.yellow = '#FFFF00'
 
 assert colors.pink == '#FF00FF'
 assert colors['yellow'] == '#FFFF00'
 
-assert colors instanceof java.util.LinkedHashMap
+assert colors instanceof LinkedHashMap
 
 // 如果您尝试访问映射中不存在的密钥
 assert colors.unknown == null
@@ -22,7 +24,7 @@ def numbers = [1: 'one', 2: 'two']
 
 assert numbers[1] == 'one'
 
-//在这里，我们使用数字作为键，因为数字可以明确地识别为数字， 所以 Groovy 不会像我们之前的例子那样创建字符串键。 
+//在这里，我们使用数字作为键，因为数字可以明确地识别为数字， 所以 Groovy 不会像我们之前的例子那样创建字符串键。
 //但是考虑一下你想传递一个变量来代替键的情况，以使该变量的值成为键：
 def key = 'name'
 def person = [key: 'Guillaume']

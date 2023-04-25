@@ -28,46 +28,46 @@
 package com.tlcsdm.core.factory.config;
 
 import com.tlcsdm.core.factory.InitializingFactory;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import com.tlcsdm.core.freemarker.GroovyLoaderService;
+import com.tlcsdm.core.util.GroovyUtil;
+import groovy.util.GroovyScriptEngine;
+import org.codehaus.groovy.control.CompilerConfiguration;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
 
 /**
- * 线程池初始化
+ * 扫描TemplateLoaderService实现类
+ * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/2/5 8:36
+ * @author unknowIfGuestInDream
  */
-public final class ThreadPoolTaskExecutor implements InitializingFactory {
-    private static int corePoolSize;
-    private static int maximumPoolSize;
-    private static long keepAliveTime;
-    private static TimeUnit unit;
-    private static int queueSize;
-    private static String threadPreName;
-    private static RejectedExecutionHandler handler;
+public class GroovyLoaderScanner implements InitializingFactory {
 
     @Override
     public void initialize() throws Exception {
-        corePoolSize = 2;
-        maximumPoolSize = 50;
-        keepAliveTime = 30;
-        unit = TimeUnit.SECONDS;
-        queueSize = 200;
-        threadPreName = "sample-%d";
-        handler = new ThreadPoolExecutor.CallerRunsPolicy();
+        List<String> list = new ArrayList<>();
+        ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
+        for (GroovyLoaderService groovyLoaderService : templateLoaders) {
+            list.add(groovyLoaderService.getGroovyLoaderPath());
+        }
+        if (list.size() == 0) {
+            return;
+        }
+        //core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
+        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
+        //系统groovy路径
+//        File file = new File(ConfigureUtil.getConfigureTemplatePath());
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
+        //list.add(0, new FileTemplateLoader(file));
+        GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
+        CompilerConfiguration config = new CompilerConfiguration();
+        config.setSourceEncoding("UTF-8");
+        scriptEngine.setConfig(config);
+
     }
 
-    public static ThreadPoolExecutor get() {
-        return SingletonInstance.INSTANCE;
-    }
-
-    private static class SingletonInstance {
-        private static final ThreadPoolExecutor INSTANCE = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
-            keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
-            new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true).build(), handler);
-    }
 }

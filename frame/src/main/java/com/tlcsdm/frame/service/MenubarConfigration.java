@@ -47,7 +47,7 @@ public interface MenubarConfigration {
         menuBar.setPrefWidth(primaryStage.getWidth());
         // 宽度监听设置菜单条长度
         menuBar.widthProperty()
-                .addListener((observable, oldValue, newValue) -> menuBar.setPrefWidth(newValue.doubleValue()));
+            .addListener((observable, oldValue, newValue) -> menuBar.setPrefWidth(newValue.doubleValue()));
         return menuBar;
     }
 

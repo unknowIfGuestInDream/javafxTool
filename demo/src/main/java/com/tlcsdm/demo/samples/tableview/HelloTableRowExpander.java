@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2016 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -53,10 +53,10 @@ public class HelloTableRowExpander extends ControlsFXSample {
 
         TableColumn<Customer, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        
+
         TableColumn<Customer, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
+
         TableColumn<Customer, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
@@ -104,19 +104,19 @@ public class HelloTableRowExpander extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "An extension to TableView which lets the user expand a table row to reveal a custom "
-                + "editor right below the cells of the current row. "
-                + "Any arbitrary Node can be used as the expanded row editor and there is an API to "
-                + "toggle the expanded state of each row. "
-                + "The toggle button can be customized by providing setting a custom cellFactory "
-                + "for the TableRowExpanderColumn.";
+            + "editor right below the cells of the current row. "
+            + "Any arbitrary Node can be used as the expanded row editor and there is an API to "
+            + "toggle the expanded state of each row. "
+            + "The toggle button can be customized by providing setting a custom cellFactory "
+            + "for the TableRowExpanderColumn.";
     }
 
     private ObservableList<Customer> getCustomers() {
         return FXCollections.observableArrayList(
-                new Customer(1, "Samantha Stuart", "samantha.stuart@contoso.com"),
-                new Customer(2, "Tom Marks", "tom.marks@contoso.com"),
-                new Customer(3, "Stuart Gills", "stuart.gills@contoso.com"),
-                new Customer(4, "Nicole Williams", "nicole.williams@contoso.com")
+            new Customer(1, "Samantha Stuart", "samantha.stuart@contoso.com"),
+            new Customer(2, "Tom Marks", "tom.marks@contoso.com"),
+            new Customer(3, "Stuart Gills", "stuart.gills@contoso.com"),
+            new Customer(4, "Nicole Williams", "nicole.williams@contoso.com")
         );
     }
 

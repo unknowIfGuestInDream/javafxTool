@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -51,56 +51,60 @@ public class HelloGridView extends ControlsFXSample {
 
     private GridView<?> myGrid;
     private final VBox root = new VBox();
-    
+
     public static void main(String[] args) {
         launch();
     }
-    
-    @Override public String getSampleName() {
+
+    @Override
+    public String getSampleName() {
         return "GridView";
     }
-    
-    @Override public String getJavaDocURL() {
+
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/GridView.html";
     }
-    
+
     private GridView<?> getColorGrid() {
         final ObservableList<Color> list = FXCollections.<Color>observableArrayList();
-        
+
         GridView<Color> colorGrid = new GridView<>(list);
-        
+
         colorGrid.setCellFactory(new Callback<GridView<Color>, GridCell<Color>>() {
-            @Override public GridCell<Color> call(GridView<Color> arg0) {
+            @Override
+            public GridCell<Color> call(GridView<Color> arg0) {
                 return new ColorGridCell();
             }
         });
         Random r = new Random(System.currentTimeMillis());
-        for(int i = 0; i < 500; i++) {
+        for (int i = 0; i < 500; i++) {
             list.add(new Color(r.nextDouble(), r.nextDouble(), r.nextDouble(), 1.0));
         }
         return colorGrid;
     }
-    
-    private GridView<?> getImageGrid( final boolean preserveImageProperties ) {
-        
+
+    private GridView<?> getImageGrid(final boolean preserveImageProperties) {
+
         final Image image = new Image(String.valueOf(getClass().getResource("/com/tlcsdm/demo/flowers.png")), 200, 0, true, true);
         final ObservableList<Image> list = FXCollections.<Image>observableArrayList();
-        
+
         GridView<Image> colorGrid = new GridView<>(list);
-        
+
         colorGrid.setCellFactory(new Callback<GridView<Image>, GridCell<Image>>() {
-            @Override public GridCell<Image> call(GridView<Image> arg0) {
+            @Override
+            public GridCell<Image> call(GridView<Image> arg0) {
                 return new ImageGridCell(preserveImageProperties);
             }
         });
-        for(int i = 0; i < 50; i++) {
+        for (int i = 0; i < 50; i++) {
             list.add(image);
         }
         return colorGrid;
-    }    
-    
-    
-    @Override public Node getPanel(Stage stage) {
+    }
+
+    @Override
+    public Node getPanel(Stage stage) {
         SegmentedButton selector = ActionUtils.createSegmentedButton(
             new ActionShowGrid("Colors", getColorGrid()),
             new ActionShowGrid("Images", getImageGrid(false)),
@@ -111,11 +115,11 @@ public class HelloGridView extends ControlsFXSample {
         selector.getButtons().get(0).fire();
         return root;
     }
-    
+
     class ActionShowGrid extends Action {
 
         GridView<?> grid;
-        
+
         public ActionShowGrid(String text, GridView<?> grid) {
             super(text);
             this.grid = grid;
@@ -123,13 +127,13 @@ public class HelloGridView extends ControlsFXSample {
         }
 
         private void handleAction(ActionEvent ae) {
-            if ( myGrid != null ) {
+            if (myGrid != null) {
                 root.getChildren().remove(myGrid);
             }
             myGrid = grid;
             root.getChildren().add(myGrid);
         }
-        
+
     }
-    
+
 }

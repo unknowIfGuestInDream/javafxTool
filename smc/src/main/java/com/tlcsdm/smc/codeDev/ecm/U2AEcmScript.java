@@ -43,19 +43,19 @@ public class U2AEcmScript extends AbstractEcmScript {
         super.initDefaultValue();
         sheetNameField.setText("U2A");
         categoryConfigField.setText("""
-                categoryId;F
-                categoryEnName;G
-                categoryJpName;H
-                """);
+            categoryId;F
+            categoryEnName;G
+            categoryJpName;H
+            """);
         functionConfigField.setText("""
-                optMaskint;G
-                optIntg;G
-                optDCLS;G
-                optIntrg;I
-                optErroroutput;J
-                optErrort;K
-                optDelayt;L
-                """);
+            optMaskint;G
+            optIntg;G
+            optDCLS;G
+            optIntrg;I
+            optErroroutput;J
+            optErrort;K
+            optDelayt;L
+            """);
         errorSourceIdColField.setText("A");
         categoryIdColField.setText("B");
         errorSourceNumberColField.setText("C");
@@ -63,16 +63,16 @@ public class U2AEcmScript extends AbstractEcmScript {
         errorSourceDescColField.setText("E");
         errorSourceJpNameColField.setText("W");
         productConfigField.setText("""
-                RH850U2A16;516;N
-                RH850U2A16;373;O
-                RH850U2A16;292;P
-                RH850U2A8;373;R
-                RH850U2A8;292;S
-                RH850U2A6;292;T
-                RH850U2A6;176;T
-                RH850U2A6;156;U
-                RH850U2A6;144;V
-                """);
+            RH850U2A16;516;N
+            RH850U2A16;373;O
+            RH850U2A16;292;P
+            RH850U2A8;373;R
+            RH850U2A8;292;S
+            RH850U2A6;292;T
+            RH850U2A6;176;T
+            RH850U2A6;156;U
+            RH850U2A6;144;V
+            """);
     }
 
     public static void main(String[] args) {

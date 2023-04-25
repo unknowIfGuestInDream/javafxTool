@@ -49,6 +49,7 @@ public final class Flight {
     public BooleanProperty getCancelledProperty() {
         return cancelledInd;
     }
+
     public StringProperty getGateNumber() {
         return gateNumber;
     }

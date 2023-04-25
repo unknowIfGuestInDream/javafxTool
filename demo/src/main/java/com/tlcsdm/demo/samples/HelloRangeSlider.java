@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2015 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -44,35 +44,38 @@ public class HelloRangeSlider extends ControlsFXSample {
         launch(args);
     }
 
-    @Override public String getSampleName() {
+    @Override
+    public String getSampleName() {
         return "RangeSlider";
     }
 
-    @Override public String getJavaDocURL() {
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/RangeSlider.html";
     }
 
-    
     @Override
     public String getControlStylesheetURL() {
         return "/org/controlsfx/control/rangeslider.css";
     }
 
-    @Override public Node getPanel(Stage stage) {
+    @Override
+    public Node getPanel(Stage stage) {
         VBox root = new VBox(15);
 
         Region horizontalRangeSlider = createHorizontalSlider();
         Region verticalRangeSlider = createVerticalSlider();
         Region labelRangeSlider = createLabelSlider();
-        root.getChildren().addAll(horizontalRangeSlider, verticalRangeSlider, labelRangeSlider );
+        root.getChildren().addAll(horizontalRangeSlider, verticalRangeSlider, labelRangeSlider);
 
         return root;
     }
 
-    @Override public String getSampleDescription() {
+    @Override
+    public String getSampleDescription() {
         return "The Slider control in JavaFX is great for selecting a single "
-                + "value between a min and max value, but it isn't so great for "
-                + "letting users select a range - that's where RangeSlider comes in!";
+            + "value between a min and max value, but it isn't so great for "
+            + "letting users select a range - that's where RangeSlider comes in!";
     }
 
     Region createLabelSlider() {
@@ -108,7 +111,7 @@ public class HelloRangeSlider extends ControlsFXSample {
 
         HBox box = new HBox(10);
         box.getChildren().addAll(hSlider);
-        box.setPadding(new Insets(20,0,0,20));
+        box.setPadding(new Insets(20, 0, 0, 20));
         box.setFillHeight(false);
 
         return box;
@@ -140,13 +143,12 @@ public class HelloRangeSlider extends ControlsFXSample {
 
         HBox box = new HBox(10);
         box.getChildren().addAll(minField, hSlider, maxField);
-        box.setPadding(new Insets(20,0,0,20));
+        box.setPadding(new Insets(20, 0, 0, 20));
         box.setFillHeight(false);
 
         return box;
     }
 
-    
     Region createVerticalSlider() {
         final TextField minField = new TextField();
         minField.setPrefColumnCount(5);
@@ -173,7 +175,7 @@ public class HelloRangeSlider extends ControlsFXSample {
         maxField.textProperty().bind(vSlider.highValueProperty().asString("%.2f"));
 
         VBox box = new VBox(10);
-        box.setPadding(new Insets(0,0,0, 20));
+        box.setPadding(new Insets(0, 0, 0, 20));
 //        box.setAlignment(Pos.CENTER);
         box.setFillWidth(false);
         box.getChildren().addAll(maxField, vSlider, minField);

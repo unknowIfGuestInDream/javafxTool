@@ -121,10 +121,10 @@ public class MoneyToChinese extends CommonSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {convertButton}:
-                {convertDesc}
-                {Required} {amountLabel}
-                """;
+            {convertButton}:
+            {convertDesc}
+            {Required} {amountLabel}
+            """;
         Map<String, String> map = new HashMap<>();
         map.put("convertButton", convert.getText());
         map.put("convertDesc", I18nUtils.get("common.tool.moneyToChinese.control.textarea"));

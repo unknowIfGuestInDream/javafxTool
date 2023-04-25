@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -90,12 +90,12 @@ public class HelloSnapshotView extends ControlsFXSample {
     /**
      * The names of the displayed nodes.
      */
-    private final String[] nodeNames = new String[] {
-            "ImageView",
-            "Fitted ImageView",
-            "Transformed ImageView",
-            "Rotating Node",
-            "Null Node",
+    private final String[] nodeNames = new String[]{
+        "ImageView",
+        "Fitted ImageView",
+        "Transformed ImageView",
+        "Rotating Node",
+        "Null Node",
     };
 
     /**
@@ -106,10 +106,10 @@ public class HelloSnapshotView extends ControlsFXSample {
     /**
      * The names of the displayed nodes.
      */
-    private final String[] imageNames = new String[] {
-            "ControlsFX",
-            "Java's Duke",
-            "Null Image",
+    private final String[] imageNames = new String[]{
+        "ControlsFX",
+        "Java's Duke",
+        "Null Image",
     };
 
     private final IntegerProperty selectedImageIndex = new SimpleIntegerProperty();
@@ -144,18 +144,18 @@ public class HelloSnapshotView extends ControlsFXSample {
 
     /**
      * Loads the displayed images.
-     * 
+     *
      * @return an array of {@link Image image}s
      */
     private static Image[] loadImages() {
         Image controlsFX = new Image(HelloSnapshotView.class.getResource("/com/tlcsdm/demo/ControlsFX.png").toExternalForm());
         Image duke = new Image(HelloSnapshotView.class.getResource("/com/tlcsdm/demo/duke_wave.png").toExternalForm());
-        return new Image[] { controlsFX, duke, null };
+        return new Image[]{controlsFX, duke, null};
     }
 
     /**
      * Creates the nodes used by the snapshot view.
-     * 
+     *
      * @return an array of {@link Node node}s
      */
     private Node[] createNodes() {
@@ -189,9 +189,9 @@ public class HelloSnapshotView extends ControlsFXSample {
         rotator.setCycleCount(Animation.INDEFINITE);
         rotator.play();
 
-        return new Node[] {
-                new Pane(imageView), new Pane(fittedImageView), new Pane(transformedImageView),
-                new Pane(rotatingRect), null
+        return new Node[]{
+            new Pane(imageView), new Pane(fittedImageView), new Pane(transformedImageView),
+            new Pane(rotatingRect), null
         };
     }
 
@@ -205,8 +205,8 @@ public class HelloSnapshotView extends ControlsFXSample {
     @Override
     public Node getControlPanel() {
         return new VBox(10,
-                createNodeControl(), createSettingsControl(),
-                createVisualizationControl(), createSelectionControl(), createSnapshotImageView());
+            createNodeControl(), createSettingsControl(),
+            createVisualizationControl(), createSelectionControl(), createSnapshotImageView());
     }
 
     /**
@@ -228,7 +228,7 @@ public class HelloSnapshotView extends ControlsFXSample {
         final ChoiceBox<String> nodeOptions = new ChoiceBox<>(FXCollections.observableArrayList(nodeNames));
         final SelectionModel<String> nodeSelectionModel = nodeOptions.getSelectionModel();
         nodeSelectionModel.selectedIndexProperty().addListener(
-                (o, oldNodeIndex, newNodeIndex) -> snapshotView.setNode(nodes[newNodeIndex.intValue()]));
+            (o, oldNodeIndex, newNodeIndex) -> snapshotView.setNode(nodes[newNodeIndex.intValue()]));
         nodeSelectionModel.select(0);
 
         nodeOptions.setMaxWidth(Double.MAX_VALUE);
@@ -246,7 +246,7 @@ public class HelloSnapshotView extends ControlsFXSample {
         // bind 'selectedImageIndex' and the box' selection model together
         final SelectionModel<String> imageSelectionModel = imageOptions.getSelectionModel();
         imageSelectionModel.selectedIndexProperty().addListener(
-                (o, oldIndex, newIndex) -> selectedImageIndex.set(newIndex.intValue()));
+            (o, oldIndex, newIndex) -> selectedImageIndex.set(newIndex.intValue()));
         selectedImageIndex.addListener((o, oldIndex, newIndex) -> {
             imageSelectionModel.clearAndSelect(newIndex.intValue());
             setImageForAllViews(newIndex.intValue());
@@ -298,7 +298,7 @@ public class HelloSnapshotView extends ControlsFXSample {
         // selection mouse transparent
         CheckBox selectionMouseTransparent = new CheckBox();
         selectionMouseTransparent.selectedProperty().bindBidirectional(
-                snapshotView.selectionMouseTransparentProperty());
+            snapshotView.selectionMouseTransparentProperty());
         grid.addRow(row++, new Label("Mouse Transparent:"), selectionMouseTransparent);
 
         // --- fixed ratio
@@ -315,21 +315,21 @@ public class HelloSnapshotView extends ControlsFXSample {
         grid.add(ratioLabel, 0, row);
         TextField ratioTextField = new TextField();
         ratioTextField.textProperty().bindBidirectional(snapshotView.fixedSelectionRatioProperty(),
-                new StringConverter<Number>() {
-                    @Override
-                    public Number fromString(String value) {
-                        try {
-                            return twoDpFormat.parse(value);
-                        } catch (ParseException e) {
-                            return 1;
-                        }
+            new StringConverter<Number>() {
+                @Override
+                public Number fromString(String value) {
+                    try {
+                        return twoDpFormat.parse(value);
+                    } catch (ParseException e) {
+                        return 1;
                     }
+                }
 
-                    @Override
-                    public String toString(Number value) {
-                        return twoDpFormat.format(value);
-                    }
-                });
+                @Override
+                public String toString(Number value) {
+                    return twoDpFormat.format(value);
+                }
+            });
         grid.add(ratioTextField, 1, row++);
 
         // --- selection area boundary
@@ -338,10 +338,10 @@ public class HelloSnapshotView extends ControlsFXSample {
         grid.add(selectionBoundaryLabel, 0, row);
 
         final ChoiceBox<Boundary> selectionBoundaryOptions = new ChoiceBox<>(
-                FXCollections.observableArrayList(Boundary.CONTROL, Boundary.NODE));
+            FXCollections.observableArrayList(Boundary.CONTROL, Boundary.NODE));
         selectionBoundaryOptions.getSelectionModel().select(Boundary.CONTROL);
         snapshotView.selectionAreaBoundaryProperty().bind(
-                selectionBoundaryOptions.getSelectionModel().selectedItemProperty());
+            selectionBoundaryOptions.getSelectionModel().selectedItemProperty());
 
         selectionBoundaryOptions.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(selectionBoundaryOptions, Priority.ALWAYS);
@@ -353,10 +353,10 @@ public class HelloSnapshotView extends ControlsFXSample {
         grid.add(unselectedBoundaryLabel, 0, row);
 
         final ChoiceBox<Boundary> unselectedBoundaryOptions = new ChoiceBox<>(
-                FXCollections.observableArrayList(Boundary.CONTROL, Boundary.NODE));
+            FXCollections.observableArrayList(Boundary.CONTROL, Boundary.NODE));
         unselectedBoundaryOptions.getSelectionModel().select(Boundary.CONTROL);
         snapshotView.unselectedAreaBoundaryProperty().bind(
-                unselectedBoundaryOptions.getSelectionModel().selectedItemProperty());
+            unselectedBoundaryOptions.getSelectionModel().selectedItemProperty());
 
         unselectedBoundaryOptions.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(unselectedBoundaryOptions, Priority.ALWAYS);
@@ -433,7 +433,7 @@ public class HelloSnapshotView extends ControlsFXSample {
         snapshotView.selectionProperty().addListener(new ChangeListener<Rectangle2D>() {
             @Override
             public void changed(
-                    ObservableValue<? extends Rectangle2D> observable, Rectangle2D oldValue, Rectangle2D newValue) {
+                ObservableValue<? extends Rectangle2D> observable, Rectangle2D oldValue, Rectangle2D newValue) {
                 if (newValue == null) {
                     upperLeftX.setText("");
                     upperLeftY.setText("");
@@ -465,7 +465,7 @@ public class HelloSnapshotView extends ControlsFXSample {
         grid.addRow(row++, new Label("Upper Left Corner:"), upperLeftX, new Label("/"), upperLeftY);
         grid.addRow(row++, new Label("Lower Right Corner:"), lowerRightX, new Label("/"), lowerRightY);
         grid.addRow(row++, new Label("Size (Ratio):"), width, new Label("x"), height, new Label(" ("), ratio,
-                new Label(")"));
+            new Label(")"));
 
         // selection changing
         CheckBox selectionChanging = new CheckBox();
@@ -518,7 +518,7 @@ public class HelloSnapshotView extends ControlsFXSample {
     @Override
     public String getJavaDocURL() {
         return Utils.JAVADOC_BASE
-                + "org/controlsfx/control/SnapshotView.html";
+            + "org/controlsfx/control/SnapshotView.html";
     }
 
     @Override
@@ -529,8 +529,8 @@ public class HelloSnapshotView extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "A control which allows the user to select a rectangular area of the displayed node. " +
-                "The selection's ratio can be fixed so that the user can only make selections with that ratio. " +
-                "The method 'createSnapshot()' returns an Image of the selected area. " +
-                "The displayed node can be interacted with if the selection is set to be mouse transparent. ";
+            "The selection's ratio can be fixed so that the user can only make selections with that ratio. " +
+            "The method 'createSnapshot()' returns an Image of the selected area. " +
+            "The displayed node can be interacted with if the selection is set to be mouse transparent. ";
     }
 }

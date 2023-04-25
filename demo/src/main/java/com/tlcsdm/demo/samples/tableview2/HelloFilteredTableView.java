@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2018, 2020 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -91,10 +91,10 @@ public class HelloFilteredTableView extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "The FilteredTableView is a subclass of TableView2,"
-                + " an advanced JavaFX TableView control that provides extended filtering options. It can"
-                + " be used as drop-in replacement control for the existing TableView, and provides"
-                + " different functionalities and use cases like row and column fixing, row header and"
-                + " filtering editors.";
+            + " an advanced JavaFX TableView control that provides extended filtering options. It can"
+            + " be used as drop-in replacement control for the existing TableView, and provides"
+            + " different functionalities and use cases like row and column fixing, row header and"
+            + " filtering editors.";
     }
 
     @Override
@@ -245,6 +245,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
                     private final HBox box;
                     private final Circle circle;
                     private final Label label;
+
                     {
                         circle = new Circle(5);
                         label = new Label();
@@ -254,7 +255,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
                     @Override
                     protected void updateItem(Number item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item != null && ! empty) {
+                        if (item != null && !empty) {
                             setText(null);
                             circle.setFill(getIndex() % 5 == 0 ? Color.RED : Color.BLUE);
                             label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + String.valueOf(item));
@@ -348,16 +349,18 @@ public class HelloFilteredTableView extends ControlsFXSample {
             color.setCellFactory(p -> new TableCell<Person, Color>() {
                 private final HBox box;
                 private final Circle circle;
+
                 {
                     circle = new Circle(10);
                     box = new HBox(circle);
                     box.setAlignment(Pos.CENTER);
                     setText(null);
                 }
+
                 @Override
                 protected void updateItem(Color item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (item != null && ! empty) {
+                    if (item != null && !empty) {
                         circle.setFill(item);
                         setGraphic(box);
                     } else {
@@ -377,7 +380,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
                 @Override
                 public String toString(LocalDate date) {
                     if (date == null) {
-                        return "" ;
+                        return "";
                     }
                     return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date);
                 }
@@ -406,16 +409,18 @@ public class HelloFilteredTableView extends ControlsFXSample {
             editorColor.getFilterEditor().setCellFactory(c -> new ListCell<Color>() {
                 private final HBox box;
                 private final Circle circle;
+
                 {
                     circle = new Circle(10);
                     box = new HBox(circle);
                     box.setAlignment(Pos.CENTER);
                     setText(null);
                 }
+
                 @Override
                 protected void updateItem(Color item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (item != null && ! empty) {
+                    if (item != null && !empty) {
                         circle.setFill(item);
                         setGraphic(box);
                     } else {
@@ -428,7 +433,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
                 @Override
                 public String toString(Color object) {
                     return object != null && colors.indexOf(object) > -1 ?
-                            scolors.get(colors.indexOf(object)) : editorColor.getFilterEditor().getEditor().getText();
+                        scolors.get(colors.indexOf(object)) : editorColor.getFilterEditor().getEditor().getText();
                 }
 
                 @Override
@@ -440,7 +445,8 @@ public class HelloFilteredTableView extends ControlsFXSample {
                         if (Color.web(string) != null) {
                             return Color.web(string);
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                     return Color.CADETBLUE;
                 }
             });
@@ -454,7 +460,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
             final CheckMenuItem miFirstName = new CheckMenuItem("Filter " + firstName.getText());
             firstName.predicateProperty().addListener(o -> miFirstName.setSelected(firstName.getPredicate() != null));
             miFirstName.setOnAction(e ->
-                    firstName.setPredicate(miFirstName.isSelected() ? p -> p.contains("1") : null));
+                firstName.setPredicate(miFirstName.isSelected() ? p -> p.contains("1") : null));
             final Menu menuFirstName = new Menu("Filter");
             menuFirstName.getItems().addAll(miFirstName);
             cm.getItems().addAll(menuFirstName);
@@ -464,7 +470,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
             final CheckMenuItem miLastName = new CheckMenuItem("Filter " + lastName.getText());
             lastName.predicateProperty().addListener(o -> miLastName.setSelected(lastName.getPredicate() != null));
             miLastName.setOnAction(e ->
-                    lastName.setPredicate(miLastName.isSelected() ? p -> p.contains("2") : null));
+                lastName.setPredicate(miLastName.isSelected() ? p -> p.contains("2") : null));
 
             final Menu menuLastName = new Menu("Filter");
             menuLastName.getItems().addAll(miLastName);
@@ -475,7 +481,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
             final CheckMenuItem miAge = new CheckMenuItem("Filter " + age.getText());
             age.predicateProperty().addListener(o -> miAge.setSelected(age.getPredicate() != null));
             miAge.setOnAction(e ->
-                    age.setPredicate(miAge.isSelected() ? p -> p > 50 : null));
+                age.setPredicate(miAge.isSelected() ? p -> p > 50 : null));
 
             final Menu menuAge = new Menu("Filter");
             menuAge.getItems().addAll(miAge);
@@ -489,7 +495,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
             final CheckMenuItem miBirthday = new CheckMenuItem("Filter " + birthday.getText());
             birthday.predicateProperty().addListener(o -> miBirthday.setSelected(birthday.getPredicate() != null));
             miBirthday.setOnAction(e ->
-                    birthday.setPredicate(miBirthday.isSelected() ? p -> p.isAfter(LocalDate.of(1950, 1, 1)) : null));
+                birthday.setPredicate(miBirthday.isSelected() ? p -> p.isAfter(LocalDate.of(1950, 1, 1)) : null));
 
             final Menu menuBirthday = new Menu("Filter");
             menuBirthday.getItems().addAll(miBirthday);
@@ -603,13 +609,13 @@ public class HelloFilteredTableView extends ControlsFXSample {
     }
 
     private ObservableList<Person> generateData(int numberOfPeople) {
-        ObservableList<Person> persons = FXCollections.observableArrayList(e -> new Observable[]{ e.lastNameProperty() });
+        ObservableList<Person> persons = FXCollections.observableArrayList(e -> new Observable[]{e.lastNameProperty()});
         List<Color> colors = Arrays.asList(Color.CADETBLUE, Color.CHARTREUSE, Color.CHOCOLATE, Color.CORAL, Color.CORNSILK, Color.CORNFLOWERBLUE);
 
         for (int i = 0; i < numberOfPeople; i++) {
-            final LocalDate date = LocalDate.of(1910 + new Random().nextInt(100), 1+i%11, 1+i%29);
-            persons.add(new Person("First Name:  " + i%20, "Last Name: " + i%10,  Period.between(date, LocalDate.now()).getYears(),
-                    "City: " + i%3, i%10 != 0, date, colors.get(new Random().nextInt(colors.size()))));
+            final LocalDate date = LocalDate.of(1910 + new Random().nextInt(100), 1 + i % 11, 1 + i % 29);
+            persons.add(new Person("First Name:  " + i % 20, "Last Name: " + i % 10, Period.between(date, LocalDate.now()).getYears(),
+                "City: " + i % 3, i % 10 != 0, date, colors.get(new Random().nextInt(colors.size()))));
         }
 
         return persons;
@@ -636,7 +642,6 @@ public class HelloFilteredTableView extends ControlsFXSample {
         public final ObjectProperty<LocalDate> birthdayProperty() {
             return birthday;
         }
-
 
         public final StringProperty firstNameProperty() {
             return this.firstName;
@@ -710,8 +715,8 @@ public class HelloFilteredTableView extends ControlsFXSample {
             return color;
         }
 
-        public Person (String firstName, String lastName, Integer age,
-                       String city, boolean active, LocalDate birthday, Color color){
+        public Person(String firstName, String lastName, Integer age,
+                      String city, boolean active, LocalDate birthday, Color color) {
             this.firstName.set(firstName);
             this.lastName.set(lastName);
             this.age.set(age);
@@ -724,8 +729,8 @@ public class HelloFilteredTableView extends ControlsFXSample {
         @Override
         public String toString() {
             return "Person{" + "firstName=" + firstName.get() + ", lastName=" + lastName.get() +
-                    ", age=" + age.get() + ", city=" + city.get() + ", active=" + active.get() +
-                    ", birthday=" + birthday.get() + ", color=" + color.get() + '}';
+                ", age=" + age.get() + ", city=" + city.get() + ", active=" + active.get() +
+                ", birthday=" + birthday.get() + ", color=" + color.get() + '}';
         }
 
         public Person() {
@@ -741,7 +746,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
         public IntegerProperty getTotalSum() {
             IntegerProperty sum = new SimpleIntegerProperty();
             sum.bind(Bindings.createIntegerBinding(() -> getNumberOf(getFirstName()) + getNumberOf(getLastName()) + getNumberOf(getCity()),
-                    firstName, lastName, city));
+                firstName, lastName, city));
             return sum;
         }
 
@@ -751,7 +756,8 @@ public class HelloFilteredTableView extends ControlsFXSample {
                 if (split.length == 2) {
                     return Integer.parseInt(split[1].trim());
                 }
-            } catch (NumberFormatException e) {}
+            } catch (NumberFormatException e) {
+            }
             return 0;
         }
     }

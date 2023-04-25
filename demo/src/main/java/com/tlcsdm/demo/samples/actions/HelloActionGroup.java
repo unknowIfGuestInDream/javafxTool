@@ -60,18 +60,18 @@ public class HelloActionGroup extends ControlsFXSample {
     private final ImageView image = new ImageView(new Image(getClass().getResource("/com/tlcsdm/demo/security-low.png").toExternalForm()));
 
     private Collection<? extends Action> actions = Arrays.asList(
-            new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image),
-                    new CheckDummyAction("Action 1.2")),
-            new ActionGroup("Group 2", image, new DummyAction("Action 2.1"),
-                    ACTION_SEPARATOR,
-                    new ActionGroup("Action 2.2", new DummyAction("Action 2.2.1"),
-                            new CheckDummyAction("Action 2.2.2")),
-                    new DummyAction("Action 2.3")),
-            ACTION_SPAN,
+        new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image),
+            new CheckDummyAction("Action 1.2")),
+        new ActionGroup("Group 2", image, new DummyAction("Action 2.1"),
             ACTION_SEPARATOR,
-            new CheckDummyAction("Action 3", image),
-            new ActionGroup("Group 4", image, new DummyAction("Action 4.1", image),
-                    new CheckDummyAction("Action 4.2"))
+            new ActionGroup("Action 2.2", new DummyAction("Action 2.2.1"),
+                new CheckDummyAction("Action 2.2.2")),
+            new DummyAction("Action 2.3")),
+        ACTION_SPAN,
+        ACTION_SEPARATOR,
+        new CheckDummyAction("Action 3", image),
+        new ActionGroup("Group 4", image, new DummyAction("Action 4.1", image),
+            new CheckDummyAction("Action 4.2"))
     );
 
     private static class DummyAction extends Action {
@@ -136,7 +136,7 @@ public class HelloActionGroup extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "MenuBar, ToolBar and ContextMenu presented here are effortlessly built out of the same action tree. " +
-                "Action properties can be dynamically changed, triggering changes in all related controls";
+            "Action properties can be dynamically changed, triggering changes in all related controls";
     }
 
     @Override

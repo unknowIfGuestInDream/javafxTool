@@ -1,10 +1,9 @@
 package com.tlcsdm.smc.tool;
 
-import org.junit.jupiter.api.Test;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Assert;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author: unknowIfGuestInDream
@@ -47,7 +46,7 @@ public class CompareTest {
 
     @Test
     public void path() {
-        System.out.println(ResourceUtil.getResource("/com/tlcsdm/smc/static/templates").getPath());
+        System.out.println(ResourceUtil.getResource("templates").getPath());
     }
 
 }

@@ -138,7 +138,7 @@ public class DtsTriggerSourceXml extends SmcSample {
                 for (int k = 0; k < groupNum; k++) {
                     String getGroupLine = ExcelUtil.indexToColName(startCol + k);
                     String content = "        Group" + k + "TriggerInfo=\""
-                            + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
+                        + getXmlGroupValue(reader, getGroupLine + j, groups.get(k) + j) + "\"";
                     if (k == groupNum - 1) {
                         content += " />";
                     }
@@ -207,7 +207,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
         Label xmlFileNameAndStartColLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol") + ": ");
+            I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol") + ": ");
         xmlFileNameAndStartColField = new TextArea();
 
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.sheetName") + ": ");
@@ -220,14 +220,14 @@ public class DtsTriggerSourceXml extends SmcSample {
         endRowField = new NumberTextField();
 
         Label xmlNameTemplateLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate") + ": ");
+            I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate") + ": ");
         xmlNameTemplateField = new TextField();
 
         sheetNameField.setText("DTS trigger");
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
         xmlFileNameAndStartColField
-                .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
+            .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
         xmlNameTemplateField.setText("DTS{}TriggerSource.xml");
 
         grid.add(toolBar, 0, 0, 3, 1);
@@ -258,7 +258,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
-                xmlFileNameAndStartColField, sheetNameField, startRowField, endRowField, xmlNameTemplateField).build();
+            xmlFileNameAndStartColField, sheetNameField, startRowField, endRowField, xmlNameTemplateField).build();
 
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
@@ -282,12 +282,12 @@ public class DtsTriggerSourceXml extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {excelLabel}: {excelDesc}
-                {groupLabel}: {groupDesc}
-                {xmlFileNameAndStartColLabel}: {xmlFileNameAndStartColDesc}
-                eg: C8292;Q
-                {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
-                """;
+            {excelLabel}: {excelDesc}
+            {groupLabel}: {groupDesc}
+            {xmlFileNameAndStartColLabel}: {xmlFileNameAndStartColDesc}
+            eg: C8292;Q
+            {xmlNameTemplateLabel}: {xmlNameTemplateDesc}
+            """;
 
         Map<String, String> map = new HashMap<>(16);
         map.put("excelLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel"));
@@ -295,9 +295,9 @@ public class DtsTriggerSourceXml extends SmcSample {
         map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.group"));
         map.put("groupDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.groupDesc"));
         map.put("xmlFileNameAndStartColLabel",
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol"));
+            I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlFileNameAndStartCol"));
         map.put("xmlFileNameAndStartColDesc",
-                I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlFileNameAndStartColDesc"));
+            I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlFileNameAndStartColDesc"));
         map.put("xmlNameTemplateLabel", I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.xmlNameTemplate"));
         map.put("xmlNameTemplateDesc", I18nUtils.get("smc.tool.dtsTriggerSourceXml.control.xmlNameTemplateDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));

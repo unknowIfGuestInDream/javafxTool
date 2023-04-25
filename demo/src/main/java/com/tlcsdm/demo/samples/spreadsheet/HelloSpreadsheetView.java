@@ -80,12 +80,12 @@ public class HelloSpreadsheetView extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "The SpreadsheetView is a control similar to the JavaFX TableView control "
-                + "but with different functionalities and use cases. The aim is to have a "
-                + "powerful grid where data can be written and retrieved.\n\n"
-                + "Here you have an example where some information about fictive "
-                + "companies are displayed. They have different type and format.\n\n"
-                + "After that, some random generated cells are displayed with some span.\n\n"
-                + "Don't forget to right-click on headers and cells to discover some features.";
+            + "but with different functionalities and use cases. The aim is to have a "
+            + "powerful grid where data can be written and retrieved.\n\n"
+            + "Here you have an example where some information about fictive "
+            + "companies are displayed. They have different type and format.\n\n"
+            + "After that, some random generated cells are displayed with some span.\n\n"
+            + "Don't forget to right-click on headers and cells to discover some features.";
     }
 
     @Override
@@ -216,18 +216,18 @@ public class HelloSpreadsheetView extends ControlsFXSample {
          * List for custom cells
          */
         private final List<String> companiesList = Arrays.asList("", "ControlsFX", "Aperture Science",
-                "Rapture", "Ammu-Nation", "Nuka-Cola", "Pay'N'Spray", "Umbrella Corporation");
+            "Rapture", "Ammu-Nation", "Nuka-Cola", "Pay'N'Spray", "Umbrella Corporation");
 
         private final List<String> countryList = Arrays.asList("China", "France", "New Zealand",
-                "United States", "Germany", "Canada");
+            "United States", "Germany", "Canada");
 
         private final List<String> logoList = Arrays.asList("", "/com/tlcsdm/demo/ControlsFX.png", "/com/tlcsdm/demo/apertureLogo.png",
-                "/com/tlcsdm/demo/raptureLogo.png", "/com/tlcsdm/demo/ammunationLogo.JPG", "/com/tlcsdm/demo/nukaColaLogo.png", "/com/tlcsdm/demo/paynsprayLogo.jpg", "/com/tlcsdm/demo/umbrellacorporation.png");
+            "/com/tlcsdm/demo/raptureLogo.png", "/com/tlcsdm/demo/ammunationLogo.JPG", "/com/tlcsdm/demo/nukaColaLogo.png", "/com/tlcsdm/demo/paynsprayLogo.jpg", "/com/tlcsdm/demo/umbrellacorporation.png");
 
         private final List<String> webSiteList = Arrays.asList("", "http://fxexperience.com/controlsfx/",
-                "http://aperturescience.com/", "", "http://fr.gta.wikia.com/wiki/Ammu-Nation",
-                "http://e-shop.nuka-cola.eu/", "http://fr.gta.wikia.com/wiki/Pay_%27n%27_Spray",
-                "http://www.umbrellacorporation.net/");
+            "http://aperturescience.com/", "", "http://fr.gta.wikia.com/wiki/Ammu-Nation",
+            "http://e-shop.nuka-cola.eu/", "http://fr.gta.wikia.com/wiki/Pay_%27n%27_Spray",
+            "http://www.umbrellacorporation.net/");
 
         public SpreadsheetViewExample() {
             int rowCount = 31; //Will be re-calculated after if incorrect.
@@ -258,8 +258,8 @@ public class HelloSpreadsheetView extends ControlsFXSample {
                 public void onClick() {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("This row contains several fictive companies. "
-                            + "The cells are not editable.\n"
-                            + "A custom tooltip is applied for the first cell.");
+                        + "The cells are not editable.\n"
+                        + "A custom tooltip is applied for the first cell.");
                     alert.show();
                 }
             });
@@ -300,7 +300,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
                 public void onClick() {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("This row contains Double editable cells. "
-                            + "Except for ControlsFX compagny where it's a String.");
+                        + "Except for ControlsFX compagny where it's a String.");
                     alert.show();
                 }
             });
@@ -310,8 +310,8 @@ public class HelloSpreadsheetView extends ControlsFXSample {
                 public void onClick() {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("This row contains Double editable cells with "
-                            + "a special format (%). Some cells also have "
-                            + "a little icon next to their value.");
+                        + "a special format (%). Some cells also have "
+                        + "a little icon next to their value.");
                     alert.show();
                 }
             });
@@ -322,8 +322,8 @@ public class HelloSpreadsheetView extends ControlsFXSample {
                 public void onClick() {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Each cell of this column (except for the "
-                            + "separator in the middle) has a particular css "
-                            + "class for changing its color.\n");
+                        + "separator in the middle) has a particular css "
+                        + "class for changing its color.\n");
                     alert.show();
                 }
             });
@@ -346,14 +346,14 @@ public class HelloSpreadsheetView extends ControlsFXSample {
         private SpreadsheetCell generateCell(int row, int column, int rowSpan, int colSpan) {
             SpreadsheetCell cell;
             List<String> cityList = Arrays.asList("Shanghai", "Paris", "New York City", "Bangkok",
-                    "Singapore", "Johannesburg", "Berlin", "Wellington", "London", "Montreal");
+                "Singapore", "Johannesburg", "Berlin", "Wellington", "London", "Montreal");
             final double random = Math.random();
             if (random < 0.25) {
                 cell = SpreadsheetCellType.LIST(countryList).createCell(row, column, rowSpan, colSpan,
-                        countryList.get((int) (Math.random() * 6)));
+                    countryList.get((int) (Math.random() * 6)));
             } else if (random >= 0.25 && random < 0.5) {
                 cell = SpreadsheetCellType.STRING.createCell(row, column, rowSpan, colSpan,
-                        cityList.get((int) (Math.random() * 10)));
+                    cityList.get((int) (Math.random() * 10)));
             } else if (random >= 0.5 && random < 0.75) {
                 cell = generateNumberCell(row, column, rowSpan, colSpan);
             } else {
@@ -378,7 +378,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
          */
         private SpreadsheetCell generateDateCell(int row, int column, int rowSpan, int colSpan) {
             SpreadsheetCell cell = SpreadsheetCellType.DATE.createCell(row, column, rowSpan, colSpan, LocalDate.now()
-                    .plusDays((int) (Math.random() * 10)));
+                .plusDays((int) (Math.random() * 10)));
             final double random = Math.random();
             if (random < 0.25) {
                 cell.setFormat("EEEE d");
@@ -404,10 +404,10 @@ public class HelloSpreadsheetView extends ControlsFXSample {
             SpreadsheetCell cell;
             if (random < 0.3) {
                 cell = SpreadsheetCellType.INTEGER.createCell(row, column, rowSpan, colSpan,
-                        Math.round((float) Math.random() * 100));
+                    Math.round((float) Math.random() * 100));
             } else {
                 cell = SpreadsheetCellType.DOUBLE.createCell(row, column, rowSpan, colSpan,
-                        (double) Math.round((Math.random() * 100) * 100) / 100);
+                    (double) Math.round((Math.random() * 100) * 100) / 100);
                 final double randomFormat = Math.random();
                 if (randomFormat < 0.25) {
                     cell.setFormat("#,##0.00" + "\u20AC");
@@ -433,7 +433,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
             final double random = Math.random();
             SpreadsheetCell cell;
             cell = SpreadsheetCellType.DOUBLE.createCell(row, column, rowSpan, colSpan,
-                    (double) Math.round((random * 100) * 100) / 100);
+                (double) Math.round((random * 100) * 100) / 100);
             return cell;
         }
 
@@ -455,7 +455,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
 
             for (int column = 1; column < grid.getColumnCount(); ++column) {
                 cell = SpreadsheetCellType.STRING.createCell(row, column, 1, 1,
-                        companiesList.get(column));
+                    companiesList.get(column));
                 cell.setEditable(false);
                 cell.getStyleClass().add("compagny");
                 companies.add(cell);
@@ -482,7 +482,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
 
             for (int column = 1; column < grid.getColumnCount(); ++column) {
                 cell = SpreadsheetCellType.LIST(countryList).createCell(row, column, 1, 1,
-                        countryList.get((int) (Math.random() * 6)));
+                    countryList.get((int) (Math.random() * 6)));
                 countries.add(cell);
             }
             return countries;
@@ -609,7 +609,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
 
             for (int column = 1; column < grid.getColumnCount(); ++column) {
                 cell = SpreadsheetCellType.INTEGER.createCell(row, column, 1, 1,
-                        Math.round((float) Math.random() * 10));
+                    Math.round((float) Math.random() * 10));
                 employees.add(cell);
             }
             return employees;

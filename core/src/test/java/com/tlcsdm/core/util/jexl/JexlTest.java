@@ -21,10 +21,10 @@ public class JexlTest {
     @BeforeAll
     public static void init() {
         new JexlBuilder()
-                .strict(false)
-                .imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(null)
-                .cache(128).create();
+            .strict(false)
+            .imports(Arrays.asList("java.lang", "java.math"))
+            .permissions(null)
+            .cache(128).create();
     }
 
     /**

@@ -67,18 +67,18 @@ public class HelloAutoComplete extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "AutoComplete helps a user with suggestions to type faster, "
-                + "but does not limit the user from entering alternative text."
-                + "\n\n"
-                + "The textfields have been primed with the following words:\n"
-                + "\"Hey\", \"Hello\", \"Hello World\", \"Apple\", \"Cool\", "
-                + "\"Costa\", \"Cola\", \"Coca Cola\""
-                + "\n\n"
-                + "The 'Learning TextField' will add whatever words are typed "
-                + "to the auto-complete popup, as long as you press Enter once "
-                + "you've finished typing the word."
-                + "\n\n"
-                + "The Color TextField will suggest different colors when you type "
-                + "in their name.";
+            + "but does not limit the user from entering alternative text."
+            + "\n\n"
+            + "The textfields have been primed with the following words:\n"
+            + "\"Hey\", \"Hello\", \"Hello World\", \"Apple\", \"Cool\", "
+            + "\"Costa\", \"Cola\", \"Coca Cola\""
+            + "\n\n"
+            + "The 'Learning TextField' will add whatever words are typed "
+            + "to the auto-complete popup, as long as you press Enter once "
+            + "you've finished typing the word."
+            + "\n\n"
+            + "The Color TextField will suggest different colors when you type "
+            + "in their name.";
     }
 
     @Override
@@ -97,8 +97,8 @@ public class HelloAutoComplete extends ControlsFXSample {
         TextField textField = new TextField();
 
         TextFields.bindAutoCompletion(
-                textField,
-                "Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola");
+            textField,
+            "Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola");
 
         grid.add(new Label("Auto-complete Text"), 0, 0);
         grid.add(textField, 1, 0);

@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2018, 2020 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -88,8 +88,8 @@ public class HelloTableView2 extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "The TableView2 is an advanced JavaFX TableView control, that can "
-                + " be used as drop-in replacement control for the existing TableView, and provides"
-                + " different functionalities and use cases like row and column fixing and row header.";
+            + " be used as drop-in replacement control for the existing TableView, and provides"
+            + " different functionalities and use cases like row and column fixing and row header.";
     }
 
     @Override
@@ -240,6 +240,7 @@ public class HelloTableView2 extends ControlsFXSample {
                     private final HBox box;
                     private final Circle circle;
                     private final Label label;
+
                     {
                         circle = new Circle(5);
                         label = new Label();
@@ -249,7 +250,7 @@ public class HelloTableView2 extends ControlsFXSample {
                     @Override
                     protected void updateItem(Number item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item != null && ! empty) {
+                        if (item != null && !empty) {
                             setText(null);
                             circle.setFill(getIndex() % 5 == 0 ? Color.RED : Color.BLUE);
                             label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + String.valueOf(item));
@@ -276,12 +277,12 @@ public class HelloTableView2 extends ControlsFXSample {
 
     private ObservableList<Person> generateData(int numberOfPeople) {
         ObservableList<Person> persons = FXCollections.observableArrayList(e ->
-                new Observable[]{ e.firstNameProperty(), e.lastNameProperty() });
+            new Observable[]{e.firstNameProperty(), e.lastNameProperty()});
 
         for (int i = 0; i < numberOfPeople; i++) {
-            final LocalDate date = LocalDate.of(1910 + new Random().nextInt(100), 1+i%11, 1+i%29);
-            persons.add(new Person("First Name:  " + i%20, "Last Name: " + i%10,  Period.between(date, LocalDate.now()).getYears(),
-                    "City: " + i%3, i%10 != 0, date));
+            final LocalDate date = LocalDate.of(1910 + new Random().nextInt(100), 1 + i % 11, 1 + i % 29);
+            persons.add(new Person("First Name:  " + i % 20, "Last Name: " + i % 10, Period.between(date, LocalDate.now()).getYears(),
+                "City: " + i % 3, i % 10 != 0, date));
         }
 
         return persons;
@@ -331,7 +332,7 @@ public class HelloTableView2 extends ControlsFXSample {
                 @Override
                 public String toString(LocalDate date) {
                     if (date == null) {
-                        return "" ;
+                        return "";
                     }
                     return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date);
                 }
@@ -359,13 +360,13 @@ public class HelloTableView2 extends ControlsFXSample {
 
             Label labelFirstName = new Label("#1:");
             labelFirstName.textProperty().bind(Bindings.createStringBinding(() ->
-                    "#1: " + getItems().stream().filter(t -> t.getFirstName().contains("1")).count(), getItems()));
+                "#1: " + getItems().stream().filter(t -> t.getFirstName().contains("1")).count(), getItems()));
             boxFirstName = new HBox(10, labelFirstName);
             boxFirstName.setAlignment(Pos.CENTER);
 
             Label labelLastName = new Label("#1:");
             labelLastName.textProperty().bind(Bindings.createStringBinding(() ->
-                    "#1: " + getItems().stream().filter(t -> t.getLastName().contains("1")).count(), getItems()));
+                "#1: " + getItems().stream().filter(t -> t.getLastName().contains("1")).count(), getItems()));
             boxLastName = new HBox(10, labelLastName);
             boxLastName.setAlignment(Pos.CENTER);
 
@@ -435,7 +436,6 @@ public class HelloTableView2 extends ControlsFXSample {
             return birthday;
         }
 
-
         public final StringProperty firstNameProperty() {
             return this.firstName;
         }
@@ -496,8 +496,8 @@ public class HelloTableView2 extends ControlsFXSample {
             this.age.set(age);
         }
 
-        public Person (String firstName, String lastName, Integer age,
-                       String city, boolean active, LocalDate birthday){
+        public Person(String firstName, String lastName, Integer age,
+                      String city, boolean active, LocalDate birthday) {
             this.firstName.set(firstName);
             this.lastName.set(lastName);
             this.age.set(age);
@@ -509,10 +509,9 @@ public class HelloTableView2 extends ControlsFXSample {
         @Override
         public String toString() {
             return "Person{" + "firstName=" + firstName.get() + ", lastName=" + lastName.get() +
-                    ", age=" + age.get() + ", city=" + city.get() + ", active=" + active.get() +
-                    ", birthday=" + birthday.get() + '}';
+                ", age=" + age.get() + ", city=" + city.get() + ", active=" + active.get() +
+                ", birthday=" + birthday.get() + '}';
         }
-
 
         public Person() {
             this.firstName.set("");
@@ -526,7 +525,7 @@ public class HelloTableView2 extends ControlsFXSample {
         public IntegerProperty getTotalSum() {
             IntegerProperty sum = new SimpleIntegerProperty();
             sum.bind(Bindings.createIntegerBinding(() -> getNumberOf(getFirstName()) + getNumberOf(getLastName()) + getNumberOf(getCity()),
-                    firstName, lastName, city));
+                firstName, lastName, city));
             return sum;
         }
 
@@ -536,7 +535,8 @@ public class HelloTableView2 extends ControlsFXSample {
                 if (split.length == 2) {
                     return Integer.parseInt(split[1].trim());
                 }
-            } catch (NumberFormatException e) {}
+            } catch (NumberFormatException e) {
+            }
             return 0;
         }
     }

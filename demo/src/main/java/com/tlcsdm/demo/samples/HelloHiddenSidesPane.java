@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -47,14 +47,14 @@ public class HelloHiddenSidesPane extends ControlsFXSample {
     @Override
     public String getJavaDocURL() {
         return Utils.JAVADOC_BASE
-                + "org/controlsfx/control/HiddenSidesPane.html";
+            + "org/controlsfx/control/HiddenSidesPane.html";
     }
 
     @Override
     public String getSampleDescription() {
         return "Hidden nodes will appear when moving the mouse cursor close to the edge of the content node. "
-                + "They disappear again when the mouse cursor exits them. In this example a hidden node "
-                + "can be pinned (and unpinned) by clicking on it so that it stays visible all the time.";
+            + "They disappear again when the mouse cursor exits them. In this example a hidden node "
+            + "can be pinned (and unpinned) by clicking on it so that it stays visible all the time.";
     }
 
     @Override
@@ -95,7 +95,7 @@ public class HelloHiddenSidesPane extends ControlsFXSample {
     class SideNode extends Label {
 
         public SideNode(final String text, final Side side,
-                final HiddenSidesPane pane) {
+                        final HiddenSidesPane pane) {
 
             super(text + " (Click to pin / unpin)");
 

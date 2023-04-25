@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2018 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -48,34 +48,38 @@ import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
 
 public class HelloCheckComboBox extends ControlsFXSample {
-    
+
     private final Label checkedItemsLabel = new Label();
     private CheckComboBox<String> checkComboBox;
-    
-    @Override public String getSampleName() {
+
+    @Override
+    public String getSampleName() {
         return "CheckComboBox";
     }
-    
-    @Override public String getJavaDocURL() {
+
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/CheckComboBox.html";
     }
-    
-    @Override public String getSampleDescription() {
+
+    @Override
+    public String getSampleDescription() {
         return "A simple UI control that makes it possible to select zero or "
-                + "more items within a ComboBox without the need to set a custom "
-                + "cell factory or manually create boolean properties for each "
-                + "row - simply use the check model property to request the "
-                + "current selection state.";
+            + "more items within a ComboBox without the need to set a custom "
+            + "cell factory or manually create boolean properties for each "
+            + "row - simply use the check model property to request the "
+            + "current selection state.";
     }
-    
-    @Override public Node getPanel(Stage stage) {
+
+    @Override
+    public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         grid.setPadding(new Insets(30, 30, 0, 30));
-        
+
         int row = 0;
-        
+
         final ObservableList<String> strings = FXCollections.observableArrayList();
         for (int i = 0; i <= 100; i++) {
             strings.add("Item " + i);
@@ -85,18 +89,20 @@ public class HelloCheckComboBox extends ControlsFXSample {
         grid.add(new Label("Normal ComboBox: "), 0, row);
         final ComboBox<String> comboBox = new ComboBox<>(strings);
         comboBox.focusedProperty().addListener((o, ov, nv) -> {
-            if(nv) comboBox.show(); else comboBox.hide();   
+            if (nv) comboBox.show();
+            else comboBox.hide();
         });
         grid.add(comboBox, 1, row++);
-        
+
         // CheckComboBox
         checkComboBox = new CheckComboBox<>(strings);
         checkComboBox.focusedProperty().addListener((o, ov, nv) -> {
-            if(nv) checkComboBox.show(); else checkComboBox.hide();
+            if (nv) checkComboBox.show();
+            else checkComboBox.hide();
         });
         checkComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) change -> {
             updateText(checkedItemsLabel, change.getList());
-            
+
             while (change.next()) {
                 System.out.println("============================================");
                 System.out.println("Change: " + change);
@@ -104,47 +110,50 @@ public class HelloCheckComboBox extends ControlsFXSample {
                 System.out.println("Removed sublist " + change.getRemoved());
                 System.out.println("List " + change.getList());
                 System.out.println("Added " + change.wasAdded() + " Permutated " + change.wasPermutated() + " Removed " + change.wasRemoved() + " Replaced "
-                        + change.wasReplaced() + " Updated " + change.wasUpdated());
+                    + change.wasReplaced() + " Updated " + change.wasUpdated());
                 System.out.println("============================================");
             }
         });
         grid.add(new Label("CheckComboBox: "), 0, row);
         grid.add(checkComboBox, 1, row++);
-        
+
         CheckComboBox<Person> checkComboBox2 = new CheckComboBox<>(Person.createDemoList());
         checkComboBox2.setConverter(new StringConverter<Person>() {
             @Override
             public String toString(Person object) {
                 return object.getFullName();
             }
+
             @Override
             public Person fromString(String string) {
                 return null;
             }
         });
         checkComboBox2.focusedProperty().addListener((o, ov, nv) -> {
-            if(nv) checkComboBox2.show(); else checkComboBox2.hide();
+            if (nv) checkComboBox2.show();
+            else checkComboBox2.hide();
         });
         grid.add(new Label("CheckComboBox with data objects: "), 0, row);
         grid.add(checkComboBox2, 1, row);
-        
+
         return grid;
     }
-    
-    @Override public Node getControlPanel() {
+
+    @Override
+    public Node getControlPanel() {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         grid.setPadding(new Insets(30, 30, 0, 30));
-        
+
         int row = 0;
-        
+
         Label label1 = new Label("Checked items: ");
         label1.getStyleClass().add("property");
         grid.add(label1, 0, 0);
         grid.add(checkedItemsLabel, 1, row++);
         updateText(checkedItemsLabel, null);
-        
+
         Label checkItem2Label = new Label("Check 'Item 2': ");
         checkItem2Label.getStyleClass().add("property");
         grid.add(checkItem2Label, 0, row);
@@ -156,13 +165,13 @@ public class HelloCheckComboBox extends ControlsFXSample {
             }
         });
         grid.add(checkItem2Btn, 1, row);
-        
+
         return grid;
     }
-    
+
     protected void updateText(Label label, ObservableList<? extends String> list) {
         final StringBuilder sb = new StringBuilder();
-        
+
         if (list != null) {
             for (int i = 0, max = list.size(); i < max; i++) {
                 sb.append(list.get(i));
@@ -171,28 +180,28 @@ public class HelloCheckComboBox extends ControlsFXSample {
                 }
             }
         }
-        
+
         final String str = sb.toString();
         label.setText(str.isEmpty() ? "<empty>" : str);
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
 
 class Person {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
     private ReadOnlyStringWrapper fullName = new ReadOnlyStringWrapper();
-    
+
     public Person(String firstName, String lastName) {
         this.firstName.set(firstName);
         this.lastName.set(lastName);
         fullName.bind(Bindings.concat(firstName, " ", lastName));
     }
-    
+
     public static final ObservableList<Person> createDemoList() {
         final ObservableList<Person> result = FXCollections.observableArrayList();
         result.add(new Person("Paul", "McCartney"));

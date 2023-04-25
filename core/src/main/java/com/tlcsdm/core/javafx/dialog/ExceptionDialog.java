@@ -48,7 +48,7 @@ public class ExceptionDialog extends Dialog<ButtonType> {
         dialogPane.setHeaderText(I18nUtils.get("core.dialog.exception.dlg.header"));
         dialogPane.getStyleClass().add("exception-dialog");
         dialogPane.setGraphic(
-                LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/dialog-error.png")));
+            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/dialog-error.png")));
         dialogPane.getButtonTypes().addAll(ButtonType.OK);
         this.setContentText(exception.getLocalizedMessage());
         this.initOwner(FxApp.primaryStage);

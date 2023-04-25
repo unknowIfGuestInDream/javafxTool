@@ -1,3 +1,9 @@
+package groovy
+
+import java.time.*
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+
 def date = LocalDate.parse('Jun 3, 04', 'MMM d, yy')
 assert date == LocalDate.of(2004, Month.JUNE, 3)
 
@@ -11,7 +17,7 @@ def dateTime = ZonedDateTime.parse('2017/07/11 9:47PM Pacific Standard Time', 'y
 assert dateTime == ZonedDateTime.of(
         LocalDate.of(2017, 7, 11),
         LocalTime.of(21, 47, 0),
-        ZoneId.of('America/Los_Angeles')
+    ZoneId.of('America/Los_Angeles')
 )
 
 def aprilFools = LocalDate.of(2018, Month.APRIL, 1)
@@ -23,7 +29,7 @@ def idesOfMarch = aprilFools - Period.ofDays(17) // subtract 17 days
 assert idesOfMarch.dayOfMonth == 15
 assert idesOfMarch.month == Month.MARCH
 
-def date = LocalDate.of(2018, Month.MARCH, 12)
+date = LocalDate.of(2018, Month.MARCH, 12)
 assert date[ChronoField.YEAR] == 2018
 assert date[ChronoField.MONTH_OF_YEAR] == Month.MARCH.value
 assert date[ChronoField.DAY_OF_MONTH] == 12

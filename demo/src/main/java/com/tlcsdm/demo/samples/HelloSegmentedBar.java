@@ -60,19 +60,19 @@ public class HelloSegmentedBar extends ControlsFXSample {
     public HelloSegmentedBar() {
         vbox.setFillWidth(true);
         vbox.setPadding(new Insets(20));
-        
+
         hbox.setFillHeight(true);
         hbox.setPadding(new Insets(20));
 
         // The out of the box bar. It uses the already set default cell factory.
         simpleBar.orientationProperty().bind(orientation);
         simpleBar.getSegments().addAll(
-                new SegmentedBar.Segment(10, "10"),
-                new SegmentedBar.Segment(10, "10"),
-                new SegmentedBar.Segment(10, "10"),
-                new SegmentedBar.Segment(10, "10"),
-                new SegmentedBar.Segment(10, "10"),
-                new SegmentedBar.Segment(50, "50"));
+            new SegmentedBar.Segment(10, "10"),
+            new SegmentedBar.Segment(10, "10"),
+            new SegmentedBar.Segment(10, "10"),
+            new SegmentedBar.Segment(10, "10"),
+            new SegmentedBar.Segment(10, "10"),
+            new SegmentedBar.Segment(50, "50"));
 
         // A bar used for visualizing the number of issues (e.g. JIRA) based on
         // their status.
@@ -80,9 +80,9 @@ public class HelloSegmentedBar extends ControlsFXSample {
         issueStatusBar.setSegmentViewFactory(IssueStatusSegmentView::new);
         issueStatusBar.setInfoNodeFactory(segment -> new InfoLabel(segment.getStatus() + ": " + segment.getValue() + " Issues"));
         issueStatusBar.getSegments().addAll(
-                new IssueStatusSegment(3, IssueStatus.TODO),
-                new IssueStatusSegment(2, IssueStatus.INPROGRESS),
-                new IssueStatusSegment(5, IssueStatus.DONE)
+            new IssueStatusSegment(3, IssueStatus.TODO),
+            new IssueStatusSegment(2, IssueStatus.INPROGRESS),
+            new IssueStatusSegment(5, IssueStatus.DONE)
         );
 
         // A bar used to visualize the disk space used by various media types (e.g. iTunes).
@@ -90,25 +90,24 @@ public class HelloSegmentedBar extends ControlsFXSample {
         typesBar.setSegmentViewFactory(TypeSegmentView::new);
         typesBar.setInfoNodeFactory(segment -> new InfoLabel(segment.getText() + " " + segment.getValue() + " GB"));
         typesBar.getSegments().addAll(
-                new TypeSegment(14, MediaType.PHOTOS),
-                new TypeSegment(32, MediaType.VIDEO),
-                new TypeSegment(9, MediaType.APPS),
-                new TypeSegment(40, MediaType.MUSIC),
-                new TypeSegment(5, MediaType.OTHER),
-                new TypeSegment(35, MediaType.FREE)
+            new TypeSegment(14, MediaType.PHOTOS),
+            new TypeSegment(32, MediaType.VIDEO),
+            new TypeSegment(9, MediaType.APPS),
+            new TypeSegment(40, MediaType.MUSIC),
+            new TypeSegment(5, MediaType.OTHER),
+            new TypeSegment(35, MediaType.FREE)
         );
-
 
         // A bar like above but with an inner shadow
         innerShadowBar.orientationProperty().bind(orientation);
         innerShadowBar.setSegmentViewFactory(TypeSegmentView::new);
         innerShadowBar.setInfoNodeFactory(segment -> new InfoLabel(segment.getText() + " " + segment.getValue() + " GB"));
         innerShadowBar.getSegments().addAll(new TypeSegment(14, MediaType.PHOTOS),
-                new TypeSegment(32, MediaType.VIDEO),
-                new TypeSegment(9, MediaType.APPS),
-                new TypeSegment(40, MediaType.MUSIC),
-                new TypeSegment(5, MediaType.OTHER),
-                new TypeSegment(35, MediaType.FREE)
+            new TypeSegment(32, MediaType.VIDEO),
+            new TypeSegment(9, MediaType.APPS),
+            new TypeSegment(40, MediaType.MUSIC),
+            new TypeSegment(5, MediaType.OTHER),
+            new TypeSegment(35, MediaType.FREE)
         );
 
         innerShadowPane.setStyle("-fx-background-color: darkgrey;");
@@ -142,7 +141,6 @@ public class HelloSegmentedBar extends ControlsFXSample {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/SegmentedBar.html";
     }
 
-
     @Override
     public String getControlStylesheetURL() {
         return "/org/controlsfx/control/segmentedbar.css";
@@ -151,9 +149,9 @@ public class HelloSegmentedBar extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "This control is a simple horizontal bar showing multiple segments, " +
-                "each representing a fraction of a total value. A cell factory can be " +
-                "used to create the segment views dynamically. The value passed to the " +
-                "factory makes it possible to completely customize each segment.";
+            "each representing a fraction of a total value. A cell factory can be " +
+            "used to create the segment views dynamically. The value passed to the " +
+            "factory makes it possible to completely customize each segment.";
     }
 
     @Override
