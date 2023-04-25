@@ -14,7 +14,7 @@
 
 # github
 *.ftl           linguist-language=freemarker
-*.groovy        linguist-language=Groovy  
+*.groovy        linguist-language=Groovy
 frame/src/main/resources/com/tlcsdm/frame/static/css/*        linguist-vendored
 docs/*          linguist-vendored
 
