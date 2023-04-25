@@ -27,18 +27,7 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
@@ -54,8 +43,6 @@ import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -64,6 +51,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.util.*;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -86,18 +80,18 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action systemSetting = FxAction.systemSetting();
 
     private final Action contactSupport = FxAction
-            .contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
+        .contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
 
     private final Action submitFeedback = FxAction
-            .submitFeedback(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL));
+        .submitFeedback(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL));
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/smc/"));
 
     private final Action openSysConfig = FxAction.openSysConfig(
-            actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
 
     private final Action openUserData = FxAction.openUserData(
-            actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
 
     private final Action about = FxAction.about(actionEvent -> {
         Alert alert = new Alert(Alert.AlertType.NONE);
@@ -110,7 +104,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
         alert.setGraphic(imageView);
         ButtonType closeButton = new ButtonType(I18nUtils.get("smc.menubar.help.about.button.close"),
-                ButtonData.CANCEL_CLOSE);
+            ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().addAll(closeButton);
         Map<String, String> map = new HashMap<>(32);
         map.put("versionLabel", I18nUtils.get("smc.menubar.help.about.contentText.version"));
@@ -129,17 +123,17 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         map.put("openSourceSoftware", I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"));
         map.put("copyright", SmcConstant.PROJECT_COPYRIGHT);
         String context = """
-                {versionLabel}: {version}
-                {dateLabel}: {date}
-                {licenseNameLabel}: {licenseName}
-                {licenseUrlLabel}: {licenseUrl}
+            {versionLabel}: {version}
+            {dateLabel}: {date}
+            {licenseNameLabel}: {licenseName}
+            {licenseUrlLabel}: {licenseUrl}
 
-                {authorLabel}: {author}
-                {projectUrlLabel}: {projectUrl}
+            {authorLabel}: {author}
+            {projectUrlLabel}: {projectUrl}
 
-                {technicalSupport}: [{openSourceSoftware}]
-                {copyright}
-                """;
+            {technicalSupport}: [{openSourceSoftware}]
+            {copyright}
+            """;
         alert.setContentText(StrUtil.format(context, map));
         alert.show();
         alert.resultProperty().addListener(o -> {
@@ -156,9 +150,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
     private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
-            FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-            FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
-                    ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
@@ -236,7 +230,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                     Config.set(Config.Keys.Locale, Locale.JAPANESE);
                 }
                 if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
-                        I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
+                    I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
                     FXSampler.getStage().close();
                     Platform.runLater(() -> {
                         try {

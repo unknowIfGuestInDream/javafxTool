@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -42,56 +42,60 @@ public class HelloInfoOverlay extends ControlsFXSample {
 
     private InfoOverlay infoOverlay;
     private Slider fitHeightSlider = new Slider(250, 800, 400);
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
-    @Override public String getSampleName() {
+
+    @Override
+    public String getSampleName() {
         return "InfoOverlay";
     }
-    
-    @Override public String getJavaDocURL() {
+
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/InfoOverlay.html";
     }
-    
-    
+
     @Override
     public String getControlStylesheetURL() {
-    	return "/org/controlsfx/control/info-overlay.css";
+        return "/org/controlsfx/control/info-overlay.css";
     }
-    
-    @Override public String getSampleDescription() {
+
+    @Override
+    public String getSampleDescription() {
         return "A simple UI control that allows for an information popup to be "
-                + "displayed over a node to describe it in further detail. In "
-                + "some ways, it can be thought of as a always visible tooltip "
-                + "(although by default it is collapsed so only the first line is "
-                + "shown - clicking on it will expand it to show all text).";
+            + "displayed over a node to describe it in further detail. In "
+            + "some ways, it can be thought of as a always visible tooltip "
+            + "(although by default it is collapsed so only the first line is "
+            + "shown - clicking on it will expand it to show all text).";
     }
-    
-    @Override public Node getPanel(Stage stage) {
+
+    @Override
+    public Node getPanel(Stage stage) {
         String imageUrl = getClass().getResource("/com/tlcsdm/demo/duke_wave.png").toExternalForm();
         ImageView image = new ImageView(imageUrl);
         image.fitHeightProperty().bind(fitHeightSlider.valueProperty());
         image.setPreserveRatio(true);
 
         String info = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nam tortor felis, pulvinar in scelerisque cursus, pulvinar at ante. " +
-                "Nulla consequat congue lectus in sodales.";
+            "Nam tortor felis, pulvinar in scelerisque cursus, pulvinar at ante. " +
+            "Nulla consequat congue lectus in sodales.";
 
         infoOverlay = new InfoOverlay(image, info);
-        
+
         StackPane stackPane = new StackPane(infoOverlay);
-        
+
         return stackPane;
     }
-    
-    @Override public Node getControlPanel() {
+
+    @Override
+    public Node getControlPanel() {
         final GridPane grid = new GridPane();
         grid.setHgap(5);
         grid.setVgap(5);
         grid.setPadding(new Insets(5, 5, 5, 5));
-        
+
         int row = 0;
 
         // fit height
@@ -99,7 +103,7 @@ public class HelloInfoOverlay extends ControlsFXSample {
         imageHeightLabel.getStyleClass().add("property");
         grid.add(imageHeightLabel, 0, row);
         grid.add(fitHeightSlider, 1, row++);
-        
+
         // show on hover
         Label showOnHoverLabel = new Label("Show overlay on hover: ");
         showOnHoverLabel.getStyleClass().add("property");
@@ -108,7 +112,7 @@ public class HelloInfoOverlay extends ControlsFXSample {
         showOnHoverChk.setSelected(true);
         infoOverlay.showOnHoverProperty().bind(showOnHoverChk.selectedProperty());
         grid.add(showOnHoverChk, 1, row++);
-        
+
         return grid;
     }
 }

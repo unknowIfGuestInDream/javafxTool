@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2018 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -59,7 +59,7 @@ public class HelloListActionView extends ControlsFXSample {
     @Override
     public Node getPanel(Stage stage) {
         view = new ListActionView<>();
-        view.getItems().addAll("Dirk", "Jonathan", "Eugene","Abhinay", "Samir");
+        view.getItems().addAll("Dirk", "Jonathan", "Eugene", "Abhinay", "Samir");
         view.getActions().addAll(createActions());
 
         GridPane pane = new GridPane();
@@ -73,7 +73,7 @@ public class HelloListActionView extends ControlsFXSample {
     public Node getControlPanel() {
         VBox root = new VBox(20);
         root.setPadding(new Insets(30, 30, 30, 30));
-        
+
         CheckBox useCellFactory = new CheckBox("Use cell factory");
         useCellFactory.setOnAction(evt -> {
             if (useCellFactory.isSelected()) {
@@ -93,7 +93,7 @@ public class HelloListActionView extends ControlsFXSample {
                         }
                     };
                     cell.setFont(Font.font("Arial", FontWeight.BOLD,
-                            FontPosture.ITALIC, 18));
+                        FontPosture.ITALIC, 18));
                     return cell;
                 });
             } else {
@@ -115,25 +115,25 @@ public class HelloListActionView extends ControlsFXSample {
 
         sideComboBox.getSelectionModel().select(Side.LEFT);
         view.sideProperty().bind(sideComboBox.getSelectionModel().selectedItemProperty());
-        
+
         root.getChildren().addAll(useCellFactory, clearActions, sideComboBox);
-        
+
         return root;
     }
 
     @Override
     public String getSampleDescription() {
         return "A control used to let the user select multiple values from a "
-                + "list of available values. Selected values are moved into a "
-                + "second list that is showing the current selection. Items can "
-                + "be moved by double clicking on them or by first selecting "
-                + "them and then pressing one of the buttons in the center.";
+            + "list of available values. Selected values are moved into a "
+            + "second list that is showing the current selection. Items can "
+            + "be moved by double clicking on them or by first selecting "
+            + "them and then pressing one of the buttons in the center.";
     }
 
     @Override
     public String getJavaDocURL() {
         return Utils.JAVADOC_BASE
-                + "org/controlsfx/control/ListActionView.html";
+            + "org/controlsfx/control/ListActionView.html";
     }
 
     public static void main(String[] args) {
@@ -142,7 +142,7 @@ public class HelloListActionView extends ControlsFXSample {
 
     private ObservableList<Action> createActions() {
         ListActionView.ListAction<String> moveUp = new ListActionView.ListAction<String>(
-                new FontAwesome().create(FontAwesome.Glyph.ANGLE_UP)) {
+            new FontAwesome().create(FontAwesome.Glyph.ANGLE_UP)) {
             @Override
             public void initialize(ListView<String> listView) {
                 setEventHandler(e -> moveSelectedItemsUp(listView));

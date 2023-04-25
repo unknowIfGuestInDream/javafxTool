@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2016, 2020 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -126,8 +126,8 @@ public class HelloTableFilter extends ControlsFXSample {
 
         CheckBox cbRegularExpSearchStrategy = new CheckBox("Use regular expressions");
         cbRegularExpSearchStrategy.selectedProperty().addListener((ov, old_val, new_val) -> {
-            if(cbRegularExpSearchStrategy.isSelected()) {
-                tableFilter.setSearchStrategy((input,target) -> {
+            if (cbRegularExpSearchStrategy.isSelected()) {
+                tableFilter.setSearchStrategy((input, target) -> {
                     try {
                         return target.matches(input);
                     } catch (Exception e) {
@@ -142,8 +142,8 @@ public class HelloTableFilter extends ControlsFXSample {
 
         controlPane.getChildren().add(new Label("Programmatic Filtering:"));
         controlPane.getChildren().add(new HBox(10, buttonFilterFirstname, buttonFilterFirstnameReset));
-        controlPane.getChildren().add(new HBox(10,buttonFilterLastname, buttonFilterLastnamReset));
-        controlPane.getChildren().add(new HBox(10,buttonFilterEmail, buttonFilterEmailReset));
+        controlPane.getChildren().add(new HBox(10, buttonFilterLastname, buttonFilterLastnamReset));
+        controlPane.getChildren().add(new HBox(10, buttonFilterEmail, buttonFilterEmailReset));
         buttonResetAll.setPrefWidth(Double.MAX_VALUE);
         controlPane.getChildren().add(buttonResetAll);
         controlPane.getChildren().add(new Label("Custom Search Strategies (e.g., '.*o.*n' for 'Last Name')"));
@@ -160,8 +160,8 @@ public class HelloTableFilter extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "Applies a filtering control to a provided TableView instance. "
-                + "The filter will be applied immediately on construction, "
-                + "and can be made visible by right-clicking the desired column to filter on.";
+            + "The filter will be applied immediately on construction, "
+            + "and can be made visible by right-clicking the desired column to filter on.";
     }
 
     public static void main(String[] args) {

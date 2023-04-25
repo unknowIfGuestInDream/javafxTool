@@ -23,26 +23,26 @@ public final class LargeTableFilterTest extends Application {
         TableView<DataItem> tableView = new TableView<>();
 
         tableView.setItems(FXCollections.observableArrayList());
-        IntStream.range(0,20000).mapToObj(i -> new DataItem()).forEach(d -> tableView.getItems().add(d));
+        IntStream.range(0, 20000).mapToObj(i -> new DataItem()).forEach(d -> tableView.getItems().add(d));
 
-        TableColumn<DataItem,Integer> smallInt = new TableColumn<>("Small Int");
+        TableColumn<DataItem, Integer> smallInt = new TableColumn<>("Small Int");
         smallInt.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getSmallIntValue()));
 
-        TableColumn<DataItem,Integer> largeInt = new TableColumn<>("Large Int");
+        TableColumn<DataItem, Integer> largeInt = new TableColumn<>("Large Int");
         largeInt.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getLargeIntValue()));
 
-        TableColumn<DataItem,String> randomLetter = new TableColumn<>("Letter");
+        TableColumn<DataItem, String> randomLetter = new TableColumn<>("Letter");
         randomLetter.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getRandomLetter()));
 
         TableColumn randomStrings = new TableColumn("Random Strings");
 
-        TableColumn<DataItem,String> randomString1 = new TableColumn<>("AlphaNum 1");
+        TableColumn<DataItem, String> randomString1 = new TableColumn<>("AlphaNum 1");
         randomString1.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getRandomStr1()));
 
-        TableColumn<DataItem,String> randomString2 = new TableColumn<>("AlphaNum 2");
+        TableColumn<DataItem, String> randomString2 = new TableColumn<>("AlphaNum 2");
         randomString2.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getRandomStr2()));
 
-        randomStrings.getColumns().addAll(randomString1,randomString2);
+        randomStrings.getColumns().addAll(randomString1, randomString2);
 
         tableView.getColumns().addAll(smallInt, largeInt, randomLetter, randomStrings);
 
@@ -70,21 +70,25 @@ public final class LargeTableFilterTest extends Application {
         private final int largeIntValue = new Random().nextInt(10000);
         private final String randomLetter = String.valueOf((char) (new Random().nextInt(26) + 'a'));
 
-        private final String randomStr1 = UUID.randomUUID().toString().replaceAll("-","");
-        private final String randomStr2 = UUID.randomUUID().toString().replaceAll("-","");
+        private final String randomStr1 = UUID.randomUUID().toString().replaceAll("-", "");
+        private final String randomStr2 = UUID.randomUUID().toString().replaceAll("-", "");
 
         public int getLargeIntValue() {
             return largeIntValue;
         }
+
         public int getSmallIntValue() {
             return smallIntValue;
         }
+
         public String getRandomLetter() {
             return randomLetter;
         }
+
         public String getRandomStr1() {
             return randomStr1;
         }
+
         public String getRandomStr2() {
             return randomStr2;
         }

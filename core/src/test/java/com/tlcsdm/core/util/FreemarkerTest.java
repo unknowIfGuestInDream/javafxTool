@@ -53,7 +53,7 @@ public class FreemarkerTest {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
         try {
             configuration.setDirectoryForTemplateLoading(
-                    new File(ResourceUtil.getResource("freemarker/templates").getPath()));
+                new File(ResourceUtil.getResource("freemarker/templates").getPath()));
             configuration.setDefaultEncoding("utf-8");
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20,soft:250");

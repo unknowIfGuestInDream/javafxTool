@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, 2019 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -53,26 +53,31 @@ public class HelloValidation extends ControlsFXSample {
     private TextField textField = new TextField();
     private ValidationSupport validationSupport = new ValidationSupport();
 
-    @Override public String getSampleName() {
+    @Override
+    public String getSampleName() {
         return "Component Validation";
     }
 
-    @Override public String getJavaDocURL() {
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/validation/ValidationSupport.html";
     }
 
-    @Override public String getSampleDescription() {
+    @Override
+    public String getSampleDescription() {
         return "Component Validation";
     }
 
-    @Override public Node getPanel(final Stage stage) {
+    @Override
+    public Node getPanel(final Stage stage) {
         GridPane root = new GridPane();
         root.setVgap(10);
         root.setHgap(10);
         root.setPadding(new Insets(30, 30, 0, 30));
 
         root.sceneProperty().addListener(new InvalidationListener() {
-            @Override public void invalidated(Observable o) {
+            @Override
+            public void invalidated(Observable o) {
                 if (root.getScene() != null) {
                     root.getScene().getStylesheets().add(HelloDecorator.class.getResource("/com/tlcsdm/demo/validation.css").toExternalForm());
                 }
@@ -93,10 +98,10 @@ public class HelloValidation extends ControlsFXSample {
         ComboBox<String> combobox = new ComboBox<String>();
         combobox.getItems().addAll("Item A", "Item B", "Item C");
         validationSupport.registerValidator(combobox, (Control c, String newValue) ->
-                ValidationResult.fromErrorIf(combobox, "ComboBox Selection required", newValue == null || newValue.isEmpty())
-                                .addInfoIf(combobox, "Item A is the first item", "Item A".equals(newValue))
-                                .addInfoIf(combobox, "Item B is the second item", "Item B".equals(newValue))
-                                .addInfoIf(combobox, "Item C is the third item", "Item C".equals(newValue))
+            ValidationResult.fromErrorIf(combobox, "ComboBox Selection required", newValue == null || newValue.isEmpty())
+                .addInfoIf(combobox, "Item A is the first item", "Item A".equals(newValue))
+                .addInfoIf(combobox, "Item B is the second item", "Item B".equals(newValue))
+                .addInfoIf(combobox, "Item C is the third item", "Item C".equals(newValue))
         );
 
         root.add(new Label("ComboBox"), 0, row);
@@ -125,10 +130,10 @@ public class HelloValidation extends ControlsFXSample {
 
         //slider
         row++;
-        Slider slider =  new Slider(-50d, 50d, -10d);
+        Slider slider = new Slider(-50d, 50d, -10d);
         slider.setShowTickLabels(true);
         validationSupport.registerValidator(slider, (Control c, Double newValue) ->
-            ValidationResult.fromErrorIf(slider, "Slider value should be > 0",  newValue <= 0));
+            ValidationResult.fromErrorIf(slider, "Slider value should be > 0", newValue <= 0));
 
         root.add(new Label("Slider"), 0, row);
         root.add(slider, 1, row);
@@ -136,7 +141,7 @@ public class HelloValidation extends ControlsFXSample {
 
         // color picker
         row++;
-        ColorPicker colorPicker =  new ColorPicker(Color.RED);
+        ColorPicker colorPicker = new ColorPicker(Color.RED);
         validationSupport.registerValidator(colorPicker,
             Validator.createEqualsValidator("Color should be WHITE or BLACK", Arrays.asList(Color.WHITE, Color.BLACK)));
 
@@ -146,7 +151,7 @@ public class HelloValidation extends ControlsFXSample {
 
         // date picker
         row++;
-        DatePicker datePicker =  new DatePicker();
+        DatePicker datePicker = new DatePicker();
         validationSupport.registerValidator(datePicker, false, (Control c, LocalDate newValue) ->
             ValidationResult.fromWarningIf(datePicker, "The date should be today", !LocalDate.now().equals(newValue)));
 
@@ -158,7 +163,8 @@ public class HelloValidation extends ControlsFXSample {
         return scrollPane;
     }
 
-    @Override public Node getControlPanel() {
+    @Override
+    public Node getControlPanel() {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
@@ -172,7 +178,8 @@ public class HelloValidation extends ControlsFXSample {
 
         // --- validation decorator
         Callback<ListView<ValidationDecoration>, ListCell<ValidationDecoration>> cellFactory = listView -> new ListCell<ValidationDecoration>() {
-            @Override protected void updateItem(ValidationDecoration decorator, boolean empty) {
+            @Override
+            protected void updateItem(ValidationDecoration decorator, boolean empty) {
                 super.updateItem(decorator, empty);
 
                 if (empty) {
@@ -194,8 +201,8 @@ public class HelloValidation extends ControlsFXSample {
         decoratorBox.getItems().addAll(iconDecorator, cssDecorator, compoundDecorator);
         decoratorBox.setCellFactory(cellFactory);
         decoratorBox.setButtonCell(cellFactory.call(null));
-        decoratorBox.getSelectionModel().selectedItemProperty().addListener((o,old,decorator) ->
-        	validationSupport.setValidationDecorator(decorator));
+        decoratorBox.getSelectionModel().selectedItemProperty().addListener((o, old, decorator) ->
+            validationSupport.setValidationDecorator(decorator));
         decoratorBox.getSelectionModel().select(0);
 
         Label validationDecoratorLabel = new Label("Validation Decorator: ");
@@ -208,7 +215,7 @@ public class HelloValidation extends ControlsFXSample {
         ToggleButton btnToggleRequired = new ToggleButton("Toggle TextField required status");
         btnToggleRequired.setSelected(ValidationSupport.isRequired(textField));
         btnToggleRequired.setOnAction(e -> {
-        	ValidationSupport.setRequired(textField, btnToggleRequired.isSelected());
+            ValidationSupport.setRequired(textField, btnToggleRequired.isSelected());
         });
         grid.add(btnToggleRequired, 1, row, 1, 1);
 

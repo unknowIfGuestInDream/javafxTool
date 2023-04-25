@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -131,9 +131,9 @@ public class HelloPopOver extends ControlsFXSample {
             public void handle(ScrollEvent evt) {
                 double delta = evt.getDeltaY();
                 rect.setWidth(Math.max(100,
-                        Math.min(500, rect.getWidth() + delta)));
+                    Math.min(500, rect.getWidth() + delta)));
                 rect.setHeight(Math.max(100,
-                        Math.min(500, rect.getHeight() + delta)));
+                    Math.min(500, rect.getHeight() + delta)));
             }
         });
 
@@ -244,27 +244,27 @@ public class HelloPopOver extends ControlsFXSample {
         arrowSize.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> value,
-                    Number oldSize, Number newSize) {
+                                Number oldSize, Number newSize) {
                 arrowSizeValue.setText(NumberFormat.getIntegerInstance()
-                        .format(newSize));
+                    .format(newSize));
             }
         });
 
         arrowIndent.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> value,
-                    Number oldSize, Number newSize) {
+                                Number oldSize, Number newSize) {
                 arrowIndentValue.setText(NumberFormat.getIntegerInstance()
-                        .format(newSize));
+                    .format(newSize));
             }
         });
 
         cornerRadius.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> value,
-                    Number oldSize, Number newSize) {
+                                Number oldSize, Number newSize) {
                 cornerRadiusValue.setText(NumberFormat.getIntegerInstance()
-                        .format(newSize));
+                    .format(newSize));
             }
         });
 
@@ -276,7 +276,7 @@ public class HelloPopOver extends ControlsFXSample {
         locationBox.getItems().addAll(ArrowLocation.values());
         locationBox.setValue(ArrowLocation.TOP_CENTER);
         Bindings.bindBidirectional(masterArrowLocation,
-                locationBox.valueProperty());
+            locationBox.valueProperty());
         controls.add(locationBox, 1, 3);
 
         detachable = new CheckBox("Detachable");
@@ -315,11 +315,11 @@ public class HelloPopOver extends ControlsFXSample {
         GridPane.setColumnSpan(closeButtonEnabled, 2);
 
         circle.visibleProperty().bind(
-                Bindings.not(autoPosition.selectedProperty()));
+            Bindings.not(autoPosition.selectedProperty()));
         line1.visibleProperty().bind(
-                Bindings.not(autoPosition.selectedProperty()));
+            Bindings.not(autoPosition.selectedProperty()));
         line2.visibleProperty().bind(
-                Bindings.not(autoPosition.selectedProperty()));
+            Bindings.not(autoPosition.selectedProperty()));
 
         return controls;
     }
@@ -359,12 +359,12 @@ public class HelloPopOver extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "An implementation of a pop over control as used by Apple for its iCal application. A pop over allows"
-                + " the user to see and edit an objects properties. The pop over gets displayed in its own popup window and"
-                + " can be torn off in order to create several instances of it.";
+            + " the user to see and edit an objects properties. The pop over gets displayed in its own popup window and"
+            + " can be torn off in order to create several instances of it.";
     }
 
     @Override
     public String getControlStylesheetURL() {
-    	return "/org/controlsfx/control/popover.css";
+        return "/org/controlsfx/control/popover.css";
     }
 }

@@ -76,8 +76,8 @@ public class CommonSamplerProjectProvider implements FXSamplerProject {
         Label label = new Label();
         label.setWrapText(true);
         String desc = """
-                {introduce}
-                """;
+            {introduce}
+            """;
         Map<String, String> map = new HashMap<>();
         map.put("introduce", I18nUtils.get("common.welcomePage.desc.introduce"));
         label.setText(StrUtil.format(desc, map));

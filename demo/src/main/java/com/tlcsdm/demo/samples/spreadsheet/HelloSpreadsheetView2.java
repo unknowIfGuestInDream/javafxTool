@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2016 ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -77,12 +77,12 @@ public class HelloSpreadsheetView2 extends ControlsFXSample {
     @Override
     public String getSampleDescription() {
         return "The SpreadsheetView is a control similar to the JavaFX TableView control "
-                + "but with different functionalities and use cases. The aim is to have a "
-                + "powerful grid where data can be written and retrieved.\n\n"
-                + "Here you have an example where some information about fictive "
-                + "companies are displayed. They have different type and format.\n\n"
-                + "After that, some random generated cells are displayed with some span.\n\n"
-                + "Don't forget to right-click on headers and cells to discover some features.";
+            + "but with different functionalities and use cases. The aim is to have a "
+            + "powerful grid where data can be written and retrieved.\n\n"
+            + "Here you have an example where some information about fictive "
+            + "companies are displayed. They have different type and format.\n\n"
+            + "After that, some random generated cells are displayed with some span.\n\n"
+            + "Don't forget to right-click on headers and cells to discover some features.";
     }
 
     @Override

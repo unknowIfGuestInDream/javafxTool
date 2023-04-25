@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2022, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -40,48 +40,53 @@ import javafx.stage.Stage;
 import org.controlsfx.control.HyperlinkLabel;
 
 public class HelloHyperlinkLabel extends ControlsFXSample {
-    
+
     private HyperlinkLabel label;
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
-    @Override public String getSampleName() {
+
+    @Override
+    public String getSampleName() {
         return "Hyperlink Label";
     }
-    
-    @Override public String getJavaDocURL() {
+
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/HyperlinkLabel.html";
     }
 
-    @Override public String getSampleDescription() {
+    @Override
+    public String getSampleDescription() {
         return "HyperlinkLabel provides an easy way to create labels and hyperlinks.";
     }
-    
-    @Override public Node getPanel(Stage stage) {
+
+    @Override
+    public Node getPanel(Stage stage) {
         VBox root = new VBox(20);
         root.setPadding(new Insets(30, 30, 30, 30));
-        
+
         final TextField textToShowField = new TextField();
         textToShowField.setMaxWidth(Double.MAX_VALUE);
         textToShowField.setPromptText("Type text in here to display - use [] to indicate a hyperlink - e.g. [hello]");
         root.getChildren().add(textToShowField);
-        
+
         final TextField selectedLinkField = new TextField();
         selectedLinkField.setMaxWidth(Double.MAX_VALUE);
         selectedLinkField.setEditable(false);
         selectedLinkField.setPromptText("Click a link - I'll show you which one you clicked :-)");
         root.getChildren().add(selectedLinkField);
-        
+
         label = new HyperlinkLabel();
         // label.setFocusTraversable(false);
         label.textProperty().bind(new StringBinding() {
             {
                 bind(textToShowField.textProperty());
             }
-            
-            @Override protected String computeValue() {
+
+            @Override
+            protected String computeValue() {
                 final String str = textToShowField.getText();
                 if (str == null || str.isEmpty()) {
                     return "Hello [world]! I [wonder] what hyperlink [you] [will] [click]";
@@ -90,16 +95,17 @@ public class HelloHyperlinkLabel extends ControlsFXSample {
             }
         });
         label.setOnAction(event -> {
-            Hyperlink link = (Hyperlink)event.getSource();
+            Hyperlink link = (Hyperlink) event.getSource();
             final String str = link == null ? "" : "You clicked on '" + link.getText() + "'";
             selectedLinkField.setText(str);
         });
         root.getChildren().add(label);
-        
+
         return root;
     }
 
-    @Override public Node getControlPanel() {
+    @Override
+    public Node getControlPanel() {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);

@@ -1,9 +1,9 @@
 package com.tlcsdm.core.util;
 
-import java.math.BigDecimal;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 /**
  * @author: unknowIfGuestInDream
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
  */
 public class MoneyToChineseTest {
 
-	@Test
-	@Disabled
-	public void moneyToChinese() {
-		System.out.println(MoneyToChineseUtil.number2CNMonetaryUnit(new BigDecimal("203.5")));
-	}
+    @Test
+    @Disabled
+    public void moneyToChinese() {
+        System.out.println(MoneyToChineseUtil.number2CNMonetaryUnit(new BigDecimal("203.5")));
+    }
 }

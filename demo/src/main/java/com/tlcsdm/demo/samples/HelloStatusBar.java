@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -47,15 +47,18 @@ public class HelloStatusBar extends ControlsFXSample {
         launch(args);
     }
 
-    @Override public String getSampleName() {
+    @Override
+    public String getSampleName() {
         return "StatusBar";
     }
 
-    @Override public String getJavaDocURL() {
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/StatusBar.html";
     }
 
-    @Override public Node getPanel(Stage stage) {
+    @Override
+    public Node getPanel(Stage stage) {
         statusBar = new StatusBar();
 
         BorderPane borderPane = new BorderPane();
@@ -64,12 +67,14 @@ public class HelloStatusBar extends ControlsFXSample {
         return borderPane;
     }
 
-    @Override public String getSampleDescription() {
+    @Override
+    public String getSampleDescription() {
         return "The StatusBar control can be used to display various application-specific status fields. This "
-                + "can be plain text, the progress of a long running task, or any other type of information.";
+            + "can be plain text, the progress of a long running task, or any other type of information.";
     }
 
-    @Override public Node getControlPanel() {
+    @Override
+    public Node getControlPanel() {
         VBox box = new VBox();
         box.setSpacing(10);
 
@@ -108,7 +113,7 @@ public class HelloStatusBar extends ControlsFXSample {
         itemCounter++;
         Button button = new Button(Integer.toString(itemCounter));
         button.setBackground(new Background(new BackgroundFill(Color.ORANGE,
-                new CornerRadii(2), new Insets(4))));
+            new CornerRadii(2), new Insets(4))));
         if (left) {
             statusBar.getLeftItems().add(button);
         } else {
@@ -126,7 +131,8 @@ public class HelloStatusBar extends ControlsFXSample {
 
     private void startTask() {
         Task<Void> task = new Task<Void>() {
-            @Override protected Void call() throws Exception {
+            @Override
+            protected Void call() throws Exception {
                 updateMessage("First we sleep ....");
 
                 Thread.sleep(2500);
@@ -142,13 +148,13 @@ public class HelloStatusBar extends ControlsFXSample {
                 return null;
             }
         };
-        
+
         statusBar.textProperty().bind(task.messageProperty());
         statusBar.progressProperty().bind(task.progressProperty());
-        
+
         // remove bindings again
         task.setOnSucceeded(event -> {
-            statusBar.textProperty().unbind();    
+            statusBar.textProperty().unbind();
             statusBar.progressProperty().unbind();
         });
 

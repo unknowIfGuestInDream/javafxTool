@@ -160,9 +160,9 @@ public class SpecGeneralTest extends SmcSample {
                     // 需要数据抽取
                     ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
                     List<String> sheetNames = reader.getSheetNames().stream()
-                            .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                                    || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                            .collect(Collectors.toList());
+                        .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                            || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+                        .collect(Collectors.toList());
                     reader.close();
                     String resultPath = outputPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
                     String filesPath = resultPath + File.separator + "files";
@@ -216,8 +216,8 @@ public class SpecGeneralTest extends SmcSample {
                                     if (j2 == startX + 1) {
                                         String s = "#define " + cv;
                                         if (s.length() < macroLength && StrUtil
-                                                .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
-                                                .length() != 0) {
+                                            .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
+                                            .length() != 0) {
                                             cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
                                         }
                                     }
@@ -264,17 +264,17 @@ public class SpecGeneralTest extends SmcSample {
                         ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
                         String generateFileName = generateFileMap.get(sheetName);
                         FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
-                                FileUtil.file(filesPath, generateFileName));
+                            FileUtil.file(filesPath, generateFileName));
                         r.close();
                         if (onlyGenerate) {
                             continue;
                         }
                         StaticLog.info("========================= Begin Comparing {} =========================",
-                                generateFileName);
+                            generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
                             List<String> diffString = DiffHandleUtils.diffString(filesPath + File.separator + generateFileName,
-                                    generateFilesParentPath + File.separator + generateFileName);
+                                generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
@@ -282,13 +282,13 @@ public class SpecGeneralTest extends SmcSample {
                             }
                         } else {
                             StaticLog.info("========================= Not Found {} =========================",
-                                    generateFileName);
+                                generateFileName);
                             continue;
                         }
                         // 此处睡眠, 防止出现读取上的错误
                         ThreadUtil.safeSleep(500);
                         StaticLog.info("========================= End Comparing {} =========================",
-                                generateFileName);
+                            generateFileName);
                     }
                     if (mergeResult) {
                         DiffHandleUtils.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
@@ -434,7 +434,7 @@ public class SpecGeneralTest extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField, macroLengthField,
-                startCellField, generalFileCellField, endCellColumnField).build();
+            startCellField, generalFileCellField, endCellColumnField).build();
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -461,17 +461,17 @@ public class SpecGeneralTest extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {diffButton}:
-                {diffDesc}
+            {diffButton}:
+            {diffDesc}
 
-                {excelLabel}: {excelDesc}
-                {generalLabel}: {generalDesc}
-                {macroLengthLabel}: {macroLengthDesc}
-                {markSheetLabel}: {markSheetDesc}
+            {excelLabel}: {excelDesc}
+            {generalLabel}: {generalDesc}
+            {macroLengthLabel}: {macroLengthDesc}
+            {markSheetLabel}: {markSheetDesc}
 
-                {note}
-                {noteDesc}
-                """;
+            {note}
+            {noteDesc}
+            """;
 
         Map<String, String> map = new HashMap<>(32);
         map.put("diffButton", diff.getText());

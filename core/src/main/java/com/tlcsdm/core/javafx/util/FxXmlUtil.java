@@ -53,9 +53,9 @@ public class FxXmlUtil {
         Parameters params = new Parameters();
         File propertiesFile = ConfigureUtil.getConfigureXmlFile(Config.USERDATA_FILE_NAME);
         XMLBuilderParameters xmlBuilderParameters = params.xml().setFile(propertiesFile).setEncoding("UTF-8")
-                .setListDelimiterHandler(new DefaultListDelimiterHandler(',')).setThrowExceptionOnMissing(false);
+            .setListDelimiterHandler(new DefaultListDelimiterHandler(',')).setThrowExceptionOnMissing(false);
         ReloadingFileBasedConfigurationBuilder<XMLPropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(
-                XMLPropertiesConfiguration.class).configure(xmlBuilderParameters);
+            XMLPropertiesConfiguration.class).configure(xmlBuilderParameters);
         builder.setAutoSave(true);
         try {
             conf = builder.getConfiguration();

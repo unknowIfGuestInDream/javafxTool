@@ -100,7 +100,7 @@ public class CoreUtil {
                 objectOutputStream.writeObject(object);
             }
             ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+                new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
             return objectInputStream.readObject();
         } catch (Exception e) {
             return null;

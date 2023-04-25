@@ -150,7 +150,7 @@ public class FxDialog<T> {
     public T show() {
         if (this.bodyFxmlPath != null) {
             FXMLLoader fxmlLoader = this.resourceBundle == null ? FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath)
-                    : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle);
+                : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle);
             Stage stage = this.createStage(fxmlLoader.getRoot());
             stage.show();
             return fxmlLoader.getController();
@@ -166,7 +166,7 @@ public class FxDialog<T> {
     public T showAndWait() {
         if (this.bodyFxmlPath != null) {
             FXMLLoader fxmlLoader = this.resourceBundle == null ? FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath)
-                    : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle);
+                : FxmlUtil.loadFxmlFromResource(this.bodyFxmlPath, this.resourceBundle);
             Stage stage = this.createStage(fxmlLoader.getRoot());
             stage.showAndWait();
             return fxmlLoader.getController();

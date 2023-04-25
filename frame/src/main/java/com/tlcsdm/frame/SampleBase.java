@@ -70,14 +70,14 @@ public abstract class SampleBase extends Application implements Sample {
     @Override
     public void start(Stage primaryStage) {
         ServiceLoader<FXSamplerConfiguration> configurationServiceLoader = ServiceLoader
-                .load(FXSamplerConfiguration.class);
+            .load(FXSamplerConfiguration.class);
 
         primaryStage.setTitle(getSampleName());
 
         Scene scene = new Scene((Parent) buildSample(this, primaryStage), 800, 600);
 
         scene.getStylesheets()
-                .add(Objects.requireNonNull(SampleBase.class.getResource("/fxsampler/fxsampler.css")).toExternalForm());
+            .add(Objects.requireNonNull(SampleBase.class.getResource("/fxsampler/fxsampler.css")).toExternalForm());
         for (FXSamplerConfiguration fxsamplerConfiguration : configurationServiceLoader) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
@@ -302,7 +302,7 @@ public abstract class SampleBase extends Application implements Sample {
         final String sampleVersion = sample.getSampleVersion();
         if (sampleVersion != null && !sampleVersion.isEmpty()) {
             Label sampleVersionLabel = new Label(
-                    I18nUtils.get("frame.sample.rightPanel.sampleVersion") + ": " + sampleVersion);
+                I18nUtils.get("frame.sample.rightPanel.sampleVersion") + ": " + sampleVersion);
             sampleVersionLabel.getStyleClass().add("sampleVersion");
             sampleVersionLabel.setWrapText(true);
             rightPanel.getChildren().add(sampleVersionLabel);

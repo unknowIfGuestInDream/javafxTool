@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2013, 2014, ControlsFX
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *     * Neither the name of ControlsFX, any associated website, nor the
+ * * Neither the name of ControlsFX, any associated website, nor the
  * names of its contributors may be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -54,28 +54,32 @@ import static org.controlsfx.control.decoration.Decorator.addDecoration;
 import static org.controlsfx.control.decoration.Decorator.removeAllDecorations;
 
 public class HelloDecorator extends ControlsFXSample {
-    
+
     private final TextField field = new TextField();
-    
-    @Override public String getSampleName() {
+
+    @Override
+    public String getSampleName() {
         return "Decorations";
     }
-    
-    @Override public String getJavaDocURL() {
+
+    @Override
+    public String getJavaDocURL() {
         return Utils.JAVADOC_BASE + "org/controlsfx/control/decoration/Decorator.html";
     }
-    
-    @Override public Node getPanel(final Stage stage) {
+
+    @Override
+    public Node getPanel(final Stage stage) {
         VBox root = new VBox(10);
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setMaxHeight(Double.MAX_VALUE);
         root.getChildren().addAll(field);
-        
+
         // for the sake of this sample we have to install a custom css file to
         // style the sample - but we can't do this until the scene is set on the
         // pane
         root.sceneProperty().addListener(new InvalidationListener() {
-            @Override public void invalidated(Observable o) {
+            @Override
+            public void invalidated(Observable o) {
                 if (root.getScene() != null) {
                     Platform.runLater(() -> {
                         root.getScene().getStylesheets().add(HelloDecorator.class.getResource("/com/tlcsdm/demo/decorations.css").toExternalForm());
@@ -83,41 +87,42 @@ public class HelloDecorator extends ControlsFXSample {
                 }
             }
         });
-        
-        
+
         ScrollPane scrollPane = new ScrollPane(root);
         return scrollPane;
     }
-    
+
     @Override
     public Node getControlPanel() {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         grid.setPadding(new Insets(30, 30, 0, 30));
-        
+
         int row = 0;
-        
+
         // --- show decorations
         Label showDecorationsLabel = new Label("Show decorations: ");
         showDecorationsLabel.getStyleClass().add("property");
         grid.add(showDecorationsLabel, 0, row);
         ChoiceBox<String> decorationTypeBox = new ChoiceBox<>(FXCollections.observableArrayList("None", "Node", "CSS", "Node + CSS", "Image"));
         decorationTypeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue<? extends String> o, String old, String newItem) {
+            @Override
+            public void changed(ObservableValue<? extends String> o, String old, String newItem) {
                 removeAllDecorations(field);
                 switch (newItem) {
-                    case "None": break;
+                    case "None":
+                        break;
                     case "Node": {
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED),Pos.TOP_LEFT));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED),Pos.TOP_CENTER));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED),Pos.TOP_RIGHT));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN),Pos.CENTER_LEFT));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN),Pos.CENTER));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN),Pos.CENTER_RIGHT));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE),Pos.BOTTOM_LEFT));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE),Pos.BOTTOM_CENTER));
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE),Pos.BOTTOM_RIGHT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED), Pos.TOP_LEFT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED), Pos.TOP_CENTER));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.RED), Pos.TOP_RIGHT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN), Pos.CENTER_LEFT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN), Pos.CENTER));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN), Pos.CENTER_RIGHT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE), Pos.BOTTOM_LEFT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE), Pos.BOTTOM_CENTER));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.BLUE), Pos.BOTTOM_RIGHT));
                         break;
                     }
                     case "CSS": {
@@ -125,19 +130,19 @@ public class HelloDecorator extends ControlsFXSample {
                         break;
                     }
                     case "Node + CSS": {
-                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN),Pos.CENTER_RIGHT));
+                        addDecoration(field, new GraphicDecoration(createDecoratorNode(Color.GREEN), Pos.CENTER_RIGHT));
                         addDecoration(field, new StyleClassDecoration("success"));
                         break;
                     }
                     case "Image": {
-                        addDecoration(field, new GraphicDecoration(createImageNode(),Pos.BOTTOM_LEFT));
+                        addDecoration(field, new GraphicDecoration(createImageNode(), Pos.BOTTOM_LEFT));
                         break;
                     }
                 }
             }
         });
         grid.add(decorationTypeBox, 1, row++);
-        
+
 //        // --- Toggle text field visibility
 //        Label showTextFieldLabel = new Label("TextField visible: ");
 //        showTextFieldLabel.getStyleClass().add("property");
@@ -146,23 +151,23 @@ public class HelloDecorator extends ControlsFXSample {
 //        fieldVisibleBtn.setSelected(true);
 //        field.visibleProperty().bindBidirectional(fieldVisibleBtn.selectedProperty());
 //        grid.add(fieldVisibleBtn, 1, row++);
-        
+
         return grid;
     }
-    
+
     private Node createDecoratorNode(Color color) {
-    	Rectangle d = new Rectangle(7, 7);
+        Rectangle d = new Rectangle(7, 7);
         d.setFill(color);
         return d;
     }
-    
+
     private Node createImageNode() {
         Image image = new Image("/com/tlcsdm/demo/security-low.png");
         ImageView imageView = new ImageView(image);
         return imageView;
     }
-    
+
     public static void main(String[] args) {
         launch(args);
-    } 
+    }
 }

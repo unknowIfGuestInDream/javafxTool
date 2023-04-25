@@ -71,7 +71,7 @@ public interface FXSamplerProject {
         StackPane pane = new StackPane();
         pane.setPrefHeight(207);
         pane.setStyle(
-                "-fx-background-image: url('com/tlcsdm/frame/static/JavaFXToolBar.png');-fx-background-repeat: repeat-x;");
+            "-fx-background-image: url('com/tlcsdm/frame/static/JavaFXToolBar.png');-fx-background-repeat: repeat-x;");
         pane.getChildren().add(imgView);
         return pane;
     }

@@ -150,11 +150,11 @@ public class FXCenterPanelService implements CenterPanelService {
         } else if (selectedTab == javaDocTab) {
             prepareTabContent(javaDocTab, javaDocWebView);
             loadWebViewContent(javaDocWebView, selectedSample, ControlsFXSample::getJavaDocURL,
-                    sample -> "No Javadoc available");
+                sample -> "No Javadoc available");
         } else if (selectedTab == sourceTab) {
             prepareTabContent(sourceTab, sourceWebView);
             loadWebViewContent(sourceWebView, selectedSample, ControlsFXSample::getSampleSourceURL,
-                    this::formatSourceCode);
+                this::formatSourceCode);
         } else if (selectedTab == cssTab) {
             prepareTabContent(cssTab, cssWebView);
             loadWebViewContent(cssWebView, selectedSample, ControlsFXSample::getControlStylesheetURL, this::formatCss);
@@ -174,7 +174,7 @@ public class FXCenterPanelService implements CenterPanelService {
     }
 
     private void loadWebViewContent(WebView webView, ControlsFXSample sample,
-            Function<ControlsFXSample, String> urlFunction, Function<ControlsFXSample, String> contentFunction) {
+                                    Function<ControlsFXSample, String> urlFunction, Function<ControlsFXSample, String> contentFunction) {
         final String url = urlFunction.apply(sample);
         if (url != null && url.startsWith("http")) {
             webView.getEngine().load(url);
@@ -248,7 +248,7 @@ public class FXCenterPanelService implements CenterPanelService {
                 if (selectedProject != null && !selectedProject.getModuleName().isEmpty()) {
                     // module-path
                     final Optional<Module> projectModuleOptional = ModuleLayer.boot()
-                            .findModule(selectedProject.getModuleName());
+                        .findModule(selectedProject.getModuleName());
                     if (projectModuleOptional.isPresent()) {
                         final Module projectModule = projectModuleOptional.get();
                         src = getResource(projectModule.getResourceAsStream(cssUrl));

@@ -29,18 +29,18 @@ public final class ConcurrentTableFilterTest extends Application {
         TableView<DataItem> tableView = new TableView<>();
 
         tableView.setItems(FXCollections.observableArrayList());
-        IntStream.range(0,500).mapToObj(i -> new DataItem()).forEach(d -> tableView.getItems().add(d));
+        IntStream.range(0, 500).mapToObj(i -> new DataItem()).forEach(d -> tableView.getItems().add(d));
 
-        TableColumn<DataItem,Integer> smallInt = new TableColumn<>("Small Int");
+        TableColumn<DataItem, Integer> smallInt = new TableColumn<>("Small Int");
         smallInt.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getSmallIntValue()));
 
-        TableColumn<DataItem,Integer> largeInt = new TableColumn<>("Large Int");
+        TableColumn<DataItem, Integer> largeInt = new TableColumn<>("Large Int");
         largeInt.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getLargeIntValue()));
 
-        TableColumn<DataItem,String> randomLetter = new TableColumn<>("Letter");
+        TableColumn<DataItem, String> randomLetter = new TableColumn<>("Letter");
         randomLetter.setCellValueFactory(cb -> new ReadOnlyObjectWrapper<>(cb.getValue().getRandomLetter()));
 
-        TableColumn<DataItem,Number> concurrentNumber = new TableColumn<>("Concurrent Number");
+        TableColumn<DataItem, Number> concurrentNumber = new TableColumn<>("Concurrent Number");
         concurrentNumber.setCellValueFactory(cb ->
             cb.getValue().getConcurrentNumber()
         );
@@ -90,19 +90,22 @@ public final class ConcurrentTableFilterTest extends Application {
                 });
             });
         }
+
         public int getLargeIntValue() {
             return largeIntValue;
         }
+
         public int getSmallIntValue() {
             return smallIntValue;
         }
+
         public String getRandomLetter() {
             return randomLetter;
         }
+
         public Property<Number> getConcurrentNumber() {
             return concurrentNumber;
         }
-
 
     }
 

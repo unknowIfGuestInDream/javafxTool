@@ -49,7 +49,7 @@ public class LowerDirective implements TemplateDirectiveModel {
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-            throws TemplateException, IOException {
+        throws TemplateException, IOException {
         // Check if no parameters were given:
         if (!params.isEmpty()) {
             throw new TemplateModelException("This directive doesn't allow parameters.");

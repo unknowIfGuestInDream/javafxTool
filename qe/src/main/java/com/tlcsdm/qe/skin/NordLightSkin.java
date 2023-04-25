@@ -37,7 +37,7 @@ public class NordLightSkin extends QeConfigurationProvider {
     @Override
     public String getSceneStylesheet() {
         return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css"))
-                .toExternalForm();
+            .toExternalForm();
     }
 
 }

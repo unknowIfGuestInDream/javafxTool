@@ -14,21 +14,21 @@ import java.util.zip.ZipFile
  * SimpleHTTPServer for Groovy, inspired by Python's SimpleHTTPServer
  */
 @CompileStatic
-public class SimpleHttpServer {
+class SimpleHttpServer {
     private HttpServer server;
     private int port;
     private String contextRoot;
     private File docBase;
 
-    public SimpleHttpServer() throws IOException {
+    SimpleHttpServer() throws IOException {
         this(8000);
     }
 
-    public SimpleHttpServer(final int port) throws IOException {
+    SimpleHttpServer(final int port) throws IOException {
         this(port, "/", new File("."));
     }
 
-    public SimpleHttpServer(final int port, final String contextRoot, final File docBase) throws IOException {
+    SimpleHttpServer(final int port, final String contextRoot, final File docBase) throws IOException {
         this.port = port;
         this.contextRoot = contextRoot.startsWith("/") ? contextRoot : ("/" + contextRoot);
         this.docBase = docBase;
@@ -37,14 +37,14 @@ public class SimpleHttpServer {
         server.setExecutor(Executors.newCachedThreadPool());
         server.createContext(this.contextRoot, new HttpHandler() {
             @Override
-            public void handle(HttpExchange exchg) throws IOException {
+            void handle(HttpExchange exchg) throws IOException {
                 BufferedOutputStream bos = new BufferedOutputStream(exchg.getResponseBody());
                 byte[] content = null;
 
                 try {
                     String uri = exchg.getRequestURI().getPath();
                     String path =
-                            !"/".equals(SimpleHttpServer.this.contextRoot) && uri.startsWith(SimpleHttpServer.this.contextRoot) ? uri.substring(SimpleHttpServer.this.contextRoot.length()) : uri;
+                        !"/".equals(SimpleHttpServer.this.contextRoot) && uri.startsWith(SimpleHttpServer.this.contextRoot) ? uri.substring(SimpleHttpServer.this.contextRoot.length()) : uri;
 
                     content = readContent(docBase, path);
                     exchg.sendResponseHeaders(HttpURLConnection.HTTP_OK, content.length);
@@ -80,8 +80,8 @@ public class SimpleHttpServer {
             return ("Accessing the directory[" + file.getCanonicalPath() + "] is forbidden").getBytes();
         } else {
             return IOGroovyMethods.getBytes(
-                    new BufferedInputStream(
-                            new FileInputStream(file)));
+                new BufferedInputStream(
+                    new FileInputStream(file)));
         }
     }
 
@@ -97,20 +97,20 @@ public class SimpleHttpServer {
             }
 
             BufferedInputStream bis =
-                    new BufferedInputStream(
-                            zf.getInputStream(ze))
+                new BufferedInputStream(
+                    zf.getInputStream(ze))
             return IOGroovyMethods.getBytes(bis);
         } finally {
             zf.close();
         }
     }
 
-    public void start() {
+    void start() {
         server.start();
         System.out.println("HTTP Server started up, visit http://localhost:" + this.port + this.contextRoot + " to access the files in the " + this.docBase.getCanonicalPath());
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         int argCnt = args.length;
         SimpleHttpServer shs;
 

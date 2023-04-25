@@ -1,14 +1,12 @@
 package com.tlcsdm.core.javafx.controlsfx;
 
-import java.util.Collection;
-
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.I18nUtils;
+import javafx.scene.Node;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionGroup;
 
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.util.I18nUtils;
-
-import javafx.scene.Node;
+import java.util.Collection;
 
 /**
  * controlsfx ActionGroup的初始化封装
@@ -56,7 +54,7 @@ public class FxActionGroup {
      */
     public static ActionGroup language(Action... actions) {
         return create(I18nUtils.get("core.menubar.setting.language"), "/com/tlcsdm/core/static/menubar/language.png",
-                actions);
+            actions);
     }
 
     /**
