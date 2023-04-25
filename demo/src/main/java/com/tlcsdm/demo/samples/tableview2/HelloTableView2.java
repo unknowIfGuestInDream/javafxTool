@@ -66,7 +66,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- *
  * Build the UI and launch the Application
  */
 public class HelloTableView2 extends ControlsFXSample {

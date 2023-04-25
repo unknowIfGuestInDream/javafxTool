@@ -69,7 +69,6 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
  * Build the UI and launch the Application
  */
 public class HelloFilteredTableView extends ControlsFXSample {

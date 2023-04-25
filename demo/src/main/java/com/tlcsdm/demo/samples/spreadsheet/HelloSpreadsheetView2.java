@@ -52,7 +52,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- *
  * Build the UI and launch the Application
  */
 public class HelloSpreadsheetView2 extends ControlsFXSample {
@@ -112,7 +111,6 @@ public class HelloSpreadsheetView2 extends ControlsFXSample {
      * SpreadsheetViewInternal
      *
      * @param gridType
-     *
      * @param spreadsheetView
      * @return
      */
