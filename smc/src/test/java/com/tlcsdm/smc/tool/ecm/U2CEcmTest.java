@@ -27,6 +27,22 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -35,18 +51,11 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.poi.ss.usermodel.Cell;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class U2CEcmTest {
 
     private static Configuration configuration;
@@ -74,32 +83,32 @@ public class U2CEcmTest {
         String categorySheetName = "Category";
         int categoryStartRow = 3;
         String categorys = """
-            categoryId;J
-            categoryEnName;K
-            categoryJpName;L
-            """;
+                categoryId;J
+                categoryEnName;K
+                categoryJpName;L
+                """;
 
         String resultPath = outputPath + "\\ecm";
         String deviceSheetName = "U2C";
         int startRow = 3;
         String functions = """
-            optMaskint;G
-            optIntg;G
-            optDCLS;G
-            optIntrg;I
-            optErroroutput;J
-            optErrort0;K
-            optErrort1;K
-            optErrort2;K
-            optErrort3;K
-            optDelayt;L
-            """;
+                optMaskint;G
+                optIntg;G
+                optDCLS;G
+                optIntrg;I
+                optErroroutput;J
+                optErrort0;K
+                optErrort1;K
+                optErrort2;K
+                optErrort3;K
+                optDelayt;L
+                """;
 
         String tags = """
-            psedu;W
-            funname;X
-            titleabstract;Y
-            """;
+                psedu;W
+                funname;X
+                titleabstract;Y
+                """;
         String errorSourceIdCol = "A";
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
@@ -123,13 +132,13 @@ public class U2CEcmTest {
         }
 
         String products = """
-            RH850U2C8;292;O
-            RH850U2C4;292;P
-            RH850U2C4;144;Q
-            RH850U2C4;100;R
-            RH850U2C2;144;S
-            RH850U2C2;100;T
-            """;
+                RH850U2C8;292;O
+                RH850U2C4;292;P
+                RH850U2C4;144;Q
+                RH850U2C4;100;R
+                RH850U2C2;144;S
+                RH850U2C2;100;T
+                """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         ListValueMap<String, String> productsInfo = new ListValueMap<>();
@@ -147,7 +156,7 @@ public class U2CEcmTest {
         }
         // category 数据处理
         ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName),
-            categorySheetName);
+                categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
         List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
@@ -227,7 +236,7 @@ public class U2CEcmTest {
                     Map<String, Object> tagMeta = new HashMap<>();
                     if ("psedu".equals(tagkey)) {
                         tagValue = String
-                            .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                                .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
                     }
                     tagMeta.put("key", tagkey);
                     tagMeta.put("value", tagValue);
@@ -250,7 +259,7 @@ public class U2CEcmTest {
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(
-                FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
+                    FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
         }
         reader.close();
         // 后续文件合并
@@ -267,7 +276,7 @@ public class U2CEcmTest {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
                     boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                        FileUtil.file(resultPath, comName));
+                            FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
@@ -275,7 +284,7 @@ public class U2CEcmTest {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
                             FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                FileUtil.file(resultPath, deviceName));
+                                    FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);
@@ -316,7 +325,7 @@ public class U2CEcmTest {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {

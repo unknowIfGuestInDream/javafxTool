@@ -1,8 +1,8 @@
 package com.tlcsdm.core.util;
 
-import cn.hutool.json.JSONUtil;
-import com.tlcsdm.core.javafx.util.ConfigureUtil;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
@@ -12,13 +12,16 @@ import org.apache.commons.configuration2.tree.DefaultExpressionEngineSymbols;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2022/12/11 19:11
  */
+@Disabled
 public class FxXmlUtilTest {
 
     @Test
@@ -28,7 +31,6 @@ public class FxXmlUtilTest {
     }
 
     @Test
-    @Disabled
     public void setMapValue() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", "123");
@@ -39,7 +41,6 @@ public class FxXmlUtilTest {
     }
 
     @Test
-    @Disabled
     public void getMapValue() {
         Map<String, Object> map = JSONUtil.parseObj(FxXmlUtil.get("map", ""));
         System.out.println(map.get("name"));
