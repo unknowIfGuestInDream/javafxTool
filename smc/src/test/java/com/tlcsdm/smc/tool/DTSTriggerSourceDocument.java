@@ -1,25 +1,29 @@
 package com.tlcsdm.smc.tool;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
+
 /**
  * 根据DTS trigger source数据和DTS模板文件，生成DTS UD 中trigger source部分。
  */
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class DTSTriggerSourceDocument {
     // excel的父级目录路径
     private final String parentDirectoryPath = "C:\\workspace\\test";
@@ -82,7 +86,7 @@ public class DTSTriggerSourceDocument {
     public void dealData() {
         readData();
         BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-            sheetName);
+                sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {

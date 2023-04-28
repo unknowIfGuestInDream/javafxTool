@@ -27,6 +27,22 @@
 
 package com.tlcsdm.smc.tool.ecm;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -35,18 +51,11 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.poi.ss.usermodel.Cell;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class C1MEcmTest {
 
     private static Configuration configuration;
@@ -74,27 +83,27 @@ public class C1MEcmTest {
         String categorySheetName = "Category";
         int categoryStartRow = 3;
         String categorys = """
-            categoryId;B
-            categoryEnName;C
-            categoryJpName;D
-            """;
+                categoryId;B
+                categoryEnName;C
+                categoryJpName;D
+                """;
 
         String resultPath = outputPath + "\\ecm";
         String deviceSheetName = "C1M";
         int startRow = 2;
         String functions = """
-            optMaskableInpt;G
-            optEFInpt;H
-            optIntrg;I
-            optErroroutput;J
-            optDelayt;K
-            """;
+                optMaskableInpt;G
+                optEFInpt;H
+                optIntrg;I
+                optErroroutput;J
+                optDelayt;K
+                """;
 
         String tags = """
-            psedu;N
-            funname;O
-            titleabstract;P
-            """;
+                psedu;N
+                funname;O
+                titleabstract;P
+                """;
         String errorSourceIdCol = "A";
         String categoryIdCol = "B";
         String errorSourceNumberCol = "C";
@@ -118,8 +127,8 @@ public class C1MEcmTest {
         }
 
         String products = """
-            RH850C1MA2;252;M
-            """;
+                RH850C1MA2;252;M
+                """;
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         ListValueMap<String, String> productsInfo = new ListValueMap<>();
@@ -137,7 +146,7 @@ public class C1MEcmTest {
         }
         // category 数据处理
         ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName),
-            categorySheetName);
+                categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
         List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
@@ -179,7 +188,7 @@ public class C1MEcmTest {
                 String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
                 String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
                 String errorSourceNumber = String
-                    .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
+                        .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
                 String errorSourceenName = reader.getCell(errorSourceenNameCol + i).getStringCellValue();
                 String errorSourcejpName = reader.getCell(errorSourcejpNameCol + i).getStringCellValue();
                 List<Map<String, Object>> function = new ArrayList<>();
@@ -208,7 +217,7 @@ public class C1MEcmTest {
                     Map<String, Object> tagMeta = new HashMap<>();
                     if ("psedu".equals(tagkey)) {
                         tagValue = String
-                            .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                                .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
                     }
                     tagMeta.put("key", tagkey);
                     tagMeta.put("value", tagValue);
@@ -230,7 +239,7 @@ public class C1MEcmTest {
             paramMap.put("errorSourceInfos", ErrorSourceInfos);
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(
-                FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
+                    FreemarkerUtil.getTemplateContent(configuration, paramMap, getFtlPath(deviceSheetName)), result);
         }
         reader.close();
         // 后续文件合并
@@ -247,7 +256,7 @@ public class C1MEcmTest {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
                     boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                        FileUtil.file(resultPath, comName));
+                            FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
@@ -255,7 +264,7 @@ public class C1MEcmTest {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
                             FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                FileUtil.file(resultPath, deviceName));
+                                    FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);
@@ -295,7 +304,7 @@ public class C1MEcmTest {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         // Do nothing
     }
 

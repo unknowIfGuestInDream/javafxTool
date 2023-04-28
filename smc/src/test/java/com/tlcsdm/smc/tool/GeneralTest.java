@@ -1,5 +1,19 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import com.tlcsdm.core.util.DiffHandleUtils;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.thread.ThreadUtil;
@@ -9,16 +23,6 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
-import com.tlcsdm.core.util.DiffHandleUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * general spec 测试，生成差异文件。
@@ -27,6 +31,7 @@ import java.util.stream.Collectors;
  * @date: 2022/8/24 20:18
  * @since: 1.0
  */
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class GeneralTest {
 
     /*
@@ -65,9 +70,9 @@ public class GeneralTest {
     public void init() {
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
         sheetNames = reader.getSheetNames().stream()
-            .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-            .collect(Collectors.toList());
+                .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                        || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+                .collect(Collectors.toList());
         resultPath = parentDirectoryPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
         filesPath = resultPath + "\\files";
         cleanDir(resultPath);
@@ -124,15 +129,15 @@ public class GeneralTest {
             ExcelReader reader = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
             String generateFileName = generateFileMap.get(sheetName);
             FileUtil.writeUtf8String(reader.readAsText(false).replaceAll("\\t", ""),
-                FileUtil.file(filesPath, generateFileName));
+                    FileUtil.file(filesPath, generateFileName));
             reader.close();
             logHandler("========================= Begin Comparing " + generateFileName + " =========================",
-                1);
+                    1);
             String generateFileParent = getGenerateFileParent();
             File generateFile = FileUtil.file(generateFileParent, generateFileName);
             if (FileUtil.exist(generateFile)) {
                 List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
-                    generateFileParent + "\\" + generateFileName);
+                        generateFileParent + "\\" + generateFileName);
                 DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
             }
             ThreadUtil.safeSleep(200);
@@ -155,18 +160,18 @@ public class GeneralTest {
      */
     private void logHandler(String message, int level) {
         switch (level) {
-            case 1:
-                Console.log(message);
-                break;
-            case 2:
-                Console.log("Warning: {}", message);
-                break;
-            case 3:
-                Console.error(message);
-                break;
-            case 0:
-            default:
-                break;
+        case 1:
+            Console.log(message);
+            break;
+        case 2:
+            Console.log("Warning: {}", message);
+            break;
+        case 3:
+            Console.error(message);
+            break;
+        case 0:
+        default:
+            break;
         }
 
     }

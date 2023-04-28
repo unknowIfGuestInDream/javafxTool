@@ -1,22 +1,26 @@
 package com.tlcsdm.smc.tool;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.poi.excel.BigExcelWriter;
-import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.cell.CellLocation;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellLocation;
+
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class DTSU2CTriggerSourceDocument {
     // excel的父级目录路径
     private final String parentDirectoryPath = "C:\\workspace\\test";
@@ -84,7 +88,7 @@ public class DTSU2CTriggerSourceDocument {
     public void dealData() {
         readData();
         BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-            sheetName);
+                sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {
@@ -220,7 +224,7 @@ public class DTSU2CTriggerSourceDocument {
 
     // 初始化变量
     private void initGroupLine(String group0Line, String group1Line, String group2Line, String group3Line,
-                               String group4Line) {
+            String group4Line) {
         List<String> list = new ArrayList<>();
         list.add(group0Line);
         list.add(group1Line);
