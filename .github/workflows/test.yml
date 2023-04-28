@@ -35,4 +35,4 @@ jobs:
           cache: maven
 
       - name: Test with Maven
-        run: mvn test
+        run: mvn install
