@@ -8,12 +8,9 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-
-# Matches multiple files with brace expansion notation
-# Set default charset
-[*.{js,java,groovy}]
 charset = utf-8
 
+# Matches multiple files with brace expansion notation
 # 4 space indentation
 [*.{java,groovy}]
 indent_style = space
