@@ -2,16 +2,18 @@ package com.tlcsdm.core.util
 
 import static org.junit.jupiter.api.DynamicTest.dynamicTest
 
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
+import org.junit.platform.launcher.listeners.LoggingListener
+
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.stream.Stream
 
-import org.junit.jupiter.api.*
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.ValueSource
-import org.junit.platform.launcher.listeners.LoggingListener
-
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "Not support in github action")
 class MyTest {
 
     @BeforeAll
