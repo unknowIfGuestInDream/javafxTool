@@ -1,12 +1,23 @@
 package com.tlcsdm.core.util.jexl;
 
-import org.apache.commons.jexl3.*;
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlContext;
+import org.apache.commons.jexl3.JexlEngine;
+import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.JexlFeatures;
+import org.apache.commons.jexl3.JexlScript;
+import org.apache.commons.jexl3.MapContext;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,27 +25,28 @@ import java.util.stream.Stream;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:32
  */
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of JEXL is provided")
 public class JexlDemo {
 
     @Test
     public void testNew() throws Exception {
         // 描述一个人，他有两条腿
         Map<String, Object> person = new HashMap<String, Object>();
-        person.put("skinColor", "red");  // 皮肤为红色
-        person.put("age", 23);   // 年龄23
-        person.put("cash", 60.8);      // 身上有60.8元现金
+        person.put("skinColor", "red"); // 皮肤为红色
+        person.put("age", 23); // 年龄23
+        person.put("cash", 60.8); // 身上有60.8元现金
 
         // 左腿定义
         Map<String, Object> leg1 = new HashMap<String, Object>();
-        leg1.put("leftOrRight", "left");  // 左腿
-        leg1.put("length", 20.3);  // 腿长多少
-        leg1.put("hair", 3000);  //有多少腿毛
+        leg1.put("leftOrRight", "left"); // 左腿
+        leg1.put("length", 20.3); // 腿长多少
+        leg1.put("hair", 3000); // 有多少腿毛
 
         // 右腿定义
         Map<String, Object> leg2 = new HashMap<String, Object>();
-        leg2.put("leftOrRight", "right");  // 右腿
-        leg2.put("length", 20.3);  // 腿长多少
-        leg2.put("hair", 3050);  //有多少腿毛
+        leg2.put("leftOrRight", "right"); // 右腿
+        leg2.put("length", 20.3); // 腿长多少
+        leg2.put("hair", 3050); // 有多少腿毛
         // 给他两条腿
         List<Map<String, Object>> legs = new ArrayList<Map<String, Object>>();
         legs.add(leg1);
@@ -44,29 +56,23 @@ public class JexlDemo {
         // 让这个人变成一个Context，以便Jexl认识他
         JexlContext context = new MapContext(person);
 
-        JexlEngine engine = new JexlBuilder()
-            .strict(false)
-            .imports(Arrays.asList("java.lang", "java.math"))
-            .permissions(null)
-            .cache(128).create();
+        JexlEngine engine = new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math"))
+                .permissions(null).cache(128).create();
 
         // 看看这个人是否年龄在30岁以上，并且身上有超过100元现金
         boolean yes = (Boolean) engine.createExpression("age>30 && cash>100").evaluate(context);
-        System.out.println("年龄在30岁以上，并且身上有超过100元现金?  " + yes);  // 他没有
+        System.out.println("年龄在30岁以上，并且身上有超过100元现金?  " + yes); // 他没有
 
         // 看看这个人是否左腿上有超过2500根汗毛
         yes = (Boolean) engine.createExpression("leg[0].hair>2500").evaluate(context);
 
-        System.out.println("左腿上有超过2500根汗毛?  " + yes);   // 是的，他有
+        System.out.println("左腿上有超过2500根汗毛?  " + yes); // 是的，他有
     }
 
     @Test
     public void demo1() {
-        JexlEngine engine = new JexlBuilder()
-            .strict(false)
-            .imports(Arrays.asList("java.lang", "java.math"))
-            .permissions(null)
-            .cache(128).create();
+        JexlEngine engine = new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math"))
+                .permissions(null).cache(128).create();
         String calculateTax = "((G1 + G2 + G3) * 0.1) + G4";
         JexlContext context = new MapContext();
         context.set("G1", 1);
@@ -80,44 +86,38 @@ public class JexlDemo {
     @Test
     public void demo2() {
         // Restricting features; no loops, no side effects
-        JexlFeatures features = new JexlFeatures()
-            .loops(true)
-            .sideEffectGlobal(false)
-            .sideEffect(false);
+        JexlFeatures features = new JexlFeatures().loops(true).sideEffectGlobal(false).sideEffect(false);
         // Restricted permissions to a safe set but with URI allowed
         JexlPermissions permissions = new JexlPermissions.ClassPermissions(java.net.URI.class);
-        JexlEngine jexl = new JexlBuilder()
-            .features(features)
-            .strict(false)
-            .imports(Arrays.asList("java.lang", "java.math"))
-            .permissions(permissions)
-            .cache(128).create();
-        // let's assume a collection of uris need to be processed and transformed to be simplified ;
+        JexlEngine jexl = new JexlBuilder().features(features).strict(false)
+                .imports(Arrays.asList("java.lang", "java.math")).permissions(permissions).cache(128).create();
+        // let's assume a collection of uris need to be processed and transformed to be
+        // simplified ;
         // we want only http/https ones, only the host part and forcing an https scheme
-        List<URI> uris = Arrays.asList(
-            URI.create("http://user@www.apache.org:8000?qry=true"),
-            URI.create("https://commons.apache.org/releases/prepare.html"),
-            URI.create("mailto:henrib@apache.org")
-        );
+        List<URI> uris = Arrays.asList(URI.create("http://user@www.apache.org:8000?qry=true"),
+                URI.create("https://commons.apache.org/releases/prepare.html"), URI.create("mailto:henrib@apache.org"));
         // Create the test control, the expected result of our script evaluation
         List<?> control = uris.stream()
-            .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
-            .filter(x -> x != null)
-            .collect(Collectors.toList());
+                .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
+                .filter(x -> x != null).collect(Collectors.toList());
         Assertions.assertEquals(2, control.size());
 
         // Create scripts:
-        // uri is the name of the variable used as parameter; the beans are exposed as properties
+        // uri is the name of the variable used as parameter; the beans are exposed as
+        // properties
         // note the starts-with operator =^
-        // note that uri is also used in the back-quoted string that performs variable interpolation
+        // note that uri is also used in the back-quoted string that performs variable
+        // interpolation
         JexlScript mapper = jexl.createScript("uri.scheme =^ 'http'? `https://${uri.host}` : null", "uri");
-        // using the bang-bang / !! - JScript like -  is the way to coerce to boolean in the filter
-        JexlScript transform = jexl.createScript(
-            "list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
+        // using the bang-bang / !! - JScript like - is the way to coerce to boolean in
+        // the filter
+        JexlScript transform = jexl
+                .createScript("list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
 
         // Execute scripts:
         JexlContext sctxt = new StreamContext();
-        // expose the static methods of Collectors; java.util.* is allowed by permissions
+        // expose the static methods of Collectors; java.util.* is allowed by
+        // permissions
         sctxt.set("Collectors", Collectors.class);
         // expose the mapper script as a global variable in the context
         sctxt.set("mapper", mapper);

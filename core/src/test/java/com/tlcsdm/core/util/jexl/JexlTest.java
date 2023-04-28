@@ -1,18 +1,31 @@
 package com.tlcsdm.core.util.jexl;
 
-import org.apache.commons.jexl3.*;
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlContext;
+import org.apache.commons.jexl3.JexlEngine;
+import org.apache.commons.jexl3.JexlException;
+import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.MapContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:21
  */
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of JEXL is provided")
 public class JexlTest {
     static final String METHOD_STRING = "Method string";
     static final String GET_METHOD_STRING = "GetMethod string";
@@ -20,11 +33,8 @@ public class JexlTest {
 
     @BeforeAll
     public static void init() {
-        new JexlBuilder()
-            .strict(false)
-            .imports(Arrays.asList("java.lang", "java.math"))
-            .permissions(null)
-            .cache(128).create();
+        new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math")).permissions(null).cache(128)
+                .create();
     }
 
     /**
@@ -684,7 +694,8 @@ public class JexlTest {
 //        Assert.assertEquals("hello variable not changed", "world", jc.get("hello"));
 //        assertExpression(jc, "result = 1 + 1", new Integer(2));
 //        Assert.assertEquals("result variable not changed", new Integer(2), jc.get("result"));
-        // todo: make sure properties can be assigned to, fall back to flat var if no property
+        // todo: make sure properties can be assigned to, fall back to flat var if no
+        // property
         // assertExpression(jc, "foo.property1 = '99'", "99");
         // Assert.assertEquals("property not set", "99", foo.getProperty1());
     }
@@ -777,7 +788,7 @@ public class JexlTest {
     @SuppressWarnings("boxing")
     @Test
     public void testArray() throws Exception {
-        final int[] array = {100, 101, 102};
+        final int[] array = { 100, 101, 102 };
         final JexlEngine jexl = JEXL;
         final JexlContext jc = new MapContext();
         jc.set("array", array);
@@ -798,7 +809,8 @@ public class JexlTest {
      * Asserts that the given expression returns the given value when applied to the
      * given context
      */
-    protected void assertExpression(final JexlContext jc, final String expression, final Object expected) throws Exception {
+    protected void assertExpression(final JexlContext jc, final String expression, final Object expected)
+            throws Exception {
         final JexlExpression e = JEXL.createExpression(expression);
         final Object actual = e.evaluate(jc);
         Assertions.assertEquals(expression, expected, (String) actual);

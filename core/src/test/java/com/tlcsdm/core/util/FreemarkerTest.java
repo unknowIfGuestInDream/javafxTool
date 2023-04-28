@@ -38,6 +38,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of Freemarker is provided")
 public class FreemarkerTest {
     private static Configuration configuration;
 
@@ -53,7 +55,7 @@ public class FreemarkerTest {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
         try {
             configuration.setDirectoryForTemplateLoading(
-                new File(ResourceUtil.getResource("freemarker/templates").getPath()));
+                    new File(ResourceUtil.getResource("freemarker/templates").getPath()));
             configuration.setDefaultEncoding("utf-8");
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20,soft:250");
