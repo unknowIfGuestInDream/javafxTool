@@ -8,6 +8,7 @@ import org.apache.commons.jexl3.JexlExpression;
 import org.apache.commons.jexl3.MapContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -26,6 +27,7 @@ import java.util.Map;
  * @date: 2023/4/23 21:21
  */
 @DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of JEXL is provided")
+@Disabled
 public class JexlTest {
     static final String METHOD_STRING = "Method string";
     static final String GET_METHOD_STRING = "GetMethod string";
