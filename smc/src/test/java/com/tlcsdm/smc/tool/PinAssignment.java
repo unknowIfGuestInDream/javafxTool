@@ -1,14 +1,5 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
@@ -16,11 +7,18 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * pin数据整理
  */
-@EnabledOnOs({ OS.WINDOWS, OS.MAC })
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "Not support in github action")
 public class PinAssignment {
 
     // excel的父级目录路径
