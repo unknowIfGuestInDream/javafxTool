@@ -3,11 +3,13 @@ package com.tlcsdm.core.util.groovy;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 21:28
  */
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of Groovy is provided")
 public class GroovyShellTest {
 
     @Test
