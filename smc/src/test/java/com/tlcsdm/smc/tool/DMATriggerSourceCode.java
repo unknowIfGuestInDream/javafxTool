@@ -1,21 +1,25 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class DMATriggerSourceCode {
 
     @Test
@@ -27,24 +31,24 @@ public class DMATriggerSourceCode {
         String outputPath = "C:\\workspace\\test";
         String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-            RH850U2C8-B;F
-            RH850U2C4-B;J
-            RH850U2C2-B;L
-            RH850U2C8-D;T
-            RH850U2C4-D;X
-            RH850U2C2-D;Z
-            """;
+                RH850U2C8-B;F
+                RH850U2C4-B;J
+                RH850U2C2-B;L
+                RH850U2C8-D;T
+                RH850U2C4-D;X
+                RH850U2C2-D;Z
+                """;
         String sheetName = "sDMAC transfer request";
         String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
         String tagTemplate = """
-            {offset}<tagBinding id="Trigger{factor}" key="Trigger_Source" value="{macro}">
-            {offset}    <and>
-            {offset}        <simpleCondition optionId="requestSource" valueId="HWRequestGrp{groupNum}">
-            {offset}        </simpleCondition>
-            {offset}        <simpleCondition optionId="triggerSourceGrp{groupNum}" valueId="{factor}">
-            {offset}        </simpleCondition>
-            {offset}    </and>
-            {offset}</tagBinding>""";
+                {offset}<tagBinding id="Trigger{factor}" key="Trigger_Source" value="{macro}">
+                {offset}    <and>
+                {offset}        <simpleCondition optionId="requestSource" valueId="HWRequestGrp{groupNum}">
+                {offset}        </simpleCondition>
+                {offset}        <simpleCondition optionId="triggerSourceGrp{groupNum}" valueId="{factor}">
+                {offset}        </simpleCondition>
+                {offset}    </and>
+                {offset}</tagBinding>""";
         int startRow = 5;
         int endRow = 260;
         int offset = 4;
@@ -76,7 +80,7 @@ public class DMATriggerSourceCode {
             List<String> defineContent = new ArrayList<>();
             String defaultSelection = "";
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
-                .put("groupNum", String.valueOf(groupNum)).build();
+                    .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
                 String factor = reader.getCell(group + i).getStringCellValue();
                 if ("Reserve".equals(factor)) {
@@ -88,7 +92,7 @@ public class DMATriggerSourceCode {
                 paramMap.put("factor", factor);
                 // setting
                 String staticItem = StrUtil.format("""
-                    {offset}    <staticItem enabled="true" id="{factor}" name="{factor}"/>""", paramMap);
+                        {offset}    <staticItem enabled="true" id="{factor}" name="{factor}"/>""", paramMap);
                 triggerContent.add(staticItem);
 
                 String macro = StrUtil.format(macroTemplate, paramMap);
@@ -107,9 +111,9 @@ public class DMATriggerSourceCode {
             }
             // 后置处理
             triggerContent.add(0, StrUtil.format(
-                """
-                    {offset}<option defaultSelection="{defaultSelection}" enabled="true" id="triggerSourceGrp{groupNum}" name="triggerSourceGrp{groupNum}">""",
-                MapUtil.builder(paramMap).put("defaultSelection", defaultSelection).build()));
+                    """
+                            {offset}<option defaultSelection="{defaultSelection}" enabled="true" id="triggerSourceGrp{groupNum}" name="triggerSourceGrp{groupNum}">""",
+                    MapUtil.builder(paramMap).put("defaultSelection", defaultSelection).build()));
             triggerContent.add(offsetString + "</option>");
             // 当前循环结束，开始下一次循环
             settingContent.addAll(triggerContent);

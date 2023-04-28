@@ -1,5 +1,19 @@
 package com.tlcsdm.smc.tool;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import com.tlcsdm.core.util.FreemarkerUtil;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -8,23 +22,14 @@ import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
+@EnabledOnOs({ OS.WINDOWS, OS.MAC })
 public class DMATemplateTriggerSourceCode {
 
     private static Configuration configuration;
@@ -51,13 +56,13 @@ public class DMATemplateTriggerSourceCode {
         String outputPath = "C:\\workspace\\test";
         String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-            RH850U2C8;292;F
-            RH850U2C4;292;J
-            RH850U2C2;176;L
-            RH850U2C8;176;T
-            RH850U2C4;156;X
-            RH850U2C2;144;Z
-            """;
+                RH850U2C8;292;F
+                RH850U2C4;292;J
+                RH850U2C2;176;L
+                RH850U2C8;176;T
+                RH850U2C4;156;X
+                RH850U2C2;144;Z
+                """;
         String sheetName = "sDMAC transfer request";
         String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
         int startRow = 5;
@@ -99,7 +104,7 @@ public class DMATemplateTriggerSourceCode {
             String defaultSelection = "";
             // 模板赋值使用
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
-                .put("groupNum", String.valueOf(groupNum)).build();
+                    .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
                 Map<String, Object> setting = new HashMap<>();
                 Map<String, Object> cgdma = new HashMap<>();
