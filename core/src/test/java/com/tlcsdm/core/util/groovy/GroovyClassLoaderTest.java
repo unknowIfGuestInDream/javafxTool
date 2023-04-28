@@ -18,7 +18,8 @@ public class GroovyClassLoaderTest {
     public void test() {
         try {
             GroovyClassLoader loader = new GroovyClassLoader();
-            Class fileCreator = loader.parseClass(new File(ResourceUtil.getResource("groovy/GroovySimpleFileCreator.groovy").getPath()));
+            Class fileCreator = loader
+                    .parseClass(new File(ResourceUtil.getResource("groovy/GroovySimpleFileCreator.groovy").getPath()));
             GroovyObject object = (GroovyObject) fileCreator.getDeclaredConstructor().newInstance();
             object.invokeMethod("printName", "Groovy");
         } catch (Exception e) {
@@ -47,7 +48,7 @@ public class GroovyClassLoaderTest {
             Person person = new Person("wchi", "nanjing", 30);
             Class scriptClass = loader.parseClass(new File(ResourceUtil.getResource("groovy/hello2.groovy").getPath()));
             GroovyObject scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
-            Object ret = scriptInstance.invokeMethod("helloWithParam", new Object[]{person, "lxi"});
+            Object ret = scriptInstance.invokeMethod("helloWithParam", new Object[] { person, "lxi" });
             System.out.println("testGroovy3:" + ret);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,19 +60,20 @@ public class GroovyClassLoaderTest {
     public void test3() {
         GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
         String helloScript = """
-            package com.vivo.groovy.util
-            class Hello {
-            String say(String name) {
-            System.out.println("hello, " + name)
-            return name + " result";
-            }
-            }
-            """;
+                package com.vivo.groovy.util
+                class Hello {
+                String say(String name) {
+                System.out.println("hello, " + name)
+                return name + " result";
+                }
+                }
+                """;
         Class helloClass = groovyClassLoader.parseClass(helloScript);
         GroovyObject object = null;
         try {
             object = (GroovyObject) helloClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException e) {
             e.printStackTrace();
         }
         Object ret = object.invokeMethod("say", "vivo");
@@ -86,10 +88,11 @@ public class GroovyClassLoaderTest {
     public void invokeGroovy() {
         GroovyClassLoader groovyCl = new GroovyClassLoader();
         try {
-            //从文件中读取，将实现IFoo接口的groovy类写在一个groovy文件中
+            // 从文件中读取，将实现IFoo接口的groovy类写在一个groovy文件中
             Class groovyClass = groovyCl.parseClass(new File(ResourceUtil.getResource("groovy/Foo.groovy").getPath()));
-            //直接使用Groovy字符串,也可以获得正确结果
-            //Class groovyClass = groovyCl.parseClass("class Foo implements IFoo {public Object run(Object foo) {return 2+2>1}}");//这个返回true
+            // 直接使用Groovy字符串,也可以获得正确结果
+            // Class groovyClass = groovyCl.parseClass("class Foo implements IFoo {public
+            // Object run(Object foo) {return 2+2>1}}");//这个返回true
             IFoo foo = (IFoo) groovyClass.getDeclaredConstructor().newInstance();
             System.out.println(foo.run(2));
         } catch (Exception e) {

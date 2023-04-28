@@ -1,25 +1,23 @@
 package com.tlcsdm.smc.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
-@EnabledOnOs({ OS.WINDOWS, OS.MAC })
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "Not support in github action")
 public class DMATriggerSourceCode {
 
     @Test
