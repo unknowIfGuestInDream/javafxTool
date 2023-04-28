@@ -1,7 +1,12 @@
 package com.tlcsdm.core.util.jexl;
 
-import org.apache.commons.jexl3.*;
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlContext;
+import org.apache.commons.jexl3.JexlEngine;
+import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.MapContext;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * Simple example to show how to access method and properties.
@@ -9,6 +14,7 @@ import org.junit.jupiter.api.Test;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:18
  */
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of JEXL is provided")
 public class MethodPropertyTest {
     /**
      * An example for method access.

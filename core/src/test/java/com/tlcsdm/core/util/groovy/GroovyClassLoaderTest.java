@@ -4,6 +4,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -12,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 21:31
  */
+@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of Groovy is provided")
 public class GroovyClassLoaderTest {
 
     @Test
