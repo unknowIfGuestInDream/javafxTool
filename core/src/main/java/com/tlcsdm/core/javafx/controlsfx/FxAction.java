@@ -213,4 +213,20 @@ public class FxAction {
     public static Action logConsole(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/console.png");
     }
+
+    public static Action export(Consumer<ActionEvent> eventHandler) {
+        return export(I18nUtils.get("core.button.export"), eventHandler);
+    }
+
+    public static Action export(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/export.png");
+    }
+
+    public static Action induct(Consumer<ActionEvent> eventHandler) {
+        return induct(I18nUtils.get("core.button.import"), eventHandler);
+    }
+
+    public static Action induct(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/import.png");
+    }
 }
