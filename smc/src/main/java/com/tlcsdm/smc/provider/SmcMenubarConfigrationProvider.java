@@ -73,6 +73,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         new FXSampler().start(new Stage());
     }));
 
+    private final Action export = FxAction.restart(actionEvent -> Platform.runLater(() -> {
+    }));
+
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
@@ -149,7 +152,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction english = new CheckLangAction(SmcConstant.LANGUAGE_ENGLISH);
     CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
-    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
+    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(export, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
             ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
