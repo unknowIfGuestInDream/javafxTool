@@ -30,6 +30,7 @@ package com.tlcsdm.core.util.groovy;
 import com.tlcsdm.core.util.GroovyUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -39,7 +40,7 @@ import java.util.Map;
  * @date: 2023/4/24 22:07
  */
 //@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
-//@DisabledIfSystemProperty(named = "workEnv", matches = "github")
+@DisabledIfSystemProperty(named = "workEnv", matches = "github")
 public class GroovyUtilTest {
     /**
      * 测试没有参数的方法调用
