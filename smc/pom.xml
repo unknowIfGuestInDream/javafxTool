@@ -94,8 +94,8 @@
         </dependency>
         <!-- freemarker use end -->
         <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy</artifactId>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
         </dependency>
     </dependencies>
 

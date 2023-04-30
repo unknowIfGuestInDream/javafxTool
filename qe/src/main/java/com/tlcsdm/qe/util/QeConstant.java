@@ -55,6 +55,10 @@ public class QeConstant {
      */
     public static final String PROJECT_LICENSE_NAME = "MIT";
     /**
+     * 项目名
+     */
+    public static final String PROJECT_NAME = "qe";
+    /**
      * 项目作者
      */
     public static final String PROJECT_AUTHOR = "unknowIfGuestInDream";
