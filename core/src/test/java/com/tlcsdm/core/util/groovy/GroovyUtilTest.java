@@ -32,9 +32,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
-import java.util.Iterator;
-import java.util.Map;
-
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:07
@@ -47,13 +44,6 @@ public class GroovyUtilTest {
      */
     @Test
     public void testGroovyWithoutParam() throws Exception {
-        Map map = System.getProperties();
-        Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            System.out.print(entry.getKey() + "=");
-            System.out.println(entry.getValue());
-        }
         String result = (String) GroovyUtil.invokeMethod("hello2.groovy", "helloWithoutParam");
         System.out.println("testGroovy4: " + result + "\n");
     }
