@@ -46,13 +46,9 @@ import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class U2AEcmTest {
 
     private static Configuration configuration;

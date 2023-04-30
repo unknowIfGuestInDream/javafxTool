@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -6,6 +33,7 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileOutputStream;
@@ -86,15 +114,16 @@ public class Dom4jTest {
 
     //修改元素
     @Test
+    @Disabled
     public void method5() throws Exception {
 
         // 得到Document
         SAXReader reader = new SAXReader();
-        Document doc = reader.read(ResourceUtil.getResource("util/dom4j/students_copy.xml").getPath());
+        Document doc = reader.read(ResourceUtil.getResource("util/dom4j/students.xml").getPath());
 
         //使用XPath找到符合条件的元素
         // 查询student元素，条件是number属性的值为1003
-        Element stuEle = (Element) doc.selectSingleNode("//student[@number='ITCAST_1003']");
+        Element stuEle = (Element) doc.selectSingleNode("//student[@number='ITCAST_1001']");
         //修改stuEle的age子元素内容为81
         stuEle.element("age").setText("81");
         //修改stuEle的sex子元素的内容为female
@@ -104,6 +133,7 @@ public class Dom4jTest {
 
     //删除元素
     @Test
+    @Disabled
     public void method6() throws Exception {
 
         // 得到Document
@@ -111,7 +141,7 @@ public class Dom4jTest {
         Document doc = reader.read(ResourceUtil.getResource("util/dom4j/students_copy.xml").getPath());
 
         // 查找student元素，条件是name子元素的文本内容为wangWu
-        Element stuEle = (Element) doc.selectSingleNode("//student[name='wangWu']");
+        Element stuEle = (Element) doc.selectSingleNode("//student[name='zhangSan']");
 
         // 2. 获取父元素，使用父元素删除指定子元素
         stuEle.getParent().remove(stuEle);
