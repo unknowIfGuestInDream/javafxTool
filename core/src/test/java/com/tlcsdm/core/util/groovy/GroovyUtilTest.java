@@ -30,7 +30,6 @@ package com.tlcsdm.core.util.groovy;
 import com.tlcsdm.core.util.GroovyUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -39,7 +38,7 @@ import java.util.Map;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:07
  */
-@DisabledIfEnvironmentVariable(named = "WORK_ENV", matches = "github", disabledReason = "The scope of Groovy is provided")
+//@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
 //@DisabledIfSystemProperty(named = "workEnv", matches = "github")
 public class GroovyUtilTest {
     /**
@@ -47,7 +46,7 @@ public class GroovyUtilTest {
      */
     @Test
     public void testGroovyWithoutParam() throws Exception {
-        Map map = System.getenv();
+        Map map = System.getProperties();
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
