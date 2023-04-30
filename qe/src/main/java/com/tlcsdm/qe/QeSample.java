@@ -41,7 +41,7 @@ public abstract class QeSample extends SampleBase {
 
     @Override
     public String getProjectName() {
-        return "qe";
+        return QeConstant.PROJECT_NAME;
     }
 
     @Override

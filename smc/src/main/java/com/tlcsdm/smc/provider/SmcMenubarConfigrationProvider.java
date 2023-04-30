@@ -36,6 +36,7 @@ import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.FXSampler;
@@ -63,15 +64,16 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 
-    private final Action restart = FxAction.restart(actionEvent -> Platform.runLater(() -> {
-        stage.close();
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        new FXSampler().start(new Stage());
-    }));
+    private final Action restart = FxAction.restart(actionEvent -> restart());
+
+    private final Action export = FxAction.export(actionEvent -> {
+        FxXmlHelper.exportData(SmcConstant.PROJECT_NAME);
+    });
+
+    private final Action induct = FxAction.induct(actionEvent -> {
+        FxXmlHelper.importData(SmcConstant.PROJECT_NAME);
+        restart();
+    });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
 
@@ -149,7 +151,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction english = new CheckLangAction(SmcConstant.LANGUAGE_ENGLISH);
     CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
-    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(restart, exit),
+    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
             ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
@@ -242,6 +244,18 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                 }
             });
         }
+    }
+
+    private void restart() {
+        Platform.runLater(() -> {
+            stage.close();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            new FXSampler().start(new Stage());
+        });
     }
 
 }
