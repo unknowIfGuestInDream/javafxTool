@@ -42,17 +42,13 @@ import freemarker.template.TemplateExceptionHandler;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
 public class U2AEcmTest {
 
     private static Configuration configuration;

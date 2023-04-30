@@ -1,23 +1,40 @@
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.tlcsdm.core.util.jexl;
 
-import org.apache.commons.jexl3.JexlBuilder;
-import org.apache.commons.jexl3.JexlContext;
-import org.apache.commons.jexl3.JexlEngine;
-import org.apache.commons.jexl3.JexlExpression;
-import org.apache.commons.jexl3.JexlFeatures;
-import org.apache.commons.jexl3.JexlScript;
-import org.apache.commons.jexl3.MapContext;
+import org.apache.commons.jexl3.*;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,7 +42,7 @@ import java.util.stream.Stream;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:32
  */
-@DisabledIfSystemProperty(named = "env", matches = "workflow", disabledReason = "The scope of JEXL is provided")
+@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "The scope of JEXL is provided")
 public class JexlDemo {
 
     @Test
@@ -57,7 +74,7 @@ public class JexlDemo {
         JexlContext context = new MapContext(person);
 
         JexlEngine engine = new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(null).cache(128).create();
+            .permissions(null).cache(128).create();
 
         // 看看这个人是否年龄在30岁以上，并且身上有超过100元现金
         boolean yes = (Boolean) engine.createExpression("age>30 && cash>100").evaluate(context);
@@ -72,7 +89,7 @@ public class JexlDemo {
     @Test
     public void demo1() {
         JexlEngine engine = new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math"))
-                .permissions(null).cache(128).create();
+            .permissions(null).cache(128).create();
         String calculateTax = "((G1 + G2 + G3) * 0.1) + G4";
         JexlContext context = new MapContext();
         context.set("G1", 1);
@@ -90,16 +107,16 @@ public class JexlDemo {
         // Restricted permissions to a safe set but with URI allowed
         JexlPermissions permissions = new JexlPermissions.ClassPermissions(java.net.URI.class);
         JexlEngine jexl = new JexlBuilder().features(features).strict(false)
-                .imports(Arrays.asList("java.lang", "java.math")).permissions(permissions).cache(128).create();
+            .imports(Arrays.asList("java.lang", "java.math")).permissions(permissions).cache(128).create();
         // let's assume a collection of uris need to be processed and transformed to be
         // simplified ;
         // we want only http/https ones, only the host part and forcing an https scheme
         List<URI> uris = Arrays.asList(URI.create("http://user@www.apache.org:8000?qry=true"),
-                URI.create("https://commons.apache.org/releases/prepare.html"), URI.create("mailto:henrib@apache.org"));
+            URI.create("https://commons.apache.org/releases/prepare.html"), URI.create("mailto:henrib@apache.org"));
         // Create the test control, the expected result of our script evaluation
         List<?> control = uris.stream()
-                .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
-                .filter(x -> x != null).collect(Collectors.toList());
+            .map(uri -> uri.getScheme().startsWith("http") ? "https://" + uri.getHost() : null)
+            .filter(x -> x != null).collect(Collectors.toList());
         Assertions.assertEquals(2, control.size());
 
         // Create scripts:
@@ -112,7 +129,7 @@ public class JexlDemo {
         // using the bang-bang / !! - JScript like - is the way to coerce to boolean in
         // the filter
         JexlScript transform = jexl
-                .createScript("list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
+            .createScript("list.stream().map(mapper).filter(x -> !!x).collect(Collectors.toList())", "list");
 
         // Execute scripts:
         JexlContext sctxt = new StreamContext();
