@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.log.StaticLog;
 import org.apache.commons.configuration2.XMLPropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -35,6 +36,9 @@ import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -134,7 +138,7 @@ public class FxXmlUtil {
 
     public static Map<String, Object> getValues(String prefix) {
         Iterator<String> iter = getConfig().getKeys(prefix);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         while (iter.hasNext()) {
             String key = iter.next();
             map.put(key, get(key));
@@ -155,6 +159,22 @@ public class FxXmlUtil {
         while (iter.hasNext()) {
             String key = iter.next();
             set(key, map.get(key));
+        }
+    }
+
+    public static void write(File file) {
+        try {
+            getConfig().write(new FileWriter(file));
+        } catch (ConfigurationException | IOException e) {
+            StaticLog.error(e);
+        }
+    }
+
+    public static void read(File file) {
+        try {
+            getConfig().read(new FileReader(file));
+        } catch (ConfigurationException | IOException e) {
+            StaticLog.error(e);
         }
     }
 

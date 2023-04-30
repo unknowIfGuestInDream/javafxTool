@@ -73,7 +73,7 @@ public class Dom4jUtil {
      */
     public static void doc2XmlFile(Document document, String filename) {
         try {
-            OutputFormat format = OutputFormat.createPrettyPrint();
+            OutputFormat format = defaultOutputFormat();
             XMLWriter writer = new XMLWriter(new FileOutputStream(filename), format);
             writer.write(document);
             writer.close();
@@ -104,8 +104,7 @@ public class Dom4jUtil {
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(new File(filename));
             XMLWriter writer = null;
-            OutputFormat format = OutputFormat.createPrettyPrint();
-            format.setEncoding("GBK");
+            OutputFormat format = defaultOutputFormat();
             writer = new XMLWriter(new FileWriter(filename), format);
             writer.write(document);
             writer.close();
@@ -114,5 +113,11 @@ public class Dom4jUtil {
             StaticLog.error(e);
         }
         return returnValue;
+    }
+
+    public static OutputFormat defaultOutputFormat() {
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        format.setTrimText(false);
+        return format;
     }
 }

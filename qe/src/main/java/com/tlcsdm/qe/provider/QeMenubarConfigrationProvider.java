@@ -63,15 +63,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 
-    private final Action restart = FxAction.restart(actionEvent -> Platform.runLater(() -> {
-        stage.close();
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        new FXSampler().start(new Stage());
-    }));
+    private final Action restart = FxAction.restart(actionEvent -> restart());
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
 
@@ -242,6 +234,18 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                 }
             });
         }
+    }
+
+    private void restart() {
+        Platform.runLater(() -> {
+            stage.close();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            new FXSampler().start(new Stage());
+        });
     }
 
 }

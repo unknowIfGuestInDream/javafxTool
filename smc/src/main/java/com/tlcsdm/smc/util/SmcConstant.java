@@ -55,6 +55,10 @@ public class SmcConstant {
      */
     public static final String PROJECT_LICENSE_NAME = "MIT";
     /**
+     * 项目名
+     */
+    public static final String PROJECT_NAME = "smc";
+    /**
      * 项目作者
      */
     public static final String PROJECT_AUTHOR = "unknowIfGuestInDream";
