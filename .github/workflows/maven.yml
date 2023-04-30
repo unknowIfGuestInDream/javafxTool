@@ -37,4 +37,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: Test with Maven
-        run: mvn test -DworkEnv=github
+        run: mvn test
+        env:
+          WORK_ENV: 'github'

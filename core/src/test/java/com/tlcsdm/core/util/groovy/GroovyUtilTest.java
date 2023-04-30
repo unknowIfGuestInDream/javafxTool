@@ -30,21 +30,30 @@ package com.tlcsdm.core.util.groovy;
 import com.tlcsdm.core.util.GroovyUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:07
  */
-//@DisabledIfEnvironmentVariable(named = "WORK_ENV", matches = "github", disabledReason = "The scope of Groovy is provided")
-@DisabledIfSystemProperty(named = "workEnv", matches = "github")
+@DisabledIfEnvironmentVariable(named = "WORK_ENV", matches = "github", disabledReason = "The scope of Groovy is provided")
+//@DisabledIfSystemProperty(named = "workEnv", matches = "github")
 public class GroovyUtilTest {
     /**
      * 测试没有参数的方法调用
      */
     @Test
-    @Disabled
     public void testGroovyWithoutParam() throws Exception {
+        Map map = System.getenv();
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            System.out.print(entry.getKey() + "=");
+            System.out.println(entry.getValue());
+        }
         String result = (String) GroovyUtil.invokeMethod("hello2.groovy", "helloWithoutParam");
         System.out.println("testGroovy4: " + result + "\n");
     }
