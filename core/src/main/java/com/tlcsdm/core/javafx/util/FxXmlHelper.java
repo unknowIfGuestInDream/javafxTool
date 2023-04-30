@@ -39,9 +39,15 @@ import java.util.Map;
 
 /**
  * 用户数据导出导入
- * <code>
+ * <pre><code>
  *
- * </code>
+ * <javafxTool>
+ *   <smc>
+ *     <entry key=""></entry>
+ *   </smc>
+ * </javafxTool>
+ *
+ * </code></pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2022/12/11 19:03

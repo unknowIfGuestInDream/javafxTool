@@ -25,35 +25,57 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.qe.config;
+package com.tlcsdm.frame.model;
 
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.frame.Sample;
-import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
-import com.tlcsdm.frame.model.EmptySample;
 import javafx.beans.binding.Bindings;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeView;
+import javafx.util.Callback;
 
-public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
-
+public class AbstractTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCell<Sample>> {
     @Override
-    public void setupImageBinding(TreeCell<Sample> treeCell) {
-        treeCell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
-            final Sample item = treeCell.getItem();
-            if (item == null) {
-                return null;
-            }
-            if (item instanceof EmptySample emptySample) {
-                return switch (item.getSampleName()) {
-                    case "Qe", "Common" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png"));
-                    case "Tools" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/tools.png"));
-                    default -> emptySample.getSampleImageIcon();
-                };
-            }
-            return item.getSampleImageIcon();
-        }, treeCell.itemProperty()));
+    public TreeCell<Sample> call(TreeView<Sample> sampleTreeView) {
+        TreeCell<Sample> treeCell = getTreeCell();
+        setupImageBinding(treeCell);
+        setupTooltipBinding(treeCell);
+        setupContextMenu(treeCell, sampleTreeView);
+        return treeCell;
     }
 
+    protected TreeCell<Sample> getTreeCell() {
+        return new TreeCell<>() {
+            @Override
+            protected void updateItem(Sample item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText("");
+                } else {
+                    setText(item.getSampleName());
+                }
+            }
+        };
+    }
+
+    protected void setupImageBinding(TreeCell<Sample> treeCell) {
+        //Do nothing
+    }
+
+    protected void setupTooltipBinding(TreeCell<Sample> treeCell) {
+        final Tooltip tooltip = new Tooltip();
+        tooltip.textProperty().bind(Bindings.createStringBinding(() -> {
+            final Sample sample = treeCell.getItem();
+            if (sample == null) {
+                return "";
+            }
+            return sample.getSampleName();
+        }, treeCell.itemProperty()));
+        treeCell.tooltipProperty()
+            .bind(Bindings.when(treeCell.itemProperty().isNotNull()).then(tooltip).otherwise((Tooltip) null));
+    }
+
+    protected void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> classes) {
+        //Do nothing
+    }
 }
