@@ -22,7 +22,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: smc
     strategy:
       matrix:
         java: [ '17', '20' ]
@@ -39,3 +38,5 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: Test with Maven
         run: mvn test
+        env:
+          ACTION_ENV: 'github'
