@@ -58,7 +58,7 @@ public class FxXmlHelper {
      */
     public static void exportData(String projectName) {
         FileChooser outputChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("xml", "*.xml");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
         outputChooser.getExtensionFilters().add(extFilter);
         outputChooser.setInitialFileName(projectName);
         File output = outputChooser.showSaveDialog(FxApp.primaryStage);
@@ -90,7 +90,7 @@ public class FxXmlHelper {
 
     public static void importData(String projectName) {
         FileChooser outputChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("xml", "*.xml");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
         outputChooser.getExtensionFilters().add(extFilter);
         File output = outputChooser.showOpenDialog(FxApp.primaryStage);
         if (output != null) {
