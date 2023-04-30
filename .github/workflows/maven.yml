@@ -39,4 +39,4 @@ jobs:
       - name: Test with Maven
         run: mvn test
         env:
-          ACTION_ENV: 'github'
+          WORK_ENV: 'github'
