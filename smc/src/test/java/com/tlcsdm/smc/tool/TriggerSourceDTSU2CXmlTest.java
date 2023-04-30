@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * DTS U2C trigger source xml生成
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class TriggerSourceDTSU2CXmlTest {
     // excel的父级目录路径
     private final String parentDirectoryPath = "C:\\workspace\\test";

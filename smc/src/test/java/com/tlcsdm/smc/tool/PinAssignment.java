@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * pin数据整理
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class PinAssignment {
 
     // excel的父级目录路径

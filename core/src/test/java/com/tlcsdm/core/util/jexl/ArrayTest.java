@@ -38,7 +38,7 @@ import java.util.List;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:15
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "The scope of JEXL is provided")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
 public class ArrayTest {
     /**
      * An example for array access.

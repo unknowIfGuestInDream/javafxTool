@@ -44,7 +44,7 @@ import java.util.Map;
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class DMATriggerSourceCode {
 
     @Test

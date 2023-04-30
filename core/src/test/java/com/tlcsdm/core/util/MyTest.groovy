@@ -40,7 +40,7 @@ import java.util.stream.Stream
 
 import static org.junit.jupiter.api.DynamicTest.dynamicTest
 
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 class MyTest {
 
     @BeforeAll

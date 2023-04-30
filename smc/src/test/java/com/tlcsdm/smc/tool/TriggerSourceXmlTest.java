@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * 根据DTS trigger source文档生成相应xml文件。
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class TriggerSourceXmlTest {
 
     // excel的父级目录路径

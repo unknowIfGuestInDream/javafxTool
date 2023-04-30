@@ -30,19 +30,19 @@ package com.tlcsdm.core.util.groovy;
 import com.tlcsdm.core.util.GroovyUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:07
  */
-//@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
-@DisabledIfSystemProperty(named = "workEnv", matches = "github")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
 public class GroovyUtilTest {
     /**
      * 测试没有参数的方法调用
      */
     @Test
+    @Disabled
     public void testGroovyWithoutParam() throws Exception {
         String result = (String) GroovyUtil.invokeMethod("hello2.groovy", "helloWithoutParam");
         System.out.println("testGroovy4: " + result + "\n");

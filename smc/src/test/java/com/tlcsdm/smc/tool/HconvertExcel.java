@@ -46,7 +46,7 @@ import java.util.List;
 /**
  * 既有头文件转换格式，方便后续粘到excel中
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class HconvertExcel {
 
     // 生成结果目录路径

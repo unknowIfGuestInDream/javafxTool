@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  * @date: 2022/8/24 20:18
  * @since: 1.0
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class GeneralTest {
 
     /*

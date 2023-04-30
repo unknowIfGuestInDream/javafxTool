@@ -36,7 +36,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 21:27
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "The scope of Groovy is provided")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
 public class GroovyScriptEngineTest {
 
     @Test

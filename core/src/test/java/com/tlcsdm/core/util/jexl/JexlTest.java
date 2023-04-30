@@ -42,7 +42,7 @@ import java.util.*;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:21
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "The scope of JEXL is provided")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
 @Disabled
 public class JexlTest {
     static final String METHOD_STRING = "Method string";

@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 生成代码长度检测
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class CodeStyleLength120Test {
 
     // 待比对文件的父级路径

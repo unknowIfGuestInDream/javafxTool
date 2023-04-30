@@ -61,7 +61,7 @@ import java.util.*;
 /**
  * Girret数据读取
  */
-@DisabledIfEnvironmentVariable(named = "ENV", matches = "workflow", disabledReason = "Not support in github action")
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
 public class GirretTest {
 
     // 用户配置
