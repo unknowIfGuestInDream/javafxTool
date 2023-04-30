@@ -41,7 +41,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +53,7 @@ import java.util.Map;
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class DMATemplateTriggerSourceCode {
 
     private static Configuration configuration;

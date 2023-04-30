@@ -31,7 +31,7 @@ import org.apache.commons.jexl3.*;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.net.URI;
 import java.util.*;
@@ -42,7 +42,7 @@ import java.util.stream.Stream;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:32
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class JexlDemo {
 
     @Test

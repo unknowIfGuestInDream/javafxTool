@@ -38,7 +38,7 @@ import cn.hutool.poi.excel.style.StyleUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 生成代码长度检测
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class CodeStyleLength120Test {
 
     // 待比对文件的父级路径

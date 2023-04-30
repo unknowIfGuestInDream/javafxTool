@@ -29,7 +29,7 @@ package com.tlcsdm.core.util.jexl;
 
 import org.apache.commons.jexl3.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * Simple example to show how to access method and properties.
@@ -37,7 +37,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:18
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class MethodPropertyTest {
     /**
      * An example for method access.

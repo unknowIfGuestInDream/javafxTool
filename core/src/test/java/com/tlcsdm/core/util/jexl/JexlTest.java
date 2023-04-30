@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -42,7 +42,7 @@ import java.util.*;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:21
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 @Disabled
 public class JexlTest {
     static final String METHOD_STRING = "Method string";

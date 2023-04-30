@@ -39,7 +39,7 @@ import cn.hutool.poi.excel.cell.CellUtil;
 import com.tlcsdm.core.util.DiffHandleUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  * @date: 2022/8/24 20:18
  * @since: 1.0
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class GeneralTest {
 
     /*

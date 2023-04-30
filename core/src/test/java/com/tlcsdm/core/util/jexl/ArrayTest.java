@@ -29,7 +29,7 @@ package com.tlcsdm.core.util.jexl;
 
 import org.apache.commons.jexl3.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ import java.util.List;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/23 21:15
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of JEXL is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class ArrayTest {
     /**
      * An example for array access.

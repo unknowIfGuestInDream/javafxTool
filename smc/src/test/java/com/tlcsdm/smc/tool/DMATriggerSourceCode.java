@@ -34,7 +34,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import java.util.Map;
 /**
  * 根据DMA triggersource 手册生成plugin setting&binding code 和 r_cg_dma.h相关代码
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class DMATriggerSourceCode {
 
     @Test

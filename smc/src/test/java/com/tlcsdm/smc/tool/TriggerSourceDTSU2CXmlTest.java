@@ -33,7 +33,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * DTS U2C trigger source xml生成
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class TriggerSourceDTSU2CXmlTest {
     // excel的父级目录路径
     private final String parentDirectoryPath = "C:\\workspace\\test";

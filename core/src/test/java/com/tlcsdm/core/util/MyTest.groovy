@@ -28,7 +28,7 @@
 package com.tlcsdm.core.util
 
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import org.junit.platform.launcher.listeners.LoggingListener
@@ -40,7 +40,7 @@ import java.util.stream.Stream
 
 import static org.junit.jupiter.api.DynamicTest.dynamicTest
 
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class MyTest {
 
     @BeforeAll

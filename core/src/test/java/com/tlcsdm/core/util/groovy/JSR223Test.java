@@ -28,7 +28,7 @@
 package com.tlcsdm.core.util.groovy;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -38,7 +38,7 @@ import javax.script.ScriptEngineManager;
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:20
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class JSR223Test {
 
     @Test

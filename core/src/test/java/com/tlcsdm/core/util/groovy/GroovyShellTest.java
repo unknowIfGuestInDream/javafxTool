@@ -30,13 +30,13 @@ package com.tlcsdm.core.util.groovy;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 21:28
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Groovy is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class GroovyShellTest {
 
     @Test

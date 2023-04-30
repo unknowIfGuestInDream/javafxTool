@@ -38,7 +38,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "The scope of Freemarker is provided")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class FreemarkerTest {
     private static Configuration configuration;
 

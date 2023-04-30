@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ import java.util.Map;
 /**
  * 根据DTS trigger source数据和DTS模板文件，生成DTS UD 中trigger source部分。
  */
-@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true", disabledReason = "Not support in github action")
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class DTSTriggerSourceDocument {
     // excel的父级目录路径
     private final String parentDirectoryPath = "C:\\workspace\\test";
