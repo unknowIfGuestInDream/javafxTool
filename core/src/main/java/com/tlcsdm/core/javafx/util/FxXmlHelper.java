@@ -35,13 +35,22 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * 用户数据导出导入
- * <code>
+ * <pre><code>
  *
- * </code>
+ * <javafxTool>
+ *   <smc>
+ *     <entry key=""></entry>
+ *   </smc>
+ * </javafxTool>
+ *
+ * </code></pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2022/12/11 19:03
@@ -57,6 +66,16 @@ public class FxXmlHelper {
      * projectName
      */
     public static void exportData(String projectName) {
+        exportData(projectName, null);
+    }
+
+    public static void exportData(String projectName, List<String> keys) {
+        boolean includeCommon = false;
+        if (keys == null || keys.size() == 0) {
+            keys = new ArrayList<>();
+            keys.add(projectName);
+            includeCommon = true;
+        }
         FileChooser outputChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
         outputChooser.getExtensionFilters().add(extFilter);
@@ -70,20 +89,24 @@ public class FxXmlHelper {
             document.addDocType(projectName, null, "http://java.sun.com/dtd/properties.dtd");
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
-            Map<String, Object> maps = FxXmlUtil.getValues(projectName);
+            Map<String, Object> maps = new LinkedHashMap<>();
+            keys.forEach(key -> {
+                maps.putAll(FxXmlUtil.getValues(key));
+            });
             maps.forEach((k, v) -> {
                 Element entry = s.addElement(ENTRY_ELEMENT);
                 entry.addAttribute(KEY_ATTRIBUTE, k);
                 entry.setText(v.toString());
             });
-
-            Element common = root.addElement(COMMON_ELEMENT);
-            Map<String, Object> comMap = FxXmlUtil.getValues(COMMON_ELEMENT);
-            comMap.forEach((k, v) -> {
-                Element entry = common.addElement(ENTRY_ELEMENT);
-                entry.addAttribute(KEY_ATTRIBUTE, k);
-                entry.setText(v.toString());
-            });
+            if (includeCommon) {
+                Element common = root.addElement(COMMON_ELEMENT);
+                Map<String, Object> comMap = FxXmlUtil.getValues(COMMON_ELEMENT);
+                comMap.forEach((k, v) -> {
+                    Element entry = common.addElement(ENTRY_ELEMENT);
+                    entry.addAttribute(KEY_ATTRIBUTE, k);
+                    entry.setText(v.toString());
+                });
+            }
             Dom4jUtil.doc2XmlFile(document, output.getPath());
         }
     }

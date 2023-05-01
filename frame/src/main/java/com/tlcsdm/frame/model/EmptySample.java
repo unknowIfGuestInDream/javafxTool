@@ -89,6 +89,11 @@ public class EmptySample implements Sample {
     }
 
     @Override
+    public String getSampleXmlPrefix() {
+        return getSampleName();
+    }
+
+    @Override
     public Node getControlPanel() {
         return null;
     }

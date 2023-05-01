@@ -251,7 +251,8 @@ public abstract class SampleBase extends Application implements Sample {
         // Do nothing
     }
 
-    protected String getSampleXmlPrefix() {
+    @Override
+    public String getSampleXmlPrefix() {
         return getProjectName() + "." + getSampleId();
     }
 

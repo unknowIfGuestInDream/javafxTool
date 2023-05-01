@@ -27,7 +27,10 @@
 
 package com.tlcsdm.smc.provider;
 
+import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.exception.SampleDefinitionException;
@@ -42,9 +45,11 @@ import java.util.*;
 public class SmcSamplePostProcessorProvider implements SamplePostProcessorService {
 
     private static final List<TreeNode<String>> sampleNodeList = new ArrayList<>();
+    private static List<Tree<String>> sampleTree = null;
     public static String SAMPLES_ROOTID = "parent";
     public static String SAMPLES_DEPTH = "depth";
     public static String SAMPLES_FOLDER = "folder";
+    public static String SAMPLES_XMLPREFIX = "xmlPrefix";
 
     @Override
     public void postProcessBeanFactory() {
@@ -103,6 +108,7 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
                 node.setParentId(n.getId());
                 node.setWeight(sample.getOrderKey());
                 map.put(SAMPLES_FOLDER, false);
+                map.put(SAMPLES_XMLPREFIX, sample.getSampleXmlPrefix());
             }
             node.setExtra(map);
             sampleNodeList.add(node);
@@ -112,5 +118,27 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
 
     public static List<TreeNode<String>> getSampleNodeList() {
         return sampleNodeList;
+    }
+
+    public static List<Tree<String>> getSampleTree() {
+        if (sampleTree != null) {
+            return sampleTree;
+        }
+        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
+        // 自定义属性名 都要默认值的
+        treeNodeConfig.setIdKey("rid");
+        //转换器
+        sampleTree = TreeUtil.build(SmcSamplePostProcessorProvider.getSampleNodeList(),
+            SmcSamplePostProcessorProvider.SAMPLES_ROOTID, treeNodeConfig,
+            (treeNode, tree) -> {
+                tree.setId(treeNode.getId());
+                tree.setParentId(treeNode.getParentId());
+                tree.setName(treeNode.getName());
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_DEPTH, treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_DEPTH));
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_FOLDER, treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_FOLDER));
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX, treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX));
+                tree.putExtra("order", treeNode.getWeight());
+            });
+        return sampleTree;
     }
 }
