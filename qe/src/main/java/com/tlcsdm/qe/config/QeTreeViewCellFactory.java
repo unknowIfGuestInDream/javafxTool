@@ -31,8 +31,12 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptySample;
+import com.tlcsdm.qe.util.QeConstant;
 import javafx.beans.binding.Bindings;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeView;
 
 public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
 
@@ -54,6 +58,21 @@ public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
             }
             return item.getSampleImageIcon();
         }, treeCell.itemProperty()));
+    }
+
+    @Override
+    public void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> sampleTreeView) {
+        final ContextMenu sampleContextMenu = new ContextMenu();
+        final MenuItem settingExport = createSettingExport(treeCell, QeConstant.PROJECT_NAME);
+
+        treeCell.itemProperty().addListener((obs, old, newv) -> {
+            sampleContextMenu.getItems().clear();
+            if (newv != null) {
+                sampleContextMenu.getItems().addAll(settingExport);
+            }
+        });
+
+        treeCell.setContextMenu(sampleContextMenu);
     }
 
 }
