@@ -65,7 +65,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 检测指定路径下文件内容长度是否超过120
+ * 文件差分
  *
  * @author unknowIfGuestInDream
  */
@@ -173,7 +173,7 @@ public class FileDiff extends CommonSample {
         });
 
         // output
-        Label outputLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.output") + ": ");
+        Label outputLabel = new Label(I18nUtils.get("common.tool.label.output") + ": ");
         outputField = new TextField();
         outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
@@ -248,7 +248,7 @@ public class FileDiff extends CommonSample {
         map.put("compareLabel", I18nUtils.get("common.tool.fileDiff.label.compare"));
         map.put("downloadButton", download.getText());
         map.put("downloadDesc", I18nUtils.get("common.tool.fileDiff.control.textarea2"));
-        map.put("outputLabel", I18nUtils.get("common.tool.fileDiff.label.output"));
+        map.put("outputLabel", I18nUtils.get("common.tool.label.output"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
