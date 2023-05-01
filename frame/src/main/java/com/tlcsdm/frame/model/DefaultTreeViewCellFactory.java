@@ -31,4 +31,5 @@ package com.tlcsdm.frame.model;
  * 默认CellFactory
  */
 public class DefaultTreeViewCellFactory extends AbstractTreeViewCellFactory {
+
 }

@@ -28,7 +28,6 @@
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.util.Dom4jUtil;
 import javafx.stage.FileChooser;
@@ -36,6 +35,9 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,10 +69,11 @@ public class FxXmlHelper {
         exportData(projectName, null);
     }
 
-    public static void exportData(String projectName, String key) {
+    public static void exportData(String projectName, List<String> keys) {
         boolean includeCommon = false;
-        if (StrUtil.isEmpty(key)) {
-            key = projectName;
+        if (keys == null || keys.size() == 0) {
+            keys = new ArrayList<>();
+            keys.add(projectName);
             includeCommon = true;
         }
         FileChooser outputChooser = new FileChooser();
@@ -86,7 +89,10 @@ public class FxXmlHelper {
             document.addDocType(projectName, null, "http://java.sun.com/dtd/properties.dtd");
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
-            Map<String, Object> maps = FxXmlUtil.getValues(key);
+            Map<String, Object> maps = new LinkedHashMap<>();
+            keys.forEach(key -> {
+                maps.putAll(FxXmlUtil.getValues(key));
+            });
             maps.forEach((k, v) -> {
                 Element entry = s.addElement(ENTRY_ELEMENT);
                 entry.addAttribute(KEY_ATTRIBUTE, k);
@@ -104,10 +110,6 @@ public class FxXmlHelper {
             Dom4jUtil.doc2XmlFile(document, output.getPath());
         }
     }
-
-//    public static void exportData(String projectName, List<String> keys) {
-//
-//    }
 
     public static void importData(String projectName) {
         FileChooser outputChooser = new FileChooser();

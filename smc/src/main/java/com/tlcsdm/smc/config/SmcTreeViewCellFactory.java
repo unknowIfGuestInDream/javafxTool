@@ -27,12 +27,11 @@
 
 package com.tlcsdm.smc.config;
 
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.util.I18nUtils;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptySample;
+import com.tlcsdm.smc.util.SmcConstant;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -71,73 +70,16 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
     @Override
     public void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> sampleTreeView) {
         final ContextMenu sampleContextMenu = new ContextMenu();
-        final MenuItem settingExport = createSettingExport(treeCell);
+        final MenuItem settingExport = createSettingExport(treeCell, SmcConstant.PROJECT_NAME);
 
         treeCell.itemProperty().addListener((obs, old, newv) -> {
             sampleContextMenu.getItems().clear();
             if (newv != null) {
                 sampleContextMenu.getItems().addAll(settingExport);
             }
-//            classesContextMenu.getItems()
-//                .addAll(executeCode,
-//                    new SeparatorMenuItem(),
-//                    exportClasses,
-//                    replaceClasses,
-//                    reloadClasses,
-//                    new SeparatorMenuItem(),
-//                    includeClassLoader);
         });
 
         treeCell.setContextMenu(sampleContextMenu);
     }
-
-    protected MenuItem createSettingExport(TreeCell<Sample> treeCell) {
-        final MenuItem settingExport = new MenuItem();
-        settingExport.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/export.png")));
-        settingExport.textProperty().bind(Bindings.createStringBinding(() -> {
-            final Sample sample = treeCell.getItem();
-            if (sample == null) {
-                return "";
-            }
-            return I18nUtils.get("core.button.export");
-        }, treeCell.itemProperty()));
-
-        settingExport.setOnAction(e -> {
-            final Sample sample = treeCell.getItem();
-            if (sample == null) {
-                return;
-            }
-            if (sample instanceof EmptySample emptySample) {
-                treeCell.getTreeItem().getChildren().forEach(w -> {
-                    System.out.println(w.getValue().getSampleName());
-                    System.out.println(w.isLeaf());
-                });
-            } else {
-
-            }
-
-        });
-        return settingExport;
-    }
-
-//    private MenuItem createExportClasses(TreeView<ClassTreeNode> classes) {
-//        final MenuItem exportClasses = new MenuItem("Export Classes");
-//        exportClasses.setOnAction(e -> {
-//            final RunningJvm activeJvm = currentJvm.get();
-//            if (activeJvm == null) {
-//                return;
-//            }
-//            final File selectedFile = selectExportJarFile(activeJvm.getName(), classes.getScene().getWindow());
-//            if (selectedFile == null) {
-//                return;
-//            }
-//            final List<LoadedClass> loadedClasses = classesTreeRoot.streamVisible()
-//                .map(ClassTreeNode::getLoadedClass)
-//                .filter(Objects::nonNull)
-//                .collect(Collectors.toList());
-//            executorService.submit(() -> export(selectedFile, loadedClasses, activeJvm));
-//        });
-//        return exportClasses;
-//    }
 
 }

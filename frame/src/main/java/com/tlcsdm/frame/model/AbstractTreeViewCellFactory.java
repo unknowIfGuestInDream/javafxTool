@@ -27,14 +27,19 @@
 
 package com.tlcsdm.frame.model;
 
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FxXmlHelper;
+import com.tlcsdm.core.util.I18nUtils;
 import com.tlcsdm.frame.Sample;
 import javafx.beans.binding.Bindings;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 
-public class AbstractTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCell<Sample>> {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCell<Sample>> {
     @Override
     public TreeCell<Sample> call(TreeView<Sample> sampleTreeView) {
         TreeCell<Sample> treeCell = getTreeCell();
@@ -78,4 +83,50 @@ public class AbstractTreeViewCellFactory implements Callback<TreeView<Sample>, T
     protected void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> classes) {
         //Do nothing
     }
+
+    /**
+     * 导出设置右键菜单
+     */
+    protected MenuItem createSettingExport(TreeCell<Sample> treeCell, String projectName) {
+        final MenuItem settingExport = new MenuItem();
+        settingExport.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/export.png")));
+        settingExport.textProperty().bind(Bindings.createStringBinding(() -> {
+            final Sample sample = treeCell.getItem();
+            if (sample == null) {
+                return "";
+            }
+            return I18nUtils.get("core.button.export");
+        }, treeCell.itemProperty()));
+
+        settingExport.setOnAction(e -> {
+            final Sample sample = treeCell.getItem();
+            if (sample == null) {
+                return;
+            }
+            List<String> sampleList = new ArrayList<>();
+            if (sample instanceof EmptySample) {
+                treeCell.getTreeItem().getChildren().forEach(w -> {
+                    walkSample(w, sampleList);
+                });
+            } else {
+                sampleList.add(sample.getSampleXmlPrefix());
+            }
+            FxXmlHelper.exportData(projectName, sampleList);
+        });
+        return settingExport;
+    }
+
+    /**
+     * 获取选择项下的sample的xml配置前缀
+     */
+    private void walkSample(TreeItem<Sample> item, List<String> sampleList) {
+        if (item.isLeaf()) {
+            sampleList.add(item.getValue().getSampleXmlPrefix());
+        } else {
+            for (TreeItem<Sample> t : item.getChildren()) {
+                walkSample(t, sampleList);
+            }
+        }
+    }
+
 }
