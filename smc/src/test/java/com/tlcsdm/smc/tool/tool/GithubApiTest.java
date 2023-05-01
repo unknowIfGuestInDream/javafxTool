@@ -32,6 +32,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -49,6 +50,7 @@ import java.util.concurrent.TimeoutException;
  *
  * @author os_tangliang
  */
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class GithubApiTest {
 
     static volatile String result = "";
