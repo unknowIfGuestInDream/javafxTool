@@ -108,4 +108,9 @@ public interface Sample {
      */
     String getOrderKey();
 
+    /**
+     * xml配置key前缀，用于导出等功能使用
+     */
+    String getSampleXmlPrefix();
+
 }

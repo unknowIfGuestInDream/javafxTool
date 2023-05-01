@@ -27,11 +27,15 @@
 
 package com.tlcsdm.smc.config;
 
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.I18nUtils;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptySample;
 import javafx.beans.binding.Bindings;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 
@@ -65,22 +69,15 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
     }
 
     @Override
-    public void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> classes) {
-//        final ContextMenu classesContextMenu = new ContextMenu();
-//
-//        final MenuItem scopedExport = createScopedExport(treeCell, classes);
-//        final MenuItem exportClasses = createExportClasses(classes);
-//        final MenuItem reloadClasses = createReloadClasses();
-//        final MenuItem scopedReplace = createScopedReplace(treeCell, classes);
-//        final MenuItem replaceClasses = createReplaceClasses(classes);
-//        final MenuItem includeClassLoader = createShowClassLoader(reloadClasses);
-//        final MenuItem executeCode = createExecuteCode(treeCell, classes);
-//
-//        treeCell.itemProperty().addListener((obs, old, newv) -> {
-//            classesContextMenu.getItems().clear();
-//            if (newv != null) {
-//                classesContextMenu.getItems().addAll(scopedExport, scopedReplace, new SeparatorMenuItem());
-//            }
+    public void setupContextMenu(TreeCell<Sample> treeCell, TreeView<Sample> sampleTreeView) {
+        final ContextMenu sampleContextMenu = new ContextMenu();
+        final MenuItem settingExport = createSettingExport(treeCell);
+
+        treeCell.itemProperty().addListener((obs, old, newv) -> {
+            sampleContextMenu.getItems().clear();
+            if (newv != null) {
+                sampleContextMenu.getItems().addAll(settingExport);
+            }
 //            classesContextMenu.getItems()
 //                .addAll(executeCode,
 //                    new SeparatorMenuItem(),
@@ -89,83 +86,39 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
 //                    reloadClasses,
 //                    new SeparatorMenuItem(),
 //                    includeClassLoader);
-//        });
-//
-//        treeCell.setContextMenu(classesContextMenu);
+        });
+
+        treeCell.setContextMenu(sampleContextMenu);
     }
 
-//    private MenuItem createScopedExport(TreeCell<ClassTreeNode> treeCell, TreeView<ClassTreeNode> classes) {
-//        final MenuItem scopedExport = new MenuItem();
-//        scopedExport.textProperty().bind(Bindings.createStringBinding(() -> {
-//            final ClassTreeNode classTreeNode = treeCell.getItem();
-//            if (classTreeNode == null) {
-//                return "";
-//            }
-//            switch (classTreeNode.getType()) {
-//                case CLASSLOADER:
-//                    return "Export Class Loader";
-//                case PACKAGE:
-//                    return "Export Package";
-//                case CLASS:
-//                    return "Export Class";
-//            }
-//            log.warn("Unknown type: {}", classTreeNode.getType());
-//            return "";
-//        }, treeCell.itemProperty()));
-//        scopedExport.setOnAction(e -> {
-//            final RunningJvm activeJvm = currentJvm.get();
-//            if (activeJvm == null) {
-//                return;
-//            }
-//            final ClassTreeNode classTreeNode = treeCell.getItem();
-//            if (classTreeNode == null) {
-//                return;
-//            }
-//            switch (classTreeNode.getType()) {
-//                case CLASSLOADER:
-//                    final File exportClassLoader = selectExportJarFile(classTreeNode.getPackageSegment(),
-//                        classes.getScene().getWindow());
-//                    if (exportClassLoader == null) {
-//                        return;
-//                    }
-//                    final ClassLoaderDescriptor classLoaderDescriptor = classTreeNode.getClassLoaderDescriptor();
-//                    log.debug("Exporting class loader: {}", classLoaderDescriptor);
-//                    final List<LoadedClass> classesInClassLoader = classTreeHelper.getClassesInPackage(classesTreeRoot,
-//                        "",
-//                        classLoaderDescriptor);
-//                    executorService.submit(() -> export(exportClassLoader, classesInClassLoader, activeJvm));
-//                    break;
-//                case PACKAGE:
-//                    final File exportPackage = selectExportJarFile(classTreeNode.getPackageSegment(),
-//                        classes.getScene().getWindow());
-//                    if (exportPackage == null) {
-//                        return;
-//                    }
-//                    final String fullPackageName = classTreeHelper.getPackageName(treeCell.getTreeItem());
-//                    final ClassLoaderDescriptor packageClassLoader = this.settings.getShowClassLoader().get()
-//                        ?
-//                        classTreeHelper.getNodeClassLoader(treeCell.getTreeItem())
-//                        : null;
-//                    log.debug("Exporting package: {} in classloader: {}", fullPackageName, packageClassLoader);
-//                    final List<LoadedClass> classesInPackage = classTreeHelper.getClassesInPackage(classesTreeRoot,
-//                        fullPackageName,
-//                        packageClassLoader);
-//                    executorService.submit(() -> export(exportPackage, classesInPackage, activeJvm));
-//                    break;
-//                case CLASS:
-//                    final LoadedClass loadedClass = classTreeNode.getLoadedClass();
-//                    final File selectedFile = selectExportClassFile(loadedClass.getSimpleName() + ".class",
-//                        classes.getScene().getWindow());
-//                    if (selectedFile == null) {
-//                        return;
-//                    }
-//                    log.debug("Exporting class: {}", loadedClass);
-//                    executorService.submit(() -> export(selectedFile, loadedClass, activeJvm));
-//                    break;
-//            }
-//        });
-//        return scopedExport;
-//    }
+    protected MenuItem createSettingExport(TreeCell<Sample> treeCell) {
+        final MenuItem settingExport = new MenuItem();
+        settingExport.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/export.png")));
+        settingExport.textProperty().bind(Bindings.createStringBinding(() -> {
+            final Sample sample = treeCell.getItem();
+            if (sample == null) {
+                return "";
+            }
+            return I18nUtils.get("core.button.export");
+        }, treeCell.itemProperty()));
+
+        settingExport.setOnAction(e -> {
+            final Sample sample = treeCell.getItem();
+            if (sample == null) {
+                return;
+            }
+            if (sample instanceof EmptySample emptySample) {
+                treeCell.getTreeItem().getChildren().forEach(w -> {
+                    System.out.println(w.getValue().getSampleName());
+                    System.out.println(w.isLeaf());
+                });
+            } else {
+
+            }
+
+        });
+        return settingExport;
+    }
 
 //    private MenuItem createExportClasses(TreeView<ClassTreeNode> classes) {
 //        final MenuItem exportClasses = new MenuItem("Export Classes");

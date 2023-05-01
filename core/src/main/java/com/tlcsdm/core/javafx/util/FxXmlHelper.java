@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.util.Dom4jUtil;
 import javafx.stage.FileChooser;
@@ -63,6 +64,15 @@ public class FxXmlHelper {
      * projectName
      */
     public static void exportData(String projectName) {
+        exportData(projectName, null);
+    }
+
+    public static void exportData(String projectName, String key) {
+        boolean includeCommon = false;
+        if (StrUtil.isEmpty(key)) {
+            key = projectName;
+            includeCommon = true;
+        }
         FileChooser outputChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
         outputChooser.getExtensionFilters().add(extFilter);
@@ -76,23 +86,28 @@ public class FxXmlHelper {
             document.addDocType(projectName, null, "http://java.sun.com/dtd/properties.dtd");
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
-            Map<String, Object> maps = FxXmlUtil.getValues(projectName);
+            Map<String, Object> maps = FxXmlUtil.getValues(key);
             maps.forEach((k, v) -> {
                 Element entry = s.addElement(ENTRY_ELEMENT);
                 entry.addAttribute(KEY_ATTRIBUTE, k);
                 entry.setText(v.toString());
             });
-
-            Element common = root.addElement(COMMON_ELEMENT);
-            Map<String, Object> comMap = FxXmlUtil.getValues(COMMON_ELEMENT);
-            comMap.forEach((k, v) -> {
-                Element entry = common.addElement(ENTRY_ELEMENT);
-                entry.addAttribute(KEY_ATTRIBUTE, k);
-                entry.setText(v.toString());
-            });
+            if (includeCommon) {
+                Element common = root.addElement(COMMON_ELEMENT);
+                Map<String, Object> comMap = FxXmlUtil.getValues(COMMON_ELEMENT);
+                comMap.forEach((k, v) -> {
+                    Element entry = common.addElement(ENTRY_ELEMENT);
+                    entry.addAttribute(KEY_ATTRIBUTE, k);
+                    entry.setText(v.toString());
+                });
+            }
             Dom4jUtil.doc2XmlFile(document, output.getPath());
         }
     }
+
+//    public static void exportData(String projectName, List<String> keys) {
+//
+//    }
 
     public static void importData(String projectName) {
         FileChooser outputChooser = new FileChooser();
