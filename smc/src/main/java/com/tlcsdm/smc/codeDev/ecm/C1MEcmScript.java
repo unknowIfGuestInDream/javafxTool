@@ -34,10 +34,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
-import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -54,8 +51,6 @@ import java.util.*;
  * @date: 2023/3/26 21:17
  */
 public class C1MEcmScript extends AbstractEcmScript {
-
-    private TextArea tagConfigField;
 
     @Override
     protected void initDefaultValue() {
@@ -97,12 +92,6 @@ public class C1MEcmScript extends AbstractEcmScript {
         TitledPane titledPane = super.createErrorSourceControl();
         GridPane grid = (GridPane) titledPane.getContent();
 
-        Label tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.tagConfig") + ": ");
-        tagConfigField = new TextArea();
-        tagConfigField.setMinHeight(60);
-        tagConfigField.setPrefHeight(80);
-
-        grid.addRow(grid.getRowCount() + 1, tagConfigLabel, tagConfigField);
         grid.getChildren().remove(errorSourceDescColLabel);
         grid.getChildren().remove(errorSourceDescColField);
         return titledPane;
@@ -111,7 +100,6 @@ public class C1MEcmScript extends AbstractEcmScript {
     @Override
     public void initializeUserDataBindings() {
         super.initializeUserDataBindings();
-        userData.put("tagConfig", tagConfigField);
         userData.remove("errorSourceDesc");
     }
 

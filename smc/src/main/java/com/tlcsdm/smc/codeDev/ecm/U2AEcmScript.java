@@ -28,6 +28,8 @@
 package com.tlcsdm.smc.codeDev.ecm;
 
 import javafx.scene.Node;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -73,6 +75,22 @@ public class U2AEcmScript extends AbstractEcmScript {
             RH850U2A6;156;U
             RH850U2A6;144;V
             """);
+        tagConfigField.setDisable(true);
+    }
+
+    @Override
+    public TitledPane createErrorSourceControl() {
+        TitledPane titledPane = super.createErrorSourceControl();
+        GridPane grid = (GridPane) titledPane.getContent();
+        grid.getChildren().remove(tagConfigLabel);
+        grid.getChildren().remove(tagConfigField);
+        return titledPane;
+    }
+
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.remove("tagConfig");
     }
 
     public static void main(String[] args) {

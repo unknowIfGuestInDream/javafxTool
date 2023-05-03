@@ -94,6 +94,8 @@ public abstract class AbstractEcmScript extends SmcSample {
     protected TextField errorSourceJpNameColField;
     protected TextArea functionConfigField;
     protected TextArea productConfigField;
+    protected Label tagConfigLabel;
+    protected TextArea tagConfigField;
 
     private final String defaultTemplateName = "ecm.zip";
     private final FileChooser downloadChooser = new FileChooser();
@@ -262,22 +264,20 @@ public abstract class AbstractEcmScript extends SmcSample {
         productConfigField = new TextArea();
         productConfigField.setMinHeight(150);
 
-        grid.add(errorSourceIdColLabel, 0, 0);
-        grid.add(errorSourceIdColField, 1, 0);
-        grid.add(categoryIdColLabel, 0, 1);
-        grid.add(categoryIdColField, 1, 1);
-        grid.add(errorSourceNumberColLabel, 0, 2);
-        grid.add(errorSourceNumberColField, 1, 2);
-        grid.add(errorSourceEnNameColLabel, 0, 3);
-        grid.add(errorSourceEnNameColField, 1, 3);
-        grid.add(errorSourceDescColLabel, 0, 4);
-        grid.add(errorSourceDescColField, 1, 4);
-        grid.add(errorSourceJpNameColLabel, 0, 5);
-        grid.add(errorSourceJpNameColField, 1, 5);
-        grid.add(functionConfigLabel, 0, 6);
-        grid.add(functionConfigField, 1, 6);
-        grid.add(productConfigLabel, 0, 7);
-        grid.add(productConfigField, 1, 7);
+        tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.tagConfig") + ": ");
+        tagConfigField = new TextArea();
+        tagConfigField.setMinHeight(60);
+        tagConfigField.setPrefHeight(80);
+
+        grid.addRow(0, errorSourceIdColLabel, errorSourceIdColField);
+        grid.addRow(1, categoryIdColLabel, categoryIdColField);
+        grid.addRow(2, errorSourceNumberColLabel, errorSourceNumberColField);
+        grid.addRow(3, errorSourceEnNameColLabel, errorSourceEnNameColField);
+        grid.addRow(4, errorSourceDescColLabel, errorSourceDescColField);
+        grid.addRow(5, errorSourceJpNameColLabel, errorSourceJpNameColField);
+        grid.addRow(6, functionConfigLabel, functionConfigField);
+        grid.addRow(7, productConfigLabel, productConfigField);
+        grid.addRow(8, tagConfigLabel, tagConfigField);
 
         return new TitledPane(I18nUtils.get("smc.tool.ecm.title.errorSource"), grid);
     }
@@ -304,12 +304,9 @@ public abstract class AbstractEcmScript extends SmcSample {
         categoryConfigField.setMinHeight(60);
         categoryConfigField.setPrefHeight(80);
 
-        grid.add(categorySheetNameLabel, 0, 0);
-        grid.add(categorySheetNameField, 1, 0);
-        grid.add(categoryStartRowLabel, 0, 1);
-        grid.add(categoryStartRowField, 1, 1);
-        grid.add(categoryConfigLabel, 0, 2);
-        grid.add(categoryConfigField, 1, 2);
+        grid.addRow(0, categorySheetNameLabel, categorySheetNameField);
+        grid.addRow(1, categoryStartRowLabel, categoryStartRowField);
+        grid.addRow(2, categoryConfigLabel, categoryConfigField);
 
         return new TitledPane(I18nUtils.get("smc.tool.ecm.title.category"), grid);
     }
@@ -321,7 +318,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField,
             startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField,
             errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField,
-            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField).build();
+            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -345,6 +342,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         userData.put("errorSourceJpNameCol", errorSourceJpNameColField);
         userData.put("functionConfig", functionConfigField);
         userData.put("productConfig", productConfigField);
+        userData.put("tagConfig", tagConfigField);
     }
 
     /**
