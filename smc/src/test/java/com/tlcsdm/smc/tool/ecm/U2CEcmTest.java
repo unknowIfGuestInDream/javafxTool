@@ -239,8 +239,8 @@ public class U2CEcmTest {
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
                 errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceenName", errorSourceenName);
-                errorSource.put("errorSourcejpName", errorSourcejpName);
+                errorSource.put("errorSourceEnName", errorSourceenName);
+                errorSource.put("errorSourceJpName", errorSourcejpName);
                 errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
                 errorSource.put("function", function);
                 errorSource.put("tag", tag);
@@ -298,8 +298,8 @@ public class U2CEcmTest {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product) {
-        String errorSourceenName = (String) errorSource.get("errorSourceenName");
-        String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
+        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
         if (errorSourceenName.endsWith("*5")) {
@@ -310,8 +310,8 @@ public class U2CEcmTest {
                 errorSourcejpName += "(デバッグのみを目的とする)";
             }
         }
-        errorSource.put("errorSourceenName", errorSourceenName);
-        errorSource.put("errorSourcejpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
     }
 
     /**
