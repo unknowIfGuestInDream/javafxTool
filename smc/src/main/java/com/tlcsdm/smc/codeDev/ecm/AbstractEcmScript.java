@@ -144,7 +144,6 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
-
         notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
@@ -364,57 +363,97 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 数据处理
      */
     protected void dealData() {
-        // 输入值获取
-        String excel = excelField.getText();
-        String outputPath = outputField.getText();
-        String deviceSheetName = sheetNameField.getText();
-        int deviceStartRow = Integer.parseInt(startRowField.getText());
-        // Category
-        String categorySheetName = categorySheetNameField.getText();
-        int categoryStartRow = Integer.parseInt(categoryStartRowField.getText());
-        String categorys = categoryConfigField.getText();
-        // Error Source
-        String functions = functionConfigField.getText();
-        String errorSourceIdCol = errorSourceIdColField.getText();
-        String categoryIdCol = categoryIdColField.getText();
-        String errorSourceNumberCol = errorSourceNumberColField.getText();
-        String errorSourceEnNameCol = errorSourceEnNameColField.getText();
-        String errorSourceDescCol = errorSourceDescColField.getText();
-        String errorSourceJpNameCol = errorSourceJpNameColField.getText();
-        String products = productConfigField.getText();
+        String resultPath = outputField.getText() + outParentFolder;
+        // 清空resultPath下文件
+        FileUtil.clean(resultPath);
+        //处理数据
+        dealProductData();
+        // 后续文件合并
+        postMergeResult();
+    }
 
-        String resultPath = outputPath + outParentFolder;
-
-        int optErrortIndex = 0;
+    /**
+     * 创建Function配置数据
+     */
+    protected LinkedHashMap<String, String> createOperationMap() {
         LinkedHashMap<String, String> operationMap = new LinkedHashMap<>();
+        String functions = functionConfigField.getText();
         List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
-        for (int i = 0; i < operationConfigs.size(); i++) {
-            String operationConfig = operationConfigs.get(i);
+        for (String operationConfig : operationConfigs) {
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
-            if ("optErrort".equals(l.get(0))) {
-                optErrortIndex = i;
-            }
         }
+        return operationMap;
+    }
+
+    /**
+     * 创建product配置数据
+     */
+    protected LinkedHashMap<String, String> createProductMap() {
+        String products = productConfigField.getText();
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
+        List<String> productConfigs = StrUtil.splitTrim(products, "\n");
+        for (String productConfig : productConfigs) {
+            List<String> l = StrUtil.split(productConfig, ";");
+            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
+        }
+        return productMap;
+    }
+
+    /**
+     * 创建productInfo数据
+     * 用于文件合并功能
+     */
+    protected ListValueMap<String, String> createProductInfo() {
+        String products = productConfigField.getText();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         ListValueMap<String, String> productsInfo = new ListValueMap<>();
         for (String productConfig : productConfigs) {
             List<String> l = StrUtil.split(productConfig, ";");
-            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
             productsInfo.putValue(l.get(0), l.get(1));
         }
-        // category 配置数据
+        return productsInfo;
+    }
+
+    /**
+     * 创建category配置数据
+     */
+    protected LinkedHashMap<String, String> createCategoryMap() {
+        String categorys = categoryConfigField.getText();
         LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
         List<String> categoryConfigs = StrUtil.splitTrim(categorys, "\n");
         for (String categoryConf : categoryConfigs) {
             List<String> l = StrUtil.split(categoryConf, ";");
             categoryMap.put(l.get(0), l.get(1));
         }
-        // category 数据处理
+        return categoryMap;
+    }
+
+    /**
+     * 创建tag配置数据
+     */
+    protected LinkedHashMap<String, String> createTagMap() {
+        String tags = tagConfigField.getText();
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
+        List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
+        for (String tagConfig : tagConfigs) {
+            List<String> l = StrUtil.split(tagConfig, ";");
+            tagMap.put(l.get(0), l.get(1));
+        }
+        return tagMap;
+    }
+
+    /**
+     * 处理category数据
+     */
+    protected List<Map<String, Object>> dealCategoryData() {
+        LinkedHashMap<String, String> categoryMap = createCategoryMap();
+        String excel = excelField.getText();
+        String categorySheetName = categorySheetNameField.getText();
+        int categoryStartRow = Integer.parseInt(categoryStartRowField.getText());
+        List<Map<String, Object>> categoryInfos = new ArrayList<>();
         ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(excel), categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
-        List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
             Map<String, Object> categoryInfo = new HashMap<>();
             for (String key : categoryMap.keySet()) {
@@ -434,14 +473,27 @@ public abstract class AbstractEcmScript extends SmcSample {
             categoryInfos.add(categoryInfo);
         }
         categoryReader.close();
+        return categoryInfos;
+    }
 
+    /**
+     * 处理product数据
+     */
+    protected void dealProductData() {
+        String excel = excelField.getText();
+        String deviceSheetName = sheetNameField.getText();
+        int deviceStartRow = Integer.parseInt(startRowField.getText());
+        String errorSourceIdCol = errorSourceIdColField.getText();
+        String resultPath = outputField.getText() + outParentFolder;
+        //处理数据
+        LinkedHashMap<String, String> productMap = createProductMap();
+        List<Map<String, Object>> categoryInfos = dealCategoryData();
+        //处理excel数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), deviceSheetName);
         int endRow = reader.getRowCount();
-        // 清空resultPath下文件
-        FileUtil.clean(resultPath);
         // 遍历productMap
         for (String key : productMap.keySet()) {
-            List<Map<String, Object>> ErrorSourceInfos = new ArrayList<>();
+            List<Map<String, Object>> errorSourceInfos = new ArrayList<>();
             String productCol = productMap.get(key);
             // 遍历excel sheet数据
             for (int i = deviceStartRow; i <= endRow; i++) {
@@ -458,56 +510,117 @@ public abstract class AbstractEcmScript extends SmcSample {
                         continue;
                     }
                 }
-                String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
-                String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
-                int errorSourceNum = (int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue();
-                String errorSourceNumber = String.valueOf(errorSourceNum);
-                String errorSourceEnName = reader.getCell(errorSourceEnNameCol + i).getStringCellValue();
-                String errorSourceJpName = reader.getCell(errorSourceJpNameCol + i).getStringCellValue();
-                String errorSourceDesc = reader.getCell(errorSourceDescCol + i).getStringCellValue();
-                // 特殊处理 24-29添加description信息
-                if (errorSourceNum < 24 || errorSourceNum > 29) {
-                    errorSourceDesc = "";
-                }
-                List<Map<String, Object>> function = new ArrayList<>();
-                boolean optMaskintStatus = false;
-                for (String funcId : operationMap.keySet()) {
-                    String funcCol = operationMap.get(funcId);
-                    String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
-                    // support 向下判断
-                    boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
-                        optMaskintStatus = support;
-                    }
-                    Map<String, Object> operation = new HashMap<>();
-                    operation.put("funcId", funcId);
-                    operation.put("support", String.valueOf(support));
-                    operation.put("errorNote", "");
-                    // 数据后置处理
-                    handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
-                    function.add(operation);
-                }
-                Map<String, Object> errorSource = new HashMap<>();
-                errorSource.put("errorSourceId", errorSourceId);
-                errorSource.put("categoryId", categoryId);
-                errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceEnName", errorSourceEnName);
-                errorSource.put("errorSourceJpName", errorSourceJpName);
-                errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
-                errorSource.put("function", function);
-                handlerErrorSourceMap(errorSource, key, optErrortIndex);
-                ErrorSourceInfos.add(errorSource);
+                errorSourceInfos.add(dealErrorSourceData(reader, i, key));
             }
-            Map<String, Object> paramMap = new HashMap<>();
+            Map<String, Object> paramMap = new HashMap<>(4);
             paramMap.put("categoryInfos", categoryInfos);
-            paramMap.put("errorSourceInfos", ErrorSourceInfos);
+            paramMap.put("errorSourceInfos", errorSourceInfos);
+            // 若paramMap需要扩展，可在此处新增新接口
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
         }
         reader.close();
+    }
 
-        // 后续文件合并
-        // 待删除文件
+    /**
+     * ErrorSource数据处理
+     */
+    protected Map<String, Object> dealErrorSourceData(ExcelReader reader, int rowNum, String product) {
+        String errorSourceIdCol = errorSourceIdColField.getText();
+        String categoryIdCol = categoryIdColField.getText();
+        String errorSourceNumberCol = errorSourceNumberColField.getText();
+        String errorSourceEnNameCol = errorSourceEnNameColField.getText();
+        String errorSourceDescCol = errorSourceDescColField.getText();
+        String errorSourceJpNameCol = errorSourceJpNameColField.getText();
+
+        String functions = functionConfigField.getText();
+        int optErrortIndex = 0;
+        List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
+        for (int i = 0; i < operationConfigs.size(); i++) {
+            String operationConfig = operationConfigs.get(i);
+            List<String> l = StrUtil.split(operationConfig, ";");
+            if ("optErrort".equals(l.get(0))) {
+                optErrortIndex = i;
+            }
+        }
+        LinkedHashMap<String, String> operationMap = createOperationMap();
+        LinkedHashMap<String, String> tagMap = createTagMap();
+
+        String errorSourceId = reader.getCell(errorSourceIdCol + rowNum).getStringCellValue();
+        String categoryId = reader.getCell(categoryIdCol + rowNum).getStringCellValue();
+        int errorSourceNum = (int) reader.getCell(errorSourceNumberCol + rowNum).getNumericCellValue();
+        String errorSourceNumber = String.valueOf(errorSourceNum);
+        String errorSourceEnName = reader.getCell(errorSourceEnNameCol + rowNum).getStringCellValue();
+        String errorSourceJpName = reader.getCell(errorSourceJpNameCol + rowNum).getStringCellValue();
+        String errorSourceDesc = "";
+        if (errorSourceDescCol.length() > 0) {
+            errorSourceDesc = reader.getCell(errorSourceDescCol + rowNum).getStringCellValue();
+        }
+        // 特殊处理 24-29添加description信息
+        if (errorSourceNum < 24 || errorSourceNum > 29) {
+            errorSourceDesc = "";
+        }
+        List<Map<String, Object>> function = new ArrayList<>(operationMap.size());
+        boolean optMaskintStatus = false;
+        for (String funcId : operationMap.keySet()) {
+            String funcCol = operationMap.get(funcId);
+            String funcSupCondition = reader.getCell(funcCol + rowNum).getStringCellValue();
+            // support 向下判断
+            boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
+            if ("optMaskint".equals(funcId)) {
+                optMaskintStatus = support;
+            }
+            Map<String, Object> operation = new HashMap<>(4);
+            operation.put("funcId", funcId);
+            operation.put("support", String.valueOf(support));
+            operation.put("errorNote", "");
+            // 数据后置处理
+            handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
+            function.add(operation);
+        }
+        List<Map<String, Object>> tag = buildTagData(tagMap, reader, rowNum);
+        Map<String, Object> errorSource = new HashMap<>(16);
+        errorSource.put("errorSourceId", errorSourceId);
+        errorSource.put("categoryId", categoryId);
+        errorSource.put("errorSourceNumber", errorSourceNumber);
+        errorSource.put("errorSourceEnName", errorSourceEnName);
+        errorSource.put("errorSourceJpName", errorSourceJpName);
+        errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
+        errorSource.put("function", function);
+        errorSource.put("tag", tag);
+        handlerErrorSourceMap(errorSource, product, optErrortIndex);
+
+        return errorSource;
+    }
+
+    /**
+     * 获取tag数据
+     */
+    protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader, int rowNum) {
+        List<Map<String, Object>> tag = new ArrayList<>();
+        for (String tagkey : tagMap.keySet()) {
+            String tagCol = tagMap.get(tagkey);
+            String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
+            Map<String, Object> tagMeta = new HashMap<>();
+            if ("psedu".equals(tagkey)) {
+                tagValue = String
+                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+            }
+            tagMeta.put("key", tagkey);
+            tagMeta.put("value", tagValue);
+            tag.add(tagMeta);
+        }
+        return tag;
+    }
+
+    /**
+     * 合并结果文件
+     * 相同device不同pin如果文件内容一致则合并内容，结果文件如： RH850U2A6.xml
+     * 否则按照device_pin命名，如：RH850U2A6_144.xml
+     */
+    protected void postMergeResult() {
+        ListValueMap<String, String> productsInfo = createProductInfo();
+        String resultPath = outputField.getText() + outParentFolder;
         List<String> delFileNames = new ArrayList<>();
         for (String device : productsInfo.keySet()) {
             List<String> list = productsInfo.get(device);

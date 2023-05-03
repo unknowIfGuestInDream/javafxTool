@@ -27,20 +27,13 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
-import cn.hutool.poi.excel.ExcelUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -104,189 +97,62 @@ public class C1MEcmScript extends AbstractEcmScript {
     }
 
     @Override
-    protected void dealData() {
-        // 输入值获取
-        String excel = excelField.getText();
-        String outputPath = outputField.getText();
-        String deviceSheetName = sheetNameField.getText();
-        int deviceStartRow = Integer.parseInt(startRowField.getText());
-        // Category
-        String categorySheetName = categorySheetNameField.getText();
-        int categoryStartRow = Integer.parseInt(categoryStartRowField.getText());
-        String categorys = categoryConfigField.getText();
-        // Error Source
-        String functions = functionConfigField.getText();
+    protected Map<String, Object> dealErrorSourceData(ExcelReader reader, int rowNum, String product) {
         String errorSourceIdCol = errorSourceIdColField.getText();
         String categoryIdCol = categoryIdColField.getText();
         String errorSourceNumberCol = errorSourceNumberColField.getText();
         String errorSourceEnNameCol = errorSourceEnNameColField.getText();
         String errorSourceJpNameCol = errorSourceJpNameColField.getText();
-        String products = productConfigField.getText();
-        String tags = tagConfigField.getText();
+        LinkedHashMap<String, String> operationMap = createOperationMap();
+        LinkedHashMap<String, String> tagMap = createTagMap();
 
-        String resultPath = outputPath + outParentFolder;
-
-        LinkedHashMap<String, String> operationMap = new LinkedHashMap<>();
-        List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
-        for (int i = 0; i < operationConfigs.size(); i++) {
-            String operationConfig = operationConfigs.get(i);
-            List<String> l = StrUtil.split(operationConfig, ";");
-            operationMap.put(l.get(0), l.get(1));
-        }
-        LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
-        List<String> productConfigs = StrUtil.splitTrim(products, "\n");
-        ListValueMap<String, String> productsInfo = new ListValueMap<>();
-        for (String productConfig : productConfigs) {
-            List<String> l = StrUtil.split(productConfig, ";");
-            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
-            productsInfo.putValue(l.get(0), l.get(1));
-        }
-        LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
-        List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
-        for (int i = 0; i < tagConfigs.size(); i++) {
-            String tagConfig = tagConfigs.get(i);
-            List<String> l = StrUtil.split(tagConfig, ";");
-            tagMap.put(l.get(0), l.get(1));
-        }
-        // category 配置数据
-        LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
-        List<String> categoryConfigs = StrUtil.splitTrim(categorys, "\n");
-        for (String categoryConfig : categoryConfigs) {
-            List<String> l = StrUtil.split(categoryConfig, ";");
-            categoryMap.put(l.get(0), l.get(1));
-        }
-        // category 数据处理
-        ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(excel), categorySheetName);
-        int categoryEndRow = categoryReader.getRowCount();
-        List<Map<String, Object>> categoryInfos = new ArrayList<>();
-        for (int i = categoryStartRow; i <= categoryEndRow; i++) {
-            Map<String, Object> categoryInfo = new HashMap<>();
-            for (String key : categoryMap.keySet()) {
-                Cell cell = categoryReader.getCell(categoryMap.get(key) + i);
-                if (cell == null) {
-                    continue;
-                }
-                String value = cell.getStringCellValue();
-                if (StrUtil.isBlank(value)) {
-                    continue;
-                }
-                categoryInfo.put(key, value);
+        String errorSourceId = reader.getCell(errorSourceIdCol + rowNum).getStringCellValue();
+        String categoryId = reader.getCell(categoryIdCol + rowNum).getStringCellValue();
+        String errorSourceNumber = String
+            .valueOf((int) reader.getCell(errorSourceNumberCol + rowNum).getNumericCellValue());
+        String errorSourceenName = reader.getCell(errorSourceEnNameCol + rowNum).getStringCellValue();
+        String errorSourcejpName = reader.getCell(errorSourceJpNameCol + rowNum).getStringCellValue();
+        List<Map<String, Object>> function = new ArrayList<>();
+        boolean optMaskintStatus = false;
+        for (String funcId : operationMap.keySet()) {
+            String funcCol = operationMap.get(funcId);
+            String funcSupCondition = reader.getCell(funcCol + rowNum).getStringCellValue();
+            // support 向下判断
+            boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
+            if ("optMaskableInpt".equals(funcId)) {
+                optMaskintStatus = support;
             }
-            if (categoryInfo.isEmpty()) {
-                continue;
-            }
-            categoryInfos.add(categoryInfo);
+            Map<String, Object> operation = new HashMap<>(4);
+            operation.put("funcId", funcId);
+            operation.put("support", String.valueOf(support));
+            operation.put("errorNote", "");
+            // 数据后置处理
+            handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
+            function.add(operation);
         }
-        categoryReader.close();
-
-        ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), deviceSheetName);
-        int endRow = reader.getRowCount();
-        // 清空resultPath下文件
-        FileUtil.clean(resultPath);
-        // 遍历productMap
-        for (String key : productMap.keySet()) {
-            List<Map<String, Object>> ErrorSourceInfos = new ArrayList<>();
-            // 遍历excel sheet数据
-            for (int i = deviceStartRow; i <= endRow; i++) {
-                Cell cell = reader.getCell(errorSourceIdCol + i);
-                if (cell == null) {
-                    continue;
-                }
-                if (StrUtil.isBlank(cell.getStringCellValue())) {
-                    continue;
-                }
-                String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
-                String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
-                String errorSourceNumber = String
-                    .valueOf((int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue());
-                String errorSourceenName = reader.getCell(errorSourceEnNameCol + i).getStringCellValue();
-                String errorSourcejpName = reader.getCell(errorSourceJpNameCol + i).getStringCellValue();
-                List<Map<String, Object>> function = new ArrayList<>();
-                boolean optMaskintStatus = false;
-                for (String funcId : operationMap.keySet()) {
-                    String funcCol = operationMap.get(funcId);
-                    String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
-                    // support 向下判断
-                    boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskableInpt".equals(funcId)) {
-                        optMaskintStatus = support;
-                    }
-                    Map<String, Object> operation = new HashMap<>();
-                    operation.put("funcId", funcId);
-                    operation.put("support", String.valueOf(support));
-                    operation.put("errorNote", "");
-                    // 数据后置处理
-                    handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
-                    function.add(operation);
-                }
-                List<Map<String, Object>> tag = new ArrayList<>();
-                for (String tagkey : tagMap.keySet()) {
-                    String tagCol = tagMap.get(tagkey);
-                    String tagValue = reader.getCell(tagCol + i).getStringCellValue();
-                    Map<String, Object> tagMeta = new HashMap<>();
-                    if ("psedu".equals(tagkey)) {
-                        tagValue = String
-                            .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
-                    }
-                    tagMeta.put("key", tagkey);
-                    tagMeta.put("value", tagValue);
-                    tag.add(tagMeta);
-                }
-                Map<String, Object> errorSource = new HashMap<>();
-                errorSource.put("errorSourceId", errorSourceId);
-                errorSource.put("categoryId", categoryId);
-                errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceEnName", errorSourceenName);
-                errorSource.put("errorSourceJpName", errorSourcejpName);
-                errorSource.put("function", function);
-                errorSource.put("tag", tag);
-                handlerErrorSourceMap(errorSource, key, 0);
-                ErrorSourceInfos.add(errorSource);
+        List<Map<String, Object>> tag = new ArrayList<>(tagMap.size());
+        for (String tagkey : tagMap.keySet()) {
+            String tagCol = tagMap.get(tagkey);
+            String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
+            Map<String, Object> tagMeta = new HashMap<>();
+            if ("psedu".equals(tagkey)) {
+                tagValue = String
+                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
             }
-            Map<String, Object> paramMap = new HashMap<>();
-            paramMap.put("categoryInfos", categoryInfos);
-            paramMap.put("errorSourceInfos", ErrorSourceInfos);
-            File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
-            FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
+            tagMeta.put("key", tagkey);
+            tagMeta.put("value", tagValue);
+            tag.add(tagMeta);
         }
-        reader.close();
-        // 后续文件合并
-        // 待删除文件
-        List<String> delFileNames = new ArrayList<>();
-        for (String device : productsInfo.keySet()) {
-            List<String> list = productsInfo.get(device);
-            if (list.size() == 1) {
-                FileUtil.rename(FileUtil.file(resultPath, device + "_" + list.get(0) + ".xml"), device + ".xml", true);
-                continue;
-            }
-            for (int i = 0; i < list.size() - 1; i++) {
-                for (int j = i + 1; j < list.size(); j++) {
-                    String orgName = device + "_" + list.get(i) + ".xml";
-                    String comName = device + "_" + list.get(j) + ".xml";
-                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                        FileUtil.file(resultPath, comName));
-                    if (b) {
-                        if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
-                            String deviceName = device + ".xml";
-                            if (FileUtil.file(resultPath, deviceName).exists()) {
-                                deviceName = device + "-" + UUID.fastUUID() + ".xml";
-                            }
-                            FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                FileUtil.file(resultPath, deviceName));
-                        }
-                        if (!delFileNames.contains(orgName)) {
-                            delFileNames.add(orgName);
-                        }
-                        if (!delFileNames.contains(comName)) {
-                            delFileNames.add(comName);
-                        }
-                    }
-                }
-            }
-        }
-        for (String fileName : delFileNames) {
-            FileUtil.del(FileUtil.file(resultPath, fileName));
-        }
+        Map<String, Object> errorSource = new HashMap<>(16);
+        errorSource.put("errorSourceId", errorSourceId);
+        errorSource.put("categoryId", categoryId);
+        errorSource.put("errorSourceNumber", errorSourceNumber);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
+        errorSource.put("function", function);
+        errorSource.put("tag", tag);
+        handlerErrorSourceMap(errorSource, product, 0);
+        return errorSource;
     }
 
     public static void main(String[] args) {
