@@ -1,5 +1,51 @@
 # CHANGELOG
 
+## [v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55
+
+1. ecm数据文件生成功能完善
+2. 新增common模块
+3. UI优化，新增按钮绑定功能
+4. 新增导入导出设置功能
+5. 隐藏moneyToChinese组件
+
+### Feature
+
+- general:
+  - ecm重构 (#539) ([73ed36f](https://github.com/unknowIfGuestInDream/javafxTool/commit/73ed36ffd186b7bfef06382c3e0b1e08abcb61db)) ([#539](https://github.com/unknowIfGuestInDream/javafxTool/pull/539))
+  - qe新增右键菜单 (#536) ([146444d](https://github.com/unknowIfGuestInDream/javafxTool/commit/146444def0e1935e21603a9c37d673aa9bae6ac8)) ([#536](https://github.com/unknowIfGuestInDream/javafxTool/pull/536))
+  - TreeViewCellFactory类重构，TreeView功能新增 (#534) ([c9ea76d](https://github.com/unknowIfGuestInDream/javafxTool/commit/c9ea76ddc92d3f2ffd81dc7baf0fca34b9d044ea)) ([#534](https://github.com/unknowIfGuestInDream/javafxTool/pull/534))
+  - 新增导入导出功能 (#531) ([e1c1df9](https://github.com/unknowIfGuestInDream/javafxTool/commit/e1c1df9a3b5e0fde37ef9d473ce5c2bce2549f69)) ([#531](https://github.com/unknowIfGuestInDream/javafxTool/pull/531))
+  - groovyUtil 修改 (#517) ([6eb1a31](https://github.com/unknowIfGuestInDream/javafxTool/commit/6eb1a31f32565403264974f719c7fb82897c5df6)) ([#517](https://github.com/unknowIfGuestInDream/javafxTool/pull/517))
+  - 完善ecm u2c (#499) ([d5536df](https://github.com/unknowIfGuestInDream/javafxTool/commit/d5536dfd08dd52d18659b88b7f583b222454b54b)) ([#499](https://github.com/unknowIfGuestInDream/javafxTool/pull/499))
+  - 完善common模块 (#497) ([eb6e181](https://github.com/unknowIfGuestInDream/javafxTool/commit/eb6e1810d464e432df1f8b55468d93d91d4a5b39)) ([#497](https://github.com/unknowIfGuestInDream/javafxTool/pull/497))
+  - 新增docs文档 (#491) ([d0bc0d5](https://github.com/unknowIfGuestInDream/javafxTool/commit/d0bc0d5828905405dba204255cb479eaa07ed4c0)) ([#491](https://github.com/unknowIfGuestInDream/javafxTool/pull/491))
+  - ecm脚本修改 (#470) ([f5cbacf](https://github.com/unknowIfGuestInDream/javafxTool/commit/f5cbacf53a4a2c3ea406681e8337c60a69720708)) ([#470](https://github.com/unknowIfGuestInDream/javafxTool/pull/470))
+  - 修改qe样式和icon (#464) ([d5c3d5e](https://github.com/unknowIfGuestInDream/javafxTool/commit/d5c3d5eae24c2be34b564e8df1622bc77e71a414)) ([#464](https://github.com/unknowIfGuestInDream/javafxTool/pull/464))
+  - 新增qe模块 (#462) ([10cca81](https://github.com/unknowIfGuestInDream/javafxTool/commit/10cca8180cd39ccd71849074fd25131f74977303)) ([#462](https://github.com/unknowIfGuestInDream/javafxTool/pull/462))
+  - 完善DMATriggerSourceCode 的bind (#457) ([5b7aad9](https://github.com/unknowIfGuestInDream/javafxTool/commit/5b7aad90f43b06dc0ea9f11f9a57de8e3e2eeab3)) ([#457](https://github.com/unknowIfGuestInDream/javafxTool/pull/457))
+  - 新增皮肤 (#452) ([74379a6](https://github.com/unknowIfGuestInDream/javafxTool/commit/74379a6f822eb2c8bb75fb9f559f18010edf32ed)) ([#452](https://github.com/unknowIfGuestInDream/javafxTool/pull/452))
+  - 更改icon (#450) ([dea4b2e](https://github.com/unknowIfGuestInDream/javafxTool/commit/dea4b2ee1448988ff2a9216e97b564ea5e767bba)) ([#450](https://github.com/unknowIfGuestInDream/javafxTool/pull/450))
+  - 新增getSampleImageIcon接口 (#448) ([73c8fa8](https://github.com/unknowIfGuestInDream/javafxTool/commit/73c8fa8fd539d94249de940cb3c417fc05697e53)) ([#448](https://github.com/unknowIfGuestInDream/javafxTool/pull/448))
+  - 隐藏moneyToChinese组件 (#447) ([463b9f4](https://github.com/unknowIfGuestInDream/javafxTool/commit/463b9f404f787a5cef4bf23022e822c91bc66ebf)) ([#447](https://github.com/unknowIfGuestInDream/javafxTool/pull/447))
+  - ecm脚本修改 (#446) ([877768d](https://github.com/unknowIfGuestInDream/javafxTool/commit/877768da415267be812710e480f64c7ff5cf74cd)) ([#446](https://github.com/unknowIfGuestInDream/javafxTool/pull/446))
+  - 新增SamplesTreeViewConfiguration接口 (#445) ([e08ae5c](https://github.com/unknowIfGuestInDream/javafxTool/commit/e08ae5cd7c859b9bc28c66964c7a5ffd85343eb3)) ([#445](https://github.com/unknowIfGuestInDream/javafxTool/pull/445))
+  - 修改ecm脚本 (#441) ([09d795a](https://github.com/unknowIfGuestInDream/javafxTool/commit/09d795a25254b56b81a5ca1cfbdf32c76c4afef0)) ([#441](https://github.com/unknowIfGuestInDream/javafxTool/pull/441))
+  - 修改smc菜单栏 (#439) ([d3a7ff0](https://github.com/unknowIfGuestInDream/javafxTool/commit/d3a7ff043bf5e6e8cb71cb071779141fdb5d6482)) ([#439](https://github.com/unknowIfGuestInDream/javafxTool/pull/439))
+
+- core:
+  - 新增SimpleHttpServer脚本 (#509) ([9367ef3](https://github.com/unknowIfGuestInDream/javafxTool/commit/9367ef3b804730bcbc9dce868da1270de6f009c7)) ([#509](https://github.com/unknowIfGuestInDream/javafxTool/pull/509))
+
+- smc:
+  - 集成common模块 (#494) ([897e863](https://github.com/unknowIfGuestInDream/javafxTool/commit/897e863ab6a69ee4102f00e5af1beb9c02a46116)) ([#494](https://github.com/unknowIfGuestInDream/javafxTool/pull/494))
+  - ecm脚本修改 (#487) ([60ccbf6](https://github.com/unknowIfGuestInDream/javafxTool/commit/60ccbf6ce8da2715d0d03d870e2daee5491b89ec)) ([#487](https://github.com/unknowIfGuestInDream/javafxTool/pull/487))
+
+- common:
+  - 新增common模块 (#485) ([aa85fb7](https://github.com/unknowIfGuestInDream/javafxTool/commit/aa85fb7cae5ca4fdcb7010358fb893ab72be3f32)) ([#485](https://github.com/unknowIfGuestInDream/javafxTool/pull/485))
+
+- qe:
+  - 完善HtmlEscape组件 (#484) ([7b3aa0c](https://github.com/unknowIfGuestInDream/javafxTool/commit/7b3aa0c5c0b7d8c5c2351b94fcfa83376582943e)) ([#484](https://github.com/unknowIfGuestInDream/javafxTool/pull/484))
+  - 新增Html转义组件，修改icon (#476) ([a775143](https://github.com/unknowIfGuestInDream/javafxTool/commit/a775143db3713624fddf62c9f24ecdcec7dfe17f)) ([#476](https://github.com/unknowIfGuestInDream/javafxTool/pull/476))
+
 ## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
 
 1. 新增Ecm数据生成组件
