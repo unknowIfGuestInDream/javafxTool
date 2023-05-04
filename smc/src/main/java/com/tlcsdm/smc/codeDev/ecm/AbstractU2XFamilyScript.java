@@ -112,7 +112,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     /**
      * errorSource 数据后续处理
      */
-    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+    protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceEnName");
         String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
@@ -163,8 +163,8 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
         }
     }
 
-    private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
+                                           boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
