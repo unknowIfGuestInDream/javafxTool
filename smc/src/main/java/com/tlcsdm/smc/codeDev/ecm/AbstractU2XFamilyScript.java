@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,72 +29,16 @@ package com.tlcsdm.smc.codeDev.ecm;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
-import javafx.scene.Node;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * C1M的ECM脚本
+ * U2X系列公共类
  *
  * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:17
+ * @date: 2023/5/4 14:53
  */
-public class C1MEcmScript extends AbstractEcmScript {
-
-    @Override
-    protected void initDefaultValue() {
-        super.initDefaultValue();
-        startRowField.setNumber(BigDecimal.valueOf(2));
-        sheetNameField.setText("C1M");
-        categoryConfigField.setText("""
-            categoryId;B
-            categoryEnName;C
-            categoryJpName;D
-            """);
-        functionConfigField.setText("""
-            optMaskableInpt;G
-            optEFInpt;H
-            optIntrg;I
-            optErroroutput;J
-            optDelayt;K
-            """);
-        errorSourceIdColField.setText("A");
-        categoryIdColField.setText("B");
-        errorSourceNumberColField.setText("C");
-        errorSourceEnNameColField.setText("E");
-        errorSourceJpNameColField.setText("L");
-        productConfigField.setText("""
-            RH850C1MA2;252;-
-            """);
-        tagConfigField.setText("""
-            psedu;N
-            funname;O
-            titleabstract;P
-            """);
-
-        errorSourceDescColLabel.setDisable(true);
-        errorSourceDescColField.setDisable(true);
-    }
-
-    @Override
-    public TitledPane createErrorSourceControl() {
-        TitledPane titledPane = super.createErrorSourceControl();
-        GridPane grid = (GridPane) titledPane.getContent();
-
-        grid.getChildren().remove(errorSourceDescColLabel);
-        grid.getChildren().remove(errorSourceDescColField);
-        return titledPane;
-    }
-
-    @Override
-    public void initializeUserDataBindings() {
-        super.initializeUserDataBindings();
-        userData.remove("errorSourceDesc");
-    }
+public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
 
     @Override
     protected Map<String, Object> dealErrorSourceData(ExcelReader reader, int rowNum, String product) {
@@ -102,24 +46,44 @@ public class C1MEcmScript extends AbstractEcmScript {
         String categoryIdCol = categoryIdColField.getText();
         String errorSourceNumberCol = errorSourceNumberColField.getText();
         String errorSourceEnNameCol = errorSourceEnNameColField.getText();
+        String errorSourceDescCol = errorSourceDescColField.getText();
         String errorSourceJpNameCol = errorSourceJpNameColField.getText();
+
+        String functions = functionConfigField.getText();
+        int optErrortIndex = 0;
+        List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
+        for (int i = 0; i < operationConfigs.size(); i++) {
+            String operationConfig = operationConfigs.get(i);
+            List<String> l = StrUtil.split(operationConfig, ";");
+            if ("optErrort".equals(l.get(0))) {
+                optErrortIndex = i;
+            }
+        }
         LinkedHashMap<String, String> operationMap = createOperationMap();
         LinkedHashMap<String, String> tagMap = createTagMap();
 
         String errorSourceId = reader.getCell(errorSourceIdCol + rowNum).getStringCellValue();
         String categoryId = reader.getCell(categoryIdCol + rowNum).getStringCellValue();
-        String errorSourceNumber = String
-            .valueOf((int) reader.getCell(errorSourceNumberCol + rowNum).getNumericCellValue());
-        String errorSourceenName = reader.getCell(errorSourceEnNameCol + rowNum).getStringCellValue();
-        String errorSourcejpName = reader.getCell(errorSourceJpNameCol + rowNum).getStringCellValue();
-        List<Map<String, Object>> function = new ArrayList<>();
+        int errorSourceNum = (int) reader.getCell(errorSourceNumberCol + rowNum).getNumericCellValue();
+        String errorSourceNumber = String.valueOf(errorSourceNum);
+        String errorSourceEnName = reader.getCell(errorSourceEnNameCol + rowNum).getStringCellValue();
+        String errorSourceJpName = reader.getCell(errorSourceJpNameCol + rowNum).getStringCellValue();
+        String errorSourceDesc = "";
+        if (errorSourceDescCol.length() > 0) {
+            errorSourceDesc = reader.getCell(errorSourceDescCol + rowNum).getStringCellValue();
+        }
+        // 特殊处理 24-29添加description信息
+        if (errorSourceNum < 24 || errorSourceNum > 29) {
+            errorSourceDesc = "";
+        }
+        List<Map<String, Object>> function = new ArrayList<>(operationMap.size());
         boolean optMaskintStatus = false;
         for (String funcId : operationMap.keySet()) {
             String funcCol = operationMap.get(funcId);
             String funcSupCondition = reader.getCell(funcCol + rowNum).getStringCellValue();
             // support 向下判断
             boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-            if ("optMaskableInpt".equals(funcId)) {
+            if ("optMaskint".equals(funcId)) {
                 optMaskintStatus = support;
             }
             Map<String, Object> operation = new HashMap<>(4);
@@ -130,80 +94,101 @@ public class C1MEcmScript extends AbstractEcmScript {
             handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
             function.add(operation);
         }
-        List<Map<String, Object>> tag = new ArrayList<>(tagMap.size());
-        for (String tagkey : tagMap.keySet()) {
-            String tagCol = tagMap.get(tagkey);
-            String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
-            Map<String, Object> tagMeta = new HashMap<>();
-            if ("psedu".equals(tagkey)) {
-                tagValue = String
-                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
-            }
-            tagMeta.put("key", tagkey);
-            tagMeta.put("value", tagValue);
-            tag.add(tagMeta);
-        }
+        List<Map<String, Object>> tag = buildTagData(tagMap, reader, rowNum);
         Map<String, Object> errorSource = new HashMap<>(16);
         errorSource.put("errorSourceId", errorSourceId);
         errorSource.put("categoryId", categoryId);
         errorSource.put("errorSourceNumber", errorSourceNumber);
-        errorSource.put("errorSourceEnName", errorSourceenName);
-        errorSource.put("errorSourceJpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceEnName);
+        errorSource.put("errorSourceJpName", errorSourceJpName);
+        errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
         errorSource.put("function", function);
         errorSource.put("tag", tag);
-        handlerErrorSourceMap(errorSource);
+        handlerErrorSourceMap(errorSource, product, optErrortIndex);
+
         return errorSource;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public String getSampleId() {
-        return "c1MEcmScript";
-    }
-
-    @Override
-    public String getSampleName() {
-        return "C1MEcmScript";
-    }
-
-    @Override
-    public Node getPanel(Stage stage) {
-        return super.getPanel(stage);
-    }
-
-    @Override
-    public String getOrderKey() {
-        return "C1MEcmScript";
     }
 
     /**
      * errorSource 数据后续处理
      */
-    private void handlerErrorSourceMap(Map<String, Object> errorSource) {
+    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceEnName");
         String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
-        String errorSourceNumber = (String) errorSource.get("errorSourceNumber");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
-        if ("1".equals(errorSourceNumber)) {
-            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT0");
-        }
-        if ("2".equals(errorSourceNumber)) {
-            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1");
+        if (errorSourceenName.endsWith("*7")) {
+            errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*7", "(For debug purpose only)");
+            if (errorSourcejpName.endsWith("*7")) {
+                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグのみを目的とする)");
+            } else {
+                errorSourcejpName += "(デバッグのみを目的とする)";
+            }
         }
         errorSource.put("errorSourceEnName", errorSourceenName);
         errorSource.put("errorSourceJpName", errorSourcejpName);
+
+        List<Map<String, Object>> function = (List<Map<String, Object>>) errorSource.get("function");
+        List<Map<String, Object>> extraFunc = new ArrayList<>();
+        for (Map<String, Object> map : function) {
+            String funcId = map.get("funcId").toString();
+            if ("optErrort".equals(funcId)) {
+                String support = map.get("support").toString();
+                String errorNote = map.get("errorNote").toString();
+                int size = 0;
+                if (product.startsWith("RH850U2A16")) {
+                    size = 4;
+                    generateErrort(size, support, errorNote, extraFunc, function);
+                    function.remove(map);
+                } else if (product.startsWith("RH850U2A8") || product.startsWith("RH850U2A6")) {
+                    size = 2;
+                    generateErrort(size, support, errorNote, extraFunc, function);
+                    function.remove(map);
+                } else {
+                    break;
+                }
+            }
+        }
+        function.addAll(optErrortIndex, extraFunc);
     }
 
-    /**
-     * 处理使能条件的 * 信息, 默认是support = true下的
-     */
+    private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
+                                List<Map<String, Object>> function) {
+        for (int i = 0; i < size; i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("funcId", "optErrort" + i);
+            map.put("support", support);
+            map.put("errorNote", errorNote);
+            extraFunc.add(map);
+        }
+    }
+
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
                                          boolean optMaskintStatus) {
-        // Do nothing
+        if (funcSupCondition.contains("*")) {
+            String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
+            if ("1".equals(mesNum) || "2".equals(mesNum)) {
+                operation.put("errorNote", mesNum);
+            }
+            if ("5".equals(mesNum)) {
+                String funcId = operation.get("funcId").toString();
+                if ("optDCLS".equals(funcId)) {
+                    operation.put("support", String.valueOf(optMaskintStatus));
+                }
+                if ("optIntg".equals(funcId)) {
+                    operation.put("support", "false");
+                }
+            }
+        } else {
+            String funcId = operation.get("funcId").toString();
+            if ("optDCLS".equals(funcId)) {
+                operation.put("support", "false");
+            }
+            if ("optIntg".equals(funcId)) {
+                operation.put("support", String.valueOf(optMaskintStatus));
+            }
+        }
+
     }
 
     /**
@@ -236,15 +221,6 @@ public class C1MEcmScript extends AbstractEcmScript {
         if (data.contains("H - Bus")) {
             data = data.replaceAll("H - Bus", "H-Bus");
         }
-        if (data.contains("*")) {
-            List<String> list = StrUtil.split(data, "*");
-            data = list.get(0);
-        }
         return data;
-    }
-
-    @Override
-    protected String getFtlPath() {
-        return "smc/ecm/c1m.ftl";
     }
 }
