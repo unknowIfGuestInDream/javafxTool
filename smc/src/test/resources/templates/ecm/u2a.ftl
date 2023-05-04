@@ -8,7 +8,7 @@
     </CategoryInfos>
     <ErrorSourceInfos>
 <#list errorSourceInfos as item>
-        <ErrorSource errorSourceId="${item.errorSourceId!''}" categoryId="${item.categoryId!''}" errorSourceNumber="${item.errorSourceNumber!''}" errorSourceEnName="${item.errorSourceenName!''}<#if item.errorSourceDesc?length gt 0>(${item.errorSourceDesc})</#if>" errorSourceJpName="${item.errorSourcejpName!''}">
+        <ErrorSource errorSourceId="${item.errorSourceId!''}" categoryId="${item.categoryId!''}" errorSourceNumber="${item.errorSourceNumber!''}" errorSourceEnName="${item.errorSourceEnName!''}<#if item.errorSourceDesc?length gt 0>(${item.errorSourceDesc})</#if>" errorSourceJpName="${item.errorSourceJpName!''}">
             <Function>
 <#list item.function as oper>
                 <Operation funcId="${oper.funcId}" support="${oper.support}"<#if oper.errorNote?? && oper.errorNote != ""> errorNote="${oper.errorNote}"</#if>/>

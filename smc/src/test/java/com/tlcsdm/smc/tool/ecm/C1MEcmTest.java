@@ -220,8 +220,8 @@ public class C1MEcmTest {
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
                 errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceenName", errorSourceenName);
-                errorSource.put("errorSourcejpName", errorSourcejpName);
+                errorSource.put("errorSourceEnName", errorSourceenName);
+                errorSource.put("errorSourceJpName", errorSourcejpName);
                 errorSource.put("function", function);
                 errorSource.put("tag", tag);
                 handlerErrorSourceMap(errorSource, key, 0);
@@ -278,8 +278,8 @@ public class C1MEcmTest {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceenName");
-        String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
+        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         String errorSourceNumber = (String) errorSource.get("errorSourceNumber");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
@@ -289,8 +289,8 @@ public class C1MEcmTest {
         if ("2".equals(errorSourceNumber)) {
             errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1");
         }
-        errorSource.put("errorSourceenName", errorSourceenName);
-        errorSource.put("errorSourcejpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
     }
 
     /**

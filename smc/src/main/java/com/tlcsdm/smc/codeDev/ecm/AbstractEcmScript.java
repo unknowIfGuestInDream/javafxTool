@@ -94,6 +94,8 @@ public abstract class AbstractEcmScript extends SmcSample {
     protected TextField errorSourceJpNameColField;
     protected TextArea functionConfigField;
     protected TextArea productConfigField;
+    protected Label tagConfigLabel;
+    protected TextArea tagConfigField;
 
     private final String defaultTemplateName = "ecm.zip";
     private final FileChooser downloadChooser = new FileChooser();
@@ -142,7 +144,6 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
-
         notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
@@ -262,22 +263,20 @@ public abstract class AbstractEcmScript extends SmcSample {
         productConfigField = new TextArea();
         productConfigField.setMinHeight(150);
 
-        grid.add(errorSourceIdColLabel, 0, 0);
-        grid.add(errorSourceIdColField, 1, 0);
-        grid.add(categoryIdColLabel, 0, 1);
-        grid.add(categoryIdColField, 1, 1);
-        grid.add(errorSourceNumberColLabel, 0, 2);
-        grid.add(errorSourceNumberColField, 1, 2);
-        grid.add(errorSourceEnNameColLabel, 0, 3);
-        grid.add(errorSourceEnNameColField, 1, 3);
-        grid.add(errorSourceDescColLabel, 0, 4);
-        grid.add(errorSourceDescColField, 1, 4);
-        grid.add(errorSourceJpNameColLabel, 0, 5);
-        grid.add(errorSourceJpNameColField, 1, 5);
-        grid.add(functionConfigLabel, 0, 6);
-        grid.add(functionConfigField, 1, 6);
-        grid.add(productConfigLabel, 0, 7);
-        grid.add(productConfigField, 1, 7);
+        tagConfigLabel = new Label(I18nUtils.get("smc.tool.ecm.label.tagConfig") + ": ");
+        tagConfigField = new TextArea();
+        tagConfigField.setMinHeight(60);
+        tagConfigField.setPrefHeight(80);
+
+        grid.addRow(0, errorSourceIdColLabel, errorSourceIdColField);
+        grid.addRow(1, categoryIdColLabel, categoryIdColField);
+        grid.addRow(2, errorSourceNumberColLabel, errorSourceNumberColField);
+        grid.addRow(3, errorSourceEnNameColLabel, errorSourceEnNameColField);
+        grid.addRow(4, errorSourceDescColLabel, errorSourceDescColField);
+        grid.addRow(5, errorSourceJpNameColLabel, errorSourceJpNameColField);
+        grid.addRow(6, functionConfigLabel, functionConfigField);
+        grid.addRow(7, productConfigLabel, productConfigField);
+        grid.addRow(8, tagConfigLabel, tagConfigField);
 
         return new TitledPane(I18nUtils.get("smc.tool.ecm.title.errorSource"), grid);
     }
@@ -304,12 +303,9 @@ public abstract class AbstractEcmScript extends SmcSample {
         categoryConfigField.setMinHeight(60);
         categoryConfigField.setPrefHeight(80);
 
-        grid.add(categorySheetNameLabel, 0, 0);
-        grid.add(categorySheetNameField, 1, 0);
-        grid.add(categoryStartRowLabel, 0, 1);
-        grid.add(categoryStartRowField, 1, 1);
-        grid.add(categoryConfigLabel, 0, 2);
-        grid.add(categoryConfigField, 1, 2);
+        grid.addRow(0, categorySheetNameLabel, categorySheetNameField);
+        grid.addRow(1, categoryStartRowLabel, categoryStartRowField);
+        grid.addRow(2, categoryConfigLabel, categoryConfigField);
 
         return new TitledPane(I18nUtils.get("smc.tool.ecm.title.category"), grid);
     }
@@ -321,7 +317,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField,
             startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField,
             errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField,
-            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField).build();
+            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -345,6 +341,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         userData.put("errorSourceJpNameCol", errorSourceJpNameColField);
         userData.put("functionConfig", functionConfigField);
         userData.put("productConfig", productConfigField);
+        userData.put("tagConfig", tagConfigField);
     }
 
     /**
@@ -366,57 +363,97 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 数据处理
      */
     protected void dealData() {
-        // 输入值获取
-        String excel = excelField.getText();
-        String outputPath = outputField.getText();
-        String deviceSheetName = sheetNameField.getText();
-        int deviceStartRow = Integer.parseInt(startRowField.getText());
-        // Category
-        String categorySheetName = categorySheetNameField.getText();
-        int categoryStartRow = Integer.parseInt(categoryStartRowField.getText());
-        String categorys = categoryConfigField.getText();
-        // Error Source
-        String functions = functionConfigField.getText();
-        String errorSourceIdCol = errorSourceIdColField.getText();
-        String categoryIdCol = categoryIdColField.getText();
-        String errorSourceNumberCol = errorSourceNumberColField.getText();
-        String errorSourceEnNameCol = errorSourceEnNameColField.getText();
-        String errorSourceDescCol = errorSourceDescColField.getText();
-        String errorSourceJpNameCol = errorSourceJpNameColField.getText();
-        String products = productConfigField.getText();
+        String resultPath = outputField.getText() + outParentFolder;
+        // 清空resultPath下文件
+        FileUtil.clean(resultPath);
+        //处理数据
+        dealProductData();
+        // 后续文件合并
+        postMergeResult();
+    }
 
-        String resultPath = outputPath + outParentFolder;
-
-        int optErrortIndex = 0;
+    /**
+     * 创建Function配置数据
+     */
+    protected LinkedHashMap<String, String> createOperationMap() {
         LinkedHashMap<String, String> operationMap = new LinkedHashMap<>();
+        String functions = functionConfigField.getText();
         List<String> operationConfigs = StrUtil.splitTrim(functions, "\n");
-        for (int i = 0; i < operationConfigs.size(); i++) {
-            String operationConfig = operationConfigs.get(i);
+        for (String operationConfig : operationConfigs) {
             List<String> l = StrUtil.split(operationConfig, ";");
             operationMap.put(l.get(0), l.get(1));
-            if ("optErrort".equals(l.get(0))) {
-                optErrortIndex = i;
-            }
         }
+        return operationMap;
+    }
+
+    /**
+     * 创建product配置数据
+     */
+    protected LinkedHashMap<String, String> createProductMap() {
+        String products = productConfigField.getText();
         LinkedHashMap<String, String> productMap = new LinkedHashMap<>();
+        List<String> productConfigs = StrUtil.splitTrim(products, "\n");
+        for (String productConfig : productConfigs) {
+            List<String> l = StrUtil.split(productConfig, ";");
+            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
+        }
+        return productMap;
+    }
+
+    /**
+     * 创建productInfo数据
+     * 用于文件合并功能
+     */
+    protected ListValueMap<String, String> createProductInfo() {
+        String products = productConfigField.getText();
         List<String> productConfigs = StrUtil.splitTrim(products, "\n");
         ListValueMap<String, String> productsInfo = new ListValueMap<>();
         for (String productConfig : productConfigs) {
             List<String> l = StrUtil.split(productConfig, ";");
-            productMap.put(l.get(0) + "_" + l.get(1), l.get(2));
             productsInfo.putValue(l.get(0), l.get(1));
         }
-        // category 配置数据
+        return productsInfo;
+    }
+
+    /**
+     * 创建category配置数据
+     */
+    protected LinkedHashMap<String, String> createCategoryMap() {
+        String categorys = categoryConfigField.getText();
         LinkedHashMap<String, String> categoryMap = new LinkedHashMap<>();
         List<String> categoryConfigs = StrUtil.splitTrim(categorys, "\n");
         for (String categoryConf : categoryConfigs) {
             List<String> l = StrUtil.split(categoryConf, ";");
             categoryMap.put(l.get(0), l.get(1));
         }
-        // category 数据处理
+        return categoryMap;
+    }
+
+    /**
+     * 创建tag配置数据
+     */
+    protected LinkedHashMap<String, String> createTagMap() {
+        String tags = tagConfigField.getText();
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<>();
+        List<String> tagConfigs = StrUtil.splitTrim(tags, "\n");
+        for (String tagConfig : tagConfigs) {
+            List<String> l = StrUtil.split(tagConfig, ";");
+            tagMap.put(l.get(0), l.get(1));
+        }
+        return tagMap;
+    }
+
+    /**
+     * 处理category数据
+     */
+    protected List<Map<String, Object>> dealCategoryData() {
+        LinkedHashMap<String, String> categoryMap = createCategoryMap();
+        String excel = excelField.getText();
+        String categorySheetName = categorySheetNameField.getText();
+        int categoryStartRow = Integer.parseInt(categoryStartRowField.getText());
+        List<Map<String, Object>> categoryInfos = new ArrayList<>();
         ExcelReader categoryReader = ExcelUtil.getReader(FileUtil.file(excel), categorySheetName);
         int categoryEndRow = categoryReader.getRowCount();
-        List<Map<String, Object>> categoryInfos = new ArrayList<>();
         for (int i = categoryStartRow; i <= categoryEndRow; i++) {
             Map<String, Object> categoryInfo = new HashMap<>();
             for (String key : categoryMap.keySet()) {
@@ -436,14 +473,27 @@ public abstract class AbstractEcmScript extends SmcSample {
             categoryInfos.add(categoryInfo);
         }
         categoryReader.close();
+        return categoryInfos;
+    }
 
+    /**
+     * 处理product数据
+     */
+    protected void dealProductData() {
+        String excel = excelField.getText();
+        String deviceSheetName = sheetNameField.getText();
+        int deviceStartRow = Integer.parseInt(startRowField.getText());
+        String errorSourceIdCol = errorSourceIdColField.getText();
+        String resultPath = outputField.getText() + outParentFolder;
+        //处理数据
+        LinkedHashMap<String, String> productMap = createProductMap();
+        List<Map<String, Object>> categoryInfos = dealCategoryData();
+        //处理excel数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), deviceSheetName);
         int endRow = reader.getRowCount();
-        // 清空resultPath下文件
-        FileUtil.clean(resultPath);
         // 遍历productMap
         for (String key : productMap.keySet()) {
-            List<Map<String, Object>> ErrorSourceInfos = new ArrayList<>();
+            List<Map<String, Object>> errorSourceInfos = new ArrayList<>();
             String productCol = productMap.get(key);
             // 遍历excel sheet数据
             for (int i = deviceStartRow; i <= endRow; i++) {
@@ -460,56 +510,51 @@ public abstract class AbstractEcmScript extends SmcSample {
                         continue;
                     }
                 }
-                String errorSourceId = reader.getCell(errorSourceIdCol + i).getStringCellValue();
-                String categoryId = reader.getCell(categoryIdCol + i).getStringCellValue();
-                int errorSourceNum = (int) reader.getCell(errorSourceNumberCol + i).getNumericCellValue();
-                String errorSourceNumber = String.valueOf(errorSourceNum);
-                String errorSourceEnName = reader.getCell(errorSourceEnNameCol + i).getStringCellValue();
-                String errorSourceJpName = reader.getCell(errorSourceJpNameCol + i).getStringCellValue();
-                String errorSourceDesc = reader.getCell(errorSourceDescCol + i).getStringCellValue();
-                // 特殊处理 24-29添加description信息
-                if (errorSourceNum < 24 || errorSourceNum > 29) {
-                    errorSourceDesc = "";
-                }
-                List<Map<String, Object>> function = new ArrayList<>();
-                boolean optMaskintStatus = false;
-                for (String funcId : operationMap.keySet()) {
-                    String funcCol = operationMap.get(funcId);
-                    String funcSupCondition = reader.getCell(funcCol + i).getStringCellValue();
-                    // support 向下判断
-                    boolean support = !(funcSupCondition.contains("—") || funcSupCondition.contains("-"));
-                    if ("optMaskint".equals(funcId)) {
-                        optMaskintStatus = support;
-                    }
-                    Map<String, Object> operation = new HashMap<>();
-                    operation.put("funcId", funcId);
-                    operation.put("support", String.valueOf(support));
-                    operation.put("errorNote", "");
-                    // 数据后置处理
-                    handlerOperationSupport(operation, funcSupCondition, optMaskintStatus);
-                    function.add(operation);
-                }
-                Map<String, Object> errorSource = new HashMap<>();
-                errorSource.put("errorSourceId", errorSourceId);
-                errorSource.put("categoryId", categoryId);
-                errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceEnName", errorSourceEnName);
-                errorSource.put("errorSourceJpName", errorSourceJpName);
-                errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
-                errorSource.put("function", function);
-                handlerErrorSourceMap(errorSource, key, optErrortIndex);
-                ErrorSourceInfos.add(errorSource);
+                errorSourceInfos.add(dealErrorSourceData(reader, i, key));
             }
-            Map<String, Object> paramMap = new HashMap<>();
+            Map<String, Object> paramMap = new HashMap<>(4);
             paramMap.put("categoryInfos", categoryInfos);
-            paramMap.put("errorSourceInfos", ErrorSourceInfos);
+            paramMap.put("errorSourceInfos", errorSourceInfos);
+            // 若paramMap需要扩展，可在此处新增新接口
             File result = FileUtil.newFile(resultPath + "\\" + key + ".xml");
             FileUtil.appendUtf8String(FreemarkerUtil.getTemplateContent(paramMap, getFtlPath()), result);
         }
         reader.close();
+    }
 
-        // 后续文件合并
-        // 待删除文件
+    /**
+     * ErrorSource数据处理
+     */
+    protected abstract Map<String, Object> dealErrorSourceData(ExcelReader reader, int rowNum, String product);
+
+    /**
+     * 获取tag数据
+     */
+    protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader, int rowNum) {
+        List<Map<String, Object>> tag = new ArrayList<>();
+        for (String tagkey : tagMap.keySet()) {
+            String tagCol = tagMap.get(tagkey);
+            String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
+            Map<String, Object> tagMeta = new HashMap<>();
+            if ("psedu".equals(tagkey)) {
+                tagValue = String
+                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+            }
+            tagMeta.put("key", tagkey);
+            tagMeta.put("value", tagValue);
+            tag.add(tagMeta);
+        }
+        return tag;
+    }
+
+    /**
+     * 合并结果文件
+     * 相同device不同pin如果文件内容一致则合并内容，结果文件如： RH850U2A6.xml
+     * 否则按照device_pin命名，如：RH850U2A6_144.xml
+     */
+    protected void postMergeResult() {
+        ListValueMap<String, String> productsInfo = createProductInfo();
+        String resultPath = outputField.getText() + outParentFolder;
         List<String> delFileNames = new ArrayList<>();
         for (String device : productsInfo.keySet()) {
             List<String> list = productsInfo.get(device);
@@ -545,124 +590,6 @@ public abstract class AbstractEcmScript extends SmcSample {
         for (String fileName : delFileNames) {
             FileUtil.del(FileUtil.file(resultPath, fileName));
         }
-    }
-
-    /**
-     * errorSource 数据后续处理
-     */
-    private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
-        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
-        errorSourceenName = cleanErrorSourceData(errorSourceenName);
-        errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
-        if (errorSourceenName.endsWith("*7")) {
-            errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*7", "(For debug purpose only)");
-            if (errorSourcejpName.endsWith("*7")) {
-                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグのみを目的とする)");
-            } else {
-                errorSourcejpName += "(デバッグのみを目的とする)";
-            }
-        }
-        errorSource.put("errorSourceEnName", errorSourceenName);
-        errorSource.put("errorSourceJpName", errorSourcejpName);
-
-        List<Map<String, Object>> function = (List<Map<String, Object>>) errorSource.get("function");
-        List<Map<String, Object>> extraFunc = new ArrayList<>();
-        for (Map<String, Object> map : function) {
-            String funcId = map.get("funcId").toString();
-            if ("optErrort".equals(funcId)) {
-                String support = map.get("support").toString();
-                String errorNote = map.get("errorNote").toString();
-                int size = 0;
-                if (product.startsWith("RH850U2A16")) {
-                    size = 4;
-                    generateErrort(size, support, errorNote, extraFunc, function);
-                    function.remove(map);
-                } else if (product.startsWith("RH850U2A8") || product.startsWith("RH850U2A6")) {
-                    size = 2;
-                    generateErrort(size, support, errorNote, extraFunc, function);
-                    function.remove(map);
-                } else {
-                    break;
-                }
-            }
-        }
-        function.addAll(optErrortIndex, extraFunc);
-    }
-
-    private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-                                List<Map<String, Object>> function) {
-        for (int i = 0; i < size; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("funcId", "optErrort" + i);
-            map.put("support", support);
-            map.put("errorNote", errorNote);
-            extraFunc.add(map);
-        }
-    }
-
-    /**
-     * 处理使能条件的 * 信息, 默认是support = true下的
-     */
-    private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
-        if (funcSupCondition.contains("*")) {
-            String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
-            if ("1".equals(mesNum) || "2".equals(mesNum)) {
-                operation.put("errorNote", mesNum);
-            }
-            if ("5".equals(mesNum)) {
-                String funcId = operation.get("funcId").toString();
-                if ("optDCLS".equals(funcId)) {
-                    operation.put("support", String.valueOf(optMaskintStatus));
-                }
-                if ("optIntg".equals(funcId)) {
-                    operation.put("support", "false");
-                }
-            }
-        } else {
-            String funcId = operation.get("funcId").toString();
-            if ("optDCLS".equals(funcId)) {
-                operation.put("support", "false");
-            }
-            if ("optIntg".equals(funcId)) {
-                operation.put("support", String.valueOf(optMaskintStatus));
-            }
-        }
-
-    }
-
-    /**
-     * 清洗ErrorSource数据
-     */
-    private String cleanErrorSourceData(String data) {
-        data = data.replaceAll("  ", " ");
-        if (data.contains(" (")) {
-            data = StrUtil.replace(data, " (", "(");
-        }
-        if (data.contains("\n")) {
-            List<String> list = StrUtil.split(data, "\n");
-            data = list.get(0);
-            for (int i = 1; i < list.size(); i++) {
-                data += " ";
-                data += list.get(i).replaceFirst("- ", "-");
-            }
-        }
-        data = data.replaceAll("-", " - ");
-        data = data.replaceAll("  ", " ");
-        if (data.contains(" - bit")) {
-            data = data.replaceAll(" - bit", "-bit");
-        }
-        if (data.contains("P - Bus")) {
-            data = data.replaceAll("P - Bus", "P-Bus");
-        }
-        if (data.contains("I - Bus")) {
-            data = data.replaceAll("I - Bus", "I-Bus");
-        }
-        if (data.contains("H - Bus")) {
-            data = data.replaceAll("H - Bus", "H-Bus");
-        }
-        return data;
     }
 
     /**

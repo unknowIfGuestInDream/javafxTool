@@ -90,7 +90,7 @@ public class SmcConstant {
     /**
      * 项目构建日期
      */
-    public static final String PROJECT_BUILD_DAY = "2023-04-02";
+    public static final String PROJECT_BUILD_DAY = "2023-05-04";
     /**
      * 检查更新所用的api
      */
