@@ -216,8 +216,8 @@ public class U2AEcmTest {
                 errorSource.put("errorSourceId", errorSourceId);
                 errorSource.put("categoryId", categoryId);
                 errorSource.put("errorSourceNumber", errorSourceNumber);
-                errorSource.put("errorSourceenName", errorSourceenName);
-                errorSource.put("errorSourcejpName", errorSourcejpName);
+                errorSource.put("errorSourceEnName", errorSourceenName);
+                errorSource.put("errorSourceJpName", errorSourcejpName);
                 errorSource.put("errorSourceDesc", errorSourceDesc.replaceAll("\n", " "));
                 errorSource.put("function", function);
                 handlerErrorSourceMap(errorSource, key, optErrortIndex);
@@ -274,8 +274,8 @@ public class U2AEcmTest {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceenName");
-        String errorSourcejpName = (String) errorSource.get("errorSourcejpName");
+        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
+        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
         if (errorSourceenName.endsWith("*7")) {
@@ -286,8 +286,8 @@ public class U2AEcmTest {
                 errorSourcejpName += "(デバッグのみを目的とする)";
             }
         }
-        errorSource.put("errorSourceenName", errorSourceenName);
-        errorSource.put("errorSourcejpName", errorSourcejpName);
+        errorSource.put("errorSourceEnName", errorSourceenName);
+        errorSource.put("errorSourceJpName", errorSourcejpName);
 
         List<Map<String, Object>> function = (List<Map<String, Object>>) errorSource.get("function");
         List<Map<String, Object>> extraFunc = new ArrayList<>();
