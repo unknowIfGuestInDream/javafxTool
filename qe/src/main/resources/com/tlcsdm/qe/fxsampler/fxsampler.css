@@ -46,23 +46,23 @@
 }
 
 .control-textarea {
-    -fx-background-color: rgb(244, 244, 244) !important;
-    -fx-focus-color: rgb(244, 244, 244) !important;
-    -fx-faint-focus-color: rgb(244, 244, 244) !important;
-    -fx-box-border: rgb(244, 244, 244) !important;
+    -fx-background-color: rgb(250, 250, 252) !important;
+    -fx-focus-color: rgb(250, 250, 252) !important;
+    -fx-faint-focus-color: rgb(250, 250, 252) !important;
+    -fx-box-border: rgb(250, 250, 252) !important;
     -fx-translate-y: -7;
     -fx-font-size: 16;
 }
 
 .control-textarea .scroll-pane {
-    -fx-background-color: rgb(244, 244, 244) !important;
+    -fx-background-color: rgb(250, 250, 252) !important;
     -fx-padding: 0;
     -fx-background-insets: 0;
     -fx-border-width: -1;
 }
 
 .control-textarea .scroll-pane .content {
-    -fx-background-color: rgb(244, 244, 244) !important;
+    -fx-background-color: rgb(250, 250, 252) !important;
 }
 
 .dialog-pane {
