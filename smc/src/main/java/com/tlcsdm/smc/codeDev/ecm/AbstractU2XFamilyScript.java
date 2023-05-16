@@ -30,7 +30,11 @@ package com.tlcsdm.smc.codeDev.ecm;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * U2X系列公共类
@@ -120,9 +124,9 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
         if (errorSourceenName.endsWith("*7")) {
             errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*7", "(For debug purpose only)");
             if (errorSourcejpName.endsWith("*7")) {
-                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグのみを目的とする)");
+                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグ目的のみ)");
             } else {
-                errorSourcejpName += "(デバッグのみを目的とする)";
+                errorSourcejpName += "(デバッグ目的のみ)";
             }
         }
         errorSource.put("errorSourceEnName", errorSourceenName);
@@ -153,7 +157,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-                                List<Map<String, Object>> function) {
+            List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -164,7 +168,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                           boolean optMaskintStatus) {
+            boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
