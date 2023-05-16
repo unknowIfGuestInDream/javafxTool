@@ -46,7 +46,11 @@ import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class U2AEcmTest {
@@ -281,9 +285,9 @@ public class U2AEcmTest {
         if (errorSourceenName.endsWith("*7")) {
             errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*7", "(For debug purpose only)");
             if (errorSourcejpName.endsWith("*7")) {
-                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグのみを目的とする)");
+                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*7", "(デバッグ目的のみ)");
             } else {
-                errorSourcejpName += "(デバッグのみを目的とする)";
+                errorSourcejpName += "(デバッグ目的のみ)";
             }
         }
         errorSource.put("errorSourceEnName", errorSourceenName);
