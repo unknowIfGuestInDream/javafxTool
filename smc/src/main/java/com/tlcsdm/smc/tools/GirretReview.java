@@ -511,13 +511,12 @@ public class GirretReview extends SmcSample {
     private void handleComments(String commentsRequestUrl, String resultPath, String resultFileName)
             throws IOException, InterruptedException {
         if (changesList.size() == 0) {
-            FxApp.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    notificationBuilder.text("No need changes");
-                    notificationBuilder.showInformation();
-                }
+            FxApp.runLater(() -> {
+                notificationBuilder.text("No need changes");
+                notificationBuilder.showInformation();
             });
+            StaticLog.info("No need changes.");
+            return;
         }
         for (int i = 0; i < changesList.size(); i++) {
             String url = StrUtil.format(commentsRequestUrl,
@@ -553,12 +552,9 @@ public class GirretReview extends SmcSample {
                     }
                 }
             } else {
-                FxApp.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        notificationBuilder.text("comments request call failed");
-                        notificationBuilder.showError();
-                    }
+                FxApp.runLater(() -> {
+                    notificationBuilder.text("comments request call failed");
+                    notificationBuilder.showError();
                 });
                 StaticLog.error("comments request call failed. {}", response.body());
                 break;
@@ -573,13 +569,11 @@ public class GirretReview extends SmcSample {
      */
     private void handleResult(String resultPath, String resultFileName) {
         if (commentsList.size() == 0) {
-            FxApp.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    notificationBuilder.text("No need comments");
-                    notificationBuilder.showInformation();
-                }
+            FxApp.runLater(() -> {
+                notificationBuilder.text("No need comments");
+                notificationBuilder.showInformation();
             });
+            StaticLog.info("No need comments.");
             return;
         }
         ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
@@ -600,20 +594,17 @@ public class GirretReview extends SmcSample {
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-changes.json"));
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-changes.json"));
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-comments.json"));
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-comments.json"));
         }
-        FxApp.runLater(new Runnable() {
-            @Override
-            public void run() {
-                notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
-                notificationBuilder.showInformation();
-            }
+        FxApp.runLater(() -> {
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
+            notificationBuilder.showInformation();
         });
     }
 
