@@ -82,7 +82,7 @@
         <dom4j.version>2.1.4</dom4j.version>
         <jexl.version>3.3</jexl.version>
         <pdfbox.version>2.0.28</pdfbox.version>
-        <jackson.version>2.15.0</jackson.version>
+        <jackson.version>2.15.1</jackson.version>
         <testfx.version>4.0.16-alpha</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli-javafx.version>12.3.1</ikonli-javafx.version>
