@@ -41,6 +41,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -110,12 +111,15 @@ public class GirretReview extends SmcSample {
     private TextField girretUrlField;
     // 忽略的girret number
     private TextField ignoreGirretNumberField;
+    // 需要的project
+    private TextArea projectField;
     // 数据起始日期
     private DatePicker startDatePicker;
 
     private static HttpClient client;
     private List<Map<String, String>> changesList;
     private List<Map<String, String>> commentsList;
+    private List<String> projectList = new ArrayList<>();
     private boolean changesEnd = false;
 
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
@@ -138,7 +142,7 @@ public class GirretReview extends SmcSample {
                 notificationBuilder.showWarning();
                 return;
             }
-            FxApp.runLater(new Runnable() {
+            ThreadPoolTaskExecutor.get().execute(new Runnable() {
 
                 @Override
                 public void run() {
@@ -152,10 +156,10 @@ public class GirretReview extends SmcSample {
                         manager.getCookieStore().add(URI.create(girretUrlField.getText()), gerritAccount);
                         manager.getCookieStore().add(URI.create(girretUrlField.getText()), token);
                         Authenticator authenticator = new UserPassAuthenticator(userNameField.getText(),
-                            passwdField.getText().toCharArray());
+                                passwdField.getText().toCharArray());
                         client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                            .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
-                            .cookieHandler(manager).build();
+                                .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
+                                .cookieHandler(manager).build();
                         // changes请求路径
                         String changesRequestUrl = girretUrlField.getText() + "changes/?O=%s&S=%s&n=%s&q=%s";
                         // comments请求路径
@@ -163,7 +167,7 @@ public class GirretReview extends SmcSample {
                         int paramS = 0;
                         String paramQ = defaultParamQ;
                         if (StrUtil.isNotEmpty(ownerEmailField.getText())
-                            && !ownerEmailField.getText().startsWith(userNameField.getText())) {
+                                && !ownerEmailField.getText().startsWith(userNameField.getText())) {
                             paramQ = "owner:" + ownerEmailField.getText();
                         }
                         String resultFileName = file.getName();
@@ -174,16 +178,20 @@ public class GirretReview extends SmcSample {
                             FileUtil.del(file);
                         }
                         int paramN = Integer.parseInt(limitField.getText());
+                        List<String> projects = StrUtil.splitTrim(projectField.getText(), "\n");
+                        for (String project : projects) {
+                            projectList.add(project.trim());
+                        }
                         StaticLog.info("Get request result...");
                         // 开始获取结果
-                        for (; ; ) {
+                        for (;;) {
                             String url = String.format(changesRequestUrl,
-                                URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
-                                URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
+                                    URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
+                                    URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
                             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                                     "application/json", "User-Agent",
                                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                                .build();
+                                    .build();
                             HttpResponse<String> response = null;
                             response = client.send(request, HttpResponse.BodyHandlers.ofString());
                             if (response.statusCode() == 200) {
@@ -246,9 +254,14 @@ public class GirretReview extends SmcSample {
         limitField = new NumberTextField(BigDecimal.valueOf(50));
 
         Label ignoreGirretNumberLabel = new Label(
-            I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber") + ": ");
+                I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber") + ": ");
         ignoreGirretNumberField = TextFields.createClearableTextField();
         ignoreGirretNumberField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
+
+        Label projectLabel = new Label("Repo: ");
+        projectField = new TextArea();
+        projectField.setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
+        projectField.setPrefHeight(80);
 
         Label startDateLabel = new Label(I18nUtils.get("smc.tool.girretReview.label.startDate") + ": ");
         startDatePicker = new DatePicker();
@@ -284,13 +297,15 @@ public class GirretReview extends SmcSample {
         grid.add(limitField, 1, 6, 2, 1);
         grid.add(ignoreGirretNumberLabel, 0, 7);
         grid.add(ignoreGirretNumberField, 1, 7, 2, 1);
-        grid.add(startDateLabel, 0, 8);
-        grid.add(startDateClearButton, 1, 8);
-        grid.add(startDatePicker, 2, 8);
-        grid.add(reserveJsonLabel, 0, 9);
-        grid.add(reserveJsonCheck, 1, 9, 2, 1);
-        grid.add(girretUrlLabel, 0, 10);
-        grid.add(girretUrlField, 1, 10, 2, 1);
+        grid.add(projectLabel, 0, 8);
+        grid.add(projectField, 1, 8, 2, 1);
+        grid.add(startDateLabel, 0, 9);
+        grid.add(startDateClearButton, 1, 9);
+        grid.add(startDatePicker, 2, 9);
+        grid.add(reserveJsonLabel, 0, 10);
+        grid.add(reserveJsonCheck, 1, 10, 2, 1);
+        grid.add(girretUrlLabel, 0, 11);
+        grid.add(girretUrlField, 1, 11, 2, 1);
 
         return grid;
     }
@@ -298,8 +313,8 @@ public class GirretReview extends SmcSample {
     @Override
     public void initializeBindings() {
         super.initializeBindings();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(gerritAccountField, tokenField, userNameField,
-            passwdField, limitField, girretUrlField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(gerritAccountField, tokenField,
+                userNameField, passwdField, limitField, girretUrlField).build();
         generate.disabledProperty().bind(emptyValidation);
     }
 
@@ -317,20 +332,21 @@ public class GirretReview extends SmcSample {
         userData.put("reserveJson", reserveJsonCheck);
         userData.put("girretUrl", girretUrlField);
         userData.put("outPut", outPutChooser);
+        userData.put("repo", projectField);
     }
 
     @Override
     public Node getControlPanel() {
         String content = """
-            GerritAccount&XSRF_TOKEN{tokenDesc}
-            {userName}&{passwd}{girretUserDesc}
-            {ownerEmail}{ownerEmailDesc}
-            {limit}{limitDesc}
-            {ignoreGirretNumber}{ignoreGirretNumberDesc}
-            {startDate}: {startDateDesc}
-            {reserveJson}: {reserveJsonDesc}
-            {girretUrl}{girretUrlDesc}
-            """;
+                GerritAccount&XSRF_TOKEN{tokenDesc}
+                {userName}&{passwd}{girretUserDesc}
+                {ownerEmail}{ownerEmailDesc}
+                {limit}{limitDesc}
+                {ignoreGirretNumber}{ignoreGirretNumberDesc}
+                {startDate}: {startDateDesc}
+                {reserveJson}: {reserveJsonDesc}
+                {girretUrl}{girretUrlDesc}
+                """;
         Map<String, String> map = new HashMap<>(32);
         map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
         map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
@@ -363,7 +379,7 @@ public class GirretReview extends SmcSample {
         }
         try {
             Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER),
-                LocalDateTimeUtil.now());
+                    LocalDateTimeUtil.now());
             if (dur.toHours() >= 12) {
                 gerritAccountField.setText("");
                 tokenField.setText("");
@@ -394,7 +410,7 @@ public class GirretReview extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.3";
     }
 
     @Override
@@ -479,6 +495,12 @@ public class GirretReview extends SmcSample {
         if (ignoreGirretNumberList.size() > 0) {
             return !ignoreGirretNumberList.contains(array.getByPath("[" + i + "].owner._number"));
         }
+        // 过滤project
+        if (projectList.size() > 0) {
+            if (!projectList.contains(array.getByPath("[" + i + "].project"))) {
+                return false;
+            }
+        }
         // 可添加自定义过滤条件
         return true;
     }
@@ -487,19 +509,23 @@ public class GirretReview extends SmcSample {
      * girret comments 数据处理
      */
     private void handleComments(String commentsRequestUrl, String resultPath, String resultFileName)
-        throws IOException, InterruptedException {
+            throws IOException, InterruptedException {
         if (changesList.size() == 0) {
-            notificationBuilder.text("No need changes");
-            notificationBuilder.showInformation();
+            FxApp.runLater(() -> {
+                notificationBuilder.text("No need changes");
+                notificationBuilder.showInformation();
+            });
+            StaticLog.info("No need changes.");
+            return;
         }
         for (int i = 0; i < changesList.size(); i++) {
             String url = StrUtil.format(commentsRequestUrl,
-                URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
-                changesList.get(i).get("girretNum"));
+                    URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
+                    changesList.get(i).get("girretNum"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                     "application/json", "User-Agent",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                .build();
+                    .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String result = response.body();
@@ -515,7 +541,7 @@ public class GirretReview extends SmcSample {
                         String commentAuthorUserName = String.valueOf(array.getByPath("[" + j + "].author.username"));
                         Map<String, String> comment = new HashMap<>(changesList.get(i));
                         if ("Done".equals(commentMessage)
-                            || comment.get("ownerUserName").equals(commentAuthorUserName)) {
+                                || comment.get("ownerUserName").equals(commentAuthorUserName)) {
                             continue;
                         }
                         comment.put("commentFileName", vo.getKey());
@@ -526,8 +552,10 @@ public class GirretReview extends SmcSample {
                     }
                 }
             } else {
-                notificationBuilder.text("comments request call failed");
-                notificationBuilder.showError();
+                FxApp.runLater(() -> {
+                    notificationBuilder.text("comments request call failed");
+                    notificationBuilder.showError();
+                });
                 StaticLog.error("comments request call failed. {}", response.body());
                 break;
             }
@@ -541,8 +569,11 @@ public class GirretReview extends SmcSample {
      */
     private void handleResult(String resultPath, String resultFileName) {
         if (commentsList.size() == 0) {
-            notificationBuilder.text("No need comments");
-            notificationBuilder.showInformation();
+            FxApp.runLater(() -> {
+                notificationBuilder.text("No need comments");
+                notificationBuilder.showInformation();
+            });
+            StaticLog.info("No need comments.");
             return;
         }
         ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
@@ -571,8 +602,10 @@ public class GirretReview extends SmcSample {
                     LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
                         + "-comments.json"));
         }
-        notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
-        notificationBuilder.showInformation();
+        FxApp.runLater(() -> {
+            notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
+            notificationBuilder.showInformation();
+        });
     }
 
     // 设置生成的excel样式

@@ -51,7 +51,13 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -66,7 +72,12 @@ import org.controlsfx.control.action.ActionUtils;
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * EcmScript脚本超类
@@ -118,29 +129,29 @@ public abstract class AbstractEcmScript extends SmcSample {
     });
 
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"),
-        actionEvent -> {
-            downloadChooser.setInitialFileName(defaultTemplateName);
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
-            downloadChooser.getExtensionFilters().add(extFilter);
-            File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
-            if (file != null) {
-                if (!StrUtil.endWith(file.getName(), ".zip")) {
-                    notificationBuilder
-                        .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
-                    notificationBuilder.showWarning();
-                    return;
-                }
-                if (file.exists()) {
-                    FileUtil.del(file);
-                }
-                String path = "com/tlcsdm/smc/static/templates/";
-                ZipUtil.zip(file, Charset.defaultCharset(),
-                    new ClassPathResource(path + getFtlPath(), getClass().getClassLoader()));
+            actionEvent -> {
+                downloadChooser.setInitialFileName(defaultTemplateName);
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+                downloadChooser.getExtensionFilters().add(extFilter);
+                File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+                if (file != null) {
+                    if (!StrUtil.endWith(file.getName(), ".zip")) {
+                        notificationBuilder
+                                .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                        notificationBuilder.showWarning();
+                        return;
+                    }
+                    if (file.exists()) {
+                        FileUtil.del(file);
+                    }
+                    String path = "com/tlcsdm/smc/static/templates/";
+                    ZipUtil.zip(file, Charset.defaultCharset(),
+                            new ClassPathResource(path + getFtlPath(), getClass().getClassLoader()));
 
-                notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
-                notificationBuilder.showInformation();
-            }
-        });
+                    notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
+                    notificationBuilder.showInformation();
+                }
+            });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
@@ -315,9 +326,10 @@ public abstract class AbstractEcmScript extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField,
-            startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField,
-            errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField,
-            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
+                startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField,
+                errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField,
+                errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField,
+                tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -350,11 +362,11 @@ public abstract class AbstractEcmScript extends SmcSample {
     protected void initDefaultValue() {
         startRowField.setNumber(BigDecimal.valueOf(3));
         categoryConfigField
-            .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         functionConfigField
-            .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         productConfigField
-            .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         categoryStartRowField.setNumber(BigDecimal.valueOf(3));
         categorySheetNameField.setText("Category");
     }
@@ -366,7 +378,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         String resultPath = outputField.getText() + outParentFolder;
         // 清空resultPath下文件
         FileUtil.clean(resultPath);
-        //处理数据
+        // 处理数据
         dealProductData();
         // 后续文件合并
         postMergeResult();
@@ -485,10 +497,10 @@ public abstract class AbstractEcmScript extends SmcSample {
         int deviceStartRow = Integer.parseInt(startRowField.getText());
         String errorSourceIdCol = errorSourceIdColField.getText();
         String resultPath = outputField.getText() + outParentFolder;
-        //处理数据
+        // 处理数据
         LinkedHashMap<String, String> productMap = createProductMap();
         List<Map<String, Object>> categoryInfos = dealCategoryData();
-        //处理excel数据
+        // 处理excel数据
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(excel), deviceSheetName);
         int endRow = reader.getRowCount();
         // 遍历productMap
@@ -530,15 +542,15 @@ public abstract class AbstractEcmScript extends SmcSample {
     /**
      * 获取tag数据
      */
-    protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader, int rowNum) {
+    protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
+            int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);
             String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
             Map<String, Object> tagMeta = new HashMap<>();
             if ("psedu".equals(tagkey)) {
-                tagValue = String
-                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
             }
             tagMeta.put("key", tagkey);
             tagMeta.put("value", tagValue);
@@ -567,7 +579,7 @@ public abstract class AbstractEcmScript extends SmcSample {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
                     boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
-                        FileUtil.file(resultPath, comName));
+                            FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
@@ -575,7 +587,7 @@ public abstract class AbstractEcmScript extends SmcSample {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
                             FileUtil.copyFile(FileUtil.file(resultPath, orgName),
-                                FileUtil.file(resultPath, deviceName));
+                                    FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);
@@ -604,7 +616,7 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.2";
+        return "1.0.3";
     }
 
     @Override
@@ -615,16 +627,16 @@ public abstract class AbstractEcmScript extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-            {templateDesc}
+                {templateDesc}
 
-            {categoryConfigLabel}: key;colName
-            eg: categoryId;F
-            {functionConfigLabel}: key;colName
-            eg: optMaskint;G
-            {productConfigLabel}: device;pin;colName
-            {productConfigDesc}
-            eg: RH850U2A16;516;N
-            """;
+                {categoryConfigLabel}: key;colName
+                eg: categoryId;F
+                {functionConfigLabel}: key;colName
+                eg: optMaskint;G
+                {productConfigLabel}: device;pin;colName
+                {productConfigDesc}
+                eg: RH850U2A16;516;N
+                """;
 
         Map<String, String> map = new HashMap<>(8);
         map.put("categoryConfigLabel", I18nUtils.get("smc.tool.ecm.label.categoryConfig"));
