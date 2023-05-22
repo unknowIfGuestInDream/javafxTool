@@ -57,12 +57,23 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -72,7 +83,12 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.*;
+import java.net.Authenticator;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
@@ -81,7 +97,12 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 用于收集girret上指定用户的指摘信息
@@ -119,7 +140,7 @@ public class GirretReview extends SmcSample {
     private static HttpClient client;
     private List<Map<String, String>> changesList;
     private List<Map<String, String>> commentsList;
-    private List<String> projectList = new ArrayList<>();
+    private List<String> projectList;
     private boolean changesEnd = false;
 
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
@@ -178,6 +199,7 @@ public class GirretReview extends SmcSample {
                             FileUtil.del(file);
                         }
                         int paramN = Integer.parseInt(limitField.getText());
+                        projectList = new ArrayList();
                         List<String> projects = StrUtil.splitTrim(projectField.getText(), "\n");
                         for (String project : projects) {
                             projectList.add(project.trim());
@@ -594,13 +616,13 @@ public class GirretReview extends SmcSample {
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList),
-                FileUtil.file(resultPath,
-                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                        + "-changes.json"));
+                    FileUtil.file(resultPath,
+                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                                    + "-changes.json"));
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList),
-                FileUtil.file(resultPath,
-                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                        + "-comments.json"));
+                    FileUtil.file(resultPath,
+                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                                    + "-comments.json"));
         }
         FxApp.runLater(() -> {
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
