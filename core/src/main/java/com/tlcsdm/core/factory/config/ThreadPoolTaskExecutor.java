@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.factory.config;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.factory.InitializingFactory;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
@@ -68,6 +69,9 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
     private static class SingletonInstance {
         private static final ThreadPoolExecutor INSTANCE = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
             keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
-            new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true).build(), handler);
+            new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
+                .uncaughtExceptionHandler((t, e) -> {
+                    StaticLog.error(e);
+                }).build(), handler);
     }
 }
