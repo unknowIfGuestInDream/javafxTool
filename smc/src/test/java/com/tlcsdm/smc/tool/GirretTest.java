@@ -46,7 +46,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -86,7 +85,7 @@ public class GirretTest {
     // 是否保留json文件到resultPath路径下
     private final boolean reserveJson = false;
     // 忽略的girret number
-    private List<String> ignoreGirretNumberList = List.of();
+    private final List<String> ignoreGirretNumberList = List.of();
 
     // 参数配置
     private final static String paramO = "81";
@@ -100,8 +99,8 @@ public class GirretTest {
 
     // 待初始化对象
     private static HttpClient client;
-    private List<Map<String, String>> changesList = new ArrayList<>();
-    private List<Map<String, String>> commentsList = new ArrayList<>();
+    private final List<Map<String, String>> changesList = new ArrayList<>();
+    private final List<Map<String, String>> commentsList = new ArrayList<>();
     private boolean changesEnd = false;
 
     @BeforeAll
@@ -125,15 +124,15 @@ public class GirretTest {
      * girret 提交信息读取
      */
     @Test
-    public void GirretTest1() throws IOException, InterruptedException, UnsupportedEncodingException {
+    public void GirretTest1() throws IOException, InterruptedException {
         Console.log("================== Getting changes ==================");
-        for (;;) {
+        for (; ; ) {
             String url = String.format(changesRequestUrl, URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS,
-                    paramN, URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
+                paramN, URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                     "application/json", "User-Agent",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                    .build();
+                .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String result = response.body();
@@ -198,9 +197,7 @@ public class GirretTest {
             return false;
         }
         if (ignoreGirretNumberList.size() > 0) {
-            if (ignoreGirretNumberList.contains(array.getByPath("[" + i + "].owner._number"))) {
-                return false;
-            }
+            return !ignoreGirretNumberList.contains(array.getByPath("[" + i + "].owner._number"));
         }
         // 可添加自定义过滤条件
         return true;

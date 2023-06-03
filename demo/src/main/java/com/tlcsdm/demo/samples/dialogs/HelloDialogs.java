@@ -621,7 +621,7 @@ public class HelloDialogs extends ControlsFXSample {
 
         // Page 1
         WizardPane page1 = new WizardPane() {
-            ValidationSupport vs = new ValidationSupport();
+            final ValidationSupport vs = new ValidationSupport();
 
             {
                 vs.initInitialDecoration();
@@ -654,7 +654,7 @@ public class HelloDialogs extends ControlsFXSample {
         // Page 2
 
         WizardPane page2 = new WizardPane() {
-            ValidationSupport vs = new ValidationSupport();
+            final ValidationSupport vs = new ValidationSupport();
 
             {
                 vs.initInitialDecoration();

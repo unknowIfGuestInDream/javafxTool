@@ -66,7 +66,7 @@ public class GroovyClassLoaderTest {
             System.out.println("testGroovy2:" + ret);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Exception e=" + e.toString());
+            System.out.println("Exception e=" + e);
         }
     }
 
@@ -81,7 +81,7 @@ public class GroovyClassLoaderTest {
             System.out.println("testGroovy3:" + ret);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Exception e=" + e.toString());
+            System.out.println("Exception e=" + e);
         }
     }
 

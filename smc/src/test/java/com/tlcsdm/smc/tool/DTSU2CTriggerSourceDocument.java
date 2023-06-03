@@ -52,7 +52,7 @@ public class DTSU2CTriggerSourceDocument {
     // excel文件名称
     private final String excelName = "u2c_DTS_Transfer_request_Table.xlsx";
     // 模板文件名
-    private String resultFileName = "DTS_RH850U2C_request_table.xlsx";
+    private final String resultFileName = "DTS_RH850U2C_request_table.xlsx";
 
     private final String sheetName = "DTS trigger";
     // 数据开始行
@@ -81,9 +81,9 @@ public class DTSU2CTriggerSourceDocument {
     private final List<ArrayList<String>> groupLines = new ArrayList<>();
 
     // trigger factor信息
-    private List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
-    private List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
-    private List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
+    private final List<Map<Integer, String>> triggerFactorList = new ArrayList<>(128);
+    private final List<Integer> triggerFactorRowNumList = new ArrayList<>(128);
+    private final List<List<Map<Integer, String>>> conditionList = new ArrayList<>(128);
 
     @BeforeEach
     public void init() {

@@ -581,7 +581,7 @@ public class HelloSpreadsheetView extends ControlsFXSample {
             increase.add(cell);
 
             for (int column = 1; column < grid.getColumnCount(); ++column) {
-                cell = SpreadsheetCellType.DOUBLE.createCell(row, column, 1, 1, (double) Math.random());
+                cell = SpreadsheetCellType.DOUBLE.createCell(row, column, 1, 1, Math.random());
                 if (column % 2 == 1) {
                     cell.setGraphic(new ImageView(new Image(Utils.class.getResourceAsStream("/com/tlcsdm/demo/exclamation.png"))));
                 }

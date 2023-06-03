@@ -252,7 +252,7 @@ public class HelloTableView2 extends ControlsFXSample {
                         if (item != null && !empty) {
                             setText(null);
                             circle.setFill(getIndex() % 5 == 0 ? Color.RED : Color.BLUE);
-                            label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + String.valueOf(item));
+                            label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + item);
                             box.setAlignment(Pos.CENTER);
                             setGraphic(box);
                         } else {
@@ -295,7 +295,8 @@ public class HelloTableView2 extends ControlsFXSample {
         private final TableColumn2<Person, Integer> age = new TableColumn2<>("Age");
         private final TableColumn2<Person, LocalDate> birthday = new TableColumn2<>("Birthday");
         private final TableColumn2<Person, Boolean> active = new TableColumn2<>("Active");
-        private HBox boxFirstName, boxLastName;
+        private final HBox boxFirstName;
+        private final HBox boxLastName;
 
         public TableView2Sample() {
 

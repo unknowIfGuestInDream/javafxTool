@@ -45,10 +45,10 @@ public class HelloCheckTreeView extends ControlsFXSample {
 
     private CheckTreeView<String> checkTreeView;
 
-    private CheckBoxTreeItem<String> treeItem_Jonathan = new CheckBoxTreeItem<>("Jonathan");
-    private CheckBoxTreeItem<String> treeItem_Eugene = new CheckBoxTreeItem<>("Eugene");
-    private CheckBoxTreeItem<String> treeItem_Henry = new CheckBoxTreeItem<>("Henry");
-    private CheckBoxTreeItem<String> treeItem_Samir = new CheckBoxTreeItem<>("Samir");
+    private final CheckBoxTreeItem<String> treeItem_Jonathan = new CheckBoxTreeItem<>("Jonathan");
+    private final CheckBoxTreeItem<String> treeItem_Eugene = new CheckBoxTreeItem<>("Eugene");
+    private final CheckBoxTreeItem<String> treeItem_Henry = new CheckBoxTreeItem<>("Henry");
+    private final CheckBoxTreeItem<String> treeItem_Samir = new CheckBoxTreeItem<>("Samir");
 
     @Override
     public String getSampleName() {
