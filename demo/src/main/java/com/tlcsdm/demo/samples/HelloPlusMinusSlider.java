@@ -41,7 +41,7 @@ import org.controlsfx.control.PlusMinusSlider.PlusMinusEvent;
 
 public class HelloPlusMinusSlider extends ControlsFXSample {
 
-    private PlusMinusSlider plusMinusSlider = new PlusMinusSlider();
+    private final PlusMinusSlider plusMinusSlider = new PlusMinusSlider();
 
     @Override
     public Node getPanel(Stage stage) {

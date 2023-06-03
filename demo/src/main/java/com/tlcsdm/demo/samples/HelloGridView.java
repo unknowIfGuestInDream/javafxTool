@@ -67,7 +67,7 @@ public class HelloGridView extends ControlsFXSample {
     }
 
     private GridView<?> getColorGrid() {
-        final ObservableList<Color> list = FXCollections.<Color>observableArrayList();
+        final ObservableList<Color> list = FXCollections.observableArrayList();
 
         GridView<Color> colorGrid = new GridView<>(list);
 
@@ -87,7 +87,7 @@ public class HelloGridView extends ControlsFXSample {
     private GridView<?> getImageGrid(final boolean preserveImageProperties) {
 
         final Image image = new Image(String.valueOf(getClass().getResource("/com/tlcsdm/demo/flowers.png")), 200, 0, true, true);
-        final ObservableList<Image> list = FXCollections.<Image>observableArrayList();
+        final ObservableList<Image> list = FXCollections.observableArrayList();
 
         GridView<Image> colorGrid = new GridView<>(list);
 

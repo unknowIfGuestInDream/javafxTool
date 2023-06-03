@@ -59,7 +59,7 @@ public class HelloActionProxy extends ControlsFXSample {
     private static final String imagePath = "/com/tlcsdm/demo/security-low.png";
     private static final ImageView image = LayoutHelper.iconView(HelloActionProxy.class.getResource(imagePath));
 
-    private Collection<? extends Action> actions;
+    private final Collection<? extends Action> actions;
 
     public HelloActionProxy() {
         //ActionMap.register(this);
@@ -169,7 +169,7 @@ public class HelloActionProxy extends ControlsFXSample {
         Label lblAddCrumb = new Label("Dynamically enable/disable action: ");
         lblAddCrumb.getStyleClass().add("property");
         grid.add(lblAddCrumb, 0, row);
-        final ComboBox<Action> cbActions = new ComboBox<>(flatten(actions, FXCollections.<Action>observableArrayList()));
+        final ComboBox<Action> cbActions = new ComboBox<>(flatten(actions, FXCollections.observableArrayList()));
         cbActions.getSelectionModel().select(0);
         grid.add(cbActions, 1, row);
         Action toggleAction = new Action("Enable/Disable") {

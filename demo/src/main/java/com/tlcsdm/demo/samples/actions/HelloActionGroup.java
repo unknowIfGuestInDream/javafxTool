@@ -59,7 +59,7 @@ public class HelloActionGroup extends ControlsFXSample {
 
     private final ImageView image = new ImageView(new Image(getClass().getResource("/com/tlcsdm/demo/security-low.png").toExternalForm()));
 
-    private Collection<? extends Action> actions = Arrays.asList(
+    private final Collection<? extends Action> actions = Arrays.asList(
         new ActionGroup("Group 1", image, new DummyAction("Action 1.1", image),
             new CheckDummyAction("Action 1.2")),
         new ActionGroup("Group 2", image, new DummyAction("Action 2.1"),
@@ -152,7 +152,7 @@ public class HelloActionGroup extends ControlsFXSample {
         Label lblAddCrumb = new Label("Dynamically enable/disable action: ");
         lblAddCrumb.getStyleClass().add("property");
         grid.add(lblAddCrumb, 0, row);
-        final ComboBox<Action> cbActions = new ComboBox<>(flatten(actions, FXCollections.<Action>observableArrayList()));
+        final ComboBox<Action> cbActions = new ComboBox<>(flatten(actions, FXCollections.observableArrayList()));
         cbActions.getSelectionModel().select(0);
         grid.add(cbActions, 1, row);
         Action toggleAction = new Action("Enable/Disable") {

@@ -47,16 +47,16 @@ public class HelloGlyphFont extends ControlsFXSample {
         //GlyphFontRegistry.register("icomoon", HelloGlyphFont.class.getResourceAsStream("/com/tlcsdm/demo/icomoon.ttf"), 16);
     }
 
-    private GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
-    private GlyphFont icoMoon = GlyphFontRegistry.font("icomoon");
+    private final GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
+    private final GlyphFont icoMoon = GlyphFontRegistry.font("icomoon");
 
     //	private static char FAW_TRASH = '\uf014';
-    private static char FAW_GEAR = '\uf013';
+    private static final char FAW_GEAR = '\uf013';
 //	private static char FAW_STAR  = '\uf005';
 
-    private static char IM_BOLD = '\ue027';
-    private static char IM_UNDERSCORED = '\ue02b';
-    private static char IM_ITALIC = '\ue13e';
+    private static final char IM_BOLD = '\ue027';
+    private static final char IM_UNDERSCORED = '\ue02b';
+    private static final char IM_ITALIC = '\ue13e';
 
     @Override
     public String getSampleName() {

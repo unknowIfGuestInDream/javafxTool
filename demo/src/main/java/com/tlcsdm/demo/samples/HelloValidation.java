@@ -50,8 +50,8 @@ import java.util.Arrays;
 
 public class HelloValidation extends ControlsFXSample {
 
-    private TextField textField = new TextField();
-    private ValidationSupport validationSupport = new ValidationSupport();
+    private final TextField textField = new TextField();
+    private final ValidationSupport validationSupport = new ValidationSupport();
 
     @Override
     public String getSampleName() {

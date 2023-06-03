@@ -160,9 +160,7 @@ public class HelloPrefixSelection extends ControlsFXSample {
                         final int numberOfItems = getItemsByLetter(combo, firstLetter, numberOfDigits).size();
                         final int index = getItemsByLetter(combo, firstLetter, numberOfDigits).indexOf(item);
                         // repeated alpha characters: highlight match based on order
-                        if (index == (numberOfOccurrences - 1) % numberOfItems) {
-                            return true;
-                        }
+                        return index == (numberOfOccurrences - 1) % numberOfItems;
                     }
                 }
                 return false;
@@ -209,9 +207,7 @@ public class HelloPrefixSelection extends ControlsFXSample {
                         final int numberOfItems = getItemsByLetter(combo, firstLetter, numberOfDigits).size();
                         final int index = getItemsByLetter(combo, firstLetter, numberOfDigits).indexOf(item);
                         // repeated alpha characters: highlight match based on order
-                        if (index == (numberOfOccurrences - 1) % numberOfItems) {
-                            return true;
-                        }
+                        return index == (numberOfOccurrences - 1) % numberOfItems;
                     }
                 }
                 return false;

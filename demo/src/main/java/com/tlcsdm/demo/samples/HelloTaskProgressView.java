@@ -48,11 +48,11 @@ import java.util.concurrent.Executors;
 
 public class HelloTaskProgressView extends ControlsFXSample {
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private TaskProgressView<MyTask> taskProgressView;
 
-    private FontAwesome fontAwesome = new FontAwesome();
+    private final FontAwesome fontAwesome = new FontAwesome();
 
     private Callback<MyTask, Node> factory;
 
@@ -164,11 +164,11 @@ public class HelloTaskProgressView extends ControlsFXSample {
     }
 
     enum TaskType {
-        TYPE1, TYPE2, TYPE3;
+        TYPE1, TYPE2, TYPE3
     }
 
     class MyTask extends Task<Void> {
-        private TaskType type;
+        private final TaskType type;
 
         public MyTask(String title) {
             updateTitle(title);
