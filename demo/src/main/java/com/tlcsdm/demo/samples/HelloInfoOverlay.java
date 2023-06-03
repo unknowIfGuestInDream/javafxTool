@@ -41,7 +41,7 @@ import org.controlsfx.control.InfoOverlay;
 public class HelloInfoOverlay extends ControlsFXSample {
 
     private InfoOverlay infoOverlay;
-    private Slider fitHeightSlider = new Slider(250, 800, 400);
+    private final Slider fitHeightSlider = new Slider(250, 800, 400);
 
     public static void main(String[] args) {
         launch(args);

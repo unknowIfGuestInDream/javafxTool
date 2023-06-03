@@ -192,9 +192,9 @@ public class HelloCheckComboBox extends ControlsFXSample {
 }
 
 class Person {
-    private StringProperty firstName = new SimpleStringProperty();
-    private StringProperty lastName = new SimpleStringProperty();
-    private ReadOnlyStringWrapper fullName = new ReadOnlyStringWrapper();
+    private final StringProperty firstName = new SimpleStringProperty();
+    private final StringProperty lastName = new SimpleStringProperty();
+    private final ReadOnlyStringWrapper fullName = new ReadOnlyStringWrapper();
 
     public Person(String firstName, String lastName) {
         this.firstName.set(firstName);

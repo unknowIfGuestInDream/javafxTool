@@ -41,21 +41,21 @@ import org.controlsfx.control.SegmentedBar;
 
 public class HelloSegmentedBar extends ControlsFXSample {
 
-    private VBox vbox = new VBox(40);
+    private final VBox vbox = new VBox(40);
 
-    private HBox hbox = new HBox(40);
+    private final HBox hbox = new HBox(40);
 
-    private SegmentedBar<TypeSegment> innerShadowBar = new SegmentedBar<>();
+    private final SegmentedBar<TypeSegment> innerShadowBar = new SegmentedBar<>();
 
-    private SegmentedBar<IssueStatusSegment> issueStatusBar = new SegmentedBar<>();
+    private final SegmentedBar<IssueStatusSegment> issueStatusBar = new SegmentedBar<>();
 
-    private SegmentedBar<SegmentedBar.Segment> simpleBar = new SegmentedBar<>();
+    private final SegmentedBar<SegmentedBar.Segment> simpleBar = new SegmentedBar<>();
 
-    private SegmentedBar<TypeSegment> typesBar = new SegmentedBar<>();
+    private final SegmentedBar<TypeSegment> typesBar = new SegmentedBar<>();
 
-    private StackPane innerShadowPane = new StackPane();
+    private final StackPane innerShadowPane = new StackPane();
 
-    private StackPane contentPane = new StackPane();
+    private final StackPane contentPane = new StackPane();
 
     public HelloSegmentedBar() {
         vbox.setFillWidth(true);
@@ -198,7 +198,7 @@ public class HelloSegmentedBar extends ControlsFXSample {
 
     public class TypeSegmentView extends StackPane {
 
-        private Label label;
+        private final Label label;
 
         public TypeSegmentView(TypeSegment segment) {
             label = new Label();
@@ -275,12 +275,12 @@ public class HelloSegmentedBar extends ControlsFXSample {
         FREE,
         OTHER,
         PHOTOS,
-        APPS;
+        APPS
     }
 
     public static class TypeSegment extends SegmentedBar.Segment {
 
-        private MediaType type;
+        private final MediaType type;
 
         public TypeSegment(double value, MediaType type) {
             super(value);
@@ -316,12 +316,12 @@ public class HelloSegmentedBar extends ControlsFXSample {
     public enum IssueStatus {
         DONE,
         INPROGRESS,
-        TODO;
+        TODO
     }
 
     public static class IssueStatusSegment extends SegmentedBar.Segment {
 
-        private IssueStatus status;
+        private final IssueStatus status;
 
         public IssueStatusSegment(double value, IssueStatus status) {
             super(value);
@@ -333,7 +333,7 @@ public class HelloSegmentedBar extends ControlsFXSample {
         }
     }
 
-    private ObjectProperty<Orientation> orientation = new SimpleObjectProperty<>(Orientation.HORIZONTAL);
+    private final ObjectProperty<Orientation> orientation = new SimpleObjectProperty<>(Orientation.HORIZONTAL);
 
     @Override
     public Node getControlPanel() {

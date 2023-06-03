@@ -377,7 +377,7 @@ public class HelloNotifications extends ControlsFXSample {
     }
 
     private Node buildTotalReplacementGraphic() {
-        final ObservableList<Color> list = FXCollections.<Color>observableArrayList();
+        final ObservableList<Color> list = FXCollections.observableArrayList();
 
         GridView<Color> colorGrid = new GridView<>(list);
         colorGrid.setPrefSize(300, 300);

@@ -42,7 +42,7 @@ import org.controlsfx.control.SegmentedButton;
 
 public class HelloMaskerPane extends ControlsFXSample {
 
-    private MaskerPane masker = new MaskerPane();
+    private final MaskerPane masker = new MaskerPane();
 
     public static void main(String[] args) {
         launch(args);

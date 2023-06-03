@@ -60,7 +60,7 @@ import java.util.Optional;
 
 public class HelloPropertySheet extends ControlsFXSample {
 
-    private static Map<String, Object> customDataMap = new LinkedHashMap<>();
+    private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
 
     static {
         customDataMap.put("1. Name#First Name", "Jonathan");
@@ -76,7 +76,7 @@ public class HelloPropertySheet extends ControlsFXSample {
         customDataMap.put("3. Phone#Work", "");
     }
 
-    private PropertySheet propertySheet = new PropertySheet();
+    private final PropertySheet propertySheet = new PropertySheet();
 
     public static void main(String[] args) {
         launch();
@@ -105,8 +105,9 @@ public class HelloPropertySheet extends ControlsFXSample {
 
     class CustomPropertyItem implements Item {
 
-        private String key;
-        private String category, name;
+        private final String key;
+        private final String category;
+        private final String name;
 
         public CustomPropertyItem(String key) {
             this.key = key;
@@ -154,7 +155,7 @@ public class HelloPropertySheet extends ControlsFXSample {
 
     class ActionShowInPropertySheet extends Action {
 
-        private Object bean;
+        private final Object bean;
 
         public ActionShowInPropertySheet(String title, Object bean) {
             super(title);

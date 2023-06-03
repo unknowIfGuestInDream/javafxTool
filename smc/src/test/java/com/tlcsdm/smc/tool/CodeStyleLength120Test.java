@@ -67,7 +67,7 @@ public class CodeStyleLength120Test {
     // 初始化删除结果文件
     private final boolean initClean = true;
     // 结果信息
-    private List<Map<String, Object>> result = new ArrayList<>();
+    private final List<Map<String, Object>> result = new ArrayList<>();
     // 待初始化文件对象
     private List<File> files;
 

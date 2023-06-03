@@ -49,7 +49,7 @@ public class JSR223Test {
             String HelloLanguage = "def hello(language) {return \"Hello $language\"}";
             engine.eval(HelloLanguage);
             Invocable inv = (Invocable) engine;
-            Object[] params = {new String("Groovy")};
+            Object[] params = {"Groovy"};
             Object result = inv.invokeFunction("hello", params);
             // assert result.equals("Hello Groovy");
             System.out.println(result);

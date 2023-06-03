@@ -76,7 +76,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
     private final ObservableList<Person> data = generateData(100);
     private FilteredTableViewSample table;
     private StackPane centerPane;
-    private BooleanProperty southVisible = new SimpleBooleanProperty();
+    private final BooleanProperty southVisible = new SimpleBooleanProperty();
 
     public static void main(String[] args) {
         launch(args);
@@ -257,7 +257,7 @@ public class HelloFilteredTableView extends ControlsFXSample {
                         if (item != null && !empty) {
                             setText(null);
                             circle.setFill(getIndex() % 5 == 0 ? Color.RED : Color.BLUE);
-                            label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + String.valueOf(item));
+                            label.setText("" + table.getItems().get(getIndex()).getBirthday().getYear() + " " + item);
                             box.setAlignment(Pos.CENTER);
                             setGraphic(box);
                         } else {
@@ -312,10 +312,10 @@ public class HelloFilteredTableView extends ControlsFXSample {
         private final FilteredTableColumn<Person, String> city = new FilteredTableColumn<>("City");
         private final FilteredTableColumn<Person, LocalDate> birthday = new FilteredTableColumn<>("Birthday");
         private final FilteredTableColumn<Person, Boolean> active = new FilteredTableColumn<>("Active");
-        private SouthFilter<Person, String> editorFirstName;
-        private SouthFilter<Person, String> editorLastName;
-        private SouthFilter<Person, Integer> editorAge;
-        private SouthFilter<Person, Color> editorColor;
+        private final SouthFilter<Person, String> editorFirstName;
+        private final SouthFilter<Person, String> editorLastName;
+        private final SouthFilter<Person, Integer> editorAge;
+        private final SouthFilter<Person, Color> editorColor;
 
         private final List<Color> colors = Arrays.asList(Color.CADETBLUE, Color.CHARTREUSE, Color.CHOCOLATE, Color.CORAL, Color.CORNSILK, Color.CORNFLOWERBLUE);
         private final List<String> scolors = Arrays.asList("cadetblue", "chartreuse", "chocolate", "coral", "cornsilk", "cornflowerblue");

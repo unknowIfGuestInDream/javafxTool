@@ -52,9 +52,9 @@ import java.util.List;
 
 public class HelloWorldMapView extends ControlsFXSample {
 
-    private WorldMapView worldMapView = new WorldMapView();
+    private final WorldMapView worldMapView = new WorldMapView();
 
-    private FontAwesome fontAwesome = new FontAwesome();
+    private final FontAwesome fontAwesome = new FontAwesome();
 
     public HelloWorldMapView() {
     }
@@ -159,7 +159,7 @@ public class HelloWorldMapView extends ControlsFXSample {
         });
     }
 
-    private BooleanProperty showColorsProperty = new SimpleBooleanProperty(this, "showColors", false);
+    private final BooleanProperty showColorsProperty = new SimpleBooleanProperty(this, "showColors", false);
 
     @Override
     public Node getControlPanel() {
