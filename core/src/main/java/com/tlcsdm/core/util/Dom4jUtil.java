@@ -34,6 +34,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
 
 import java.io.*;
 import java.net.URL;
@@ -47,6 +48,8 @@ import java.net.URL;
  */
 public class Dom4jUtil {
 
+    private static final String DEFAULT_FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+
     /**
      * 通过url地址,获得document对象
      */
@@ -54,8 +57,9 @@ public class Dom4jUtil {
         Document document = null;
         try {
             SAXReader saxReader = new SAXReader();
+            saxReader.setFeature(DEFAULT_FEATURE, true);
             document = saxReader.read(url);
-        } catch (DocumentException e) {
+        } catch (DocumentException | SAXException e) {
             StaticLog.error(e);
         }
         return document;
@@ -68,8 +72,9 @@ public class Dom4jUtil {
         Document document = null;
         try {
             SAXReader saxReader = new SAXReader();
+            saxReader.setFeature(DEFAULT_FEATURE, true);
             document = saxReader.read(path);
-        } catch (DocumentException e) {
+        } catch (DocumentException | SAXException e) {
             StaticLog.error(e);
         }
         return document;
@@ -129,14 +134,15 @@ public class Dom4jUtil {
         int returnValue = 0;
         try {
             SAXReader saxReader = new SAXReader();
+            saxReader.setFeature(DEFAULT_FEATURE, true);
             Document document = saxReader.read(new File(filename));
-            XMLWriter writer = null;
+            XMLWriter writer;
             OutputFormat format = defaultOutputFormat();
             writer = new XMLWriter(new FileWriter(filename), format);
             writer.write(document);
             writer.close();
             returnValue = 1;
-        } catch (IOException | DocumentException e) {
+        } catch (IOException | DocumentException | SAXException e) {
             StaticLog.error(e);
         }
         return returnValue;
