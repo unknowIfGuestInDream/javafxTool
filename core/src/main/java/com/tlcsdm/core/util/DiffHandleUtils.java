@@ -231,8 +231,7 @@ public class DiffHandleUtils {
         for (int i = 0; i < unifiedDiff.size(); i++) {
             String u = unifiedDiff.get(i);
             if (u.startsWith("@@") && !"@@ -0,0 +0,0 @@".equals(u) && !u.contains("@@ -1,")) {
-                List<String> twoList = new ArrayList<>();
-                twoList.addAll(d);
+                List<String> twoList = new ArrayList<>(d);
                 diffList.add(twoList);
                 d.clear();
                 d.add(u);
@@ -240,8 +239,7 @@ public class DiffHandleUtils {
             }
             if (i == unifiedDiff.size() - 1) {
                 d.add(u);
-                List<String> twoList = new ArrayList<>();
-                twoList.addAll(d);
+                List<String> twoList = new ArrayList<>(d);
                 diffList.add(twoList);
                 d.clear();
                 break;
@@ -271,17 +269,17 @@ public class DiffHandleUtils {
                 insert(result, getOrigList(original, start, end));
             }
 
+            int start = (map.get("orgRow") + map.get("orgDel") - 1);
+            start = start == -1 ? 0 : start;
             if (simb.contains("@@ -1,") && null == nexSimb && map.get("orgDel") != original.size()) {
-                insert(result, getOrigList(original, 0, original.size() - 1));
+                insert(result, getOrigList(original, start, original.size() - 1));
             } else if (null == nexSimb && (map.get("orgRow") + map.get("orgDel") - 1) < original.size()) {
-                int start = (map.get("orgRow") + map.get("orgDel") - 1);
-                start = start == -1 ? 0 : start;
                 insert(result, getOrigList(original, start, original.size() - 1));
             }
         }
         int diffCount = diffList.size() - 1;
         if (!"@@ -0,0 +0,0 @@".equals(unifiedDiff.get(2))) {
-            diffCount = diffList.size() > 1 ? diffList.size() : 1;
+            diffCount = Math.max(diffList.size(), 1);
         }
         result.set(1, result.get(1) + " ( " + diffCount + " different )");
         return result;
@@ -289,9 +287,7 @@ public class DiffHandleUtils {
 
     // 将源文件中没变的内容插入result
     public static void insert(List<String> result, List<String> noChangeContent) {
-        for (String ins : noChangeContent) {
-            result.add(ins);
-        }
+        result.addAll(noChangeContent);
     }
 
     // 解析含有@@的行得到修改的行号删除或新增了几行
