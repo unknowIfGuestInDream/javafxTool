@@ -64,7 +64,7 @@ public class Dom4jUtil {
         Document document = null;
         try {
             SAXReader saxReader = new SAXReader();
-            saxReader.setFeature(DEFAULT_FEATURE, true);
+            saxReader.setFeature(DEFAULT_FEATURE, false);
             document = saxReader.read(url);
         } catch (DocumentException | SAXException e) {
             StaticLog.error(e);
@@ -79,7 +79,7 @@ public class Dom4jUtil {
         Document document = null;
         try {
             SAXReader saxReader = new SAXReader();
-            saxReader.setFeature(DEFAULT_FEATURE, true);
+            saxReader.setFeature(DEFAULT_FEATURE, false);
             document = saxReader.read(path);
         } catch (DocumentException | SAXException e) {
             StaticLog.error(e);
