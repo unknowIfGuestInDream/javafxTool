@@ -56,7 +56,11 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
@@ -72,7 +76,11 @@ import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -164,7 +172,8 @@ public class SpecGeneralTest extends SmcSample {
                             || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
                         .collect(Collectors.toList());
                     reader.close();
-                    String resultPath = outputPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
+                    String resultPath = outputPath + File.separator
+                        + excelName.substring(0, excelName.lastIndexOf("."));
                     String filesPath = resultPath + File.separator + "files";
                     // 清空resultPath下文件
                     FileUtil.clean(resultPath);
@@ -174,7 +183,8 @@ public class SpecGeneralTest extends SmcSample {
                     Map<String, String> generateFileMap = new HashMap<>();
                     for (String sheetName : sheetNames) {
                         BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
-                        StaticLog.info("========================= Begin Reading {} =========================", sheetName);
+                        StaticLog.info("========================= Begin Reading {} =========================",
+                            sheetName);
                         ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
                         String endCell = getEndCell(endCellColumn, r);
                         StaticLog.info("endCell: {}", endCell);
@@ -273,12 +283,14 @@ public class SpecGeneralTest extends SmcSample {
                             generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
-                            List<String> diffString = DiffHandleUtil.diffString(filesPath + File.separator + generateFileName,
+                            List<String> diffString = DiffHandleUtil.diffString(
+                                filesPath + File.separator + generateFileName,
                                 generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
-                                DiffHandleUtil.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
+                                DiffHandleUtil.generateDiffHtml(diffString,
+                                    resultPath + File.separator + sheetName + ".html");
                             }
                         } else {
                             StaticLog.info("========================= Not Found {} =========================",
@@ -433,8 +445,8 @@ public class SpecGeneralTest extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField, macroLengthField,
-            startCellField, generalFileCellField, endCellColumnField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField,
+            macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }

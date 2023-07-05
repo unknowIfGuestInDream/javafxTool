@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.exception;
 
+import java.io.Serial;
+
 /**
  * 不符合预期的数据异常
  *
@@ -35,6 +37,9 @@ package com.tlcsdm.core.exception;
  * @since: 1.0
  */
 public class UnExpectedResultException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 5411849075157198596L;
+
     public UnExpectedResultException() {
     }
 

@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.exception;
 
+import java.io.Serial;
+
 /**
  * Sample组件定义错误
  *
@@ -34,6 +36,9 @@ package com.tlcsdm.core.exception;
  * @date: 2023/1/3 21:10
  */
 public class SampleDefinitionException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 8767447827951776514L;
+
     public SampleDefinitionException() {
 
     }

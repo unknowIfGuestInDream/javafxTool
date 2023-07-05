@@ -38,6 +38,7 @@ import javafx.scene.image.Image;
  * @date: 2023/3/3 22:47
  */
 public class SmcSplashProvider implements SplashScreen {
+
     @Override
     public Image getImage() {
         return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/static/splash.png"));

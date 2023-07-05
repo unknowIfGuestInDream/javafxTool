@@ -29,6 +29,7 @@ package com.tlcsdm.core.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
  * @author: unknowIfGuestInDream
  * @date: 2023/3/19 18:46
  */
+@Disabled("MultiMap.class is deprecated.")
 public class MultiMapTest {
 
     private static MultiMap<String, String> multimap;

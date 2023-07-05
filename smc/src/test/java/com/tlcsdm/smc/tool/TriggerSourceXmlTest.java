@@ -151,13 +151,13 @@ public class TriggerSourceXmlTest {
         for (int i = beginRowNum; i <= endRowNum; i++) {
             contentsList.add("	<TriggerSource Channel=\"" + (i - beginRowNum) + "\"");
             contentsList.add("		Group0TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup0Line() + i, group0ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup0Line() + i, group0ValueLine + i) + "\"");
             contentsList.add("		Group1TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup1Line() + i, group1ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup1Line() + i, group1ValueLine + i) + "\"");
             contentsList.add("		Group2TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup2Line() + i, group2ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup2Line() + i, group2ValueLine + i) + "\"");
             contentsList.add("		Group3TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup3Line() + i, group3ValueLine + i) + "\" />");
+                + getXmlGroupValue(reader, getGroup3Line() + i, group3ValueLine + i) + "\" />");
         }
 
         contentsList.add("</DTCTriggerSource>");

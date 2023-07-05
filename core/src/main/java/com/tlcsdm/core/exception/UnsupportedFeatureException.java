@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.exception;
 
+import java.io.Serial;
+
 /**
  * 不支持的功能
  *
@@ -35,6 +37,9 @@ package com.tlcsdm.core.exception;
  * @since: 1.0
  */
 public class UnsupportedFeatureException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 3737509550947511988L;
+
     public UnsupportedFeatureException() {
     }
 

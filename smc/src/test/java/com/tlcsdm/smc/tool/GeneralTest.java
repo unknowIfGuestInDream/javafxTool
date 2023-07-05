@@ -94,9 +94,9 @@ public class GeneralTest {
     public void init() {
         ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
         sheetNames = reader.getSheetNames().stream()
-                .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                        || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                .collect(Collectors.toList());
+            .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+            .collect(Collectors.toList());
         resultPath = parentDirectoryPath + "\\" + excelName.substring(0, excelName.lastIndexOf("."));
         filesPath = resultPath + "\\files";
         cleanDir(resultPath);
@@ -153,15 +153,15 @@ public class GeneralTest {
             ExcelReader reader = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
             String generateFileName = generateFileMap.get(sheetName);
             FileUtil.writeUtf8String(reader.readAsText(false).replaceAll("\\t", ""),
-                    FileUtil.file(filesPath, generateFileName));
+                FileUtil.file(filesPath, generateFileName));
             reader.close();
             logHandler("========================= Begin Comparing " + generateFileName + " =========================",
-                    1);
+                1);
             String generateFileParent = getGenerateFileParent();
             File generateFile = FileUtil.file(generateFileParent, generateFileName);
             if (FileUtil.exist(generateFile)) {
                 List<String> diffString = DiffHandleUtil.diffString(filesPath + "\\" + generateFileName,
-                        generateFileParent + "\\" + generateFileName);
+                    generateFileParent + "\\" + generateFileName);
                 DiffHandleUtil.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
             }
             ThreadUtil.safeSleep(200);
@@ -184,18 +184,18 @@ public class GeneralTest {
      */
     private void logHandler(String message, int level) {
         switch (level) {
-        case 1:
-            Console.log(message);
-            break;
-        case 2:
-            Console.log("Warning: {}", message);
-            break;
-        case 3:
-            Console.error(message);
-            break;
-        case 0:
-        default:
-            break;
+            case 1:
+                Console.log(message);
+                break;
+            case 2:
+                Console.log("Warning: {}", message);
+                break;
+            case 3:
+                Console.error(message);
+                break;
+            case 0:
+            default:
+                break;
         }
 
     }

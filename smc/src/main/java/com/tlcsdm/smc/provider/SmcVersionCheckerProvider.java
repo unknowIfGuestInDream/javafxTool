@@ -63,14 +63,13 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
         if (result.length() > 0) {
             return;
         }
-        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).followRedirects(HttpClient.Redirect.NORMAL)
-            .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(2000)).build();
-        HttpRequest request = HttpRequest
-            .newBuilder(URI.create(SmcConstant.PROJECT_VERSION_CHECK_URL)).GET()
-            .headers("Content-Type", "application/json", "User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
-                "accept", "application/vnd.github+json")
-            .build();
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
+            .followRedirects(HttpClient.Redirect.NORMAL).sslContext(SSLContextBuilder.create().build())
+            .connectTimeout(Duration.ofMillis(2000)).build();
+        HttpRequest request = HttpRequest.newBuilder(URI.create(SmcConstant.PROJECT_VERSION_CHECK_URL)).GET().headers(
+            "Content-Type", "application/json", "User-Agent",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+            "accept", "application/vnd.github+json").build();
         var future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
             if (response.statusCode() != 200) {
                 throw new UnExpectedResultException(response.body());
@@ -92,16 +91,18 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
                     String version = tag.substring(1, tag.length() - SmcConstant.PROJECT_TAG_SUBFIX.length());
                     int compare = VersionComparator.INSTANCE.compare(version, SmcSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
-                        String content = new StringBuilder()
-                            .append(I18nUtils.get("smc.versionCheck.versionNum")).append(": ").append(version).append("\r\n")
-                            .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(array.getByPath("[" + i + "].body"))
-                            .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
-                            .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
+                        String content = new StringBuilder().append(I18nUtils.get("smc.versionCheck.versionNum"))
+                            .append(": ").append(version).append("\r\n")
+                            .append(I18nUtils.get("smc.versionCheck.body")).append(": \n")
+                            .append(array.getByPath("[" + i + "].body")).append("\r\n").append("\r\n")
+                            .append(I18nUtils.get("smc.versionCheck.desc")).append("\r\n")
+                            .append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
 
                         SmcConstant.PROJECT_RELEASE_URL = String.valueOf(array.getByPath("[" + i + "].html_url"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
-                                .graphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/release.png"), 48.0D))
+                                .graphic(LayoutHelper.iconView(
+                                    getClass().getResource("/com/tlcsdm/smc/static/icon/release.png"), 48.0D))
                                 .text(content).show();
                         });
                     }

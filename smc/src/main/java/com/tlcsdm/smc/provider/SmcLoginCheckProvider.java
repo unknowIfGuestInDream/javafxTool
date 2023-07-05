@@ -41,6 +41,7 @@ import javafx.stage.Stage;
  * @date: 2022/10/22 9:16
  */
 public class SmcLoginCheckProvider implements LoginCheck {
+
     @Override
     public boolean checkInformation(LoginNodes loginNodes) {
         if ("".equals(loginNodes.tfUser().getText()) || "".equals(loginNodes.tfPassword().getText())) {

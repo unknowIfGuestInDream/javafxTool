@@ -40,13 +40,22 @@ import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.Authenticator;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
@@ -55,7 +64,11 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Girret数据读取
@@ -113,7 +126,7 @@ public class GirretTest {
         manager.getCookieStore().add(URI.create(cookieAddrString), token);
         Authenticator authenticator = new UserPassAuthenticator(userName, password.toCharArray());
         client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                .connectTimeout(Duration.ofMillis(5000)).authenticator(authenticator).cookieHandler(manager).build();
+            .connectTimeout(Duration.ofMillis(5000)).authenticator(authenticator).cookieHandler(manager).build();
         if (!ownerEmail.startsWith(userName)) {
             paramQ = "owner:" + ownerEmail;
         }
@@ -171,7 +184,7 @@ public class GirretTest {
                 map.put("subject", String.valueOf(array.getByPath("[" + i + "].subject")));
                 map.put("created", String.valueOf(array.getByPath("[" + i + "].created")).replace(".000000000", ""));
                 map.put("submitted",
-                        String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", ""));
+                    String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", ""));
                 map.put("insertions", String.valueOf(array.getByPath("[" + i + "].insertions")));
                 map.put("deletions", String.valueOf(array.getByPath("[" + i + "].deletions")));
                 map.put("ownerUserName", String.valueOf(array.getByPath("[" + i + "].owner.username")));
@@ -209,12 +222,12 @@ public class GirretTest {
     private void handleComments() throws IOException, InterruptedException {
         for (int i = 0; i < changesList.size(); i++) {
             String url = StrUtil.format(commentsRequestUrl,
-                    URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
-                    changesList.get(i).get("girretNum"));
+                URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
+                changesList.get(i).get("girretNum"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                     "application/json", "User-Agent",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                    .build();
+                .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String result = response.body();
@@ -233,7 +246,7 @@ public class GirretTest {
                         String commentAutherUserName = String.valueOf(array.getByPath("[" + j + "].author.username"));
                         Map<String, String> comment = new HashMap<>(changesList.get(i));
                         if ("Done".equals(commentMessage)
-                                || comment.get("ownerUserName").equals(commentAutherUserName)) {
+                            || comment.get("ownerUserName").equals(commentAutherUserName)) {
                             continue;
                         }
                         comment.put("commentFileName", vo.getKey());
@@ -278,13 +291,13 @@ public class GirretTest {
         // 保留json结果文件
         if (reserveJson) {
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-changes.json"));
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-changes.json"));
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-comments.json"));
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-comments.json"));
         }
     }
 
