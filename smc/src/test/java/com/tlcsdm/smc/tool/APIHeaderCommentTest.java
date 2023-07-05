@@ -36,7 +36,7 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.cell.CellLocation;
 import cn.hutool.poi.excel.cell.CellUtil;
-import com.tlcsdm.core.util.DiffHandleUtils;
+import com.tlcsdm.core.util.DiffHandleUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Color;
@@ -176,9 +176,9 @@ public class APIHeaderCommentTest {
             String generateFileParent = getGenerateFileParent();
             File generateFile = FileUtil.file(generateFileParent, generateFileName);
             if (FileUtil.exist(generateFile)) {
-                List<String> diffString = DiffHandleUtils.diffString(filesPath + "\\" + generateFileName,
+                List<String> diffString = DiffHandleUtil.diffString(filesPath + "\\" + generateFileName,
                     generateFileParent + "\\" + generateFileName);
-                DiffHandleUtils.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
+                DiffHandleUtil.generateDiffHtml(diffString, resultPath + "\\" + sheetName + ".html");
             }
             ThreadUtil.safeSleep(200);
             logHandler("========================= End Comparing " + generateFileName + " =========================", 1);

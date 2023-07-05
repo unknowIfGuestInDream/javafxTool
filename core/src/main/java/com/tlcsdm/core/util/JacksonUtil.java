@@ -63,20 +63,22 @@ import java.util.TimeZone;
  */
 public class JacksonUtil {
     private static final JsonMapper mapper = JsonMapper.builder()
-        //反序列化时忽略json中存在但Java对象不存在的属性
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        //序列化时日期格式默认为yyyy-MM-dd'T'HH:mm:ss.SSSZ
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        .build();
+            // 反序列化时忽略json中存在但Java对象不存在的属性
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            // 序列化时日期格式默认为yyyy-MM-dd'T'HH:mm:ss.SSSZ
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false).build();
 
     static {
-        //序列化时自定义时间日期格式
+        // 序列化时自定义时间日期格式
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-        //序列化时忽略值为null的属性
+        // 序列化时忽略值为null的属性
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        //序列化时忽略值为默认值的属性
+        // 序列化时忽略值为默认值的属性
         mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
         mapper.setTimeZone(TimeZone.getTimeZone("GMT+:08:00"));
+    }
+
+    private JacksonUtil() {
     }
 
     /**

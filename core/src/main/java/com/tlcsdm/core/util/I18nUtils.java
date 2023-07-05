@@ -38,6 +38,9 @@ public class I18nUtils {
      */
     public static String BASENAME = "com.tlcsdm.core.i18n.messages";
 
+    private I18nUtils() {
+    }
+
     /**
      * gets the string with the given key from the resource bundle for the current
      * locale and uses it as first argument to MessageFormat.format, passing in the

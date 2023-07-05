@@ -27,8 +27,12 @@
 
 package com.tlcsdm.core.util;
 
-import java.awt.*;
-import java.io.*;
+import java.awt.Desktop;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -36,6 +40,9 @@ import java.net.URISyntaxException;
  * 工具包
  */
 public class CoreUtil {
+
+    private CoreUtil() {
+    }
 
     /**
      * Object为null时, toString()会返回 "null". 本方法会在Object为null时返回空串.
@@ -100,7 +107,7 @@ public class CoreUtil {
                 objectOutputStream.writeObject(object);
             }
             ObjectInputStream objectInputStream = new ObjectInputStream(
-                new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+                    new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
             return objectInputStream.readObject();
         } catch (Exception e) {
             return null;
