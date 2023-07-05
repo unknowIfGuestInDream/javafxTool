@@ -90,7 +90,8 @@ public class FxXmlHelper {
                 FileUtil.del(output);
             }
             Document document = Dom4jUtil.create();
-            document.addDocType(ROOT_ELEMENT, null, "http://java.sun.com/dtd/properties.dtd");
+            // document.addDocType(ROOT_ELEMENT, null,
+            // "http://java.sun.com/dtd/properties.dtd");
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
             Map<String, Object> maps = new LinkedHashMap<>();
