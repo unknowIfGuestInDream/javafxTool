@@ -56,7 +56,11 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
@@ -72,7 +76,11 @@ import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -160,11 +168,12 @@ public class SpecGeneralTest extends SmcSample {
                     // 需要数据抽取
                     ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
                     List<String> sheetNames = reader.getSheetNames().stream()
-                        .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                            || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                        .collect(Collectors.toList());
+                            .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
+                                    || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
+                            .collect(Collectors.toList());
                     reader.close();
-                    String resultPath = outputPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
+                    String resultPath = outputPath + File.separator
+                            + excelName.substring(0, excelName.lastIndexOf("."));
                     String filesPath = resultPath + File.separator + "files";
                     // 清空resultPath下文件
                     FileUtil.clean(resultPath);
@@ -174,7 +183,8 @@ public class SpecGeneralTest extends SmcSample {
                     Map<String, String> generateFileMap = new HashMap<>();
                     for (String sheetName : sheetNames) {
                         BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
-                        StaticLog.info("========================= Begin Reading {} =========================", sheetName);
+                        StaticLog.info("========================= Begin Reading {} =========================",
+                                sheetName);
                         ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
                         String endCell = getEndCell(endCellColumn, r);
                         StaticLog.info("endCell: {}", endCell);
@@ -216,8 +226,8 @@ public class SpecGeneralTest extends SmcSample {
                                     if (j2 == startX + 1) {
                                         String s = "#define " + cv;
                                         if (s.length() < macroLength && StrUtil
-                                            .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
-                                            .length() != 0) {
+                                                .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
+                                                .length() != 0) {
                                             cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
                                         }
                                     }
@@ -264,31 +274,33 @@ public class SpecGeneralTest extends SmcSample {
                         ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
                         String generateFileName = generateFileMap.get(sheetName);
                         FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
-                            FileUtil.file(filesPath, generateFileName));
+                                FileUtil.file(filesPath, generateFileName));
                         r.close();
                         if (onlyGenerate) {
                             continue;
                         }
                         StaticLog.info("========================= Begin Comparing {} =========================",
-                            generateFileName);
+                                generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
-                            List<String> diffString = DiffHandleUtil.diffString(filesPath + File.separator + generateFileName,
-                                generateFilesParentPath + File.separator + generateFileName);
+                            List<String> diffString = DiffHandleUtil.diffString(
+                                    filesPath + File.separator + generateFileName,
+                                    generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
-                                DiffHandleUtil.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
+                                DiffHandleUtil.generateDiffHtml(diffString,
+                                        resultPath + File.separator + sheetName + ".html");
                             }
                         } else {
                             StaticLog.info("========================= Not Found {} =========================",
-                                generateFileName);
+                                    generateFileName);
                             continue;
                         }
                         // 此处睡眠, 防止出现读取上的错误
                         ThreadUtil.safeSleep(500);
                         StaticLog.info("========================= End Comparing {} =========================",
-                            generateFileName);
+                                generateFileName);
                     }
                     if (mergeResult) {
                         DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
@@ -433,8 +445,8 @@ public class SpecGeneralTest extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField, macroLengthField,
-            startCellField, generalFileCellField, endCellColumnField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField,
+                macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -461,17 +473,17 @@ public class SpecGeneralTest extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-            {diffButton}:
-            {diffDesc}
+                {diffButton}:
+                {diffDesc}
 
-            {excelLabel}: {excelDesc}
-            {generalLabel}: {generalDesc}
-            {macroLengthLabel}: {macroLengthDesc}
-            {markSheetLabel}: {markSheetDesc}
+                {excelLabel}: {excelDesc}
+                {generalLabel}: {generalDesc}
+                {macroLengthLabel}: {macroLengthDesc}
+                {markSheetLabel}: {markSheetDesc}
 
-            {note}
-            {noteDesc}
-            """;
+                {note}
+                {noteDesc}
+                """;
 
         Map<String, String> map = new HashMap<>(32);
         map.put("diffButton", diff.getText());

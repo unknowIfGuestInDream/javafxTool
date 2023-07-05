@@ -55,7 +55,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -63,7 +67,11 @@ import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -214,14 +222,14 @@ public class CodeStyleLength120 extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-            {generateButton}:
-            {generateDesc}
-            {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
+                {generateButton}:
+                {generateDesc}
+                {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
 
-            {Note}
-            {checkFileTypeLabel} {emptyDesc} {promptTextList}
-            {ignoreFileLabel} {emptyDesc} {promptTextList}
-            """;
+                {Note}
+                {checkFileTypeLabel} {emptyDesc} {promptTextList}
+                {ignoreFileLabel} {emptyDesc} {promptTextList}
+                """;
         Map<String, String> map = new HashMap<>();
         map.put("generateButton", generate.getText());
         map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));

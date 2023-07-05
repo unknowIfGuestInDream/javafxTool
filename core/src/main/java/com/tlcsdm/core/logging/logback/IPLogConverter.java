@@ -9,10 +9,12 @@ import java.net.UnknownHostException;
 
 /**
  * 配置规则类, 用于日志规则获取ip地址
- * <p>
+ * <pre>
+ * {@code
  * <conversionRule conversionWord="ip" converterClass="com.tlcsdm.core.logging.logback.IPLogConverter"/>
  * <pattern>%ip</pattern>
- * </p>
+ * }
+ * </pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/2/12 21:17

@@ -63,7 +63,11 @@ import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 头文件转换为excel UD
@@ -233,7 +237,8 @@ public class HconvertExcel extends SmcSample {
     @Override
     public void initializeBindings() {
         super.initializeBindings();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField)
+                .build();
         generate.disabledProperty().bind(emptyValidation);
     }
 
@@ -251,9 +256,9 @@ public class HconvertExcel extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-            {markFileNames}: {markFileNamesDesc}
-            {supportFileType}: {supportFileTypeDesc}
-            """;
+                {markFileNames}: {markFileNamesDesc}
+                {supportFileType}: {supportFileTypeDesc}
+                """;
 
         Map<String, String> map = new HashMap<>(8);
         map.put("markFileNames", I18nUtils.get("smc.tool.hconvertExcel.label.markFileNames"));

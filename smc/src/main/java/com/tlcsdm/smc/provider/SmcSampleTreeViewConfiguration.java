@@ -9,6 +9,7 @@ import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
 public class SmcSampleTreeViewConfiguration implements SamplesTreeViewConfiguration {
+
     @Override
     public Callback<TreeView<Sample>, TreeCell<Sample>> cellFactory() {
         return new SmcTreeViewCellFactory();

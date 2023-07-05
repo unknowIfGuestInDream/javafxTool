@@ -68,10 +68,9 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
 
     private static class SingletonInstance {
         private static final ThreadPoolExecutor INSTANCE = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
-            keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
-            new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
-                .uncaughtExceptionHandler((t, e) -> {
-                    StaticLog.error(e);
-                }).build(), handler);
+                keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
+                new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
+                        .uncaughtExceptionHandler((t, e) -> StaticLog.error(e)).build(),
+                handler);
     }
 }

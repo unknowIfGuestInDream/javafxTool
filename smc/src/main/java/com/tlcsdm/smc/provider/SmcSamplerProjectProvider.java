@@ -76,12 +76,12 @@ public class SmcSamplerProjectProvider implements FXSamplerProject {
         Label label = new Label();
         label.setWrapText(true);
         String desc = """
-            {introduce}
+                {introduce}
 
-            {build}
-            {explore}
-            {connect}
-            """;
+                {build}
+                {explore}
+                {connect}
+                """;
         Map<String, String> map = new HashMap<>();
         map.put("introduce", I18nUtils.get("smc.welcomePage.desc.introduce"));
         map.put("build", I18nUtils.get("smc.welcomePage.desc.build"));
@@ -127,7 +127,7 @@ public class SmcSamplerProjectProvider implements FXSamplerProject {
         StackPane pane = new StackPane();
         pane.setPrefHeight(207);
         pane.setStyle(
-            "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
+                "-fx-background-image: url('com/tlcsdm/smc/static/SmcToolBar.png');-fx-background-repeat: repeat-x;");
         pane.getChildren().add(imgView);
         return pane;
     }

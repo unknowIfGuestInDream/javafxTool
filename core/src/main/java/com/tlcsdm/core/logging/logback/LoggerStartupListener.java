@@ -11,13 +11,15 @@ import ch.qos.logback.core.spi.LifeCycle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * <p>
+ * <pre>
+ * {@code
  * <configuration debug="true" scan="true" scanPeriod="60 seconds">
  * <contextListener class="com.tlcsdm.core.logging.logback.LoggerStartupListener" />
  * </configuration>
  * 以上配置代表logback每隔60秒扫描logback.xml的更改，并将改动加载到系统，实现动态配置
  * ${userName}
- * </P>
+ * }
+ * </pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/2/12 21:34
