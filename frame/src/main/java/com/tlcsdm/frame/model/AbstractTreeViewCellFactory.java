@@ -33,7 +33,11 @@ import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.util.I18nUtils;
 import com.tlcsdm.frame.Sample;
 import javafx.beans.binding.Bindings;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
 import java.util.ArrayList;

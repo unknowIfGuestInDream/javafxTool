@@ -130,41 +130,41 @@ public class DmaTriggerSourceCode extends SmcSample {
     });
 
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"),
-            actionEvent -> {
-                downloadChooser.setInitialFileName(defaultTemplateName);
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
-                downloadChooser.getExtensionFilters().add(extFilter);
-                File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
-                if (file != null) {
-                    if (!StrUtil.endWith(file.getName(), ".zip")) {
-                        notificationBuilder
-                                .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
-                        notificationBuilder.showWarning();
-                        return;
-                    }
-                    if (file.exists()) {
-                        FileUtil.del(file);
-                    }
-                    ZipUtil.zip(file, Charset.defaultCharset(),
-                            new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_trigger.ftl",
-                                    getClass().getClassLoader()),
-                            new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selSetting.ftl",
-                                    getClass().getClassLoader()),
-                            new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selRegNum.ftl",
-                                    getClass().getClassLoader()),
-                            new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
-                                    getClass().getClassLoader()),
-                            new ClassPathResource(
-                                    "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
-                                    getClass().getClassLoader()));
-
-                    notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
-                    notificationBuilder.showInformation();
+        actionEvent -> {
+            downloadChooser.setInitialFileName(defaultTemplateName);
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+            downloadChooser.getExtensionFilters().add(extFilter);
+            File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+            if (file != null) {
+                if (!StrUtil.endWith(file.getName(), ".zip")) {
+                    notificationBuilder
+                        .text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                    notificationBuilder.showWarning();
+                    return;
                 }
-            });
+                if (file.exists()) {
+                    FileUtil.del(file);
+                }
+                ZipUtil.zip(file, Charset.defaultCharset(),
+                    new ClassPathResource(
+                        "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_trigger.ftl",
+                        getClass().getClassLoader()),
+                    new ClassPathResource(
+                        "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selSetting.ftl",
+                        getClass().getClassLoader()),
+                    new ClassPathResource(
+                        "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/binding_selRegNum.ftl",
+                        getClass().getClassLoader()),
+                    new ClassPathResource("com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/cgdma.ftl",
+                        getClass().getClassLoader()),
+                    new ClassPathResource(
+                        "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
+                        getClass().getClassLoader()));
+
+                notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
+                notificationBuilder.showInformation();
+            }
+        });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 输入值获取
@@ -227,7 +227,7 @@ public class DmaTriggerSourceCode extends SmcSample {
             String defaultSelection = "";
             // 模板赋值使用
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
-                    .put("groupNum", String.valueOf(groupNum)).build();
+                .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
                 Map<String, Object> setting = new HashMap<>();
                 Map<String, Object> cgdma = new HashMap<>();
@@ -396,7 +396,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
         Label deviceAndStartColLabel = new Label(
-                I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
+            I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol") + ": ");
         deviceAndStartColField = new TextArea();
         deviceAndStartColField.setMinHeight(100);
 
@@ -419,13 +419,13 @@ public class DmaTriggerSourceCode extends SmcSample {
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(260));
         deviceAndStartColField
-                .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+            .setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         offsetField.setNumber(BigDecimal.valueOf(4));
         defineLengthField.setNumber(BigDecimal.valueOf(60));
         macroTemplateField.setText("_DMAC_GRP{groupNum}_REQUEST_{factor}");
         channelNumField.setNumber(BigDecimal.valueOf(16));
         settingComplexConditionField
-                .setText("com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition");
+            .setText("com.renesas.smc.tools.swcomponent.codegenerator.rh850.dma.ip2.ValidInChipStingCondition");
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(excelLabel, 0, 1);
@@ -475,7 +475,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         channelNumField = new NumberTextField();
 
         Label settingComplexConditionLabel = new Label(
-                I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.settingComplexCondition") + ": ");
+            I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.settingComplexCondition") + ": ");
         settingComplexConditionField = new TextField();
 
         grid.add(offsetLabel, 0, 0);
@@ -497,8 +497,8 @@ public class DmaTriggerSourceCode extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
-                deviceAndStartColField, sheetNameField, startRowField, endRowField, offsetField, defineLengthField,
-                macroTemplateField, channelNumField, settingComplexConditionField).build();
+            deviceAndStartColField, sheetNameField, startRowField, endRowField, offsetField, defineLengthField,
+            macroTemplateField, channelNumField, settingComplexConditionField).build();
 
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
@@ -526,11 +526,11 @@ public class DmaTriggerSourceCode extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {templateDesc}
+            {templateDesc}
 
-                {deviceAndStartColLabel}: {deviceAndStartColDesc}
-                eg: RH850U2C8;292;H
-                """;
+            {deviceAndStartColLabel}: {deviceAndStartColDesc}
+            eg: RH850U2C8;292;H
+            """;
 
         Map<String, String> map = new HashMap<>(8);
         map.put("deviceAndStartColLabel", I18nUtils.get("smc.tool.dmaTriggerSourceCode.label.deviceAndStartCol"));

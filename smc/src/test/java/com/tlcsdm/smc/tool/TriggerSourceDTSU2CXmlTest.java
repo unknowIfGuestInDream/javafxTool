@@ -134,15 +134,15 @@ public class TriggerSourceDTSU2CXmlTest {
         for (int i = beginRowNum; i <= endRowNum; i++) {
             contentsList.add("	<TriggerSource Channel=\"" + (i - beginRowNum) + "\"");
             contentsList.add("		Group0TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup0Line() + i, group0ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup0Line() + i, group0ValueLine + i) + "\"");
             contentsList.add("		Group1TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup1Line() + i, group1ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup1Line() + i, group1ValueLine + i) + "\"");
             contentsList.add("		Group2TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup2Line() + i, group2ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup2Line() + i, group2ValueLine + i) + "\"");
             contentsList.add("		Group3TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup3Line() + i, group3ValueLine + i) + "\"");
+                + getXmlGroupValue(reader, getGroup3Line() + i, group3ValueLine + i) + "\"");
             contentsList.add("		Group4TriggerInfo=\""
-                    + getXmlGroupValue(reader, getGroup4Line() + i, group4ValueLine + i) + "\" />");
+                + getXmlGroupValue(reader, getGroup4Line() + i, group4ValueLine + i) + "\" />");
         }
 
         contentsList.add("</DTCTriggerSource>");
@@ -161,7 +161,7 @@ public class TriggerSourceDTSU2CXmlTest {
 
     // 初始化变量
     private void initGroupLine(String group0Line, String group1Line, String group2Line, String group3Line,
-            String group4Line) {
+                               String group4Line) {
         setGroup0Line(group0Line);
         setGroup1Line(group1Line);
         setGroup2Line(group2Line);

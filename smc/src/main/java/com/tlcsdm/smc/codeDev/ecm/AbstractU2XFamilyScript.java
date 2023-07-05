@@ -157,7 +157,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-            List<Map<String, Object>> function) {
+                                List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -168,7 +168,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                           boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {

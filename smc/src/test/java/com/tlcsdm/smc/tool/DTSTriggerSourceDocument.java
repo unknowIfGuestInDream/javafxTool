@@ -111,7 +111,7 @@ public class DTSTriggerSourceDocument {
     public void dealData() {
         readData();
         BigExcelWriter excelWriter = ExcelUtil.getBigWriter(FileUtil.file(parentDirectoryPath + "\\" + resultFileName),
-                sheetName);
+            sheetName);
         excelWriter.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
         int line = beginWriteRowNum;
         for (int i = 0; i < 128; i++) {

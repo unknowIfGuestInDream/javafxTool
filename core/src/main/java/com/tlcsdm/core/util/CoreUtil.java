@@ -27,7 +27,7 @@
 
 package com.tlcsdm.core.util;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -107,7 +107,7 @@ public class CoreUtil {
                 objectOutputStream.writeObject(object);
             }
             ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+                new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
             return objectInputStream.readObject();
         } catch (Exception e) {
             return null;

@@ -238,7 +238,7 @@ public class HconvertExcel extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField)
-                .build();
+            .build();
         generate.disabledProperty().bind(emptyValidation);
     }
 
@@ -256,9 +256,9 @@ public class HconvertExcel extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {markFileNames}: {markFileNamesDesc}
-                {supportFileType}: {supportFileTypeDesc}
-                """;
+            {markFileNames}: {markFileNamesDesc}
+            {supportFileType}: {supportFileTypeDesc}
+            """;
 
         Map<String, String> map = new HashMap<>(8);
         map.put("markFileNames", I18nUtils.get("smc.tool.hconvertExcel.label.markFileNames"));

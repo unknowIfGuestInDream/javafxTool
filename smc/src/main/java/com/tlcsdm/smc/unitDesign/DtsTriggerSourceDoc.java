@@ -109,31 +109,31 @@ public class DtsTriggerSourceDoc extends SmcSample {
     private final FileChooser downloadChooser = new FileChooser();
 
     private final Action download = FxAction.download(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.button.download"),
-            actionEvent -> {
-                String templatePath = templateField.getText();
-                InputStream templateFile = ResourceUtil.getStream(defaultTemplatePath);
-                if (StrUtil.isNotEmpty(templatePath)) {
-                    downloadChooser.setInitialDirectory(new File(FileUtil.getParent(templatePath, 1)));
+        actionEvent -> {
+            String templatePath = templateField.getText();
+            InputStream templateFile = ResourceUtil.getStream(defaultTemplatePath);
+            if (StrUtil.isNotEmpty(templatePath)) {
+                downloadChooser.setInitialDirectory(new File(FileUtil.getParent(templatePath, 1)));
+            }
+            downloadChooser.setInitialFileName(defaultTemplateName);
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+            downloadChooser.getExtensionFilters().add(extFilter);
+            File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+            if (file != null) {
+                if (!StrUtil.endWith(file.getName(), ".xlsx")) {
+                    notificationBuilder
+                        .text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
+                    notificationBuilder.showWarning();
+                    return;
                 }
-                downloadChooser.setInitialFileName(defaultTemplateName);
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
-                downloadChooser.getExtensionFilters().add(extFilter);
-                File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
-                if (file != null) {
-                    if (!StrUtil.endWith(file.getName(), ".xlsx")) {
-                        notificationBuilder
-                                .text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
-                        notificationBuilder.showWarning();
-                        return;
-                    }
-                    if (file.exists()) {
-                        FileUtil.del(file);
-                    }
-                    FileUtil.writeFromStream(templateFile, file);
-                    notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
-                    notificationBuilder.showInformation();
+                if (file.exists()) {
+                    FileUtil.del(file);
                 }
-            });
+                FileUtil.writeFromStream(templateFile, file);
+                notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
+                notificationBuilder.showInformation();
+            }
+        });
 
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
         String outPath = outputField.getText();
@@ -266,12 +266,12 @@ public class DtsTriggerSourceDoc extends SmcSample {
                             excelWriter.writeCellValue("BK" + (line + j), "Config.c");
                             excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
                             excelWriter.writeCellValue("BM" + (line + j),
-                                    "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
+                                "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
                             excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
                             excelWriter.writeCellValue("BO" + (line + j), "Config.c");
                             excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
                             excelWriter.writeCellValue("BQ" + (line + j),
-                                    "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
+                                "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
 
                             int x = startConditionX;
                             for (List<Map<Integer, String>> list : conditionList) {
@@ -364,7 +364,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         groupField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
         Label deviceNameAndStartColLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.deviceNameAndStartCol") + ": ");
+            I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.deviceNameAndStartCol") + ": ");
         deviceNameAndStartColField = new TextArea();
 
         Label templateLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.template") + ": ");
@@ -400,7 +400,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         endRowField = new NumberTextField();
 
         Label beginWriteRowNumLabel = new Label(
-                I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.beginWriteRowNum") + ": ");
+            I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.beginWriteRowNum") + ": ");
         beginWriteRowNumField = new NumberTextField();
 
         sheetNameField.setText("DTS trigger");
@@ -409,7 +409,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         endRowField.setNumber(BigDecimal.valueOf(132));
         beginWriteRowNumField.setNumber(BigDecimal.valueOf(3));
         deviceNameAndStartColField
-                .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
+            .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
 
         grid.add(toolBar, 0, 0, 4, 1);
         grid.add(excelLabel, 0, 1);
@@ -445,8 +445,8 @@ public class DtsTriggerSourceDoc extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
-                deviceNameAndStartColField, sheetNameField, conditionColField, startRowField, endRowField,
-                beginWriteRowNumField).build();
+            deviceNameAndStartColField, sheetNameField, conditionColField, startRowField, endRowField,
+            beginWriteRowNumField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }
@@ -472,19 +472,19 @@ public class DtsTriggerSourceDoc extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {downloadButton}:
-                {downloadDesc}
+            {downloadButton}:
+            {downloadDesc}
 
-                {excelLabel}: {excelDesc}
-                {groupLabel}: {groupDesc}
-                {deviceNameAndStartColLabel}: {deviceNameAndStartColDesc}
-                eg: C8292;Q
-                {templateLabel}: {templateDesc}
-                {conditionColLabel}: {conditionColDesc}
-                {startRowLabel}: {startRowDesc}
-                {endRowLabel}: {endRowDesc}
-                {beginWriteRowNumLabel}: {beginWriteRowNumDesc}
-                """;
+            {excelLabel}: {excelDesc}
+            {groupLabel}: {groupDesc}
+            {deviceNameAndStartColLabel}: {deviceNameAndStartColDesc}
+            eg: C8292;Q
+            {templateLabel}: {templateDesc}
+            {conditionColLabel}: {conditionColDesc}
+            {startRowLabel}: {startRowDesc}
+            {endRowLabel}: {endRowDesc}
+            {beginWriteRowNumLabel}: {beginWriteRowNumDesc}
+            """;
 
         Map<String, String> map = new HashMap<>(32);
         map.put("downloadButton", download.getText());
@@ -494,9 +494,9 @@ public class DtsTriggerSourceDoc extends SmcSample {
         map.put("groupLabel", I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.group"));
         map.put("groupDesc", I18nUtils.get("smc.tool.dtsTriggerSourceDoc.control.groupDesc"));
         map.put("deviceNameAndStartColLabel",
-                I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.deviceNameAndStartCol"));
+            I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.deviceNameAndStartCol"));
         map.put("deviceNameAndStartColDesc",
-                I18nUtils.get("smc.tool.dtsTriggerSourceDoc.control.deviceNameAndStartColDesc"));
+            I18nUtils.get("smc.tool.dtsTriggerSourceDoc.control.deviceNameAndStartColDesc"));
         map.put("templateLabel", I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.template"));
         map.put("templateDesc", I18nUtils.get("smc.tool.dtsTriggerSourceDoc.control.templateDesc"));
         map.put("conditionColLabel", I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.conditionCol"));

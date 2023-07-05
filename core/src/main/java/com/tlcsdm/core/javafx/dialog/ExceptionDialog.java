@@ -30,7 +30,11 @@ package com.tlcsdm.core.javafx.dialog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 

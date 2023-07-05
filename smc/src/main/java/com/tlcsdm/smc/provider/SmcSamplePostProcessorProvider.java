@@ -134,18 +134,18 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
         treeNodeConfig.setIdKey("rid");
         // 转换器
         sampleTree = TreeUtil.build(SmcSamplePostProcessorProvider.getSampleNodeList(),
-                SmcSamplePostProcessorProvider.SAMPLES_ROOTID, treeNodeConfig, (treeNode, tree) -> {
-                    tree.setId(treeNode.getId());
-                    tree.setParentId(treeNode.getParentId());
-                    tree.setName(treeNode.getName());
-                    tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_DEPTH,
-                            treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_DEPTH));
-                    tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_FOLDER,
-                            treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_FOLDER));
-                    tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX,
-                            treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX));
-                    tree.putExtra("order", treeNode.getWeight());
-                });
+            SmcSamplePostProcessorProvider.SAMPLES_ROOTID, treeNodeConfig, (treeNode, tree) -> {
+                tree.setId(treeNode.getId());
+                tree.setParentId(treeNode.getParentId());
+                tree.setName(treeNode.getName());
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_DEPTH,
+                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_DEPTH));
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_FOLDER,
+                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_FOLDER));
+                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX,
+                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX));
+                tree.putExtra("order", treeNode.getWeight());
+            });
         return sampleTree;
     }
 }

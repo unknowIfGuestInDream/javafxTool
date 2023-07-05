@@ -80,13 +80,13 @@ public class DMATemplateTriggerSourceCode {
         String outputPath = "C:\\workspace\\test";
         String resultPath = outputPath + "\\dmaCode";
         String xmlFileNameAndStartCol = """
-                RH850U2C8;292;F
-                RH850U2C4;292;J
-                RH850U2C2;176;L
-                RH850U2C8;176;T
-                RH850U2C4;156;X
-                RH850U2C2;144;Z
-                """;
+            RH850U2C8;292;F
+            RH850U2C4;292;J
+            RH850U2C2;176;L
+            RH850U2C8;176;T
+            RH850U2C4;156;X
+            RH850U2C2;144;Z
+            """;
         String sheetName = "sDMAC transfer request";
         String macroTemplate = "_DMAC_GRP{groupNum}_REQUEST_{factor}";
         int startRow = 5;
@@ -128,7 +128,7 @@ public class DMATemplateTriggerSourceCode {
             String defaultSelection = "";
             // 模板赋值使用
             Map<String, String> paramMap = MapUtil.builder("offset", offsetString)
-                    .put("groupNum", String.valueOf(groupNum)).build();
+                .put("groupNum", String.valueOf(groupNum)).build();
             for (int i = startRow; i <= endRow; i++) {
                 Map<String, Object> setting = new HashMap<>();
                 Map<String, Object> cgdma = new HashMap<>();

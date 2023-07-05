@@ -29,7 +29,11 @@ package com.tlcsdm.core.freemarker.template;
 
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import freemarker.core.Environment;
-import freemarker.template.*;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -80,6 +84,7 @@ public class UpperDirective implements TemplateDirectiveModel {
             this.out = out;
         }
 
+        @Override
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
             for (int i = 0; i < len; i++) {
