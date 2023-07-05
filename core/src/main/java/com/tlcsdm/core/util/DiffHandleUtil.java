@@ -81,12 +81,12 @@ public class DiffHandleUtil {
         List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original,
                 patch, 0);
         int diffCount = unifiedDiff.size();
-        if (unifiedDiff.size() == 0) {
+        if (diffCount == 0) {
             // 如果两文件没差异则插入如下
             unifiedDiff.add("--- " + originalFileName);
             unifiedDiff.add("+++ " + revisedFileName);
             unifiedDiff.add("@@ -0,0 +0,0 @@");
-        } else if (unifiedDiff.size() >= 3 && !unifiedDiff.get(2).contains("@@ -1,")) {
+        } else if (diffCount >= 3 && !unifiedDiff.get(2).contains("@@ -1,")) {
             unifiedDiff.set(1, unifiedDiff.get(1));
             // 如果第一行没变化则插入@@ -0,0 +0,0 @@
             unifiedDiff.add(2, "@@ -0,0 +0,0 @@");
@@ -128,12 +128,16 @@ public class DiffHandleUtil {
      */
     public static void generateDiffHtml(String htmlPath, List<List<String>> diffStringList) {
         String template = getDiffHtml(diffStringList);
-        FileWriter f; // 文件读取为字符流
+        // 文件读取为字符流
+        FileWriter f;
         try {
             f = new FileWriter(htmlPath);
-            BufferedWriter buf = new BufferedWriter(f); // 文件加入缓冲区
-            buf.write(template); // 向缓冲区写入
-            buf.close(); // 关闭缓冲区并将信息写入文件
+            // 文件加入缓冲区
+            BufferedWriter buf = new BufferedWriter(f);
+            // 向缓冲区写入
+            buf.write(template);
+            // 关闭缓冲区并将信息写入文件
+            buf.close();
             f.close();
         } catch (IOException e) {
             e.printStackTrace();
