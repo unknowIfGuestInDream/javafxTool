@@ -56,7 +56,11 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 

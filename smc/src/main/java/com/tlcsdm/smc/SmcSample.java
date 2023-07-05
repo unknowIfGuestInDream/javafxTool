@@ -60,7 +60,7 @@ public abstract class SmcSample extends SampleBase {
                 InputStream s = SmcSampler.class.getModule().getResourceAsStream("META-INF/MANIFEST.MF");
                 Manifest manifest = new Manifest(s);
                 Attributes attr = manifest.getMainAttributes();
-                //SmcConstant变量是为了打包exe时使用
+                // SmcConstant变量是为了打包exe时使用
                 version = StrUtil.blankToDefault(attr.getValue("Implementation-Version"), SmcConstant.PROJECT_VERSION);
                 date = StrUtil.blankToDefault(attr.getValue("Build-Day"), SmcConstant.PROJECT_BUILD_DAY);
             } catch (Throwable e) {

@@ -56,7 +56,11 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
@@ -151,7 +155,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction english = new CheckLangAction(SmcConstant.LANGUAGE_ENGLISH);
     CheckLangAction japanese = new CheckLangAction(SmcConstant.LANGUAGE_JAPANESE);
 
-    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
+    private final Collection<? extends Action> actions = List.of(
+        FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
             ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));

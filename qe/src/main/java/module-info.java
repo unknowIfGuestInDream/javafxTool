@@ -26,9 +26,23 @@
  */
 
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
-import com.tlcsdm.frame.service.*;
+import com.tlcsdm.frame.service.CenterPanelService;
+import com.tlcsdm.frame.service.FXSamplerConfiguration;
+import com.tlcsdm.frame.service.FXSamplerProject;
+import com.tlcsdm.frame.service.MenubarConfigration;
+import com.tlcsdm.frame.service.SamplePostProcessorService;
+import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
+import com.tlcsdm.frame.service.SplashScreen;
+import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.qe.config.QeTemplateLoaderProvider;
-import com.tlcsdm.qe.provider.*;
+import com.tlcsdm.qe.provider.QeCenterPanelProvider;
+import com.tlcsdm.qe.provider.QeConfigurationProvider;
+import com.tlcsdm.qe.provider.QeMenubarConfigrationProvider;
+import com.tlcsdm.qe.provider.QeSamplePostProcessorProvider;
+import com.tlcsdm.qe.provider.QeSampleTreeViewConfiguration;
+import com.tlcsdm.qe.provider.QeSamplerProjectProvider;
+import com.tlcsdm.qe.provider.QeSplashProvider;
+import com.tlcsdm.qe.provider.QeVersionCheckerProvider;
 import com.tlcsdm.qe.skin.NordLightSkin;
 
 module com.tlcsdm.qe {

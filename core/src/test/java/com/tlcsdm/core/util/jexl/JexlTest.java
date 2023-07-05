@@ -27,7 +27,12 @@
 
 package com.tlcsdm.core.util.jexl;
 
-import org.apache.commons.jexl3.*;
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlContext;
+import org.apache.commons.jexl3.JexlEngine;
+import org.apache.commons.jexl3.JexlException;
+import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.MapContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -36,7 +41,13 @@ import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * @author: unknowIfGuestInDream
@@ -52,7 +63,7 @@ public class JexlTest {
     @BeforeAll
     public static void init() {
         new JexlBuilder().strict(false).imports(Arrays.asList("java.lang", "java.math")).permissions(null).cache(128)
-                .create();
+            .create();
     }
 
     /**
@@ -806,7 +817,7 @@ public class JexlTest {
     @SuppressWarnings("boxing")
     @Test
     public void testArray() throws Exception {
-        final int[] array = { 100, 101, 102 };
+        final int[] array = {100, 101, 102};
         final JexlEngine jexl = JEXL;
         final JexlContext jc = new MapContext();
         jc.set("array", array);
@@ -828,7 +839,7 @@ public class JexlTest {
      * given context
      */
     protected void assertExpression(final JexlContext jc, final String expression, final Object expected)
-            throws Exception {
+        throws Exception {
         final JexlExpression e = JEXL.createExpression(expression);
         final Object actual = e.evaluate(jc);
         Assertions.assertEquals(expression, expected, (String) actual);

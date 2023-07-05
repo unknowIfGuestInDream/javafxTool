@@ -53,7 +53,13 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -67,7 +73,12 @@ import org.controlsfx.control.action.ActionUtils;
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
@@ -485,9 +496,9 @@ public class DmaTriggerSourceCode extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField, deviceAndStartColField,
-            sheetNameField, startRowField, endRowField, offsetField, defineLengthField, macroTemplateField, channelNumField,
-            settingComplexConditionField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
+            deviceAndStartColField, sheetNameField, startRowField, endRowField, offsetField, defineLengthField,
+            macroTemplateField, channelNumField, settingComplexConditionField).build();
 
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);

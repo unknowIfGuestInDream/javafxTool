@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package groovy
 
 def list = [5, 6, 7, 8]
@@ -194,43 +221,43 @@ list[8] = 'x' // the [] operator is growing the list as needed
 assert list == ['a', 'b', 'z', 'e', 'u', 'v', 'g', null, 'x']
 
 //包含允许您按值轻松地从列表中删除元素的方法
-assert ['a','b','c','b','b'] - 'c' == ['a','b','b','b']
-assert ['a','b','c','b','b'] - 'b' == ['a','c']
-assert ['a','b','c','b','b'] - ['b','c'] == ['a']
+assert ['a', 'b', 'c', 'b', 'b'] - 'c' == ['a', 'b', 'b', 'b']
+assert ['a', 'b', 'c', 'b', 'b'] - 'b' == ['a', 'c']
+assert ['a', 'b', 'c', 'b', 'b'] - ['b', 'c'] == ['a']
 
 list = [1, 2, 3, 4, 3, 2, 1]
 list -= 3           // creates a new list by removing `3` from the original one
-assert list == [1,2,4,2,1]
-assert ( list -= [2,4] ) == [1,1]
+assert list == [1, 2, 4, 2, 1]
+assert (list -= [2, 4]) == [1, 1]
 
 //也可以通过将元素的索引传递给方法来删除元素，在这种情况下，列表是可变的：remove
 list = ['a', 'b', 'c', 'd', 'e', 'f', 'b', 'b', 'a']
 assert list.remove(2) == 'c'        // remove the third element, and return it
-assert list == ['a','b','d','e','f','b','b','a']
+assert list == ['a', 'b', 'd', 'e', 'f', 'b', 'b', 'a']
 
 //如果您只想删除列表中具有相同值的第一个元素，而不是删除所有元素 元素，可以调用传递值的方法：remove
 list = ['a', 'b', 'c', 'b', 'b']
 assert list.remove('c')             // remove 'c', and return true because element removed
 assert list.remove('b')             // remove first 'b', and return true because element removed
 
-assert ! list.remove('z')           // return false because no elements removed
-assert list == ['a','b','b']
+assert !list.remove('z')           // return false because no elements removed
+assert list == ['a', 'b', 'b']
 
 //有两种方法可用。一个接受整数并删除元素 通过其索引，另一个将删除与传递的值匹配的第一个元素。
 //那么我们应该怎么做 当我们有一个整数列表时吗？在这种情况下，您可能希望使用 删除元素 索引，并删除与值匹配的第一个元素。removeremoveAtremoveElement
 list = [1, 2, 3, 4, 5, 6, 2, 2, 1]
 
 assert list.remove(2) == 3          // this removes the element at index 2, and returns it
-assert list == [1,2,4,5,6,2,2,1]
+assert list == [1, 2, 4, 5, 6, 2, 2, 1]
 
 assert list.removeElement(2)        // remove first 2 and return true
-assert list == [1,4,5,6,2,2,1]
+assert list == [1, 4, 5, 6, 2, 2, 1]
 
-assert ! list.removeElement(8)      // return false because 8 is not in the list
-assert list == [1,4,5,6,2,2,1]
+assert !list.removeElement(8)      // return false because 8 is not in the list
+assert list == [1, 4, 5, 6, 2, 2, 1]
 
 assert list.removeAt(1) == 4        // remove element at index 1, and return it
-assert list == [1,5,6,2,2,1]
+assert list == [1, 5, 6, 2, 2, 1]
 
 //可以通过调用该方法删除列表中的所有元素：clear
 list = ['a', 2, 'c', 4]
@@ -238,18 +265,18 @@ list.clear()
 assert list == []
 
 //包括一些方法，使其易于在集合上进行推理
-assert 'a' in ['a','b','c']             // returns true if an element belongs to the list
-assert ['a','b','c'].contains('a')      // equivalent to the `contains` method in Java
-assert [1,3,4].containsAll([1,4])       // `containsAll` will check that all elements are found
+assert 'a' in ['a', 'b', 'c']             // returns true if an element belongs to the list
+assert ['a', 'b', 'c'].contains('a')      // equivalent to the `contains` method in Java
+assert [1, 3, 4].containsAll([1, 4])       // `containsAll` will check that all elements are found
 
-assert [1,2,3,3,3,3,4,5].count(3) == 4  // count the number of elements which have some value
-assert [1,2,3,3,3,3,4,5].count {
-    it%2==0                             // count the number of elements which match the predicate
+assert [1, 2, 3, 3, 3, 3, 4, 5].count(3) == 4  // count the number of elements which have some value
+assert [1, 2, 3, 3, 3, 3, 4, 5].count {
+    it % 2 == 0                             // count the number of elements which match the predicate
 } == 2
 
-assert [1,2,4,6,8,10,12].intersect([1,3,6,9,12]) == [1,6,12]
+assert [1, 2, 4, 6, 8, 10, 12].intersect([1, 3, 6, 9, 12]) == [1, 6, 12]
 
-assert [1,2,3].disjoint( [4,6,9] )
+assert [1, 2, 3].disjoint([4, 6, 9])
 assert ![1, 2, 3].disjoint([2, 4, 6])
 
 //使用集合通常意味着排序。Groovy提供了多种选项来对列表进行排序， 从使用闭包到比较器，如以下示例所示：

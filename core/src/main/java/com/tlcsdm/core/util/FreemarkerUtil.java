@@ -74,7 +74,7 @@ public class FreemarkerUtil {
     public static Configuration configuration() {
         if (configuration == null) {
             throw new UnsupportedFeatureException(
-                    "Freemarker is not supported, please confirm whether there is a freemarker dependency.");
+                "Freemarker is not supported, please confirm whether there is a freemarker dependency.");
         }
         return configuration;
     }

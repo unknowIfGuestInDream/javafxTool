@@ -47,22 +47,22 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
         super.initDefaultValue();
         sheetNameField.setText("U2C");
         categoryConfigField.setText("""
-                categoryId;J
-                categoryEnName;K
-                categoryJpName;L
-                """);
+            categoryId;J
+            categoryEnName;K
+            categoryJpName;L
+            """);
         functionConfigField.setText("""
-                optMaskint;G
-                optIntg;G
-                optDCLS;G
-                optIntrg;I
-                optErroroutput;J
-                optErrort0;K
-                optErrort1;K
-                optErrort2;K
-                optErrort3;K
-                optDelayt;L
-                """);
+            optMaskint;G
+            optIntg;G
+            optDCLS;G
+            optIntrg;I
+            optErroroutput;J
+            optErrort0;K
+            optErrort1;K
+            optErrort2;K
+            optErrort3;K
+            optDelayt;L
+            """);
         errorSourceIdColField.setText("A");
         categoryIdColField.setText("B");
         errorSourceNumberColField.setText("C");
@@ -70,18 +70,18 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
         errorSourceDescColField.setText("E");
         errorSourceJpNameColField.setText("U");
         productConfigField.setText("""
-                RH850U2C8;292;O
-                RH850U2C4;292;P
-                RH850U2C4;144;Q
-                RH850U2C4;100;R
-                RH850U2C2;144;S
-                RH850U2C2;100;T
-                """);
+            RH850U2C8;292;O
+            RH850U2C4;292;P
+            RH850U2C4;144;Q
+            RH850U2C4;100;R
+            RH850U2C2;144;S
+            RH850U2C2;100;T
+            """);
         tagConfigField.setText("""
-                psedu;W
-                funname;X
-                titleabstract;Y
-                """);
+            psedu;W
+            funname;X
+            titleabstract;Y
+            """);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
 
     @Override
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-            boolean optMaskintStatus) {
+                                           boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {

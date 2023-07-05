@@ -56,7 +56,11 @@ import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
@@ -71,7 +75,11 @@ import org.controlsfx.control.action.ActionUtils;
 import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
@@ -257,11 +265,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
                             excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
                             excelWriter.writeCellValue("BK" + (line + j), "Config.c");
                             excelWriter.writeCellValue("BL" + (line + j), "R_Config_DTS%s_Create");
-                            excelWriter.writeCellValue("BM" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
+                            excelWriter.writeCellValue("BM" + (line + j),
+                                "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_CLEAR");
                             excelWriter.writeCellValue("BN" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 |=");
                             excelWriter.writeCellValue("BO" + (line + j), "Config.c");
                             excelWriter.writeCellValue("BP" + (line + j), "R_Config_DTS%s_Create");
-                            excelWriter.writeCellValue("BQ" + (line + j), "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
+                            excelWriter.writeCellValue("BQ" + (line + j),
+                                "_DTSn" + n + "_TRANSFER_REQUEST_GROUP_" + group);
 
                             int x = startConditionX;
                             for (List<Map<Integer, String>> list : conditionList) {
@@ -290,8 +300,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     FxApp.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            notificationBuilder
-                                .text((I18nUtils.get("smc.tool.button.generate.success")));
+                            notificationBuilder.text((I18nUtils.get("smc.tool.button.generate.success")));
                             notificationBuilder.showInformation();
                         }
                     });
@@ -399,7 +408,8 @@ public class DtsTriggerSourceDoc extends SmcSample {
         startRowField.setNumber(BigDecimal.valueOf(5));
         endRowField.setNumber(BigDecimal.valueOf(132));
         beginWriteRowNumField.setNumber(BigDecimal.valueOf(3));
-        deviceNameAndStartColField.setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
+        deviceNameAndStartColField
+            .setPromptText(I18nUtils.get("smc.tool.dtsTriggerSourceXml.textfield.xmlNameTemplate.promptText"));
 
         grid.add(toolBar, 0, 0, 4, 1);
         grid.add(excelLabel, 0, 1);
@@ -434,8 +444,9 @@ public class DtsTriggerSourceDoc extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField, deviceNameAndStartColField,
-            sheetNameField, conditionColField, startRowField, endRowField, beginWriteRowNumField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, groupField,
+            deviceNameAndStartColField, sheetNameField, conditionColField, startRowField, endRowField,
+            beginWriteRowNumField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
     }

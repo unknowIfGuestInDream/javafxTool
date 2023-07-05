@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.exception;
 
+import java.io.Serial;
+
 /**
  * 资源未找到
  *
@@ -34,6 +36,9 @@ package com.tlcsdm.core.exception;
  * @date: 2023/1/3 21:10
  */
 public class ResourceNotFoundException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 3397502552962669248L;
+
     public ResourceNotFoundException() {
         super("Resource not found.");
     }

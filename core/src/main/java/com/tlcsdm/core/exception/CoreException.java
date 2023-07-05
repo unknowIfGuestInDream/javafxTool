@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.exception;
 
+import java.io.Serial;
+
 /**
  * core模块异常
  *
@@ -34,6 +36,9 @@ package com.tlcsdm.core.exception;
  * @date: 2023/1/3 21:08
  */
 public class CoreException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = 4189780078327182088L;
+
     public CoreException() {
     }
 
