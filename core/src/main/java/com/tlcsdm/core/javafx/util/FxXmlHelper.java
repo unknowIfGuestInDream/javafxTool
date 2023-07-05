@@ -42,15 +42,16 @@ import java.util.Map;
 
 /**
  * 用户数据导出导入
- * <pre><code>
- *
+ * <pre>{@code
+ * Such as:
  * <javafxTool>
  *   <smc>
  *     <entry key=""></entry>
  *   </smc>
  * </javafxTool>
  *
- * </code></pre>
+ * }
+ * </pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2022/12/11 19:03
@@ -62,6 +63,9 @@ public class FxXmlHelper {
     private static final String ENTRY_ELEMENT = "entry";
     private static final String KEY_ATTRIBUTE = "key";
 
+    private FxXmlHelper() {
+    }
+
     /**
      * projectName
      */
@@ -71,7 +75,7 @@ public class FxXmlHelper {
 
     public static void exportData(String projectName, List<String> keys) {
         boolean includeCommon = false;
-        if (keys == null || keys.size() == 0) {
+        if (keys == null || keys.isEmpty()) {
             keys = new ArrayList<>();
             keys.add(projectName);
             includeCommon = true;
@@ -86,7 +90,8 @@ public class FxXmlHelper {
                 FileUtil.del(output);
             }
             Document document = Dom4jUtil.create();
-            document.addDocType(projectName, null, "http://java.sun.com/dtd/properties.dtd");
+            // document.addDocType(ROOT_ELEMENT, null,
+            // "http://java.sun.com/dtd/properties.dtd");
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
             Map<String, Object> maps = new LinkedHashMap<>();

@@ -50,7 +50,7 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
-import com.tlcsdm.core.util.DiffHandleUtils;
+import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
@@ -273,12 +273,12 @@ public class SpecGeneralTest extends SmcSample {
                             generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
-                            List<String> diffString = DiffHandleUtils.diffString(filesPath + File.separator + generateFileName,
+                            List<String> diffString = DiffHandleUtil.diffString(filesPath + File.separator + generateFileName,
                                 generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
-                                DiffHandleUtils.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
+                                DiffHandleUtil.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
                             }
                         } else {
                             StaticLog.info("========================= Not Found {} =========================",
@@ -291,7 +291,7 @@ public class SpecGeneralTest extends SmcSample {
                             generateFileName);
                     }
                     if (mergeResult) {
-                        DiffHandleUtils.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
+                        DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
                     }
                     FxApp.runLater(() -> {
                         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
