@@ -36,7 +36,11 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.xml.sax.SAXException;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URL;
 
 /**
@@ -49,6 +53,9 @@ import java.net.URL;
 public class Dom4jUtil {
 
     private static final String DEFAULT_FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+
+    private Dom4jUtil() {
+    }
 
     /**
      * 通过url地址,获得document对象

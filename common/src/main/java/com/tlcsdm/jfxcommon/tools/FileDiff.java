@@ -36,7 +36,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.util.DiffHandleUtils;
+import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
@@ -92,8 +92,8 @@ public class FileDiff extends CommonSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         // 对比 两个文件，获得不同点
-        List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
-        String template = DiffHandleUtils.getDiffHtml(List.of(diffString));
+        List<String> diffString = DiffHandleUtil.diffString(originalField.getText(), compareField.getText());
+        String template = DiffHandleUtil.getDiffHtml(List.of(diffString));
         webView.getEngine().loadContent(template);
         notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.generate.success"));
         notificationBuilder.showInformation();
@@ -106,9 +106,9 @@ public class FileDiff extends CommonSample {
             notificationBuilder.showWarning();
             return;
         }
-        List<String> diffString = DiffHandleUtils.diffString(originalField.getText(), compareField.getText());
+        List<String> diffString = DiffHandleUtil.diffString(originalField.getText(), compareField.getText());
         // 生成一个diff.html文件，打开便可看到两个文件的对比
-        DiffHandleUtils.generateDiffHtml(diffString, outputField.getText() + File.separator + "diff.html");
+        DiffHandleUtil.generateDiffHtml(diffString, outputField.getText() + File.separator + "diff.html");
         notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.download.success"));
         notificationBuilder.showInformation();
         bindUserData();
