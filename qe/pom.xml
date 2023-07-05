@@ -81,6 +81,10 @@
             <artifactId>jaxen</artifactId>
         </dependency>
         <!-- freemarker use end -->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
