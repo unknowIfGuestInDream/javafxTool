@@ -52,6 +52,9 @@ public class FreemarkerUtil {
      */
     private static final AtomicBoolean IS_INIT = new AtomicBoolean(false);
 
+    private FreemarkerUtil() {
+    }
+
     /**
      * 初始化, 仅供TemplateLoaderScanner调用
      */
@@ -71,7 +74,7 @@ public class FreemarkerUtil {
     public static Configuration configuration() {
         if (configuration == null) {
             throw new UnsupportedFeatureException(
-                "Freemarker is not supported, please confirm whether there is a freemarker dependency.");
+                    "Freemarker is not supported, please confirm whether there is a freemarker dependency.");
         }
         return configuration;
     }

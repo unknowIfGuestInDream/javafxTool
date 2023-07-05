@@ -46,6 +46,9 @@ import java.lang.reflect.InvocationTargetException;
 public class GroovyUtil {
     static GroovyScriptEngine groovyScriptEngine;
 
+    private GroovyUtil() {
+    }
+
     public static GroovyScriptEngine init(String[] root) {
         if (groovyScriptEngine == null) {
             try {
@@ -60,7 +63,7 @@ public class GroovyUtil {
     public static GroovyScriptEngine engine() {
         if (groovyScriptEngine == null) {
             throw new UnsupportedFeatureException(
-                "Groovy is not supported, please confirm whether there is a groovy dependency.");
+                    "Groovy is not supported, please confirm whether there is a groovy dependency.");
         }
         return groovyScriptEngine;
     }
@@ -73,7 +76,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -82,7 +85,8 @@ public class GroovyUtil {
         try {
             scriptClass = groovyScriptEngine.loadScriptByName(scriptName);
             scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
-        } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e1) {
+        } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException
+                | NoSuchMethodException | InvocationTargetException e1) {
             StaticLog.warn("Load script [" + scriptName + "] failed", e1);
         }
 
