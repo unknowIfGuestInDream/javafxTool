@@ -65,6 +65,7 @@
         <lombok.version>1.18.28</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.3</poi-ooxml.version>
+        <commons-io.version>2.13.0</commons-io.version>
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.3.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
@@ -177,6 +178,11 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi-ooxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
