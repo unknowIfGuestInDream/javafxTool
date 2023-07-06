@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.dialog;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -48,7 +49,8 @@ import java.util.Optional;
  * @date: 2022/11/27 0:09
  */
 public class FxAlerts {
-    public FxAlerts() {
+
+    private FxAlerts() {
     }
 
     public static void info(String title, String message) {
@@ -110,15 +112,11 @@ public class FxAlerts {
     }
 
     public static void error(String title, String message, String details) {
-        FxApp.runLater(() -> {
-            error0(null, title, message, details);
-        });
+        FxApp.runLater(() -> error0(null, title, message, details));
     }
 
     public static void error(Window owner, String title, String message, String details) {
-        FxApp.runLater(() -> {
-            error0(owner, title, message, details);
-        });
+        FxApp.runLater(() -> error0(owner, title, message, details));
     }
 
     private static void error0(Window owner, String title, String message, String details) {
@@ -190,7 +188,7 @@ public class FxAlerts {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
             Platform.runLater(dlg::close);
         }).start();

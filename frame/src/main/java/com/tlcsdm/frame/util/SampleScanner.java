@@ -27,6 +27,7 @@
 
 package com.tlcsdm.frame.util;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;
@@ -73,12 +74,12 @@ public class SampleScanner {
      * @return The classes
      */
     public Map<String, Project> discoverSamples() {
-        Class<?>[] results = new Class[]{};
+        Class<?>[] results = new Class[] {};
 
         try {
             results = InterfaceScanner.loadFromPathScanning(Sample.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
 
         for (Class<?> sampleClass : results) {
@@ -97,9 +98,9 @@ public class SampleScanner {
                 sample = (Sample) sampleClass.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                 | InvocationTargetException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             } catch (ExceptionInInitializerError e) {
-                e.printStackTrace();
+                StaticLog.error(e);
                 continue;
             }
             if (sample == null || !sample.isVisible()) {

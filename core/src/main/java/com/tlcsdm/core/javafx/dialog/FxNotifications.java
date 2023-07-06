@@ -38,6 +38,9 @@ import org.controlsfx.control.Notifications;
  */
 public class FxNotifications {
 
+    private FxNotifications() {
+    }
+
     public static Notifications defaultNotify() {
         return notifications(Duration.seconds(5), Pos.TOP_CENTER);
     }

@@ -27,7 +27,10 @@
 
 package com.tlcsdm.qe.provider;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
@@ -61,8 +64,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -155,10 +156,11 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
     CheckLangAction english = new CheckLangAction(QeConstant.LANGUAGE_ENGLISH);
     CheckLangAction japanese = new CheckLangAction(QeConstant.LANGUAGE_JAPANESE);
 
-    private final Collection<? extends Action> actions = List.of(FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
+    private final Collection<? extends Action> actions = List.of(
+        FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
-            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
+            contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
@@ -242,7 +244,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                         try {
                             new FXSampler().start(new Stage());
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            StaticLog.error(e);
                         }
                     });
                 }
@@ -256,7 +258,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
             try {
                 Thread.sleep(300);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
             new FXSampler().start(new Stage());
         });

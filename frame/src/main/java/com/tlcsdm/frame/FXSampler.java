@@ -39,7 +39,7 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.javafx.util.StageUtils;
+import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptyCenterPanel;
@@ -309,7 +309,7 @@ public final class FXSampler extends Application {
             stage.setTitle(FxApp.title);
         }
         // 加载上次位置
-        StageUtils.loadPrimaryStageBound(stage);
+        StageUtil.loadPrimaryStageBound(stage);
         stage.setOnShown(windowEvent -> {
             if (Config.getBoolean(Config.Keys.CheckForUpdatesAtStartup, true)) {
                 // 检查更新
@@ -409,7 +409,7 @@ public final class FXSampler extends Application {
      * 退出系统
      */
     public static void doExit() {
-        StageUtils.savePrimaryStageBound(stage);
+        StageUtil.savePrimaryStageBound(stage);
         Platform.exit();
         System.exit(0);
     }

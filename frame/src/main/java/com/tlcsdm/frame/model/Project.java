@@ -26,6 +26,7 @@
  */
 package com.tlcsdm.frame.model;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.Sample;
 
@@ -59,12 +60,12 @@ public class Project {
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("packagePath: " + packagePath + ", basePackage: " + basePackage);
-            e.printStackTrace();
+            StaticLog.error(e);
             return;
         }
 
         // then split up the packages into separate strings
-        String[] packages = packagesWithoutBase.isEmpty() ? new String[]{} : packagesWithoutBase.split("\\.");
+        String[] packages = packagesWithoutBase.isEmpty() ? new String[] {} : packagesWithoutBase.split("\\.");
 
         // then for each package convert to a prettier form
         for (int i = 0; i < packages.length; i++) {

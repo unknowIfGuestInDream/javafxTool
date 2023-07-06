@@ -43,23 +43,26 @@ import javafx.stage.Stage;
  * 日志输出控制台 配合logback.xml使用
  *
  * <pre>
- * <code>
- *     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
- *         <encoder>
- *             <pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] %logger{3600} - %msg%n</pattern>
- *         </encoder>
- *     </appender>
+ * {@code
+ * <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+ *     <encoder>
+ *         <pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] %logger{3600} - %msg%n</pattern>
+ *     </encoder>
+ * </appender>
  *
- *         <root>
- *         <appender-ref ref="CONSOLELOGAPPENDER"/>
- *     </root>
- * </code>
+ * <root>
+ *     <appender-ref ref="CONSOLELOGAPPENDER"/>
+ * </root>
+ * }
  * </pre>
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/3/27 21:07
  */
 public class LogConsoleDialog {
+
+    private LogConsoleDialog() {
+    }
 
     public static void addLogConsole() {
         TextArea textArea = new TextArea();

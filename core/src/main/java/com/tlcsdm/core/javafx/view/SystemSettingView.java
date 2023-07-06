@@ -37,7 +37,6 @@ import javafx.scene.control.CheckBox;
  *
  * @author xufeng
  */
-
 public abstract class SystemSettingView implements Initializable {
 
     @FXML

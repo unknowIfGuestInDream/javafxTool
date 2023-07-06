@@ -206,13 +206,13 @@ public class GirretReview extends SmcSample {
                         }
                         StaticLog.info("Get request result...");
                         // 开始获取结果
-                        for (; ; ) {
+                        for (;;) {
                             String url = String.format(changesRequestUrl,
                                 URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
                                 URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
                             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-                                    "application/json", "User-Agent",
-                                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+                                "application/json", "User-Agent",
+                                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
                                 .build();
                             HttpResponse<String> response = null;
                             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -235,7 +235,7 @@ public class GirretReview extends SmcSample {
                         bindUserData();
                     } catch (Exception e) {
                         FxAlerts.exception(e);
-                        e.printStackTrace();
+                        StaticLog.error(e);
                     }
                 }
             });
@@ -545,8 +545,8 @@ public class GirretReview extends SmcSample {
                 URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
                 changesList.get(i).get("girretNum"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
-                    "application/json", "User-Agent",
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
+                "application/json", "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
                 .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
@@ -615,14 +615,10 @@ public class GirretReview extends SmcSample {
         writer.close();
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
-            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList),
-                FileUtil.file(resultPath,
-                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                        + "-changes.json"));
-            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList),
-                FileUtil.file(resultPath,
-                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                        + "-comments.json"));
+            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList), FileUtil.file(resultPath,
+                LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN) + "-changes.json"));
+            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList), FileUtil.file(resultPath,
+                LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN) + "-comments.json"));
         }
         FxApp.runLater(() -> {
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
