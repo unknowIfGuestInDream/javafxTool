@@ -28,6 +28,7 @@
 package com.tlcsdm.smc.config;
 
 import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -39,7 +40,7 @@ public class SmcTemplateLoaderProvider implements TemplateLoaderService {
         try {
             return new ClassTemplateLoader(SmcTemplateLoaderProvider.class, "/com/tlcsdm/smc/static/templates");
         } catch (IORuntimeException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return null;
     }

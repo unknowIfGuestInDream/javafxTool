@@ -27,7 +27,9 @@
 
 package com.tlcsdm.core.util;
 
-import java.awt.*;
+import cn.hutool.log.StaticLog;
+
+import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -123,7 +125,7 @@ public class CoreUtil {
             URI address = new URI(url);
             d.browse(address);
         } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
     }
 

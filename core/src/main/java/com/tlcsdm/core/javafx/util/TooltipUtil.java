@@ -50,6 +50,9 @@ import java.util.TimerTask;
  */
 public class TooltipUtil {
 
+    private TooltipUtil() {
+    }
+
     public static void showToast(String message) {
         showToast((Node) null, message);
     }
@@ -99,8 +102,10 @@ public class TooltipUtil {
         showToast(title, message, null, 3.0D, pos, null, null, true, true);
     }
 
-    public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos, EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
-        Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title).text(message).graphic(graphic).onAction(onAction);
+    public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos,
+        EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
+        Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title)
+            .text(message).graphic(graphic).onAction(onAction);
         if (owner != null) {
             notificationBuilder.owner(owner);
         }

@@ -49,10 +49,8 @@ import java.util.Set;
  */
 public class InterfaceScanner {
 
-    public static Reflections reflections = new Reflections(
-        new ConfigurationBuilder()
-            .forPackage("com.tlcsdm")
-            .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
+    public static Reflections reflections = new Reflections(new ConfigurationBuilder().forPackage("com.tlcsdm")
+        .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
 
     /**
      * Gets the list of sample classes to load
@@ -60,12 +58,12 @@ public class InterfaceScanner {
      * @return The classes
      */
     public static List<Class<?>> discover(Class<?> clazz) {
-        Class<?>[] results = new Class[]{};
+        Class<?>[] results = new Class[] {};
         List<Class<?>> list = new ArrayList<>();
         try {
             results = loadFromPathScanning(clazz);
         } catch (Exception e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
 
         for (Class<?> sampleClass : results) {
@@ -87,7 +85,7 @@ public class InterfaceScanner {
                 i.getDeclaredMethod(name, parameterTypes).invoke(i.getDeclaredConstructor().newInstance());
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
                 | InstantiationException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             } catch (NoClassDefFoundError e) {
                 // fix freemarker 依赖找不到却进行初始化的问题
                 StaticLog.warn("NoClassDefFoundError: {}", e.getMessage());
@@ -97,8 +95,7 @@ public class InterfaceScanner {
 
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
-        Set<Class<?>> classes =
-            reflections.get(Scanners.SubTypes.of(cls).asClass());
+        Set<Class<?>> classes = reflections.get(Scanners.SubTypes.of(cls).asClass());
         return classes.toArray(new Class[classes.size()]);
     }
 

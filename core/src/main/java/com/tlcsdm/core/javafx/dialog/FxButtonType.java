@@ -33,6 +33,9 @@ import javafx.scene.control.ButtonType;
 
 public final class FxButtonType {
 
+    private FxButtonType() {
+    }
+
     public static final ButtonType OK = new ButtonType(I18nUtils.get("core.buttonType.ok"), ButtonData.OK_DONE);
 
     public static final ButtonType YES = new ButtonType(I18nUtils.get("core.buttonType.yes"), ButtonData.YES);

@@ -69,7 +69,7 @@ public class FxXmlUtil {
         try {
             conf = builder.getConfiguration();
         } catch (ConfigurationException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return conf;
     }

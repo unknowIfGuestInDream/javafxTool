@@ -62,22 +62,22 @@ public class LoggerStartupListener extends ContextAwareBase implements LoggerCon
 
     @Override
     public void onStart(LoggerContext context) {
-
+        // Do nothing
     }
 
     @Override
     public void onReset(LoggerContext context) {
-
+        // Do nothing
     }
 
     @Override
     public void onStop(LoggerContext context) {
-
+        // Do nothing
     }
 
     @Override
     public void onLevelChange(Logger logger, Level level) {
-
+        // Do nothing
     }
 
     @Override
@@ -92,7 +92,7 @@ public class LoggerStartupListener extends ContextAwareBase implements LoggerCon
 
     @Override
     public void stop() {
-
+        // Do nothing
     }
 
     @Override

@@ -46,6 +46,7 @@ import java.io.StringWriter;
  * @date: 2022/12/7 17:57
  */
 public class ExceptionDialog extends Dialog<ButtonType> {
+
     public ExceptionDialog(Throwable exception) {
         DialogPane dialogPane = this.getDialogPane();
         this.setTitle(I18nUtils.get("core.dialog.exception.dlg.title"));

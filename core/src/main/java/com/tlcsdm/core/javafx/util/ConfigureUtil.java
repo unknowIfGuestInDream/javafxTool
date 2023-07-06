@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.log.StaticLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,8 @@ import java.util.List;
  * @date: 2022/11/27 0:10
  */
 public class ConfigureUtil {
-    public ConfigureUtil() {
+
+    private ConfigureUtil() {
     }
 
     public static String getConfigurePath() {
@@ -70,7 +72,7 @@ public class ConfigureUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
         }
         return file;
@@ -88,7 +90,7 @@ public class ConfigureUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
         }
         if (FileUtil.isEmpty(file)) {
@@ -115,7 +117,7 @@ public class ConfigureUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                StaticLog.error(e);
             }
         }
         return file;
