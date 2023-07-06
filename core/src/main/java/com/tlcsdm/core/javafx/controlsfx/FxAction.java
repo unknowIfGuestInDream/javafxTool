@@ -44,6 +44,9 @@ import java.util.function.Consumer;
  */
 public class FxAction {
 
+    private FxAction() {
+    }
+
     public static Action create(String text, Consumer<ActionEvent> eventHandler, String url) {
         return create(text, eventHandler, LayoutHelper.iconView(FxAction.class.getResource(url)));
     }

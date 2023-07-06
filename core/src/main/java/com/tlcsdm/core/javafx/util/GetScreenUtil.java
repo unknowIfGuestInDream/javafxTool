@@ -35,12 +35,17 @@ import javafx.scene.Node;
  */
 public class GetScreenUtil {
 
+    private GetScreenUtil() {
+    }
+
     public static double getScreenX(Node control) {
-        return control.getScene().getWindow().getX() + control.getScene().getX() + control.localToScene(0.0D, 0.0D).getX();
+        return control.getScene().getWindow().getX() + control.getScene().getX()
+            + control.localToScene(0.0D, 0.0D).getX();
     }
 
     public static double getScreenY(Node control) {
-        return control.getScene().getWindow().getY() + control.getScene().getY() + control.localToScene(0.0D, 0.0D).getY();
+        return control.getScene().getWindow().getY() + control.getScene().getY()
+            + control.localToScene(0.0D, 0.0D).getY();
     }
 
     public static double getWidth(Node control) {

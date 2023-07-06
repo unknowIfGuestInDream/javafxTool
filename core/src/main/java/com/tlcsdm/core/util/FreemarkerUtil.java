@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.exception.UnsupportedFeatureException;
 import freemarker.template.Configuration;
@@ -45,6 +46,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author unknowIfGuestInDream
  */
 public class FreemarkerUtil {
+
     private static Configuration configuration;
     /**
      * 最开始设计是用于防止用户手动调用init方法
@@ -88,7 +90,7 @@ public class FreemarkerUtil {
         try {
             template = conf.getTemplate(name);
         } catch (IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return template;
     }
@@ -104,7 +106,7 @@ public class FreemarkerUtil {
             template = conf.getTemplate(name);
             template.process(objectMap, stringWriter);
         } catch (IOException | TemplateException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return stringWriter.toString();
     }

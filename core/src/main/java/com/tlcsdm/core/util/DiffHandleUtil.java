@@ -28,6 +28,7 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.github.difflib.UnifiedDiffUtils;
 import com.github.difflib.patch.Patch;
 
@@ -72,7 +73,7 @@ public class DiffHandleUtil {
      * @param revisedFileName  对比文件名
      */
     public static List<String> diffString(List<String> original, List<String> revised, String originalFileName,
-                                          String revisedFileName) {
+        String revisedFileName) {
         originalFileName = originalFileName == null ? "原始文件" : originalFileName;
         revisedFileName = revisedFileName == null ? "对比文件" : revisedFileName;
         // 两文件的不同点
@@ -114,7 +115,7 @@ public class DiffHandleUtil {
             original = Files.readAllLines(originalFile.toPath());
             revised = Files.readAllLines(revisedFile.toPath());
         } catch (IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return diffString(original, revised, originalFile.getName(), revisedFile.getName());
     }
@@ -140,7 +141,7 @@ public class DiffHandleUtil {
             buf.close();
             f.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
     }
 
@@ -221,13 +222,11 @@ public class DiffHandleUtil {
             divElementJoiner.add(StrUtil.format("""
                   <div id="myDiffElement{index}"></div>
                 """, joinMap));
-            diff2htmlUiJoiner.add(StrUtil.format(
-                """
-                        var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
-                        diff2htmlUi{index}.draw();
-                        diff2htmlUi{index}.highlightCode();
-                    """,
-                joinMap));
+            diff2htmlUiJoiner.add(StrUtil.format("""
+                    var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
+                    diff2htmlUi{index}.draw();
+                    diff2htmlUi{index}.highlightCode();
+                """, joinMap));
         }
         map.put("diffString", diffStringJoiner.toString());
         map.put("targetElement", targetElementJoiner.toString());

@@ -36,10 +36,15 @@ import javafx.scene.control.ButtonType;
 import java.util.ResourceBundle;
 
 /**
+ * 系统设置弹窗
+ * 
  * @author: unknowIfGuestInDream
  * @date: 2022/12/10 21:19
  */
 public class SystemSettingDialog {
+
+    private SystemSettingDialog() {
+    }
 
     public static void openSystemSettings(String title) {
         FxDialog<SystemSettingController> dialog = new FxDialog<SystemSettingController>()

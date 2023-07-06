@@ -42,6 +42,9 @@ import java.util.ResourceBundle;
  */
 public class FxmlUtil {
 
+    private FxmlUtil() {
+    }
+
     public static FXMLLoader loadFxmlFromResource(URL location) {
         return loadFxmlFromResource(location, null);
     }
@@ -50,7 +53,8 @@ public class FxmlUtil {
         return loadFxmlFromResource(location, resourceBundle, null);
     }
 
-    public static FXMLLoader loadFxmlFromResource(URL location, ResourceBundle resourceBundle, BuilderFactory builderFactory) {
+    public static FXMLLoader loadFxmlFromResource(URL location, ResourceBundle resourceBundle,
+        BuilderFactory builderFactory) {
         if (builderFactory == null) {
             builderFactory = new JavaFXBuilderFactory();
         }

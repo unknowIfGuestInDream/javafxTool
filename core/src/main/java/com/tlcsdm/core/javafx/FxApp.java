@@ -45,7 +45,7 @@ public class FxApp {
     public static Image appIcon;
     public static String title;
 
-    public FxApp() {
+    private FxApp() {
     }
 
     public static void init(Stage primaryStage, URL resource) {

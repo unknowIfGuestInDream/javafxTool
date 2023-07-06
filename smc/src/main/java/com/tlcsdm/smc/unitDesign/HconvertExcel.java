@@ -113,14 +113,14 @@ public class HconvertExcel extends SmcSample {
             List<File> files = FileUtil.loopFiles(generateFilesPath, new FileFilter() {
                 @Override
                 public boolean accept(File file) {
-                    if (markFileNames.size() != 0) {
+                    if (!markFileNames.isEmpty()) {
                         for (String markFile : markFileNames) {
                             if (file.isFile() && markFile.equals(file.getName())) {
                                 return true;
                             }
                         }
                     }
-                    if (markFileNames.size() == 0 && file.isFile() && !ignoreFileNames.contains(file.getName())) {
+                    if (markFileNames.isEmpty() && file.isFile() && !ignoreFileNames.contains(file.getName())) {
                         for (String fileType : supportFileType) {
                             if (fileType.equals(FileUtil.getSuffix(file))) {
                                 return true;

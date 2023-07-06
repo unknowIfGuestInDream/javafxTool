@@ -38,8 +38,14 @@ import java.util.List;
  * @author: unknowIfGuestInDream
  * @date: 2022/11/27 18:59
  */
-public class StageUtils {
-    // 加载Stage边框位置
+public class StageUtil {
+
+    private StageUtil() {
+    }
+
+    /**
+     * 加载Stage边框位置
+     */
     public static void loadPrimaryStageBound(Stage stage) {
         try {
             if (!Config.getBoolean(Config.Keys.RememberWindowLocation, true)) {
@@ -77,7 +83,9 @@ public class StageUtils {
         }
     }
 
-    // 保存Stage边框位置
+    /**
+     * 保存Stage边框位置
+     */
     public static void savePrimaryStageBound(Stage stage) {
         if (!Config.getBoolean(Config.Keys.RememberWindowLocation, true)) {
             return;

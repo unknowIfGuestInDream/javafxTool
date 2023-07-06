@@ -42,6 +42,9 @@ import java.util.Collection;
  */
 public class FxActionGroup {
 
+    private FxActionGroup() {
+    }
+
     public static Action create(String text, Node icon, Collection<Action> actions) {
         return new ActionGroup(text, icon, actions);
     }

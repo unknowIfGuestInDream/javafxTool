@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.log.StaticLog;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -72,7 +73,7 @@ public class Config {
         try {
             conf = builder.getConfiguration();
         } catch (ConfigurationException e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return conf;
     }
