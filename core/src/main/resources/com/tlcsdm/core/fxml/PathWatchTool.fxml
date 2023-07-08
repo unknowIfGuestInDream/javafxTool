@@ -43,7 +43,8 @@
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
                 AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <center>
-            <TextArea fx:id="watchLogTextArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TextArea fx:id="watchLogTextArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"
+                      editable="false">
                 <BorderPane.margin>
                     <Insets top="10.0"/>
                 </BorderPane.margin>
@@ -52,27 +53,30 @@
         <top>
             <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                 <HBox alignment="CENTER" spacing="10.0">
-                    <Label text="监控路径："/>
+                    <Label text="%core.menubar.setting.pathWatch.label.watchPath"/>
                     <TextField fx:id="watchPathTextField" HBox.hgrow="ALWAYS"/>
                     <Button fx:id="watchPathButton" mnemonicParsing="false" onAction="#watchPathAction"
-                            text="选择"/>
+                            text="%core.menubar.setting.pathWatch.button.watchPath"/>
                     <CheckBox fx:id="isShowNotificationCheckBox" mnemonicParsing="false" selected="true"
-                              text="显示桌面通知"/>
-                    <Button fx:id="watchButton" mnemonicParsing="false" onAction="#watchAction" text="监控"/>
+                              text="%core.menubar.setting.pathWatch.button.isShowNotify"/>
+                    <Button fx:id="watchButton" mnemonicParsing="false" onAction="#watchAction"
+                            text="%core.menubar.setting.pathWatch.button.watch"/>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <Label text="文件名包含字符: "/>
+                    <Label text="%core.menubar.setting.pathWatch.label.fileContains"/>
                     <TextField fx:id="fileNameContainsTextField"/>
-                    <Label text="文件名不包含字符:"/>
+                    <Label text="%core.menubar.setting.pathWatch.label.fileNoContains"/>
                     <TextField fx:id="fileNameNotContainsTextField"/>
-                    <CheckBox fx:id="fileNameSupportRegexCheckBox" mnemonicParsing="false" text="支持正则"/>
+                    <CheckBox fx:id="fileNameSupportRegexCheckBox" mnemonicParsing="false"
+                              text="%core.menubar.setting.pathWatch.label.supportRegex"/>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <Label text="文件夹路径包含: "/>
+                    <Label text="%core.menubar.setting.pathWatch.label.folderContains"/>
                     <TextField fx:id="folderPathContainsTextField"/>
-                    <Label text="文件夹路径不包含: "/>
+                    <Label text="%core.menubar.setting.pathWatch.label.folderNoContains"/>
                     <TextField fx:id="folderPathNotContainsTextField"/>
-                    <CheckBox fx:id="folderPathSupportRegexCheckBox" mnemonicParsing="false" text="支持正则"/>
+                    <CheckBox fx:id="folderPathSupportRegexCheckBox" mnemonicParsing="false"
+                              text="%core.menubar.setting.pathWatch.label.supportRegex"/>
                 </HBox>
             </VBox>
         </top>

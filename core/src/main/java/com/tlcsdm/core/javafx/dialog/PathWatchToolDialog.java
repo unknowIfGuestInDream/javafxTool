@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 
 /**
  * 文件夹监控
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2022/12/10 21:19
  */
@@ -48,11 +48,9 @@ public class PathWatchToolDialog {
     public static void openPathWatchTool(String title) {
         FxDialog<PathWatchToolController> dialog = new FxDialog<PathWatchToolController>()
             .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
-            .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool1.fxml"))
+            .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool.fxml"))
             .setModal(false).setButtonTypes(ButtonType.CLOSE);
-
-        PathWatchToolController controller = dialog.show();
-
+        dialog.show();
         dialog.setButtonHandler(ButtonType.CLOSE, (actionEvent, stage) -> stage.close());
     }
 

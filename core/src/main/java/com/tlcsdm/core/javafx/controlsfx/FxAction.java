@@ -143,9 +143,9 @@ public class FxAction {
      * menubar pathWatch
      */
     public static Action pathWatch() {
-        return create(I18nUtils.get("core.menubar.setting.systemSetting"), actionEvent -> {
-            PathWatchToolDialog.openPathWatchTool(I18nUtils.get("core.menubar.setting.systemSetting"));
-        }, "/com/tlcsdm/core/static/menubar/system.png");
+        return create(I18nUtils.get("core.menubar.setting.pathWatch"), actionEvent -> {
+            PathWatchToolDialog.openPathWatchTool(I18nUtils.get("core.menubar.setting.pathWatch"));
+        }, "/com/tlcsdm/core/static/menubar/monitor.png");
     }
 
     public static Action about(Consumer<ActionEvent> eventHandler) {

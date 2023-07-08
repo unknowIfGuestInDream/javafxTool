@@ -53,14 +53,14 @@ import java.util.regex.Pattern;
  * @author unknowIfGuestInDream
  */
 public class PathWatchToolService {
-    private PathWatchToolController pathWatchToolController;
+    private final PathWatchToolController pathWatchToolController;
     Thread thread = null;
 
     public PathWatchToolService(PathWatchToolController pathWatchToolController) {
         this.pathWatchToolController = pathWatchToolController;
     }
 
-    public void watchAction() throws Exception {
+    public void watchAction() {
         String watchPath = pathWatchToolController.getWatchPathTextField().getText();
         if (StringUtils.isEmpty(watchPath)) {
             TooltipUtil.showToast("监控目录不能为空！");

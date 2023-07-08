@@ -29,6 +29,7 @@ package com.tlcsdm.core.javafx.controller;
 
 import com.tlcsdm.core.javafx.service.PathWatchToolService;
 import com.tlcsdm.core.javafx.view.PathWatchToolView;
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -41,7 +42,7 @@ import java.util.ResourceBundle;
  * @author unknowIfGuestInDream
  */
 public class PathWatchToolController extends PathWatchToolView {
-    private PathWatchToolService pathWatchToolService = new PathWatchToolService(this);
+    private final PathWatchToolService pathWatchToolService = new PathWatchToolService(this);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,6 +52,7 @@ public class PathWatchToolController extends PathWatchToolView {
     }
 
     private void initView() {
+        // Do nothing
     }
 
     private void initEvent() {
@@ -70,12 +72,13 @@ public class PathWatchToolController extends PathWatchToolView {
 
     @FXML
     private void watchAction(ActionEvent event) throws Exception {
-        if ("监控".equals(watchButton.getText())) {
+        String watch = I18nUtils.get("core.menubar.setting.pathWatch.button.watch");
+        if (watch.equals(watchButton.getText())) {
             pathWatchToolService.watchAction();
-            watchButton.setText("停止监控");
+            watchButton.setText(I18nUtils.get("core.menubar.setting.pathWatch.button.stopWatch"));
         } else {
             pathWatchToolService.stopWatchAction();
-            watchButton.setText("监控");
+            watchButton.setText(watch);
         }
     }
 }
