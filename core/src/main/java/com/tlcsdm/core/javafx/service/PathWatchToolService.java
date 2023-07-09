@@ -88,6 +88,9 @@ public class PathWatchToolService {
         boolean folderPathSRegex = pathWatchToolController.getFolderPathSupportRegexCheckBox().isSelected();
         Pattern folderPathCsPattern = Pattern.compile(folderPathCsText, Pattern.CASE_INSENSITIVE);
         Pattern folderPathNCsPattern = Pattern.compile(folderPathNCsText, Pattern.CASE_INSENSITIVE);
+//        ThreadPoolTaskExecutor.get().execute(()->{
+//
+//        });
         thread = new Thread(() -> {
             try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
                 //给path路径加上文件观察服务
