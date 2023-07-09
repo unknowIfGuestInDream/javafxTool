@@ -45,6 +45,10 @@ public class FxNotifications {
         return notifications(Duration.seconds(5), Pos.TOP_CENTER);
     }
 
+    public static Notifications alwaysNotify() {
+        return notifications(Duration.seconds(Integer.MAX_VALUE), Pos.TOP_CENTER);
+    }
+
     public static Notifications notifications(Duration duration, Pos position) {
         return Notifications.create().hideAfter(duration).position(position).owner(FxApp.primaryStage);
     }

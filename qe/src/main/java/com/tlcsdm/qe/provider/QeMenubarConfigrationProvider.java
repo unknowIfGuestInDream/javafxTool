@@ -27,8 +27,6 @@
 
 package com.tlcsdm.qe.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
@@ -65,11 +63,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 
-    private final Action restart = FxAction.restart(actionEvent -> restart());
+    private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());
 
     private final Action export = FxAction.export(actionEvent -> {
         FxXmlHelper.exportData(QeConstant.PROJECT_NAME);
@@ -77,7 +77,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action induct = FxAction.induct(actionEvent -> {
         FxXmlHelper.importData(QeConstant.PROJECT_NAME);
-        restart();
+        FXSampler.restart();
     });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
@@ -160,8 +160,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(systemSetting, pathWatch, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
+        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.tool(logConsole, pathWatch), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
             contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
@@ -252,18 +252,6 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                 }
             });
         }
-    }
-
-    private void restart() {
-        Platform.runLater(() -> {
-            stage.close();
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                StaticLog.error(e);
-            }
-            new FXSampler().start(new Stage());
-        });
     }
 
 }

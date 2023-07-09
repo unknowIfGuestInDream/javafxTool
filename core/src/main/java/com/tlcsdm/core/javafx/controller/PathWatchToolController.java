@@ -28,11 +28,13 @@
 package com.tlcsdm.core.javafx.controller;
 
 import com.tlcsdm.core.javafx.service.PathWatchToolService;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.view.PathWatchToolView;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,7 +50,6 @@ public class PathWatchToolController extends PathWatchToolView {
     public void initialize(URL location, ResourceBundle resources) {
         initView();
         initEvent();
-        initService();
     }
 
     private void initView() {
@@ -56,26 +57,24 @@ public class PathWatchToolController extends PathWatchToolView {
     }
 
     private void initEvent() {
-        //FileChooserUtil.setOnDrag(watchPathTextField, FileChooserUtil.FileType.FOLDER);
-    }
-
-    private void initService() {
+        FileChooserUtil.setOnDrag(watchPathTextField, FileChooserUtil.FileType.FOLDER);
     }
 
     @FXML
     private void watchPathAction(ActionEvent event) {
-//        File file = FileChooserUtil.chooseDirectory();
-//        if (file != null) {
-//            watchPathTextField.setText(file.getPath());
-//        }
+        File file = FileChooserUtil.chooseDirectory();
+        if (file != null) {
+            watchPathTextField.setText(file.getPath());
+        }
     }
 
     @FXML
-    private void watchAction(ActionEvent event) throws Exception {
+    private void watchAction(ActionEvent event) {
         String watch = I18nUtils.get("core.menubar.setting.pathWatch.button.watch");
         if (watch.equals(watchButton.getText())) {
-            pathWatchToolService.watchAction();
-            watchButton.setText(I18nUtils.get("core.menubar.setting.pathWatch.button.stopWatch"));
+            if (pathWatchToolService.watchAction()) {
+                watchButton.setText(I18nUtils.get("core.menubar.setting.pathWatch.button.stopWatch"));
+            }
         } else {
             pathWatchToolService.stopWatchAction();
             watchButton.setText(watch);

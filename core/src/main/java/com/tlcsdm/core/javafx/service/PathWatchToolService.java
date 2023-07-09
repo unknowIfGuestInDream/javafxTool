@@ -28,10 +28,14 @@
 package com.tlcsdm.core.javafx.service;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.controller.PathWatchToolController;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.geometry.Pos;
 import org.apache.commons.lang3.StringUtils;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -45,6 +49,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -54,28 +59,33 @@ import java.util.regex.Pattern;
  */
 public class PathWatchToolService {
     private final PathWatchToolController pathWatchToolController;
-    Thread thread = null;
+    private final Notifications notification = FxNotifications.alwaysNotify();
+    private final Notifications warningNotify = FxNotifications.defaultNotify();
+    private Thread thread = null;
 
     public PathWatchToolService(PathWatchToolController pathWatchToolController) {
         this.pathWatchToolController = pathWatchToolController;
     }
 
-    public void watchAction() {
+    public boolean watchAction() {
         String watchPath = pathWatchToolController.getWatchPathTextField().getText();
         if (StringUtils.isEmpty(watchPath)) {
-            TooltipUtil.showToast("监控目录不能为空！");
-            return;
+            warningNotify.text(I18nUtils.get("core.menubar.setting.pathWatch.message.empty"));
+            warningNotify.showWarning();
+            return false;
         }
         Path path = Paths.get(watchPath);
         if (!Files.exists(path)) {
-            TooltipUtil.showToast("监控目录不存在！");
-            return;
+            warningNotify.text(I18nUtils.get("core.menubar.setting.pathWatch.message.exist"));
+            warningNotify.showWarning();
+            return false;
         } else if (!Files.isDirectory(path)) {
-            TooltipUtil.showToast("只能监控文件夹！");
-            return;
+            warningNotify.text(I18nUtils.get("core.menubar.setting.pathWatch.message.directory"));
+            warningNotify.showWarning();
+            return false;
         }
         if (thread != null) {
-            thread.stop();
+            thread.interrupt();
         }
         boolean fileNameSRegex = pathWatchToolController.getFileNameSupportRegexCheckBox().isSelected();
         String fileNameContains = pathWatchToolController.getFileNameContainsTextField().getText();
@@ -88,10 +98,8 @@ public class PathWatchToolService {
         boolean folderPathSRegex = pathWatchToolController.getFolderPathSupportRegexCheckBox().isSelected();
         Pattern folderPathCsPattern = Pattern.compile(folderPathCsText, Pattern.CASE_INSENSITIVE);
         Pattern folderPathNCsPattern = Pattern.compile(folderPathNCsText, Pattern.CASE_INSENSITIVE);
-//        ThreadPoolTaskExecutor.get().execute(()->{
-//
-//        });
-        thread = new Thread(() -> {
+
+        thread = ThreadPoolTaskExecutor.get().getThreadFactory().newThread(() -> {
             try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
                 //给path路径加上文件观察服务
 //                path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
@@ -165,12 +173,38 @@ public class PathWatchToolService {
             }
         });
         thread.start();
+        return true;
     }
 
     public void stopWatchAction() {
         if (thread != null) {
-            thread.stop();
+            thread.interrupt();
             thread = null;
         }
+    }
+
+    public static boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern, Pattern ncsPattern) {
+        boolean match = true;
+        String lFileName = fileName.toLowerCase();
+        String lcsText = csText.toLowerCase();
+        String lncsText = ncsText.toLowerCase();
+        if (sRegex) {
+            if (csText.length() != 0) {
+                Matcher m = csPattern.matcher(fileName);
+                match = m.find();
+            }
+            if (match && ncsText.length() != 0) {
+                Matcher m = ncsPattern.matcher(fileName);
+                match = !m.find();
+            }
+        } else {
+            if (csText.length() != 0) {
+                match = lFileName.contains(lcsText);
+            }
+            if (match && ncsText.length() != 0) {
+                match = !lFileName.contains(lncsText);
+            }
+        }
+        return match;
     }
 }

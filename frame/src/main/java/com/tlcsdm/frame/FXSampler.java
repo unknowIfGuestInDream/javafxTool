@@ -414,6 +414,21 @@ public final class FXSampler extends Application {
         System.exit(0);
     }
 
+    /**
+     * 重启程序
+     */
+    public static void restart() {
+        Platform.runLater(() -> {
+            stage.close();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                StaticLog.error(e);
+            }
+            new FXSampler().start(new Stage());
+        });
+    }
+
     private void sort(TreeItem<Sample> node, Comparator<TreeItem<Sample>> comparator) {
         node.getChildren().sort(comparator);
         for (TreeItem<Sample> child : node.getChildren()) {

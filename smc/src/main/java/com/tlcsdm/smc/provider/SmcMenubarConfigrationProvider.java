@@ -27,8 +27,6 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
@@ -65,11 +63,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 
-    private final Action restart = FxAction.restart(actionEvent -> restart());
+    private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());
 
     private final Action export = FxAction.export(actionEvent -> {
         FxXmlHelper.exportData(SmcConstant.PROJECT_NAME);
@@ -77,7 +77,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action induct = FxAction.induct(actionEvent -> {
         FxXmlHelper.importData(SmcConstant.PROJECT_NAME);
-        restart();
+        FXSampler.restart();
     });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
@@ -250,18 +250,6 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                 }
             });
         }
-    }
-
-    private void restart() {
-        Platform.runLater(() -> {
-            stage.close();
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                StaticLog.error(e);
-            }
-            new FXSampler().start(new Stage());
-        });
     }
 
 }
