@@ -35,6 +35,7 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
@@ -216,6 +217,9 @@ public class FileDiff extends CommonSample {
         generate.disabledProperty().bind(emptyValidation);
         download.disabledProperty().bind(emptyValidation.or(outputValidation));
         openOutDir.disabledProperty().bind(outputValidation);
+        FileChooserUtil.setOnDrag(originalField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
+        FileChooserUtil.setOnDrag(compareField, FileChooserUtil.FileType.FILE);
     }
 
     @Override

@@ -44,6 +44,7 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -332,6 +333,8 @@ public abstract class AbstractEcmScript extends SmcSample {
             tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+        FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override

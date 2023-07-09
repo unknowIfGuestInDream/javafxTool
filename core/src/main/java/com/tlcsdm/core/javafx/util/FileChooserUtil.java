@@ -147,12 +147,15 @@ public class FileChooserUtil {
         });
     }
 
-    public static enum FileType {
+    public enum FileType {
+        /**
+         * file
+         */
         FILE,
+        /**
+         * folder
+         */
         FOLDER;
-
-        private FileType() {
-        }
 
         public boolean match(File file) {
             return this == FILE && file.isFile() || this == FOLDER && file.isDirectory();

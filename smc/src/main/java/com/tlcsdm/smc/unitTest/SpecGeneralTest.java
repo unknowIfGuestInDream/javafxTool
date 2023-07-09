@@ -48,6 +48,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
@@ -449,6 +450,9 @@ public class SpecGeneralTest extends SmcSample {
             macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+        FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
+        FileChooserUtil.setOnDrag(generalField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override
