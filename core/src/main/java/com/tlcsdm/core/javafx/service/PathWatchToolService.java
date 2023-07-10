@@ -53,8 +53,6 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 文件夹监控工具
@@ -64,7 +62,6 @@ import java.util.regex.Pattern;
 public class PathWatchToolService {
     private final PathWatchToolController pathWatchToolController;
     private FileAlterationMonitor monitor;
-    private final Notifications notification = FxNotifications.alwaysNotify();
     private final Notifications warningNotify = FxNotifications.defaultNotify();
     private Thread thread = null;
 
@@ -96,19 +93,7 @@ public class PathWatchToolService {
         monitor.setThreadFactory(ThreadPoolTaskExecutor.get().getThreadFactory());
         FileAlterationObserver observer = new FileAlterationObserver(new File(watchPath));
         monitor.addObserver(observer);
-        observer.addListener(new PathWatchListener(this));
-
-        boolean fileNameSRegex = pathWatchToolController.getFileNameSupportRegexCheckBox().isSelected();
-        String fileNameContains = pathWatchToolController.getFileNameContainsTextField().getText();
-        String fileNameNotContains = pathWatchToolController.getFileNameNotContainsTextField().getText();
-        Pattern fileNameCsPattern = Pattern.compile(fileNameContains, Pattern.CASE_INSENSITIVE);
-        Pattern fileNameNCsPattern = Pattern.compile(fileNameNotContains, Pattern.CASE_INSENSITIVE);
-
-        String folderPathCsText = pathWatchToolController.getFolderPathContainsTextField().getText();
-        String folderPathNCsText = pathWatchToolController.getFolderPathNotContainsTextField().getText();
-        boolean folderPathSRegex = pathWatchToolController.getFolderPathSupportRegexCheckBox().isSelected();
-        Pattern folderPathCsPattern = Pattern.compile(folderPathCsText, Pattern.CASE_INSENSITIVE);
-        Pattern folderPathNCsPattern = Pattern.compile(folderPathNCsText, Pattern.CASE_INSENSITIVE);
+        observer.addListener(new PathWatchListener(pathWatchToolController));
 
         thread = ThreadPoolTaskExecutor.get().getThreadFactory().newThread(() -> {
             try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
@@ -188,9 +173,6 @@ public class PathWatchToolService {
             }
         });
 
-//        thread = ThreadPoolTaskExecutor.get().getThreadFactory().newThread(() -> {
-//
-//        });
         // thread.start();
         try {
             monitor.start();
@@ -211,32 +193,6 @@ public class PathWatchToolService {
         } catch (Exception e) {
             StaticLog.error(e);
         }
-    }
-
-    private boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
-        Pattern ncsPattern) {
-        boolean match = true;
-        String lFileName = fileName.toLowerCase();
-        String lcsText = csText.toLowerCase();
-        String lncsText = ncsText.toLowerCase();
-        if (sRegex) {
-            if (csText.length() != 0) {
-                Matcher m = csPattern.matcher(fileName);
-                match = m.find();
-            }
-            if (match && ncsText.length() != 0) {
-                Matcher m = ncsPattern.matcher(fileName);
-                match = !m.find();
-            }
-        } else {
-            if (csText.length() != 0) {
-                match = lFileName.contains(lcsText);
-            }
-            if (match && ncsText.length() != 0) {
-                match = !lFileName.contains(lncsText);
-            }
-        }
-        return match;
     }
 
 }

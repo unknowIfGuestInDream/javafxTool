@@ -27,21 +27,39 @@
 
 package com.tlcsdm.core.javafx.service;
 
+import com.tlcsdm.core.javafx.controller.PathWatchToolController;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 文件夹监控工具所用的文件监听器
+ *
  * @author unknowIfGuestInDream
  */
 public class PathWatchListener extends FileAlterationListenerAdaptor {
 
-    private final PathWatchToolService pathWatchToolService;
+    private final PathWatchToolController pathWatchToolController;
+    private final Notifications notification = FxNotifications.alwaysNotify();
 
-    public PathWatchListener(PathWatchToolService pathWatchToolService) {
-        this.pathWatchToolService = pathWatchToolService;
+    public PathWatchListener(PathWatchToolController pathWatchToolController) {
+        this.pathWatchToolController = pathWatchToolController;
+        boolean fileNameSRegex = pathWatchToolController.getFileNameSupportRegexCheckBox().isSelected();
+        String fileNameContains = pathWatchToolController.getFileNameContainsTextField().getText();
+        String fileNameNotContains = pathWatchToolController.getFileNameNotContainsTextField().getText();
+        Pattern fileNameCsPattern = Pattern.compile(fileNameContains, Pattern.CASE_INSENSITIVE);
+        Pattern fileNameNCsPattern = Pattern.compile(fileNameNotContains, Pattern.CASE_INSENSITIVE);
+
+        String folderPathCsText = pathWatchToolController.getFolderPathContainsTextField().getText();
+        String folderPathNCsText = pathWatchToolController.getFolderPathNotContainsTextField().getText();
+        boolean folderPathSRegex = pathWatchToolController.getFolderPathSupportRegexCheckBox().isSelected();
+        Pattern folderPathCsPattern = Pattern.compile(folderPathCsText, Pattern.CASE_INSENSITIVE);
+        Pattern folderPathNCsPattern = Pattern.compile(folderPathNCsText, Pattern.CASE_INSENSITIVE);
     }
 
     @Override
@@ -53,6 +71,8 @@ public class PathWatchListener extends FileAlterationListenerAdaptor {
     @Override
     public void onDirectoryCreate(File directory) {
         System.out.println("新建：" + directory.getAbsolutePath());
+        System.out.println("相对路径?");
+        pathWatchToolController.getWatchLogTextArea().appendText("新建：");
     }
 
     @Override
@@ -90,5 +110,31 @@ public class PathWatchListener extends FileAlterationListenerAdaptor {
     public void onStop(FileAlterationObserver observer) {
         super.onStop(observer);
         System.out.println("onStop");
+    }
+
+    private boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
+                                Pattern ncsPattern) {
+        boolean match = true;
+        String lFileName = fileName.toLowerCase();
+        String lcsText = csText.toLowerCase();
+        String lncsText = ncsText.toLowerCase();
+        if (sRegex) {
+            if (csText.length() != 0) {
+                Matcher m = csPattern.matcher(fileName);
+                match = m.find();
+            }
+            if (match && ncsText.length() != 0) {
+                Matcher m = ncsPattern.matcher(fileName);
+                match = !m.find();
+            }
+        } else {
+            if (csText.length() != 0) {
+                match = lFileName.contains(lcsText);
+            }
+            if (match && ncsText.length() != 0) {
+                match = !lFileName.contains(lncsText);
+            }
+        }
+        return match;
     }
 }
