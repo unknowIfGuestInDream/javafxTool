@@ -9,6 +9,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
+max_line_length = 120
 
 # Matches multiple files with brace expansion notation
 # 4 space indentation
@@ -20,3 +21,6 @@ indent_size = 4
 [*.js]
 indent_style = space
 indent_size = 2
+
+[*.{bat,cmd}]
+end_of_line = crlf
