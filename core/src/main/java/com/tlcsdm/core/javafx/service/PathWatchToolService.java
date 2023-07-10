@@ -101,7 +101,7 @@ public class PathWatchToolService {
 
         thread = ThreadPoolTaskExecutor.get().getThreadFactory().newThread(() -> {
             try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
-                //给path路径加上文件观察服务
+                // 给path路径加上文件观察服务
 //                path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
                 Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                     @Override
@@ -138,20 +138,21 @@ public class PathWatchToolService {
 //                                continue;
 //                            }
                         }
-                        //创建事件
+                        // 创建事件
                         if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
                             stringBuffer.append("新建：");
                             pathWatchToolController.getWatchLogTextArea().appendText("新建：");
                             if (Files.isDirectory(watchable)) {
-                                watchable.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
+                                watchable.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+                                    StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
                             }
                         }
-                        //修改事件
+                        // 修改事件
                         if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
                             stringBuffer.append("修改：");
                             pathWatchToolController.getWatchLogTextArea().appendText("修改：");
                         }
-                        //删除事件
+                        // 删除事件
                         if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
                             stringBuffer.append("删除：");
                             pathWatchToolController.getWatchLogTextArea().appendText("删除：");
@@ -168,8 +169,11 @@ public class PathWatchToolService {
 //                        break;
 //                    }
                 }
-            } catch (IOException | InterruptedException ex) {
+            } catch (IOException ex) {
                 StaticLog.error("获取监听异常：", ex);
+            } catch (InterruptedException e) {
+                StaticLog.error(e);
+                Thread.currentThread().interrupt();
             }
         });
         thread.start();
@@ -183,7 +187,8 @@ public class PathWatchToolService {
         }
     }
 
-    public static boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern, Pattern ncsPattern) {
+    public static boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
+        Pattern ncsPattern) {
         boolean match = true;
         String lFileName = fileName.toLowerCase();
         String lcsText = csText.toLowerCase();
