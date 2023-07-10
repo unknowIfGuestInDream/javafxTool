@@ -49,7 +49,7 @@ public class PathWatchToolDialog {
         FxDialog<PathWatchToolController> dialog = new FxDialog<PathWatchToolController>()
             .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
             .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool.fxml"))
-            .setModal(false).setButtonTypes(ButtonType.CLOSE);
+            .setModal(false).setResizable(true).setButtonTypes(ButtonType.CLOSE);
         dialog.show();
         dialog.setButtonHandler(ButtonType.CLOSE, (actionEvent, stage) -> stage.close());
     }

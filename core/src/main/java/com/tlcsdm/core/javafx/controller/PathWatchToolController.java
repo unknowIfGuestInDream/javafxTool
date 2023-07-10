@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.controller;
 
+import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.service.PathWatchToolService;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.view.PathWatchToolView;
@@ -58,6 +59,7 @@ public class PathWatchToolController extends PathWatchToolView {
 
     private void initEvent() {
         FileChooserUtil.setOnDrag(watchPathTextField, FileChooserUtil.FileType.FOLDER);
+        watchButton.disableProperty().bind(new TextInputControlEmptyBinding(watchPathTextField).build());
     }
 
     @FXML
