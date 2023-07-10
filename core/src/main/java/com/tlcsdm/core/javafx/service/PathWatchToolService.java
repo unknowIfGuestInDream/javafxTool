@@ -30,13 +30,17 @@ package com.tlcsdm.core.javafx.service;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.controller.PathWatchToolController;
+import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.geometry.Pos;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.Notifications;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -59,6 +63,7 @@ import java.util.regex.Pattern;
  */
 public class PathWatchToolService {
     private final PathWatchToolController pathWatchToolController;
+    private FileAlterationMonitor monitor;
     private final Notifications notification = FxNotifications.alwaysNotify();
     private final Notifications warningNotify = FxNotifications.defaultNotify();
     private Thread thread = null;
@@ -87,6 +92,12 @@ public class PathWatchToolService {
         if (thread != null) {
             thread.interrupt();
         }
+        monitor = new FileAlterationMonitor();
+        monitor.setThreadFactory(ThreadPoolTaskExecutor.get().getThreadFactory());
+        FileAlterationObserver observer = new FileAlterationObserver(new File(watchPath));
+        monitor.addObserver(observer);
+        observer.addListener(new PathWatchListener(this));
+
         boolean fileNameSRegex = pathWatchToolController.getFileNameSupportRegexCheckBox().isSelected();
         String fileNameContains = pathWatchToolController.getFileNameContainsTextField().getText();
         String fileNameNotContains = pathWatchToolController.getFileNameNotContainsTextField().getText();
@@ -106,7 +117,7 @@ public class PathWatchToolService {
                 Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                     @Override
                     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-//                        if (DirectoryTreeUtil.ifMatchText(dir.toString(), folderPathCsText, folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern)) {
+//                        if (ifMatchText(dir.toString(), folderPathCsText, folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern)) {
 //                            dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
 //                        } else {
 //                            StaticLog.info("跳过监听：" + dir.toString());
@@ -127,13 +138,13 @@ public class PathWatchToolService {
                         final Path filename = watchEventPath.context();
                         Path watchable = ((Path) key.watchable()).resolve(filename);
                         if (Files.isDirectory(watchable)) {
-//                            if (!DirectoryTreeUtil.ifMatchText(filename.toString(), folderPathCsText, folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern)) {
+//                            if (!ifMatchText(filename.toString(), folderPathCsText, folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern)) {
 //                                StaticLog.info("跳过文件夹监听：" + watchable);
 //                                continue;
 //                            }
                         }
                         if (Files.isRegularFile(watchable)) {
-//                            if (!DirectoryTreeUtil.ifMatchText(filename.toString(), fileNameContains, fileNameNotContains, fileNameSRegex, fileNameCsPattern, fileNameNCsPattern)) {
+//                            if (!ifMatchText(filename.toString(), fileNameContains, fileNameNotContains, fileNameSRegex, fileNameCsPattern, fileNameNCsPattern)) {
 //                                StaticLog.info("跳过文件监听：" + watchable);
 //                                continue;
 //                            }
@@ -176,18 +187,33 @@ public class PathWatchToolService {
                 Thread.currentThread().interrupt();
             }
         });
-        thread.start();
+
+//        thread = ThreadPoolTaskExecutor.get().getThreadFactory().newThread(() -> {
+//
+//        });
+        // thread.start();
+        try {
+            monitor.start();
+        } catch (Exception e) {
+            ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+            exceptionDialog.show();
+        }
         return true;
     }
 
     public void stopWatchAction() {
-        if (thread != null) {
-            thread.interrupt();
-            thread = null;
+//        if (thread != null) {
+//            thread.interrupt();
+//            thread = null;
+//        }
+        try {
+            monitor.stop();
+        } catch (Exception e) {
+            StaticLog.error(e);
         }
     }
 
-    public static boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
+    private boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
         Pattern ncsPattern) {
         boolean match = true;
         String lFileName = fileName.toLowerCase();
@@ -212,4 +238,5 @@ public class PathWatchToolService {
         }
         return match;
     }
+
 }

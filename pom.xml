@@ -90,6 +90,26 @@
         <richtextfx.version>0.11.0</richtextfx.version>
         <groovy.version>4.0.13</groovy.version>
     </properties>
+    
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/unknowIfGuestInDream/javafxTool/issues</url>
+    </issueManagement>
+    
+    <developers>
+        <developer>
+            <name>UnknowIfGuestInDream</name>
+            <id>unknowIfGuestInDream</id>
+            <email>liang.tang.cx@gmail.com</email>
+            <organization>Tlcsdm</organization>
+        </developer>
+        <developer>
+            <name>DreamAwakenFateBroke</name>
+            <id>DreamAwakenFateBroke</id>
+            <email>ifguestindream@163.com</email>
+            <organization>Tlcsdm</organization>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>

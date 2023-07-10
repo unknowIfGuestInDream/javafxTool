@@ -54,7 +54,7 @@
             <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                 <HBox alignment="CENTER" spacing="10.0">
                     <Label text="%core.menubar.setting.pathWatch.label.watchPath"/>
-                    <TextField fx:id="watchPathTextField" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="watchPathTextField" HBox.hgrow="ALWAYS" editable="false"/>
                     <Button fx:id="watchPathButton" mnemonicParsing="false" onAction="#watchPathAction"
                             text="%core.menubar.setting.pathWatch.button.watchPath"/>
                     <CheckBox fx:id="isShowNotificationCheckBox" mnemonicParsing="false" selected="true"
