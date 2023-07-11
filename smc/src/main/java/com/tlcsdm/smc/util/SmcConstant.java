@@ -86,11 +86,11 @@ public class SmcConstant {
     /**
      * 默认项目版本号
      */
-    public static final String PROJECT_VERSION = "1.0.2";
+    public static final String PROJECT_VERSION = "1.0.3";
     /**
      * 项目构建日期
      */
-    public static final String PROJECT_BUILD_DAY = "2023-05-04";
+    public static final String PROJECT_BUILD_DAY = "2023-07-11";
     /**
      * 检查更新所用的api
      */
