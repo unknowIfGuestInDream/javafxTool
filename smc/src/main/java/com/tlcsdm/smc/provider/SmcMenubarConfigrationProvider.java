@@ -27,6 +27,8 @@
 
 package com.tlcsdm.smc.provider;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
@@ -63,8 +65,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
@@ -85,6 +85,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
     private final Action systemSetting = FxAction.systemSetting();
+
+    private final Action pathWatch = FxAction.pathWatch();
 
     private final Action contactSupport = FxAction
         .contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
@@ -159,8 +161,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
-            contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+        FxActionGroup.tool(logConsole, pathWatch), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action

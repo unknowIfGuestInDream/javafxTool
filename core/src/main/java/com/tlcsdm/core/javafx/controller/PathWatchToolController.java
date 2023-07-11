@@ -42,7 +42,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 文件夹监控工具
+ * Folder monitoring tool
  *
  * @author unknowIfGuestInDream
  */

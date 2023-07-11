@@ -53,7 +53,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 文件夹监控工具
+ * Folder monitoring tool
  *
  * @author unknowIfGuestInDream
  */
@@ -170,7 +170,7 @@ public class PathWatchToolService {
     }
 
     /**
-     * 监控信息输出
+     * Monitoring information output
      */
     private void showMonitorInfo(String message, File file) {
         StringBuffer buffer = new StringBuffer(
@@ -188,7 +188,7 @@ public class PathWatchToolService {
     }
 
     /**
-     *  文件或文件夹正则匹配
+     *  File or folder regular match
      */
     private boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
         Pattern ncsPattern) {
