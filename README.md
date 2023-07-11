@@ -1,52 +1,52 @@
-## 介绍
+## Introduce
+[中文文档](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/README_zh.md)  
+Javafx toolkit, built on JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
-javafx工具包，JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
+Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application modules.  
+demo is the provided example module.
 
-frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成  
-demo是提供的示例模块
+## Component
 
-## 结构
+docs: Documentation (built with docsify)  
+frame: Application main UI framework (provide SPI interface)  
+core: Application core components, including some common functions   
+login: Login module (provides SPI interface)  
+demo: demo example (based on controlsfx demo transformation)  
+common: Common component module, used by application modules  
+smc, qe: Personal application (no reference required)
 
-docs: 文档(使用docsify构建)  
-frame: 应用主体框架(提供SPI接口)  
-core: 应用核心组件，包含一些共同功能    
-login: 登录模块(提供SPI接口)  
-demo: demo示例  
-common: 通用组件模块，用于应用模块使用  
-smc, qe: 个人应用(无需参考)
-
-## 接口
+## Interface
 
 ### core
 
-- TemplateLoaderService: freemarker TemplateLoader加载，子类实现以添加子模块的模板路径
+- TemplateLoaderService: Freemarker TemplateLoader loads, subclass implementation to add the template path of the submodule
 
 ### frame
 
-- FXSamplerProject: project信息，包含project名，模块，包名，欢迎页
-- MenubarConfigration: 菜单栏配置
-- FXSamplerConfiguration: 项目style, title和icon配置
-- CenterPanelService: 中心区域的Node配置, 包含点击和切换组件时的接口
-- SplashScreen: 闪屏图片
-- SamplePostProcessorService: Sample资源后置处理
-- VersionCheckerService: 版本更新检查
-- SamplesTreeViewConfiguration: 菜单树配置
+- FXSamplerProject: Project information, including project name, module, package name, welcome page, etc.
+- MenubarConfigration: Menu bar configuration
+- FXSamplerConfiguration: Project style, title and icon configuration
+- CenterPanelService: Node configuration in the central area, including the interface when clicking and switching components
+- SplashScreen: Splash screen image
+- SamplePostProcessorService: Sample post-processing
+- VersionCheckerService: Version update check
+- SamplesTreeViewConfiguration: Menu tree configuration
 
 ### login
 
-- LoginCheck: 登录校验
+- LoginCheck: Login verification
 
-## 打包
+## Pack
 
-推荐通过IDEA打包  
-配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成  
-打包: 构建 -> 构建工件 -> 构建
+It is recommended to package through IDEA  
+Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest file path -> Done  
+Package: Build -> Build Artifacts -> Build
 
-## 联系
+## Connect
 
-如果有什么问题，可以发邮件到 liang.tang.cx@gmail.com
+If you have any questions, you can send an email to liang.tang.cx@gmail.com
 
-## 感谢
+## Thanks
 
 - <a href="https://jb.gg/OpenSource"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*98642y*_ga*MTIxMDA5OTM5Ni4xNjgwMzQyNjgy*_ga_9J976DJZ68*MTY4MTIxMDIzMy41LjEuMTY4MTIxMTE1MS4wLjAuMA..&_ga=2.268101710.1369693703.1681210234-1210099396.1680342682" width="100px" alt="jetbrains">
-- **感谢 JetBrains 提供的免费开源 License**</a>
+- **Thanks to JetBrains for the free open source license**</a>

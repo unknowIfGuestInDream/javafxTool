@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.controlsfx;
 
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
@@ -136,6 +137,15 @@ public class FxAction {
         return create(I18nUtils.get("core.menubar.setting.systemSetting"), actionEvent -> {
             SystemSettingDialog.openSystemSettings(I18nUtils.get("core.menubar.setting.systemSetting"));
         }, "/com/tlcsdm/core/static/menubar/system.png");
+    }
+
+    /**
+     * menubar pathWatch
+     */
+    public static Action pathWatch() {
+        return create(I18nUtils.get("core.menubar.setting.pathWatch"), actionEvent -> {
+            PathWatchToolDialog.openPathWatchTool(I18nUtils.get("core.menubar.setting.pathWatch"));
+        }, "/com/tlcsdm/core/static/menubar/monitor.png");
     }
 
     public static Action about(Consumer<ActionEvent> eventHandler) {

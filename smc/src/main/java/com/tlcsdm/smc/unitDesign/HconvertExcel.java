@@ -39,6 +39,7 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
@@ -240,6 +241,7 @@ public class HconvertExcel extends SmcSample {
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField)
             .build();
         generate.disabledProperty().bind(emptyValidation);
+        FileChooserUtil.setOnDrag(generalField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override

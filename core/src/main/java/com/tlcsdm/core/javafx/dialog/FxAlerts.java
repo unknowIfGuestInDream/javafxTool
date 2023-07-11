@@ -189,6 +189,7 @@ public class FxAlerts {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
                 StaticLog.error(e);
+                Thread.currentThread().interrupt();
             }
             Platform.runLater(dlg::close);
         }).start();

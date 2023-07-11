@@ -42,6 +42,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -271,6 +272,8 @@ public class DtsTriggerSourceXml extends SmcSample {
 
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+        FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override

@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.dialog;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.util.I18nUtils;
@@ -74,6 +75,7 @@ public class ExceptionDialog extends Dialog<ButtonType> {
         root.add(label, 0, 0);
         root.add(textArea, 0, 1);
         dialogPane.setExpandableContent(root);
+        StaticLog.error(exception);
     }
 
 }
