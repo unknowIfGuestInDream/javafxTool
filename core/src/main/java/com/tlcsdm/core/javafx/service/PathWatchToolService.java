@@ -102,51 +102,47 @@ public class PathWatchToolService {
             @Override
             public boolean accept(File pathname) {
                 Path filepath = pathname.toPath();
-                if (Files.isDirectory(filepath)) {
-                    if (!ifMatchText(filepath.getFileName().toString(), folderPathCsText, folderPathNCsText,
-                        folderPathSRegex, folderPathCsPattern, folderPathNCsPattern)) {
-                        return false;
-                    }
+                if (Files.isDirectory(filepath) && (!ifMatchText(filepath.getFileName().toString(), folderPathCsText,
+                    folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern))) {
+                    return false;
+                } else if (Files.isRegularFile(filepath) && (!ifMatchText(filepath.getFileName().toString(),
+                    fileNameContains, fileNameNotContains, fileNameSRegex, fileNameCsPattern, fileNameNCsPattern))) {
+                    return false;
+                } else {
+                    return true;
                 }
-                if (Files.isRegularFile(filepath)) {
-                    if (!ifMatchText(filepath.getFileName().toString(), fileNameContains, fileNameNotContains,
-                        fileNameSRegex, fileNameCsPattern, fileNameNCsPattern)) {
-                        return false;
-                    }
-                }
-                return true;
             }
         });
         observer.addListener(new FileAlterationListenerAdaptor() {
 
             @Override
             public void onDirectoryCreate(File directory) {
-                showMonitorInfo("新建文件夹", directory);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.directoryCreate"), directory);
             }
 
             @Override
             public void onDirectoryChange(File directory) {
-                showMonitorInfo("修改文件夹", directory);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.directoryChange"), directory);
             }
 
             @Override
             public void onDirectoryDelete(File directory) {
-                showMonitorInfo("删除文件夹", directory);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.directoryDelete"), directory);
             }
 
             @Override
             public void onFileCreate(File file) {
-                showMonitorInfo("新建文件", file);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.fileCreate"), file);
             }
 
             @Override
             public void onFileChange(File file) {
-                showMonitorInfo("修改文件", file);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.fileChange"), file);
             }
 
             @Override
             public void onFileDelete(File file) {
-                showMonitorInfo("删除文件", file);
+                showMonitorInfo(I18nUtils.get("core.menubar.setting.pathWatch.message.fileDelete"), file);
             }
         });
 
@@ -173,14 +169,14 @@ public class PathWatchToolService {
      * Monitoring information output
      */
     private void showMonitorInfo(String message, File file) {
-        StringBuffer buffer = new StringBuffer(
+        StringBuilder buffer = new StringBuilder(
             "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "]");
-        buffer.append(" " + message);
+        buffer.append(" " + message + " ");
         buffer.append(file.getAbsolutePath() + "\n");
         pathWatchToolController.getWatchLogTextArea().appendText(buffer.toString());
         if (pathWatchToolController.getIsShowNotificationCheckBox().isSelected()) {
             FxApp.runLater(() -> {
-                infoNotify.title("文件夹发送变化");
+                infoNotify.title(I18nUtils.get("core.menubar.setting.pathWatch.title.infoNotify"));
                 infoNotify.text(message + "\n" + file.getAbsolutePath());
                 infoNotify.showInformation();
             });
