@@ -32,6 +32,8 @@ import com.tlcsdm.core.javafx.service.PathWatchToolService;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.view.PathWatchToolView;
 import com.tlcsdm.core.util.I18nUtils;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -60,6 +62,19 @@ public class PathWatchToolController extends PathWatchToolView {
     private void initEvent() {
         FileChooserUtil.setOnDrag(watchPathTextField, FileChooserUtil.FileType.FOLDER);
         watchButton.disableProperty().bind(new TextInputControlEmptyBinding(watchPathTextField).build());
+        BooleanBinding watchButtonStatusBinding = Bindings.createBooleanBinding(
+            () -> !watchButton.isDisabled()
+                && I18nUtils.get("core.menubar.setting.pathWatch.button.stopWatch").equals(watchButton.getText()),
+            watchButton.textProperty());
+        watchPathTextField.disableProperty().bind(watchButtonStatusBinding);
+        watchPathButton.disableProperty().bind(watchButtonStatusBinding);
+        isShowNotificationCheckBox.disableProperty().bind(watchButtonStatusBinding);
+        fileNameContainsTextField.disableProperty().bind(watchButtonStatusBinding);
+        fileNameNotContainsTextField.disableProperty().bind(watchButtonStatusBinding);
+        fileNameSupportRegexCheckBox.disableProperty().bind(watchButtonStatusBinding);
+        folderPathContainsTextField.disableProperty().bind(watchButtonStatusBinding);
+        folderPathNotContainsTextField.disableProperty().bind(watchButtonStatusBinding);
+        folderPathSupportRegexCheckBox.disableProperty().bind(watchButtonStatusBinding);
     }
 
     @FXML
@@ -82,4 +97,5 @@ public class PathWatchToolController extends PathWatchToolView {
             watchButton.setText(watch);
         }
     }
+
 }
