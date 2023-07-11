@@ -1,6 +1,6 @@
 ## Introduce
 [中文文档](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/README_zh.md)  
-Javafx toolkit, built on JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
+Javafx scaffolding, built on JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
 Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application modules.  
 demo is the provided example module.
