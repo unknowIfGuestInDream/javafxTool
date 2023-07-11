@@ -166,7 +166,7 @@ public class FxDialog<T> {
             stage.show();
             return null;
         } else {
-            throw new CoreException();
+            throw new CoreException(getClass().getGenericSuperclass() + " initialization failed.");
         }
     }
 

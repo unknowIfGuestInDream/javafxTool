@@ -69,7 +69,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Stage stage = FXSampler.getStage();
 
-    private final Action restart = FxAction.restart(actionEvent -> restart());
+    private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());
 
     private final Action export = FxAction.export(actionEvent -> {
         FxXmlHelper.exportData(SmcConstant.PROJECT_NAME);
@@ -77,7 +77,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action induct = FxAction.induct(actionEvent -> {
         FxXmlHelper.importData(SmcConstant.PROJECT_NAME);
-        restart();
+        FXSampler.restart();
     });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
@@ -85,6 +85,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
     private final Action systemSetting = FxAction.systemSetting();
+
+    private final Action pathWatch = FxAction.pathWatch();
 
     private final Action contactSupport = FxAction
         .contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
@@ -159,8 +161,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
-            contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+        FxActionGroup.tool(logConsole, pathWatch), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
@@ -250,18 +252,6 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                 }
             });
         }
-    }
-
-    private void restart() {
-        Platform.runLater(() -> {
-            stage.close();
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                StaticLog.error(e);
-            }
-            new FXSampler().start(new Stage());
-        });
     }
 
 }

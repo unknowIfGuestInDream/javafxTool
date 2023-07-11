@@ -27,30 +27,31 @@
 
 package com.tlcsdm.core.javafx.dialog;
 
-import com.tlcsdm.core.javafx.FxApp;
-import javafx.geometry.Pos;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+import com.tlcsdm.core.javafx.controller.PathWatchToolController;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.util.I18nUtils;
+import javafx.scene.control.ButtonType;
+
+import java.util.ResourceBundle;
 
 /**
+ * 文件夹监控
+ *
  * @author: unknowIfGuestInDream
- * @date: 2022/12/3 21:20
+ * @date: 2022/12/10 21:19
  */
-public class FxNotifications {
+public class PathWatchToolDialog {
 
-    private FxNotifications() {
+    private PathWatchToolDialog() {
     }
 
-    public static Notifications defaultNotify() {
-        return notifications(Duration.seconds(5), Pos.TOP_CENTER);
-    }
-
-    public static Notifications alwaysNotify() {
-        return notifications(Duration.seconds(Integer.MAX_VALUE), Pos.TOP_CENTER);
-    }
-
-    public static Notifications notifications(Duration duration, Pos position) {
-        return Notifications.create().hideAfter(duration).position(position).owner(FxApp.primaryStage);
+    public static void openPathWatchTool(String title) {
+        FxDialog<PathWatchToolController> dialog = new FxDialog<PathWatchToolController>()
+            .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
+            .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool.fxml"))
+            .setModal(false).setResizable(true).setButtonTypes(ButtonType.CLOSE);
+        dialog.show();
+        dialog.setButtonHandler(ButtonType.CLOSE, (actionEvent, stage) -> stage.close());
     }
 
 }

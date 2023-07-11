@@ -65,6 +65,7 @@
         <lombok.version>1.18.28</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.3</poi-ooxml.version>
+        <commons-io.version>2.13.0</commons-io.version>
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.3.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
@@ -89,6 +90,26 @@
         <richtextfx.version>0.11.0</richtextfx.version>
         <groovy.version>4.0.13</groovy.version>
     </properties>
+    
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/unknowIfGuestInDream/javafxTool/issues</url>
+    </issueManagement>
+    
+    <developers>
+        <developer>
+            <name>UnknowIfGuestInDream</name>
+            <id>unknowIfGuestInDream</id>
+            <email>liang.tang.cx@gmail.com</email>
+            <organization>Tlcsdm</organization>
+        </developer>
+        <developer>
+            <name>DreamAwakenFateBroke</name>
+            <id>DreamAwakenFateBroke</id>
+            <email>ifguestindream@163.com</email>
+            <organization>Tlcsdm</organization>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
@@ -177,6 +198,11 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi-ooxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>

@@ -40,6 +40,7 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -208,6 +209,7 @@ public class CodeStyleLength120 extends SmcSample {
         super.initializeBindings();
         BooleanBinding checkDirValidation = new TextInputControlEmptyBinding(checkDirField).build();
         generate.disabledProperty().bind(checkDirValidation);
+        FileChooserUtil.setOnDrag(checkDirField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override

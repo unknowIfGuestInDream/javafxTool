@@ -49,6 +49,7 @@ import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -449,6 +450,9 @@ public class DtsTriggerSourceDoc extends SmcSample {
             beginWriteRowNumField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+        FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(templateField, FileChooserUtil.FileType.FILE);
+        FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
     }
 
     @Override

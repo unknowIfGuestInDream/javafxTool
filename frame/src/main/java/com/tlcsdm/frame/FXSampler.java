@@ -120,19 +120,19 @@ public final class FXSampler extends Application {
     public void start(final Stage primaryStage) {
         stopWatch.start();
         stage = primaryStage;
-        StaticLog.debug("Load splash screen image");
+        StaticLog.debug("Load splash screen image.");
         loadSplash();
-        StaticLog.debug("Initialize the system environment");
+        StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
         showInfo(I18nUtils.get("frame.splash.init.version"));
-        StaticLog.debug("Initialize system resources");
+        StaticLog.debug("Initialize system resources.");
         initializeSystem();
         Platform.runLater(() -> {
             try {
-                StaticLog.debug("Initialize UI resources");
+                StaticLog.debug("Initialize UI resources.");
                 initializeUI();
                 ThreadPoolTaskExecutor.get().execute(() -> {
-                    StaticLog.debug("Initialize resources");
+                    StaticLog.debug("Initialize resources.");
                     initializeSource();
                 });
             } catch (Throwable e) {
@@ -168,7 +168,7 @@ public final class FXSampler extends Application {
         loadingStage.setHeight(image.getHeight());
         loadingStage.initStyle(StageStyle.UNDECORATED);
         loadingStage.show();
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.hide());
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
     }
 
     /**
@@ -412,6 +412,22 @@ public final class FXSampler extends Application {
         StageUtil.savePrimaryStageBound(stage);
         Platform.exit();
         System.exit(0);
+    }
+
+    /**
+     * 重启程序
+     */
+    public static void restart() {
+        Platform.runLater(() -> {
+            stage.close();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                StaticLog.error(e);
+                Thread.currentThread().interrupt();
+            }
+            new FXSampler().start(new Stage());
+        });
     }
 
     private void sort(TreeItem<Sample> node, Comparator<TreeItem<Sample>> comparator) {
