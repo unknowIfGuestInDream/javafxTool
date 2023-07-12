@@ -37,7 +37,7 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://www.tlcsdm.com</url>
-    <description>javafx工具包, 可以通过实现frame, login，core等模块接口快速创建需要的javafx工具</description>
+    <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces such as frame, login and core</description>
 
     <modules>
         <module>frame</module>
