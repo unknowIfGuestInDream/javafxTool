@@ -1,12 +1,45 @@
 # CHANGELOG
 
+## [v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48
+
+1. Console color log configuration
+2. Ecm script adds U2C module
+3. GirretReview adds repository filtering
+4. ThreadPoolTaskExecutor and DiffHandleUtils optimization
+5. Fix the vulnerability of Dom4jUtil
+6. Add PathWatchTool
+7. Add drag and drop function to FileChooser
+
+### Feature
+
+- core:
+  - PathWatchTool实现 (#581) ([dbdf355](https://github.com/unknowIfGuestInDream/javafxTool/commit/dbdf35545c7ecd5f6ff9f7470165f5114ed84c6a)) ([#581](https://github.com/unknowIfGuestInDream/javafxTool/pull/581))
+  - PDFBox支持 (#570) ([72b33d1](https://github.com/unknowIfGuestInDream/javafxTool/commit/72b33d14e86685e3cfbfcb4e7a5804e7b5bbfce7)) ([#570](https://github.com/unknowIfGuestInDream/javafxTool/pull/570))
+  - DiffHandleUtils优化 (#572) ([7ecc91d](https://github.com/unknowIfGuestInDream/javafxTool/commit/7ecc91d3518ad3848825b9a04e9afcf1fa09f549)) ([#572](https://github.com/unknowIfGuestInDream/javafxTool/pull/572))
+
+- qe:
+  - 更换qe的logo (#562) ([98f59f8](https://github.com/unknowIfGuestInDream/javafxTool/commit/98f59f8f76c4fa2e9aec53a6663f07f172f4983c)) ([#562](https://github.com/unknowIfGuestInDream/javafxTool/pull/562))
+
+- general:
+  - 线程池uncaughtExceptionHandler属性配置 (#554) ([c1c118a](https://github.com/unknowIfGuestInDream/javafxTool/commit/c1c118ae65ca198676e363d864be7a9c535d4fa0)) ([#554](https://github.com/unknowIfGuestInDream/javafxTool/pull/554))
+
+- smc:
+  - girret repo条件增强 (#548) ([030eaab](https://github.com/unknowIfGuestInDream/javafxTool/commit/030eaabacdbf711ea937b0d8e2f6553861f921d5)) ([#548](https://github.com/unknowIfGuestInDream/javafxTool/pull/548))
+  - girret增强 (#547) ([70f82eb](https://github.com/unknowIfGuestInDream/javafxTool/commit/70f82eb659181bb39c6149ac9b1e47e50ed206c4)) ([#547](https://github.com/unknowIfGuestInDream/javafxTool/pull/547))
+  - ecm脚本修改 (#545) ([1082179](https://github.com/unknowIfGuestInDream/javafxTool/commit/1082179a63351eb396c33b86126d72a7981af3c9)) ([#545](https://github.com/unknowIfGuestInDream/javafxTool/pull/545))
+
+### Bug Fixes
+
+- core:
+  - 修复Dom4jUtil的漏洞 (#573) ([e5709e4](https://github.com/unknowIfGuestInDream/javafxTool/commit/e5709e4652a7562793039966dad0f4d07ac5043c)) ([#573](https://github.com/unknowIfGuestInDream/javafxTool/pull/573))
+
 ## [v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55
 
-1. ecm数据文件生成功能完善
-2. 新增common模块
-3. UI优化，新增按钮绑定功能
-4. 新增导入导出设置功能
-5. 隐藏moneyToChinese组件
+1. ECM data file generation function is perfect
+2. Add common module
+3. UI optimization, new button binding function
+4. Added import and export settings function
+5. Hide the moneyToChinese component
 
 ### Feature
 
@@ -48,16 +81,16 @@
 
 ## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
 
-1. 新增Ecm数据生成组件
-2. 适配macOS
-3. SpecGeneral组件增加结果合并和只生成文件功能
-4. 新增启动检查更新
-5. DmaTriggerSourceCode组件增强
-6. 新增日志打印控制台组件
-7. UI优化
-8. 新增sample菜单树展开规则，以及启动时sample数据处理，校验
-9. 解决打包为exe后版本号获取失败的问题
-10. 修复FileDiff 特殊字符处理失败的问题
+1. Added Ecm data generation component
+2. Adapt to macOS
+3. The SpecGeneral component adds the function of merging results and generating files only
+4. Added startup check for updates
+5. DmaTriggerSourceCode component enhancement
+6. Added log printing console component
+7. UI optimization
+8. Added sample menu tree expansion rules, as well as sample data processing and verification at startup
+9. Solve the problem that the version number fails to be obtained after packaging as exe
+10. Fix the problem that FileDiff special character processing fails
 
 ### Feature
 
@@ -91,8 +124,8 @@
 
 ## [v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45
 
-1. smcTool工具初次发布
-2. 包含smc的UD，CD，UT等工具
+1. SmcTool release
+2. Contains UD, CD, UT and other tools of smc
 
 ### Feature
 
