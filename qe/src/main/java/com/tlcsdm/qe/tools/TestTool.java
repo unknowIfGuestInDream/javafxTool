@@ -46,6 +46,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.PropertySheet.Item;
@@ -53,7 +55,12 @@ import org.controlsfx.control.PropertySheet.Mode;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Collection;
@@ -149,9 +156,15 @@ public class TestTool extends QeSample {
         ConsoleLogAppender.textAreaList.add(textArea);
         propertySheet.getItems().setAll(getCustomModelProperties());
         propertySheet.setMode(Mode.CATEGORY);
+
+        SVGPath svg = loadPathToMM("/com/tlcsdm/qe/static/icon/lighting.svg");
+        svg.setFill(Color.YELLOW);
+        svg.setOpacity(0.5);
+
         grid.add(toolBar, 0, 0, 2, 1);
         grid.add(propertySheet, 0, 1, 2, 1);
         grid.add(textArea, 0, 2, 2, 1);
+        grid.add(svg, 0, 3, 2, 1);
 //        grid.add(originalField, 1, 1);
 //        grid.add(compareLabel, 0, 2);
 //        grid.add(compareField, 1, 2);
@@ -270,6 +283,27 @@ public class TestTool extends QeSample {
             ThreadUtil.safeSleep(5000);
             return null;
         }
+    }
+
+    public SVGPath loadPathToMM(String pathName) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        SVGPath path = new SVGPath();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            //禁止DTD验证,防止网络阻塞
+            builder.setEntityResolver(
+                (publicId, systemId) -> new InputSource(new StringReader(""))
+            );
+            Document d = builder.parse(getClass().getResourceAsStream(pathName));
+            org.w3c.dom.Node node = d.getElementsByTagName("path").item(0);
+            String content = node.getAttributes().getNamedItem("d").getNodeValue();
+
+            path.setContent(content);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return path;
     }
 
 }

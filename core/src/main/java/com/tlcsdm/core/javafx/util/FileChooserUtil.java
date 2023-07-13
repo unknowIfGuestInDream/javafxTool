@@ -147,6 +147,17 @@ public class FileChooserUtil {
         });
     }
 
+    /**
+     * FileChooser选择excel文件
+     */
+    public static FileChooser.ExtensionFilter excelFilter() {
+        return new FileChooser.ExtensionFilter("excel file", "*.xlsx", "*.xls", "*.xlsm");
+    }
+
+    public static FileChooser.ExtensionFilter xlsxFilter() {
+        return new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+    }
+
     public enum FileType {
         /**
          * file
