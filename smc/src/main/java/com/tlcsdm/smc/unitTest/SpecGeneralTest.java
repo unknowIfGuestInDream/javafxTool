@@ -303,7 +303,7 @@ public class SpecGeneralTest extends SmcSample {
                         StaticLog.info("========================= End Comparing {} =========================",
                             generateFileName);
                     }
-                    if (mergeResult) {
+                    if (!onlyGenerate && mergeResult) {
                         DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
                     }
                     FxApp.runLater(() -> {
@@ -333,7 +333,6 @@ public class SpecGeneralTest extends SmcSample {
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
 
         Label mergeResultLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.mergeResult") + ": ");
         mergeResultCheck = new CheckBox();
@@ -345,7 +344,7 @@ public class SpecGeneralTest extends SmcSample {
         excelField = new TextField();
         excelField.setMaxWidth(Double.MAX_VALUE);
         excelFileChooser = new FileChooser();
-        excelFileChooser.getExtensionFilters().add(extFilter);
+        excelFileChooser.getExtensionFilters().add(FileChooserUtil.excelFilter());
 
         Button excelButton = FxButton.choose();
         excelField.setEditable(false);
@@ -450,6 +449,7 @@ public class SpecGeneralTest extends SmcSample {
             macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
+        mergeResultCheck.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
         FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
         FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
         FileChooserUtil.setOnDrag(generalField, FileChooserUtil.FileType.FOLDER);
