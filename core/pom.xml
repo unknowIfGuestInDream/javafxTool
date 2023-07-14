@@ -146,6 +146,11 @@
             <artifactId>groovy-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>
