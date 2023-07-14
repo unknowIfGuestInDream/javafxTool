@@ -291,6 +291,7 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+            <!-- 在引用logback-classic时需要排除slf4j-api依赖 -->
             <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
@@ -412,6 +413,24 @@
                 <groupId>org.fxmisc.richtext</groupId>
                 <artifactId>richtextfx</artifactId>
                 <version>${richtextfx.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-graphics</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-base</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-fxml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- groovy start -->
             <dependency>
