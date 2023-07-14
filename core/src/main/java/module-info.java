@@ -9,7 +9,6 @@ module com.tlcsdm.core {
     requires org.controlsfx.controls;
     requires cn.hutool.log;
     requires cn.hutool.core;
-    requires commons.beanutils;
     requires static io.github.javadiffutils;
     requires static freemarker;
     requires static com.fasterxml.jackson.core;
