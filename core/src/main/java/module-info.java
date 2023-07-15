@@ -25,6 +25,7 @@ module com.tlcsdm.core {
     requires static org.apache.fontbox;
     requires static org.apache.pdfbox;
     requires org.apache.commons.io;
+    requires static org.fxmisc.richtext;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
