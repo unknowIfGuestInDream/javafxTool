@@ -37,6 +37,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.shape.SVGPath;
@@ -59,6 +61,26 @@ import java.util.ResourceBundle;
  */
 public class FxmlDemo extends QeSample implements Initializable {
 
+    @FXML
+    private SVGPath svgLighting;
+    @FXML
+    private SVGPath svgBase;
+    @FXML
+    private Label labelControl;
+    @FXML
+    private Button btnOff;
+    @FXML
+    private Button btnUp;
+    @FXML
+    private Button btnDown;
+    @FXML
+    private Button btnStepUp;
+    @FXML
+    private Button btnStepDown;
+    @FXML
+    private Button btnMax;
+    @FXML
+    private Button btnMin;
     @FXML
     private SplitPane splitPane;
     @FXML

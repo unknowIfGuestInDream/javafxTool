@@ -28,5 +28,10 @@
 .innerVbox {
     -fx-border-style: solid inside;
     -fx-border-width: 2;
-    -fx-border-radius: 5;
+    -fx-border-radius: 2;
+}
+
+.innerButton {
+    -fx-pref-width: 80;
+    -fx-pref-height: 60;
 }

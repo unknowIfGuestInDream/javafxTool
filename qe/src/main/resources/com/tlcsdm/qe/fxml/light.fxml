@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.shape.SVGPath?>
 <!--
   ~ Copyright (c) 2023 unknowIfGuestInDream
   ~ All rights reserved.
@@ -44,6 +27,24 @@
   ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
 <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="540.0" minWidth="640.0" stylesheets="@light.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.tlcsdm.qe.tools.FxmlDemo">
@@ -59,6 +60,12 @@
                 </VBox>
                 <VBox minWidth="200.0" prefHeight="398.0" prefWidth="406.0">
                     <children>
+                        <Label fx:id="labelControl" text="Title">
+                            <VBox.margin>
+                                <Insets top="2.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <Separator prefWidth="200.0"/>
                         <GridPane VBox.vgrow="ALWAYS">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -85,7 +92,7 @@
                                                                 <Insets left="5.0"/>
                                                             </padding>
                                                         </Label>
-                                                        <Button mnemonicParsing="false" text="OFF">
+                                                        <Button fx:id="btnOff" mnemonicParsing="false" text="OFF">
                                                             <HBox.margin>
                                                                 <Insets left="5.0"/>
                                                             </HBox.margin>
@@ -127,8 +134,8 @@
                                                     <children>
                                                         <Button mnemonicParsing="false" text="Set to direct level"
                                                                 GridPane.columnIndex="2" GridPane.columnSpan="2"
-                                                                GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                                                                GridPane.valignment="CENTER"/>
+                                                                GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                                                GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
                                                         <Slider blockIncrement="1.0" orientation="VERTICAL" value="50.0"
                                                                 GridPane.columnIndex="1" GridPane.rowSpan="3">
                                                             <GridPane.margin>
@@ -140,30 +147,65 @@
                                                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f3f5"
                                                                            height="160.0" stroke="BLACK"
                                                                            strokeType="INSIDE" width="80.0"/>
-                                                                <SVGPath content="M40,60 C42,48 44,30 25,32"/>
-                                                                <SVGPath content="M40,60 C42,48 44,30 25,32"/>
+                                                                <SVGPath fx:id="svgLighting"
+                                                                         content="M40,60 C42,48 44,30 25,32"/>
+                                                                <SVGPath fx:id="svgBase"
+                                                                         content="M40,60 C42,48 44,30 25,32"/>
                                                             </children>
                                                         </AnchorPane>
-                                                        <Button contentDisplay="CENTER" mnemonicParsing="false"
-                                                                text="Up" wrapText="true" GridPane.columnIndex="2"
-                                                                GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                                                                GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" text="Down" wrapText="true"
+                                                        <Button fx:id="btnUp" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Up" wrapText="true"
                                                                 GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                                                                GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" text="Step Up" wrapText="true"
+                                                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <Button fx:id="btnDown" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Down" wrapText="true"
+                                                                GridPane.columnIndex="2" GridPane.halignment="CENTER"
+                                                                GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                                                                GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <Button fx:id="btnStepUp" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Step Up" wrapText="true"
                                                                 GridPane.columnIndex="3" GridPane.halignment="CENTER"
-                                                                GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" text="Step Down" wrapText="true"
-                                                                GridPane.columnIndex="3" GridPane.halignment="CENTER"
-                                                                GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" text="Max"
+                                                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <Button fx:id="btnStepDown" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Step Down"
+                                                                wrapText="true" GridPane.columnIndex="3"
+                                                                GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                                                GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <Button fx:id="btnMax" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Max"
                                                                 GridPane.columnIndex="4" GridPane.halignment="CENTER"
-                                                                GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" text="Min"
+                                                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <Button fx:id="btnMin" mnemonicParsing="false"
+                                                                styleClass="innerButton" text="Min"
                                                                 GridPane.columnIndex="4" GridPane.halignment="CENTER"
-                                                                GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                                        <TextField GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                                                                GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                                                                GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets left="5.0" right="5.0"/>
+                                                            </GridPane.margin>
+                                                        </Button>
+                                                        <TextField GridPane.columnIndex="4" GridPane.hgrow="ALWAYS"
+                                                                   GridPane.rowIndex="2"/>
                                                     </children>
                                                     <padding>
                                                         <Insets left="5.0" right="5.0"/>
