@@ -68,7 +68,7 @@ module com.tlcsdm.qe {
     exports com.tlcsdm.qe.skin to com.tlcsdm.frame;
     exports com.tlcsdm.qe.config to com.tlcsdm.core;
 
-    opens com.tlcsdm.qe.tools to javafx.graphics;
+    opens com.tlcsdm.qe.tools to javafx.graphics, javafx.fxml;
 
     provides FXSamplerProject with QeSamplerProjectProvider;
     provides MenubarConfigration with QeMenubarConfigrationProvider;
