@@ -340,8 +340,10 @@ public class FxmlDemo extends QeSample implements Initializable {
     private void parseXmlToSvg(SVGPath svg, org.w3c.dom.Node node) {
         String content = node.getAttributes().getNamedItem("d").getNodeValue();
         svg.setContent(content);
-        String colorString = node.getAttributes().getNamedItem("fill").getNodeValue();
-        svg.setFill(Color.web(colorString, 1));
+        if (node.getAttributes().getNamedItem("fill") != null) {
+            String colorString = node.getAttributes().getNamedItem("fill").getNodeValue();
+            svg.setFill(Color.web(colorString, 1));
+        }
         if (node.getAttributes().getNamedItem("stroke") != null) {
             String stroke = node.getAttributes().getNamedItem("stroke").getNodeValue();
             svg.setStroke(Color.web(stroke, 1));

@@ -44,8 +44,8 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="750.0" minWidth="1100.0" stylesheets="@light.css"
-            xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.FxmlDemo">
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.tlcsdm.qe.tools.FxmlDemo">
     <content>
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.25">
             <items>
@@ -138,16 +138,16 @@
                                                                            layoutY="13.0" stroke="BLACK" width="105.0"/>
                                                                 <SVGPath fx:id="svgLighting"
                                                                          content="M40,60 C42,48 44,30 25,32"
-                                                                         layoutX="17.0" layoutY="48.0"/>
+                                                                         layoutX="8.0" layoutY="48.0"/>
                                                                 <SVGPath fx:id="svgBase"
                                                                          content="M40,60 C42,48 44,30 25,32"
-                                                                         layoutX="17.0" layoutY="48.0"/>
+                                                                         layoutX="8.0" layoutY="48.0"/>
                                                                 <SVGPath fx:id="svgOutline"
                                                                          content="M40,60 C42,48 44,30 25,32"
-                                                                         layoutX="17.0" layoutY="48.0"/>
+                                                                         layoutX="8.0" layoutY="48.0"/>
                                                                 <SVGPath fx:id="svgRay"
                                                                          content="M40,60 C42,48 44,30 25,32"
-                                                                         layoutX="17.0" layoutY="48.0"/>
+                                                                         layoutX="8.0" layoutY="48.0"/>
                                                                 <Label layoutX="4.0" layoutY="193.0"
                                                                        text="Actual level:">
                                                                     <font>
