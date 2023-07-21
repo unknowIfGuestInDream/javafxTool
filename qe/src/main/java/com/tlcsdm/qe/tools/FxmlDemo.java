@@ -27,9 +27,7 @@
 
 package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.LineChartWithMarkers;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
@@ -43,14 +41,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -70,8 +71,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -82,11 +81,14 @@ import java.util.ResourceBundle;
 public class FxmlDemo extends QeSample implements Initializable {
 
     @FXML
-    private VBox boxChart;
+    private SplitPane splitPane;
     @FXML
-    private Slider sliderLight;
+    private TreeView<String> treeView;
     @FXML
-    private ComboBox<Integer> cmbDimmingCurve;
+    private Label lblControl;
+    // Power Control
+    @FXML
+    private Button btnPowerControl;
     @FXML
     private Rectangle rectLighting;
     @FXML
@@ -94,13 +96,13 @@ public class FxmlDemo extends QeSample implements Initializable {
     @FXML
     private SVGPath svgBase;
     @FXML
-    private Label lblControl;
+    private SVGPath svgOutline;
+    @FXML
+    private SVGPath svgRay;
     @FXML
     private Label lblActualLevel;
     @FXML
-    private Button btnOff;
-    @FXML
-    private Button btnDimmingSet;
+    private Slider sliderLight;
     @FXML
     private Button btnUp;
     @FXML
@@ -117,10 +119,45 @@ public class FxmlDemo extends QeSample implements Initializable {
     private Button btnDirectLevel;
     @FXML
     private TextField txtDirectLevel;
+    // Dimming Curve
     @FXML
-    private SplitPane splitPane;
+    private VBox boxChart;
     @FXML
-    private TreeView<String> treeView;
+    private ComboBox<Integer> cmbDimmingCurve;
+    @FXML
+    private Button btnDimmingSet;
+    // Fade Setting
+    @FXML
+    private TextField txtFadeTime;
+    @FXML
+    private TextField txtFadeRate;
+    @FXML
+    private TextField txtFadeTimeBase;
+    @FXML
+    private TextField txtFadeTimeMulti;
+    @FXML
+    private TextField txtFastFadeTime;
+    @FXML
+    private Button btnFadeTime;
+    @FXML
+    private Button btnFadeRate;
+    @FXML
+    private Button btnExtendedFadeTime;
+    @FXML
+    private Button btnFastFadeTime;
+    // Level Setting
+    @FXML
+    private ToggleGroup levelGroup;
+    @FXML
+    private ComboBox<String> cmbLevelStore;
+    @FXML
+    private RadioButton radioActual;
+    @FXML
+    private RadioButton radioDirect;
+    @FXML
+    private TextField txtDirect;
+    @FXML
+    private Button btnLevelSet;
 
     private LineChartWithMarkers<Integer, Double> lineChart;
     private NumberAxis xAxis;
@@ -128,22 +165,13 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @Override
     public boolean isVisible() {
-        return true;
+        return super.isVisible();
     }
 
     @Override
     public Node getPanel(Stage stage) {
-        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(getClass().getResource("/com/tlcsdm/qe/fxml/light.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(getClass().getResource("/com/tlcsdm/qe/fxml/light.fxml"), ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
-    }
-
-    @Override
-    public Node getControlPanel() {
-        String content = """
-            """;
-        Map<String, String> map = new HashMap<>();
-        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     public static void main(String[] args) {
@@ -184,51 +212,42 @@ public class FxmlDemo extends QeSample implements Initializable {
     public void initializeOption() {
         svgLighting.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
             double level = sliderLight.getValue();
+            if (level == 0) {
+                return 0.0;
+            }
             if (level < 26) {
                 return 0.1;
             }
             return level / 256;
         }, sliderLight.valueProperty()));
 
-//		sliderLight.valueProperty().addListener(new ChangeListener<>() {
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//				int level = newValue.intValue();
-//				if (level < 26) {
-//					svgLighting.setFill(Color.web("#FFF973"));
-//					svgLighting.setOpacity(0.5);
-//				} else if (level >= 26 && level < 52) {
-//					svgLighting.setFill(Color.web("#FFF973"));
-//					svgLighting.setOpacity(1);
-//				} else if (level >= 52 && level < 104) {
-//					svgLighting.setFill(Color.web("#FFF740"));
-//					svgLighting.setOpacity(1);
-//				} else if (level >= 104 && level < 146) {
-//					svgLighting.setFill(Color.web("#FFF400"));
-//					svgLighting.setOpacity(1);
-//				}
-//			}
-//		});
+        svgRay.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
+            double level = sliderLight.getValue();
+            return level / 256;
+        }, sliderLight.valueProperty()));
+
+        svgOutline.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
+            double level = sliderLight.getValue();
+            return 1.0 - level / 256;
+        }, sliderLight.valueProperty()));
 
         lblActualLevel.textProperty().bind(Bindings.createStringBinding(() -> {
             double level = daliDimmingCurve((int) sliderLight.getValue());
             return String.format("%.2f", level) + "%";
         }, sliderLight.valueProperty()));
-        Font font = Font.loadFont(getClass().getResourceAsStream("/com/tlcsdm/qe/fxml/digital.ttf"),
-            lblActualLevel.getFont().getSize());
+        // Get the font from the Font cache to avoid loading the font every time.
+        Font font = Font.font("tlcsdm", lblActualLevel.getFont().getSize());
+        if (font == null || !"tlcsdm".equals(font.getFamily())) {
+            font = Font.loadFont(getClass().getResourceAsStream("/com/tlcsdm/qe/fxml/digital.ttf"), lblActualLevel.getFont().getSize());
+        }
         lblActualLevel.setFont(font);
 
         cmbDimmingCurve.getItems().addAll(0, 1);
         cmbDimmingCurve.getSelectionModel().select(0);
 
         sliderLight.styleProperty().bind(Bindings.createStringBinding(() -> {
-            double percentage = (sliderLight.getValue() - sliderLight.getMin())
-                / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
-            return String.format(
-                "-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
-                    + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);",
-                percentage, percentage);
+            double percentage = (sliderLight.getValue() - sliderLight.getMin()) / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
+            return String.format("-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, " + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);", percentage, percentage);
         }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
 
         initializeTreeview();
@@ -246,10 +265,14 @@ public class FxmlDemo extends QeSample implements Initializable {
             Document doc = builder.parse(getClass().getResourceAsStream("/com/tlcsdm/qe/static/icon/lighting.svg"));
             org.w3c.dom.Node nodeLighting = doc.getElementsByTagName("path").item(0);
             org.w3c.dom.Node nodeBase = doc.getElementsByTagName("path").item(1);
+            org.w3c.dom.Node nodeOutline = doc.getElementsByTagName("path").item(2);
+            org.w3c.dom.Node nodeRay = doc.getElementsByTagName("path").item(3);
             parseXmlToSvg(svgLighting, nodeLighting);
             parseXmlToSvg(svgBase, nodeBase);
+            parseXmlToSvg(svgOutline, nodeOutline);
+            parseXmlToSvg(svgRay, nodeRay);
         } catch (SAXException | IOException | ParserConfigurationException e) {
-            StaticLog.error(e, "Parse lighting.svg failed!");
+            StaticLog.error(e, "Parse svg failed!");
         }
     }
 
@@ -269,11 +292,10 @@ public class FxmlDemo extends QeSample implements Initializable {
 
         lineChart.getData().add(createSeries());
         lineChart.getData().get(0).getData().forEach(data -> {
-            Tooltip.install(data.getNode(), new Tooltip(
-                "X轴:" + data.getXValue().toString() + "\n" + "Y轴:" + String.format("%.2f", data.getYValue())));
+            Tooltip.install(data.getNode(), new Tooltip("X轴:" + data.getXValue().toString() + "\n" + "Y轴:" + String.format("%.2f", data.getYValue())));
             if (data.getXValue() == (int) sliderLight.getValue()) {
-                Data<Integer, Double> d1 = new Data<>(data.getXValue(), data.getYValue());
-                Data<Integer, Double> d2 = new Data<>(data.getXValue(), data.getYValue());
+                XYChart.Data<Integer, Double> d1 = new XYChart.Data<>(data.getXValue(), data.getYValue());
+                XYChart.Data<Integer, Double> d2 = new XYChart.Data<>(data.getXValue(), data.getYValue());
                 lineChart.addHorizontalValueMarker(d1);
                 lineChart.addVerticalValueMarker(d2);
             }
@@ -328,6 +350,14 @@ public class FxmlDemo extends QeSample implements Initializable {
             String strokeWidth = node.getAttributes().getNamedItem("stroke-width").getNodeValue();
             svg.setStrokeWidth(Double.parseDouble(strokeWidth));
         }
+        if (node.getAttributes().getNamedItem("stroke-miterlimit") != null) {
+            String miterlimit = node.getAttributes().getNamedItem("stroke-miterlimit").getNodeValue();
+            svg.setStrokeMiterLimit(Double.parseDouble(miterlimit));
+        }
+        if (node.getAttributes().getNamedItem("id") != null) {
+            String id = node.getAttributes().getNamedItem("id").getNodeValue();
+            svg.getStyleClass().add(id);
+        }
     }
 
     /**
@@ -338,22 +368,6 @@ public class FxmlDemo extends QeSample implements Initializable {
         for (int i = 0; i < 256; i++) {
             series.getData().add(new Data<>(i, daliDimmingCurve(i)));
         }
-        return series;
-    }
-
-    private Series<Integer, Double> createYLine(int x, double y) {
-        Series<Integer, Double> series = new Series<>();
-        Data<Integer, Double> data1 = new Data<>(x, 0.0);
-        Data<Integer, Double> data2 = new Data<>(x, y);
-        series.getData().addAll(data1, data2);
-        return series;
-    }
-
-    private Series<Integer, Double> createXLine(int x, double y) {
-        Series<Integer, Double> series = new Series<>();
-        Data<Integer, Double> data1 = new Data<>(0, y);
-        Data<Integer, Double> data2 = new Data<>(x, y);
-        series.getData().addAll(data1, data2);
         return series;
     }
 
@@ -368,6 +382,11 @@ public class FxmlDemo extends QeSample implements Initializable {
         } else {
             return Math.pow(10, (double) (x - 1) * 3 / 253 - 1);
         }
+    }
+
+    @FXML
+    public void powerControlAction() {
+        // Do nothing
     }
 
     @FXML
@@ -397,6 +416,16 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     @FXML
+    public void stepUpAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void stepDownAction() {
+        // Do nothing
+    }
+
+    @FXML
     public void directLevelAction() {
         sliderLight.setValue(Integer.parseInt(txtDirectLevel.getText()));
     }
@@ -406,5 +435,35 @@ public class FxmlDemo extends QeSample implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             btnDirectLevel.fire();
         }
+    }
+
+    @FXML
+    public void dimmingSetAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void levelSettingAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void fadeTimeAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void fadeRateAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void extendedFadeTimeAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void fastFadeTimeAction() {
+        // Do nothing
     }
 }

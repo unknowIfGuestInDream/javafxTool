@@ -36,6 +36,11 @@
     -fx-pref-height: 60;
 }
 
+.fadeButton {
+    -fx-pref-width: 40;
+    -fx-pref-height: 23;
+}
+
 .innerHbox {
     -fx-padding: 5 0 0 5;
     -fx-spacing: 5;
@@ -46,7 +51,7 @@
 }
 
 .chart-line-symbol {
-    -fx-background-color: CHART_COLOR_1, white;
+    -fx-background-color: CHART_COLOR_1, white !important;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 3px;
     -fx-padding: 2px;
