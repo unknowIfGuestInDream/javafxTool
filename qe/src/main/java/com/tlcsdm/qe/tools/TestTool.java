@@ -46,7 +46,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
@@ -157,14 +156,9 @@ public class TestTool extends QeSample {
         propertySheet.getItems().setAll(getCustomModelProperties());
         propertySheet.setMode(Mode.CATEGORY);
 
-        SVGPath svg = loadPathToMM("/com/tlcsdm/qe/static/icon/lighting.svg");
-        svg.setFill(Color.YELLOW);
-        svg.setOpacity(0.5);
-
         grid.add(toolBar, 0, 0, 2, 1);
         grid.add(propertySheet, 0, 1, 2, 1);
         grid.add(textArea, 0, 2, 2, 1);
-        grid.add(svg, 0, 3, 2, 1);
 //        grid.add(originalField, 1, 1);
 //        grid.add(compareLabel, 0, 2);
 //        grid.add(compareField, 1, 2);

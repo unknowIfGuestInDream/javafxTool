@@ -33,6 +33,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
+import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -163,6 +164,9 @@ public class FxmlDemo extends QeSample implements Initializable {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
+    private final long frequency = 100_000_000L;
+    private long lastTime = 0L;
+
     @Override
     public boolean isVisible() {
         return super.isVisible();
@@ -251,6 +255,11 @@ public class FxmlDemo extends QeSample implements Initializable {
         }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
 
         initializeTreeview();
+
+        btnUp.setOnMousePressed(event -> upTimer.start());
+        btnUp.setOnMouseReleased(event -> upTimer.stop());
+        btnDown.setOnMousePressed(event -> downTimer.start());
+        btnDown.setOnMouseReleased(event -> downTimer.stop());
     }
 
     public void initializeUI() {
@@ -468,4 +477,24 @@ public class FxmlDemo extends QeSample implements Initializable {
     public void fastFadeTimeAction() {
         // Do nothing
     }
+
+    private final AnimationTimer upTimer = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            if (now - lastTime > frequency && btnUp.isPressed()) {
+                btnUp.fire();
+                lastTime = now;
+            }
+        }
+    };
+
+    private final AnimationTimer downTimer = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            if (now - lastTime > frequency && btnDown.isPressed()) {
+                btnDown.fire();
+                lastTime = now;
+            }
+        }
+    };
 }
