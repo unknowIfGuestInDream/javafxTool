@@ -8,7 +8,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 技术 | 版本 | 说明
 ----|----|----
 JDK | 17 | JDK
-JavaFX | 17.0.7 | JavaFX
+JavaFX | 17.0.8 | JavaFX
 controlsfx | 11.1.2 | javafx UI控件
 poi-ooxml | 5.2.3 | 用于Microsoft Documents的Java API
 freemarker | 2.3.32 | 模板引擎库
