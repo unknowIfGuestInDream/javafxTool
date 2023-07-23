@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## [v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36
+
+1. Fix unrecognized problem with common module
+2. JDK replaced by Amazon Corretto with Eclipse Temurin
+3. Java and javafx upgrade to 17.0.8
+4. SpecGeneral support for xlsm file type
+
+### Feature
+
+- core:
+  - richtextfx支持 (#604) ([749135e](https://github.com/unknowIfGuestInDream/javafxTool/commit/749135e928e4c4c1af80da9052e02e19ede29cf9)) ([#604](https://github.com/unknowIfGuestInDream/javafxTool/pull/604))
+
+### Bug Fixes
+
+- common:
+  - 修复common打包后spi配置被覆盖问题 (#612) ([787dbb9](https://github.com/unknowIfGuestInDream/javafxTool/commit/787dbb9b4e77693fd68f4a687c7c00eec1d3ec4e)) ([#612](https://github.com/unknowIfGuestInDream/javafxTool/pull/612))
+
+- smc:
+  - 修复SpecGeneral功能问题 (#600) ([694698f](https://github.com/unknowIfGuestInDream/javafxTool/commit/694698f592273386564dd4edf2045559ba120e3b)) ([#600](https://github.com/unknowIfGuestInDream/javafxTool/pull/600))
+
 ## [v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48
 
 1. Console color log configuration
