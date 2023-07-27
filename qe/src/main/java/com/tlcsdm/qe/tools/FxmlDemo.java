@@ -33,8 +33,11 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
-import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,15 +54,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
@@ -71,7 +80,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -87,74 +99,38 @@ public class FxmlDemo extends QeSample implements Initializable {
     private TreeView<String> treeView;
     @FXML
     private Label lblControl;
+    @FXML
+    private TableView<ReadOnlyData> tableView;
+    @FXML
+    private TableColumn<ReadOnlyData, String> columnKey, columnValue;
     // Power Control
     @FXML
-    private Button btnPowerControl;
+    private Button btnPowerControl, btnUp, btnDown, btnStepUp, btnStepDown, btnMax, btnMin, btnDirectLevel;
     @FXML
     private Rectangle rectLighting;
     @FXML
-    private SVGPath svgLighting;
-    @FXML
-    private SVGPath svgBase;
-    @FXML
-    private SVGPath svgOutline;
-    @FXML
-    private SVGPath svgRay;
+    private SVGPath svgLighting, svgOutline, svgRay;
     @FXML
     private Label lblActualLevel;
     @FXML
     private Slider sliderLight;
     @FXML
-    private Button btnUp;
-    @FXML
-    private Button btnDown;
-    @FXML
-    private Button btnStepUp;
-    @FXML
-    private Button btnStepDown;
-    @FXML
-    private Button btnMax;
-    @FXML
-    private Button btnMin;
-    @FXML
-    private Button btnDirectLevel;
-    @FXML
     private TextField txtDirectLevel;
     // Dimming Curve
     @FXML
     private VBox boxChart;
-    @FXML
-    private ComboBox<Integer> cmbDimmingCurve;
-    @FXML
-    private Button btnDimmingSet;
     // Fade Setting
     @FXML
-    private TextField txtFadeTime;
+    private ComboBox<FadeData> cmbFadeTime, cmbFadeRate;
     @FXML
-    private TextField txtFadeRate;
-    @FXML
-    private TextField txtFadeTimeBase;
-    @FXML
-    private TextField txtFadeTimeMulti;
-    @FXML
-    private TextField txtFastFadeTime;
-    @FXML
-    private Button btnFadeTime;
-    @FXML
-    private Button btnFadeRate;
-    @FXML
-    private Button btnExtendedFadeTime;
-    @FXML
-    private Button btnFastFadeTime;
+    private Button btnFadeTime, btnFadeRate;
     // Level Setting
     @FXML
     private ToggleGroup levelGroup;
     @FXML
     private ComboBox<String> cmbLevelStore;
     @FXML
-    private RadioButton radioActual;
-    @FXML
-    private RadioButton radioDirect;
+    private RadioButton radioActual, radioDirect;
     @FXML
     private TextField txtDirect;
     @FXML
@@ -164,8 +140,13 @@ public class FxmlDemo extends QeSample implements Initializable {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
-    private final long frequency = 100_000_000L;
-    private long lastTime = 0L;
+    ReadOnlyData phm;
+    ReadOnlyData min;
+    ReadOnlyData max;
+    ReadOnlyData power;
+    ReadOnlyData system;
+
+    private HashMap<Integer, Double> daliDimmingCurveMap = new HashMap<>(512);
 
     @Override
     public boolean isVisible() {
@@ -214,6 +195,8 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     public void initializeOption() {
+        initializeTreeview();
+        initializeTableview();
         svgLighting.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
             double level = sliderLight.getValue();
             if (level == 0) {
@@ -222,17 +205,17 @@ public class FxmlDemo extends QeSample implements Initializable {
             if (level < 26) {
                 return 0.1;
             }
-            return level / 256;
+            return level / 255;
         }, sliderLight.valueProperty()));
 
         svgRay.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
             double level = sliderLight.getValue();
-            return level / 256;
+            return level / 255;
         }, sliderLight.valueProperty()));
 
         svgOutline.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
             double level = sliderLight.getValue();
-            return 1.0 - level / 256;
+            return 1.0 - level / 255;
         }, sliderLight.valueProperty()));
 
         lblActualLevel.textProperty().bind(Bindings.createStringBinding(() -> {
@@ -242,29 +225,60 @@ public class FxmlDemo extends QeSample implements Initializable {
         // Get the font from the Font cache to avoid loading the font every time.
         Font font = Font.font("tlcsdm", lblActualLevel.getFont().getSize());
         if (font == null || !"tlcsdm".equals(font.getFamily())) {
-            font = Font.loadFont(getClass().getResourceAsStream("/com/tlcsdm/qe/fxml/digital.ttf"), lblActualLevel.getFont().getSize());
+            font = Font.loadFont(getClass().getResourceAsStream("/com/tlcsdm/qe/fxml/digital.ttf"),
+                lblActualLevel.getFont().getSize());
         }
         lblActualLevel.setFont(font);
-
-        cmbDimmingCurve.getItems().addAll(0, 1);
-        cmbDimmingCurve.getSelectionModel().select(0);
+        lblActualLevel.textFillProperty().bind(Bindings.createObjectBinding(() -> {
+            int level = (int) sliderLight.getValue();
+            if (level < min.getValue() || level > max.getValue()) {
+                return Color.web("#FF0000");
+            }
+            return Color.web("#000000");
+        }, min.valueProperty(), max.valueProperty(), sliderLight.valueProperty()));
 
         sliderLight.styleProperty().bind(Bindings.createStringBinding(() -> {
-            double percentage = (sliderLight.getValue() - sliderLight.getMin()) / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
-            return String.format("-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, " + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);", percentage, percentage);
+            double percentage = (sliderLight.getValue() - sliderLight.getMin())
+                / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
+            return String.format(
+                "-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
+                    + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);",
+                percentage, percentage);
         }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
 
-        initializeTreeview();
-
-        btnUp.setOnMousePressed(event -> upTimer.start());
-        btnUp.setOnMouseReleased(event -> upTimer.stop());
-        btnDown.setOnMousePressed(event -> downTimer.start());
-        btnDown.setOnMouseReleased(event -> downTimer.stop());
+        initializeFade();
+        cmbLevelStore.getItems().addAll("Maximum Level", "Minimum Level",
+            "Power-On Level", "System Failure Level");
+        cmbLevelStore.getSelectionModel().select(0);
     }
 
     public void initializeUI() {
         initializeSvg();
         initializeChart();
+
+        txtDirect.disableProperty().bind(radioDirect.selectedProperty().not());
+        btnLevelSet.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            if (!radioDirect.isSelected()) {
+                return false;
+            }
+            String directString = txtDirect.getText();
+            if (isNumeric(directString)) {
+                int direct = Integer.parseInt(directString);
+                return direct < 0 || direct > 255;
+            } else {
+                return true;
+            }
+        }, txtDirect.textProperty(), levelGroup.selectedToggleProperty()));
+
+        btnDirectLevel.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            String directString = txtDirectLevel.getText();
+            if (isNumeric(directString)) {
+                int direct = Integer.parseInt(directString);
+                return direct < 0 || direct > 255;
+            } else {
+                return true;
+            }
+        }, txtDirectLevel.textProperty()));
     }
 
     private void initializeSvg() {
@@ -273,11 +287,9 @@ public class FxmlDemo extends QeSample implements Initializable {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(getClass().getResourceAsStream("/com/tlcsdm/qe/static/icon/lighting.svg"));
             org.w3c.dom.Node nodeLighting = doc.getElementsByTagName("path").item(0);
-            org.w3c.dom.Node nodeBase = doc.getElementsByTagName("path").item(1);
-            org.w3c.dom.Node nodeOutline = doc.getElementsByTagName("path").item(2);
-            org.w3c.dom.Node nodeRay = doc.getElementsByTagName("path").item(3);
+            org.w3c.dom.Node nodeOutline = doc.getElementsByTagName("path").item(1);
+            org.w3c.dom.Node nodeRay = doc.getElementsByTagName("path").item(2);
             parseXmlToSvg(svgLighting, nodeLighting);
-            parseXmlToSvg(svgBase, nodeBase);
             parseXmlToSvg(svgOutline, nodeOutline);
             parseXmlToSvg(svgRay, nodeRay);
         } catch (SAXException | IOException | ParserConfigurationException e) {
@@ -285,10 +297,11 @@ public class FxmlDemo extends QeSample implements Initializable {
         }
     }
 
+    @SuppressWarnings("rawtypes")
     private void initializeChart() {
         xAxis = new NumberAxis();
         xAxis.setLabel("Control level");
-        xAxis.setUpperBound(256.0);
+        xAxis.setUpperBound(255);
         xAxis.setSide(Side.BOTTOM);
 
         yAxis = new NumberAxis();
@@ -301,7 +314,8 @@ public class FxmlDemo extends QeSample implements Initializable {
 
         lineChart.getData().add(createSeries());
         lineChart.getData().get(0).getData().forEach(data -> {
-            Tooltip.install(data.getNode(), new Tooltip("X轴:" + data.getXValue().toString() + "\n" + "Y轴:" + String.format("%.2f", data.getYValue())));
+            Tooltip.install(data.getNode(), new Tooltip(
+                "X轴:" + data.getXValue().toString() + "\n" + "Y轴:" + String.format("%.2f", data.getYValue())));
             if (data.getXValue() == (int) sliderLight.getValue()) {
                 XYChart.Data<Integer, Double> d1 = new XYChart.Data<>(data.getXValue(), data.getYValue());
                 XYChart.Data<Integer, Double> d2 = new XYChart.Data<>(data.getXValue(), data.getYValue());
@@ -320,6 +334,23 @@ public class FxmlDemo extends QeSample implements Initializable {
             lineChart.addHorizontalValueMarker(d1);
             lineChart.addVerticalValueMarker(d2);
         });
+
+        // chart style
+        for (int i = 0; i < 256; i++) {
+            final int index = i;
+            lineChart.lookup(".data" + index).styleProperty().bind(Bindings.createStringBinding(() -> {
+                if (index > max.getValue() || index < min.getValue()) {
+                    return "-fx-background-color: gray, white;";
+                }
+                return "";
+            }, min.valueProperty(), max.valueProperty()));
+        }
+        if (lineChart.plotChildren().get(0) instanceof Path line) {
+            line.styleProperty().bind(Bindings.createStringBinding(() -> {
+                return "-fx-stroke: linear-gradient(gray 0%, blue " + min.getValue() / 255 * 100
+                    + "%, gray " + max.getValue() / 255 * 100 + "%, gray 100%);";
+            }, min.valueProperty(), max.valueProperty()));
+        }
     }
 
     private void initializeTreeview() {
@@ -341,6 +372,39 @@ public class FxmlDemo extends QeSample implements Initializable {
             lblControl.setText(newValue.getValue());
         });
         treeView.getSelectionModel().select(treeView.getRoot());
+    }
+
+    private void initializeTableview() {
+        phm = new ReadOnlyData("PHM", 26);
+        min = new ReadOnlyData("MIN LEVEL", 170);
+        max = new ReadOnlyData("MAX LEVEL", 240);
+        power = new ReadOnlyData("POWER ON LEVEL", 254);
+        system = new ReadOnlyData("SYSTEM FAILURE LEVEL", 254);
+        ObservableList<ReadOnlyData> list = FXCollections.observableArrayList(phm, min, max, power, system);
+        columnKey.setCellValueFactory(new PropertyValueFactory<>("key"));
+        columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+        tableView.setItems(list);
+    }
+
+    private void initializeFade() {
+        cmbFadeTime.getItems().addAll(new FadeData(0, "no fade", "0"), new FadeData(1, "0.7sec", "0.707"),
+            new FadeData(2, "1.0sec", "1.000"), new FadeData(3, "1.4sec", "1.414"),
+            new FadeData(4, "2.0sec", "2.000"), new FadeData(5, "2.8sec", "2.828"),
+            new FadeData(6, "4.0sec", "4.000"), new FadeData(7, "5.7sec", "5.657"),
+            new FadeData(8, "8.0sec", "8.000"), new FadeData(9, "11.3sec", "11.314"),
+            new FadeData(10, "16.0sec", "16.000"), new FadeData(11, "22.6sec", "22.627"),
+            new FadeData(12, "32.0sec", "32.000"), new FadeData(13, "45.3sec", "45.255"),
+            new FadeData(14, "64.0sec", "64.000"), new FadeData(15, "90.5sec", "90.510"));
+        cmbFadeTime.getSelectionModel().select(0);
+        cmbFadeRate.getItems().addAll(new FadeData(1, "357.8steps/sec", "357.796"),
+            new FadeData(2, "253steps/sec", "253.000"), new FadeData(3, "179steps/sec", "178.898"),
+            new FadeData(4, "127steps/sec", "126.500"), new FadeData(5, "89.4steps/sec", "89.449"),
+            new FadeData(6, "63.3steps/sec", "63.250"), new FadeData(7, "44.7steps/sec", "44.725"),
+            new FadeData(8, "31.6steps/sec", "31.625"), new FadeData(9, "22.4steps/sec", "22.362"),
+            new FadeData(10, "15.8steps/sec", "15.813"), new FadeData(11, "11.2steps/sec", "11.181"),
+            new FadeData(12, "7.9steps/sec", "7.906"), new FadeData(13, "5.6steps/sec", "5.591"),
+            new FadeData(14, "4.0steps/sec", "3.953"), new FadeData(15, "2.8steps/sec", "2.795"));
+        cmbFadeRate.getSelectionModel().select(6);
     }
 
     /**
@@ -385,14 +449,20 @@ public class FxmlDemo extends QeSample implements Initializable {
     /**
      * Get lighting level based on control level
      */
-    private double daliDimmingCurve(int x) {
-        if (x == 255) {
-            return 100;
-        } else if (x == 0) {
-            return 0;
-        } else {
-            return Math.pow(10, (double) (x - 1) * 3 / 253 - 1);
+    private double daliDimmingCurve(int level) {
+        if (daliDimmingCurveMap.containsKey(level)) {
+            return daliDimmingCurveMap.get(level);
         }
+        double result;
+        if (level == 255) {
+            result = 100.0;
+        } else if (level == 0) {
+            result = 0.0;
+        } else {
+            result = Math.pow(10, (double) (level - 1) * 3 / 253 - 1);
+        }
+        daliDimmingCurveMap.put(level, result);
+        return result;
     }
 
     @FXML
@@ -412,6 +482,16 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @FXML
     public void upLevelAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void downLevelAction() {
+        // Do nothing
+    }
+
+    @FXML
+    public void stepUpAction() {
         int level = (int) sliderLight.getValue();
         if (level < sliderLight.getMax()) {
             sliderLight.setValue(level + 1);
@@ -419,21 +499,11 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     @FXML
-    public void downLevelAction() {
+    public void stepDownAction() {
         int level = (int) sliderLight.getValue();
         if (level > sliderLight.getMin()) {
             sliderLight.setValue(level - 1);
         }
-    }
-
-    @FXML
-    public void stepUpAction() {
-        // Do nothing
-    }
-
-    @FXML
-    public void stepDownAction() {
-        // Do nothing
     }
 
     @FXML
@@ -449,13 +519,26 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     @FXML
-    public void dimmingSetAction() {
-        // Do nothing
-    }
-
-    @FXML
     public void levelSettingAction() {
-        // Do nothing
+        String storeType = cmbLevelStore.getValue();
+        boolean isActual = radioActual.isSelected();
+        int level = (int) sliderLight.getValue();
+        String dircetString = txtDirect.getText();
+        int dircet;
+        try {
+            dircet = Integer.parseInt(dircetString);
+        } catch (NumberFormatException e) {
+            dircet = 0;
+        }
+        if ("Maximum Level".equals(storeType)) {
+            max.setValue(isActual ? level : dircet);
+        } else if ("Minimum Level".equals(storeType)) {
+            min.setValue(isActual ? level : dircet);
+        } else if ("Power-On Level".equals(storeType)) {
+            power.setValue(isActual ? level : dircet);
+        } else if ("System Failure Level".equals(storeType)) {
+            system.setValue(isActual ? level : dircet);
+        }
     }
 
     @FXML
@@ -465,36 +548,74 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @FXML
     public void fadeRateAction() {
-        // Do nothing
+        String rate = cmbFadeRate.getValue().value;
+        String time = cmbFadeTime.getValue().value;
+        int steps = new BigDecimal(rate).multiply(new BigDecimal(time)).setScale(1, RoundingMode.HALF_UP).intValue();
+        int level = (int) sliderLight.getValue();
+        System.out.println(steps);
+        System.out.println(level);
+        lineChart.getData().get(0).getData().forEach(data -> {
+            System.out.println("style: " + data.getNode().getStyle());
+        });
     }
 
-    @FXML
-    public void extendedFadeTimeAction() {
-        // Do nothing
+    private ImageView iconView(URL resource) {
+        return new ImageView(new Image(resource.toExternalForm()));
     }
 
-    @FXML
-    public void fastFadeTimeAction() {
-        // Do nothing
-    }
-
-    private final AnimationTimer upTimer = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            if (now - lastTime > frequency && btnUp.isPressed()) {
-                btnUp.fire();
-                lastTime = now;
+    private boolean isNumeric(String str) {
+        if (str.isEmpty()) {
+            return false;
+        }
+        for (int i = str.length(); --i >= 0; ) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
             }
         }
-    };
+        return true;
+    }
 
-    private final AnimationTimer downTimer = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            if (now - lastTime > frequency && btnDown.isPressed()) {
-                btnDown.fire();
-                lastTime = now;
-            }
+    public class ReadOnlyData {
+
+        private final SimpleStringProperty key;
+        private final SimpleIntegerProperty value;
+
+        public ReadOnlyData(String key, int value) {
+            this.key = new SimpleStringProperty(key);
+            this.value = new SimpleIntegerProperty(value);
         }
-    };
+
+        public String getKey() {
+            return key.get();
+        }
+
+        public void setKey(String key) {
+            this.key.set(key);
+        }
+
+        public SimpleStringProperty keyProperty() {
+            return key;
+        }
+
+        public int getValue() {
+            return value.get();
+        }
+
+        public void setValue(int value) {
+            this.value.set(value);
+        }
+
+        public SimpleIntegerProperty valueProperty() {
+            return value;
+        }
+    }
+
+    record FadeData(int setting, String desc, String value) {
+
+        @Override
+        public String toString() {
+            return setting + "(" + desc + ")";
+
+        }
+    }
 }
