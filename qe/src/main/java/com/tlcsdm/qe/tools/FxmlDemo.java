@@ -146,7 +146,7 @@ public class FxmlDemo extends QeSample implements Initializable {
     ReadOnlyData power;
     ReadOnlyData system;
 
-    private HashMap<Integer, Double> daliDimmingCurveMap = new HashMap<>(512);
+    private final HashMap<Integer, Double> daliDimmingCurveMap = new HashMap<>(512);
 
     @Override
     public boolean isVisible() {
@@ -368,9 +368,7 @@ public class FxmlDemo extends QeSample implements Initializable {
         assign.getChildren().add(new TreeItem<>("Addrest 2"));
         root.getChildren().addAll(new TreeItem<>("Boardcast"), group1, group5, assign);
         treeView.setRoot(root);
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            lblControl.setText(newValue.getValue());
-        });
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> lblControl.setText(newValue.getValue()));
         treeView.getSelectionModel().select(treeView.getRoot());
     }
 
