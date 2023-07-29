@@ -342,10 +342,10 @@ public abstract class SampleBase extends Application implements Sample {
             scrollPane.setMaxHeight(Double.MAX_VALUE);
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
+            scrollPane.setMinWidth(200);
             SplitPane.setResizableWithParent(scrollPane, false);
             splitPane.getItems().add(scrollPane);
         }
-
         return splitPane;
     }
 
