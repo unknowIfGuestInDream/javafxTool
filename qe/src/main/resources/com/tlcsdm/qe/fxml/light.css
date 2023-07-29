@@ -1,11 +1,21 @@
 .innerVbox {
+
+}
+
+#settingVbox {
     -fx-border-style: solid inside;
-    -fx-border-width: 2;
+    -fx-border-width: 0 2 0 0;
+    -fx-border-radius: 2;
+}
+
+#dataVbox {
+    -fx-border-style: solid inside;
+    -fx-border-width: 0 0 2 0;
     -fx-border-radius: 2;
 }
 
 .innerButton {
-    -fx-pref-width: 75;
+    -fx-pref-width: 92;
     -fx-pref-height: 56;
 }
 
@@ -35,13 +45,25 @@
     -fx-stroke-width: 3px;
 }
 
+.discreteFirstPoint {
+    -fx-background-color: red, white !important;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+.discretePoint {
+    -fx-background-color: black, white !important;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
 #sliderLight {
-    -slider-filled-track-color: red;
+    -slider-filled-track-color: rgb(68, 113, 169);
     -slider-track-color: -slider-filled-track-color;
 }
 
 #sliderLight .track {
-    -fx-base: pink;
+    -fx-base: rgb(173, 216, 230);
     -fx-background-color: -slider-track-color;
 }
 
@@ -52,4 +74,16 @@
 .column-header-background {
     visibility: hidden;
     -fx-padding: -1em;
+}
+
+.readOnlyDataKey {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+    -fx-alignment: CENTER;
+    -fx-padding: 0 0 0 10;
+}
+
+.readOnlyDataVal {
+    -fx-padding: 0 0 0 20;
 }
