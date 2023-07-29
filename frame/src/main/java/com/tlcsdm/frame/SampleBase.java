@@ -337,16 +337,21 @@ public abstract class SampleBase extends Application implements Sample {
             addRightPanel = true;
         }
 
-        if (addRightPanel) {
+        if (addRightPanel && sample.hasRightPanel()) {
             ScrollPane scrollPane = new ScrollPane(rightPanel);
             scrollPane.setMaxHeight(Double.MAX_VALUE);
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
+            scrollPane.setMinWidth(200);
             SplitPane.setResizableWithParent(scrollPane, false);
             splitPane.getItems().add(scrollPane);
         }
-
         return splitPane;
+    }
+
+    @Override
+    public boolean hasRightPanel() {
+        return true;
     }
 
     @Override

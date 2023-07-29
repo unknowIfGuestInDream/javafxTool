@@ -113,4 +113,9 @@ public interface Sample {
      */
     String getSampleXmlPrefix();
 
+    /**
+     * 是否有右侧区域
+     */
+    boolean hasRightPanel();
+
 }
