@@ -104,6 +104,11 @@ public class EmptySample implements Sample {
     }
 
     @Override
+    public boolean hasRightPanel() {
+        return false;
+    }
+
+    @Override
     public void dispose() {
         // Do nothing
     }

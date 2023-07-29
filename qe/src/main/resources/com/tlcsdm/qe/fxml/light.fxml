@@ -217,35 +217,35 @@
                                                 <Label layoutX="16.0" layoutY="11.0" text="Fade Setting"/>
                                                 <Label layoutX="35.0" layoutY="37.0" text="Fade time:"/>
                                                 <ComboBox fx:id="cmbFadeTime" layoutX="52.0" layoutY="60.0"
-                                                          prefHeight="23.0" prefWidth="163.0"/>
-                                                <Button fx:id="btnFadeTime" layoutX="238.0" layoutY="60.0"
+                                                          prefHeight="23.0" prefWidth="192.0"/>
+                                                <Button fx:id="btnFadeTime" layoutX="261.0" layoutY="60.0"
                                                         mnemonicParsing="false" onAction="#fadeTimeAction"
-                                                        styleClass="fadeButton" text="Set"/>
+                                                        prefWidth="46.0" styleClass="fadeButton" text="Set"/>
                                                 <Label layoutX="37.0" layoutY="95.0" text="Fade rate:"/>
                                                 <ComboBox fx:id="cmbFadeRate" layoutX="52.0" layoutY="119.0"
-                                                          prefHeight="23.0" prefWidth="163.0"/>
-                                                <Button fx:id="btnFadeRate" layoutX="238.0" layoutY="119.0"
+                                                          prefHeight="23.0" prefWidth="192.0"/>
+                                                <Button fx:id="btnFadeRate" layoutX="261.0" layoutY="119.0"
                                                         mnemonicParsing="false" onAction="#fadeRateAction"
-                                                        styleClass="fadeButton" text="Set"/>
+                                                        prefWidth="46.0" styleClass="fadeButton" text="Set"/>
                                                 <Label layoutX="20.0" layoutY="176.0" text="Level Setting"/>
                                                 <Label alignment="CENTER_RIGHT" layoutX="41.0" layoutY="202.0"
                                                        text="Store to:"/>
                                                 <ComboBox fx:id="cmbLevelStore" layoutX="52.0" layoutY="222.0"
-                                                          prefHeight="23.0" prefWidth="163.0"/>
-                                                <Button fx:id="btnLevelSet" layoutX="238.0" layoutY="222.0"
+                                                          prefHeight="23.0" prefWidth="192.0"/>
+                                                <Button fx:id="btnLevelSet" layoutX="261.0" layoutY="222.0"
                                                         mnemonicParsing="false" onAction="#levelSettingAction"
-                                                        text="Set"/>
-                                                <RadioButton fx:id="radioActual" alignment="CENTER_RIGHT" layoutX="67.0"
-                                                             layoutY="255.0" mnemonicParsing="false" selected="true"
+                                                        prefWidth="46.0" text="Set"/>
+                                                <RadioButton fx:id="radioActual" alignment="CENTER_RIGHT" layoutX="66.0"
+                                                             layoutY="268.0" mnemonicParsing="false" selected="true"
                                                              text="Actual">
                                                     <toggleGroup>
                                                         <ToggleGroup fx:id="levelGroup"/>
                                                     </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton fx:id="radioDirect" alignment="CENTER_RIGHT" layoutX="67.0"
-                                                             layoutY="289.0" mnemonicParsing="false" text="Direct"
+                                                <RadioButton fx:id="radioDirect" alignment="CENTER_RIGHT" layoutX="66.0"
+                                                             layoutY="302.0" mnemonicParsing="false" text="Direct"
                                                              toggleGroup="$levelGroup"/>
-                                                <TextField fx:id="txtDirect" layoutX="141.0" layoutY="286.0"
+                                                <TextField fx:id="txtDirect" layoutX="140.0" layoutY="299.0"
                                                            prefHeight="23.0" prefWidth="74.0"/>
                                             </children>
                                         </AnchorPane>

@@ -184,6 +184,11 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     @Override
+    public boolean hasRightPanel() {
+        return false;
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeOption();
         initializeUI();
