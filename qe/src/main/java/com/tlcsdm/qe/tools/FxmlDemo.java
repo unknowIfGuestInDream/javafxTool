@@ -35,9 +35,6 @@ import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,14 +51,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -84,6 +78,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
@@ -99,10 +94,9 @@ public class FxmlDemo extends QeSample implements Initializable {
     private TreeView<String> treeView;
     @FXML
     private Label lblControl;
+    // ReadOnly Data
     @FXML
-    private TableView<ReadOnlyData> tableView;
-    @FXML
-    private TableColumn<ReadOnlyData, String> columnKey, columnValue;
+    private Label lblPhm, lblMinLevel, lblMaxLevel, lblPowerOnLevel, lblSystemFailLevel;
     // Power Control
     @FXML
     private Button btnPowerControl, btnUp, btnDown, btnStepUp, btnStepDown, btnMax, btnMin, btnDirectLevel;
@@ -140,13 +134,14 @@ public class FxmlDemo extends QeSample implements Initializable {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
-    ReadOnlyData phm;
-    ReadOnlyData min;
-    ReadOnlyData max;
-    ReadOnlyData power;
-    ReadOnlyData system;
+    SimpleIntegerProperty phmProperty;
+    SimpleIntegerProperty minProperty;
+    SimpleIntegerProperty maxProperty;
+    SimpleIntegerProperty powerProperty;
+    SimpleIntegerProperty systemProperty;
 
     private final HashMap<Integer, Double> daliDimmingCurveMap = new HashMap<>(512);
+    private LinkedList<Integer> discretePointXList = new LinkedList<>();
 
     @Override
     public boolean isVisible() {
@@ -196,32 +191,16 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     public void initializeOption() {
         initializeTreeview();
-        initializeTableview();
-        svgLighting.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
-            double level = sliderLight.getValue();
-            if (level == 0) {
-                return 0.0;
-            }
-            if (level < 26) {
-                return 0.1;
-            }
-            return level / 255;
-        }, sliderLight.valueProperty()));
+        initializeReadOnlyData();
+        initializePowerControl();
+        initializeFade();
+        initializeLevel();
+    }
 
-        svgRay.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
-            double level = sliderLight.getValue();
-            return level / 255;
-        }, sliderLight.valueProperty()));
+    public void initializeUI() {
+        initializeSvg();
+        initializeChart();
 
-        svgOutline.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
-            double level = sliderLight.getValue();
-            return 1.0 - level / 255;
-        }, sliderLight.valueProperty()));
-
-        lblActualLevel.textProperty().bind(Bindings.createStringBinding(() -> {
-            double level = daliDimmingCurve((int) sliderLight.getValue());
-            return String.format("%.2f", level) + "%";
-        }, sliderLight.valueProperty()));
         // Get the font from the Font cache to avoid loading the font every time.
         Font font = Font.font("tlcsdm", lblActualLevel.getFont().getSize());
         if (font == null || !"tlcsdm".equals(font.getFamily())) {
@@ -229,56 +208,11 @@ public class FxmlDemo extends QeSample implements Initializable {
                 lblActualLevel.getFont().getSize());
         }
         lblActualLevel.setFont(font);
-        lblActualLevel.textFillProperty().bind(Bindings.createObjectBinding(() -> {
-            int level = (int) sliderLight.getValue();
-            if (level < min.getValue() || level > max.getValue()) {
-                return Color.web("#FF0000");
-            }
-            return Color.web("#000000");
-        }, min.valueProperty(), max.valueProperty(), sliderLight.valueProperty()));
-
-        sliderLight.styleProperty().bind(Bindings.createStringBinding(() -> {
-            double percentage = (sliderLight.getValue() - sliderLight.getMin())
-                / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
-            return String.format(
-                "-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
-                    + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);",
-                percentage, percentage);
-        }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
-
-        initializeFade();
-        cmbLevelStore.getItems().addAll("Maximum Level", "Minimum Level",
-            "Power-On Level", "System Failure Level");
-        cmbLevelStore.getSelectionModel().select(0);
-    }
-
-    public void initializeUI() {
-        initializeSvg();
-        initializeChart();
-
-        txtDirect.disableProperty().bind(radioDirect.selectedProperty().not());
-        btnLevelSet.disableProperty().bind(Bindings.createBooleanBinding(() -> {
-            if (!radioDirect.isSelected()) {
-                return false;
-            }
-            String directString = txtDirect.getText();
-            if (isNumeric(directString)) {
-                int direct = Integer.parseInt(directString);
-                return direct < 0 || direct > 255;
-            } else {
-                return true;
-            }
-        }, txtDirect.textProperty(), levelGroup.selectedToggleProperty()));
-
-        btnDirectLevel.disableProperty().bind(Bindings.createBooleanBinding(() -> {
-            String directString = txtDirectLevel.getText();
-            if (isNumeric(directString)) {
-                int direct = Integer.parseInt(directString);
-                return direct < 0 || direct > 255;
-            } else {
-                return true;
-            }
-        }, txtDirectLevel.textProperty()));
+        lblPhm.setFont(Font.font("tlcsdm", lblPhm.getFont().getSize()));
+        lblMaxLevel.setFont(Font.font("tlcsdm", lblMaxLevel.getFont().getSize()));
+        lblMinLevel.setFont(Font.font("tlcsdm", lblMinLevel.getFont().getSize()));
+        lblPowerOnLevel.setFont(Font.font("tlcsdm", lblPowerOnLevel.getFont().getSize()));
+        lblSystemFailLevel.setFont(Font.font("tlcsdm", lblSystemFailLevel.getFont().getSize()));
     }
 
     private void initializeSvg() {
@@ -301,12 +235,14 @@ public class FxmlDemo extends QeSample implements Initializable {
     private void initializeChart() {
         xAxis = new NumberAxis();
         xAxis.setLabel("Control level");
-        xAxis.setUpperBound(255);
+        xAxis.setUpperBound(254);
         xAxis.setSide(Side.BOTTOM);
+        xAxis.setAutoRanging(false);
 
         yAxis = new NumberAxis();
         yAxis.setLabel("Lighting level (%)");
         yAxis.setSide(Side.LEFT);
+        yAxis.setAutoRanging(false);
         lineChart = new LineChartWithMarkers(xAxis, yAxis);
         lineChart.setLegendVisible(false);
         lineChart.setPadding(new Insets(0, 10, 0, 0));
@@ -315,7 +251,7 @@ public class FxmlDemo extends QeSample implements Initializable {
         lineChart.getData().add(createSeries());
         lineChart.getData().get(0).getData().forEach(data -> {
             Tooltip.install(data.getNode(), new Tooltip(
-                "X轴:" + data.getXValue().toString() + "\n" + "Y轴:" + String.format("%.2f", data.getYValue())));
+                "X:" + data.getXValue().toString() + "\n" + "Y:" + String.format("%.2f", data.getYValue())));
             if (data.getXValue() == (int) sliderLight.getValue()) {
                 XYChart.Data<Integer, Double> d1 = new XYChart.Data<>(data.getXValue(), data.getYValue());
                 XYChart.Data<Integer, Double> d2 = new XYChart.Data<>(data.getXValue(), data.getYValue());
@@ -333,24 +269,26 @@ public class FxmlDemo extends QeSample implements Initializable {
             Data<Integer, Double> d2 = new Data<>(level, curve);
             lineChart.addHorizontalValueMarker(d1);
             lineChart.addVerticalValueMarker(d2);
+            buildDiscretePoint();
         });
 
         // chart style
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 255; i++) {
             final int index = i;
             lineChart.lookup(".data" + index).styleProperty().bind(Bindings.createStringBinding(() -> {
-                if (index > max.getValue() || index < min.getValue()) {
+                if (index > maxProperty.get() || index < minProperty.get()) {
                     return "-fx-background-color: gray, white;";
                 }
                 return "";
-            }, min.valueProperty(), max.valueProperty()));
+            }, minProperty, maxProperty));
         }
         if (lineChart.plotChildren().get(0) instanceof Path line) {
             line.styleProperty().bind(Bindings.createStringBinding(() -> {
-                return "-fx-stroke: linear-gradient(gray 0%, blue " + min.getValue() / 255 * 100
-                    + "%, gray " + max.getValue() / 255 * 100 + "%, gray 100%);";
-            }, min.valueProperty(), max.valueProperty()));
+                return "-fx-stroke: linear-gradient(gray 0%, blue " + minProperty.get() / 254 * 100
+                    + "%, gray " + maxProperty.get() / 254 * 100 + "%, gray 100%);";
+            }, minProperty, maxProperty));
         }
+        buildDiscretePoint();
     }
 
     private void initializeTreeview() {
@@ -368,20 +306,23 @@ public class FxmlDemo extends QeSample implements Initializable {
         assign.getChildren().add(new TreeItem<>("Addrest 2"));
         root.getChildren().addAll(new TreeItem<>("Boardcast"), group1, group5, assign);
         treeView.setRoot(root);
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> lblControl.setText(newValue.getValue()));
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            lblControl.setText(newValue.getValue());
+        });
         treeView.getSelectionModel().select(treeView.getRoot());
     }
 
-    private void initializeTableview() {
-        phm = new ReadOnlyData("PHM", 26);
-        min = new ReadOnlyData("MIN LEVEL", 170);
-        max = new ReadOnlyData("MAX LEVEL", 240);
-        power = new ReadOnlyData("POWER ON LEVEL", 254);
-        system = new ReadOnlyData("SYSTEM FAILURE LEVEL", 254);
-        ObservableList<ReadOnlyData> list = FXCollections.observableArrayList(phm, min, max, power, system);
-        columnKey.setCellValueFactory(new PropertyValueFactory<>("key"));
-        columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
-        tableView.setItems(list);
+    private void initializeReadOnlyData() {
+        phmProperty = new SimpleIntegerProperty(26);
+        maxProperty = new SimpleIntegerProperty(240);
+        minProperty = new SimpleIntegerProperty(170);
+        powerProperty = new SimpleIntegerProperty(254);
+        systemProperty = new SimpleIntegerProperty(254);
+        lblPhm.textProperty().bind(phmProperty.asString());
+        lblMaxLevel.textProperty().bind(maxProperty.asString());
+        lblMinLevel.textProperty().bind(minProperty.asString());
+        lblPowerOnLevel.textProperty().bind(powerProperty.asString());
+        lblSystemFailLevel.textProperty().bind(systemProperty.asString());
     }
 
     private void initializeFade() {
@@ -403,6 +344,75 @@ public class FxmlDemo extends QeSample implements Initializable {
             new FadeData(12, "7.9steps/sec", "7.906"), new FadeData(13, "5.6steps/sec", "5.591"),
             new FadeData(14, "4.0steps/sec", "3.953"), new FadeData(15, "2.8steps/sec", "2.795"));
         cmbFadeRate.getSelectionModel().select(6);
+
+        txtDirect.disableProperty().bind(radioDirect.selectedProperty().not());
+        btnLevelSet.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            if (!radioDirect.isSelected()) {
+                return false;
+            }
+            String directString = txtDirect.getText();
+            if (isInteger(directString)) {
+                int direct = Integer.parseInt(directString);
+                return direct < 0 || direct > 254;
+            } else {
+                return true;
+            }
+        }, txtDirect.textProperty(), levelGroup.selectedToggleProperty()));
+    }
+
+    private void initializeLevel() {
+        cmbLevelStore.getItems().addAll("Maximum Level", "Minimum Level",
+            "Power-On Level", "System Failure Level");
+        cmbLevelStore.getSelectionModel().select(0);
+    }
+
+    private void initializePowerControl() {
+        svgLighting.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
+            int level = (int) sliderLight.getValue();
+            return daliDimmingCurve(level) / 100.0;
+        }, sliderLight.valueProperty()));
+
+        svgRay.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
+            int level = (int) sliderLight.getValue();
+            return daliDimmingCurve(level) / 100.0;
+        }, sliderLight.valueProperty()));
+
+        svgOutline.opacityProperty().bind(Bindings.createDoubleBinding(() -> {
+            int level = (int) sliderLight.getValue();
+            return 1.0 - daliDimmingCurve(level) / 100.0;
+        }, sliderLight.valueProperty()));
+
+        lblActualLevel.textProperty().bind(Bindings.createStringBinding(() -> {
+            double level = daliDimmingCurve((int) sliderLight.getValue());
+            return String.format("%.2f", level) + "%";
+        }, sliderLight.valueProperty()));
+        lblActualLevel.textFillProperty().bind(Bindings.createObjectBinding(() -> {
+            int level = (int) sliderLight.getValue();
+            if (level < minProperty.get() || level > maxProperty.get()) {
+                return Color.web("#FF0000");
+            }
+            return Color.web("#000000");
+        }, minProperty, maxProperty, sliderLight.valueProperty()));
+        // Gradient color settings for the slide bar, need to be used together with the
+        // settings in css
+        sliderLight.styleProperty().bind(Bindings.createStringBinding(() -> {
+            double percentage = (sliderLight.getValue() - sliderLight.getMin())
+                / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
+            return String.format(
+                "-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
+                    + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);",
+                percentage, percentage);
+        }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
+
+        btnDirectLevel.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            String directString = txtDirectLevel.getText();
+            if (isInteger(directString)) {
+                int direct = Integer.parseInt(directString);
+                return direct < 0 || direct > 254;
+            } else {
+                return true;
+            }
+        }, txtDirectLevel.textProperty()));
     }
 
     /**
@@ -438,7 +448,7 @@ public class FxmlDemo extends QeSample implements Initializable {
      */
     private Series<Integer, Double> createSeries() {
         Series<Integer, Double> series = new Series<>();
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 255; i++) {
             series.getData().add(new Data<>(i, daliDimmingCurve(i)));
         }
         return series;
@@ -452,9 +462,7 @@ public class FxmlDemo extends QeSample implements Initializable {
             return daliDimmingCurveMap.get(level);
         }
         double result;
-        if (level == 255) {
-            result = 100.0;
-        } else if (level == 0) {
+        if (level == 0) {
             result = 0.0;
         } else {
             result = Math.pow(10, (double) (level - 1) * 3 / 253 - 1);
@@ -465,27 +473,43 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @FXML
     public void powerControlAction() {
-        // Do nothing
-    }
-
-    @FXML
-    public void minLevelAction() {
         sliderLight.setValue(sliderLight.getMin());
     }
 
     @FXML
+    public void minLevelAction() {
+        sliderLight.setValue(minProperty.get());
+    }
+
+    @FXML
     public void maxLevelAction() {
-        sliderLight.setValue(sliderLight.getMax());
+        sliderLight.setValue(maxProperty.get());
     }
 
     @FXML
     public void upLevelAction() {
-        // Do nothing
+        int level = (int) sliderLight.getValue();
+        if (level == discretePointXList.getLast()) {
+            return;
+        }
+        int index = discretePointXList.indexOf(level);
+        if (index == -1) {
+            return;
+        }
+        sliderLight.setValue(discretePointXList.get(index + 1));
     }
 
     @FXML
     public void downLevelAction() {
-        // Do nothing
+        int level = (int) sliderLight.getValue();
+        if (level == discretePointXList.getFirst()) {
+            return;
+        }
+        int index = discretePointXList.indexOf(level);
+        if (index == -1) {
+            return;
+        }
+        sliderLight.setValue(discretePointXList.get(index - 1));
     }
 
     @FXML
@@ -529,13 +553,15 @@ public class FxmlDemo extends QeSample implements Initializable {
             dircet = 0;
         }
         if ("Maximum Level".equals(storeType)) {
-            max.setValue(isActual ? level : dircet);
+            maxProperty.set(isActual ? level : dircet);
         } else if ("Minimum Level".equals(storeType)) {
-            min.setValue(isActual ? level : dircet);
+            minProperty.set(isActual ? level : dircet);
         } else if ("Power-On Level".equals(storeType)) {
-            power.setValue(isActual ? level : dircet);
+            powerProperty.set(isActual ? level : dircet);
         } else if ("System Failure Level".equals(storeType)) {
-            system.setValue(isActual ? level : dircet);
+            systemProperty.set(isActual ? level : dircet);
+        } else {
+            // Do nothing
         }
     }
 
@@ -546,22 +572,49 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @FXML
     public void fadeRateAction() {
+        buildDiscretePoint();
+    }
+
+    /**
+     * Build discrete point data styles
+     */
+    private void buildDiscretePoint() {
         String rate = cmbFadeRate.getValue().value;
-        String time = cmbFadeTime.getValue().value;
-        int steps = new BigDecimal(rate).multiply(new BigDecimal(time)).setScale(1, RoundingMode.HALF_UP).intValue();
+        int step = new BigDecimal(rate).multiply(new BigDecimal("0.2")).setScale(0, RoundingMode.HALF_UP).intValue();
         int level = (int) sliderLight.getValue();
-        System.out.println(steps);
-        System.out.println(level);
+        discretePointXList.clear();
+        for (int i = level; i <= 254; i = i + step) {
+            discretePointXList.add(i);
+        }
+        for (int i = level - step; i >= 0; i = i - step) {
+            discretePointXList.addFirst(i);
+        }
         lineChart.getData().get(0).getData().forEach(data -> {
-            System.out.println("style: " + data.getNode().getStyle());
+            if (!discretePointXList.contains(data.getXValue())) {
+                data.getNode().getStyleClass().removeAll("discreteFirstPoint", "discretePoint");
+            } else if (data.getXValue() == level) {
+                if (!data.getNode().getStyleClass().contains("discreteFirstPoint")) {
+                    data.getNode().getStyleClass().add("discreteFirstPoint");
+                }
+                data.getNode().getStyleClass().remove("discretePoint");
+            } else {
+                if (!data.getNode().getStyleClass().contains("discretePoint")) {
+                    data.getNode().getStyleClass().add("discretePoint");
+                }
+                data.getNode().getStyleClass().remove("discreteFirstPoint");
+            }
         });
+        lineChart.requestChartLayout();
     }
 
     private ImageView iconView(URL resource) {
         return new ImageView(new Image(resource.toExternalForm()));
     }
 
-    private boolean isNumeric(String str) {
+    /**
+     * Returns true if the argument is a integer
+     */
+    private boolean isInteger(String str) {
         if (str.isEmpty()) {
             return false;
         }
@@ -573,41 +626,9 @@ public class FxmlDemo extends QeSample implements Initializable {
         return true;
     }
 
-    public class ReadOnlyData {
-
-        private final SimpleStringProperty key;
-        private final SimpleIntegerProperty value;
-
-        public ReadOnlyData(String key, int value) {
-            this.key = new SimpleStringProperty(key);
-            this.value = new SimpleIntegerProperty(value);
-        }
-
-        public String getKey() {
-            return key.get();
-        }
-
-        public void setKey(String key) {
-            this.key.set(key);
-        }
-
-        public SimpleStringProperty keyProperty() {
-            return key;
-        }
-
-        public int getValue() {
-            return value.get();
-        }
-
-        public void setValue(int value) {
-            this.value.set(value);
-        }
-
-        public SimpleIntegerProperty valueProperty() {
-            return value;
-        }
-    }
-
+    /**
+     * Fade data model
+     */
     record FadeData(int setting, String desc, String value) {
 
         @Override

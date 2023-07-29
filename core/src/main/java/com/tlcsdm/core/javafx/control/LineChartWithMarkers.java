@@ -95,6 +95,11 @@ public class LineChartWithMarkers<X, Y> extends LineChart<X, Y> {
         super.layoutPlotChildren();
     }
 
+    @Override
+    public void requestChartLayout() {
+        super.requestChartLayout();
+    }
+
     private void drawHorizontalMarker(Data<X, Y> horizontalMarker) {
         Line line = (Line) horizontalMarker.getNode();
         line.setStartX(0);

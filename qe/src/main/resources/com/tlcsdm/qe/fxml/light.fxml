@@ -9,8 +9,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.TreeView?>
@@ -23,11 +21,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="855.0" minWidth="1105.0" stylesheets="@light.css"
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="855.0" minWidth="1155.0" stylesheets="@light.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.tlcsdm.qe.tools.FxmlDemo">
     <content>
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.25" minHeight="850.0" minWidth="1100.0">
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.25" minHeight="850.0" minWidth="1150.0">
             <items>
                 <VBox maxWidth="240.0" minWidth="140.0">
                     <children>
@@ -49,7 +47,7 @@
                         </Separator>
                         <GridPane VBox.vgrow="ALWAYS">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="440.0" minWidth="10.0"
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0"
                                                    prefWidth="100.0"/>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                             </columnConstraints>
@@ -74,8 +72,8 @@
                                                         mnemonicParsing="false" onAction="#powerControlAction"
                                                         text="OFF"/>
                                                 <Rectangle fx:id="rectLighting" arcHeight="5.0" arcWidth="5.0"
-                                                           fill="#f0f3f5" height="234.0" layoutX="27.0" layoutY="57.0"
-                                                           stroke="BLACK" width="105.0"/>
+                                                           fill="#f0f3f5" height="236.0" layoutX="27.0" layoutY="57.0"
+                                                           stroke="BLACK" width="136.0"/>
                                                 <SVGPath fx:id="svgOutline" content="M40,60 C42,48 44,30 25,32"
                                                          layoutX="36.0" layoutY="109.0"/>
                                                 <SVGPath fx:id="svgRay" content="M40,60 C42,48 44,30 25,32"
@@ -93,33 +91,37 @@
                                                     </font>
                                                 </Label>
                                                 <Slider id="sliderLight" fx:id="sliderLight" blockIncrement="1.0"
-                                                        layoutX="148.0" layoutY="50.0" max="255.0"
-                                                        orientation="VERTICAL" prefHeight="238.0" prefWidth="14.0"
+                                                        layoutX="136.0" layoutY="62.0" max="254.0"
+                                                        orientation="VERTICAL" prefHeight="226.0" prefWidth="14.0"
                                                         value="127.0"/>
-                                                <Button fx:id="btnUp" layoutX="174.0" layoutY="69.0"
+                                                <Button fx:id="btnUp" layoutX="178.0" layoutY="70.0"
                                                         mnemonicParsing="false" onAction="#upLevelAction"
-                                                        styleClass="innerButton" text="Up" wrapText="true"/>
-                                                <Button fx:id="btnStepUp" layoutX="254.0" layoutY="69.0"
+                                                        styleClass="innerButton" text="Up    " wrapText="true">
+                                                    <opaqueInsets>
+                                                        <Insets/>
+                                                    </opaqueInsets>
+                                                </Button>
+                                                <Button fx:id="btnStepUp" layoutX="273.0" layoutY="70.0"
                                                         mnemonicParsing="false" onAction="#stepUpAction"
                                                         styleClass="innerButton" text="Step Up" wrapText="true"/>
-                                                <Button fx:id="btnMax" layoutX="334.0" layoutY="69.0"
+                                                <Button fx:id="btnMax" layoutX="368.0" layoutY="70.0"
                                                         mnemonicParsing="false" onAction="#maxLevelAction"
                                                         styleClass="innerButton" text="Max"/>
-                                                <Button fx:id="btnDown" layoutX="174.0" layoutY="158.0"
+                                                <Button fx:id="btnDown" layoutX="178.0" layoutY="159.0"
                                                         mnemonicParsing="false" onAction="#downLevelAction"
                                                         styleClass="innerButton" text="Down" wrapText="true"/>
-                                                <Button fx:id="btnStepDown" layoutX="254.0" layoutY="158.0"
+                                                <Button fx:id="btnStepDown" layoutX="273.0" layoutY="159.0"
                                                         mnemonicParsing="false" onAction="#stepDownAction"
                                                         styleClass="innerButton" text="Step Down" wrapText="true"/>
-                                                <Button fx:id="btnMin" layoutX="334.0" layoutY="158.0"
+                                                <Button fx:id="btnMin" layoutX="368.0" layoutY="159.0"
                                                         mnemonicParsing="false" onAction="#minLevelAction"
                                                         styleClass="innerButton" text="Min"/>
-                                                <Button fx:id="btnDirectLevel" layoutX="174.0" layoutY="244.0"
+                                                <Button fx:id="btnDirectLevel" layoutX="273.0" layoutY="245.0"
                                                         mnemonicParsing="false" onAction="#directLevelAction"
                                                         text="Set to direct level"/>
-                                                <TextField fx:id="txtDirectLevel" layoutX="313.0" layoutY="244.0"
+                                                <TextField fx:id="txtDirectLevel" layoutX="178.0" layoutY="246.0"
                                                            onKeyPressed="#directLevelEnterAction" prefHeight="23.0"
-                                                           prefWidth="77.0"/>
+                                                           prefWidth="87.0"/>
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -148,24 +150,67 @@
 
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="126.0" prefWidth="100.0" styleClass="innerVbox"
+                                <VBox id="dataVbox" prefHeight="126.0" prefWidth="100.0" styleClass="innerVbox"
                                       GridPane.columnIndex="1">
                                     <children>
-                                        <TableView fx:id="tableView" VBox.vgrow="SOMETIMES">
-                                            <columns>
-                                                <TableColumn fx:id="columnKey" editable="false" prefWidth="75.0"
-                                                             text="key"/>
-                                                <TableColumn fx:id="columnValue" editable="false" prefWidth="75.0"
-                                                             text="value"/>
-                                            </columns>
-                                            <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                            </columnResizePolicy>
-                                        </TableView>
+                                        <GridPane alignment="CENTER" VBox.vgrow="ALWAYS">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label alignment="CENTER" styleClass="readOnlyDataKey" text="PHM"/>
+                                                <Label styleClass="readOnlyDataKey" text="MIN LEVEL"
+                                                       GridPane.columnIndex="1"/>
+                                                <Label styleClass="readOnlyDataKey" text="MAX LEVEL"
+                                                       GridPane.columnIndex="2"/>
+                                                <Label styleClass="readOnlyDataKey" text="POWER ON LEVEL"
+                                                       GridPane.columnIndex="3"/>
+                                                <Label styleClass="readOnlyDataKey" text="SYSTEM FAILURE LEVEL"
+                                                       GridPane.columnIndex="4"/>
+                                                <Label fx:id="lblPhm" styleClass="readOnlyDataVal" text="26"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="lblMinLevel" styleClass="readOnlyDataVal" text="170"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="lblMaxLevel" styleClass="readOnlyDataVal" text="240"
+                                                       GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="lblPowerOnLevel" styleClass="readOnlyDataVal" text="254"
+                                                       GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="lblSystemFailLevel" styleClass="readOnlyDataVal"
+                                                       text="254" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="20.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </GridPane>
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="200.0" prefWidth="100.0" styleClass="innerVbox" GridPane.hgrow="NEVER"
-                                      GridPane.rowSpan="4">
+                                <VBox id="settingVbox" prefHeight="200.0" prefWidth="100.0" styleClass="innerVbox"
+                                      GridPane.hgrow="NEVER" GridPane.rowSpan="4">
                                     <children>
                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                             <children>
