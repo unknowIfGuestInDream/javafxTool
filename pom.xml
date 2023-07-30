@@ -56,7 +56,7 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.9.3</junit.version>
+        <junit.version>5.10.0</junit.version>
         <javafx.version>17.0.8</javafx.version>
         <controlsfx.version>11.1.2</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -71,7 +71,7 @@
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.20</hutool.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-lang3.version>3.13.0</commons-lang3.version>
         <logback-classic.version>1.4.8</logback-classic.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -79,7 +79,7 @@
         <log4j2.version>2.20.0</log4j2.version>
         <log4j-over-slf4j.version>2.0.7</log4j-over-slf4j.version>
         <guava.version>32.1.1-jre</guava.version>
-        <caffeine.version>3.1.6</caffeine.version>
+        <caffeine.version>3.1.7</caffeine.version>
         <java-diff-utils.version>4.12</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
         <jexl.version>3.3</jexl.version>
