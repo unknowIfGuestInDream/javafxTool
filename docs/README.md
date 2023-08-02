@@ -15,7 +15,7 @@ freemarker | 2.3.32 | 模板引擎库
 aviator | 5.3.3 | 一门高性能、轻量级寄宿于 JVM之上的脚本语言
 sikulixapi | 2.0.5 | 基于OpenCV图像识别的自动化工具
 commons-lang3 | 3.12.0 | Java工具类库
-hutool | 5.8.20 | Java工具类库
+hutool | 5.8.21 | Java工具类库
 logback | 1.4.8 | Java日志框架
 commons-configuration2 | 2.9.0 | 用于从各种源读取配置数据
 commons-beanutils | 1.9.4 | 一个易于使用但灵活的反射和内省包装器
@@ -29,7 +29,7 @@ tlcsdm-asyncTool | 1.0.0 | 并行工具包
 jackson | 2.15.2 | JSON解析库
 pdfbox | 2.0.29 | 操作PDF文档的库
 commons-io | 2.13.0 | IO工具类
-guava | 32.1.1-jre | Google工具类
+guava | 32.1.2-jre | Google工具类
 groovy | 4.0.13 | Groovy
 
 ## 项目地址
