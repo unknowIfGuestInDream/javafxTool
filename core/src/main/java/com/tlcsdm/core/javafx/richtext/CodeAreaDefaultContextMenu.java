@@ -6,7 +6,7 @@ import org.fxmisc.richtext.CodeArea;
 
 /**
  * Default contextMenu for CodeArea
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/8/3 1414
  */
@@ -15,13 +15,13 @@ public class CodeAreaDefaultContextMenu extends ContextMenu {
 
     public CodeAreaDefaultContextMenu() {
         fold = new MenuItem("Fold selected text");
-        fold.setOnAction(AE -> {
+        fold.setOnAction(ae -> {
             hide();
             fold();
         });
 
         unfold = new MenuItem("Unfold from cursor");
-        unfold.setOnAction(AE -> {
+        unfold.setOnAction(ae -> {
             hide();
             unfold();
         });

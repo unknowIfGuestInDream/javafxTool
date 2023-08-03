@@ -15,22 +15,22 @@ import java.util.function.Consumer;
 
 /**
  * <pre>{@code
-        Consumer<String> showLink = (string) -> {
-            try {
-                Desktop.getDesktop().browse(new URI(string));
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        };
-        TextHyperlinkArea area = new TextHyperlinkArea(showLink);
-        area.appendText("Some text in the area\n");
-        area.appendWithLink("Google.com", "http://www.google.com");
-        VirtualizedScrollPane<TextHyperlinkArea> vsPane = new VirtualizedScrollPane<>(area);
-        Scene scene = new Scene(vsPane, 500, 500);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+ * Consumer<String> showLink = (string) -> {
+ * try {
+ * Desktop.getDesktop().browse(new URI(string));
+ * } catch (IOException | URISyntaxException e) {
+ * throw new RuntimeException(e);
+ * }
+ * };
+ * TextHyperlinkArea area = new TextHyperlinkArea(showLink);
+ * area.appendText("Some text in the area\n");
+ * area.appendWithLink("Google.com", "http://www.google.com");
+ * VirtualizedScrollPane<TextHyperlinkArea> vsPane = new VirtualizedScrollPane<>(area);
+ * Scene scene = new Scene(vsPane, 500, 500);
+ * primaryStage.setScene(scene);
+ * primaryStage.show();
  * }</pre>
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/8/3 14:58
  */
