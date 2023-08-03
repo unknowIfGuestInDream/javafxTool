@@ -43,6 +43,8 @@ import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyInfo;
+import com.tlcsdm.core.util.DependencyInfo.Dependency;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
@@ -104,7 +106,11 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action about = FxAction.about(actionEvent -> {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
-
+                List<Dependency> dependencyList = DependencyInfo.getDependencyList();
+                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j");
+                List<Dependency> list = dependencyList.stream()
+                    .filter(d -> d.inUsed() || smcDependencyList.contains(d.artifact())).toList();
+                // {@link com.tlcsdm.demo.samples.tableview2.HelloFilteredTableView }
             } else {
                 CoreUtil.openWeb(string);
             }
