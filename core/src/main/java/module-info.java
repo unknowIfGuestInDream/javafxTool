@@ -25,10 +25,10 @@ module com.tlcsdm.core {
     requires static org.apache.fontbox;
     requires static org.apache.pdfbox;
     requires org.apache.commons.io;
-    requires org.fxmisc.richtext;
-    requires org.fxmisc.flowless;
-    requires org.fxmisc.undo;
-    requires reactfx;
+    requires static org.fxmisc.richtext;
+    requires static org.fxmisc.flowless;
+    requires static org.fxmisc.undo;
+    requires static reactfx;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

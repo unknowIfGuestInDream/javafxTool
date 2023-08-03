@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 项目总体依赖信息
  * 可能需要手动维护，用于应用项目获取相应数据使用(需要应用模块过滤)
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/8/3 17:05
  */
@@ -83,7 +83,7 @@ public class DependencyInfo {
             new Dependency("org.kordamp.ikonli", "ikonli", "12.3.1", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.0", true, "https://github.com/FXMisc/RichTextFX",
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.0", false, "https://github.com/FXMisc/RichTextFX",
                 "The BSD 2-Clause License", "http://opensource.org/licenses/BSD-2-Clause"),
 
             new Dependency("org.apache.groovy", "groovy", "4.0.13", false, "https://groovy-lang.org",

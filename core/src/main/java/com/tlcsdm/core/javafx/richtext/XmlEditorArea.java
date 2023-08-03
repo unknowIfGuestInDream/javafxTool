@@ -12,16 +12,16 @@ import java.util.regex.Pattern;
 
 /**
  * Xml Editor TextArea
- * 
+ *
  * <pre>{@code
-        XmlEditorArea codeArea = new XmlEditorArea();
-        codeArea.replaceText(0, 0, sampleCode);
-        Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("XML Editor Demo");
-        primaryStage.show();
+ * XmlEditorArea codeArea = new XmlEditorArea();
+ * codeArea.replaceText(0, 0, sampleCode);
+ * Scene scene = new Scene(new StackPane(new VirtualizedScrollPane<>(codeArea)), 600, 400);
+ * primaryStage.setScene(scene);
+ * primaryStage.setTitle("XML Editor Demo");
+ * primaryStage.show();
  * }</pre>
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/8/3 9:16
  */

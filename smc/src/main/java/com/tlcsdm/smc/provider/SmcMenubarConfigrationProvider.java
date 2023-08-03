@@ -27,8 +27,6 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
@@ -65,6 +63,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -107,7 +107,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j", "java-diff-utils");
+                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j", "java-diff-utils", "richtextfx");
                 List<Dependency> list = dependencyList.stream()
                     .filter(d -> d.inUsed() || smcDependencyList.contains(d.artifact())).toList();
                 // {@link com.tlcsdm.demo.samples.tableview2.HelloFilteredTableView }
