@@ -13,39 +13,51 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * <pre>{@code
+        Consumer<String> showLink = (string) -> {
+            try {
+                Desktop.getDesktop().browse(new URI(string));
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        };
+        TextHyperlinkArea area = new TextHyperlinkArea(showLink);
+        area.appendText("Some text in the area\n");
+        area.appendWithLink("Google.com", "http://www.google.com");
+        VirtualizedScrollPane<TextHyperlinkArea> vsPane = new VirtualizedScrollPane<>(area);
+        Scene scene = new Scene(vsPane, 500, 500);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+ * }</pre>
+ * 
+ * @author: unknowIfGuestInDream
+ * @date: 2023/8/3 14:58
+ */
 public class TextHyperlinkArea extends GenericStyledArea<Void, Either<String, Hyperlink>, TextStyle> {
 
     private static final TextOps<String, TextStyle> STYLED_TEXT_OPS = SegmentOps.styledTextOps();
     private static final HyperlinkOps<TextStyle> HYPERLINK_OPS = new HyperlinkOps<>();
 
-    private static final TextOps<Either<String, Hyperlink>, TextStyle> EITHER_OPS = STYLED_TEXT_OPS._or(HYPERLINK_OPS, (s1, s2) -> Optional.empty());
+    private static final TextOps<Either<String, Hyperlink>, TextStyle> EITHER_OPS = STYLED_TEXT_OPS._or(HYPERLINK_OPS,
+        (s1, s2) -> Optional.empty());
 
     public TextHyperlinkArea(Consumer<String> showLink) {
-        super(
-            null,
-            (t, p) -> {
-            },
-            TextStyle.EMPTY,
-            EITHER_OPS,
-            e -> e.getSegment().unify(
-                text ->
-                    createStyledTextNode(t -> {
-                        t.setText(text);
-                        t.setStyle(e.getStyle().toCss());
-                    }),
-                hyperlink ->
-                    createStyledTextNode(t -> {
-                        if (hyperlink.isReal()) {
-                            t.setText(hyperlink.getDisplayedText());
-                            t.getStyleClass().add("hyperlink");
-                            t.setOnMouseClicked(ae -> showLink.accept(hyperlink.getLink()));
-                        }
-                    })
-            )
-        );
+        super(null, (t, p) -> {
+        }, TextStyle.EMPTY, EITHER_OPS, e -> e.getSegment().unify(text -> createStyledTextNode(t -> {
+            t.setText(text);
+            t.setStyle(e.getStyle().toCss());
+        }), hyperlink -> createStyledTextNode(t -> {
+            if (hyperlink.isReal()) {
+                t.setText(hyperlink.getDisplayedText());
+                t.getStyleClass().add("hyperlink");
+                t.setOnMouseClicked(ae -> showLink.accept(hyperlink.getLink()));
+            }
+        })));
 
         getStyleClass().add("text-hyperlink-area");
-        getStylesheets().add(TextHyperlinkArea.class.getResource("/com/tlcsdm/core/static/javafx/richtext/text-hyperlink-area.css").toExternalForm());
+        getStylesheets().add(TextHyperlinkArea.class
+            .getResource("/com/tlcsdm/core/static/javafx/richtext/text-hyperlink-area.css").toExternalForm());
     }
 
     public void appendWithLink(String displayedText, String link) {
@@ -54,11 +66,7 @@ public class TextHyperlinkArea extends GenericStyledArea<Void, Either<String, Hy
 
     public void replaceWithLink(int start, int end, String displayedText, String link) {
         replace(start, end, ReadOnlyStyledDocument.fromSegment(
-            Either.right(new Hyperlink(displayedText, displayedText, link)),
-            null,
-            TextStyle.EMPTY,
-            EITHER_OPS
-        ));
+            Either.right(new Hyperlink(displayedText, displayedText, link)), null, TextStyle.EMPTY, EITHER_OPS));
     }
 
     @Override
@@ -74,9 +82,8 @@ public class TextHyperlinkArea extends GenericStyledArea<Void, Either<String, Hy
                 return;
             }
         }
-        StyledDocument<Void, Either<String, Hyperlink>, TextStyle> doc = ReadOnlyStyledDocument.fromString(
-            text, getParagraphStyleForInsertionAt(start), getTextStyleForInsertionAt(start), EITHER_OPS
-        );
+        StyledDocument<Void, Either<String, Hyperlink>, TextStyle> doc = ReadOnlyStyledDocument.fromString(text,
+            getParagraphStyleForInsertionAt(start), getTextStyleForInsertionAt(start), EITHER_OPS);
         replace(start, end, doc);
     }
 

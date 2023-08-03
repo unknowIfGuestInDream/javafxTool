@@ -27,6 +27,7 @@ module com.tlcsdm.core {
     requires org.apache.commons.io;
     requires org.fxmisc.richtext;
     requires org.fxmisc.flowless;
+    requires org.fxmisc.undo;
     requires reactfx;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
