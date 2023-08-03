@@ -107,7 +107,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j");
+                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j", "java-diff-utils");
                 List<Dependency> list = dependencyList.stream()
                     .filter(d -> d.inUsed() || smcDependencyList.contains(d.artifact())).toList();
                 // {@link com.tlcsdm.demo.samples.tableview2.HelloFilteredTableView }
