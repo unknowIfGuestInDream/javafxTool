@@ -26,6 +26,9 @@ module com.tlcsdm.core {
     requires static org.apache.pdfbox;
     requires org.apache.commons.io;
     requires static org.fxmisc.richtext;
+    requires static org.fxmisc.flowless;
+    requires static org.fxmisc.undo;
+    requires static reactfx;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -38,6 +41,8 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.javafx.helper;
     exports com.tlcsdm.core.javafx.util;
     exports com.tlcsdm.core.javafx.bind;
+    exports com.tlcsdm.core.javafx.richtext;
+    exports com.tlcsdm.core.javafx.richtext.hyperlink;
     exports com.tlcsdm.core.util;
     exports com.tlcsdm.core.exception;
     exports com.tlcsdm.core.annotation;

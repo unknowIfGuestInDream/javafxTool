@@ -29,41 +29,54 @@ package com.tlcsdm.smc.provider;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.HyperlinkTableCell;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.richtext.PropertiesArea;
+import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
+import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyInfo;
+import com.tlcsdm.core.util.DependencyInfo.Dependency;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+import java.util.function.Consumer;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -96,60 +109,114 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/smc/"));
 
-    private final Action openSysConfig = FxAction.openSysConfig(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+    private final Action openSysConfig = FxAction.openSysConfig(actionEvent -> {
+        VBox vbox = new VBox();
+        Button button = FxButton.openWithSystemWithGrapgic();
+        button
+            .setOnAction(ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+        PropertiesArea area = new PropertiesArea();
+        area.setEditable(false);
+        area.appendText(
+            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
+        VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
+        vbox.getChildren().addAll(button, pane);
+        VBox.setVgrow(pane, Priority.ALWAYS);
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openSysConfigDir"))
+            .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+            .setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
 
-    private final Action openUserData = FxAction.openUserData(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+    });
+
+    private final Action openUserData = FxAction.openUserData(actionEvent -> {
+        VBox vbox = new VBox();
+        Button button = FxButton.openWithSystemWithGrapgic();
+        button.setOnAction(
+            ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+        XmlEditorArea area = new XmlEditorArea();
+        area.setEditable(false);
+        area.appendText(
+            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+        VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
+        vbox.getChildren().addAll(button, pane);
+        VBox.setVgrow(pane, Priority.ALWAYS);
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openUserData")).setOwner(FxApp.primaryStage)
+            .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
+    });
 
     private final Action about = FxAction.about(actionEvent -> {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
-        alert.setResizable(false);
-        alert.setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title);
-        alert.setHeaderText(FxApp.title);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.initOwner(stage);
-        ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
-        alert.setGraphic(imageView);
-        ButtonType closeButton = new ButtonType(I18nUtils.get("smc.menubar.help.about.button.close"),
-            ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().addAll(closeButton);
-        Map<String, String> map = new HashMap<>(32);
-        map.put("versionLabel", I18nUtils.get("smc.menubar.help.about.contentText.version"));
-        map.put("version", SmcSample.PROJECT_INFO.getVersion());
-        map.put("dateLabel", I18nUtils.get("smc.menubar.help.about.contentText.date"));
-        map.put("date", SmcSample.PROJECT_INFO.getDate());
-        map.put("licenseNameLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseName"));
-        map.put("licenseName", SmcConstant.PROJECT_LICENSE_NAME);
-        map.put("licenseUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl"));
-        map.put("licenseUrl", SmcConstant.PROJECT_LICENSE_URL);
-        map.put("authorLabel", I18nUtils.get("smc.menubar.help.about.contentText.author"));
-        map.put("author", SmcConstant.PROJECT_AUTHOR);
-        map.put("projectUrlLabel", I18nUtils.get("smc.menubar.help.about.contentText.projectUrl"));
-        map.put("projectUrl", SmcConstant.GITHUB_PROJECT_URL);
-        map.put("technicalSupport", I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport"));
-        map.put("openSourceSoftware", I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"));
-        map.put("copyright", SmcConstant.PROJECT_COPYRIGHT);
-        String context = """
-            {versionLabel}: {version}
-            {dateLabel}: {date}
-            {licenseNameLabel}: {licenseName}
-            {licenseUrlLabel}: {licenseUrl}
-
-            {authorLabel}: {author}
-            {projectUrlLabel}: {projectUrl}
-
-            {technicalSupport}: [{openSourceSoftware}]
-            {copyright}
-            """;
-        alert.setContentText(StrUtil.format(context, map));
-        alert.show();
-        alert.resultProperty().addListener(o -> {
-            if (closeButton.equals(alert.getResult())) {
-                alert.close();
+        Consumer<String> showLink = (string) -> {
+            if ("openSourceSoftware".equals(string)) {
+                List<Dependency> dependencyList = DependencyInfo.getDependencyList();
+                List<Dependency> currentList = dependencyList.stream()
+                    .filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
+                TableView<Dependency> tableView = new TableView<>();
+                TableColumn<Dependency, String> groupCol = new TableColumn<>("Group");
+                groupCol.setCellValueFactory(new PropertyValueFactory<>("group"));
+                TableColumn<Dependency, String> artifactCol = new TableColumn<>("Artifact");
+                artifactCol.setCellValueFactory(new PropertyValueFactory<>("artifact"));
+                artifactCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getUrl()));
+                TableColumn<Dependency, String> versionCol = new TableColumn<>("Version");
+                versionCol.setCellValueFactory(new PropertyValueFactory<>("version"));
+                TableColumn<Dependency, String> licenseCol = new TableColumn<>("License");
+                licenseCol.setCellValueFactory(new PropertyValueFactory<>("license"));
+                licenseCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getLicenseUrl()));
+                tableView.getColumns().addAll(groupCol, artifactCol, versionCol, licenseCol);
+                ObservableList<Dependency> list = FXCollections.observableArrayList(currentList);
+                tableView.setItems(list);
+                tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                VBox vbox = new VBox();
+                vbox.getChildren().add(tableView);
+                VBox.setVgrow(tableView, Priority.ALWAYS);
+                FxDialog<VBox> dialog = new FxDialog<VBox>()
+                    .setTitle(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"))
+                    .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+                    .setButtonTypes(ButtonType.CLOSE);
+                dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                dialog.show();
+            } else {
+                CoreUtil.openWeb(string);
             }
-        });
+        };
+        VBox vbox = new VBox();
+        ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
+        TextHyperlinkArea area = new TextHyperlinkArea(showLink);
+        area.setEditable(false);
+        area.setStyle("-fx-font-size: 14;-fx-padding: 10 0 0 0;");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.version") + ": "
+            + SmcSample.PROJECT_INFO.getVersion() + "\n");
+        area.appendText(
+            I18nUtils.get("smc.menubar.help.about.contentText.date") + ": " + SmcSample.PROJECT_INFO.getDate() + "\n");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseName") + ": "
+            + SmcConstant.PROJECT_LICENSE_NAME + "\n");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl") + ": ");
+        area.appendWithLink(SmcConstant.PROJECT_LICENSE_URL, SmcConstant.PROJECT_LICENSE_URL);
+        area.appendText("\n");
+        area.appendText("\n");
+        area.appendText(
+            I18nUtils.get("smc.menubar.help.about.contentText.author") + ": " + SmcConstant.PROJECT_AUTHOR + "\n");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.projectUrl") + ": ");
+        area.appendWithLink(SmcConstant.GITHUB_PROJECT_URL, SmcConstant.GITHUB_PROJECT_URL);
+        area.appendText("\n");
+        area.appendText("\n");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport") + ": [");
+        area.appendWithLink(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"),
+            "openSourceSoftware");
+        area.appendText("]\n");
+        area.appendText(SmcConstant.PROJECT_COPYRIGHT);
+        vbox.getChildren().addAll(imageView, area);
+        VBox.setVgrow(area, Priority.ALWAYS);
+
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
+            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
     });
 
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(SmcConstant.PROJECT_RELEASE_URL));
