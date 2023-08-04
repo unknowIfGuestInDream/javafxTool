@@ -27,14 +27,28 @@
 
 package com.tlcsdm.core.javafx.controlsfx;
 
+import cn.hutool.core.io.FileUtil;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.richtext.PropertiesArea;
+import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.action.Action;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 
 import java.util.function.Consumer;
 
@@ -191,12 +205,55 @@ public class FxAction {
         return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
     }
 
+    public static Action openSysConfig() {
+        return openSysConfig(actionEvent -> {
+            VBox vbox = new VBox();
+            Button button = FxButton.openWithSystemWithGrapgic();
+            button
+                .setOnAction(ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+            PropertiesArea area = new PropertiesArea();
+            area.setEditable(false);
+            area.appendText(
+                FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
+            VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
+            vbox.getChildren().addAll(button, pane);
+            VBox.setVgrow(pane, Priority.ALWAYS);
+            FxDialog<VBox> dialog = new FxDialog<VBox>()
+                .setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
+                .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+                .setButtonTypes(ButtonType.CLOSE);
+            dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+            dialog.show();
+        });
+    }
+
     public static Action openSysConfig(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/sysConfig.png");
     }
 
     public static Action openUserData(Consumer<ActionEvent> eventHandler) {
         return openUserData(I18nUtils.get("core.menubar.help.openUserData"), eventHandler);
+    }
+
+    public static Action openUserData() {
+        return openUserData(actionEvent -> {
+            VBox vbox = new VBox();
+            Button button = FxButton.openWithSystemWithGrapgic();
+            button.setOnAction(
+                ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+            XmlEditorArea area = new XmlEditorArea();
+            area.setEditable(false);
+            area.appendText(
+                FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+            VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
+            vbox.getChildren().addAll(button, pane);
+            VBox.setVgrow(pane, Priority.ALWAYS);
+            FxDialog<VBox> dialog = new FxDialog<VBox>()
+                .setTitle(I18nUtils.get("core.menubar.help.openUserData")).setOwner(FxApp.primaryStage)
+                .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+            dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+            dialog.show();
+        });
     }
 
     public static Action openUserData(String text, Consumer<ActionEvent> eventHandler) {

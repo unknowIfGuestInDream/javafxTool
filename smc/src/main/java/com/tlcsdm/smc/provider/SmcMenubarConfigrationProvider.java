@@ -27,24 +27,17 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.HyperlinkTableCell;
+import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.javafx.richtext.PropertiesArea;
-import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
@@ -56,14 +49,8 @@ import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -71,22 +58,19 @@ import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
-import org.fxmisc.flowless.VirtualizedScrollPane;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public class SmcMenubarConfigrationProvider implements MenubarConfigration {
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
-    private final Stage stage = FXSampler.getStage();
+public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());
 
-    private final Action export = FxAction.export(actionEvent -> {
-        FxXmlHelper.exportData(SmcConstant.PROJECT_NAME);
-    });
+    private final Action export = FxAction.export(actionEvent -> FxXmlHelper.exportData(SmcConstant.PROJECT_NAME));
 
     private final Action induct = FxAction.induct(actionEvent -> {
         FxXmlHelper.importData(SmcConstant.PROJECT_NAME);
@@ -109,66 +93,17 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/smc/"));
 
-    private final Action openSysConfig = FxAction.openSysConfig(actionEvent -> {
-        VBox vbox = new VBox();
-        Button button = FxButton.openWithSystemWithGrapgic();
-        button
-            .setOnAction(ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
-        PropertiesArea area = new PropertiesArea();
-        area.setEditable(false);
-        area.appendText(
-            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
-        VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
-        vbox.getChildren().addAll(button, pane);
-        VBox.setVgrow(pane, Priority.ALWAYS);
-        FxDialog<VBox> dialog = new FxDialog<VBox>()
-            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openSysConfigDir"))
-            .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
-            .setButtonTypes(ButtonType.CLOSE);
-        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
-        dialog.show();
-    });
+    private final Action openSysConfig = FxAction.openSysConfig();
 
-    private final Action openUserData = FxAction.openUserData(actionEvent -> {
-        VBox vbox = new VBox();
-        Button button = FxButton.openWithSystemWithGrapgic();
-        button.setOnAction(
-            ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
-        XmlEditorArea area = new XmlEditorArea();
-        area.setEditable(false);
-        area.appendText(
-            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
-        VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
-        vbox.getChildren().addAll(button, pane);
-        VBox.setVgrow(pane, Priority.ALWAYS);
-        FxDialog<VBox> dialog = new FxDialog<VBox>()
-            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openUserData")).setOwner(FxApp.primaryStage)
-            .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
-        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
-        dialog.show();
-    });
+    private final Action openUserData = FxAction.openUserData();
 
     private final Action about = FxAction.about(actionEvent -> {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<Dependency> currentList = dependencyList.stream()
+                List<Dependency> list = dependencyList.stream()
                     .filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
-                TableView<Dependency> tableView = new TableView<>();
-                TableColumn<Dependency, String> groupCol = new TableColumn<>("Group");
-                groupCol.setCellValueFactory(new PropertyValueFactory<>("group"));
-                TableColumn<Dependency, String> artifactCol = new TableColumn<>("Artifact");
-                artifactCol.setCellValueFactory(new PropertyValueFactory<>("artifact"));
-                artifactCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getUrl()));
-                TableColumn<Dependency, String> versionCol = new TableColumn<>("Version");
-                versionCol.setCellValueFactory(new PropertyValueFactory<>("version"));
-                TableColumn<Dependency, String> licenseCol = new TableColumn<>("License");
-                licenseCol.setCellValueFactory(new PropertyValueFactory<>("license"));
-                licenseCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getLicenseUrl()));
-                tableView.getColumns().addAll(groupCol, artifactCol, versionCol, licenseCol);
-                ObservableList<Dependency> list = FXCollections.observableArrayList(currentList);
-                tableView.setItems(list);
-                tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                DependencyTableView tableView = new DependencyTableView(list);
                 VBox vbox = new VBox();
                 vbox.getChildren().add(tableView);
                 VBox.setVgrow(tableView, Priority.ALWAYS);
