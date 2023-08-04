@@ -166,6 +166,11 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     }
 
     @Override
+    public String getSampleVersion() {
+        return "1.0.5";
+    }
+
+    @Override
     public String getSampleName() {
         return "U2CEcmScript";
     }
