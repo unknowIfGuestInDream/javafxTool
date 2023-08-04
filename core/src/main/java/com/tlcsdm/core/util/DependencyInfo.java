@@ -1,5 +1,8 @@
 package com.tlcsdm.core.util;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.List;
 
 /**
@@ -96,8 +99,109 @@ public class DependencyInfo {
                 "GNU LESSER GENERAL PUBLIC LICENSE", "http://www.gnu.org/licenses/lgpl.html"));
     }
 
-    public record Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-        String licenseUrl) {
+    public static class Dependency {
 
+        private final SimpleStringProperty group;
+        private final SimpleStringProperty artifact;
+        private final SimpleStringProperty version;
+        private final SimpleBooleanProperty inUsed;
+        private final SimpleStringProperty url;
+        private final SimpleStringProperty license;
+        private final SimpleStringProperty licenseUrl;
+
+        public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
+            String licenseUrl) {
+            this.group = new SimpleStringProperty(group);
+            this.artifact = new SimpleStringProperty(artifact);
+            this.version = new SimpleStringProperty(version);
+            this.inUsed = new SimpleBooleanProperty(inUsed);
+            this.url = new SimpleStringProperty(url);
+            this.license = new SimpleStringProperty(license);
+            this.licenseUrl = new SimpleStringProperty(licenseUrl);
+        }
+
+        public SimpleStringProperty group() {
+            return group;
+        }
+
+        public SimpleStringProperty artifact() {
+            return artifact;
+        }
+
+        public SimpleStringProperty version() {
+            return version;
+        }
+
+        public SimpleBooleanProperty inUsed() {
+            return inUsed;
+        }
+
+        public SimpleStringProperty url() {
+            return url;
+        }
+
+        public SimpleStringProperty license() {
+            return license;
+        }
+
+        public SimpleStringProperty licenseUrl() {
+            return licenseUrl;
+        }
+
+        public String getGroup() {
+            return group.get();
+        }
+
+        public void setGroup(String group) {
+            this.group.set(group);
+        }
+
+        public String getArtifact() {
+            return artifact.get();
+        }
+
+        public void setArtifact(String artifact) {
+            this.artifact.set(artifact);
+        }
+
+        public String getVersion() {
+            return version.get();
+        }
+
+        public void setVersion(String version) {
+            this.version.set(version);
+        }
+
+        public Boolean getInUsed() {
+            return inUsed.get();
+        }
+
+        public void setInUsed(boolean inUsed) {
+            this.inUsed.set(inUsed);
+        }
+
+        public String getUrl() {
+            return url.get();
+        }
+
+        public void setUrl(String url) {
+            this.url.set(url);
+        }
+
+        public String getLicense() {
+            return license.get();
+        }
+
+        public void setLicense(String license) {
+            this.license.set(license);
+        }
+
+        public String getLicenseUrl() {
+            return licenseUrl.get();
+        }
+
+        public void setLicenseUrl(String licenseUrl) {
+            this.licenseUrl.set(licenseUrl);
+        }
     }
 }
