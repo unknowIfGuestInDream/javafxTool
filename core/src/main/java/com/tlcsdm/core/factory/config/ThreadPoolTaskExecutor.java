@@ -35,6 +35,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 线程池初始化
@@ -50,6 +51,7 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
     private static int queueSize;
     private static String threadPreName;
     private static RejectedExecutionHandler handler;
+    private static AtomicBoolean hasInitialized = new AtomicBoolean();
 
     @Override
     public void initialize() throws Exception {
@@ -60,6 +62,7 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
         queueSize = 200;
         threadPreName = "sample-%d";
         handler = new ThreadPoolExecutor.CallerRunsPolicy();
+        hasInitialized.set(true);
     }
 
     public static ThreadPoolExecutor get() {
@@ -72,5 +75,9 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
             new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
                 .uncaughtExceptionHandler((t, e) -> StaticLog.error(e)).build(),
             handler);
+    }
+
+    public static boolean hasInitialized() {
+        return hasInitialized.get();
     }
 }

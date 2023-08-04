@@ -74,4 +74,13 @@ public class FxButton {
             LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/copy.png")));
     }
 
+    public static Button openWithSystem() {
+        return new Button(I18nUtils.get("core.button.openWithSystem"));
+    }
+
+    public static Button openWithSystemWithGrapgic() {
+        return new Button(I18nUtils.get("core.button.openWithSystem"),
+            LayoutHelper.iconView(FxButton.class.getResource("/com/tlcsdm/core/static/icon/editor.png")));
+    }
+
 }
