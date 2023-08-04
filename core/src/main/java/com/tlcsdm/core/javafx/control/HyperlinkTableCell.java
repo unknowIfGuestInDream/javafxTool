@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 /**
  * Hyperlink Cell for TableView
- * 
+ *
  * @author: unknowIfGuestInDream
  * @date: 2023/8/4 13:43
  */
@@ -35,16 +35,15 @@ public class HyperlinkTableCell<S, T> extends TableCell<S, T> {
             setText(null);
             setGraphic(null);
         } else {
-            setGraphic(hyperlink);
-            getTableRow();
-            getTableView().getItems();
-            hyperlink.setText(getTableColumn().getCellObservableValue(getIndex()).getValue().toString());
-            hyperlink.setOnAction(e -> {
-                String url = func.apply(getTableView().getItems().get(getIndex())).toString();
-                if (!url.isEmpty()) {
-                    CoreUtil.openWeb(url);
-                }
-            });
+            String url = func.apply(getTableView().getItems().get(getIndex())).toString();
+            if (!url.isEmpty()) {
+                setGraphic(hyperlink);
+                hyperlink.setText(getTableColumn().getCellObservableValue(getIndex()).getValue().toString());
+                hyperlink.setOnAction(e -> CoreUtil.openWeb(url));
+            } else {
+                setGraphic(null);
+                setText(getTableColumn().getCellObservableValue(getIndex()).getValue().toString());
+            }
         }
     }
 
