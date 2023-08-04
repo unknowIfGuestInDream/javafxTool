@@ -88,6 +88,14 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
         String errorSourceenName = (String) errorSource.get("errorSourceEnName");
         String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
+        // 特殊处理line 103, 104的errorSourceEnName
+        if ("CANXL safety relevant interrupt".equals(errorSourceenName)) {
+            if (errorSourcejpName.startsWith("CANXL0")) {
+                errorSourceenName = "CANXL0 safety relevant interrupt";
+            } else if (errorSourcejpName.startsWith("CANXL1")) {
+                errorSourceenName = "CANXL1 safety relevant interrupt";
+            }
+        }
         errorSourceenName = cleanErrorSourceData(errorSourceenName);
         errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
         if (errorSourceenName.endsWith("*5")) {
@@ -104,7 +112,7 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
 
     @Override
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                           boolean optMaskintStatus) {
+        boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
