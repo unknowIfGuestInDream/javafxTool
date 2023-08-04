@@ -70,7 +70,7 @@
         <aviator.version>5.3.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
-        <hutool.version>5.8.20</hutool.version>
+        <hutool.version>5.8.21</hutool.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <logback-classic.version>1.4.8</logback-classic.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
@@ -78,7 +78,7 @@
         <reflections.version>0.10.2</reflections.version>
         <log4j2.version>2.20.0</log4j2.version>
         <log4j-over-slf4j.version>2.0.7</log4j-over-slf4j.version>
-        <guava.version>32.1.1-jre</guava.version>
+        <guava.version>32.1.2-jre</guava.version>
         <caffeine.version>3.1.7</caffeine.version>
         <java-diff-utils.version>4.12</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
