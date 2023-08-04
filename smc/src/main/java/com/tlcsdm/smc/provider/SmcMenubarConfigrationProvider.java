@@ -127,7 +127,6 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
             .setButtonTypes(ButtonType.CLOSE);
         dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
-
     });
 
     private final Action openUserData = FxAction.openUserData(actionEvent -> {
