@@ -12,11 +12,11 @@
 }
 
 .attribute {
-    -fx-fill: darkviolet;
+    -fx-fill: green;
 }
 
 .avalue {
-    -fx-fill: black;
+    -fx-fill: blue;
 }
 
 .comment {

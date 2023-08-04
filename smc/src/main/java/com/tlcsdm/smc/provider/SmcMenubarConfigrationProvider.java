@@ -27,14 +27,20 @@
 
 package com.tlcsdm.smc.provider;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.richtext.PropertiesArea;
+import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
@@ -49,6 +55,7 @@ import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
@@ -58,13 +65,12 @@ import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -97,11 +103,45 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/smc/"));
 
-    private final Action openSysConfig = FxAction.openSysConfig(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+    private final Action openSysConfig = FxAction.openSysConfig(actionEvent -> {
+        VBox vbox = new VBox();
+        Button button = FxButton.openWithSystemWithGrapgic();
+        button
+            .setOnAction(ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+        PropertiesArea area = new PropertiesArea();
+        area.setEditable(false);
+        area.appendText(
+            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
+        VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
+        vbox.getChildren().addAll(button, pane);
+        VBox.setVgrow(pane, Priority.ALWAYS);
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openSysConfigDir"))
+            .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+            .setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
 
-    private final Action openUserData = FxAction.openUserData(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+    });
+
+    private final Action openUserData = FxAction.openUserData(actionEvent -> {
+        VBox vbox = new VBox();
+        Button button = FxButton.openWithSystemWithGrapgic();
+        button.setOnAction(
+            ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+        XmlEditorArea area = new XmlEditorArea();
+        area.setEditable(false);
+        area.appendText(
+            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+        VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
+        vbox.getChildren().addAll(button, pane);
+        VBox.setVgrow(pane, Priority.ALWAYS);
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(com.tlcsdm.core.util.I18nUtils.get("core.menubar.help.openUserData")).setOwner(FxApp.primaryStage)
+            .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
+    });
 
     private final Action about = FxAction.about(actionEvent -> {
         Consumer<String> showLink = (string) -> {
@@ -146,8 +186,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
         FxDialog<VBox> dialog = new FxDialog<VBox>()
             .setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
-            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(ButtonType.CANCEL);
-        dialog.setButtonHandler(ButtonType.CANCEL, (e, s) -> s.close());
+            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     });
 
