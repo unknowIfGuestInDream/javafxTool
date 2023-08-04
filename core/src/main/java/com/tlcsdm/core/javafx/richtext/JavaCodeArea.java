@@ -39,12 +39,12 @@ import java.util.regex.Pattern;
  */
 public class JavaCodeArea extends CodeArea {
 
-    private static final String[] KEYWORDS = new String[]{"abstract", "assert", "boolean", "break", "byte", "case",
+    private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case",
         "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final",
         "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long",
         "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
         "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
-        "record"};
+        "record" };
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
     private static final String PAREN_PATTERN = "\\(|\\)";
@@ -68,7 +68,6 @@ public class JavaCodeArea extends CodeArea {
     // change !
     /*
     Subscription cleanupWhenNoLongerNeedIt = codeArea
-
         // plain changes = ignore style changes that are emitted when syntax
         // highlighting is reapplied
         // multi plain changes = save computation by not rerunning the code multiple
@@ -76,11 +75,9 @@ public class JavaCodeArea extends CodeArea {
         // when making multiple changes (e.g. renaming a method at multiple parts in
         // file)
         .multiPlainChanges()
-
         // do not emit an event until 500 ms have passed since the last emission of
         // previous stream
         .successionEnds(Duration.ofMillis(500))
-
         // run the following code block when previous stream emits an event
         .subscribe(ignore -> codeArea.setStyleSpans(0, computeHighlighting(codeArea.getText())));
     */
@@ -108,8 +105,8 @@ public class JavaCodeArea extends CodeArea {
 
         // auto-indent: insert previous line's indents on enter
         final Pattern whiteSpace = Pattern.compile("^\\s+");
-        this.addEventHandler(KeyEvent.KEY_PRESSED, KE -> {
-            if (KE.getCode() == KeyCode.ENTER) {
+        this.addEventHandler(KeyEvent.KEY_PRESSED, ke -> {
+            if (ke.getCode() == KeyCode.ENTER) {
                 int caretPosition = this.getCaretPosition();
                 int currentParagraph = this.getCurrentParagraph();
                 Matcher m0 = whiteSpace.matcher(this.getParagraph(currentParagraph - 1).getSegments().get(0));
@@ -150,11 +147,11 @@ public class JavaCodeArea extends CodeArea {
         while (matcher.find()) {
             String styleClass = matcher.group("KEYWORD") != null ? "keyword"
                 : matcher.group("PAREN") != null ? "paren"
-                : matcher.group("BRACE") != null ? "brace"
-                : matcher.group("BRACKET") != null ? "bracket"
-                : matcher.group("SEMICOLON") != null ? "semicolon"
-                : matcher.group("STRING") != null ? "string"
-                : matcher.group("COMMENT") != null ? "comment" : null; /* never happens */
+                    : matcher.group("BRACE") != null ? "brace"
+                        : matcher.group("BRACKET") != null ? "bracket"
+                            : matcher.group("SEMICOLON") != null ? "semicolon"
+                                : matcher.group("STRING") != null ? "string"
+                                    : matcher.group("COMMENT") != null ? "comment" : null; /* never happens */
             assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
