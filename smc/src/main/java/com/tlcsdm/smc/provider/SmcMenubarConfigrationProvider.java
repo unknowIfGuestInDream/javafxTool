@@ -33,6 +33,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.HyperlinkTableCell;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
@@ -55,9 +56,14 @@ import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -147,10 +153,32 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<String> smcDependencyList = List.of("poi", "freemarker", "dom4j", "java-diff-utils", "richtextfx");
-                List<Dependency> list = dependencyList.stream()
-                    .filter(d -> d.inUsed() || smcDependencyList.contains(d.artifact())).toList();
-                // {@link com.tlcsdm.demo.samples.tableview2.HelloFilteredTableView }
+                List<Dependency> currentList = dependencyList.stream()
+                    .filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
+                TableView<Dependency> tableView = new TableView<>();
+                TableColumn<Dependency, String> groupCol = new TableColumn<>("Group");
+                groupCol.setCellValueFactory(new PropertyValueFactory<>("group"));
+                TableColumn<Dependency, String> artifactCol = new TableColumn<>("Artifact");
+                artifactCol.setCellValueFactory(new PropertyValueFactory<>("artifact"));
+                artifactCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getUrl()));
+                TableColumn<Dependency, String> versionCol = new TableColumn<>("Version");
+                versionCol.setCellValueFactory(new PropertyValueFactory<>("version"));
+                TableColumn<Dependency, String> licenseCol = new TableColumn<>("License");
+                licenseCol.setCellValueFactory(new PropertyValueFactory<>("license"));
+                licenseCol.setCellFactory(HyperlinkTableCell.forTableColumn(r -> r.getLicenseUrl()));
+                tableView.getColumns().addAll(groupCol, artifactCol, versionCol, licenseCol);
+                ObservableList<Dependency> list = FXCollections.observableArrayList(currentList);
+                tableView.setItems(list);
+                tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                VBox vbox = new VBox();
+                vbox.getChildren().add(tableView);
+                VBox.setVgrow(tableView, Priority.ALWAYS);
+                FxDialog<VBox> dialog = new FxDialog<VBox>()
+                    .setTitle(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"))
+                    .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+                    .setButtonTypes(ButtonType.CLOSE);
+                dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                dialog.show();
             } else {
                 CoreUtil.openWeb(string);
             }

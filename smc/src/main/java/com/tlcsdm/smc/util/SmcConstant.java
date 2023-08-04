@@ -27,6 +27,8 @@
 
 package com.tlcsdm.smc.util;
 
+import java.util.List;
+
 /**
  * smc模块常量
  *
@@ -99,6 +101,12 @@ public class SmcConstant {
      * 用于校验的tag后缀
      */
     public static final String PROJECT_TAG_SUBFIX = "-smc";
+
+    /**
+     * 当前项目加的依赖
+     */
+    public static final List<String> DEPENDENCY_LIST = List.of("poi", "freemarker", "dom4j", "java-diff-utils",
+        "richtextfx");
 
     private SmcConstant() {
     }
