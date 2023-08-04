@@ -80,6 +80,7 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
             future.get(3, TimeUnit.SECONDS);
         } catch (ExecutionException | TimeoutException | UnExpectedResultException e) {
             StaticLog.error("Failed to check for updates");
+            return;
         } catch (InterruptedException e) {
             StaticLog.error(e);
             Thread.currentThread().interrupt();
