@@ -27,53 +27,50 @@
 
 package com.tlcsdm.qe.provider;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyInfo;
+import com.tlcsdm.core.util.DependencyInfo.Dependency;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import com.tlcsdm.qe.util.QeConstant;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
-    private final Stage stage = FXSampler.getStage();
-
     private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());
 
-    private final Action export = FxAction.export(actionEvent -> {
-        FxXmlHelper.exportData(QeConstant.PROJECT_NAME);
-    });
+    private final Action export = FxAction.export(actionEvent -> FxXmlHelper.exportData(QeConstant.PROJECT_NAME));
 
     private final Action induct = FxAction.induct(actionEvent -> {
         FxXmlHelper.importData(QeConstant.PROJECT_NAME);
@@ -96,60 +93,64 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/qe/"));
 
-    private final Action openSysConfig = FxAction.openSysConfig(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+    private final Action openSysConfig = FxAction.openSysConfig();
 
-    private final Action openUserData = FxAction.openUserData(
-        actionEvent -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+    private final Action openUserData = FxAction.openUserData();
 
     private final Action about = FxAction.about(actionEvent -> {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.getDialogPane().setStyle("-fx-min-width: 480; -fx-min-height: 360;");
-        alert.setResizable(false);
-        alert.setTitle(I18nUtils.get("qe.menubar.help.about.title") + " " + FxApp.title);
-        alert.setHeaderText(FxApp.title);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.initOwner(stage);
-        ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
-        alert.setGraphic(imageView);
-        ButtonType closeButton = new ButtonType(I18nUtils.get("qe.menubar.help.about.button.close"),
-            ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().addAll(closeButton);
-        Map<String, String> map = new HashMap<>(32);
-        map.put("versionLabel", I18nUtils.get("qe.menubar.help.about.contentText.version"));
-        map.put("version", QeSample.PROJECT_INFO.getVersion());
-        map.put("dateLabel", I18nUtils.get("qe.menubar.help.about.contentText.date"));
-        map.put("date", QeSample.PROJECT_INFO.getDate());
-        map.put("licenseNameLabel", I18nUtils.get("qe.menubar.help.about.contentText.licenseName"));
-        map.put("licenseName", QeConstant.PROJECT_LICENSE_NAME);
-        map.put("licenseUrlLabel", I18nUtils.get("qe.menubar.help.about.contentText.licenseUrl"));
-        map.put("licenseUrl", QeConstant.PROJECT_LICENSE_URL);
-        map.put("authorLabel", I18nUtils.get("qe.menubar.help.about.contentText.author"));
-        map.put("author", QeConstant.PROJECT_AUTHOR);
-        map.put("projectUrlLabel", I18nUtils.get("qe.menubar.help.about.contentText.projectUrl"));
-        map.put("projectUrl", QeConstant.GITHUB_PROJECT_URL);
-        map.put("technicalSupport", I18nUtils.get("qe.menubar.help.about.contentText.technicalSupport"));
-        map.put("openSourceSoftware", I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"));
-        map.put("copyright", QeConstant.PROJECT_COPYRIGHT);
-        String context = """
-            {versionLabel}: {version}
-            {dateLabel}: {date}
-            {licenseNameLabel}: {licenseName}
-            {licenseUrlLabel}: {licenseUrl}
-
-            {authorLabel}: {author}
-            {projectUrlLabel}: {projectUrl}
-
-            {technicalSupport}: [{openSourceSoftware}]
-            {copyright}
-            """;
-        alert.setContentText(StrUtil.format(context, map));
-        alert.show();
-        alert.resultProperty().addListener(o -> {
-            if (closeButton.equals(alert.getResult())) {
-                alert.close();
+        Consumer<String> showLink = (string) -> {
+            if ("openSourceSoftware".equals(string)) {
+                List<Dependency> dependencyList = DependencyInfo.getDependencyList();
+                List<Dependency> list = dependencyList.stream()
+                    .filter(d -> d.getInUsed() || QeConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
+                DependencyTableView tableView = new DependencyTableView(list);
+                VBox vbox = new VBox();
+                vbox.getChildren().add(tableView);
+                VBox.setVgrow(tableView, Priority.ALWAYS);
+                FxDialog<VBox> dialog = new FxDialog<VBox>()
+                    .setTitle(I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"))
+                    .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+                    .setButtonTypes(ButtonType.CLOSE);
+                dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                dialog.show();
+            } else {
+                CoreUtil.openWeb(string);
             }
-        });
+        };
+        VBox vbox = new VBox();
+        ImageView imageView = LayoutHelper.iconView(FxApp.appIcon, 80);
+        TextHyperlinkArea area = new TextHyperlinkArea(showLink);
+        area.setEditable(false);
+        area.setStyle("-fx-font-size: 14;-fx-padding: 10 0 0 0;");
+        area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.version") + ": "
+            + QeSample.PROJECT_INFO.getVersion() + "\n");
+        area.appendText(
+            I18nUtils.get("qe.menubar.help.about.contentText.date") + ": " + QeSample.PROJECT_INFO.getDate() + "\n");
+        area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.licenseName") + ": "
+            + QeConstant.PROJECT_LICENSE_NAME + "\n");
+        area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.licenseUrl") + ": ");
+        area.appendWithLink(QeConstant.PROJECT_LICENSE_URL, QeConstant.PROJECT_LICENSE_URL);
+        area.appendText("\n");
+        area.appendText("\n");
+        area.appendText(
+            I18nUtils.get("qe.menubar.help.about.contentText.author") + ": " + QeConstant.PROJECT_AUTHOR + "\n");
+        area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.projectUrl") + ": ");
+        area.appendWithLink(QeConstant.GITHUB_PROJECT_URL, QeConstant.GITHUB_PROJECT_URL);
+        area.appendText("\n");
+        area.appendText("\n");
+        area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.technicalSupport") + ": [");
+        area.appendWithLink(I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"),
+            "openSourceSoftware");
+        area.appendText("]\n");
+        area.appendText(QeConstant.PROJECT_COPYRIGHT);
+        vbox.getChildren().addAll(imageView, area);
+        VBox.setVgrow(area, Priority.ALWAYS);
+
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(I18nUtils.get("qe.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
+            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
     });
 
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(QeConstant.PROJECT_RELEASE_URL));
