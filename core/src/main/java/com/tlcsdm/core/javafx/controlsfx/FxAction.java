@@ -37,6 +37,7 @@ import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.PropertiesArea;
 import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
+import com.tlcsdm.core.javafx.stage.ScreenColorPickerStage;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
@@ -160,6 +161,12 @@ public class FxAction {
         return create(I18nUtils.get("core.menubar.setting.pathWatch"), actionEvent -> {
             PathWatchToolDialog.openPathWatchTool(I18nUtils.get("core.menubar.setting.pathWatch"));
         }, "/com/tlcsdm/core/static/menubar/monitor.png");
+    }
+
+    public static Action colorPicker() {
+        return create(I18nUtils.get("core.menubar.setting.colorPicker"), actionEvent -> {
+            new ScreenColorPickerStage().showStage();
+        }, "/com/tlcsdm/core/static/menubar/colorPicker.png");
     }
 
     public static Action about(Consumer<ActionEvent> eventHandler) {

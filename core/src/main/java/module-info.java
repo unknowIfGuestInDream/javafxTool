@@ -41,6 +41,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.javafx.helper;
     exports com.tlcsdm.core.javafx.util;
     exports com.tlcsdm.core.javafx.bind;
+    exports com.tlcsdm.core.javafx.stage;
     exports com.tlcsdm.core.javafx.richtext;
     exports com.tlcsdm.core.javafx.richtext.hyperlink;
     exports com.tlcsdm.core.util;
