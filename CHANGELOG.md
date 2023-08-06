@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## [v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33
+
+1. Added control Panel setting interface for frame
+2. U2C ECM adds special handling
+3. Added open source dependency information display
+4. Added color picker and screenshot tool
+5. Added documentation links for JavaFX, CSS and FXML
+
+### Feature
+
+- smc:
+  - 新增文档链接 (#643) ([0c12d16](https://github.com/unknowIfGuestInDream/javafxTool/commit/0c12d167f27e78025745115c5604150bc37a973b)) ([#643](https://github.com/unknowIfGuestInDream/javafxTool/pull/643))
+
+- core:
+  - 新增颜色取号器 (#642) ([550eec9](https://github.com/unknowIfGuestInDream/javafxTool/commit/550eec99c3c693455a580b961c7288c10759b798)) ([#642](https://github.com/unknowIfGuestInDream/javafxTool/pull/642))
+
+- general:
+  - Improve HyperlinkTableCell (#639) ([a4ba332](https://github.com/unknowIfGuestInDream/javafxTool/commit/a4ba33210d868eece285865e2bf3fe755a0b6830)) ([#639](https://github.com/unknowIfGuestInDream/javafxTool/pull/639))
+  - Add Dependency tableView modal (#638) ([6aa0a1c](https://github.com/unknowIfGuestInDream/javafxTool/commit/6aa0a1cea8c2edb18ce31d98d240a3c415a3ff24)) ([#638](https://github.com/unknowIfGuestInDream/javafxTool/pull/638))
+
+- frame:
+  - Add rightPane control interface (#618) ([7034b43](https://github.com/unknowIfGuestInDream/javafxTool/commit/7034b436195832a8685da1f503f0dc70bc3eda51)) ([#618](https://github.com/unknowIfGuestInDream/javafxTool/pull/618))
+
+### Bug Fixes
+
+- smc:
+  - U2C数据特殊处理 (#629) ([08eb5f4](https://github.com/unknowIfGuestInDream/javafxTool/commit/08eb5f4fac28383b8670152836b2556027515193)) ([#629](https://github.com/unknowIfGuestInDream/javafxTool/pull/629))
+
+- core:
+  - richtext工具添加 (#617) ([3ec3534](https://github.com/unknowIfGuestInDream/javafxTool/commit/3ec35344652179180c84b29a92141681dae84cf6)) ([#617](https://github.com/unknowIfGuestInDream/javafxTool/pull/617))
+
 ## [v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36
 
 1. Fix unrecognized problem with common module
