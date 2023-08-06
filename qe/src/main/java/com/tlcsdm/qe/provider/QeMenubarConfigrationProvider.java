@@ -101,6 +101,10 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openUserData = FxAction.openUserData();
 
+    private final Action api = FxAction.api();
+    private final Action css = FxAction.cssApi();
+    private final Action fxml = FxAction.fxmlApi();
+
     private final Action about = FxAction.about(actionEvent -> {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
@@ -167,7 +171,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR,
-            contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
+            contactSupport, submitFeedback, ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
