@@ -53,11 +53,16 @@ public class ScreenshotStage extends Stage {
     private Label sizeLabel;
     private final Label tipsLabel;
 
+    /**
+     * 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
+     */
     public ScreenshotStage() {
         this.initOwner(FxApp.primaryStage);
         this.hideMainStage = Config.getBoolean(Config.Keys.ScreenshotHideWindow, true);
         if (hideMainStage) {
-            FxApp.runLater(() -> FxApp.primaryStage.setIconified(true));
+            // 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
+            // 可以通过 FxApp.primaryStage.setIconified(true); 来隐藏窗口
+            FxApp.primaryStage.setOpacity(0);
         }
 
         screenScaleX = Screen.getPrimary().getOutputScaleX();
@@ -295,7 +300,7 @@ public class ScreenshotStage extends Stage {
     private void endScreenshot() {
         rootPane.setVisible(false);
         if (hideMainStage) {
-            FxApp.runLater(() -> FxApp.primaryStage.setIconified(false));
+            FxApp.primaryStage.setOpacity(1);
         }
         this.hide();
     }
