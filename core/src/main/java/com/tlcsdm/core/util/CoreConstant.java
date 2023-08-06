@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,36 +25,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.service;
-
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+package com.tlcsdm.core.util;
 
 /**
- * 菜单栏配置(应用模块实现)
+ * @author: unknowIfGuestInDream
+ * @date: 2023/8/6 15:45
  */
-public interface MenubarConfigration {
+public class CoreConstant {
 
-    MenuBar menuBar = new MenuBar();
+    /**
+     * JavaFX API
+     */
+    public static final String JAVAFX_API_URL = "https://openjfx.io/javadoc/17";
 
-    MenuBar setMenuBar(MenuBar menuBar);
+    /**
+     * JavaFX CSS API
+     */
+    public static final String JAVAFX_API_CSS_URL = "https://openjfx.io/javadoc/17/javafx.graphics/javafx/scene/doc-files/cssref.html";
 
-    default MenuBar getMenuBar() {
-        setMenuBar(menuBar);
-        return menuBar;
-    }
-
-    default HBox getMenuBox() {
-        MenuBar leftBar = getMenuBar();
-        MenuBar rightBar = new MenuBar();
-        rightBar.getMenus().addAll(new Menu("Help"));
-        Region spacer = new Region();
-        spacer.getStyleClass().add("menu-bar");
-        HBox.setHgrow(spacer, Priority.SOMETIMES);
-        return new HBox(leftBar, spacer);
-    }
-
+    /**
+     * JavaFX FXML API
+     */
+    public static final String JAVAFX_API_FXML_URL = "https://openjfx.io/javadoc/17/javafx.fxml/javafx/fxml/doc-files/introduction_to_fxml.html";
 }

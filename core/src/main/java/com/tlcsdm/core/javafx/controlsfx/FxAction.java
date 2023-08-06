@@ -42,6 +42,8 @@ import com.tlcsdm.core.javafx.stage.ScreenshotStage;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.util.CoreConstant;
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -217,6 +219,24 @@ public class FxAction {
 
     public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
         return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
+    }
+
+    public static Action api() {
+        return create("JavaFX", actionEvent -> {
+            CoreUtil.openWeb(CoreConstant.JAVAFX_API_URL);
+        }, "/com/tlcsdm/core/static/menubar/jfx.png");
+    }
+
+    public static Action cssApi() {
+        return create("CSS", actionEvent -> {
+            CoreUtil.openWeb(CoreConstant.JAVAFX_API_CSS_URL);
+        }, "/com/tlcsdm/core/static/menubar/css.png");
+    }
+
+    public static Action fxmlApi() {
+        return create("FXML", actionEvent -> {
+            CoreUtil.openWeb(CoreConstant.JAVAFX_API_FXML_URL);
+        }, "/com/tlcsdm/core/static/menubar/fxml.png");
     }
 
     public static Action openSysConfig() {

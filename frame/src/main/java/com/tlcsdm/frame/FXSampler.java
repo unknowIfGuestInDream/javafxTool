@@ -65,7 +65,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -75,6 +74,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -216,8 +216,8 @@ public final class FXSampler extends Application {
 
         // menubar
         if (menubarConfigration != null) {
-            MenuBar menuBar = menubarConfigration.getMenuBar();
-            bp.setTop(menuBar);
+            HBox menuBox = menubarConfigration.getMenuBox();
+            bp.setTop(menuBox);
         }
 
         // --- left hand side
