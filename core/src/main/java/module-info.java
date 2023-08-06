@@ -1,6 +1,7 @@
 module com.tlcsdm.core {
     requires javafx.graphics;
     requires javafx.fxml;
+    requires javafx.swing;
     requires java.desktop;
     requires java.sql;
     requires org.apache.commons.lang3;
@@ -29,6 +30,7 @@ module com.tlcsdm.core {
     requires static org.fxmisc.flowless;
     requires static org.fxmisc.undo;
     requires static reactfx;
+    requires static net.coobird.thumbnailator;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

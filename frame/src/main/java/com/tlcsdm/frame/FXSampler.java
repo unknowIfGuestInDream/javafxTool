@@ -183,7 +183,7 @@ public final class FXSampler extends Application {
      */
     public void initializeSystem() {
         showInfo(I18nUtils.get("frame.splash.init.system"));
-        FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"));
+        FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"), getHostServices());
         samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
         for (MenubarConfigration m : menubarConfigrations) {

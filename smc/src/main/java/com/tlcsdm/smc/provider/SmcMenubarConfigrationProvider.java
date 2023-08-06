@@ -87,6 +87,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action colorPicker = FxAction.colorPicker();
 
+    private final Action screenshot = FxAction.screenshot();
+
     private final Action contactSupport = FxAction
         .contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
 
@@ -164,7 +166,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole, pathWatch, colorPicker), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
+        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
             ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, release, about));
 
     /**
