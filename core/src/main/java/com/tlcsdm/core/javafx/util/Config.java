@@ -53,7 +53,7 @@ public class Config {
 
     public enum Keys {
         MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft, Locale, NotepadEnabled,
-        RememberWindowLocation, ConfirmExit, CheckForUpdatesAtStartup
+        RememberWindowLocation, ConfirmExit, CheckForUpdatesAtStartup, ScreenshotHideWindow
     }
 
     private static PropertiesConfiguration conf;

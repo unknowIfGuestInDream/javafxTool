@@ -49,6 +49,9 @@ public abstract class SystemSettingView implements Initializable {
     protected CheckBox checkForUpdatesAtStartupCheckBox;
 
     @FXML
+    protected CheckBox screenshotHideWindowCheckBox;
+
+    @FXML
     protected Button saveButton;
 
     @FXML
