@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx;
 
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
@@ -44,20 +45,18 @@ public class FxApp {
     public static Stage primaryStage;
     public static Image appIcon;
     public static String title;
+    public static HostServices hostServices;
 
     private FxApp() {
     }
 
-    public static void init(Stage primaryStage, URL resource) {
+    public static void init(Stage primaryStage, URL resource, HostServices hostServices) {
         FxApp.primaryStage = primaryStage;
         if (resource != null) {
             appIcon = LayoutHelper.icon(resource);
             primaryStage.getIcons().add(appIcon);
         }
-    }
-
-    public static void init(Stage primaryStage) {
-        init(primaryStage, null);
+        FxApp.hostServices = hostServices;
     }
 
     public static void setupIcon(Stage stage) {

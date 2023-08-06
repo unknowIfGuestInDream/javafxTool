@@ -35,7 +35,7 @@ public class DependencyInfo {
             new Dependency("org.freemarker", "freemarker", "2.3.32", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("ch.qos.logback", "logback", "1.4.8", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.4.9", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.21", true, "https://github.com/dromara/hutool",
@@ -96,7 +96,10 @@ public class DependencyInfo {
                 "MIT License", "http://www.sikulix.com/disclaimer/#license"),
 
             new Dependency("com.googlecode.aviator", "aviator", "5.3.3", false, "https://github.com/killme2008/aviator",
-                "GNU LESSER GENERAL PUBLIC LICENSE", "http://www.gnu.org/licenses/lgpl.html"));
+                "GNU LESSER GENERAL PUBLIC LICENSE", "http://www.gnu.org/licenses/lgpl.html"),
+
+            new Dependency("net.coobird", "thumbnailator", "0.4.20", false, "https://github.com/coobird/thumbnailator",
+                "MIT License", "https://spdx.org/licenses/MIT.html"));
     }
 
     public static class Dependency {
@@ -110,7 +113,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-            String licenseUrl) {
+                          String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);

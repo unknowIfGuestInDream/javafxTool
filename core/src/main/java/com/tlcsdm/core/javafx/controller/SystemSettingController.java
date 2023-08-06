@@ -51,6 +51,7 @@ public class SystemSettingController extends SystemSettingView {
             exitShowAlertCheckBox.setSelected(Config.getBoolean(Config.Keys.ConfirmExit, true));
             saveStageBoundCheckBox.setSelected(Config.getBoolean(Config.Keys.RememberWindowLocation, true));
             checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Config.Keys.CheckForUpdatesAtStartup, true));
+            screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Config.Keys.ScreenshotHideWindow, true));
         } catch (Exception e) {
             StaticLog.error("Init setting failed: ", e);
         }
@@ -61,6 +62,7 @@ public class SystemSettingController extends SystemSettingView {
             Config.set(Config.Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());
             Config.set(Config.Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
             Config.set(Config.Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
+            Config.set(Config.Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
         } catch (Exception e) {
             StaticLog.error("Save setting failed: ", e);
         }
