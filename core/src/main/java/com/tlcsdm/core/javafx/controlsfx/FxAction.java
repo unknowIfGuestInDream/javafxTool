@@ -172,7 +172,7 @@ public class FxAction {
 
     public static Action screenshot() {
         return create(I18nUtils.get("core.menubar.setting.screenshot"), actionEvent -> {
-            new ScreenshotStage(false).showStage();
+            new ScreenshotStage().showStage();
         }, "/com/tlcsdm/core/static/menubar/screenshot.png");
     }
 

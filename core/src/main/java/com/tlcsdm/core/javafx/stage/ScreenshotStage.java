@@ -2,6 +2,7 @@ package com.tlcsdm.core.javafx.stage;
 
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.embed.swing.SwingFXUtils;
@@ -52,11 +53,11 @@ public class ScreenshotStage extends Stage {
     private Label sizeLabel;
     private final Label tipsLabel;
 
-    public ScreenshotStage(boolean hideMainStage) {
+    public ScreenshotStage() {
         this.initOwner(FxApp.primaryStage);
-        this.hideMainStage = hideMainStage;
+        this.hideMainStage = Config.getBoolean(Config.Keys.ScreenshotHideWindow, true);
         if (hideMainStage) {
-            FxApp.primaryStage.setIconified(true);
+            FxApp.runLater(() -> FxApp.primaryStage.setIconified(true));
         }
 
         screenScaleX = Screen.getPrimary().getOutputScaleX();
@@ -294,7 +295,7 @@ public class ScreenshotStage extends Stage {
     private void endScreenshot() {
         rootPane.setVisible(false);
         if (hideMainStage) {
-            FxApp.primaryStage.setIconified(false);
+            FxApp.runLater(() -> FxApp.primaryStage.setIconified(false));
         }
         this.hide();
     }
