@@ -30,4 +30,5 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
         with:
-          deny-licenses: GPL-2.0-only, NGPL, MulanPSL-1.0, LGPL-2.0-only, GPL-1.0-only
+          deny-licenses: LGPL-2.0, BSD-2-Clause
+
