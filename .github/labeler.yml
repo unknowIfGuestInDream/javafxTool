@@ -33,6 +33,7 @@ documentation:
   - LICENSE
   - README.md
   - README_zh.md
+  - README_jp.md
   - docs/**
 
 dependencies:
@@ -49,7 +50,7 @@ i18ns:
 - any: ['**/i18n/*.properties']
 
 automerge:
-  - all: [ 'README.md', 'README_zh.md' ]
+  - all: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
   - all: [ 'CHANGELOG.md' ]
   - all: [ '.github/**' ]
   - all: [ 'CONTRIBUTORS.md' ]
