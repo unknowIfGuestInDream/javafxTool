@@ -31,6 +31,7 @@ module com.tlcsdm.core {
     requires static org.fxmisc.undo;
     requires static reactfx;
     requires static net.coobird.thumbnailator;
+    requires static com.dlsc.pdfviewfx;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

@@ -86,6 +86,10 @@ public class DependencyInfo {
             new Dependency("org.kordamp.ikonli", "ikonli", "12.3.1", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
 
+            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "1.9.0", false,
+                "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0"),
+
             new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.0", false, "https://github.com/FXMisc/RichTextFX",
                 "The BSD 2-Clause License", "http://opensource.org/licenses/BSD-2-Clause"),
 
@@ -113,7 +117,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-                          String licenseUrl) {
+            String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);
