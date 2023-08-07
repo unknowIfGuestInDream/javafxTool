@@ -1,19 +1,19 @@
 ## Introduce
-[中文文档](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/README_zh.md)  
+[中文文档](./README_zh.md)  [日本語文書](./README_jp.md)\
 Javafx scaffolding, built on JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
-Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application modules.  
-demo is the provided example module.
+Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application
+modules. demo is the provided example module.
 
 ## Component
 
-docs: Documentation (built with docsify)  
-frame: Application main UI framework (provide SPI interface)  
-core: Application core components, including some common functions   
-login: Login module (provides SPI interface)  
-demo: demo example (based on controlsfx demo transformation)  
-common: Common component module, used by application modules  
-smc, qe: Personal application (no reference required)
+- docs: Documentation (built with docsify)
+- frame: Application main UI framework (provide SPI interface)
+- core: Application core components, including some common functions
+- login: Login module (provides SPI interface)
+- demo: demo example (based on controlsfx demo transformation)
+- common: Common component module, used by application modules
+- smc, qe: Personal application (no reference required)
 
 ## Interface
 
@@ -38,8 +38,9 @@ smc, qe: Personal application (no reference required)
 
 ## Pack
 
-It is recommended to package through IDEA  
-Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest file path -> Done  
+It is recommended to package through IDEA\
+Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest file
+path -> Done\
 Package: Build -> Build Artifacts -> Build
 
 ## Connect
