@@ -37,6 +37,7 @@ import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.PropertiesArea;
 import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
+import com.tlcsdm.core.javafx.stage.PdfViewStage;
 import com.tlcsdm.core.javafx.stage.ScreenColorPickerStage;
 import com.tlcsdm.core.javafx.stage.ScreenshotStage;
 import com.tlcsdm.core.javafx.util.Config;
@@ -178,6 +179,20 @@ public class FxAction {
         }, "/com/tlcsdm/core/static/menubar/screenshot.png");
     }
 
+    public static Action pdf(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/pdf.png");
+    }
+
+    public static Action pdf(Consumer<ActionEvent> eventHandler) {
+        return pdf(I18nUtils.get("core.button.pdf"), eventHandler);
+    }
+
+    public static Action pdf() {
+        return pdf(actionEvent -> {
+            new PdfViewStage().showStage();
+        });
+    }
+
     public static Action about(Consumer<ActionEvent> eventHandler) {
         return about(I18nUtils.get("core.menubar.help.about"), eventHandler);
     }
@@ -243,8 +258,8 @@ public class FxAction {
         return openSysConfig(actionEvent -> {
             VBox vbox = new VBox();
             Button button = FxButton.openWithSystemWithGrapgic();
-            button
-                .setOnAction(ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+            button.setOnAction(
+                ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
             PropertiesArea area = new PropertiesArea();
             area.setEditable(false);
             area.appendText(
@@ -252,8 +267,7 @@ public class FxAction {
             VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
-            FxDialog<VBox> dialog = new FxDialog<VBox>()
-                .setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
+            FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
                 .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
                 .setButtonTypes(ButtonType.CLOSE);
             dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
@@ -282,9 +296,9 @@ public class FxAction {
             VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
-            FxDialog<VBox> dialog = new FxDialog<VBox>()
-                .setTitle(I18nUtils.get("core.menubar.help.openUserData")).setOwner(FxApp.primaryStage)
-                .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
+            FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openUserData"))
+                .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
+                .setButtonTypes(ButtonType.CLOSE);
             dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
