@@ -177,6 +177,11 @@
             <artifactId>thumbnailator</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>technology.tabula</groupId>
+            <artifactId>tabula</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

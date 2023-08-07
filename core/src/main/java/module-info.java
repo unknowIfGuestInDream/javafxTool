@@ -32,6 +32,7 @@ module com.tlcsdm.core {
     requires static reactfx;
     requires static net.coobird.thumbnailator;
     requires static com.dlsc.pdfviewfx;
+    requires static tabula;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

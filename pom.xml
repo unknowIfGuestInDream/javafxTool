@@ -92,6 +92,8 @@
         <richtextfx.version>0.11.0</richtextfx.version>
         <groovy.version>4.0.13</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
+        <gson.version>2.10.1</gson.version>
+        <tabula.version>1.0.5</tabula.version>
     </properties>
 
     <issueManagement>
@@ -405,6 +407,16 @@
                 <groupId>com.dlsc.pdfviewfx</groupId>
                 <artifactId>pdfviewfx</artifactId>
                 <version>${pdfviewfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>technology.tabula</groupId>
+                <artifactId>tabula</artifactId>
+                <version>${tabula.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
