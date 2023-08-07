@@ -72,6 +72,9 @@ public class DependencyInfo {
             new Dependency("org.apache.pdfbox", "pdfbox", "2.0.29", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
 
+            new Dependency("technology.tabula", "tabula", "1.0.5", false, "https://github.com/tabulapdf/tabula-java",
+                "MIT License", "http://www.opensource.org/licenses/mit-license.php"),
+
             new Dependency("com.fasterxml.jackson.core", "jackson", "2.15.2", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0"),
