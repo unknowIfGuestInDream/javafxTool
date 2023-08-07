@@ -56,8 +56,8 @@ import java.util.List;
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class TabulaTest {
 
-    private final static String pdfPath = "C:\\workspace\\tool\\manual\\r01uh1018ej0040-rh850u2c.pdf";
-    private final static String expectCsvPath = "C:\\workspace\\test\\tabula.csv";
+    private final static String pdfPath = "E:\\testPlace\\result\\tabula\\单片机基础2.pdf";
+    private final static String expectCsvPath = "E:\\testPlace\\result\\tabula\\tabula.csv";
 
     @Test
     void demo() throws IOException {
@@ -68,12 +68,6 @@ public class TabulaTest {
             while (pi.hasNext()) {
                 // iterate over the pages of the document
                 Page page = pi.next();
-                if (page.getPageNumber() < 84) {
-                    continue;
-                }
-                if (page.getPageNumber() > 88) {
-                    break;
-                }
                 List<Table> table = sea.extract(page);
                 (new CSVWriter()).write(new FileWriter(FileUtil.file(expectCsvPath)), table);
                 // iterate over the tables of the page
@@ -96,7 +90,7 @@ public class TabulaTest {
 
     @Test
     public void command() throws IOException {
-        String[] ar = { "-l", "-o=" + expectCsvPath, "-p=84-91", pdfPath };
+        String[] ar = {"-o=" + expectCsvPath, "-p=all", pdfPath, "-l"};
         CommandLineApp.main(ar);
     }
 
