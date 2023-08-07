@@ -2,18 +2,17 @@
 
 javafx脚手架，JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
-frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成  
-demo是提供的示例模块
+frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成 demo是提供的示例模块
 
 ## 结构
 
-docs: 文档(使用docsify构建)  
-frame: 应用主体UI框架(提供SPI接口)  
-core: 应用核心组件，包含一些共同功能    
-login: 登录模块(提供SPI接口)  
-demo: demo示例(基于controlsfx demo改造)  
-common: 通用组件模块，用于应用模块使用  
-smc, qe: 个人应用(无需参考)
+- docs: 文档(使用docsify构建)
+- frame: 应用主体UI框架(提供SPI接口)
+- core: 应用核心组件，包含一些共同功能
+- login: 登录模块(提供SPI接口)
+- demo: demo示例(基于controlsfx demo改造)
+- common: 通用组件模块，用于应用模块使用
+- smc, qe: 个人应用(无需参考)
 
 ## 接口
 
@@ -38,8 +37,8 @@ smc, qe: 个人应用(无需参考)
 
 ## 打包
 
-推荐通过IDEA打包  
-配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成  
+推荐通过IDEA打包\
+配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成\
 打包: 构建 -> 构建工件 -> 构建
 
 ## 联系

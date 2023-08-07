@@ -71,5 +71,6 @@ checkUpToDate:
   # It helps avoid multiple heads in alembic migrations in a collaborative development project.
     - /README.md
     - /README_zh.md
+    - /README_jp.md
     - /pom.xml
     - /**/pom.xml
