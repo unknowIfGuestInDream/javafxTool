@@ -90,7 +90,7 @@ public class TabulaTest {
 
     @Test
     public void command() throws IOException {
-        String[] ar = {"-o=" + expectCsvPath, "-p=all", pdfPath, "-l"};
+        String[] ar = {"-o=" + expectCsvPath, "-p=all", "-l", "-t", pdfPath};
         CommandLineApp.main(ar);
     }
 
