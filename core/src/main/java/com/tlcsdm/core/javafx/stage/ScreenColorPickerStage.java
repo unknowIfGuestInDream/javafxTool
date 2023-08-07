@@ -80,20 +80,23 @@ public class ScreenColorPickerStage extends Stage {
             event.consume();
         });
         rootPane.setOnMouseClicked(event -> {
-            Color color = fxScreenImage.getPixelReader().getColor((int) (event.getX() * screenScaleX), (int) (event.getY() * screenScaleY));
+            Color color = fxScreenImage.getPixelReader().getColor((int) (event.getX() * screenScaleX),
+                (int) (event.getY() * screenScaleY));
             OSUtil.writeToClipboard(PaintConvertUtil.convertPaintToCss(color));
             endPickColor();
         });
 
         Scene scene = new Scene(rootPane, screenW, screenH);
-        scene.getStylesheets().add(getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css").toExternalForm());
+        scene.getStylesheets()
+            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css").toExternalForm());
         this.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
-        //scene.setCursor(new ImageCursor(new javafx.scene.image.Image(getClass().getResource("/images/color-cursor.png").toExternalForm())));
+        // scene.setCursor(new ImageCursor(new
+        // javafx.scene.image.Image(getClass().getResource("/images/color-cursor.png").toExternalForm())));
         this.initStyle(StageStyle.TRANSPARENT);
-        //rootPane.setVisible(false);
+        // rootPane.setVisible(false);
 
-        //退出全屏, 结束截屏
+        // 退出全屏, 结束截屏
         this.fullScreenProperty().addListener((ob, ov, nv) -> {
             if (!nv) {
                 endPickColor();
@@ -106,7 +109,7 @@ public class ScreenColorPickerStage extends Stage {
             }
         });
 
-        //失去焦点,结束截屏
+        // 失去焦点,结束截屏
         this.focusedProperty().addListener((ob, ov, nv) -> {
             if (!nv) {
                 endPickColor();
@@ -142,7 +145,8 @@ public class ScreenColorPickerStage extends Stage {
         tipLabel.setFont(colorLabel.getFont());
         tipLabel.setStyle("-fx-font-size: 6;");
         tipLabel.setAlignment(Pos.CENTER);
-        tipLabel.setPrefSize(previewSize + 4, 10);
+        tipLabel.setPrefSize(previewSize + 4, 18);
+        tipLabel.setWrapText(true);
         VBox box = new VBox(colorLabel, tipLabel);
         box.setAlignment(Pos.CENTER);
         box.setBackground(new Background(new BackgroundFill(Color.web("#333333"), null, null)));
@@ -171,7 +175,8 @@ public class ScreenColorPickerStage extends Stage {
         Color color = fxScreenImage.getPixelReader().getColor((int) (x * screenScaleX), (int) (y * screenScaleY));
         colorLabel.setText(PaintConvertUtil.convertPaintToCss(color).toUpperCase());
         previewRect.setFill(color);
-        previewImg.setViewport(new Rectangle2D(x * screenScaleX - previewSize / 2.0, y * screenScaleY - previewSize / 2.0, previewSize, previewSize));
+        previewImg.setViewport(new Rectangle2D(x * screenScaleX - previewSize / 2.0,
+            y * screenScaleY - previewSize / 2.0, previewSize, previewSize));
         double boxW = controlsBox.getWidth() * previewScale;
         double layoutX = x + 50;
         double boxH = controlsBox.getHeight() * previewScale;
