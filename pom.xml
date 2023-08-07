@@ -37,7 +37,9 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://www.tlcsdm.com</url>
-    <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces such as frame, login and core</description>
+    <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces
+        such as frame, login and core
+    </description>
 
     <modules>
         <module>frame</module>
@@ -407,6 +409,20 @@
                 <groupId>com.dlsc.pdfviewfx</groupId>
                 <artifactId>pdfviewfx</artifactId>
                 <version>${pdfviewfx.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>controlsfx</artifactId>
+                        <groupId>org.controlsfx</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>javafx-controls</artifactId>
+                        <groupId>org.openjfx</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>javafx-fxml</artifactId>
+                        <groupId>org.openjfx</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>technology.tabula</groupId>
@@ -504,6 +520,20 @@
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-test-junit5</artifactId>
                 <version>${groovy.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>junit-jupiter-api</artifactId>
+                        <groupId>org.junit.jupiter</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <groupId>org.junit.jupiter</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>junit-platform-engine</artifactId>
+                        <groupId>org.junit.platform</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- groovy end -->
             <dependency>
