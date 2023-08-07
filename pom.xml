@@ -412,6 +412,12 @@
                 <groupId>technology.tabula</groupId>
                 <artifactId>tabula</artifactId>
                 <version>${tabula.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-simple</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
