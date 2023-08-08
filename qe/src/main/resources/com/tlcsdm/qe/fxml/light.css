@@ -79,11 +79,11 @@
 }
 
 .slider:vertical > .thumb {
-    -fx-padding: 4px 10px 4px 10px;
+    -fx-padding: 4px 10px;
 }
 
 .slider:vertical > .track {
-    -fx-padding: 0 10px 0 10px;
+    -fx-padding: 0 10px;
     -fx-background-insets: 0, 0 6px 0 6px;
 }
 
@@ -105,13 +105,13 @@
  */
 #dataVbox {
 	-fx-border-style: solid inside;
-	-fx-border-width: 0 0 1 0;
+	-fx-border-width: 0 0 1;
     -fx-border-radius: 2;
 }
 
 .readOnlyDataVbox {
 	-fx-alignment: BOTTOM_CENTER;
-	-fx-padding: 10 20 10 20;
+	-fx-padding: 10 20;
 	-fx-border-style: solid inside;
 	-fx-border-color: lightgray;
 	-fx-border-width: 2;
@@ -125,5 +125,5 @@
 }
 
 .readOnlyDataVal {
-	-fx-padding: 15 0 5 0;
+	-fx-padding: 15 0 5;
 }
