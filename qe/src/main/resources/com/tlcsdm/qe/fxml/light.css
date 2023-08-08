@@ -1,43 +1,42 @@
-.innerVbox {
-
+.root {
+	CHART_COLOR_1: blue;
 }
 
-#settingVbox {
-    -fx-border-style: solid inside;
-    -fx-border-width: 0 2 0 0;
-    -fx-border-radius: 2;
-}
-
-#dataVbox {
-    -fx-border-style: solid inside;
-    -fx-border-width: 0 0 2;
-    -fx-border-radius: 2;
-}
-
+/*
+ * Button of Power Control
+ */
 .innerButton {
     -fx-pref-width: 92;
     -fx-pref-height: 56;
 }
 
+/*
+ * Fade and Level Setting
+ */
+#settingVbox {
+	-fx-border-style: solid inside;
+	-fx-border-width: 0 2 0 0;
+    -fx-border-radius: 2;
+}
+
 .fadeButton {
-    -fx-pref-width: 46;
+    -fx-pref-width: 40;
     -fx-pref-height: 23;
 }
 
+/*
+ * chart
+ */
 .innerHbox {
     -fx-padding: 5 0 0 5;
     -fx-spacing: 5;
-}
-
-#splitPane > * {
-    CHART_COLOR_1: blue;
 }
 
 .chart-line-symbol {
     -fx-background-color: CHART_COLOR_1, white;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 3px;
-    -fx-padding: 2px;
+    -fx-padding: 2.5px;
 }
 
 .chart-series-line {
@@ -45,25 +44,33 @@
     -fx-stroke-width: 3px;
 }
 
+.default-color0.chart-series-line {
+    -fx-stroke: CHART_COLOR_1;
+    -fx-stroke-width: 3px;
+}
+
 .discreteFirstPoint {
-    -fx-background-color: red, white !important;
-    -fx-padding: 5px;
-    -fx-background-radius: 5px;
+	-fx-background-color: red, white !important;
+	-fx-padding: 5px;
+	-fx-background-radius: 5px;
 }
 
 .discretePoint {
-    -fx-background-color: black, white !important;
-    -fx-padding: 5px;
-    -fx-background-radius: 5px;
+	-fx-background-color: black, white !important;
+	-fx-padding: 5px;
+	-fx-background-radius: 5px;
 }
 
+/*
+ * Slider
+ */
 #sliderLight {
     -slider-filled-track-color: rgb(68, 113, 169);
     -slider-track-color: -slider-filled-track-color;
 }
 
 #sliderLight .track {
-    -fx-base: rgb(173, 216, 230);
+    -fx-base: rgb(173,216,230);
     -fx-background-color: -slider-track-color;
 }
 
@@ -71,19 +78,52 @@
     -fx-background-color: gray;
 }
 
+.slider:vertical > .thumb {
+    -fx-padding: 4px 10px 4px 10px;
+}
+
+.slider:vertical > .track {
+    -fx-padding: 0 10px 0 10px;
+    -fx-background-insets: 0, 0 6px 0 6px;
+}
+
+.slider:vertical > .progress {
+    -fx-background-radius: 0 0 0 0;
+    -fx-background-insets: 0, 0 6px 0 6px;
+}
+
+/*
+ * tableView
+ */
 .column-header-background {
-    visibility: hidden;
-    -fx-padding: -1em;
+	visibility: hidden;
+	-fx-padding: -1em;
+}
+
+/*
+ * readOnltData
+ */
+#dataVbox {
+	-fx-border-style: solid inside;
+	-fx-border-width: 0 0 1 0;
+    -fx-border-radius: 2;
+}
+
+.readOnlyDataVbox {
+	-fx-alignment: BOTTOM_CENTER;
+	-fx-padding: 10 20 10 20;
+	-fx-border-style: solid inside;
+	-fx-border-color: lightgray;
+	-fx-border-width: 2;
+    -fx-border-radius: 5;
 }
 
 .readOnlyDataKey {
-    -fx-font-size: 14;
+	-fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
-    -fx-alignment: CENTER;
-    -fx-padding: 0 0 0 10;
 }
 
 .readOnlyDataVal {
-    -fx-padding: 0 0 0 20;
+	-fx-padding: 15 0 5 0;
 }

@@ -50,7 +50,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
@@ -62,7 +61,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
@@ -70,9 +68,6 @@ import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -81,6 +76,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 /**
  * 测试用，测试fxml集成
  *
@@ -88,8 +87,6 @@ import java.util.ResourceBundle;
  */
 public class FxmlDemo extends QeSample implements Initializable {
 
-    @FXML
-    private SplitPane splitPane;
     @FXML
     private TreeView<String> treeView;
     @FXML
@@ -150,7 +147,8 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @Override
     public Node getPanel(Stage stage) {
-        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(getClass().getResource("/com/tlcsdm/qe/fxml/light.fxml"), ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(getClass().getResource("/com/tlcsdm/qe/fxml/light.fxml"),
+            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 
@@ -205,7 +203,6 @@ public class FxmlDemo extends QeSample implements Initializable {
     public void initializeUI() {
         initializeSvg();
         initializeChart();
-
         // Get the font from the Font cache to avoid loading the font every time.
         Font font = Font.font("tlcsdm", lblActualLevel.getFont().getSize());
         if (font == null || !"tlcsdm".equals(font.getFamily())) {
@@ -287,12 +284,11 @@ public class FxmlDemo extends QeSample implements Initializable {
                 return "";
             }, minProperty, maxProperty));
         }
-        if (lineChart.plotChildren().get(0) instanceof Path line) {
-            line.styleProperty().bind(Bindings.createStringBinding(() -> {
-                return "-fx-stroke: linear-gradient(gray 0%, blue " + minProperty.get() / 254 * 100
-                    + "%, gray " + maxProperty.get() / 254 * 100 + "%, gray 100%);";
-            }, minProperty, maxProperty));
-        }
+
+        lineChart.lookup(".default-color0.chart-series-line").styleProperty().bind(Bindings.createStringBinding(() -> {
+            return "-fx-stroke: linear-gradient(to top, gray 0%, blue " + daliDimmingCurve(maxProperty.get())
+                + "%, gray " + daliDimmingCurve(minProperty.get()) + "%);";
+        }, minProperty, maxProperty));
         buildDiscretePoint();
     }
 
@@ -301,14 +297,14 @@ public class FxmlDemo extends QeSample implements Initializable {
         root.setExpanded(true);
         TreeItem<String> group1 = new TreeItem<>("Group 1");
         group1.setExpanded(true);
-        group1.getChildren().add(new TreeItem<>("Addrest 1"));
+        group1.getChildren().add(new TreeItem<>("Address 1"));
         TreeItem<String> group5 = new TreeItem<>("Group 5");
         group5.setExpanded(true);
-        group5.getChildren().add(new TreeItem<>("Addrest 1"));
+        group5.getChildren().add(new TreeItem<>("Address 1"));
         TreeItem<String> assign = new TreeItem<>("Not Assigned");
         assign.setExpanded(true);
-        assign.getChildren().add(new TreeItem<>("Addrest 0"));
-        assign.getChildren().add(new TreeItem<>("Addrest 2"));
+        assign.getChildren().add(new TreeItem<>("Address 0"));
+        assign.getChildren().add(new TreeItem<>("Address 2"));
         root.getChildren().addAll(new TreeItem<>("Boardcast"), group1, group5, assign);
         treeView.setRoot(root);
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -332,9 +328,8 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     private void initializeFade() {
         cmbFadeTime.getItems().addAll(new FadeData(0, "no fade", "0"), new FadeData(1, "0.7sec", "0.707"),
-            new FadeData(2, "1.0sec", "1.000"), new FadeData(3, "1.4sec", "1.414"),
-            new FadeData(4, "2.0sec", "2.000"), new FadeData(5, "2.8sec", "2.828"),
-            new FadeData(6, "4.0sec", "4.000"), new FadeData(7, "5.7sec", "5.657"),
+            new FadeData(2, "1.0sec", "1.000"), new FadeData(3, "1.4sec", "1.414"), new FadeData(4, "2.0sec", "2.000"),
+            new FadeData(5, "2.8sec", "2.828"), new FadeData(6, "4.0sec", "4.000"), new FadeData(7, "5.7sec", "5.657"),
             new FadeData(8, "8.0sec", "8.000"), new FadeData(9, "11.3sec", "11.314"),
             new FadeData(10, "16.0sec", "16.000"), new FadeData(11, "22.6sec", "22.627"),
             new FadeData(12, "32.0sec", "32.000"), new FadeData(13, "45.3sec", "45.255"),
@@ -366,8 +361,7 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     private void initializeLevel() {
-        cmbLevelStore.getItems().addAll("Maximum Level", "Minimum Level",
-            "Power-On Level", "System Failure Level");
+        cmbLevelStore.getItems().addAll("Maximum Level", "Minimum Level", "Power-On Level", "System Failure Level");
         cmbLevelStore.getSelectionModel().select(0);
     }
 
@@ -394,19 +388,17 @@ public class FxmlDemo extends QeSample implements Initializable {
         lblActualLevel.textFillProperty().bind(Bindings.createObjectBinding(() -> {
             int level = (int) sliderLight.getValue();
             if (level < minProperty.get() || level > maxProperty.get()) {
-                return Color.web("#FF0000");
+                return Color.RED;
             }
-            return Color.web("#000000");
+            return Color.BLACK;
         }, minProperty, maxProperty, sliderLight.valueProperty()));
         // Gradient color settings for the slide bar, need to be used together with the
         // settings in css
         sliderLight.styleProperty().bind(Bindings.createStringBinding(() -> {
             double percentage = (sliderLight.getValue() - sliderLight.getMin())
                 / (sliderLight.getMax() - sliderLight.getMin()) * 100.0;
-            return String.format(
-                "-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
-                    + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);",
-                percentage, percentage);
+            return String.format("-slider-track-color: linear-gradient(to top, -slider-filled-track-color 0%%, "
+                + "-slider-filled-track-color %f%%, -fx-base %f%%, -fx-base 100%%);", percentage, percentage);
         }, sliderLight.valueProperty(), sliderLight.minProperty(), sliderLight.maxProperty()));
 
         btnDirectLevel.disableProperty().bind(Bindings.createBooleanBinding(() -> {
@@ -479,16 +471,19 @@ public class FxmlDemo extends QeSample implements Initializable {
     @FXML
     public void powerControlAction() {
         sliderLight.setValue(sliderLight.getMin());
+        resetDataTextFill();
     }
 
     @FXML
     public void minLevelAction() {
         sliderLight.setValue(minProperty.get());
+        resetDataTextFill();
     }
 
     @FXML
     public void maxLevelAction() {
         sliderLight.setValue(maxProperty.get());
+        resetDataTextFill();
     }
 
     @FXML
@@ -502,6 +497,7 @@ public class FxmlDemo extends QeSample implements Initializable {
             return;
         }
         sliderLight.setValue(discretePointXList.get(index + 1));
+        resetDataTextFill();
     }
 
     @FXML
@@ -515,6 +511,7 @@ public class FxmlDemo extends QeSample implements Initializable {
             return;
         }
         sliderLight.setValue(discretePointXList.get(index - 1));
+        resetDataTextFill();
     }
 
     @FXML
@@ -522,6 +519,7 @@ public class FxmlDemo extends QeSample implements Initializable {
         int level = (int) sliderLight.getValue();
         if (level < sliderLight.getMax()) {
             sliderLight.setValue(level + 1);
+            resetDataTextFill();
         }
     }
 
@@ -530,12 +528,14 @@ public class FxmlDemo extends QeSample implements Initializable {
         int level = (int) sliderLight.getValue();
         if (level > sliderLight.getMin()) {
             sliderLight.setValue(level - 1);
+            resetDataTextFill();
         }
     }
 
     @FXML
     public void directLevelAction() {
         sliderLight.setValue(Integer.parseInt(txtDirectLevel.getText()));
+        resetDataTextFill();
     }
 
     @FXML
@@ -557,17 +557,41 @@ public class FxmlDemo extends QeSample implements Initializable {
         } catch (NumberFormatException e) {
             dircet = 0;
         }
+        int result = isActual ? level : dircet;
         if ("Maximum Level".equals(storeType)) {
-            maxProperty.set(isActual ? level : dircet);
+            if (result == maxProperty.get())
+                return;
+            maxProperty.set(result);
+            resetDataTextFill();
+            lblMaxLevel.setTextFill(Color.BLUE);
         } else if ("Minimum Level".equals(storeType)) {
-            minProperty.set(isActual ? level : dircet);
+            if (result == minProperty.get())
+                return;
+            minProperty.set(result);
+            resetDataTextFill();
+            lblMinLevel.setTextFill(Color.BLUE);
         } else if ("Power-On Level".equals(storeType)) {
-            powerProperty.set(isActual ? level : dircet);
+            if (result == powerProperty.get())
+                return;
+            powerProperty.set(result);
+            resetDataTextFill();
+            lblPowerOnLevel.setTextFill(Color.BLUE);
         } else if ("System Failure Level".equals(storeType)) {
-            systemProperty.set(isActual ? level : dircet);
+            if (result == systemProperty.get())
+                return;
+            systemProperty.set(result);
+            resetDataTextFill();
+            lblSystemFailLevel.setTextFill(Color.BLUE);
         } else {
             // Do nothing
         }
+    }
+
+    private void resetDataTextFill() {
+        lblMaxLevel.setTextFill(Color.BLACK);
+        lblMinLevel.setTextFill(Color.BLACK);
+        lblPowerOnLevel.setTextFill(Color.BLACK);
+        lblSystemFailLevel.setTextFill(Color.BLACK);
     }
 
     @FXML
@@ -623,7 +647,7 @@ public class FxmlDemo extends QeSample implements Initializable {
         if (str.isEmpty()) {
             return false;
         }
-        for (int i = str.length(); --i >= 0; ) {
+        for (int i = str.length(); --i >= 0;) {
             if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
