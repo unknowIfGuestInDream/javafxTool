@@ -55,6 +55,7 @@ import com.tlcsdm.frame.service.SamplePostProcessorService;
 import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
+import com.tlcsdm.frame.util.DragScene;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
 import javafx.application.Application;
@@ -63,6 +64,7 @@ import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -282,7 +284,11 @@ public final class FXSampler extends Application {
         }
         setUserAgentStylesheet(STYLESHEET_MODENA);
         // put it all together
-        Scene scene = new Scene(bp);
+        DragScene scene = new DragScene(bp, stage);
+        scene.setCanDrag();
+        scene.setCanLong();
+        scene.setFill(Color.TRANSPARENT);
+        scene.setCamera(new PerspectiveCamera());
         scene.getStylesheets()
             .add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
         for (FXSamplerConfiguration fxsamplerConfiguration : samplerConfigurations) {
@@ -298,6 +304,8 @@ public final class FXSampler extends Application {
         stage.setMinWidth(800);
         stage.setMinHeight(600);
         stage.setOnCloseRequest(FXSampler::confirmExit);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setAlwaysOnTop(true);
         // set width / height values to be 75% of users screen resolution
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setWidth(screenBounds.getWidth() * 0.75);
