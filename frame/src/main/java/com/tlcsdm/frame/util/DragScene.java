@@ -13,6 +13,7 @@ public class DragScene extends Scene {
     // https://www.cnblogs.com/moonlightL/p/5982679.html
     //https://blog.csdn.net/weixin_43847787/article/details/125888847
     //https://bbs.csdn.net/topics/390684651
+    //https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage?answertab=modifieddesc#tab-top
     private double offsetX, offsetY;
     private Stage stage;
     private boolean isRight;
