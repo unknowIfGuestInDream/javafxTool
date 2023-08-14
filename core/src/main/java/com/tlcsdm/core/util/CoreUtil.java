@@ -27,7 +27,9 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.annotation.Order;
 
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
@@ -37,6 +39,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 工具包
@@ -127,6 +131,27 @@ public class CoreUtil {
         } catch (URISyntaxException | IOException e) {
             StaticLog.error(e);
         }
+    }
+
+    /**
+     * 根据Order注解排序
+     * 不存在注解则排到最后
+     */
+    public static void sortByOrder(List<Class<?>> list) {
+        Collections.sort(list, (c1, c2) -> {
+            Integer p1 = AnnotationUtil.getAnnotationValue(c1, Order.class);
+            Integer p2 = AnnotationUtil.getAnnotationValue(c2, Order.class);
+            if (p1 == null && p2 == null) {
+                return 0;
+            }
+            if (p1 == null) {
+                return 1;
+            }
+            if (p2 == null) {
+                return -1;
+            }
+            return Integer.compare(p1, p2);
+        });
     }
 
 }
