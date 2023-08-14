@@ -80,6 +80,7 @@ public class InterfaceScanner {
 
     public static void invoke(Class<?> clazz, String name, Class<?>... parameterTypes) {
         List<Class<?>> list = discover(clazz);
+        CoreUtil.sortByOrder(list);
         for (Class<?> i : list) {
             try {
                 i.getDeclaredMethod(name, parameterTypes).invoke(i.getDeclaredConstructor().newInstance());

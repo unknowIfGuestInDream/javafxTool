@@ -28,6 +28,7 @@
 package com.tlcsdm.core.factory.config;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.annotation.Order;
 import com.tlcsdm.core.factory.InitializingFactory;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
@@ -43,6 +44,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author: unknowIfGuestInDream
  * @date: 2023/2/5 8:36
  */
+@Order(1)
 public final class ThreadPoolTaskExecutor implements InitializingFactory {
     private static int corePoolSize;
     private static int maximumPoolSize;
