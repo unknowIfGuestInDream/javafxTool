@@ -1,5 +1,7 @@
 package com.tlcsdm.core.eventbus;
 
+import com.tlcsdm.core.exception.CoreException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -29,7 +31,7 @@ public class ObserverAction {
         try {
             method.invoke(target, event);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+            throw new CoreException(e);
         }
     }
 }

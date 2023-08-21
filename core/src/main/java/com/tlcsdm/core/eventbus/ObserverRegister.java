@@ -44,8 +44,6 @@ public class ObserverRegister {
 
     /**
      * 获取匹配的观察者事件
-     * @param event
-     * @return
      */
     public List<ObserverAction> getMatchedObserverActions(Object event) {
         List<ObserverAction> result = new ArrayList<>();
@@ -78,8 +76,6 @@ public class ObserverRegister {
 
     /**
      * 根据观察者类型，查找方法列表
-     * @param clazz
-     * @return
      */
     public List<Method> getAnnotatedMethods(Class<?> clazz) {
         List<Method> result = new ArrayList<>();
