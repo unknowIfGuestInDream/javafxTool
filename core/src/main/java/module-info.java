@@ -57,6 +57,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.freemarker;
     exports com.tlcsdm.core.freemarker.template;
     exports com.tlcsdm.core.logging.logback;
+    exports com.tlcsdm.core.eventbus;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.freemarker.GroovyLoaderService;
