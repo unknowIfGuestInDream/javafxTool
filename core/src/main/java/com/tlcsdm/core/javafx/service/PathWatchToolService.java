@@ -40,6 +40,7 @@ import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -147,7 +148,10 @@ public class PathWatchToolService {
         });
 
         monitor = new FileAlterationMonitor(10_000, observer);
-        monitor.setThreadFactory(ThreadPoolTaskExecutor.get().getThreadFactory());
+        monitor
+            .setThreadFactory(ThreadPoolTaskExecutor.hasInitialized() ? ThreadPoolTaskExecutor.get().getThreadFactory()
+                : new BasicThreadFactory.Builder().namingPattern("pathWatch").daemon(true)
+                    .uncaughtExceptionHandler((t, e) -> StaticLog.error(e)).build());
         try {
             monitor.start();
         } catch (Exception e) {

@@ -31,6 +31,11 @@ import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.event.ApplicationFailedEvent;
+import com.tlcsdm.core.event.ApplicationPreparedEvent;
+import com.tlcsdm.core.event.ApplicationReadyEvent;
+import com.tlcsdm.core.event.ApplicationStartingEvent;
+import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
@@ -127,6 +132,7 @@ public final class FXSampler extends Application {
         showInfo(I18nUtils.get("frame.splash.init.version"));
         StaticLog.debug("Initialize system resources.");
         initializeSystem();
+        EventBus.getDefault().post(new ApplicationStartingEvent());
         Platform.runLater(() -> {
             try {
                 StaticLog.debug("Initialize UI resources.");
@@ -134,11 +140,14 @@ public final class FXSampler extends Application {
                 ThreadPoolTaskExecutor.get().execute(() -> {
                     StaticLog.debug("Initialize resources.");
                     initializeSource();
+                    EventBus.getDefault().post(new ApplicationPreparedEvent());
                 });
             } catch (Throwable e) {
+                EventBus.getDefault().post(new ApplicationFailedEvent(e));
                 FxAlerts.exception(e);
             }
         });
+        EventBus.getDefault().post(new ApplicationReadyEvent());
     }
 
     /**
