@@ -27,6 +27,8 @@
 
 package com.tlcsdm.smc.provider;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
@@ -34,6 +36,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
+import com.tlcsdm.core.javafx.dialog.LicenseDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
@@ -63,8 +66,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
@@ -121,6 +122,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                     .setButtonTypes(ButtonType.CLOSE);
                 dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
                 dialog.show();
+            } else if ("license".equals(string)) {
+                LicenseDialog.openLicenseDialog();
             } else {
                 CoreUtil.openWeb(string);
             }
@@ -134,8 +137,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
             + SmcSample.PROJECT_INFO.getVersion() + "\n");
         area.appendText(
             I18nUtils.get("smc.menubar.help.about.contentText.date") + ": " + SmcSample.PROJECT_INFO.getDate() + "\n");
-        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseName") + ": "
-            + SmcConstant.PROJECT_LICENSE_NAME + "\n");
+        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseName") + ": ");
+        area.appendWithLink(SmcConstant.PROJECT_LICENSE_NAME, "license");
+        area.appendText("\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseUrl") + ": ");
         area.appendWithLink(SmcConstant.PROJECT_LICENSE_URL, SmcConstant.PROJECT_LICENSE_URL);
         area.appendText("\n");
@@ -170,8 +174,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
-        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot), FxActionGroup.help(openSysConfig, openLogDir, openUserData,
-            ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, release, about));
+        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
+        FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
+            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, release, about));
 
     /**
      * 初始化action
