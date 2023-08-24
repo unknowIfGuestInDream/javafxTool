@@ -31,12 +31,19 @@ import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.util.GroovyUtil;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyShell;
 import groovy.util.GroovyScriptEngine;
+import org.codehaus.groovy.ast.stmt.SynchronizedStatement;
+import org.codehaus.groovy.classgen.BytecodeExpression;
+import org.codehaus.groovy.classgen.BytecodeSequence;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -68,11 +75,23 @@ public class GroovyLoaderScanner implements InitializingFactory {
         list.add(0, file.getPath());
         GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
         CompilerConfiguration config = new CompilerConfiguration();
-        SecureASTCustomizer secureASTCustomizer = new SecureASTCustomizer();
-        config.addCompilationCustomizers(secureASTCustomizer);
+        SecureASTCustomizer sac = new SecureASTCustomizer();
+        /* disable calling the System.exit() method and use of other dangerous imports */
+        List<String> varList = Arrays.asList(
+            System.class.getName(),
+            GroovyShell.class.getName(),
+            GroovyClassLoader.class.getName(),
+            Runtime.class.getName(),
+            Socket.class.getName());
+        sac.setDisallowedImports(varList);
+        sac.setDisallowedReceivers(varList);
+        sac.setIndirectImportCheckEnabled(true);
+        /* disable dangerous Expressions */
+        sac.setDisallowedExpressions(List.of(BytecodeExpression.class));
+        sac.setDisallowedStatements(Arrays.asList(BytecodeSequence.class, SynchronizedStatement.class));
+        config.addCompilationCustomizers(sac);
         config.setSourceEncoding("UTF-8");
         scriptEngine.setConfig(config);
-
     }
 
 }

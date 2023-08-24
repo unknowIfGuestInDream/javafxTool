@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,17 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.qe.config;
+package com.tlcsdm.core.exception;
 
-import com.tlcsdm.core.groovy.GroovyLoaderService;
+import java.io.Serial;
 
-import java.util.Objects;
+/**
+ * Groovy编译错误异常
+ *
+ * @author: unknowIfGuestInDream
+ * @date: 2023/8/24 20:48
+ */
+public class GroovyCompilationErrorsException extends RuntimeException {
 
-public class QeGroovyLoaderProvider implements GroovyLoaderService {
+    @Serial
+    private static final long serialVersionUID = 8055520491233168647L;
 
-    @Override
-    public String getGroovyLoaderPath() {
-        return Objects.requireNonNull(QeGroovyLoaderProvider.class.getResource("/com/tlcsdm/qe/static/groovy")).getPath();
+    public GroovyCompilationErrorsException() {
     }
 
+    public GroovyCompilationErrorsException(String message) {
+        super(message);
+    }
+
+    public GroovyCompilationErrorsException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public GroovyCompilationErrorsException(Throwable cause) {
+        super(cause);
+    }
 }

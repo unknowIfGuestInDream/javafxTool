@@ -28,11 +28,13 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.exception.GroovyCompilationErrorsException;
 import com.tlcsdm.core.exception.UnsupportedFeatureException;
 import groovy.lang.GroovyObject;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
+import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -76,7 +78,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -88,6 +90,8 @@ public class GroovyUtil {
         } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException
             | NoSuchMethodException | InvocationTargetException e1) {
             StaticLog.warn("Load script [" + scriptName + "] failed", e1);
+        } catch (MultipleCompilationErrorsException e) {
+            throw new GroovyCompilationErrorsException(scriptName + " compilation exception, the program has terminated.", e);
         }
 
         try {
