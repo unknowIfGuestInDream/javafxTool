@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.freemarker;
+package com.tlcsdm.core.groovy;
 
 /**
  * @author: unknowIfGuestInDream

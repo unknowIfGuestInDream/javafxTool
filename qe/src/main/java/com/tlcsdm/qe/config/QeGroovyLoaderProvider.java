@@ -25,49 +25,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.factory.config;
+package com.tlcsdm.qe.config;
 
-import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
-import com.tlcsdm.core.util.GroovyUtil;
-import groovy.util.GroovyScriptEngine;
-import org.codehaus.groovy.control.CompilerConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ServiceLoader;
-
-/**
- * 扫描TemplateLoaderService实现类
- * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
- *
- * @author unknowIfGuestInDream
- */
-public class GroovyLoaderScanner implements InitializingFactory {
+public class QeGroovyLoaderProvider implements GroovyLoaderService {
 
     @Override
-    public void initialize() throws Exception {
-        List<String> list = new ArrayList<>();
-        ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
-        for (GroovyLoaderService groovyLoaderService : templateLoaders) {
-            list.add(groovyLoaderService.getGroovyLoaderPath());
-        }
-        if (list.size() == 0) {
-            return;
-        }
-        //core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
-        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
-        //系统groovy路径
-//        File file = new File(ConfigureUtil.getConfigureTemplatePath());
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-        //list.add(0, new FileTemplateLoader(file));
-        GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
-        CompilerConfiguration config = new CompilerConfiguration();
-        config.setSourceEncoding("UTF-8");
-        scriptEngine.setConfig(config);
-
+    public String getGroovyLoaderPath() {
+        return QeGroovyLoaderProvider.class.getResource("/com/tlcsdm/qe/static/groovy").getPath();
     }
 
 }

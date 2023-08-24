@@ -26,6 +26,7 @@
  */
 
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.FXSamplerProject;
@@ -34,6 +35,7 @@ import com.tlcsdm.frame.service.SamplePostProcessorService;
 import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
+import com.tlcsdm.qe.config.QeGroovyLoaderProvider;
 import com.tlcsdm.qe.config.QeTemplateLoaderProvider;
 import com.tlcsdm.qe.provider.QeCenterPanelProvider;
 import com.tlcsdm.qe.provider.QeConfigurationProvider;
@@ -62,6 +64,7 @@ module com.tlcsdm.qe {
     requires org.slf4j;
     requires freemarker;
     requires javafx.base;
+    requires org.apache.groovy;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.frame, com.tlcsdm.login;
@@ -77,6 +80,7 @@ module com.tlcsdm.qe {
     provides FXSamplerConfiguration with QeConfigurationProvider, NordLightSkin;
     provides SplashScreen with QeSplashProvider;
     provides TemplateLoaderService with QeTemplateLoaderProvider;
+    provides GroovyLoaderService with QeGroovyLoaderProvider;
     provides SamplePostProcessorService with QeSamplePostProcessorProvider;
     provides VersionCheckerService with QeVersionCheckerProvider;
     provides SamplesTreeViewConfiguration with QeSampleTreeViewConfiguration;

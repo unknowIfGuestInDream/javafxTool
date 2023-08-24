@@ -29,12 +29,12 @@ package com.tlcsdm.qe.tools;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
+import com.tlcsdm.core.util.GroovyUtil;
 import com.tlcsdm.qe.QeSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -57,8 +57,6 @@ import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.Month;
@@ -68,6 +66,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * 测试用，发布时设置可见性为false
@@ -108,9 +109,11 @@ public class TestTool extends QeSample {
 //            ps.close();
 //        });
 
-        StaticLog.info("hello log");
-        StaticLog.error("hello log");
-        StaticLog.warn("hello log");
+//        StaticLog.info("hello log");
+//        StaticLog.error("hello log");
+//        StaticLog.warn("hello log");
+
+        GroovyUtil.invokeMethod("test.groovy", "hello");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -284,10 +287,8 @@ public class TestTool extends QeSample {
         SVGPath path = new SVGPath();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            //禁止DTD验证,防止网络阻塞
-            builder.setEntityResolver(
-                (publicId, systemId) -> new InputSource(new StringReader(""))
-            );
+            // 禁止DTD验证,防止网络阻塞
+            builder.setEntityResolver((publicId, systemId) -> new InputSource(new StringReader("")));
             Document d = builder.parse(getClass().getResourceAsStream(pathName));
             org.w3c.dom.Node node = d.getElementsByTagName("path").item(0);
             String content = node.getAttributes().getNamedItem("d").getNodeValue();
