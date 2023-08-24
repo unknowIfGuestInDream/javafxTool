@@ -52,6 +52,10 @@ public class ConfigureUtil {
         return getConfigurePath() + "/templates";
     }
 
+    public static String getConfigureGroovyPath() {
+        return getConfigurePath() + "/groovy";
+    }
+
     public static String getConfigureTemplatePath(String fileName) {
         return getConfigureTemplatePath() + fileName;
     }

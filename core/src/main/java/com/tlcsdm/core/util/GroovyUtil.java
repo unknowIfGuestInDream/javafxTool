@@ -76,7 +76,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;

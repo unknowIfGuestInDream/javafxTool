@@ -29,10 +29,13 @@ package com.tlcsdm.core.factory.config;
 
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.util.GroovyUtil;
 import groovy.util.GroovyScriptEngine;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -52,19 +55,21 @@ public class GroovyLoaderScanner implements InitializingFactory {
         for (GroovyLoaderService groovyLoaderService : templateLoaders) {
             list.add(groovyLoaderService.getGroovyLoaderPath());
         }
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return;
         }
-        //core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
+        // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
         list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
-        //系统groovy路径
-//        File file = new File(ConfigureUtil.getConfigureTemplatePath());
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-        //list.add(0, new FileTemplateLoader(file));
+        // 系统groovy路径
+        File file = new File(ConfigureUtil.getConfigureGroovyPath());
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        list.add(0, file.getPath());
         GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
         CompilerConfiguration config = new CompilerConfiguration();
+        SecureASTCustomizer secureASTCustomizer = new SecureASTCustomizer();
+        config.addCompilationCustomizers(secureASTCustomizer);
         config.setSourceEncoding("UTF-8");
         scriptEngine.setConfig(config);
 
