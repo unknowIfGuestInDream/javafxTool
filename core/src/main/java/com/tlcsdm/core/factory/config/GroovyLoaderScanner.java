@@ -57,13 +57,15 @@ public class GroovyLoaderScanner implements InitializingFactory {
 
     @Override
     public void initialize() throws Exception {
+        try {
+            Class.forName("groovy.util.GroovyScriptEngine");
+        } catch (ClassNotFoundException e) {
+            return;
+        }
         List<String> list = new ArrayList<>();
         ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
         for (GroovyLoaderService groovyLoaderService : templateLoaders) {
             list.add(groovyLoaderService.getGroovyLoaderPath());
-        }
-        if (list.isEmpty()) {
-            return;
         }
         // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
         list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
@@ -77,12 +79,8 @@ public class GroovyLoaderScanner implements InitializingFactory {
         CompilerConfiguration config = new CompilerConfiguration();
         SecureASTCustomizer sac = new SecureASTCustomizer();
         /* disable calling the System.exit() method and use of other dangerous imports */
-        List<String> varList = Arrays.asList(
-            System.class.getName(),
-            GroovyShell.class.getName(),
-            GroovyClassLoader.class.getName(),
-            Runtime.class.getName(),
-            Socket.class.getName());
+        List<String> varList = Arrays.asList(System.class.getName(), GroovyShell.class.getName(),
+            GroovyClassLoader.class.getName(), Runtime.class.getName(), Socket.class.getName());
         sac.setDisallowedImports(varList);
         sac.setDisallowedReceivers(varList);
         sac.setIndirectImportCheckEnabled(true);

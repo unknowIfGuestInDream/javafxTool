@@ -32,9 +32,7 @@ import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
-import com.tlcsdm.core.util.GroovyUtil;
 import com.tlcsdm.qe.QeSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -100,7 +98,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        TooltipUtil.showToast("message");
+//        TooltipUtil.showToast("message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //
@@ -112,8 +110,12 @@ public class TestTool extends QeSample {
 //        StaticLog.info("hello log");
 //        StaticLog.error("hello log");
 //        StaticLog.warn("hello log");
-
-        GroovyUtil.invokeMethod("test.groovy", "hello");
+//        StaticLog.info(System.getProperty("user.dir"));
+//        GroovyUtil.invokeMethod("test.groovy", "hello");
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("args", new String[] { "8000", "C:\\Users\\os_tangliang\\git\\javafxTool\\docs", "docs" });
+//        GroovyUtil.run("SimpleHttpServer.groovy", map);
+//        GroovyUtil.run("test.groovy");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);

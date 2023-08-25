@@ -65,7 +65,7 @@ public class GroovyUtil {
         return groovyScriptEngine;
     }
 
-    public static GroovyScriptEngine engine() {
+    public static GroovyScriptEngine getEngine() {
         if (groovyScriptEngine == null) {
             throw new UnsupportedFeatureException(
                 "Groovy is not supported, please confirm whether there is a groovy dependency.");
@@ -81,7 +81,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -94,7 +94,8 @@ public class GroovyUtil {
             | NoSuchMethodException | InvocationTargetException e1) {
             StaticLog.warn("Load script [" + scriptName + "] failed.", e1);
         } catch (MultipleCompilationErrorsException e) {
-            throw new GroovyCompilationErrorsException(scriptName + " compilation exception, the program has terminated.", e);
+            throw new GroovyCompilationErrorsException(
+                scriptName + " compilation exception, the program has terminated.", e);
         }
 
         try {
@@ -119,7 +120,8 @@ public class GroovyUtil {
         } catch (ResourceException | ScriptException e) {
             StaticLog.warn("Load script [" + scriptName + "] failed.", e);
         } catch (MultipleCompilationErrorsException e) {
-            throw new GroovyCompilationErrorsException(scriptName + " compilation exception, the program has terminated.", e);
+            throw new GroovyCompilationErrorsException(
+                scriptName + " compilation exception, the program has terminated.", e);
         }
         return ret;
     }
