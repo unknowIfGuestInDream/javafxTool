@@ -30,6 +30,7 @@ package com.tlcsdm.core.groovy
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
+import com.tlcsdm.core.util.CoreUtil
 import groovy.transform.CompileStatic
 import org.codehaus.groovy.runtime.IOGroovyMethods
 
@@ -39,6 +40,7 @@ import java.util.zip.ZipFile
 
 /**
  * SimpleHTTPServer for Groovy, inspired by Python's SimpleHTTPServer
+ * requires jdk.httpserver
  */
 @CompileStatic
 class SimpleHttpServer {
@@ -132,9 +134,10 @@ class SimpleHttpServer {
         }
     }
 
-    void start() {
+    def start() {
         server.start()
-        System.out.println("HTTP Server started up, visit http://localhost:" + this.port + this.contextRoot + " to access the files in the " + this.docBase.getCanonicalPath())
+        println "HTTP Server started up, visit http://localhost:" + this.port + this.contextRoot + " to access the files in the " + this.docBase.getCanonicalPath()
+        CoreUtil.openWeb("http://localhost:" + this.port + this.contextRoot + "/index.html")
     }
 
     static void main(String[] args) {

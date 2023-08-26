@@ -55,6 +55,8 @@ import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.Month;
@@ -64,9 +66,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * 测试用，发布时设置可见性为false
@@ -110,11 +109,15 @@ public class TestTool extends QeSample {
 //        StaticLog.info("hello log");
 //        StaticLog.error("hello log");
 //        StaticLog.warn("hello log");
-//        StaticLog.info(System.getProperty("user.dir"));
+
 //        GroovyUtil.invokeMethod("test.groovy", "hello");
+
 //        Map<String, Object> map = new HashMap<>();
-//        map.put("args", new String[] { "8000", "C:\\Users\\os_tangliang\\git\\javafxTool\\docs", "docs" });
+//        map.put("args", new String[] { "8000", "E:\\javaWorkSpace\\javafxTool\\docs", "docs" });
 //        GroovyUtil.run("SimpleHttpServer.groovy", map);
+
+//        GroovyUtil.simpleHttpServer(8000, CoreUtil.getRootPath() + File.separator + "docs", "docs");
+
 //        GroovyUtil.run("test.groovy");
     });
 

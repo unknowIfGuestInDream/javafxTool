@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.GroovyCompilationErrorsException;
 import com.tlcsdm.core.exception.UnsupportedFeatureException;
@@ -40,6 +41,7 @@ import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -81,7 +83,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -128,5 +130,18 @@ public class GroovyUtil {
 
     public static Object run(String scriptName) {
         return run(scriptName, Map.of());
+    }
+
+    /**
+     * 简易服务器
+     * 需要引用模块jdk.httpserver
+     */
+    public static void simpleHttpServer(int port, String contextRoot, String docBase) {
+        if (!NetUtil.isUsableLocalPort(port)) {
+            port = NetUtil.getUsableLocalPort();
+        }
+        Map<String, Object> map = new HashMap<>(4);
+        map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
+        System.out.println(GroovyUtil.run("SimpleHttpServer.groovy", map));
     }
 }
