@@ -28,12 +28,15 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.annotation.AnnotationUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -152,6 +155,22 @@ public class CoreUtil {
             }
             return Integer.compare(p1, p2);
         });
+    }
+
+    /**
+     * 获取项目根目录
+     * eclipse下的根目录和idea不同
+     */
+    public static String getRootPath() {
+        String path = System.getProperty("user.dir");
+        File file = new File(path);
+        List<File> list = FileUtil.loopFiles(file.toPath(), 1, new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return "core".equals(pathname.getName());
+            }
+        });
+        return list.size() > 0 ? path : file.getParent();
     }
 
 }

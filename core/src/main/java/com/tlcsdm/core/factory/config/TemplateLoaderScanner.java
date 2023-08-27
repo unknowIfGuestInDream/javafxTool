@@ -56,9 +56,6 @@ public class TemplateLoaderScanner implements InitializingFactory {
         for (TemplateLoaderService templateLoader : templateLoaders) {
             list.add(templateLoader.getTemplateLoader());
         }
-        if (list.isEmpty()) {
-            return;
-        }
         // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
         list.add(new ClassTemplateLoader(TemplateLoaderScanner.class, "/com/tlcsdm/core/static/templates"));
         // 系统模板路径

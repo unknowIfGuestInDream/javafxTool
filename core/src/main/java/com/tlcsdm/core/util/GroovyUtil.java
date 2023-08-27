@@ -27,18 +27,25 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.exception.GroovyCompilationErrorsException;
 import com.tlcsdm.core.exception.UnsupportedFeatureException;
+import groovy.lang.Binding;
 import groovy.lang.GroovyObject;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
+import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 后期考虑重构
+ * Groovy工具类
  *
  * @author: unknowIfGuestInDream
  * @date: 2023/4/24 22:05
@@ -60,7 +67,7 @@ public class GroovyUtil {
         return groovyScriptEngine;
     }
 
-    public static GroovyScriptEngine engine() {
+    public static GroovyScriptEngine getEngine() {
         if (groovyScriptEngine == null) {
             throw new UnsupportedFeatureException(
                 "Groovy is not supported, please confirm whether there is a groovy dependency.");
@@ -87,17 +94,54 @@ public class GroovyUtil {
             scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
         } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException
             | NoSuchMethodException | InvocationTargetException e1) {
-            StaticLog.warn("Load script [" + scriptName + "] failed", e1);
+            StaticLog.warn("Load script [" + scriptName + "] failed.", e1);
+        } catch (MultipleCompilationErrorsException e) {
+            throw new GroovyCompilationErrorsException(
+                scriptName + " compilation exception, the program has terminated.", e);
         }
 
         try {
             ret = scriptInstance.invokeMethod(methodName, params);
         } catch (IllegalArgumentException e) {
-            StaticLog.warn("Execute " + methodName + " params error, params are " + params, e);
+            StaticLog.warn("Execute " + methodName + " params error, params are " + Arrays.toString(params), e);
         } catch (Exception e) {
-            StaticLog.warn("Execute " + methodName + " error", e);
+            StaticLog.error("Execute " + methodName + " error.", e);
         }
 
         return ret;
+    }
+
+    /**
+     * 运行groovy脚本
+     */
+    public static Object run(String scriptName, Map<String, Object> params) {
+        Object ret = null;
+        Binding binding = new Binding(params);
+        try {
+            ret = groovyScriptEngine.run(scriptName, binding);
+        } catch (ResourceException | ScriptException e) {
+            StaticLog.warn("Load script [" + scriptName + "] failed.", e);
+        } catch (MultipleCompilationErrorsException e) {
+            throw new GroovyCompilationErrorsException(
+                scriptName + " compilation exception, the program has terminated.", e);
+        }
+        return ret;
+    }
+
+    public static Object run(String scriptName) {
+        return run(scriptName, Map.of());
+    }
+
+    /**
+     * 简易服务器
+     * 需要引用模块jdk.httpserver
+     */
+    public static void simpleHttpServer(int port, String contextRoot, String docBase) {
+        if (!NetUtil.isUsableLocalPort(port)) {
+            port = NetUtil.getUsableLocalPort();
+        }
+        Map<String, Object> map = new HashMap<>(4);
+        map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
+        System.out.println(GroovyUtil.run("SimpleHttpServer.groovy", map));
     }
 }
