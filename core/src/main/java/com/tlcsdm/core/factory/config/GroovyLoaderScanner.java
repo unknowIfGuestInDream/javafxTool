@@ -28,12 +28,22 @@
 package com.tlcsdm.core.factory.config;
 
 import com.tlcsdm.core.factory.InitializingFactory;
-import com.tlcsdm.core.freemarker.GroovyLoaderService;
+import com.tlcsdm.core.groovy.GroovyLoaderService;
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.util.GroovyUtil;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyShell;
 import groovy.util.GroovyScriptEngine;
+import org.codehaus.groovy.ast.stmt.SynchronizedStatement;
+import org.codehaus.groovy.classgen.BytecodeExpression;
+import org.codehaus.groovy.classgen.BytecodeSequence;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
+import java.io.File;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -47,27 +57,39 @@ public class GroovyLoaderScanner implements InitializingFactory {
 
     @Override
     public void initialize() throws Exception {
+        try {
+            Class.forName("groovy.util.GroovyScriptEngine");
+        } catch (ClassNotFoundException e) {
+            return;
+        }
         List<String> list = new ArrayList<>();
         ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
         for (GroovyLoaderService groovyLoaderService : templateLoaders) {
             list.add(groovyLoaderService.getGroovyLoaderPath());
         }
-        if (list.size() == 0) {
-            return;
-        }
-        //core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
+        // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
         list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
-        //系统groovy路径
-//        File file = new File(ConfigureUtil.getConfigureTemplatePath());
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-        //list.add(0, new FileTemplateLoader(file));
+        // 系统groovy路径
+        File file = new File(ConfigureUtil.getConfigureGroovyPath());
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        list.add(0, file.getPath());
         GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
         CompilerConfiguration config = new CompilerConfiguration();
+        SecureASTCustomizer sac = new SecureASTCustomizer();
+        /* disable calling the System.exit() method and use of other dangerous imports */
+        List<String> varList = Arrays.asList(System.class.getName(), GroovyShell.class.getName(),
+            GroovyClassLoader.class.getName(), Runtime.class.getName(), Socket.class.getName());
+        sac.setDisallowedImports(varList);
+        sac.setDisallowedReceivers(varList);
+        sac.setIndirectImportCheckEnabled(true);
+        /* disable dangerous Expressions */
+        sac.setDisallowedExpressions(List.of(BytecodeExpression.class));
+        sac.setDisallowedStatements(Arrays.asList(BytecodeSequence.class, SynchronizedStatement.class));
+        config.addCompilationCustomizers(sac);
         config.setSourceEncoding("UTF-8");
         scriptEngine.setConfig(config);
-
     }
 
 }

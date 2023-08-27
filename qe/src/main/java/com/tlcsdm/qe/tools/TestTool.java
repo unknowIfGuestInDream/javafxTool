@@ -29,11 +29,9 @@ package com.tlcsdm.qe.tools;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.qe.QeSample;
 import javafx.beans.value.ObservableValue;
@@ -99,7 +97,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        TooltipUtil.showToast("message");
+//        TooltipUtil.showToast("message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //
@@ -108,9 +106,19 @@ public class TestTool extends QeSample {
 //            ps.close();
 //        });
 
-        StaticLog.info("hello log");
-        StaticLog.error("hello log");
-        StaticLog.warn("hello log");
+//        StaticLog.info("hello log");
+//        StaticLog.error("hello log");
+//        StaticLog.warn("hello log");
+
+//        GroovyUtil.invokeMethod("test.groovy", "hello");
+
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("args", new String[] { "8000", "E:\\javaWorkSpace\\javafxTool\\docs", "docs" });
+//        GroovyUtil.run("SimpleHttpServer.groovy", map);
+
+//        GroovyUtil.simpleHttpServer(8000, CoreUtil.getRootPath() + File.separator + "docs", "docs");
+
+//        GroovyUtil.run("test.groovy");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -284,10 +292,8 @@ public class TestTool extends QeSample {
         SVGPath path = new SVGPath();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            //禁止DTD验证,防止网络阻塞
-            builder.setEntityResolver(
-                (publicId, systemId) -> new InputSource(new StringReader(""))
-            );
+            // 禁止DTD验证,防止网络阻塞
+            builder.setEntityResolver((publicId, systemId) -> new InputSource(new StringReader("")));
             Document d = builder.parse(getClass().getResourceAsStream(pathName));
             org.w3c.dom.Node node = d.getElementsByTagName("path").item(0);
             String content = node.getAttributes().getNamedItem("d").getNodeValue();

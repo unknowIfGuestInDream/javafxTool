@@ -89,7 +89,7 @@ public class InterfaceScanner {
                 StaticLog.error(e);
             } catch (NoClassDefFoundError e) {
                 // fix freemarker 依赖找不到却进行初始化的问题
-                StaticLog.warn("NoClassDefFoundError: {}", e.getMessage());
+                StaticLog.debug("NoClassDefFoundError: {}", e.getMessage());
             }
         }
     }
