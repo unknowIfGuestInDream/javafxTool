@@ -140,8 +140,7 @@ public class C1MEcmScript extends AbstractEcmScript {
             String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
             Map<String, Object> tagMeta = new HashMap<>();
             if ("psedu".equals(tagkey)) {
-                tagValue = String
-                    .valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
             }
             tagMeta.put("key", tagkey);
             tagMeta.put("value", tagValue);
@@ -206,7 +205,7 @@ public class C1MEcmScript extends AbstractEcmScript {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+        boolean optMaskintStatus) {
         // Do nothing
     }
 
@@ -223,27 +222,14 @@ public class C1MEcmScript extends AbstractEcmScript {
             data = list.get(0);
             for (int i = 1; i < list.size(); i++) {
                 data += " ";
-                data += list.get(i).replaceFirst("- ", "-");
+                data += list.get(i);
             }
-        }
-        data = data.replaceAll("-", " - ");
-        data = data.replaceAll("  ", " ");
-        if (data.contains(" - bit")) {
-            data = data.replaceAll(" - bit", "-bit");
-        }
-        if (data.contains("P - Bus")) {
-            data = data.replaceAll("P - Bus", "P-Bus");
-        }
-        if (data.contains("I - Bus")) {
-            data = data.replaceAll("I - Bus", "I-Bus");
-        }
-        if (data.contains("H - Bus")) {
-            data = data.replaceAll("H - Bus", "H-Bus");
         }
         if (data.contains("*")) {
             List<String> list = StrUtil.split(data, "*");
             data = list.get(0);
         }
+        data = data.replaceAll("  ", " ");
         return data;
     }
 

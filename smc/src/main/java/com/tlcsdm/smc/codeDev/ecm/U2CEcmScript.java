@@ -148,10 +148,9 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
             data = list.get(0);
             for (int i = 1; i < list.size(); i++) {
                 data += " ";
-                data += list.get(i).replaceFirst("- ", "-");
+                data += list.get(i);
             }
         }
-        data = data.replaceAll("-", " - ");
         data = data.replaceAll("  ", " ");
         return data;
     }
@@ -163,11 +162,6 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     @Override
     public String getSampleId() {
         return "u2CEcmScript";
-    }
-
-    @Override
-    public String getSampleVersion() {
-        return "1.0.5";
     }
 
     @Override

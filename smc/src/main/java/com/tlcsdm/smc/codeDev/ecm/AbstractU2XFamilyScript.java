@@ -157,7 +157,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc,
-                                List<Map<String, Object>> function) {
+        List<Map<String, Object>> function) {
         for (int i = 0; i < size; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("funcId", "optErrort" + i);
@@ -168,7 +168,7 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     }
 
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                           boolean optMaskintStatus) {
+        boolean optMaskintStatus) {
         if (funcSupCondition.contains("*")) {
             String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
             if ("1".equals(mesNum) || "2".equals(mesNum)) {
@@ -208,23 +208,10 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
             data = list.get(0);
             for (int i = 1; i < list.size(); i++) {
                 data += " ";
-                data += list.get(i).replaceFirst("- ", "-");
+                data += list.get(i);
             }
         }
-        data = data.replaceAll("-", " - ");
         data = data.replaceAll("  ", " ");
-        if (data.contains(" - bit")) {
-            data = data.replaceAll(" - bit", "-bit");
-        }
-        if (data.contains("P - Bus")) {
-            data = data.replaceAll("P - Bus", "P-Bus");
-        }
-        if (data.contains("I - Bus")) {
-            data = data.replaceAll("I - Bus", "I-Bus");
-        }
-        if (data.contains("H - Bus")) {
-            data = data.replaceAll("H - Bus", "H-Bus");
-        }
         return data;
     }
 }

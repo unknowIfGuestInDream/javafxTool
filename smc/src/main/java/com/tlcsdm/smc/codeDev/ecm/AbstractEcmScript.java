@@ -327,10 +327,9 @@ public abstract class AbstractEcmScript extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField,
-            startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField,
-            errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField,
-            errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField,
-            tagConfigField).build();
+            startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField, errorSourceIdColField,
+            categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField, errorSourceDescColField,
+            errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
         FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
@@ -546,7 +545,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取tag数据
      */
     protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
-                                                     int rowNum) {
+        int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);
@@ -619,7 +618,7 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.3";
+        return "1.0.6";
     }
 
     @Override
