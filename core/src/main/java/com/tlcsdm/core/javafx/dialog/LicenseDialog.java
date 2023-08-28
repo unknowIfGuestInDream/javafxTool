@@ -27,6 +27,7 @@
 package com.tlcsdm.core.javafx.dialog;
 
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Priority;
@@ -56,8 +57,10 @@ public class LicenseDialog {
         vbox.getChildren().addAll(pane);
         VBox.setVgrow(pane, Priority.ALWAYS);
         FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle("License").setOwner(FxApp.primaryStage)
-            .setPrefSize(680, 520).setResizable(true).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
-        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+            .setPrefSize(680, 520).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
+        dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> {
+            OSUtil.writeToClipboard(area.getText());
+        }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     }
 
