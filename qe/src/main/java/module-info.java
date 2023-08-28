@@ -64,7 +64,6 @@ module com.tlcsdm.qe {
     requires org.slf4j;
     requires freemarker;
     requires javafx.base;
-    requires org.apache.groovy;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.frame, com.tlcsdm.login;
