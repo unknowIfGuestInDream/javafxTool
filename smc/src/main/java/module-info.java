@@ -26,6 +26,7 @@
  */
 
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.FXSamplerProject;
@@ -35,6 +36,7 @@ import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.login.service.LoginCheck;
+import com.tlcsdm.smc.config.SmcGroovyLoaderProvider;
 import com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
 import com.tlcsdm.smc.provider.SmcCenterPanelProvider;
 import com.tlcsdm.smc.provider.SmcConfigurationProvider;
@@ -87,6 +89,7 @@ module com.tlcsdm.smc {
     provides SplashScreen with SmcSplashProvider;
     provides LoginCheck with SmcLoginCheckProvider;
     provides TemplateLoaderService with SmcTemplateLoaderProvider;
+    provides GroovyLoaderService with SmcGroovyLoaderProvider;
     provides SamplePostProcessorService with SmcSamplePostProcessorProvider;
     provides VersionCheckerService with SmcVersionCheckerProvider;
     provides SamplesTreeViewConfiguration with SmcSampleTreeViewConfiguration;
