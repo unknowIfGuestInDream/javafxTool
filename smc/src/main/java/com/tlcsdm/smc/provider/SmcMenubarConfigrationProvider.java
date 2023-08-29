@@ -46,6 +46,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
+import com.tlcsdm.core.util.GroovyUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
@@ -62,6 +63,7 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -165,6 +167,10 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         dialog.show();
     });
 
+    private final Action helpContent = FxAction.helpContent(actionEvent -> {
+        GroovyUtil.simpleHttpServer(8000, CoreUtil.getRootPath() + File.separator + "docs", "docs");
+    });
+
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(SmcConstant.PROJECT_RELEASE_URL));
 
     CheckLangAction chinese = new CheckLangAction(SmcConstant.LANGUAGE_CHINESE);
@@ -176,7 +182,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
-            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, release, about));
+            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     /**
      * 初始化action

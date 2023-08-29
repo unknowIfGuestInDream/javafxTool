@@ -316,6 +316,14 @@ public class FxAction {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/release.png");
     }
 
+    public static Action helpContent(Consumer<ActionEvent> eventHandler) {
+        return helpContent(I18nUtils.get("core.menubar.help.helpContent"), eventHandler);
+    }
+
+    public static Action helpContent(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/document.png");
+    }
+
     public static Action clear(Consumer<ActionEvent> eventHandler) {
         return clear(I18nUtils.get("core.button.clear"), eventHandler);
     }

@@ -66,6 +66,7 @@ module com.tlcsdm.smc {
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
+    requires jdk.httpserver;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.provider to com.tlcsdm.frame, com.tlcsdm.login;
