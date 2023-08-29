@@ -303,6 +303,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         grid.setPadding(new Insets(5));
 
         Label categorySheetNameLabel = new Label(I18nUtils.get("smc.tool.ecm.label.categorySheetName") + ": ");
+        categorySheetNameLabel.setMinWidth(90);
         categorySheetNameField = new TextField();
         categorySheetNameField.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHgrow(categorySheetNameField, Priority.ALWAYS);
