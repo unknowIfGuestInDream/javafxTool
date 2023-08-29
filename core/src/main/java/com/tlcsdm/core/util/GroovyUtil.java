@@ -142,6 +142,6 @@ public class GroovyUtil {
         }
         Map<String, Object> map = new HashMap<>(4);
         map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
-        System.out.println(GroovyUtil.run("SimpleHttpServer.groovy", map));
+        GroovyUtil.run("SimpleHttpServer.groovy", map);
     }
 }
