@@ -106,7 +106,11 @@ public class DependencyInfo {
                 "GNU LESSER GENERAL PUBLIC LICENSE", "http://www.gnu.org/licenses/lgpl.html"),
 
             new Dependency("net.coobird", "thumbnailator", "0.4.20", false, "https://github.com/coobird/thumbnailator",
-                "MIT License", "https://spdx.org/licenses/MIT.html"));
+                "MIT License", "https://spdx.org/licenses/MIT.html"),
+
+            new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.16.0", false,
+                "https://github.com/dlsc-software-consulting-gmbh/PreferencesFX", "Apache License, Version 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     public static class Dependency {

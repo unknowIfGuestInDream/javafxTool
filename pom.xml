@@ -96,6 +96,7 @@
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
+        <preferencesfx.version>11.16.0</preferencesfx.version>
     </properties>
 
     <issueManagement>
@@ -540,6 +541,11 @@
                 <groupId>net.coobird</groupId>
                 <artifactId>thumbnailator</artifactId>
                 <version>${thumbnailator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dlsc.preferencesfx</groupId>
+                <artifactId>preferencesfx-core</artifactId>
+                <version>${preferencesfx.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
