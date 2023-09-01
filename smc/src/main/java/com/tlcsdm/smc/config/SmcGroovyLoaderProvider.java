@@ -35,7 +35,7 @@ public class SmcGroovyLoaderProvider implements GroovyLoaderService {
 
     @Override
     public URL getGroovyLoaderPath() {
-        return SmcGroovyLoaderProvider.class.getResource("/com/tlcsdm/smc/static/groovy");
+        return SmcGroovyLoaderProvider.class.getResource("/com/tlcsdm/smc/static/groovy/");
     }
 
 }

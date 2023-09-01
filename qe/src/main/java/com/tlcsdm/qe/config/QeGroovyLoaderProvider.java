@@ -35,7 +35,7 @@ public class QeGroovyLoaderProvider implements GroovyLoaderService {
 
     @Override
     public URL getGroovyLoaderPath() {
-        return QeGroovyLoaderProvider.class.getResource("/com/tlcsdm/qe/static/groovy");
+        return QeGroovyLoaderProvider.class.getResource("/com/tlcsdm/qe/static/groovy/");
     }
 
 }

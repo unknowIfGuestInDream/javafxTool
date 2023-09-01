@@ -69,7 +69,7 @@ public class GroovyLoaderScanner implements InitializingFactory {
             list.add(groovyLoaderService.getGroovyLoaderPath());
         }
         // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
-        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy"));
+        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy/"));
         // 系统groovy路径
         File file = new File(ConfigureUtil.getConfigureGroovyPath());
         if (!file.exists()) {
