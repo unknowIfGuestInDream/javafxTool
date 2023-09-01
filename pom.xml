@@ -549,6 +549,14 @@
                 <exclusions>
                     <exclusion>
                         <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-fxml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
                         <artifactId>javafx-web</artifactId>
                     </exclusion>
                     <exclusion>
