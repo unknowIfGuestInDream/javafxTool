@@ -69,7 +69,7 @@ public class DependencyInfo {
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("org.apache.pdfbox", "pdfbox", "2.0.29", false, "https://pdfbox.apache.org/",
+            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.0", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("technology.tabula", "tabula", "1.0.5", false, "https://github.com/tabulapdf/tabula-java",
@@ -89,7 +89,7 @@ public class DependencyInfo {
             new Dependency("org.kordamp.ikonli", "ikonli", "12.3.1", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
 
-            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "1.9.0", false,
+            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.0.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0"),
 
