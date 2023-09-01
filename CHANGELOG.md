@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## [v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07
+
+1. Add LicenseDialog
+2. Add groovy support
+3. Modify ECM Script
+
+### Feature
+
+- smc:
+  - 新增帮助文档 (#672) ([ba72783](https://github.com/unknowIfGuestInDream/javafxTool/commit/ba727833826b6c1be3a3d4e8a3ab384b2e4ffe08)) ([#672](https://github.com/unknowIfGuestInDream/javafxTool/pull/672))
+
+- general:
+  - Ecm脚本修改 (#671) ([59f2ff7](https://github.com/unknowIfGuestInDream/javafxTool/commit/59f2ff736ba984d511285c98f71fff38f32f0f9d)) ([#671](https://github.com/unknowIfGuestInDream/javafxTool/pull/671))
+  - Add groovy support (#668) ([e53275d](https://github.com/unknowIfGuestInDream/javafxTool/commit/e53275dffe9cb46fba19100c9df7f6c6b336b17c)) ([#668](https://github.com/unknowIfGuestInDream/javafxTool/pull/668))
+  - 新增Order注解 (#660) ([5edf5f8](https://github.com/unknowIfGuestInDream/javafxTool/commit/5edf5f8319aed30d0eb2cb5baf5b1255f124c223)) ([#660](https://github.com/unknowIfGuestInDream/javafxTool/pull/660))
+
+- core:
+  - Add LicenseDialog (#666) ([be74e7c](https://github.com/unknowIfGuestInDream/javafxTool/commit/be74e7c85008a94112ba6bacc827408df451ab5e)) ([#666](https://github.com/unknowIfGuestInDream/javafxTool/pull/666))
+  - Add EventBus (#664) ([0c0f4e3](https://github.com/unknowIfGuestInDream/javafxTool/commit/0c0f4e3db74152cfe7fb82980b4799140c179df4)) ([#664](https://github.com/unknowIfGuestInDream/javafxTool/pull/664))
+  - Add PdfViewStage (#647) ([6e69d5d](https://github.com/unknowIfGuestInDream/javafxTool/commit/6e69d5de210241bce5d7c10c348688a8ca7a9790)) ([#647](https://github.com/unknowIfGuestInDream/javafxTool/pull/647))
+
+### Bug Fixes
+
+- core:
+  - 修改simpleHttpServer (#675) ([ab4f63e](https://github.com/unknowIfGuestInDream/javafxTool/commit/ab4f63e97f5bec1bb05e1f4088bd826d9fffe48c)) ([#675](https://github.com/unknowIfGuestInDream/javafxTool/pull/675))
+
 ## [v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33
 
 1. Added control Panel setting interface for frame
