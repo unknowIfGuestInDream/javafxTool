@@ -434,6 +434,10 @@
                         <artifactId>slf4j-simple</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
