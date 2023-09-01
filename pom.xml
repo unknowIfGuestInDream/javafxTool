@@ -523,16 +523,16 @@
                 <version>${groovy.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-api</artifactId>
-                        <groupId>org.junit.jupiter</groupId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
-                        <groupId>org.junit.jupiter</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>junit-platform-engine</artifactId>
                         <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-engine</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -546,6 +546,20 @@
                 <groupId>com.dlsc.preferencesfx</groupId>
                 <artifactId>preferencesfx-core</artifactId>
                 <version>${preferencesfx.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.controlsfx</groupId>
+                        <artifactId>controlsfx</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

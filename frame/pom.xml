@@ -45,6 +45,10 @@
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dlsc.preferencesfx</groupId>
+            <artifactId>preferencesfx-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
