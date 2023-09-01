@@ -89,6 +89,7 @@
         <pdfviewfx.version>1.9.0</pdfviewfx.version>
         <jackson.version>2.15.2</jackson.version>
         <testfx.version>4.0.16-alpha</testfx.version>
+        <assertj.version>3.13.2</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.1</richtextfx.version>
@@ -389,6 +390,11 @@
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-junit5</artifactId>
                 <version>${testfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.pdfbox</groupId>
