@@ -47,8 +47,8 @@ import java.net.URL;
  * Dom4j工具类
  * 使用xpath需要引用jaxen
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/22 18:34
+ * @author unknowIfGuestInDream
+ * @date 2023/4/22 18:34
  */
 public class Dom4jUtil {
 

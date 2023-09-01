@@ -39,8 +39,8 @@ import java.util.List;
  * Dependency tableView对象
  * 用于依赖信息展示
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/8/4 23:04
+ * @author unknowIfGuestInDream
+ * @date 2023/8/4 23:04
  */
 public class DependencyTableView extends TableView<Dependency> {
 

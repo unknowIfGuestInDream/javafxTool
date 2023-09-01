@@ -39,8 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/23 21:15
+ * @author unknowIfGuestInDream
+ * @date 2023/4/23 21:15
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class ArrayTest {

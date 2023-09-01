@@ -44,8 +44,8 @@ import java.util.Map;
 /**
  * C1M的ECM脚本
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:17
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:17
  */
 public class C1MEcmScript extends AbstractEcmScript {
 

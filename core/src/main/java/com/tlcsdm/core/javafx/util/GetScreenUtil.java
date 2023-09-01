@@ -30,8 +30,8 @@ package com.tlcsdm.core.javafx.util;
 import javafx.scene.Node;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:03
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:03
  */
 public class GetScreenUtil {
 

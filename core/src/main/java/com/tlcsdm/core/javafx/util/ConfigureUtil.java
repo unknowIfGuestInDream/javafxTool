@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/27 0:10
+ * @author unknowIfGuestInDream
+ * @date 2022/11/27 0:10
  */
 public class ConfigureUtil {
 

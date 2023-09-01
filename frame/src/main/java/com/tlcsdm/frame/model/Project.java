@@ -32,6 +32,8 @@ import com.tlcsdm.frame.Sample;
 
 /**
  * Represents a project such as ControlsFX or JFXtras
+ *
+ * @author unknowIfGuestInDream
  */
 public class Project {
 

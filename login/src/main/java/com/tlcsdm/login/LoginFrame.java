@@ -46,6 +46,8 @@ import java.util.ServiceLoader;
 
 /**
  * 登录框架
+ *
+ * @author unknowIfGuestInDream
  */
 public class LoginFrame extends Application {
     Label nameLabel = new Label(I18nUtils.get("login.userNameLabel"));

@@ -37,8 +37,8 @@ import java.util.ResourceBundle;
 /**
  * 文件夹监控
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/12/10 21:19
+ * @author unknowIfGuestInDream
+ * @date 2022/12/10 21:19
  */
 public class PathWatchToolDialog {
 

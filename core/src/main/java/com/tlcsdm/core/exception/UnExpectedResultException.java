@@ -32,9 +32,8 @@ import java.io.Serial;
 /**
  * 不符合预期的数据异常
  *
- * @author: TangLiang
- * @date: 2022/1/7 9:21
- * @since: 1.0
+ * @author unknowIfGuestInDream
+ * @date 2022/1/7 9:21
  */
 public class UnExpectedResultException extends RuntimeException {
     @Serial

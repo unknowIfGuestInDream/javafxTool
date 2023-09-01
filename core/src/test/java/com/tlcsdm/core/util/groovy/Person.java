@@ -28,8 +28,8 @@
 package com.tlcsdm.core.util.groovy;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 21:44
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 21:44
  */
 public class Person {
     public String name;

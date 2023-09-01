@@ -35,6 +35,8 @@ import javafx.util.Callback;
 
 /**
  * 左侧菜单树配置CellFactory
+ *
+ * @author unknowIfGuestInDream
  */
 public interface SamplesTreeViewConfiguration {
 

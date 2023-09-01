@@ -29,6 +29,9 @@ package com.tlcsdm.qe;
 
 import com.tlcsdm.frame.FXSampler;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class QeSampler {
 
     public static void main(String[] args) {

@@ -37,8 +37,8 @@ import java.util.Map;
 /**
  * U2C的ECM脚本
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:17
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:17
  */
 public class U2CEcmScript extends AbstractU2XFamilyScript {
 

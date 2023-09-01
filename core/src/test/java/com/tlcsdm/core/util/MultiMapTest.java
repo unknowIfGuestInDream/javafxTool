@@ -35,8 +35,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/3/19 18:46
+ * @author unknowIfGuestInDream
+ * @date 2023/3/19 18:46
  */
 @Disabled("MultiMap.class is deprecated.")
 public class MultiMapTest {

@@ -41,8 +41,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 线程池初始化
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/2/5 8:36
+ * @author unknowIfGuestInDream
+ * @date 2023/2/5 8:36
  */
 @Order(1)
 public final class ThreadPoolTaskExecutor implements InitializingFactory {

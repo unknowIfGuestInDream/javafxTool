@@ -31,6 +31,9 @@ import com.tlcsdm.core.groovy.GroovyLoaderService;
 
 import java.net.URL;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcGroovyLoaderProvider implements GroovyLoaderService {
 
     @Override

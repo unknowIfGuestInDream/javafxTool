@@ -31,6 +31,9 @@ import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public final class FxButtonType {
 
     private FxButtonType() {

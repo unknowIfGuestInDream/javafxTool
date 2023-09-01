@@ -47,8 +47,8 @@ import java.util.Map;
 /**
  * Groovy工具类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 22:05
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 22:05
  */
 public class GroovyUtil {
     static GroovyScriptEngine groovyScriptEngine;
