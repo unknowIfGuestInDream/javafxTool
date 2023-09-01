@@ -47,8 +47,8 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/11 19:03
+ * @author unknowIfGuestInDream
+ * @date 2022/12/11 19:03
  */
 public class FxXmlUtil {
 

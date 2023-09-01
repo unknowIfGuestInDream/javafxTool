@@ -31,6 +31,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public interface FXSamplerProject {
 
     /**

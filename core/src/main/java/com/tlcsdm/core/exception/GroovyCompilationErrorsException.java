@@ -32,8 +32,8 @@ import java.io.Serial;
 /**
  * Groovy编译错误异常
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/8/24 20:48
+ * @author unknowIfGuestInDream
+ * @date 2023/8/24 20:48
  */
 public class GroovyCompilationErrorsException extends RuntimeException {
 

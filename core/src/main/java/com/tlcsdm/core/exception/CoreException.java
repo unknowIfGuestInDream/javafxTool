@@ -32,8 +32,8 @@ import java.io.Serial;
 /**
  * core模块异常
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/3 21:08
+ * @author unknowIfGuestInDream
+ * @date 2023/1/3 21:08
  */
 public class CoreException extends RuntimeException {
     @Serial

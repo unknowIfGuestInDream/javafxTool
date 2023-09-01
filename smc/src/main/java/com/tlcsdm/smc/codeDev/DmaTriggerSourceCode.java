@@ -84,8 +84,8 @@ import java.util.StringJoiner;
 /**
  * 根据DMA的trigger source文档生成setting, binding, h代码
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/10 23:12
+ * @author unknowIfGuestInDream
+ * @date 2023/3/10 23:12
  */
 public class DmaTriggerSourceCode extends SmcSample {
 

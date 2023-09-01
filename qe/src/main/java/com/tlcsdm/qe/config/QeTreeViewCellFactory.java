@@ -38,6 +38,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
 
     @Override

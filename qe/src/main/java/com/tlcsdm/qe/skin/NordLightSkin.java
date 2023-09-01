@@ -32,6 +32,9 @@ import com.tlcsdm.qe.provider.QeConfigurationProvider;
 
 import java.util.Objects;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class NordLightSkin extends QeConfigurationProvider {
 
     @Override

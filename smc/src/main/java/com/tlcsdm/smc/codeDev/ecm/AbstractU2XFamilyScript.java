@@ -39,8 +39,8 @@ import java.util.Map;
 /**
  * U2X系列公共类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/5/4 14:53
+ * @author unknowIfGuestInDream
+ * @date 2023/5/4 14:53
  */
 public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
 

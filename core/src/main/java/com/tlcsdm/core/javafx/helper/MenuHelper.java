@@ -35,8 +35,8 @@ import javafx.scene.image.ImageView;
 import java.util.function.Supplier;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/1/14 18:36
+ * @author unknowIfGuestInDream
+ * @date 2023/1/14 18:36
  */
 public class MenuHelper {
     public static ContextMenu contextMenu(MenuItem... menuItems) {

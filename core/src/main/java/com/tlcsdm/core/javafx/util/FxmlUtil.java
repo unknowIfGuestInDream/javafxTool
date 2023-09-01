@@ -37,8 +37,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/10 20:51
+ * @author unknowIfGuestInDream
+ * @date 2022/12/10 20:51
  */
 public class FxmlUtil {
 

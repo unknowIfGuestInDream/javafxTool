@@ -30,8 +30,8 @@ package com.tlcsdm.frame.service;
 /**
  * 检查更新
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/31 20:49
+ * @author unknowIfGuestInDream
+ * @date 2023/3/31 20:49
  */
 public interface VersionCheckerService {
 

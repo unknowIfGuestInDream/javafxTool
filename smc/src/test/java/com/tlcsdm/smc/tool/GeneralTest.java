@@ -51,8 +51,8 @@ import java.util.stream.Collectors;
 /**
  * general spec 测试，生成差异文件。
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/8/24 20:18
+ * @author unknowIfGuestInDream
+ * @date 2022/8/24 20:18
  * @since: 1.0
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")

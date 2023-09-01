@@ -33,8 +33,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 22:07
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 22:07
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class GroovyUtilTest {

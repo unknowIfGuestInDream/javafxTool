@@ -33,6 +33,9 @@ import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class QeTemplateLoaderProvider implements TemplateLoaderService {
 
     @Override

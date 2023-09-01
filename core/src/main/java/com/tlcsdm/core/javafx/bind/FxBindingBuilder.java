@@ -29,6 +29,9 @@ package com.tlcsdm.core.javafx.bind;
 
 import javafx.beans.binding.Binding;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public interface FxBindingBuilder<T> {
 
     Binding<T> build();

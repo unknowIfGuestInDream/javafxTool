@@ -32,6 +32,8 @@ import javafx.stage.Stage;
 
 /**
  * 登录校验(应用模块实现)
+ *
+ * @author unknowIfGuestInDream
  */
 public interface LoginCheck {
 

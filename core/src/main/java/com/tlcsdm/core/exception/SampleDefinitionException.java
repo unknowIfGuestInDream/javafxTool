@@ -32,8 +32,8 @@ import java.io.Serial;
 /**
  * Sample组件定义错误
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/3 21:10
+ * @author unknowIfGuestInDream
+ * @date 2023/1/3 21:10
  */
 public class SampleDefinitionException extends RuntimeException {
     @Serial

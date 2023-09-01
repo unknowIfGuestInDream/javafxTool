@@ -51,8 +51,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/3/31 21:06
+ * @author unknowIfGuestInDream
+ * @date 2023/3/31 21:06
  */
 public class SmcVersionCheckerProvider implements VersionCheckerService {
 

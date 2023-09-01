@@ -83,8 +83,8 @@ import java.util.Map;
 /**
  * EcmScript脚本超类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:13
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:13
  */
 public abstract class AbstractEcmScript extends SmcSample {
 

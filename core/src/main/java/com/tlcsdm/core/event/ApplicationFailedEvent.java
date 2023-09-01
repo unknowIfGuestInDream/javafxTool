@@ -29,6 +29,8 @@ package com.tlcsdm.core.event;
 
 /**
  * 程序启动失败事件
+ *
+ * @author unknowIfGuestInDream
  */
 public class ApplicationFailedEvent extends ApplicationEvent {
     private Throwable exception;

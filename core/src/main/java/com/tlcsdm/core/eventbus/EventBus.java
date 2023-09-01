@@ -32,6 +32,8 @@ import java.util.concurrent.Executor;
 
 /**
  * 实现 同步阻塞的 EventBus
+ *
+ * @author unknowIfGuestInDream
  */
 public class EventBus {
     private Executor executor;

@@ -87,8 +87,8 @@ import java.util.stream.Collectors;
 /**
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/12/8 23:12
+ * @author unknowIfGuestInDream
+ * @date 2022/12/8 23:12
  */
 public class SpecGeneralTest extends SmcSample {
 
