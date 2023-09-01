@@ -38,8 +38,8 @@ import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,13 +56,9 @@ public class GroovyUtil {
     private GroovyUtil() {
     }
 
-    public static GroovyScriptEngine init(String[] root) {
+    public static GroovyScriptEngine init(URL[] root) {
         if (groovyScriptEngine == null) {
-            try {
-                groovyScriptEngine = new GroovyScriptEngine(root);
-            } catch (IOException e) {
-                StaticLog.error(e);
-            }
+            groovyScriptEngine = new GroovyScriptEngine(root);
         }
         return groovyScriptEngine;
     }
@@ -83,7 +79,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -141,7 +137,7 @@ public class GroovyUtil {
             port = NetUtil.getUsableLocalPort();
         }
         Map<String, Object> map = new HashMap<>(4);
-        map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
+        map.put("args", new String[] { String.valueOf(port), contextRoot, docBase });
         GroovyUtil.run("SimpleHttpServer.groovy", map);
     }
 }

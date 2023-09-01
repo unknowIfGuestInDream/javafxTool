@@ -32,7 +32,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,6 +42,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -163,6 +164,9 @@ public class CoreUtil {
      */
     public static String getRootPath() {
         String path = System.getProperty("user.dir");
+        if (isStartupFromJar(CoreUtil.class)) {
+            return path;
+        }
         File file = new File(path);
         List<File> list = FileUtil.loopFiles(file.toPath(), 1, new FileFilter() {
             @Override
@@ -170,7 +174,15 @@ public class CoreUtil {
                 return "core".equals(pathname.getName());
             }
         });
-        return list.size() > 0 ? path : file.getParent();
+        return !list.isEmpty() ? path : file.getParent();
+    }
+
+    /**
+     * 判断类是否在jar中
+     */
+    public static boolean isStartupFromJar(Class<?> clazz) {
+        URL url = clazz.getResource("");
+        return "jar".equals(url.getProtocol());
     }
 
 }
