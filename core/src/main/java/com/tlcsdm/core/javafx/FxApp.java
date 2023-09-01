@@ -38,8 +38,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/26 23:58
+ * @author unknowIfGuestInDream
+ * @date 2022/11/26 23:58
  */
 public class FxApp {
     public static Stage primaryStage;

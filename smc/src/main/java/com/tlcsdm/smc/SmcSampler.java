@@ -29,6 +29,9 @@ package com.tlcsdm.smc;
 
 import com.tlcsdm.frame.FXSampler;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcSampler {
 
     public static void main(String[] args) {

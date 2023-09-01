@@ -32,8 +32,8 @@ import java.io.Serial;
 /**
  * 资源未找到
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/3 21:10
+ * @author unknowIfGuestInDream
+ * @date 2023/1/3 21:10
  */
 public class ResourceNotFoundException extends RuntimeException {
     @Serial

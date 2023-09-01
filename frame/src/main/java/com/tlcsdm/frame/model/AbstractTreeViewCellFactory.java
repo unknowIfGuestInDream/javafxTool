@@ -43,6 +43,9 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public abstract class AbstractTreeViewCellFactory implements Callback<TreeView<Sample>, TreeCell<Sample>> {
     @Override
     public TreeCell<Sample> call(TreeView<Sample> sampleTreeView) {

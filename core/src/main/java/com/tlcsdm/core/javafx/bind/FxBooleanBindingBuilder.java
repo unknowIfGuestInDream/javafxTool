@@ -29,6 +29,9 @@ package com.tlcsdm.core.javafx.bind;
 
 import javafx.beans.binding.BooleanBinding;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public abstract class FxBooleanBindingBuilder implements FxBindingBuilder<Boolean> {
 
     @SuppressWarnings("exports")

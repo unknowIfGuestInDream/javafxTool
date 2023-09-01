@@ -34,6 +34,8 @@ import javafx.scene.Node;
 
 /**
  * BorderPane的center组件(应用模块实现)
+ *
+ * @author unknowIfGuestInDream
  */
 public interface CenterPanelService {
 

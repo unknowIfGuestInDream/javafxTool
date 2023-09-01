@@ -38,8 +38,8 @@ import javafx.scene.shape.Rectangle;
 /**
  * Add a drop shadow to the top of the scroll pane.
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/8/27 17:35
+ * @author unknowIfGuestInDream
+ * @date 2023/8/27 17:35
  */
 public class ShadowScrollPane extends ScrollPane {
 

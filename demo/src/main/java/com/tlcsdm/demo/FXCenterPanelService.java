@@ -54,8 +54,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/10/22 21:00
+ * @author unknowIfGuestInDream
+ * @date 2022/10/22 21:00
  */
 public class FXCenterPanelService implements CenterPanelService {
 

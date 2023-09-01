@@ -96,6 +96,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public final class FXSampler extends Application {
 
     private Map<String, Project> projectsMap;

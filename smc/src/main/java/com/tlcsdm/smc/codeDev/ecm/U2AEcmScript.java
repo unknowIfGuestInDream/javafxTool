@@ -35,8 +35,8 @@ import javafx.stage.Stage;
 /**
  * U2A的ECM脚本
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:17
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:17
  */
 public class U2AEcmScript extends AbstractU2XFamilyScript {
 

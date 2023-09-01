@@ -29,6 +29,8 @@ package com.tlcsdm.core.event;
 
 /**
  * 程序已准备好
+ *
+ * @author unknowIfGuestInDream
  */
 public class ApplicationReadyEvent extends ApplicationEvent {
 

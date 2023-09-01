@@ -36,8 +36,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/10/22 21:27
+ * @author unknowIfGuestInDream
+ * @date 2022/10/22 21:27
  */
 public class EmptyCenterPanel implements CenterPanelService {
 

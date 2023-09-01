@@ -34,8 +34,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/7 18:56
+ * @author unknowIfGuestInDream
+ * @date 2022/12/7 18:56
  */
 public class CompareTest {
 

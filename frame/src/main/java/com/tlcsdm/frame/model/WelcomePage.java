@@ -29,6 +29,9 @@ package com.tlcsdm.frame.model;
 
 import javafx.scene.Node;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class WelcomePage {
     private String title;
     private Node content;

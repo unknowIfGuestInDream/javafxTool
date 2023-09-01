@@ -34,6 +34,8 @@ import javafx.scene.control.TextInputControl;
 /**
  * 输入框空值 BooleanBinding
  * 为空返回true
+ *
+ * @author unknowIfGuestInDream
  */
 public class TextInputControlEmptyBinding extends FxBooleanBindingBuilder {
     private final TextInputControl input;

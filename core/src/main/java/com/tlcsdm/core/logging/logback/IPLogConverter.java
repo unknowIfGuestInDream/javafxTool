@@ -43,8 +43,8 @@ import java.net.UnknownHostException;
  * }
  * </pre>
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/2/12 21:17
+ * @author unknowIfGuestInDream
+ * @date 2023/2/12 21:17
  */
 public class IPLogConverter extends ClassicConverter {
 

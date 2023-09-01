@@ -38,8 +38,8 @@ import java.util.List;
 /**
  * 日志打印控制台
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 20:56
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 20:56
  */
 public class ConsoleLogAppender extends OutputStreamAppender<ILoggingEvent> {
     public final static List<TextArea> textAreaList = new ArrayList<>();
