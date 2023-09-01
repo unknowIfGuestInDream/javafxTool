@@ -42,6 +42,7 @@ import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
 import java.io.File;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,20 +63,20 @@ public class GroovyLoaderScanner implements InitializingFactory {
         } catch (ClassNotFoundException e) {
             return;
         }
-        List<String> list = new ArrayList<>();
+        List<URL> list = new ArrayList<>();
         ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
         for (GroovyLoaderService groovyLoaderService : templateLoaders) {
             list.add(groovyLoaderService.getGroovyLoaderPath());
         }
         // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
-        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy").getPath());
+        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy/"));
         // 系统groovy路径
         File file = new File(ConfigureUtil.getConfigureGroovyPath());
         if (!file.exists()) {
             file.mkdirs();
         }
-        list.add(0, file.getPath());
-        GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new String[0]));
+        list.add(0, file.toURI().toURL());
+        GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new URL[0]));
         CompilerConfiguration config = new CompilerConfiguration();
         SecureASTCustomizer sac = new SecureASTCustomizer();
         /* disable calling the System.exit() method and use of other dangerous imports */
