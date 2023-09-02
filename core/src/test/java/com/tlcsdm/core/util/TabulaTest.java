@@ -31,6 +31,8 @@ import cn.hutool.core.io.FileUtil;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
@@ -62,7 +64,7 @@ public class TabulaTest {
     @Test
     void demo() throws IOException {
         InputStream in = FileUtil.getInputStream(pdfPath);
-        try (PDDocument document = PDDocument.load(in)) {
+        try (PDDocument document = Loader.loadPDF(new RandomAccessReadBuffer(in))) {
             SpreadsheetExtractionAlgorithm sea = new SpreadsheetExtractionAlgorithm();
             PageIterator pi = new ObjectExtractor(document).extract();
             while (pi.hasNext()) {
@@ -106,7 +108,7 @@ public class TabulaTest {
     public Page getPage(String path, int pageNumber) throws IOException {
         ObjectExtractor oe = null;
         try {
-            PDDocument document = PDDocument.load(new File(path));
+            PDDocument document = Loader.loadPDF(new File(path));
             oe = new ObjectExtractor(document);
             Page page = oe.extract(pageNumber);
             return page;
