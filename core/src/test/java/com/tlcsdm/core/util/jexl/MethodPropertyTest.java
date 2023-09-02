@@ -38,8 +38,8 @@ import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 /**
  * Simple example to show how to access method and properties.
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/23 21:18
+ * @author unknowIfGuestInDream
+ * @date 2023/4/23 21:18
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class MethodPropertyTest {

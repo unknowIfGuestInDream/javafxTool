@@ -34,6 +34,8 @@ import javafx.scene.control.CheckBox;
 /**
  * CheckBox 选中的binding
  * 选中返回true
+ *
+ * @author unknowIfGuestInDream
  */
 public class CheckBoxSelectedBinding extends FxBooleanBindingBuilder {
     private final CheckBox check;

@@ -29,13 +29,16 @@ package com.tlcsdm.smc.config;
 
 import com.tlcsdm.core.groovy.GroovyLoaderService;
 
-import java.util.Objects;
+import java.net.URL;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcGroovyLoaderProvider implements GroovyLoaderService {
 
     @Override
-    public String getGroovyLoaderPath() {
-        return Objects.requireNonNull(SmcGroovyLoaderProvider.class.getResource("/com/tlcsdm/smc/static/groovy")).getPath();
+    public URL getGroovyLoaderPath() {
+        return SmcGroovyLoaderProvider.class.getResource("/com/tlcsdm/smc/static/groovy/");
     }
 
 }

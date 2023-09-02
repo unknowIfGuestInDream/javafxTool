@@ -32,17 +32,15 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/27 0:00
+ * @author unknowIfGuestInDream
+ * @date 2022/11/27 0:00
  */
 public class JavaFxSystemUtil {
 

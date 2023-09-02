@@ -45,8 +45,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.util.Optional;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/27 0:09
+ * @author unknowIfGuestInDream
+ * @date 2022/11/27 0:09
  */
 public class FxAlerts {
 

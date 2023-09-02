@@ -58,8 +58,8 @@ import java.util.TimeZone;
  * @JsonAnyGetter 用于方法 ，获取所有未序列化的属性
  * </code></pre>
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/2 10:16
+ * @author unknowIfGuestInDream
+ * @date 2023/4/2 10:16
  */
 public class JacksonUtil {
     private static final JsonMapper mapper = JsonMapper.builder()

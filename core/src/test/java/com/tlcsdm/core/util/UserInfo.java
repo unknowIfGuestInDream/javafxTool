@@ -34,8 +34,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/2 10:35
+ * @author unknowIfGuestInDream
+ * @date 2023/4/2 10:35
  */
 public class UserInfo {
     /**

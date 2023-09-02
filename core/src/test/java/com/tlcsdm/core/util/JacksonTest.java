@@ -40,8 +40,8 @@ import java.util.Set;
 /**
  * 需要在module.info中将jackson引用中去除static关键字才可启用测试类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/2 10:38
+ * @author unknowIfGuestInDream
+ * @date 2023/4/2 10:38
  */
 @Disabled
 public class JacksonTest {

@@ -33,6 +33,9 @@ import javafx.scene.control.TreeItem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SampleTree {
     private final TreeNode root;
 

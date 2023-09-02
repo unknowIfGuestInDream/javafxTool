@@ -32,8 +32,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/11 17:32
+ * @author unknowIfGuestInDream
+ * @date 2022/12/11 17:32
  */
 public class IntegerSpinner extends Spinner<Integer> {
     public IntegerSpinner(@NamedArg(value = "min", defaultValue = "0") int min,

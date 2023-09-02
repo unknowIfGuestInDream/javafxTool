@@ -37,9 +37,12 @@ import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
+import org.codehaus.groovy.runtime.IOGroovyMethods;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +50,8 @@ import java.util.Map;
 /**
  * Groovy工具类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 22:05
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 22:05
  */
 public class GroovyUtil {
     static GroovyScriptEngine groovyScriptEngine;
@@ -56,13 +59,9 @@ public class GroovyUtil {
     private GroovyUtil() {
     }
 
-    public static GroovyScriptEngine init(String[] root) {
+    public static GroovyScriptEngine init(URL[] root) {
         if (groovyScriptEngine == null) {
-            try {
-                groovyScriptEngine = new GroovyScriptEngine(root);
-            } catch (IOException e) {
-                StaticLog.error(e);
-            }
+            groovyScriptEngine = new GroovyScriptEngine(root);
         }
         return groovyScriptEngine;
     }
@@ -130,6 +129,21 @@ public class GroovyUtil {
 
     public static Object run(String scriptName) {
         return run(scriptName, Map.of());
+    }
+
+    /**
+     * 获取运行脚本内容
+     */
+    public static String getScriptContent(String scriptName) {
+        URLConnection conn;
+        String content = "";
+        try {
+            conn = groovyScriptEngine.getResourceConnection(scriptName);
+            content = IOGroovyMethods.getText(conn.getInputStream(), "UTF-8");
+        } catch (ResourceException | IOException e) {
+            StaticLog.error(e);
+        }
+        return content;
     }
 
     /**

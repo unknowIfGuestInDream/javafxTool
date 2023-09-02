@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,20 +25,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc;
-
-import com.tlcsdm.frame.FXSampler;
+import cn.hutool.core.util.StrUtil
 
 /**
- * @author unknowIfGuestInDream
+ * errorSource 数据后续处理
  */
-public class SmcSampler {
+def handlerErrorSourceMap(Map<String, Object> errorSource) {
+    String errorSourceenName = errorSource['errorSourceEnName']
+    String errorSourcejpName = errorSource['errorSourceJpName']
+    String errorSourceNumber = errorSource['errorSourceNumber']
+    errorSourceenName = cleanErrorSourceData(errorSourceenName)
+    errorSourcejpName = cleanErrorSourceData(errorSourcejpName)
+    if ('1' == errorSourceNumber)
+        errorSourceenName = errorSourceenName.replace("SWDT", "SWDT0")
+    if ('2' == errorSourceNumber)
+        errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1")
+    errorSource['errorSourceEnName'] = errorSourceenName
+    errorSource['errorSourceJpName'] = errorSourcejpName
+}
 
-    public static void main(String[] args) {
-        // 直接启动应用
-        FXSampler.main(args);
-
-        // 带有登录校验的启动
-        // LoginFrame.main(args);
+/**
+ * 清洗ErrorSource数据
+ */
+static def cleanErrorSourceData(String data) {
+    data = data.replaceAll("  ", " ")
+    if (data.contains(" ("))
+        data = StrUtil.replace(data, " (", "(")
+    if (data.contains("\n")) {
+        def list = StrUtil.split(data, "\n");
+        data = list.get(0)
+        for (int i = 1; i < list.size(); i++) {
+            data = data + " " + list.get(i)
+        }
     }
+    if (data.contains("*")) {
+        def list = StrUtil.split(data, "*")
+        data = list.get(0)
+    }
+    data.replaceAll("  ", " ")
 }

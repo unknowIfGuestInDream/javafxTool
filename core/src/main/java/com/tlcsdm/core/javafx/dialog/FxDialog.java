@@ -59,8 +59,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/10 20:49
+ * @author unknowIfGuestInDream
+ * @date 2022/12/10 20:49
  */
 public class FxDialog<T> {
     private boolean modal = true;

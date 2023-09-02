@@ -37,8 +37,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/10/22 9:16
+ * @author unknowIfGuestInDream
+ * @date 2022/10/22 9:16
  */
 public class SmcLoginCheckProvider implements LoginCheck {
 

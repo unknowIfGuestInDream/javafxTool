@@ -85,8 +85,8 @@ import java.util.Map;
 /**
  * 根据DTS的trigger source文档生成相应的UD文档，协助UD开发
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/12/8 23:12
+ * @author unknowIfGuestInDream
+ * @date 2022/12/8 23:12
  */
 public class DtsTriggerSourceDoc extends SmcSample {
 

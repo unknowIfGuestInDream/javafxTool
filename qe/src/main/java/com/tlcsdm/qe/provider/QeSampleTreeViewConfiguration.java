@@ -35,6 +35,9 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class QeSampleTreeViewConfiguration implements SamplesTreeViewConfiguration {
     @Override
     public Callback<TreeView<Sample>, TreeCell<Sample>> cellFactory() {
