@@ -35,6 +35,8 @@ import javafx.scene.layout.HBox;
 
 /**
  * LoginFrame中的Node组件, 传递到应用模块进行定制化处理
+ *
+ * @author unknowIfGuestInDream
  */
 public record LoginNodes(Label nameLabel, Label passwordLabel, HBox user, HBox password, TextField tfUser,
                          PasswordField tfPassword, Button btLogIn, Button btSignIn, HBox h3) {

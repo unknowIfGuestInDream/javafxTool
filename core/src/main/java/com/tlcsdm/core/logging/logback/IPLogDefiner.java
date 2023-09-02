@@ -42,8 +42,8 @@ import java.net.UnknownHostException;
  *     <parttern>${localIP}</parttern>
  * }
  * </pre>
- * @author: unknowIfGuestInDream
- * @date: 2023/2/12 21:24
+ * @author unknowIfGuestInDream
+ * @date 2023/2/12 21:24
  */
 public class IPLogDefiner extends PropertyDefinerBase {
 

@@ -32,9 +32,8 @@ import java.io.Serial;
 /**
  * 不支持的功能
  *
- * @author: TangLiang
- * @date: 2022/1/7 9:21
- * @since: 1.0
+ * @author unknowIfGuestInDream
+ * @date 2022/1/7 9:21
  */
 public class UnsupportedFeatureException extends RuntimeException {
     @Serial

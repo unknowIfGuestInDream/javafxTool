@@ -43,8 +43,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/7 17:57
+ * @author unknowIfGuestInDream
+ * @date 2022/12/7 17:57
  */
 public class ExceptionDialog extends Dialog<ButtonType> {
 

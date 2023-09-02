@@ -35,6 +35,9 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcSampleTreeViewConfiguration implements SamplesTreeViewConfiguration {
 
     @Override

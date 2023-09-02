@@ -34,8 +34,8 @@ import javafx.scene.image.Image;
 /**
  * 闪屏图片
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/3 22:47
+ * @author unknowIfGuestInDream
+ * @date 2023/3/3 22:47
  */
 public class SmcSplashProvider implements SplashScreen {
 

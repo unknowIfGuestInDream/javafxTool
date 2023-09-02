@@ -35,6 +35,8 @@ import java.util.Objects;
 
 /**
  * 表示 @Subscribe 注解方法
+ *
+ * @author unknowIfGuestInDream
  */
 public class ObserverAction {
     private Object target;
@@ -52,6 +54,7 @@ public class ObserverAction {
 
     /**
      * event是method方法的参数
+     *
      * @param event
      */
     public void execute(Object event) {

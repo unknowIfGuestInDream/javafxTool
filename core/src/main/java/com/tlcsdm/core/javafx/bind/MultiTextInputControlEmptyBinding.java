@@ -36,6 +36,8 @@ import java.util.Arrays;
 
 /**
  * 如果control状态为disabled 则跳过此组件的空判断
+ *
+ * @author unknowIfGuestInDream
  */
 public class MultiTextInputControlEmptyBinding extends FxBooleanBindingBuilder {
 

@@ -27,8 +27,6 @@
 
 package com.tlcsdm.smc.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
@@ -69,6 +67,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action restart = FxAction.restart(actionEvent -> FXSampler.restart());

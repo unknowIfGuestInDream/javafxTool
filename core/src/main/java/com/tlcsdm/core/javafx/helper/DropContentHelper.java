@@ -37,8 +37,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/7/9 14:57
+ * @author unknowIfGuestInDream
+ * @date 2023/7/9 14:57
  */
 public class DropContentHelper {
     private DropContentHelper() {

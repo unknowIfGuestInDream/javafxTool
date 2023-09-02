@@ -41,6 +41,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Observer 注册表
+ *
+ * @author unknowIfGuestInDream
  */
 public class ObserverRegister {
     // 注册表, 消息类型: 观察者方法
@@ -48,6 +50,7 @@ public class ObserverRegister {
 
     /**
      * 将观察者注册到 注册表中
+     *
      * @param observer 观察者
      */
     public void register(Object observer) {

@@ -28,6 +28,9 @@ package com.tlcsdm.frame.service;
 
 import javafx.scene.image.Image;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public interface FXSamplerConfiguration {
     String getSceneStylesheet();
 

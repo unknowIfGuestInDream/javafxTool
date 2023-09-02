@@ -32,8 +32,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/1/1 1:02
+ * @author unknowIfGuestInDream
+ * @date 2023/1/1 1:02
  */
 public class MoneyToChineseTest {
 

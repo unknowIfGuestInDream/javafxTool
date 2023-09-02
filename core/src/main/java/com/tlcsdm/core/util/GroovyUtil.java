@@ -37,9 +37,12 @@ import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
+import org.codehaus.groovy.runtime.IOGroovyMethods;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +50,8 @@ import java.util.Map;
 /**
  * Groovy工具类
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 22:05
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 22:05
  */
 public class GroovyUtil {
     static GroovyScriptEngine groovyScriptEngine;
@@ -79,7 +82,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -129,6 +132,21 @@ public class GroovyUtil {
     }
 
     /**
+     * 获取运行脚本内容
+     */
+    public static String getScriptContent(String scriptName) {
+        URLConnection conn;
+        String content = "";
+        try {
+            conn = groovyScriptEngine.getResourceConnection(scriptName);
+            content = IOGroovyMethods.getText(conn.getInputStream(), "UTF-8");
+        } catch (ResourceException | IOException e) {
+            StaticLog.error(e);
+        }
+        return content;
+    }
+
+    /**
      * 简易服务器
      * 需要引用模块jdk.httpserver
      */
@@ -137,7 +155,7 @@ public class GroovyUtil {
             port = NetUtil.getUsableLocalPort();
         }
         Map<String, Object> map = new HashMap<>(4);
-        map.put("args", new String[] { String.valueOf(port), contextRoot, docBase });
+        map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
         GroovyUtil.run("SimpleHttpServer.groovy", map);
     }
 }

@@ -45,8 +45,8 @@ import java.util.TimerTask;
 /**
  * 提示组件，可以使用FxNotifications
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 20:59
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 20:59
  */
 public class TooltipUtil {
 

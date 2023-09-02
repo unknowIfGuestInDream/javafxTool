@@ -27,6 +27,9 @@
 
 package com.tlcsdm.core.event;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public abstract class ApplicationEvent {
 
 }

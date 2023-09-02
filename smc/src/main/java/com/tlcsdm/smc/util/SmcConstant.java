@@ -32,8 +32,8 @@ import java.util.List;
 /**
  * smc模块常量
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/11/16 21:11
+ * @author unknowIfGuestInDream
+ * @date 2022/11/16 21:11
  */
 public class SmcConstant {
     /**

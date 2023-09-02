@@ -34,6 +34,8 @@ import java.util.concurrent.Executors;
 
 /**
  * 异步非阻塞的EventBus
+ *
+ * @author unknowIfGuestInDream
  */
 public class AsyncEventBus extends EventBus {
     public AsyncEventBus(Executor executor) {

@@ -27,8 +27,10 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
+import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.util.GroovyUtil;
+import com.tlcsdm.core.util.InterfaceScanner;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -44,8 +46,8 @@ import java.util.Map;
 /**
  * C1M的ECM脚本
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/26 21:17
+ * @author unknowIfGuestInDream
+ * @date 2023/3/26 21:17
  */
 public class C1MEcmScript extends AbstractEcmScript {
 
@@ -159,6 +161,7 @@ public class C1MEcmScript extends AbstractEcmScript {
     }
 
     public static void main(String[] args) {
+        InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);
     }
 
@@ -186,19 +189,7 @@ public class C1MEcmScript extends AbstractEcmScript {
      * errorSource 数据后续处理
      */
     private void handlerErrorSourceMap(Map<String, Object> errorSource) {
-        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
-        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
-        String errorSourceNumber = (String) errorSource.get("errorSourceNumber");
-        errorSourceenName = cleanErrorSourceData(errorSourceenName);
-        errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
-        if ("1".equals(errorSourceNumber)) {
-            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT0");
-        }
-        if ("2".equals(errorSourceNumber)) {
-            errorSourceenName = errorSourceenName.replace("SWDT", "SWDT1");
-        }
-        errorSource.put("errorSourceEnName", errorSourceenName);
-        errorSource.put("errorSourceJpName", errorSourcejpName);
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerErrorSourceMap", errorSource);
     }
 
     /**
@@ -209,32 +200,13 @@ public class C1MEcmScript extends AbstractEcmScript {
         // Do nothing
     }
 
-    /**
-     * 清洗ErrorSource数据
-     */
-    private String cleanErrorSourceData(String data) {
-        data = data.replaceAll("  ", " ");
-        if (data.contains(" (")) {
-            data = StrUtil.replace(data, " (", "(");
-        }
-        if (data.contains("\n")) {
-            List<String> list = StrUtil.split(data, "\n");
-            data = list.get(0);
-            for (int i = 1; i < list.size(); i++) {
-                data += " ";
-                data += list.get(i);
-            }
-        }
-        if (data.contains("*")) {
-            List<String> list = StrUtil.split(data, "*");
-            data = list.get(0);
-        }
-        data = data.replaceAll("  ", " ");
-        return data;
-    }
-
     @Override
     protected String getFtlPath() {
         return "smc/ecm/c1m.ftl";
+    }
+
+    @Override
+    protected String getGroovyPath() {
+        return "codeDev/ecm/c1m.groovy";
     }
 }

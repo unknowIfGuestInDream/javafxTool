@@ -58,8 +58,8 @@ import java.util.StringJoiner;
 /**
  * Excel列名计算器
  *
- * @author: unknowIfGuestInDream
- * @date: 2022/3/8 8:12
+ * @author unknowIfGuestInDream
+ * @date 2022/3/8 8:12
  */
 public class ExcelColNameCalculator extends CommonSample {
 

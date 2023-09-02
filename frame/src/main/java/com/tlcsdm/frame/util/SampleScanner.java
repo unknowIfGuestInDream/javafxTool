@@ -42,6 +42,8 @@ import java.util.ServiceLoader;
 
 /**
  * All the code related to classpath scanning, etc for samples.
+ *
+ * @author unknowIfGuestInDream
  */
 public class SampleScanner {
 

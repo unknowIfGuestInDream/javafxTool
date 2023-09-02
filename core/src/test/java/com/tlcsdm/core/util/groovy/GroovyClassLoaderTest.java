@@ -37,8 +37,8 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 21:31
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 21:31
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class GroovyClassLoaderTest {

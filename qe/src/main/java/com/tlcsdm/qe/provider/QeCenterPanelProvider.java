@@ -41,8 +41,8 @@ import javafx.stage.Stage;
 import org.controlsfx.control.MaskerPane;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/10/22 21:00
+ * @author unknowIfGuestInDream
+ * @date 2022/10/22 21:00
  */
 public class QeCenterPanelProvider implements CenterPanelService {
 
