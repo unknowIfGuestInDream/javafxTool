@@ -48,8 +48,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * }
  * </pre>
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/2/12 21:34
+ * @author unknowIfGuestInDream
+ * @date 2023/2/12 21:34
  */
 public class LoggerStartupListener extends ContextAwareBase implements LoggerContextListener, LifeCycle {
 

@@ -35,8 +35,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/24 22:20
+ * @author unknowIfGuestInDream
+ * @date 2023/4/24 22:20
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class JSR223Test {

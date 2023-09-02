@@ -43,8 +43,8 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/27 0:05
+ * @author unknowIfGuestInDream
+ * @date 2022/11/27 0:05
  */
 public class LayoutHelper {
     public LayoutHelper() {

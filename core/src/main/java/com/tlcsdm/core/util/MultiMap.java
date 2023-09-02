@@ -36,8 +36,8 @@ import java.util.Set;
 /**
  * 可以在相同key时加入多个值，多个值用集合表示
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/19 18:41
+ * @author unknowIfGuestInDream
+ * @date 2023/3/19 18:41
  * @deprecated use {@link cn.hutool.core.map.multi.ListValueMap}
  */
 @Deprecated(since = "1.0.2")

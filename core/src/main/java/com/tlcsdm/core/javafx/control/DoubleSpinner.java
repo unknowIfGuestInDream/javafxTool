@@ -32,8 +32,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/11 17:39
+ * @author unknowIfGuestInDream
+ * @date 2022/12/11 17:39
  */
 public class DoubleSpinner extends Spinner<Double> {
     public DoubleSpinner(@NamedArg(value = "min", defaultValue = "0") double min,

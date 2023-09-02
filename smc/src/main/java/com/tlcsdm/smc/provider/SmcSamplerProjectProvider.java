@@ -40,6 +40,9 @@ import javafx.scene.layout.VBox;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcSamplerProjectProvider implements FXSamplerProject {
 
     /**

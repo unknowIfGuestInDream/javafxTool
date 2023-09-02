@@ -32,7 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
- *
+ * @author unknowIfGuestInDream
  */
 public interface Sample {
 

@@ -34,6 +34,9 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class SmcConfigurationProvider implements FXSamplerConfiguration {
 
     @Override

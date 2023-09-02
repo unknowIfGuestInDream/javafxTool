@@ -42,6 +42,9 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class RepeatDirective implements TemplateDirectiveModel {
 
     private static final String PARAM_NAME_COUNT = "count";

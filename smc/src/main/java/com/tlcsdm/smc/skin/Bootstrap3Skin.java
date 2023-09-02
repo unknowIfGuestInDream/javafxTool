@@ -32,6 +32,9 @@ import com.tlcsdm.smc.provider.SmcConfigurationProvider;
 
 import java.util.Objects;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class Bootstrap3Skin extends SmcConfigurationProvider {
 
     @Override

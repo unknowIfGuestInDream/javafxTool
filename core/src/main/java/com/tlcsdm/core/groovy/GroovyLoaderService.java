@@ -30,8 +30,8 @@ package com.tlcsdm.core.groovy;
 import java.net.URL;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/25 19:53
+ * @author unknowIfGuestInDream
+ * @date 2023/4/25 19:53
  */
 public interface GroovyLoaderService {
 

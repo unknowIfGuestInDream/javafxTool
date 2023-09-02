@@ -35,6 +35,8 @@ import javafx.scene.layout.Region;
 
 /**
  * 菜单栏配置(应用模块实现)
+ *
+ * @author unknowIfGuestInDream
  */
 public interface MenubarConfigration {
 

@@ -53,8 +53,8 @@ import javafx.stage.StageStyle;
  *         });
  * </code></pre>
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/4 21:05
+ * @author unknowIfGuestInDream
+ * @date 2023/3/4 21:05
  */
 public class ProgressStage {
     private Stage stage;

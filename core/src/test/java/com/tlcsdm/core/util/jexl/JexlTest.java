@@ -50,8 +50,8 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/23 21:21
+ * @author unknowIfGuestInDream
+ * @date 2023/4/23 21:21
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 @Disabled

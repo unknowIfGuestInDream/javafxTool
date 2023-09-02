@@ -33,8 +33,8 @@ import cn.hutool.core.util.StrUtil;
 import java.time.LocalDate;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/8/6 15:45
+ * @author unknowIfGuestInDream
+ * @date 2023/8/6 15:45
  */
 public class CoreConstant {
 

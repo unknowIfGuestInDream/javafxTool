@@ -31,6 +31,9 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public class EmptySample implements Sample {
     private final String name;
 

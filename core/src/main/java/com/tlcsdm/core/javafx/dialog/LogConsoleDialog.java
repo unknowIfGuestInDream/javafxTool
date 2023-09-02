@@ -56,8 +56,8 @@ import javafx.stage.Stage;
  * }
  * </pre>
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/3/27 21:07
+ * @author unknowIfGuestInDream
+ * @date 2023/3/27 21:07
  */
 public class LogConsoleDialog {
 

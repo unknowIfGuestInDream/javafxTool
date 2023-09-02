@@ -355,4 +355,12 @@ public class FxAction {
     public static Action induct(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/import.png");
     }
+
+    public static Action view(Consumer<ActionEvent> eventHandler) {
+        return view(I18nUtils.get("core.button.view"), eventHandler);
+    }
+
+    public static Action view(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/view.png");
+    }
 }

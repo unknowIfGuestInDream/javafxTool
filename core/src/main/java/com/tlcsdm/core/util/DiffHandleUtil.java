@@ -46,8 +46,8 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/9/3 17:05
+ * @author unknowIfGuestInDream
+ * @date 2022/9/3 17:05
  * @since: 1.0
  */
 public class DiffHandleUtil {
