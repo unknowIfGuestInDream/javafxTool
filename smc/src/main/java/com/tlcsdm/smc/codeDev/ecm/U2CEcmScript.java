@@ -28,6 +28,8 @@
 package com.tlcsdm.smc.codeDev.ecm;
 
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.util.InterfaceScanner;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -156,6 +158,7 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     }
 
     public static void main(String[] args) {
+        InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);
     }
 
@@ -182,5 +185,10 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     @Override
     protected String getFtlPath() {
         return "smc/ecm/u2c.ftl";
+    }
+
+    @Override
+    protected String getGroovyPath() {
+        return "codeDev/ecm/u2c.groovy";
     }
 }

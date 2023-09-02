@@ -546,7 +546,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取tag数据
      */
     protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
-        int rowNum) {
+                                                     int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);
@@ -611,6 +611,11 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取freemarker模板路径
      */
     protected abstract String getFtlPath();
+
+    /**
+     * 获取groovy脚本路径
+     */
+    protected abstract String getGroovyPath();
 
     @Override
     public String getSampleDescription() {

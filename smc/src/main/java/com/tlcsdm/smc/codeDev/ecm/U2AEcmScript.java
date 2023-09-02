@@ -27,10 +27,15 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
+import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.util.GroovyUtil;
+import com.tlcsdm.core.util.InterfaceScanner;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.util.Map;
 
 /**
  * U2A的ECM脚本
@@ -93,7 +98,19 @@ public class U2AEcmScript extends AbstractU2XFamilyScript {
         userData.remove("tagConfig");
     }
 
+    @Override
+    protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerErrorSourceMap", errorSource, product, optErrortIndex);
+    }
+
+    @Override
+    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
+                                           boolean optMaskintStatus) {
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerOperationSupport", operation, funcSupCondition, optMaskintStatus);
+    }
+
     public static void main(String[] args) {
+        InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);
     }
 
@@ -120,5 +137,10 @@ public class U2AEcmScript extends AbstractU2XFamilyScript {
     @Override
     protected String getFtlPath() {
         return "smc/ecm/u2a.ftl";
+    }
+
+    @Override
+    protected String getGroovyPath() {
+        return "codeDev/ecm/u2a.groovy";
     }
 }

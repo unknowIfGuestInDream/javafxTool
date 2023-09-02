@@ -79,6 +79,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
+    opens com.tlcsdm.smc.codeDev.ecm to javafx.graphics;
     opens com.tlcsdm.smc.tools to javafx.graphics;
     opens com.tlcsdm.smc.unitDesign to javafx.graphics;
     opens com.tlcsdm.smc.unitTest to javafx.graphics;
