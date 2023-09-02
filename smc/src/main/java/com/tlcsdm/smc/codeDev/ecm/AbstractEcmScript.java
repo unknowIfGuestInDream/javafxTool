@@ -42,12 +42,14 @@ import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.GroovyCodeArea;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.core.util.GroovyUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -172,8 +174,10 @@ public abstract class AbstractEcmScript extends SmcSample {
         VBox.setVgrow(pane, Priority.ALWAYS);
         FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"))
             .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
-            .setButtonTypes(ButtonType.CLOSE);
-        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+            .setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
+        dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> {
+            OSUtil.writeToClipboard(area.getText());
+        }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     });
 
