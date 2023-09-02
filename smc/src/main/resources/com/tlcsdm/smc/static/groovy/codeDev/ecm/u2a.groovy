@@ -27,7 +27,7 @@
 
 import cn.hutool.core.util.StrUtil
 
-protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+def handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
     String errorSourceenName = errorSource['errorSourceEnName']
     String errorSourcejpName = errorSource['errorSourceJpName']
     errorSourceenName = cleanErrorSourceData(errorSourceenName)
@@ -67,7 +67,7 @@ protected void handlerErrorSourceMap(Map<String, Object> errorSource, String pro
     function.addAll(optErrortIndex, extraFunc)
 }
 
-private void generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc, List<Map<String, Object>> function) {
+def generateErrort(int size, String support, String errorNote, List<Map<String, Object>> extraFunc, List<Map<String, Object>> function) {
     for (int i in 0..size - 1) {
         Map<String, Object> map = new HashMap<>()
         map.put("funcId", "optErrort" + i)
@@ -77,7 +77,7 @@ private void generateErrort(int size, String support, String errorNote, List<Map
     }
 }
 
-protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition, boolean optMaskintStatus) {
+def handlerOperationSupport(Map<String, Object> operation, String funcSupCondition, boolean optMaskintStatus) {
     if (funcSupCondition.contains("*")) {
         String mesNum = StrUtil.subAfter(funcSupCondition, "*", true)
         if ("1" == mesNum || "2" == mesNum) {
@@ -107,7 +107,7 @@ protected void handlerOperationSupport(Map<String, Object> operation, String fun
 /**
  * 清洗ErrorSource数据
  */
-private String cleanErrorSourceData(String data) {
+def cleanErrorSourceData(String data) {
     data = data.replaceAll("  ", " ")
     if (data.contains(" (")) {
         data = StrUtil.replace(data, " (", "(")

@@ -29,6 +29,7 @@ package com.tlcsdm.smc.codeDev.ecm;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
+import com.tlcsdm.core.util.GroovyUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,11 +117,14 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     /**
      * errorSource 数据后续处理
      */
-    protected abstract void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex);
+    protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerErrorSourceMap", errorSource, product, optErrortIndex);
+    }
 
     /**
      * function数据后置处理
      */
-    protected abstract void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                                    boolean optMaskintStatus);
+    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition, boolean optMaskintStatus) {
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerOperationSupport", operation, funcSupCondition, optMaskintStatus);
+    }
 }

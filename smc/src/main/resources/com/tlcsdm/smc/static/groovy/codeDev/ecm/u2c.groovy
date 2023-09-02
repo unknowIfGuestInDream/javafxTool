@@ -25,3 +25,71 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import cn.hutool.core.util.StrUtil
+
+def handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+    String errorSourceenName = errorSource['errorSourceEnName']
+    String errorSourcejpName = errorSource['errorSourceJpName']
+    // 特殊处理line 103, 104的errorSourceEnName
+    if ("CANXL safety relevant interrupt" == errorSourceenName) {
+        if (errorSourcejpName.startsWith("CANXL0")) {
+            errorSourceenName = "CANXL0 safety relevant interrupt"
+        } else if (errorSourcejpName.startsWith("CANXL1")) {
+            errorSourceenName = "CANXL1 safety relevant interrupt"
+        }
+    }
+    errorSourceenName = cleanErrorSourceData(errorSourceenName)
+    errorSourcejpName = cleanErrorSourceData(errorSourcejpName)
+    if (errorSourceenName.endsWith("*5")) {
+        errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*5", "(For debug purpose only)")
+        if (errorSourcejpName.endsWith("*5")) {
+            errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*5", "(デバッグ目的のみ)")
+        } else {
+            errorSourcejpName += "(デバッグ目的のみ)"
+        }
+    }
+    errorSource.put("errorSourceEnName", errorSourceenName)
+    errorSource.put("errorSourceJpName", errorSourcejpName)
+}
+
+def handlerOperationSupport(Map<String, Object> operation, String funcSupCondition, boolean optMaskintStatus) {
+    if (funcSupCondition.contains("*")) {
+        String mesNum = StrUtil.subAfter(funcSupCondition, "*", true)
+        if ("1" == mesNum || "2" == mesNum) {
+            operation.put("errorNote", mesNum)
+        }
+        if ("3" == mesNum) {
+            String funcId = operation.get("funcId").toString()
+            if ("optDCLS" == funcId) {
+                operation.put("support", String.valueOf(optMaskintStatus))
+            }
+            if ("optIntg" == funcId) {
+                operation.put("support", "false")
+            }
+        }
+    } else {
+        String funcId = operation.get("funcId").toString()
+        if ("optDCLS" == funcId) {
+            operation.put("support", "false")
+        }
+        if ("optIntg" == funcId) {
+            operation.put("support", String.valueOf(optMaskintStatus))
+        }
+    }
+}
+
+def cleanErrorSourceData(String data) {
+    data = data.replaceAll("  ", " ")
+    if (data.contains(" (")) {
+        data = StrUtil.replace(data, " (", "(")
+    }
+    if (data.contains("\n")) {
+        List<String> list = StrUtil.split(data, "\n")
+        data = list.get(0)
+        for (int i = 1; i < list.size(); i++) {
+            data += " "
+            data += list.get(i)
+        }
+    }
+    data.replaceAll("  ", " ")
+}
