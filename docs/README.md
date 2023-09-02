@@ -26,12 +26,12 @@ junit | 5.10.0 | 单元测试框架
 tlcsdm-common | 1.4.3 | 常用工具类封装
 tlcsdm-asyncTool | 1.0.0 | 并行工具包
 jackson | 2.15.2 | JSON解析库
-pdfbox | 2.0.29 | 操作PDF文档的库
+pdfbox | 3.0.0 | 操作PDF文档的库
 commons-io | 2.13.0 | IO工具类
 guava | 32.1.2-jre | Google工具类
 groovy | 4.0.14 | Groovy
 thumbnailator | 0.4.20 | 图片转码和缩略工具
-pdfviewfx | 1.9.0 | PDF视图工具
+pdfviewfx | 3.0.0 | PDF视图工具
 preferencesfx | 11.16.0 | 为应用程序设置/首选项创建 UI 的框架
 
 ## 项目地址
