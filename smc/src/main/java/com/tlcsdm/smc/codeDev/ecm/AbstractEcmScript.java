@@ -42,11 +42,14 @@ import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.richtext.GroovyCodeArea;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
+import com.tlcsdm.core.util.GroovyUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
@@ -54,6 +57,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -62,6 +66,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -69,6 +74,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -145,14 +151,31 @@ public abstract class AbstractEcmScript extends SmcSample {
                 if (file.exists()) {
                     FileUtil.del(file);
                 }
-                String path = "com/tlcsdm/smc/static/templates/";
+                String ftlPath = "com/tlcsdm/smc/static/templates/";
+                String groovyPath = "com/tlcsdm/smc/static/groovy/";
                 ZipUtil.zip(file, Charset.defaultCharset(),
-                    new ClassPathResource(path + getFtlPath(), getClass().getClassLoader()));
+                    new ClassPathResource(ftlPath + getFtlPath(), getClass().getClassLoader()),
+                    new ClassPathResource(groovyPath + getGroovyPath(), getClass().getClassLoader()));
 
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
             }
         });
+
+    private final Action viewGroovyScript = FxAction.view(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"), actionEvent -> {
+        VBox vbox = new VBox();
+        GroovyCodeArea area = new GroovyCodeArea();
+        area.setEditable(false);
+        area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
+        VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
+        vbox.getChildren().addAll(pane);
+        VBox.setVgrow(pane, Priority.ALWAYS);
+        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"))
+            .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
+            .setButtonTypes(ButtonType.CLOSE);
+        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        dialog.show();
+    });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
@@ -161,7 +184,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         bindUserData();
     });
 
-    private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
+    private final Collection<? extends Action> actions = List.of(generate, download, viewGroovyScript, openOutDir);
 
     @Override
     public Node getPanel(Stage stage) {
@@ -546,7 +569,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取tag数据
      */
     protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
-        int rowNum) {
+                                                     int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);
@@ -612,6 +635,11 @@ public abstract class AbstractEcmScript extends SmcSample {
      */
     protected abstract String getFtlPath();
 
+    /**
+     * 获取groovy脚本路径
+     */
+    protected abstract String getGroovyPath();
+
     @Override
     public String getSampleDescription() {
         return I18nUtils.get("smc.sampleName.ecm.description");
@@ -619,7 +647,7 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.6";
+        return "1.0.7";
     }
 
     @Override
@@ -631,6 +659,7 @@ public abstract class AbstractEcmScript extends SmcSample {
     public Node getControlPanel() {
         String content = """
             {templateDesc}
+            {groovyDesc}
 
             {categoryConfigLabel}: key;colName
             eg: categoryId;F
@@ -647,6 +676,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         map.put("productConfigLabel", I18nUtils.get("smc.tool.ecm.label.productConfig"));
         map.put("productConfigDesc", I18nUtils.get("smc.tool.ecm.control.productConfig"));
         map.put("templateDesc", I18nUtils.get("smc.tool.ecm.control.templateDesc"));
+        map.put("groovyDesc", I18nUtils.get("smc.tool.ecm.control.groovyDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 }
