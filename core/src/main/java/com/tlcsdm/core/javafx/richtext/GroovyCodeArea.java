@@ -55,11 +55,12 @@ public class GroovyCodeArea extends CodeArea {
     private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
     private static final String BRACE_PATTERN = "\\{|\\}";
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
+    private static final String STR_PATTERN = "'.*?'";
     private static final String BRACKET_PATTERN = "\\[|\\]";
 
     private static final Pattern PATTERN = Pattern
         .compile("(?<KEYWORD>" + KEYWORD_PATTERN + ")" + "|(?<BRACE>" + BRACE_PATTERN + ")"
-            + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<STRING>" + STRING_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
+            + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<STRING>" + STRING_PATTERN + ")" + "|(?<STR>" + STR_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
 
     public GroovyCodeArea() {
         super();
@@ -81,6 +82,7 @@ public class GroovyCodeArea extends CodeArea {
                 : matcher.group("BRACE") != null ? "brace"
                 : matcher.group("BRACKET") != null ? "bracket"
                 : matcher.group("STRING") != null ? "string"
+                : matcher.group("STR") != null ? "string"
                 : matcher.group("COMMENT") != null ? "comment" : null;
             assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
