@@ -34,7 +34,7 @@ import javafx.scene.control.Button;
 /**
  * 封装一些常用的button的初始化
  *
- * @author: unknowIfGuestInDream
+ * @author unknowIfGuestInDream
  */
 public class FxButton {
 

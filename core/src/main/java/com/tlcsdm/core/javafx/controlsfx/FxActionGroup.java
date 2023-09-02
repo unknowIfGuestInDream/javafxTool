@@ -38,7 +38,7 @@ import java.util.Collection;
 /**
  * controlsfx ActionGroup的初始化封装
  *
- * @author: unknowIfGuestInDream
+ * @author unknowIfGuestInDream
  */
 public class FxActionGroup {
 

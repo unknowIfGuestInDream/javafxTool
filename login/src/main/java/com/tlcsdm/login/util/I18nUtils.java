@@ -33,8 +33,8 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/10/22 17:49
+ * @author unknowIfGuestInDream
+ * @date 2022/10/22 17:49
  */
 public class I18nUtils {
     /**

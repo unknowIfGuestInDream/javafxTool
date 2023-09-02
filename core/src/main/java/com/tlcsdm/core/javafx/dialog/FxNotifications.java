@@ -33,8 +33,8 @@ import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/3 21:20
+ * @author unknowIfGuestInDream
+ * @date 2022/12/3 21:20
  */
 public class FxNotifications {
 

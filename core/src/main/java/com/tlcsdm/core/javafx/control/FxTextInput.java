@@ -30,8 +30,8 @@ package com.tlcsdm.core.javafx.control;
 import javafx.scene.control.TextArea;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/12/5 20:31
+ * @author unknowIfGuestInDream
+ * @date 2022/12/5 20:31
  */
 public class FxTextInput {
 

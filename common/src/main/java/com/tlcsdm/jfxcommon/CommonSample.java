@@ -30,8 +30,8 @@ package com.tlcsdm.jfxcommon;
 import com.tlcsdm.frame.SampleBase;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/16 11:22
+ * @author unknowIfGuestInDream
+ * @date 2023/4/16 11:22
  */
 public abstract class CommonSample extends SampleBase {
 

@@ -33,8 +33,8 @@ import java.math.RoundingMode;
 /**
  * 数字转换中文大写
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/1/2 17:07
+ * @author unknowIfGuestInDream
+ * @date 2023/1/2 17:07
  */
 public class MoneyToChineseUtil {
 

@@ -42,8 +42,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/7/9 14:12
+ * @author unknowIfGuestInDream
+ * @date 2023/7/9 14:12
  */
 public class FileChooserUtil {
     public static final File HOME_DIRECTORY = FileSystemView.getFileSystemView().getHomeDirectory();

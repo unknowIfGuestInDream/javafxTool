@@ -36,8 +36,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/1/14 18:34
+ * @author unknowIfGuestInDream
+ * @date 2023/1/14 18:34
  */
 public class ImageHelper {
     public static final String CLASSPATH_PREFIX = "classpath:";

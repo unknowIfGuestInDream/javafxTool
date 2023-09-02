@@ -35,8 +35,8 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2022/11/27 18:59
+ * @author unknowIfGuestInDream
+ * @date 2022/11/27 18:59
  */
 public class StageUtil {
 

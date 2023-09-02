@@ -49,8 +49,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/23 21:32
+ * @author unknowIfGuestInDream
+ * @date 2023/4/23 21:32
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class JexlDemo {

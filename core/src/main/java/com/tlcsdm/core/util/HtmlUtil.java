@@ -32,8 +32,8 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/4/16 10:01
+ * @author unknowIfGuestInDream
+ * @date 2023/4/16 10:01
  */
 public class HtmlUtil {
 

@@ -36,6 +36,9 @@ import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 public abstract class QeSample extends SampleBase {
     public static final ProjectInfo PROJECT_INFO = new ProjectInfo();
 

@@ -40,8 +40,8 @@ import javax.crypto.SecretKey;
 import java.security.SecureRandom;
 
 /**
- * @author: unknowIfGuestInDream
- * @date: 2023/1/11 19:57
+ * @author unknowIfGuestInDream
+ * @date 2023/1/11 19:57
  */
 public class CryptoTest {
 

@@ -65,6 +65,8 @@ import java.util.ServiceLoader;
  * A base class for samples - it is recommended that they extend this class
  * rather than Application, as then the samples can be run either standalone or
  * within FXSampler.
+ *
+ * @author unknowIfGuestInDream
  */
 public abstract class SampleBase extends Application implements Sample {
 
