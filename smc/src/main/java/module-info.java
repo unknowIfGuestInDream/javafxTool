@@ -67,6 +67,7 @@ module com.tlcsdm.smc {
     requires org.slf4j;
     requires freemarker;
     requires jdk.httpserver;
+    requires org.fxmisc.flowless;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.provider to com.tlcsdm.frame, com.tlcsdm.login;

@@ -59,8 +59,8 @@ static def cleanErrorSourceData(String data) {
         }
     }
     if (data.contains("*")) {
-        def list = StrUtil.split(data, "*");
-        data = list.get(0);
+        def list = StrUtil.split(data, "*")
+        data = list.get(0)
     }
     data.replaceAll("  ", " ")
 }
