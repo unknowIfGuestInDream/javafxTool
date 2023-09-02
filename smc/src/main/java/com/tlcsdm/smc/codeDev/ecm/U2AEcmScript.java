@@ -27,6 +27,8 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
+import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.util.InterfaceScanner;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -94,6 +96,7 @@ public class U2AEcmScript extends AbstractU2XFamilyScript {
     }
 
     public static void main(String[] args) {
+        InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);
     }
 
@@ -120,5 +123,10 @@ public class U2AEcmScript extends AbstractU2XFamilyScript {
     @Override
     protected String getFtlPath() {
         return "smc/ecm/u2a.ftl";
+    }
+
+    @Override
+    protected String getGroovyPath() {
+        return "codeDev/ecm/u2a.groovy";
     }
 }

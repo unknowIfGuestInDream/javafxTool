@@ -27,12 +27,10 @@
 
 package com.tlcsdm.smc.codeDev.ecm;
 
-import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.util.InterfaceScanner;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * U2C的ECM脚本
@@ -84,78 +82,8 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
             """);
     }
 
-    @Override
-    protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
-        String errorSourceenName = (String) errorSource.get("errorSourceEnName");
-        String errorSourcejpName = (String) errorSource.get("errorSourceJpName");
-        // 特殊处理line 103, 104的errorSourceEnName
-        if ("CANXL safety relevant interrupt".equals(errorSourceenName)) {
-            if (errorSourcejpName.startsWith("CANXL0")) {
-                errorSourceenName = "CANXL0 safety relevant interrupt";
-            } else if (errorSourcejpName.startsWith("CANXL1")) {
-                errorSourceenName = "CANXL1 safety relevant interrupt";
-            }
-        }
-        errorSourceenName = cleanErrorSourceData(errorSourceenName);
-        errorSourcejpName = cleanErrorSourceData(errorSourcejpName);
-        if (errorSourceenName.endsWith("*5")) {
-            errorSourceenName = StrUtil.replaceLast(errorSourceenName, "*5", "(For debug purpose only)");
-            if (errorSourcejpName.endsWith("*5")) {
-                errorSourcejpName = StrUtil.replaceLast(errorSourcejpName, "*5", "(デバッグ目的のみ)");
-            } else {
-                errorSourcejpName += "(デバッグ目的のみ)";
-            }
-        }
-        errorSource.put("errorSourceEnName", errorSourceenName);
-        errorSource.put("errorSourceJpName", errorSourcejpName);
-    }
-
-    @Override
-    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-        boolean optMaskintStatus) {
-        if (funcSupCondition.contains("*")) {
-            String mesNum = StrUtil.subAfter(funcSupCondition, "*", true);
-            if ("1".equals(mesNum) || "2".equals(mesNum)) {
-                operation.put("errorNote", mesNum);
-            }
-            if ("3".equals(mesNum)) {
-                String funcId = operation.get("funcId").toString();
-                if ("optDCLS".equals(funcId)) {
-                    operation.put("support", String.valueOf(optMaskintStatus));
-                }
-                if ("optIntg".equals(funcId)) {
-                    operation.put("support", "false");
-                }
-            }
-        } else {
-            String funcId = operation.get("funcId").toString();
-            if ("optDCLS".equals(funcId)) {
-                operation.put("support", "false");
-            }
-            if ("optIntg".equals(funcId)) {
-                operation.put("support", String.valueOf(optMaskintStatus));
-            }
-        }
-    }
-
-    private String cleanErrorSourceData(String data) {
-        data = data.replaceAll("  ", " ");
-        if (data.contains(" (")) {
-            data = StrUtil.replace(data, " (", "(");
-        }
-        if (data.contains("\n")) {
-            List<String> list = StrUtil.split(data, "\n");
-            data = list.get(0);
-            for (int i = 1; i < list.size(); i++) {
-                data += " ";
-                data += list.get(i);
-            }
-        }
-        data = data.replaceAll("  ", " ");
-        return data;
-    }
-
     public static void main(String[] args) {
+        InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);
     }
 
@@ -182,5 +110,10 @@ public class U2CEcmScript extends AbstractU2XFamilyScript {
     @Override
     protected String getFtlPath() {
         return "smc/ecm/u2c.ftl";
+    }
+
+    @Override
+    protected String getGroovyPath() {
+        return "codeDev/ecm/u2c.groovy";
     }
 }
