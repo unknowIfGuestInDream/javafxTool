@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -39,6 +40,7 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
 import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -98,7 +100,7 @@ class PdfboxTest {
     @Test
     void load() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage my_page = new PDPage();
         document.addPage(my_page);
         document.save(file);
@@ -111,7 +113,7 @@ class PdfboxTest {
     @Test
     void del() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         // 列出页数
         int noOfPages = document.getNumberOfPages();
         Assertions.assertTrue(noOfPages > 0);
@@ -134,7 +136,7 @@ class PdfboxTest {
     @Test
     void property() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage my_page = new PDPage();
         document.addPage(my_page);
         // Creating the PDDocumentInformation object
@@ -187,7 +189,7 @@ class PdfboxTest {
     @Test
     void line() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage page = document.getPage(0);
         // 使用PDPageContentStream类的对象插入各种数据元素
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
@@ -196,7 +198,7 @@ class PdfboxTest {
         // 设置文本的位置
         contentStream.newLineAtOffset(25, 500);
         // 设置字体
-        PDFont pdFont = PDType1Font.HELVETICA_BOLD;
+        PDFont pdFont = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
         contentStream.setFont(pdFont, 14);
         String text = "This is the sample document and we are adding content to it.";
 
@@ -217,7 +219,7 @@ class PdfboxTest {
     @Test
     void content() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage page = document.getPage(0);
         // 使用PDPageContentStream类的对象插入各种数据元素
         PDPageContentStream contentStream = new PDPageContentStream(document, page, AppendMode.APPEND, true);
@@ -226,7 +228,7 @@ class PdfboxTest {
         // 设置文本的位置
         contentStream.newLineAtOffset(25, 725);
         // 设置字体
-        contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
+        contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 16);
         // 设置文本引导
         contentStream.setLeading(14.5f);
         // 使用newline()插入多个字符串
@@ -252,7 +254,7 @@ class PdfboxTest {
     @Test
     void read() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDFTextStripper pdfStripper = new PDFTextStripper();
         // 检索文本
         String text = pdfStripper.getText(document);
@@ -267,7 +269,7 @@ class PdfboxTest {
     @Test
     void image() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage page = document.getPage(0);
         // 使用PDImageXObject
         PDImageXObject pdImage = PDImageXObject.createFromFile(imgPath, document);
@@ -287,7 +289,7 @@ class PdfboxTest {
     @Test
     void encrypt() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         AccessPermission accessPermission = new AccessPermission();
         // 通过传递所有者密码，用户密码和AccessPermission对象来实例化StandardProtectionPolicy类
         StandardProtectionPolicy spp = new StandardProtectionPolicy("1234", "1234", accessPermission);
@@ -308,7 +310,7 @@ class PdfboxTest {
     @Test
     void jscript() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         String javaScript = "app.alert( {cMsg: 'this is an example', nIcon: 3,"
             + " nType: 0,cTitle: 'PDFBox Javascript example' } );";
         PDActionJavaScript PDAjavascript = new PDActionJavaScript(javaScript);
@@ -325,7 +327,7 @@ class PdfboxTest {
     @Test
     void split() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         Splitter splitter = new Splitter();
         List<PDDocument> Pages = splitter.split(document);
         Iterator<PDDocument> iterator = Pages.listIterator();
@@ -344,9 +346,9 @@ class PdfboxTest {
     @Test
     void merge() throws IOException {
         File file1 = new File(resultFloder + File.separator + "demo1.pdf");
-        PDDocument document1 = PDDocument.load(file1);
+        PDDocument document1 = Loader.loadPDF(file1);
         File file2 = new File(resultFloder + File.separator + "demo2.pdf");
-        PDDocument document2 = PDDocument.load(file2);
+        PDDocument document2 = Loader.loadPDF(file2);
         PDFMergerUtility PDFmerger = new PDFMergerUtility();
         // 设置目标文件
         PDFmerger.setDestinationFileName(resultFloder + File.separator + "merge.pdf");
@@ -355,7 +357,7 @@ class PdfboxTest {
         PDFmerger.addSource(file2);
         // 合并文档
         MemoryUsageSetting memUsageSetting = MemoryUsageSetting.setupMainMemoryOnly();
-        PDFmerger.mergeDocuments(memUsageSetting);
+        PDFmerger.mergeDocuments(memUsageSetting.streamCache);
 
         document1.close();
         document2.close();
@@ -367,7 +369,7 @@ class PdfboxTest {
     @Test
     void getImg() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         // PDFRenderer类将PDF文档呈现到AWT BufferedImage中
         PDFRenderer renderer = new PDFRenderer(document);
         // 从PDF文档渲染图像
@@ -384,7 +386,7 @@ class PdfboxTest {
     @Test
     void draw() throws IOException {
         File file = new File(resultFloder + File.separator + "demo.pdf");
-        PDDocument document = PDDocument.load(file);
+        PDDocument document = Loader.loadPDF(file);
         PDPage page = document.getPage(1);
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
         // 设置不划线颜色, 使用PDPageContentStream类的setNonStrokingColor()方法将非划线颜色设置为矩形。
