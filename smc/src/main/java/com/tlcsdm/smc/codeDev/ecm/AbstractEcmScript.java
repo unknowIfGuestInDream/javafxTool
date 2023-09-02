@@ -145,9 +145,11 @@ public abstract class AbstractEcmScript extends SmcSample {
                 if (file.exists()) {
                     FileUtil.del(file);
                 }
-                String path = "com/tlcsdm/smc/static/templates/";
+                String ftlPath = "com/tlcsdm/smc/static/templates/";
+                String groovyPath = "com/tlcsdm/smc/static/groovy/";
                 ZipUtil.zip(file, Charset.defaultCharset(),
-                    new ClassPathResource(path + getFtlPath(), getClass().getClassLoader()));
+                    new ClassPathResource(ftlPath + getFtlPath(), getClass().getClassLoader()),
+                    new ClassPathResource(groovyPath + getGroovyPath(), getClass().getClassLoader()));
 
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
@@ -636,6 +638,7 @@ public abstract class AbstractEcmScript extends SmcSample {
     public Node getControlPanel() {
         String content = """
             {templateDesc}
+            {groovyDesc}
 
             {categoryConfigLabel}: key;colName
             eg: categoryId;F
@@ -652,6 +655,7 @@ public abstract class AbstractEcmScript extends SmcSample {
         map.put("productConfigLabel", I18nUtils.get("smc.tool.ecm.label.productConfig"));
         map.put("productConfigDesc", I18nUtils.get("smc.tool.ecm.control.productConfig"));
         map.put("templateDesc", I18nUtils.get("smc.tool.ecm.control.templateDesc"));
+        map.put("groovyDesc", I18nUtils.get("smc.tool.ecm.control.groovyDesc"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 }
