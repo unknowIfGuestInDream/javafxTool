@@ -87,7 +87,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
-    private final Action systemSetting = FxAction.systemSetting();
+    private final Action preferences = FxAction.preferences();
 
     private final Action pathWatch = FxAction.pathWatch();
 
@@ -182,7 +182,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.setting(preferences, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
