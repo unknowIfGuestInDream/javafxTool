@@ -19,6 +19,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 ### core
 
 - TemplateLoaderService: freemarker TemplateLoader加载，子类实现以添加子模块的模板路径
+- GroovyLoaderService: Groovy脚本路径加载，子类实现添加子模块脚本路径
 
 ### frame
 
