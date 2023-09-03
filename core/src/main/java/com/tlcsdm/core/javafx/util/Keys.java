@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +25,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.controller;
+package com.tlcsdm.core.javafx.util;
 
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.Keys;
-import com.tlcsdm.core.javafx.view.SystemSettingView;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * 设置页面
+ * 系统配置属性类
  *
- * @author xufeng
+ * @author unknowIfGuestInDream
  */
-public class SystemSettingController extends SystemSettingView {
+public enum Keys {
+    /**
+     * 系统属性
+     */
+    MainWindowWidth("mainWindowWidth"),
+    MainWindowHeight("mainWindowHeight"),
+    MainWindowTop("mainWindowTop"),
+    MainWindowLeft("mainWindowLeft"),
+    Locale("locale"),
+    NotepadEnabled("notepadEnabled"),
+    RememberWindowLocation("rememberWindowLocation"),
+    ConfirmExit("confirmExit"),
+    CheckForUpdatesAtStartup("checkForUpdatesAtStartup"),
+    ScreenshotHideWindow("screenshotHideWindow");
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initView();
+    private final String keyName;
+
+    Keys(String keyName) {
+        this.keyName = keyName;
     }
 
-    private void initView() {
-        try {
-            exitShowAlertCheckBox.setSelected(Config.getBoolean(Keys.ConfirmExit, true));
-            saveStageBoundCheckBox.setSelected(Config.getBoolean(Keys.RememberWindowLocation, true));
-            checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
-            screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
-        } catch (Exception e) {
-            StaticLog.error("Init setting failed: ", e);
+    public static Keys fromKeyName(String keyName) {
+        for (Keys type : Keys.values()) {
+            if (StringUtils.isNotEmpty(keyName) && type.getKeyName().equals(keyName)) {
+                return type;
+            }
         }
+        return null;
     }
 
-    public void applySettings() {
-        try {
-            Config.set(Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());
-            Config.set(Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
-            Config.set(Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
-            Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
-        } catch (Exception e) {
-            StaticLog.error("Save setting failed: ", e);
-        }
+    public String getKeyName() {
+        return this.keyName;
     }
 }

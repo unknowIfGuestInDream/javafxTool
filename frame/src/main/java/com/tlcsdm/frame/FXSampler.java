@@ -44,6 +44,7 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
@@ -323,7 +324,7 @@ public final class FXSampler extends Application {
         // 加载上次位置
         StageUtil.loadPrimaryStageBound(stage);
         stage.setOnShown(windowEvent -> {
-            if (Config.getBoolean(Config.Keys.CheckForUpdatesAtStartup, true)) {
+            if (Config.getBoolean(Keys.CheckForUpdatesAtStartup, true)) {
                 // 检查更新
                 StaticLog.debug("Version Checker...");
                 ThreadPoolTaskExecutor.get().execute(() -> {
@@ -405,7 +406,7 @@ public final class FXSampler extends Application {
      * 确认退出系统
      */
     public static void confirmExit(Event event) {
-        if (Config.getBoolean(Config.Keys.ConfirmExit, true)) {
+        if (Config.getBoolean(Keys.ConfirmExit, true)) {
             if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"),
                 I18nUtils.get("frame.main.confirmExit.message"))) {
                 doExit();

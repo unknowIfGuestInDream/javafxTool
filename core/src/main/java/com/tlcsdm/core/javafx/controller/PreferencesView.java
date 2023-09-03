@@ -34,6 +34,7 @@ import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -48,10 +49,10 @@ public class PreferencesView extends StackPane {
 
     public PreferencesFx preferencesFx;
 
-    BooleanProperty exitShowAlert = new SimpleBooleanProperty(Config.getBoolean(Config.Keys.ConfirmExit, true));
-    BooleanProperty saveStageBound = new SimpleBooleanProperty(Config.getBoolean(Config.Keys.RememberWindowLocation, true));
-    BooleanProperty checkForUpdatesAtStartup = new SimpleBooleanProperty(Config.getBoolean(Config.Keys.CheckForUpdatesAtStartup, true));
-    BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(Config.getBoolean(Config.Keys.ScreenshotHideWindow, true));
+    BooleanProperty exitShowAlert = new SimpleBooleanProperty(Config.getBoolean(Keys.ConfirmExit, true));
+    BooleanProperty saveStageBound = new SimpleBooleanProperty(Config.getBoolean(Keys.RememberWindowLocation, true));
+    BooleanProperty checkForUpdatesAtStartup = new SimpleBooleanProperty(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
+    BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(Config.getBoolean(Keys.ScreenshotHideWindow, true));
 
     public PreferencesView() {
         preferencesFx = createPreferences();

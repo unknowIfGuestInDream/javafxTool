@@ -48,14 +48,14 @@ public class StageUtil {
      */
     public static void loadPrimaryStageBound(Stage stage) {
         try {
-            if (!Config.getBoolean(Config.Keys.RememberWindowLocation, true)) {
+            if (!Config.getBoolean(Keys.RememberWindowLocation, true)) {
                 return;
             }
 
-            double left = Config.getDouble(Config.Keys.MainWindowLeft, stage.getX());
-            double top = Config.getDouble(Config.Keys.MainWindowTop, -1);
-            double width = Config.getDouble(Config.Keys.MainWindowWidth, -1);
-            double height = Config.getDouble(Config.Keys.MainWindowHeight, -1);
+            double left = Config.getDouble(Keys.MainWindowLeft, stage.getX());
+            double top = Config.getDouble(Keys.MainWindowTop, -1);
+            double width = Config.getDouble(Keys.MainWindowWidth, -1);
+            double height = Config.getDouble(Keys.MainWindowHeight, -1);
 
             List<Screen> list = Screen.getScreens();
             double minX = 0;
@@ -87,17 +87,17 @@ public class StageUtil {
      * 保存Stage边框位置
      */
     public static void savePrimaryStageBound(Stage stage) {
-        if (!Config.getBoolean(Config.Keys.RememberWindowLocation, true)) {
+        if (!Config.getBoolean(Keys.RememberWindowLocation, true)) {
             return;
         }
         if (stage == null || stage.isIconified()) {
             return;
         }
         try {
-            Config.set(Config.Keys.MainWindowLeft, stage.getX());
-            Config.set(Config.Keys.MainWindowTop, stage.getY());
-            Config.set(Config.Keys.MainWindowWidth, stage.getWidth());
-            Config.set(Config.Keys.MainWindowHeight, stage.getHeight());
+            Config.set(Keys.MainWindowLeft, stage.getX());
+            Config.set(Keys.MainWindowTop, stage.getY());
+            Config.set(Keys.MainWindowWidth, stage.getWidth());
+            Config.set(Keys.MainWindowHeight, stage.getHeight());
         } catch (Exception e) {
             StaticLog.error("Initialization interface position failure");
         }
