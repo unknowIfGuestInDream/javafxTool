@@ -96,6 +96,7 @@
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
+        <preferencesfx.version>11.16.0</preferencesfx.version>
     </properties>
 
     <issueManagement>
@@ -433,6 +434,10 @@
                         <artifactId>slf4j-simple</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -522,16 +527,16 @@
                 <version>${groovy.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-api</artifactId>
-                        <groupId>org.junit.jupiter</groupId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
-                        <groupId>org.junit.jupiter</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>junit-platform-engine</artifactId>
                         <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-engine</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -540,6 +545,33 @@
                 <groupId>net.coobird</groupId>
                 <artifactId>thumbnailator</artifactId>
                 <version>${thumbnailator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dlsc.preferencesfx</groupId>
+                <artifactId>preferencesfx-core</artifactId>
+                <version>${preferencesfx.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-fxml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.controlsfx</groupId>
+                        <artifactId>controlsfx</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

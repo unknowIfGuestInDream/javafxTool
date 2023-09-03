@@ -32,6 +32,7 @@ guava | 32.1.2-jre | Google工具类
 groovy | 4.0.14 | Groovy
 thumbnailator | 0.4.20 | 图片转码和缩略工具
 pdfviewfx | 3.0.0 | PDF视图工具
+preferencesfx | 11.16.0 | 为应用程序设置/首选项创建 UI 的框架
 
 ## 项目地址
 - github地址：[https://github.com/unknowIfGuestInDream/javafxTool](https://github.com/unknowIfGuestInDream/javafxTool ':target=_blank')
