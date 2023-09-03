@@ -29,6 +29,7 @@ package com.tlcsdm.core.javafx.controller;
 
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import javafx.collections.ObservableList;
 
 /**
@@ -100,13 +101,13 @@ public class CoreStorageHandler implements StorageHandler {
     @Override
     public void saveObject(String s, Object o) {
         if (s.endsWith("exitShowAlert")) {
-            Config.set(Config.Keys.ConfirmExit, o);
+            Config.set(Keys.ConfirmExit, o);
         } else if (s.endsWith("saveStageBound")) {
-            Config.set(Config.Keys.RememberWindowLocation, o);
+            Config.set(Keys.RememberWindowLocation, o);
         } else if (s.endsWith("checkForUpdatesAtStartup")) {
-            Config.set(Config.Keys.CheckForUpdatesAtStartup, o);
+            Config.set(Keys.CheckForUpdatesAtStartup, o);
         } else if (s.endsWith("screenshotHideWindow")) {
-            Config.set(Config.Keys.ScreenshotHideWindow, o);
+            Config.set(Keys.ScreenshotHideWindow, o);
         }
     }
 

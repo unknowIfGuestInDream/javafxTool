@@ -41,6 +41,7 @@ import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
@@ -250,17 +251,17 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                     if (Config.defaultLocale == Locale.SIMPLIFIED_CHINESE) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.SIMPLIFIED_CHINESE);
+                    Config.set(Keys.Locale, Locale.SIMPLIFIED_CHINESE);
                 } else if (SmcConstant.LANGUAGE_ENGLISH.equals(languageType)) {
                     if (Config.defaultLocale == Locale.ENGLISH) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.ENGLISH);
+                    Config.set(Keys.Locale, Locale.ENGLISH);
                 } else if (SmcConstant.LANGUAGE_JAPANESE.equals(languageType)) {
                     if (Config.defaultLocale == Locale.JAPANESE) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.JAPANESE);
+                    Config.set(Keys.Locale, Locale.JAPANESE);
                 }
                 if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
                     I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {

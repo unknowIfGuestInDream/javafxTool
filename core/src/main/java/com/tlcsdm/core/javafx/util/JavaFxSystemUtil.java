@@ -73,7 +73,7 @@ public class JavaFxSystemUtil {
 
     public static void initSystemLocal() {
         try {
-            String localeString = Config.get(Config.Keys.Locale, "");
+            String localeString = Config.get(Keys.Locale, "");
             if (StringUtils.isNotEmpty(localeString)) {
                 localeString = localeString.toLowerCase();
                 switch (localeString) {
