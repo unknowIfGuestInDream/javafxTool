@@ -19,6 +19,7 @@ frameとloginは基本モジュールで、Java SPI経由でプラグイン可�
 ### core
 
 - TemplateLoaderService: freemarker TemplateLoaderの読み込み，サブモジュールのテンプレートパスを追加するサブクラスの実装
+- GroovyLoaderService: Groovy スクリプト パスの読み込み、サブモジュール スクリプト パスを追加するためのサブクラス実装
 
 ### frame
 
