@@ -44,14 +44,15 @@ import java.util.regex.Pattern;
  */
 public class GroovyCodeArea extends CodeArea {
 
-    private static final String[] KEYWORDS = new String[]{"abstract", "assert", "boolean", "break", "byte", "case",
+    private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case",
         "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final",
         "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long",
         "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
-        "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
-        "record", "def"};
+        "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while", "record",
+        "def", "as" };
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String PAREN_PATTERN = "\\(|\\)";
     private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
     private static final String BRACE_PATTERN = "\\{|\\}";
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
@@ -59,17 +60,24 @@ public class GroovyCodeArea extends CodeArea {
     private static final String BRACKET_PATTERN = "\\[|\\]";
 
     private static final Pattern PATTERN = Pattern
-        .compile("(?<KEYWORD>" + KEYWORD_PATTERN + ")" + "|(?<BRACE>" + BRACE_PATTERN + ")"
-            + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<STRING>" + STRING_PATTERN + ")" + "|(?<STR>" + STR_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
+        .compile("(?<KEYWORD>" + KEYWORD_PATTERN + ")" + "|(?<PAREN>" + PAREN_PATTERN + ")" + "|(?<BRACE>"
+            + BRACE_PATTERN + ")" + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<STRING>" + STRING_PATTERN + ")"
+            + "|(?<STR>" + STR_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
 
     public GroovyCodeArea() {
         super();
         getStyleClass().add("text-groovy-area");
-        getStylesheets().add(
-            getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css").toExternalForm());
+        getStylesheets()
+            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css").toExternalForm());
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.textProperty().addListener((obs, oldText, newText) -> {
-            this.setStyleSpans(0, computeHighlighting(newText));
+            // 处理开头版权信息的样式
+            int from = 0;
+            if (newText.startsWith("/*\n")) {
+                from = newText.indexOf("*/");
+            }
+            this.setStyle(0, from + 2, Collections.singleton("copyright"));
+            this.setStyleSpans(from + 2, computeHighlighting(newText.substring(from + 2)));
         });
     }
 
@@ -79,11 +87,12 @@ public class GroovyCodeArea extends CodeArea {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
         while (matcher.find()) {
             String styleClass = matcher.group("KEYWORD") != null ? "keyword"
-                : matcher.group("BRACE") != null ? "brace"
-                : matcher.group("BRACKET") != null ? "bracket"
-                : matcher.group("STRING") != null ? "string"
-                : matcher.group("STR") != null ? "string"
-                : matcher.group("COMMENT") != null ? "comment" : null;
+                : matcher.group("PAREN") != null ? "paren"
+                    : matcher.group("BRACE") != null ? "brace"
+                        : matcher.group("BRACKET") != null ? "bracket"
+                            : matcher.group("STRING") != null ? "string"
+                                : matcher.group("STR") != null ? "string"
+                                    : matcher.group("COMMENT") != null ? "comment" : null;
             assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
