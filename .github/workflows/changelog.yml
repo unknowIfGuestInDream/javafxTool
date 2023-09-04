@@ -14,9 +14,9 @@ jobs:
           fetch-depth: 0
       - uses: BobAnkh/auto-generate-changelog@v1.2.5
         with:
-          ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          ACCESS_TOKEN: ${{secrets.CHANGELOG}}
           PATH: 'CHANGELOG.md'
-          COMMIT_MESSAGE: 'docs(changelog): update release notes'
+          COMMIT_MESSAGE: 'docs(changelog): Update release notes'
           TYPE: 'feat:Feature,fix:Bug Fixes,refactor:Refactor,perf:Performance Improvements'
           PULL_REQUEST: 'master'
           BRANCH: 'changelog'
