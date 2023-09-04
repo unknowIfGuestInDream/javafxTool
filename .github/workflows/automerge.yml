@@ -34,7 +34,7 @@ jobs:
       - name: Merge pull requests
         uses: pascalgn/automerge-action@v0.15.5
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.CHANGELOG }}"
           MERGE_LABELS: "automerge,!work in progress"
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "pull-request-title"
