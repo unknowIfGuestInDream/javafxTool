@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14
+
+1. Fixed CoreUtil.getRootPath() result error issue
+2. Fix groovy path scanning error issue
+3. ECM code refactoring
+4. Add preferencesfx to refactor the system settings UI
+
+### Feature
+
+- smc:
+  - ecm 优化 (#692) ([f697c60](https://github.com/unknowIfGuestInDream/javafxTool/commit/f697c60b614d0be3c29056f354b76fd54bd6a743)) ([#692](https://github.com/unknowIfGuestInDream/javafxTool/pull/692))
+  - ECM重构 (#691) ([85bd5d3](https://github.com/unknowIfGuestInDream/javafxTool/commit/85bd5d3e5ede14e9e8de75371a37993ada582c1b)) ([#691](https://github.com/unknowIfGuestInDream/javafxTool/pull/691))
+
+### Bug Fixes
+
+- core:
+  - 修复groovy路径扫描错误的问题 (#687) ([e7f0ae2](https://github.com/unknowIfGuestInDream/javafxTool/commit/e7f0ae2eb12a5fec95ab92ce748294f729da40eb)) ([#687](https://github.com/unknowIfGuestInDream/javafxTool/pull/687))
+  - 修复CoreUtil.getRootPath()问题 (#686) ([c4c2fc8](https://github.com/unknowIfGuestInDream/javafxTool/commit/c4c2fc8b6e485963b7638073b389dfdc84f67825)) ([#686](https://github.com/unknowIfGuestInDream/javafxTool/pull/686))
+
 ## [v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07
 
 1. Add LicenseDialog

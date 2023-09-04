@@ -51,11 +51,6 @@ public class Config {
     // 设置系统语言
     public static Locale defaultLocale = Locale.getDefault();
 
-    public enum Keys {
-        MainWindowWidth, MainWindowHeight, MainWindowTop, MainWindowLeft, Locale, NotepadEnabled,
-        RememberWindowLocation, ConfirmExit, CheckForUpdatesAtStartup, ScreenshotHideWindow
-    }
-
     private static PropertiesConfiguration conf;
 
     public static PropertiesConfiguration getConfig() {

@@ -34,6 +34,7 @@ module com.tlcsdm.core {
     requires static com.dlsc.pdfviewfx;
     requires static tabula;
     requires jsr305;
+    requires static com.dlsc.preferencesfx;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

@@ -88,11 +88,11 @@ public class SmcConstant {
     /**
      * 默认项目版本号
      */
-    public static final String PROJECT_VERSION = "1.0.6";
+    public static final String PROJECT_VERSION = "1.0.7";
     /**
      * 项目构建日期
      */
-    public static final String PROJECT_BUILD_DAY = "2023-08-29";
+    public static final String PROJECT_BUILD_DAY = "2023-09-03";
     /**
      * 检查更新所用的api
      */
@@ -106,7 +106,7 @@ public class SmcConstant {
      * 当前项目加的依赖
      */
     public static final List<String> DEPENDENCY_LIST = List.of("poi", "freemarker", "dom4j", "java-diff-utils",
-        "richtextfx", "thumbnailator", "groovy");
+        "richtextfx", "thumbnailator", "groovy", "preferencesfx");
 
     private SmcConstant() {
     }

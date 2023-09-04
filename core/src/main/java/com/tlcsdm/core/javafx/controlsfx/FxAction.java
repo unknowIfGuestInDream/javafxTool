@@ -30,6 +30,7 @@ package com.tlcsdm.core.javafx.controlsfx;
 import cn.hutool.core.io.FileUtil;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.controller.PreferencesView;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
@@ -362,5 +363,17 @@ public class FxAction {
 
     public static Action view(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/view.png");
+    }
+
+    public static Action preferences(Consumer<ActionEvent> eventHandler) {
+        return preferences(I18nUtils.get("core.button.preferences"), eventHandler);
+    }
+
+    public static Action preferences(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/preferences.png");
+    }
+
+    public static Action preferences() {
+        return preferences(actionEvent -> new PreferencesView().show());
     }
 }

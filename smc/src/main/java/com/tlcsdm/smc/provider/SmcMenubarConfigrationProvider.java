@@ -41,6 +41,7 @@ import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
@@ -87,7 +88,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
-    private final Action systemSetting = FxAction.systemSetting();
+    private final Action preferences = FxAction.preferences();
 
     private final Action pathWatch = FxAction.pathWatch();
 
@@ -182,7 +183,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.setting(preferences, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
@@ -250,17 +251,17 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                     if (Config.defaultLocale == Locale.SIMPLIFIED_CHINESE) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.SIMPLIFIED_CHINESE);
+                    Config.set(Keys.Locale, Locale.SIMPLIFIED_CHINESE);
                 } else if (SmcConstant.LANGUAGE_ENGLISH.equals(languageType)) {
                     if (Config.defaultLocale == Locale.ENGLISH) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.ENGLISH);
+                    Config.set(Keys.Locale, Locale.ENGLISH);
                 } else if (SmcConstant.LANGUAGE_JAPANESE.equals(languageType)) {
                     if (Config.defaultLocale == Locale.JAPANESE) {
                         return;
                     }
-                    Config.set(Config.Keys.Locale, Locale.JAPANESE);
+                    Config.set(Keys.Locale, Locale.JAPANESE);
                 }
                 if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
                     I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {

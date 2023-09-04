@@ -181,12 +181,11 @@
             <groupId>technology.tabula</groupId>
             <artifactId>tabula</artifactId>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.dlsc.preferencesfx</groupId>
+            <artifactId>preferencesfx-core</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -30,6 +30,7 @@ package com.tlcsdm.core.javafx.stage;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.embed.swing.SwingFXUtils;
@@ -85,7 +86,7 @@ public class ScreenshotStage extends Stage {
      */
     public ScreenshotStage() {
         this.initOwner(FxApp.primaryStage);
-        this.hideMainStage = Config.getBoolean(Config.Keys.ScreenshotHideWindow, true);
+        this.hideMainStage = Config.getBoolean(Keys.ScreenshotHideWindow, true);
         if (hideMainStage) {
             // 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
             // 可以通过 FxApp.primaryStage.setIconified(true); 来隐藏窗口

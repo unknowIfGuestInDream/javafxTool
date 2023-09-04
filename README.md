@@ -19,7 +19,9 @@ modules. demo is the provided example module.
 
 ### core
 
-- TemplateLoaderService: Freemarker TemplateLoader loads, subclass implementation to add the template path of the submodule
+- TemplateLoaderService: Freemarker TemplateLoader loads, subclass implementation to add the template path of the
+  submodule
+- GroovyLoaderService: Groovy script path loading, subclass implementation to add submodule script path
 
 ### frame
 
