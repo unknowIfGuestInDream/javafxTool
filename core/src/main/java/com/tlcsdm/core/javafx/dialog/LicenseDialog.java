@@ -47,8 +47,6 @@ public class LicenseDialog {
 
     public static void openLicenseDialog() {
         VBox vbox = new VBox();
-        // InlineCssTextArea
-        // StyleClassedTextArea
         InlineCssTextArea area = new InlineCssTextArea();
         area.setEditable(false);
         area.setStyle("-fx-font-size: 14;-fx-padding: 5 0 0 5;");
@@ -57,7 +55,7 @@ public class LicenseDialog {
         vbox.getChildren().addAll(pane);
         VBox.setVgrow(pane, Priority.ALWAYS);
         FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle("License").setOwner(FxApp.primaryStage)
-            .setPrefSize(680, 520).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
+            .setPrefSize(680, 540).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
         dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> {
             OSUtil.writeToClipboard(area.getText());
         }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
