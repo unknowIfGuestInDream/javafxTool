@@ -153,7 +153,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 加载闪屏图片
+     * 加载闪屏功能
      */
     public void loadSplash() {
         Parent parent = null;
