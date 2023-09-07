@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,35 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.provider;
-
-import com.tlcsdm.core.event.ApplicationStartingEvent;
-import com.tlcsdm.core.eventbus.EventBus;
-import com.tlcsdm.core.eventbus.Subscribe;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.frame.service.SplashScreen;
-import javafx.scene.image.Image;
+package com.tlcsdm.frame.event;
 
 /**
- * 闪屏图片
+ * 闪屏动画结束
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/3 22:47
  */
-public class SmcSplashProvider implements SplashScreen {
-
-    public SmcSplashProvider() {
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public Image getImage() {
-        return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/static/splash.png"));
-    }
-
-    @Subscribe
-    @Override
-    public void appStartingHandler(ApplicationStartingEvent event) {
-        SplashScreen.super.appStartingHandler(event);
-    }
+public class SplashAnimFinishedEvent {
 }

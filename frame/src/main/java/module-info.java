@@ -12,6 +12,7 @@ module com.tlcsdm.frame {
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
     exports com.tlcsdm.frame.service;
+    exports com.tlcsdm.frame.event;
 
     uses com.tlcsdm.frame.service.FXSamplerProject;
     uses com.tlcsdm.frame.service.MenubarConfigration;

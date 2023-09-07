@@ -41,7 +41,6 @@ import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
@@ -69,21 +68,18 @@ import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -114,8 +110,6 @@ public final class FXSampler extends Application {
     private List<TreeItem<Sample>> projects;
 
     private Project selectedProject;
-    // 用于闪屏功能
-    private Label infoLb;
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
     private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
@@ -129,11 +123,10 @@ public final class FXSampler extends Application {
     public void start(final Stage primaryStage) {
         stopWatch.start();
         stage = primaryStage;
-        StaticLog.debug("Load splash screen image.");
+        StaticLog.debug("Load splash screen.");
         loadSplash();
         StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
-        showInfo(I18nUtils.get("frame.splash.init.version"));
         StaticLog.debug("Initialize system resources.");
         initializeSystem();
         EventBus.getDefault().post(new ApplicationStartingEvent());
@@ -158,44 +151,26 @@ public final class FXSampler extends Application {
      * 加载闪屏图片
      */
     public void loadSplash() {
-        Image image = null;
+        Parent parent = null;
         // 加载闪屏图片
         ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
         for (SplashScreen s : splashScreens) {
-            image = s.getImage();
+            parent = s.getParent();
         }
-        if (image == null) {
-            image = LayoutHelper.icon(getClass().getResource("/com/tlcsdm/frame/static/splash.png"));
+        if (parent == null) {
+            return;
         }
-        ImageView view = new ImageView(image);
-        infoLb = new Label();
-        infoLb.setTextFill(Color.WHITE);
-        AnchorPane.setRightAnchor(infoLb, 10.0);
-        AnchorPane.setBottomAnchor(infoLb, 10.0);
-
-        AnchorPane page = new AnchorPane();
-        page.getChildren().addAll(view, infoLb);
         Stage loadingStage = new Stage();
-        loadingStage.setScene(new Scene(page));
-        loadingStage.setWidth(image.getWidth());
-        loadingStage.setHeight(image.getHeight());
+        loadingStage.setScene(new Scene(parent));
         loadingStage.initStyle(StageStyle.UNDECORATED);
         loadingStage.show();
         stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
     }
 
     /**
-     * 闪屏图片信息展示
-     */
-    private void showInfo(String info) {
-        FxApp.runLater(() -> infoLb.setText(info));
-    }
-
-    /**
      * 初始化系统配置
      */
     public void initializeSystem() {
-        showInfo(I18nUtils.get("frame.splash.init.system"));
         FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"), getHostServices());
         samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);

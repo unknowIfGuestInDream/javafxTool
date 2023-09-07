@@ -27,6 +27,9 @@
 
 package com.tlcsdm.qe.provider;
 
+import com.tlcsdm.core.event.ApplicationStartingEvent;
+import com.tlcsdm.core.eventbus.EventBus;
+import com.tlcsdm.core.eventbus.Subscribe;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.frame.service.SplashScreen;
 import javafx.scene.image.Image;
@@ -38,8 +41,19 @@ import javafx.scene.image.Image;
  * @date 2023/3/3 22:47
  */
 public class QeSplashProvider implements SplashScreen {
+
+    public QeSplashProvider() {
+        EventBus.getDefault().register(this);
+    }
+
     @Override
     public Image getImage() {
         return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/qe/static/splash.png"));
+    }
+
+    @Subscribe
+    @Override
+    public void appStartingHandler(ApplicationStartingEvent event) {
+        SplashScreen.super.appStartingHandler(event);
     }
 }
