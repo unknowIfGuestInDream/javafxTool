@@ -187,7 +187,7 @@ public final class FXSampler extends Application {
     /**
      * 闪屏图片信息展示
      */
-    public void showInfo(String info) {
+    private void showInfo(String info) {
         FxApp.runLater(() -> infoLb.setText(info));
     }
 
