@@ -85,6 +85,11 @@ public class Config {
         return value == null ? def : value.toString();
     }
 
+    public static Object get(Keys key, Object obj) {
+        Object value = getConfig().getProperty(key.name());
+        return value == null ? obj : value;
+    }
+
     public static double getDouble(Keys key, double def) {
         return NumberUtils.toDouble(get(key, null), def);
     }
