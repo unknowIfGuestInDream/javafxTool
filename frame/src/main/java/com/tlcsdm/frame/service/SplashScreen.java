@@ -68,10 +68,10 @@ public interface SplashScreen {
     }
 
     /**
-     * 不支持动画效果直接返回true
+     * 是否支持动画效果
      */
-    default boolean getAnimFinished() {
-        return true;
+    default boolean supportAnimation() {
+        return false;
     }
 
     private void showInfo(String info) {

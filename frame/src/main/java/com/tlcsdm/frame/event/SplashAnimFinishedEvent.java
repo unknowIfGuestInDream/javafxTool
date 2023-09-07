@@ -28,9 +28,10 @@
 package com.tlcsdm.frame.event;
 
 /**
- * 闪屏动画结束
+ * 闪屏动画结束事件
  *
  * @author unknowIfGuestInDream
  */
 public class SplashAnimFinishedEvent {
+
 }

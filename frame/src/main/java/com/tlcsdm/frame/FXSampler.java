@@ -36,6 +36,7 @@ import com.tlcsdm.core.event.ApplicationPreparedEvent;
 import com.tlcsdm.core.event.ApplicationReadyEvent;
 import com.tlcsdm.core.event.ApplicationStartingEvent;
 import com.tlcsdm.core.eventbus.EventBus;
+import com.tlcsdm.core.eventbus.Subscribe;
 import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
@@ -46,6 +47,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.InterfaceScanner;
+import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptyCenterPanel;
 import com.tlcsdm.frame.model.EmptySample;
@@ -83,7 +85,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
@@ -99,7 +100,6 @@ import java.util.ServiceLoader;
 public final class FXSampler extends Application {
 
     private Map<String, Project> projectsMap;
-
     private static Stage stage;
 
     private Sample selectedSample;
@@ -114,6 +114,10 @@ public final class FXSampler extends Application {
     // 用于 初始化UI
     private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
     private MenubarConfigration menubarConfigration = null;
+    // 闪屏部分
+    private Stage loadingStage;
+    private boolean animationFinished = true;
+    private boolean hasPrepared;
 
     public static void main(String[] args) {
         launch(args);
@@ -124,6 +128,7 @@ public final class FXSampler extends Application {
         stopWatch.start();
         stage = primaryStage;
         StaticLog.debug("Load splash screen.");
+        EventBus.getDefault().register(this);
         loadSplash();
         StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
@@ -134,10 +139,10 @@ public final class FXSampler extends Application {
             try {
                 StaticLog.debug("Initialize UI resources.");
                 initializeUI();
+                EventBus.getDefault().post(new ApplicationPreparedEvent());
                 ThreadPoolTaskExecutor.get().execute(() -> {
                     StaticLog.debug("Initialize resources.");
                     initializeSource();
-                    EventBus.getDefault().post(new ApplicationPreparedEvent());
                 });
             } catch (Throwable e) {
                 EventBus.getDefault().post(new ApplicationFailedEvent(e));
@@ -156,15 +161,31 @@ public final class FXSampler extends Application {
         ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
         for (SplashScreen s : splashScreens) {
             parent = s.getParent();
+            animationFinished = !s.supportAnimation();
         }
         if (parent == null) {
             return;
         }
-        Stage loadingStage = new Stage();
+        loadingStage = new Stage();
         loadingStage.setScene(new Scene(parent));
         loadingStage.initStyle(StageStyle.UNDECORATED);
         loadingStage.show();
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
+    }
+
+    @Subscribe
+    public void appPreparedHandler(ApplicationPreparedEvent event) {
+        hasPrepared = true;
+        if (loadingStage != null && loadingStage.isShowing() && animationFinished) {
+            loadingStage.close();
+        }
+    }
+
+    @Subscribe
+    public void splashAnimFinishedHandler(SplashAnimFinishedEvent event) {
+        animationFinished = true;
+        if (loadingStage != null && loadingStage.isShowing() && hasPrepared) {
+            loadingStage.close();
+        }
     }
 
     /**
