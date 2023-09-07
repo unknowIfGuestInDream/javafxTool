@@ -71,13 +71,16 @@ public class GroovyCodeArea extends CodeArea {
             .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css").toExternalForm());
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.textProperty().addListener((obs, oldText, newText) -> {
-            // 处理开头版权信息的样式
             int from = 0;
             if (newText.startsWith("/*\n")) {
+                // 处理开头版权信息的样式
                 from = newText.indexOf("*/");
+                this.setStyle(0, from + 2, Collections.singleton("copyright"));
+                this.setStyleSpans(from + 2, computeHighlighting(newText.substring(from + 2)));
+                this.foldText(0, from);
+            } else {
+                this.setStyleSpans(from, computeHighlighting(newText));
             }
-            this.setStyle(0, from + 2, Collections.singleton("copyright"));
-            this.setStyleSpans(from + 2, computeHighlighting(newText.substring(from + 2)));
         });
     }
 
