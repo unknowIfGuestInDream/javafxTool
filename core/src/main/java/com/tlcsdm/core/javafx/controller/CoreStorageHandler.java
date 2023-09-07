@@ -100,20 +100,18 @@ public class CoreStorageHandler implements StorageHandler {
 
     @Override
     public void saveObject(String s, Object o) {
-        if (s.endsWith("exitShowAlert")) {
-            Config.set(Keys.ConfirmExit, o);
-        } else if (s.endsWith("saveStageBound")) {
-            Config.set(Keys.RememberWindowLocation, o);
-        } else if (s.endsWith("checkForUpdatesAtStartup")) {
-            Config.set(Keys.CheckForUpdatesAtStartup, o);
-        } else if (s.endsWith("screenshotHideWindow")) {
-            Config.set(Keys.ScreenshotHideWindow, o);
-        }
+        Config.set(Keys.fromKeyName(s.substring(s.lastIndexOf(".") + 1)), o);
     }
 
     @Override
     public Object loadObject(String s, Object o) {
-        return o;
+        Keys key = Keys.fromKeyName(s.substring(s.lastIndexOf(".") + 1));
+        if (o instanceof Boolean bool) {
+            return Config.getBoolean(key, bool);
+        } else if (o instanceof Double d) {
+            return Config.getDouble(key, d);
+        }
+        return Config.get(key, o);
     }
 
     @Override

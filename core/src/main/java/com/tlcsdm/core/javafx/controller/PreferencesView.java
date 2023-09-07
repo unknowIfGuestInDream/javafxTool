@@ -34,7 +34,6 @@ import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -49,10 +48,10 @@ public class PreferencesView extends StackPane {
 
     public PreferencesFx preferencesFx;
 
-    BooleanProperty exitShowAlert = new SimpleBooleanProperty(Config.getBoolean(Keys.ConfirmExit, true));
-    BooleanProperty saveStageBound = new SimpleBooleanProperty(Config.getBoolean(Keys.RememberWindowLocation, true));
-    BooleanProperty checkForUpdatesAtStartup = new SimpleBooleanProperty(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
-    BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(Config.getBoolean(Keys.ScreenshotHideWindow, true));
+    BooleanProperty exitShowAlert = new SimpleBooleanProperty(true);
+    BooleanProperty saveStageBound = new SimpleBooleanProperty(true);
+    BooleanProperty checkForUpdatesAtStartup = new SimpleBooleanProperty(true);
+    BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(true);
 
     public PreferencesView() {
         preferencesFx = createPreferences();
@@ -66,24 +65,20 @@ public class PreferencesView extends StackPane {
         // i18n
         ResourceBundle rb = ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale);
         ResourceBundleService rbs = new ResourceBundleService(rb);
-        return PreferencesFx.of(new CoreStorageHandler(),
-                Category.of("core.preference.general")
-                    .expand()
-                    .subCategories(
-                        Category.of("core.menubar.setting.systemSetting",
-                            Group.of(
-                                Setting.of("core.dialog.systemSetting.check.exitShowAlert", exitShowAlert),
-                                Setting.of("core.dialog.systemSetting.check.saveStageBound", saveStageBound),
-                                Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup", checkForUpdatesAtStartup)
-                            ).description("core.menubar.setting.systemSetting")
-                        ),
-                        Category.of("core.menubar.tool",
-                            Group.of(
-                                Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow)
-                            ).description("core.menubar.setting.screenshot")
-                        )
-                    )
-            ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false)
-            .buttonsVisibility(true).instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
+        return PreferencesFx
+            .of(new CoreStorageHandler(),
+                Category.of("core.preference.general").expand().subCategories(
+                    Category.of("core.menubar.setting.systemSetting",
+                        Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert),
+                            Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound),
+                            Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup",
+                                checkForUpdatesAtStartup))
+                            .description("core.menubar.setting.systemSetting")),
+                    Category.of("core.menubar.tool",
+                        Group.of(
+                            Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow))
+                            .description("core.menubar.setting.screenshot"))))
+            .i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
+            .instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
     }
 }
