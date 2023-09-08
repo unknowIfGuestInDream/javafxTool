@@ -71,6 +71,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -82,6 +83,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -116,7 +118,8 @@ public final class FXSampler extends Application {
     private MenubarConfigration menubarConfigration = null;
     // 闪屏部分
     private Stage loadingStage;
-    private boolean animationFinished = true;
+    private boolean animationFinished;
+    private boolean supportAnim;
     private boolean hasPrepared;
 
     public static void main(String[] args) {
@@ -161,21 +164,25 @@ public final class FXSampler extends Application {
         ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
         for (SplashScreen s : splashScreens) {
             parent = s.getParent();
-            animationFinished = !s.supportAnimation();
+            supportAnim = s.supportAnimation();
         }
         if (parent == null) {
             return;
         }
         loadingStage = new Stage();
-        loadingStage.setScene(new Scene(parent));
-        loadingStage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene(parent);
+        scene.setFill(Color.TRANSPARENT);
+        scene.setCamera(new PerspectiveCamera());
+        loadingStage.setScene(scene);
+        loadingStage.initStyle(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.show();
     }
 
     @Subscribe
     public void appPreparedHandler(ApplicationPreparedEvent event) {
         hasPrepared = true;
-        if (loadingStage != null && loadingStage.isShowing() && animationFinished) {
+        if (loadingStage != null && loadingStage.isShowing() && supportAnim && animationFinished) {
+            stage.show();
             loadingStage.close();
         }
     }
@@ -184,6 +191,7 @@ public final class FXSampler extends Application {
     public void splashAnimFinishedHandler(SplashAnimFinishedEvent event) {
         animationFinished = true;
         if (loadingStage != null && loadingStage.isShowing() && hasPrepared) {
+            stage.show();
             loadingStage.close();
         }
     }
@@ -332,7 +340,9 @@ public final class FXSampler extends Application {
                 });
             }
         });
-        stage.show();
+        if (!supportAnim) {
+            stage.show();
+        }
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
