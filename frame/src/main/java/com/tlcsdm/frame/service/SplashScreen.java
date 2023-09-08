@@ -27,7 +27,16 @@
 
 package com.tlcsdm.frame.service;
 
+import com.tlcsdm.core.event.ApplicationStartingEvent;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.frame.util.I18nUtils;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 /**
  * 闪屏图片
@@ -36,6 +45,40 @@ import javafx.scene.image.Image;
  * @date 2023/3/3 22:41
  */
 public interface SplashScreen {
+    Label infoLb = new Label();
 
-    Image getImage();
+    /**
+     * 获取闪屏图片
+     */
+    default Image getImage() {
+        return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/frame/static/splash.png"));
+    }
+
+    /**
+     * 获取闪屏UI
+     */
+    default Parent getParent() {
+        infoLb.setTextFill(Color.WHITE);
+        AnchorPane.setRightAnchor(infoLb, 10.0);
+        AnchorPane.setBottomAnchor(infoLb, 10.0);
+        ImageView view = new ImageView(getImage());
+        AnchorPane page = new AnchorPane();
+        page.getChildren().addAll(view, infoLb);
+        return page;
+    }
+
+    /**
+     * 是否支持动画效果
+     */
+    default boolean supportAnimation() {
+        return false;
+    }
+
+    private void showInfo(String info) {
+        FxApp.runLater(() -> infoLb.setText(info));
+    }
+
+    default void appStartingHandler(ApplicationStartingEvent event) {
+        showInfo(I18nUtils.get("frame.splash.init.system"));
+    }
 }
