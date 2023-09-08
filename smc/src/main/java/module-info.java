@@ -72,7 +72,7 @@ module com.tlcsdm.smc {
     requires com.dlsc.preferencesfx;
 
     exports com.tlcsdm.smc;
-    exports com.tlcsdm.smc.provider to com.tlcsdm.frame, com.tlcsdm.login;
+    exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitTest to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
