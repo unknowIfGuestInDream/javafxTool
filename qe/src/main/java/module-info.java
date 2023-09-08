@@ -66,7 +66,7 @@ module com.tlcsdm.qe {
     requires javafx.base;
 
     exports com.tlcsdm.qe;
-    exports com.tlcsdm.qe.provider to com.tlcsdm.frame, com.tlcsdm.login;
+    exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
     exports com.tlcsdm.qe.tools to com.tlcsdm.frame;
     exports com.tlcsdm.qe.skin to com.tlcsdm.frame;
     exports com.tlcsdm.qe.config to com.tlcsdm.core;

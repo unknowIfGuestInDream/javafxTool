@@ -43,7 +43,6 @@ public enum Keys {
     MainWindowTop("mainWindowTop"),
     MainWindowLeft("mainWindowLeft"),
     Locale("locale"),
-    NotepadEnabled("notepadEnabled"),
     RememberWindowLocation("rememberWindowLocation"),
     ConfirmExit("confirmExit"),
     CheckForUpdatesAtStartup("checkForUpdatesAtStartup"),

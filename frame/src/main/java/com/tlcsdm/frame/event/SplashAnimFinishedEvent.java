@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,42 +24,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.tlcsdm.core.javafx.dialog;
 
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.util.OSUtil;
-import com.tlcsdm.core.util.CoreConstant;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import org.fxmisc.flowless.VirtualizedScrollPane;
-import org.fxmisc.richtext.InlineCssTextArea;
+package com.tlcsdm.frame.event;
 
 /**
- * License弹窗
- * 
+ * 闪屏动画结束事件
+ *
  * @author unknowIfGuestInDream
  */
-public class LicenseDialog {
-
-    private LicenseDialog() {
-    }
-
-    public static void openLicenseDialog() {
-        VBox vbox = new VBox();
-        InlineCssTextArea area = new InlineCssTextArea();
-        area.setEditable(false);
-        area.setStyle("-fx-font-size: 14;-fx-padding: 5 0 0 5;");
-        area.appendText(CoreConstant.PROJECT_LICENSE_CONTENT_STRING);
-        VirtualizedScrollPane<InlineCssTextArea> pane = new VirtualizedScrollPane<>(area);
-        vbox.getChildren().addAll(pane);
-        VBox.setVgrow(pane, Priority.ALWAYS);
-        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle("License").setOwner(FxApp.primaryStage)
-            .setPrefSize(680, 540).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
-        dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> {
-            OSUtil.writeToClipboard(area.getText());
-        }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
-        dialog.show();
-    }
+public class SplashAnimFinishedEvent {
 
 }

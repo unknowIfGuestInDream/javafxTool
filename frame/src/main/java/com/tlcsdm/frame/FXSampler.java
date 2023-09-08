@@ -36,17 +36,18 @@ import com.tlcsdm.core.event.ApplicationPreparedEvent;
 import com.tlcsdm.core.event.ApplicationReadyEvent;
 import com.tlcsdm.core.event.ApplicationStartingEvent;
 import com.tlcsdm.core.eventbus.EventBus;
+import com.tlcsdm.core.eventbus.Subscribe;
 import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.InterfaceScanner;
+import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptyCenterPanel;
 import com.tlcsdm.frame.model.EmptySample;
@@ -69,15 +70,14 @@ import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -87,7 +87,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
@@ -103,7 +102,6 @@ import java.util.ServiceLoader;
 public final class FXSampler extends Application {
 
     private Map<String, Project> projectsMap;
-
     private static Stage stage;
 
     private Sample selectedSample;
@@ -114,12 +112,15 @@ public final class FXSampler extends Application {
     private List<TreeItem<Sample>> projects;
 
     private Project selectedProject;
-    // 用于闪屏功能
-    private Label infoLb;
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
     private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
     private MenubarConfigration menubarConfigration = null;
+    // 闪屏部分
+    private Stage loadingStage;
+    private boolean animationFinished;
+    private boolean supportAnim;
+    private boolean hasPrepared;
 
     public static void main(String[] args) {
         launch(args);
@@ -129,11 +130,11 @@ public final class FXSampler extends Application {
     public void start(final Stage primaryStage) {
         stopWatch.start();
         stage = primaryStage;
-        StaticLog.debug("Load splash screen image.");
+        StaticLog.debug("Load splash screen.");
+        EventBus.getDefault().register(this);
         loadSplash();
         StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
-        showInfo(I18nUtils.get("frame.splash.init.version"));
         StaticLog.debug("Initialize system resources.");
         initializeSystem();
         EventBus.getDefault().post(new ApplicationStartingEvent());
@@ -141,10 +142,10 @@ public final class FXSampler extends Application {
             try {
                 StaticLog.debug("Initialize UI resources.");
                 initializeUI();
+                EventBus.getDefault().post(new ApplicationPreparedEvent());
                 ThreadPoolTaskExecutor.get().execute(() -> {
                     StaticLog.debug("Initialize resources.");
                     initializeSource();
-                    EventBus.getDefault().post(new ApplicationPreparedEvent());
                 });
             } catch (Throwable e) {
                 EventBus.getDefault().post(new ApplicationFailedEvent(e));
@@ -155,47 +156,50 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 加载闪屏图片
+     * 加载闪屏功能
      */
     public void loadSplash() {
-        Image image = null;
+        Parent parent = null;
         // 加载闪屏图片
         ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
         for (SplashScreen s : splashScreens) {
-            image = s.getImage();
+            parent = s.getParent();
+            supportAnim = s.supportAnimation();
         }
-        if (image == null) {
-            image = LayoutHelper.icon(getClass().getResource("/com/tlcsdm/frame/static/splash.png"));
+        if (parent == null) {
+            return;
         }
-        ImageView view = new ImageView(image);
-        infoLb = new Label();
-        infoLb.setTextFill(Color.WHITE);
-        AnchorPane.setRightAnchor(infoLb, 10.0);
-        AnchorPane.setBottomAnchor(infoLb, 10.0);
-
-        AnchorPane page = new AnchorPane();
-        page.getChildren().addAll(view, infoLb);
-        Stage loadingStage = new Stage();
-        loadingStage.setScene(new Scene(page));
-        loadingStage.setWidth(image.getWidth());
-        loadingStage.setHeight(image.getHeight());
-        loadingStage.initStyle(StageStyle.UNDECORATED);
+        loadingStage = new Stage();
+        Scene scene = new Scene(parent);
+        scene.setFill(Color.TRANSPARENT);
+        scene.setCamera(new PerspectiveCamera());
+        loadingStage.setScene(scene);
+        loadingStage.initStyle(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.show();
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
     }
 
-    /**
-     * 闪屏图片信息展示
-     */
-    public void showInfo(String info) {
-        FxApp.runLater(() -> infoLb.setText(info));
+    @Subscribe
+    public void appPreparedHandler(ApplicationPreparedEvent event) {
+        hasPrepared = true;
+        if (loadingStage != null && loadingStage.isShowing() && supportAnim && animationFinished) {
+            stage.show();
+            loadingStage.close();
+        }
+    }
+
+    @Subscribe
+    public void splashAnimFinishedHandler(SplashAnimFinishedEvent event) {
+        animationFinished = true;
+        if (loadingStage != null && loadingStage.isShowing() && hasPrepared) {
+            stage.show();
+            loadingStage.close();
+        }
     }
 
     /**
      * 初始化系统配置
      */
     public void initializeSystem() {
-        showInfo(I18nUtils.get("frame.splash.init.system"));
         FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"), getHostServices());
         samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
@@ -336,7 +340,9 @@ public final class FXSampler extends Application {
                 });
             }
         });
-        stage.show();
+        if (!supportAnim) {
+            stage.show();
+        }
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
