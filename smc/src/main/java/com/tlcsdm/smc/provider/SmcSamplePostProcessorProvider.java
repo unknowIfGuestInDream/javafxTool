@@ -27,10 +27,7 @@
 
 package com.tlcsdm.smc.provider;
 
-import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
-import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.exception.SampleDefinitionException;
@@ -38,7 +35,10 @@ import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.service.SamplePostProcessorService;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
+import org.controlsfx.control.CheckTreeView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +53,8 @@ import java.util.Set;
 public class SmcSamplePostProcessorProvider implements SamplePostProcessorService {
 
     private static final List<TreeNode<String>> sampleNodeList = new ArrayList<>();
-    private static List<Tree<String>> sampleTree = null;
+    private static CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>();
+    private static CheckTreeView<String> sampleTree = null;
     public static String SAMPLES_ROOTID = "parent";
     public static String SAMPLES_DEPTH = "depth";
     public static String SAMPLES_FOLDER = "folder";
@@ -77,7 +78,10 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
             map.put(SAMPLES_FOLDER, true);
             node.setExtra(map);
             sampleNodeList.add(node);
-            buildTree(node, s.getChildren());
+            CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(sample.getSampleName());
+            item.setExpanded(true);
+            root.getChildren().add(item);
+            buildTree(node, s.getChildren(), item);
         });
         // 校验是否有重复sampleId
         Set<String> set = new HashSet<>();
@@ -92,7 +96,7 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
         });
     }
 
-    private void buildTree(TreeNode<String> n, ObservableList<TreeItem<Sample>> list) {
+    private void buildTree(TreeNode<String> n, ObservableList<TreeItem<Sample>> list, CheckBoxTreeItem<String> item) {
         if (list.isEmpty()) {
             return;
         }
@@ -120,7 +124,10 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
             }
             node.setExtra(map);
             sampleNodeList.add(node);
-            buildTree(node, t.getChildren());
+            CheckBoxTreeItem<String> subItem = new CheckBoxTreeItem<>(node.getName().toString());
+            subItem.setExpanded(true);
+            item.getChildren().add(subItem);
+            buildTree(node, t.getChildren(), subItem);
         }
     }
 
@@ -128,27 +135,35 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
         return sampleNodeList;
     }
 
-    public static List<Tree<String>> getSampleTree() {
+    /**
+     * <pre>{@code
+     *         sampleTree.getCheckModel().getCheckedItems().addListener((ListChangeListener<TreeItem<String>>) change -> {
+     *             System.out.println("getCheckedItems");
+     *             System.out.println(change.getList());
+     *             while (change.next()) {
+     *                 System.out.println("============================================");
+     *                 System.out.println("Change: " + change);
+     *                 System.out.println("Added sublist " + change.getAddedSubList());
+     *                 System.out.println("Removed sublist " + change.getRemoved());
+     *                 System.out.println("List " + change.getList());
+     *                 System.out.println("Added " + change.wasAdded() + " Permutated " + change.wasPermutated() + " Removed " + change.wasRemoved() + " Replaced "
+     *                     + change.wasReplaced() + " Updated " + change.wasUpdated());
+     *                 System.out.println("============================================");
+     *             }
+     *         });
+     * }</pre>
+     *
+     * @return
+     */
+    public static CheckTreeView<String> getSampleTree() {
         if (sampleTree != null) {
             return sampleTree;
         }
-        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
-        // 自定义属性名 都要默认值的
-        treeNodeConfig.setIdKey("rid");
-        // 转换器
-        sampleTree = TreeUtil.build(SmcSamplePostProcessorProvider.getSampleNodeList(),
-            SmcSamplePostProcessorProvider.SAMPLES_ROOTID, treeNodeConfig, (treeNode, tree) -> {
-                tree.setId(treeNode.getId());
-                tree.setParentId(treeNode.getParentId());
-                tree.setName(treeNode.getName());
-                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_DEPTH,
-                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_DEPTH));
-                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_FOLDER,
-                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_FOLDER));
-                tree.putExtra(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX,
-                    treeNode.getExtra().get(SmcSamplePostProcessorProvider.SAMPLES_XMLPREFIX));
-                tree.putExtra("order", treeNode.getWeight());
-            });
+        root.setExpanded(true);
+        sampleTree = new CheckTreeView<>(root);
+        sampleTree.setShowRoot(false);
+        sampleTree.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         return sampleTree;
     }
+
 }
