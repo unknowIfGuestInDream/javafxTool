@@ -87,6 +87,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
@@ -176,6 +177,7 @@ public final class FXSampler extends Application {
         loadingStage.setScene(scene);
         loadingStage.initStyle(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.show();
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
     }
 
     @Subscribe
@@ -183,7 +185,6 @@ public final class FXSampler extends Application {
         hasPrepared = true;
         if (loadingStage != null && loadingStage.isShowing() && supportAnim && animationFinished) {
             stage.show();
-            loadingStage.close();
         }
     }
 
@@ -192,7 +193,6 @@ public final class FXSampler extends Application {
         animationFinished = true;
         if (loadingStage != null && loadingStage.isShowing() && hasPrepared) {
             stage.show();
-            loadingStage.close();
         }
     }
 
