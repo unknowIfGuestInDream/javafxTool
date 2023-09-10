@@ -25,21 +25,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.skin;
+package com.tlcsdm.qe.skin;
 
 import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.smc.provider.SmcConfigurationProvider;
+import com.tlcsdm.qe.provider.QeConfigurationProvider;
 
 import java.util.Objects;
 
 /**
  * @author unknowIfGuestInDream
  */
-public class Bootstrap3Skin extends SmcConfigurationProvider {
+public class QeSkin extends QeConfigurationProvider {
 
     @Override
     public String getSceneStylesheet() {
-        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css"))
+        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css"))
             .toExternalForm();
     }
 

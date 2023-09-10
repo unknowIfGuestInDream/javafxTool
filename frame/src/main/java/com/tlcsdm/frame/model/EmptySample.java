@@ -26,6 +26,8 @@
  */
 package com.tlcsdm.frame.model;
 
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.Sample;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -118,7 +120,7 @@ public class EmptySample implements Sample {
 
     @Override
     public double getControlPanelDividerPosition() {
-        return 0.6;
+        return Config.getDouble(Keys.ControlDividerPosition, 0.6);
     }
 
 }
