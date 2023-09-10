@@ -31,7 +31,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
+import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
@@ -120,7 +122,7 @@ public abstract class SampleBase extends Application implements Sample {
      */
     @Override
     public double getControlPanelDividerPosition() {
-        return 0.6;
+        return Config.getDouble(Keys.ControlDividerPosition, 0.6);
     }
 
     /**
@@ -347,6 +349,11 @@ public abstract class SampleBase extends Application implements Sample {
             scrollPane.setMinWidth(200);
             SplitPane.setResizableWithParent(scrollPane, false);
             splitPane.getItems().add(scrollPane);
+        }
+        if (splitPane.getDividers().size() > 0) {
+            splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
+                Config.set(Keys.ControlDividerPosition, String.format("%.2f", newValue));
+            });
         }
         return splitPane;
     }
