@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## [v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48
+
+1. GroovyCodeArea stack overflow fixed and style modified
+2. Modify LicenseDialog style
+3. Support startup animation
+4. Modify theme style
+
+### Feature
+
+- smc:
+  - 修改主题 (#715) ([7565707](https://github.com/unknowIfGuestInDream/javafxTool/commit/7565707deab0d1b8e699f9f1d22bf069fdcf71a0)) ([#715](https://github.com/unknowIfGuestInDream/javafxTool/pull/715))
+  - 获取菜单树数据方法重构 (#713) ([04c7093](https://github.com/unknowIfGuestInDream/javafxTool/commit/04c7093621bdf3135233e59543d0b9d2700c4934)) ([#713](https://github.com/unknowIfGuestInDream/javafxTool/pull/713))
+
+- frame:
+  - 闪屏功能支持动画效果 (#709) ([783e17b](https://github.com/unknowIfGuestInDream/javafxTool/commit/783e17bf7ca998632f5dc27a044d82a5800a447c)) ([#709](https://github.com/unknowIfGuestInDream/javafxTool/pull/709))
+
+- core:
+  - groovyCodeArea 注释收缩样式 (#708) ([d155bb2](https://github.com/unknowIfGuestInDream/javafxTool/commit/d155bb22f10ee33e5d0ca9a4b86580fe5638840f)) ([#708](https://github.com/unknowIfGuestInDream/javafxTool/pull/708))
+  - preference view配置加载功能优化 (#706) ([ddceb28](https://github.com/unknowIfGuestInDream/javafxTool/commit/ddceb28d2ed2c37e9bf37caa3658e1145edc2f3b)) ([#706](https://github.com/unknowIfGuestInDream/javafxTool/pull/706))
+  - JavaCodeArea&GroovyCodeArea样式修改 (#704) ([155ebe7](https://github.com/unknowIfGuestInDream/javafxTool/commit/155ebe79ecb0bf54c2b88b076186a4795a360b54)) ([#704](https://github.com/unknowIfGuestInDream/javafxTool/pull/704))
+
+### Bug Fixes
+
+- frame:
+  - 修复启动图片关闭失败的问题 (#712) ([ed4b980](https://github.com/unknowIfGuestInDream/javafxTool/commit/ed4b98077e7b080436bdb67b2f2befc2b29e4ca1)) ([#712](https://github.com/unknowIfGuestInDream/javafxTool/pull/712))
+
+- core:
+  - 修复LicenseDialog样式问题 (#701) ([2676f78](https://github.com/unknowIfGuestInDream/javafxTool/commit/2676f7887b0080be96fa53075c5cca3fb92b28b0)) ([#701](https://github.com/unknowIfGuestInDream/javafxTool/pull/701))
+  - 修复groovyCodeArea处理开头版权信息时堆栈溢出问题 (#696) ([742e826](https://github.com/unknowIfGuestInDream/javafxTool/commit/742e826827cb3169e6970e1e2bb9d2878de63a84)) ([#696](https://github.com/unknowIfGuestInDream/javafxTool/pull/696))
+
 ## [v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14
 
 1. Fixed CoreUtil.getRootPath() result error issue
