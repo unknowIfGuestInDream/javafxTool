@@ -45,7 +45,7 @@ import com.tlcsdm.qe.provider.QeSampleTreeViewConfiguration;
 import com.tlcsdm.qe.provider.QeSamplerProjectProvider;
 import com.tlcsdm.qe.provider.QeSplashProvider;
 import com.tlcsdm.qe.provider.QeVersionCheckerProvider;
-import com.tlcsdm.qe.skin.NordLightSkin;
+import com.tlcsdm.qe.skin.QeSkin;
 
 module com.tlcsdm.qe {
     requires java.desktop;
@@ -76,7 +76,7 @@ module com.tlcsdm.qe {
     provides FXSamplerProject with QeSamplerProjectProvider;
     provides MenubarConfigration with QeMenubarConfigrationProvider;
     provides CenterPanelService with QeCenterPanelProvider;
-    provides FXSamplerConfiguration with QeConfigurationProvider, NordLightSkin;
+    provides FXSamplerConfiguration with QeConfigurationProvider, QeSkin;
     provides SplashScreen with QeSplashProvider;
     provides TemplateLoaderService with QeTemplateLoaderProvider;
     provides GroovyLoaderService with QeGroovyLoaderProvider;
