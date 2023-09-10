@@ -42,6 +42,7 @@ public enum Keys {
     MainWindowHeight("mainWindowHeight"),
     MainWindowTop("mainWindowTop"),
     MainWindowLeft("mainWindowLeft"),
+    ControlDividerPosition("controlDividerPosition"),
     Locale("locale"),
     RememberWindowLocation("rememberWindowLocation"),
     ConfirmExit("confirmExit"),

@@ -172,7 +172,7 @@ public class C1MEcmScript extends AbstractEcmScript {
 
     @Override
     public String getSampleName() {
-        return "C1MEcmScript";
+        return "C1MECMScript";
     }
 
     @Override

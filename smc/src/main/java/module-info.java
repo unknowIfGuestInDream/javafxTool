@@ -47,7 +47,7 @@ import com.tlcsdm.smc.provider.SmcSampleTreeViewConfiguration;
 import com.tlcsdm.smc.provider.SmcSamplerProjectProvider;
 import com.tlcsdm.smc.provider.SmcSplashProvider;
 import com.tlcsdm.smc.provider.SmcVersionCheckerProvider;
-import com.tlcsdm.smc.skin.Bootstrap3Skin;
+import com.tlcsdm.smc.skin.SmcSkin;
 
 module com.tlcsdm.smc {
     requires java.desktop;
@@ -90,7 +90,7 @@ module com.tlcsdm.smc {
     provides FXSamplerProject with SmcSamplerProjectProvider;
     provides MenubarConfigration with SmcMenubarConfigrationProvider;
     provides CenterPanelService with SmcCenterPanelProvider;
-    provides FXSamplerConfiguration with SmcConfigurationProvider, Bootstrap3Skin;
+    provides FXSamplerConfiguration with SmcConfigurationProvider, SmcSkin;
     provides SplashScreen with SmcSplashProvider;
     provides LoginCheck with SmcLoginCheckProvider;
     provides TemplateLoaderService with SmcTemplateLoaderProvider;

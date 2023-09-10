@@ -107,7 +107,7 @@ public class U2AEcmScript extends AbstractU2XFamilyScript {
 
     @Override
     public String getSampleName() {
-        return "U2AEcmScript";
+        return "U2AECMScript";
     }
 
     @Override

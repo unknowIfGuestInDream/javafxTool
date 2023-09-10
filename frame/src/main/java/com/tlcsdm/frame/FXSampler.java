@@ -251,7 +251,6 @@ public final class FXSampler extends Application {
         samplesTreeView.setShowRoot(false);
         samplesTreeView.getStyleClass().add("samples-tree");
         samplesTreeView.setMinWidth(210);
-        samplesTreeView.setMaxWidth(210);
         samplesTreeView.setCellFactory(new DefaultTreeViewCellFactory());
         samplesTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newSample) -> {
             if (newSample == null) {
