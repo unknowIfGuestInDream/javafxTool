@@ -40,61 +40,67 @@ import javafx.collections.ObservableList;
 public class CoreStorageHandler implements StorageHandler {
     @Override
     public void saveSelectedCategory(String s) {
-
+        System.out.println("saveSelectedCategory: " + s);
     }
 
     @Override
     public String loadSelectedCategory() {
+        System.out.println("loadSelectedCategory: ");
         return null;
     }
 
     @Override
     public void saveDividerPosition(double v) {
-
+        System.out.println("saveSelectedCategory: " + v);
     }
 
     @Override
     public double loadDividerPosition() {
+        System.out.println("loadDividerPosition: ");
         return 0;
     }
 
     @Override
     public void saveWindowWidth(double v) {
-
+        System.out.println("saveWindowWidth: " + v);
     }
 
     @Override
     public double loadWindowWidth() {
+        System.out.println("loadWindowWidth: ");
         return 0;
     }
 
     @Override
     public void saveWindowHeight(double v) {
-
+        System.out.println("saveWindowHeight: " + v);
     }
 
     @Override
     public double loadWindowHeight() {
+        System.out.println("loadWindowHeight: ");
         return 0;
     }
 
     @Override
     public void saveWindowPosX(double v) {
-
+        System.out.println("saveWindowPosX: " + v);
     }
 
     @Override
     public double loadWindowPosX() {
+        System.out.println("loadWindowPosX: ");
         return 0;
     }
 
     @Override
     public void saveWindowPosY(double v) {
-
+        System.out.println("saveWindowPosY: " + v);
     }
 
     @Override
     public double loadWindowPosY() {
+        System.out.println("loadWindowPosY: ");
         return 0;
     }
 

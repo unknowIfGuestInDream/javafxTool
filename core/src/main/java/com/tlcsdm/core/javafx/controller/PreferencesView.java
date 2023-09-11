@@ -78,7 +78,7 @@ public class PreferencesView extends StackPane {
                         Group.of(
                             Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow))
                             .description("core.menubar.setting.screenshot"))))
-            .i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
+            .i18n(rbs).persistWindowState(true).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
             .instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
     }
 }
