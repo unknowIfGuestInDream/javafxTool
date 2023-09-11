@@ -48,6 +48,9 @@ public final class FxButtonType {
     public static final ButtonType CANCEL = new ButtonType(I18nUtils.get("core.buttonType.cancel"),
         ButtonData.CANCEL_CLOSE);
 
+    public static final ButtonType CLOSE = new ButtonType(I18nUtils.get("core.buttonType.close"),
+        ButtonData.CANCEL_CLOSE);
+
     public static final ButtonType COPY = new ButtonType(I18nUtils.get("core.button.copy"), ButtonData.YES);
 
 }
