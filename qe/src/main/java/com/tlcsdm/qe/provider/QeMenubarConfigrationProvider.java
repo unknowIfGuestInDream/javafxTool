@@ -27,12 +27,15 @@
 
 package com.tlcsdm.qe.provider;
 
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
+
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LicenseDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
@@ -51,7 +54,6 @@ import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import com.tlcsdm.qe.util.QeConstant;
 import javafx.application.Platform;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
@@ -65,8 +67,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
-
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 /**
  * @author unknowIfGuestInDream
@@ -123,8 +123,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
                 FxDialog<VBox> dialog = new FxDialog<VBox>()
                     .setTitle(I18nUtils.get("qe.menubar.help.about.contentText.openSourceSoftware"))
                     .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
-                    .setButtonTypes(ButtonType.CLOSE);
-                dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                    .setButtonTypes(FxButtonType.CLOSE);
+                dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
                 dialog.show();
             } else if ("license".equals(string)) {
                 LicenseDialog.openLicenseDialog();
@@ -164,8 +164,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
         FxDialog<VBox> dialog = new FxDialog<VBox>()
             .setTitle(I18nUtils.get("qe.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
-            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(ButtonType.CLOSE);
-        dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
+        dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     });
 

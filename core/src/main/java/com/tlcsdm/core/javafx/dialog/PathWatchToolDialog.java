@@ -30,7 +30,6 @@ package com.tlcsdm.core.javafx.dialog;
 import com.tlcsdm.core.javafx.controller.PathWatchToolController;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.util.I18nUtils;
-import javafx.scene.control.ButtonType;
 
 import java.util.ResourceBundle;
 
@@ -49,9 +48,9 @@ public class PathWatchToolDialog {
         FxDialog<PathWatchToolController> dialog = new FxDialog<PathWatchToolController>()
             .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
             .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool.fxml"))
-            .setModal(false).setResizable(true).setButtonTypes(ButtonType.CLOSE);
+            .setModal(false).setResizable(true).setButtonTypes(FxButtonType.CLOSE);
         dialog.show();
-        dialog.setButtonHandler(ButtonType.CLOSE, (actionEvent, stage) -> stage.close());
+        dialog.setButtonHandler(FxButtonType.CLOSE, (actionEvent, stage) -> stage.close());
     }
 
 }
