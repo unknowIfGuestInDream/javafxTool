@@ -29,7 +29,6 @@ package com.tlcsdm.core.javafx.dialog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CoreConstant;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.fxmisc.flowless.VirtualizedScrollPane;
@@ -55,10 +54,11 @@ public class LicenseDialog {
         vbox.getChildren().addAll(pane);
         VBox.setVgrow(pane, Priority.ALWAYS);
         FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle("License").setOwner(FxApp.primaryStage)
-            .setPrefSize(680, 540).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
+            .setPrefSize(680, 540).setResizable(true).setBody(vbox)
+            .setButtonTypes(FxButtonType.COPY, FxButtonType.CLOSE);
         dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> {
             OSUtil.writeToClipboard(area.getText());
-        }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+        }).setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     }
 

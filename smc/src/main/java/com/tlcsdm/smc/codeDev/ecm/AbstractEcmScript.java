@@ -59,7 +59,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -164,22 +163,24 @@ public abstract class AbstractEcmScript extends SmcSample {
             }
         });
 
-    private final Action viewGroovyScript = FxAction.view(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"), actionEvent -> {
-        VBox vbox = new VBox();
-        GroovyCodeArea area = new GroovyCodeArea();
-        area.setEditable(false);
-        area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
-        VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
-        vbox.getChildren().addAll(pane);
-        VBox.setVgrow(pane, Priority.ALWAYS);
-        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"))
-            .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
-            .setButtonTypes(FxButtonType.COPY, ButtonType.CLOSE);
-        dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> {
-            OSUtil.writeToClipboard(area.getText());
-        }).setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
-        dialog.show();
-    });
+    private final Action viewGroovyScript = FxAction
+        .view(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"), actionEvent -> {
+            VBox vbox = new VBox();
+            GroovyCodeArea area = new GroovyCodeArea();
+            area.setEditable(false);
+            area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
+            VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
+            vbox.getChildren().addAll(pane);
+            VBox.setVgrow(pane, Priority.ALWAYS);
+            FxDialog<VBox> dialog = new FxDialog<VBox>()
+                .setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"))
+                .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
+                .setButtonTypes(FxButtonType.COPY, FxButtonType.CLOSE);
+            dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> {
+                OSUtil.writeToClipboard(area.getText());
+            }).setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
+            dialog.show();
+        });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
@@ -573,7 +574,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取tag数据
      */
     protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
-                                                     int rowNum) {
+        int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);

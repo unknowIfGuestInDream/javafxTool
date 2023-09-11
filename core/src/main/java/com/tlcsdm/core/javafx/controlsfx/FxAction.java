@@ -32,6 +32,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.controller.PreferencesView;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
+import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
@@ -50,7 +51,6 @@ import com.tlcsdm.core.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.action.Action;
@@ -270,8 +270,8 @@ public class FxAction {
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
                 .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
-                .setButtonTypes(ButtonType.CLOSE);
-            dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                .setButtonTypes(FxButtonType.CLOSE);
+            dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
     }
@@ -299,8 +299,8 @@ public class FxAction {
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openUserData"))
                 .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
-                .setButtonTypes(ButtonType.CLOSE);
-            dialog.setButtonHandler(ButtonType.CLOSE, (e, s) -> s.close());
+                .setButtonTypes(FxButtonType.CLOSE);
+            dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
     }
