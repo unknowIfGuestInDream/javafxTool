@@ -14,7 +14,7 @@ poi-ooxml | 5.2.3 | 用于Microsoft Documents的Java API
 freemarker | 2.3.32 | 模板引擎库
 sikulixapi | 2.0.5 | 基于OpenCV图像识别的自动化工具
 commons-lang3 | 3.12.0 | Java工具类库
-hutool | 5.8.21 | Java工具类库
+hutool | 5.8.22 | Java工具类库
 logback | 1.4.8 | Java日志框架
 commons-configuration2 | 2.9.0 | 用于从各种源读取配置数据
 commons-beanutils | 1.9.4 | 一个易于使用但灵活的反射和内省包装器
