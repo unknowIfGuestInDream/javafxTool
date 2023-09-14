@@ -241,6 +241,12 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+      comment:
+        message: |
+          @unknowIfGuestInDream
+          Please also modify the following files, thank you.
+          * docs/README.md
+          * core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java
   - name: automatic merge for ImgBot pull requests
     conditions:
       - author=imgbot[bot]
