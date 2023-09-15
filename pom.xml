@@ -89,7 +89,7 @@
         <pdfbox.version>3.0.0</pdfbox.version>
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.15.2</jackson.version>
-        <testfx.version>4.0.16-alpha</testfx.version>
+        <testfx.version>4.0.17</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.1</richtextfx.version>
