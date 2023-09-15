@@ -241,6 +241,16 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+  - name: Extra dependabot[bot]
+    conditions:
+      - author=dependabot[bot]
+      - "-status-failure=Title Validator"
+      - label!=invalid
+      - "-closed"
+      - "-draft"
+      - "-conflict"
+      - "-merged"
+    actions:
       comment:
         message: |
           @unknowIfGuestInDream
