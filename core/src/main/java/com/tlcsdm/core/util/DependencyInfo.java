@@ -65,7 +65,7 @@ public class DependencyInfo {
             new Dependency("ch.qos.logback", "logback", "1.4.9", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
-            new Dependency("cn.hutool", "hutool", "5.8.21", true, "https://github.com/dromara/hutool",
+            new Dependency("cn.hutool", "hutool", "5.8.22", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
             new Dependency("org.apache.commons", "commons-lang3", "3.13.0", true,
@@ -123,7 +123,7 @@ public class DependencyInfo {
             new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.1", false, "https://github.com/FXMisc/RichTextFX",
                 "The BSD 2-Clause License", "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "4.0.14", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "4.0.15", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
