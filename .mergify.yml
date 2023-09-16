@@ -132,6 +132,19 @@ pull_request_rules:
           @{{author}}
           Compile failed in your commit!
           Please confirm that the compilation is passed before submitting.
+  - name: Lint check comment
+    conditions:
+      - "status-failure=Lint Code Base"
+      - author!=dependabot[bot]
+      - author!=imgbot[bot]
+      - "-closed"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @{{author}}
+          The Lint Code check failed!
+          Please modify the code specifications according to the instructions.
   - name: Dependency-review check comment
     conditions:
       - "status-failure=dependency-review"
@@ -270,3 +283,12 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+  - name: automatic update for PR marked as “Ready-to-Go“
+    conditions:
+      - -conflict # skip PRs with conflicts
+      - -draft # filter-out GH draft PRs
+      - -closed
+      - -merged
+      - label=Ready-to-Go
+    actions:
+      update:

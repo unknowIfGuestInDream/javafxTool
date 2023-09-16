@@ -11,13 +11,9 @@ name: Lint Code Base
 on:
   push:
     branches-ignore: [ master ]
-    paths-ignore:
-      - '.github/**'
     # Remove the line above to run when pushing to master
   pull_request:
     branches: [ master ]
-    paths-ignore:
-      - '.github/**'
 
 ###############
 # Set the Job #
@@ -37,7 +33,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           # Full git history is needed to get a proper
           # list of changed files within `super-linter`
@@ -47,9 +43,14 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: github/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.CHANGELOG }}
-          FILTER_REGEX_INCLUDE: .*.java,.*.md,.*.groovy
+          FILTER_REGEX_EXCLUDE: .*test/.*
+          VALIDATE_JAVA: true
+          VALIDATE_GROOVY: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_NATURAL_LANGUAGE: true
+          VALIDATE_GITHUB_ACTIONS: true
