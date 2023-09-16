@@ -53,6 +53,8 @@ jobs:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.CHANGELOG }}
           FILTER_REGEX_EXCLUDE: .*test/.*
-          VALIDATE_GOOGLE_JAVA_FORMAT: true
+          VALIDATE_JAVA: true
           VALIDATE_GROOVY: true
           VALIDATE_MARKDOWN: true
+          VALIDATE_NATURAL_LANGUAGE: true
+          VALIDATE_GITHUB_ACTIONS: true
