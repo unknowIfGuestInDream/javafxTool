@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 /**
  * 设置页面
  *
- * @author xufeng
+ * @author unknowIfGuestInDream
  */
 public class SystemSettingController extends SystemSettingView {
 
@@ -53,6 +53,7 @@ public class SystemSettingController extends SystemSettingView {
             saveStageBoundCheckBox.setSelected(Config.getBoolean(Keys.RememberWindowLocation, true));
             checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
             screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
+            screenColorPickerHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenColorPickerHideWindow, true));
         } catch (Exception e) {
             StaticLog.error("Init setting failed: ", e);
         }
@@ -64,6 +65,7 @@ public class SystemSettingController extends SystemSettingView {
             Config.set(Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
             Config.set(Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
             Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
+            Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
         } catch (Exception e) {
             StaticLog.error("Save setting failed: ", e);
         }

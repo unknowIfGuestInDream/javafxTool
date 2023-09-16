@@ -52,6 +52,7 @@ public class PreferencesView extends StackPane {
     BooleanProperty saveStageBound = new SimpleBooleanProperty(true);
     BooleanProperty checkForUpdatesAtStartup = new SimpleBooleanProperty(true);
     BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(true);
+    BooleanProperty screenColorPickerHideWindow = new SimpleBooleanProperty(true);
 
     public PreferencesView() {
         preferencesFx = createPreferences();
@@ -77,7 +78,11 @@ public class PreferencesView extends StackPane {
                     Category.of("core.menubar.tool",
                         Group.of(
                             Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow))
-                            .description("core.menubar.setting.screenshot"))))
+                            .description("core.menubar.setting.screenshot"),
+                        Group.of(
+                                Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow", screenColorPickerHideWindow))
+                            .description("core.menubar.setting.colorPicker")
+                    )))
             .i18n(rbs).persistWindowState(true).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
             .instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
     }
