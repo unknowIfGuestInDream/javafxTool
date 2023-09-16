@@ -246,16 +246,21 @@
 
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
-        <module name="DesignForExtension"/>
+        <module name="DesignForExtension">
+            <property name="ignoredAnnotations" value="Override"/>
+        </module>
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
+            <property name="ignoreAnnotationCanonicalNames" value="java.lang.Deprecated"/>
+        </module>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See https://checkstyle.org/config_misc.html -->
         <module name="ArrayTypeStyle"/>
-        <module name="FinalParameters"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
         <module name="CommentsIndentation"/>
@@ -266,12 +271,6 @@
                       default="checkstyle-xpath-suppressions.xml"/>
             <property name="optional" value="true"/>
         </module>
-
-        <!--
-          Checks that annotations are located on the same line with their targets.
-          Verifying with this check is not good practice, but it is using by some style guides.
-        -->
-        <module name="AnnotationOnSameLine"/>
 
     </module>
 
