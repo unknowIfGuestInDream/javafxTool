@@ -40,7 +40,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 测试用，DALi Config
+ * 测试用，DALi Config.
  *
  * @author unknowIfGuestInDream
  */
