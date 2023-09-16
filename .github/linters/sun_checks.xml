@@ -98,11 +98,6 @@
         <property name="max" value="150"/>
     </module>
 
-    <!-- Checks for empty catch blocks. By default, check allows empty catch block with any comment inside. -->
-    <module name="EmptyCatchBlock">
-        <property name="commentFormat" value="Do nothing"/>
-    </module>
-
     <!--
      Checks that annotations are located on the same line with their targets.
     Verifying with this check is not good practice, but it is using by some style guides.
@@ -221,6 +216,7 @@
         <!-- See https://checkstyle.org/config_blocks.html -->
         <module name="AvoidNestedBlocks"/>
         <module name="EmptyBlock"/>
+        <module name="EmptyCatchBlock"/>
         <module name="LeftCurly"/>
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
@@ -280,3 +276,4 @@
     </module>
 
 </module>
+
