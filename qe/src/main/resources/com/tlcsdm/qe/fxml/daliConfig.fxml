@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2023 unknowIfGuestInDream
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~     * Redistributions of source code must retain the above copyright
+  ~ notice, this list of conditions and the following disclaimer.
+  ~     * Redistributions in binary form must reproduce the above copyright
+  ~ notice, this list of conditions and the following disclaimer in the
+  ~ documentation and/or other materials provided with the distribution.
+  ~     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+  ~ names of its contributors may be used to endorse or promote products
+  ~ derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="1800.0" minWidth="1100.0" pannable="true" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.DaliDemo">
+    <content>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Control Gear">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="380.0" layoutX="43.0"
+                                           layoutY="823.0" stroke="BLACK" strokeType="INSIDE" width="939.0"/>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="158.0" layoutX="388.0"
+                                           layoutY="1573.0" stroke="BLACK" strokeType="INSIDE" width="298.0"/>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="329.0" layoutX="44.0"
+                                           layoutY="479.0" stroke="BLACK" strokeType="INSIDE" width="936.0"/>
+                                <Label layoutX="394.0" layoutY="47.0" text="Physical Minimum Level:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="539.0" layoutY="43.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="1"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="184.0" layoutY="89.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="254"/>
+                                <Label layoutX="81.0" layoutY="93.0" text="Power On Level:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="89.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="254"/>
+                                <Label layoutX="413.0" layoutY="93.0" text="System Failure Level:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="141.0" layoutY="521.0" prefHeight="25.0"
+                                           prefWidth="55.0" text="80"/>
+                                <Label layoutX="114.0" layoutY="136.0" text="Min Level:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="132.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="254"/>
+                                <Label layoutX="468.0" layoutY="136.0" text="Max Level:"/>
+                                <Label layoutX="468.0" layoutY="180.0" text="Fade Rate:"/>
+                                <Label layoutX="114.0" layoutY="180.0" text="Fade Time:"/>
+                                <ComboBox layoutX="184.0" layoutY="176.0" prefWidth="150.0" promptText="0(no fade)"/>
+                                <ComboBox layoutX="538.0" layoutY="176.0" prefWidth="150.0"
+                                          promptText="7(44.7steps/sec)"/>
+                                <Label layoutX="359.0" layoutY="270.0" text="Extended Fade Time Multiplier:"/>
+                                <Label layoutX="34.0" layoutY="270.0" text="Extended Fade Time Base:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="43.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="3.0"/>
+                                <Label layoutX="82.0" layoutY="47.0" text="Version Number:"/>
+                                <ComboBox layoutX="538.0" layoutY="266.0" prefWidth="150.0" promptText="0"/>
+                                <ComboBox layoutX="184.0" layoutY="266.0" prefWidth="150.0" promptText="0"/>
+                                <Label layoutX="61.0" layoutY="226.0" text="Min Fast Fade Time:"/>
+                                <ComboBox layoutX="539.0" layoutY="222.0" prefWidth="150.0" promptText="0"/>
+                                <Label layoutX="442.0" layoutY="226.0" text="Fast Fade Time:"/>
+                                <ComboBox layoutX="184.0" layoutY="222.0" prefWidth="150.0" promptText="1"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="184.0" layoutY="360.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="255"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="360.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="255"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="539.0" layoutY="314.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="255"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="314.0" prefHeight="23.0"
+                                           prefWidth="149.0"/>
+                                <Label layoutX="57.0" layoutY="364.0" text="Random Address (M):"/>
+                                <Label layoutX="414.0" layoutY="364.0" text="Random Address (L):"/>
+                                <Label layoutX="412.0" layoutY="318.0" text="Random Address (H):"/>
+                                <Label layoutX="95.0" layoutY="318.0" text="Short Address:"/>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="326.0" layoutX="742.0"
+                                           layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="252.0"/>
+                                <CheckBox layoutX="765.0" layoutY="93.0" mnemonicParsing="false" text="Group 0"/>
+                                <Label layoutX="843.0" layoutY="60.0" text="Group"/>
+                                <CheckBox layoutX="765.0" layoutY="124.0" mnemonicParsing="false" text="Group 1"/>
+                                <CheckBox layoutX="765.0" layoutY="157.0" mnemonicParsing="false" text="Group 2"/>
+                                <CheckBox layoutX="765.0" layoutY="189.0" mnemonicParsing="false" text="Group 3"/>
+                                <CheckBox layoutX="765.0" layoutY="318.0" mnemonicParsing="false" text="Group 7"/>
+                                <CheckBox layoutX="765.0" layoutY="286.0" mnemonicParsing="false" text="Group 6"/>
+                                <CheckBox layoutX="765.0" layoutY="253.0" mnemonicParsing="false" text="Group 5"/>
+                                <CheckBox layoutX="765.0" layoutY="222.0" mnemonicParsing="false" text="Group 4"/>
+                                <CheckBox layoutX="890.0" layoutY="189.0" mnemonicParsing="false" text="Group 11"/>
+                                <CheckBox layoutX="890.0" layoutY="222.0" mnemonicParsing="false" text="Group 12"/>
+                                <CheckBox layoutX="890.0" layoutY="286.0" mnemonicParsing="false" text="Group 14"/>
+                                <CheckBox layoutX="890.0" layoutY="157.0" mnemonicParsing="false" text="Group 10"/>
+                                <CheckBox layoutX="890.0" layoutY="253.0" mnemonicParsing="false" text="Group 13"/>
+                                <CheckBox layoutX="890.0" layoutY="318.0" mnemonicParsing="false" text="Group 15"/>
+                                <CheckBox layoutX="890.0" layoutY="124.0" mnemonicParsing="false" text="Group 9"/>
+                                <CheckBox layoutX="890.0" layoutY="93.0" mnemonicParsing="false" text="Group 8"/>
+                                <Label layoutX="512.0" layoutY="487.0" text="Scene"/>
+                                <CheckBox layoutX="68.0" layoutY="525.0" mnemonicParsing="false" selected="true"
+                                          text="Scene 0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="132.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="1"/>
+                                <TextField layoutX="210.0" layoutY="521.0" prefHeight="25.0" prefWidth="134.0"
+                                           text="Color Temperature Tc"/>
+                                <TextField layoutX="349.0" layoutY="521.0" prefHeight="25.0" prefWidth="54.0"
+                                           text="2000K"/>
+                                <Button layoutX="413.0" layoutY="521.0" mnemonicParsing="false" text="Colour"/>
+                                <Button layoutX="873.0" layoutY="521.0" mnemonicParsing="false" text="Colour"/>
+                                <TextField layoutX="809.0" layoutY="521.0" prefHeight="25.0" prefWidth="54.0"
+                                           text="2000K"/>
+                                <TextField layoutX="670.0" layoutY="521.0" prefHeight="25.0" prefWidth="134.0"
+                                           text="Color Temperature Tc"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="605.0" layoutY="521.0" prefHeight="25.0"
+                                           prefWidth="55.0" text="80"/>
+                                <CheckBox layoutX="528.0" layoutY="525.0" mnemonicParsing="false" selected="true"
+                                          text="Scene 8"/>
+                                <Button disable="true" layoutX="413.0" layoutY="558.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="558.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="558.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <Button disable="true" layoutX="873.0" layoutY="558.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <CheckBox layoutX="528.0" layoutY="562.0" mnemonicParsing="false" text="Scene 9"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="558.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="558.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="80"/>
+                                <CheckBox layoutX="68.0" layoutY="562.0" mnemonicParsing="false" text="Scene 1"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="594.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <CheckBox layoutX="528.0" layoutY="598.0" mnemonicParsing="false" text="Scene 10"/>
+                                <Button disable="true" layoutX="413.0" layoutY="594.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="594.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <CheckBox layoutX="68.0" layoutY="598.0" mnemonicParsing="false" text="Scene 2"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="594.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="594.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <Button disable="true" layoutX="873.0" layoutY="594.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <CheckBox layoutX="528.0" layoutY="635.0" mnemonicParsing="false" text="Scene 11"/>
+                                <Button disable="true" layoutX="873.0" layoutY="631.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <CheckBox layoutX="68.0" layoutY="635.0" mnemonicParsing="false" text="Scene 3"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="631.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="631.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="20"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="631.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <Button disable="true" layoutX="413.0" layoutY="631.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="631.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <Button disable="true" layoutX="873.0" layoutY="664.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="664.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <Button disable="true" layoutX="413.0" layoutY="664.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="664.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <CheckBox layoutX="528.0" layoutY="668.0" mnemonicParsing="false" text="Scene 12"/>
+                                <CheckBox layoutX="68.0" layoutY="668.0" mnemonicParsing="false" text="Scene 4"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="664.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="664.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="698.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <Button disable="true" layoutX="413.0" layoutY="698.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <CheckBox layoutX="68.0" layoutY="702.0" mnemonicParsing="false" text="Scene 5"/>
+                                <Button disable="true" layoutX="873.0" layoutY="698.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="698.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="80"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="698.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="698.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <CheckBox layoutX="528.0" layoutY="702.0" mnemonicParsing="false" text="Scene 13"/>
+                                <CheckBox layoutX="68.0" layoutY="736.0" mnemonicParsing="false" text="Scene 6"/>
+                                <CheckBox layoutX="528.0" layoutY="736.0" mnemonicParsing="false" text="Scene 14"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="732.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="732.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="732.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="80"/>
+                                <Button disable="true" layoutX="413.0" layoutY="732.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="732.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <Button disable="true" layoutX="873.0" layoutY="732.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <TextField disable="true" layoutX="210.0" layoutY="766.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="605.0" layoutY="766.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="0"/>
+                                <CheckBox layoutX="528.0" layoutY="770.0" mnemonicParsing="false" text="Scene 15"/>
+                                <Button disable="true" layoutX="873.0" layoutY="766.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <Button disable="true" layoutX="413.0" layoutY="766.0" mnemonicParsing="false"
+                                        text="Colour"/>
+                                <CheckBox layoutX="68.0" layoutY="770.0" mnemonicParsing="false" text="Scene 7"/>
+                                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="145.0" layoutY="766.0"
+                                           prefHeight="25.0" prefWidth="55.0" text="80"/>
+                                <TextField disable="true" layoutX="670.0" layoutY="766.0" prefHeight="25.0"
+                                           prefWidth="134.0" text="MASK"/>
+                                <Label layoutX="78.0" layoutY="406.0" text="Operating Mode:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="180.0" layoutY="402.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="0"/>
+                                <Label layoutX="386.0" layoutY="406.0" text="Extended Version Number:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="402.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="2.0"/>
+                                <Label layoutX="440.0" layoutY="442.0" text="Dimming Curve:"/>
+                                <Label layoutX="100.0" layoutY="442.0" text="Device Type:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="180.0" layoutY="438.0" prefHeight="23.0"
+                                           prefWidth="149.0" text="6"/>
+                                <ComboBox layoutX="538.0" layoutY="438.0" prefWidth="150.0" promptText="0"/>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="159.0" layoutX="33.0"
+                                           layoutY="1572.0" stroke="BLACK" strokeType="INSIDE" width="298.0"/>
+                                <Label layoutX="146.0" layoutY="1581.0" text="Features"/>
+                                <CheckBox layoutX="52.0" layoutY="1610.0" mnemonicParsing="false"
+                                          text="Load increase detection"/>
+                                <CheckBox layoutX="52.0" layoutY="1637.0" mnemonicParsing="false"
+                                          text="Load decrease detection"/>
+                                <CheckBox layoutX="52.0" layoutY="1667.0" mnemonicParsing="false"
+                                          text="Thermal shutdown"/>
+                                <CheckBox layoutX="52.0" layoutY="1693.0" mnemonicParsing="false"
+                                          text="Thermal overload"/>
+                                <Label layoutX="474.0" layoutY="1581.0" text="Control Gear Type"/>
+                                <CheckBox layoutX="438.0" layoutY="1610.0" mnemonicParsing="false"
+                                          text="LED module integrated"/>
+                                <Label layoutX="451.0" layoutY="834.0" text="Memory bank 0"/>
+                                <Label layoutX="56.0" layoutY="864.0"
+                                       text="Address of last accessible memory location:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="860.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="73.0" layoutY="896.0" text="Number of last accessible memory bank:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="892.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="184.0" layoutY="932.0" text="GTIN byte 0 (MSB):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="960.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="218.0" layoutY="964.0" text="GTIN byte 1:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="928.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="218.0" layoutY="1031.0" text="GTIN byte 3:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="293.0" layoutY="995.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="218.0" layoutY="999.0" text="GTIN byte 2:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="293.0" layoutY="1027.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="289.0" layoutY="1061.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="214.0" layoutY="1065.0" text="GTIN byte 4:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="288.0" layoutY="1093.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="180.0" layoutY="1097.0" text="GTIN byte 5 (LSB):"/>
+                                <Label layoutX="136.0" layoutY="1163.0" text="Firmware version (minor):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="286.0" layoutY="1159.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="287.0" layoutY="1127.0" prefHeight="25.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="143.0" layoutY="1131.0" text="Firmware version (major):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="856.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="373.0" layoutY="860.0" text="Identification number byte 0 (MSB):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="570.0" layoutY="888.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="403.0" layoutY="892.0" text="Identification number byte 1:"/>
+                                <Label layoutX="403.0" layoutY="957.0" text="Identification number byte 3:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="570.0" layoutY="921.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="404.0" layoutY="925.0" text="Identification number byte 2:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="569.0" layoutY="953.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="399.0" layoutY="1060.0" text="Identification number byte 6:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="565.0" layoutY="1056.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="399.0" layoutY="995.0" text="Identification number byte 4:"/>
+                                <Label layoutX="400.0" layoutY="1028.0" text="Identification number byte 5:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="566.0" layoutY="991.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="566.0" layoutY="1024.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="369.0" layoutY="1093.0" text="Identification number byte 7 (LSB):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="567.0" layoutY="1089.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="412.0" layoutY="1163.0" text="Hardware version (minor):"/>
+                                <Label layoutX="411.0" layoutY="1130.0" text="Hardware version (major):"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="567.0" layoutY="1159.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="565.0" layoutY="1126.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="798.0" layoutY="864.0" text="101 version number:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="918.0" layoutY="860.0" prefHeight="0.0"
+                                           prefWidth="52.0" text="0"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="918.0" layoutY="892.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="646.0" layoutY="896.0"
+                                       text="102 version number of all integrated control gear:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="919.0" layoutY="925.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="631.0" layoutY="929.0"
+                                       text="103 version number of all integrated control devices:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="922.0" layoutY="989.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="641.0" layoutY="993.0"
+                                       text="Number of logical control gear units in the bus unit:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="921.0" layoutY="956.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="631.0" layoutY="960.0"
+                                       text="Number of logical control device units in the bus unit:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="923.0" layoutY="1027.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                                <Label layoutX="670.0" layoutY="1031.0"
+                                       text="Index number of this logical control gear unit:"/>
+                                <Label layoutX="749.0" layoutY="1065.0" text="Current bus unit configuration:"/>
+                                <TextField alignment="CENTER_RIGHT" layoutX="924.0" layoutY="1060.0" prefHeight="23.0"
+                                           prefWidth="52.0" text="0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Control Device">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </content>
+</ScrollPane>
