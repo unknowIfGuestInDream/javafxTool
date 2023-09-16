@@ -98,12 +98,6 @@
         <property name="max" value="150"/>
     </module>
 
-    <!--
-     Checks that annotations are located on the same line with their targets.
-    Verifying with this check is not good practice, but it is using by some style guides.
-    -->
-    <module name="AnnotationOnSameLine"/>
-
     <!-- Checks for whitespace                               -->
     <!-- See https://checkstyle.org/config_whitespace.html -->
     <module name="FileTabCharacter"/>
@@ -272,6 +266,12 @@
                       default="checkstyle-xpath-suppressions.xml"/>
             <property name="optional" value="true"/>
         </module>
+
+        <!--
+          Checks that annotations are located on the same line with their targets.
+          Verifying with this check is not good practice, but it is using by some style guides.
+        -->
+        <module name="AnnotationOnSameLine"/>
 
     </module>
 
