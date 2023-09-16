@@ -28,6 +28,8 @@
 package com.tlcsdm.core.javafx.stage;
 
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.javafx.util.PaintConvertUtil;
 import com.tlcsdm.core.util.I18nUtils;
@@ -75,8 +77,16 @@ public class ScreenColorPickerStage extends Stage {
     private Rectangle previewRect;
     private Label colorLabel;
 
+    private final boolean hideMainStage;
+
     public ScreenColorPickerStage() {
         this.initOwner(FxApp.primaryStage);
+        this.hideMainStage = Config.getBoolean(Keys.ScreenColorPickerHideWindow, true);
+        if (hideMainStage) {
+            // 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
+            // 可以通过 FxApp.primaryStage.setIconified(true); 来隐藏窗口
+            FxApp.primaryStage.setOpacity(0);
+        }
         screenScaleX = Screen.getPrimary().getOutputScaleX();
         screenScaleY = Screen.getPrimary().getOutputScaleY();
         fxScreenWidth = Screen.getPrimary().getBounds().getWidth();
@@ -188,6 +198,9 @@ public class ScreenColorPickerStage extends Stage {
 
     private void endPickColor() {
         rootPane.setVisible(false);
+        if (hideMainStage) {
+            FxApp.primaryStage.setOpacity(1);
+        }
         setAlwaysOnTop(false);
         this.hide();
     }
