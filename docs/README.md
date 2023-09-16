@@ -14,7 +14,7 @@ poi-ooxml | 5.2.3 | 用于Microsoft Documents的Java API
 freemarker | 2.3.32 | 模板引擎库
 sikulixapi | 2.0.5 | 基于OpenCV图像识别的自动化工具
 commons-lang3 | 3.12.0 | Java工具类库
-hutool | 5.8.21 | Java工具类库
+hutool | 5.8.22 | Java工具类库
 logback | 1.4.8 | Java日志框架
 commons-configuration2 | 2.9.0 | 用于从各种源读取配置数据
 commons-beanutils | 1.9.4 | 一个易于使用但灵活的反射和内省包装器
@@ -29,7 +29,7 @@ jackson | 2.15.2 | JSON解析库
 pdfbox | 3.0.0 | 操作PDF文档的库
 commons-io | 2.13.0 | IO工具类
 guava | 32.1.2-jre | Google工具类
-groovy | 4.0.14 | Groovy
+groovy | 4.0.15 | Groovy
 thumbnailator | 0.4.20 | 图片转码和缩略工具
 pdfviewfx | 3.0.0 | PDF视图工具
 preferencesfx | 11.16.0 | 为应用程序设置/首选项创建 UI 的框架
