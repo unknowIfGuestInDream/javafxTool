@@ -41,6 +41,9 @@ import java.util.ResourceBundle;
 
 /**
  * 测试用，DALi Config.
+ * https://www.dali-alliance.org/dali/colour.html
+ * https://cache.industry.siemens.com/dl/files/111/109807111/att_1099312/v1/109807111_DALI_RGBWAF_en.pdf
+ * https://www.dali-alliance.org/data/downloadables/2/8/1/colour-control-options-added-to-dali-2-certification-program.pdf
  *
  * @author unknowIfGuestInDream
  */

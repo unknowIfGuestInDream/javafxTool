@@ -32,7 +32,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="1800.0" minWidth="1100.0" pannable="true" xmlns="http://javafx.com/javafx/8"
+            minHeight="2400.0" minWidth="1100.0" pannable="true" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.DaliDemo">
     <content>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
@@ -41,21 +41,21 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Group>
+                                <Group layoutX="55.0" layoutY="1.0">
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="158.0"
-                                                   layoutX="388.0" layoutY="1573.0" stroke="BLACK" strokeType="INSIDE"
-                                                   width="298.0"/>
-                                        <CheckBox layoutX="438.0" layoutY="1610.0" mnemonicParsing="false"
+                                                   layoutX="336.0" layoutY="1573.0" stroke="BLACK" strokeType="INSIDE"
+                                                   width="258.0"/>
+                                        <CheckBox layoutX="350.0" layoutY="1609.0" mnemonicParsing="false"
                                                   text="LED module integrated"/>
-                                        <Label layoutX="474.0" layoutY="1581.0" text="Control Gear Type"/>
+                                        <Label layoutX="415.0" layoutY="1579.0" text="Control Gear Type"/>
                                     </children>
                                 </Group>
                                 <Group>
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="329.0"
                                                    layoutX="44.0" layoutY="479.0" stroke="BLACK" strokeType="INSIDE"
-                                                   width="950.0"/>
+                                                   width="966.0"/>
                                         <Button disable="true" layoutX="873.0" layoutY="594.0" mnemonicParsing="false"
                                                 text="Colour"/>
                                         <CheckBox layoutX="528.0" layoutY="668.0" mnemonicParsing="false"
@@ -225,7 +225,7 @@
                                         <TextField alignment="CENTER_RIGHT" layoutX="539.0" layoutY="314.0"
                                                    prefHeight="23.0" prefWidth="149.0" text="255"/>
                                         <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="89.0"
-                                                   prefHeight="23.0" prefWidth="149.0" text="254"/>
+                                                   prefHeight="27.0" prefWidth="46.0" text="254"/>
                                         <Label layoutX="82.0" layoutY="47.0" text="Version Number:"/>
                                         <Label layoutX="34.0" layoutY="270.0" text="Extended Fade Time Base:"/>
                                         <TextField alignment="CENTER_RIGHT" layoutX="180.0" layoutY="438.0"
@@ -244,7 +244,7 @@
                                         <TextField alignment="CENTER_RIGHT" layoutX="180.0" layoutY="402.0"
                                                    prefHeight="23.0" prefWidth="149.0" text="0"/>
                                         <TextField alignment="CENTER_RIGHT" layoutX="184.0" layoutY="89.0"
-                                                   prefHeight="23.0" prefWidth="149.0" text="254"/>
+                                                   prefHeight="27.0" prefWidth="49.0" text="254"/>
                                         <Label layoutX="114.0" layoutY="180.0" text="Fade Time:"/>
                                         <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="402.0"
                                                    prefHeight="23.0" prefWidth="149.0" text="2.0"/>
@@ -274,9 +274,19 @@
                                         <Label layoutX="440.0" layoutY="442.0" text="Dimming Curve:"/>
                                         <ComboBox layoutX="539.0" layoutY="222.0" prefWidth="150.0" promptText="0"/>
                                         <Label layoutX="468.0" layoutY="136.0" text="Max Level:"/>
+                                        <TextField layoutX="242.0" layoutY="89.0" prefHeight="27.0" prefWidth="55.0"
+                                                   text="MASK"/>
+                                        <TextField disable="true" layoutX="306.0" layoutY="89.0" prefHeight="27.0"
+                                                   prefWidth="32.0"/>
+                                        <Button layoutX="345.0" layoutY="89.0" mnemonicParsing="false" text="Colour"/>
+                                        <TextField layoutX="588.0" layoutY="88.0" prefHeight="27.0" prefWidth="53.0"
+                                                   text="MASK"/>
+                                        <TextField disable="true" layoutX="644.0" layoutY="88.0" prefHeight="27.0"
+                                                   prefWidth="34.0"/>
+                                        <Button layoutX="687.0" layoutY="88.0" mnemonicParsing="false" text="Colour"/>
                                     </children>
                                 </Group>
-                                <Group layoutY="-2.0">
+                                <Group layoutX="16.0" layoutY="95.0">
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="326.0"
                                                    layoutX="742.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE"
@@ -316,12 +326,12 @@
                                                   text="Group 2"/>
                                     </children>
                                 </Group>
-                                <Group>
+                                <Group layoutX="11.0" layoutY="1.0">
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="159.0"
                                                    layoutX="33.0" layoutY="1572.0" stroke="BLACK" strokeType="INSIDE"
-                                                   width="298.0"/>
-                                        <Label layoutX="146.0" layoutY="1581.0" text="Features"/>
+                                                   width="265.0"/>
+                                        <Label layoutX="129.0" layoutY="1578.0" text="Features"/>
                                         <CheckBox layoutX="52.0" layoutY="1610.0" mnemonicParsing="false"
                                                   text="Load increase detection"/>
                                         <CheckBox layoutX="52.0" layoutY="1693.0" mnemonicParsing="false"
@@ -336,98 +346,158 @@
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="380.0"
                                                    layoutX="44.0" layoutY="817.0" stroke="BLACK" strokeType="INSIDE"
-                                                   width="951.0"/>
+                                                   width="968.0"/>
                                         <Label layoutX="451.0" layoutY="834.0" text="Memory bank 0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="572.0" layoutY="956.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="580.0" layoutY="957.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="403.0" layoutY="892.0" text="Identification number byte 1:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="892.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="307.0" layoutY="894.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="856.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="579.0" layoutY="857.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="991.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="579.0" layoutY="992.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="180.0" layoutY="1097.0" text="GTIN byte 5 (LSB):"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="928.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="307.0" layoutY="930.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <Label layoutX="750.0" layoutY="1065.0" text="Current bus unit configuration:"/>
-                                        <Label layoutX="641.0" layoutY="993.0"
+                                        <Label layoutX="766.0" layoutY="1066.0" text="Current bus unit configuration:"/>
+                                        <Label layoutX="657.0" layoutY="994.0"
                                                text="Number of logical control gear units in the bus unit:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="922.0" layoutY="892.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="945.0" layoutY="893.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="1126.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="579.0" layoutY="1127.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="570.0" layoutY="921.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="578.0" layoutY="922.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="411.0" layoutY="1130.0" text="Hardware version (major):"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="572.0" layoutY="1089.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="580.0" layoutY="1090.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="923.0" layoutY="1060.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="946.0" layoutY="1061.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="922.0" layoutY="956.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="945.0" layoutY="957.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="921.0" layoutY="860.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="944.0" layoutY="861.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="218.0" layoutY="1031.0" text="GTIN byte 3:"/>
-                                        <Label layoutX="649.0" layoutY="896.0"
+                                        <Label layoutX="665.0" layoutY="897.0"
                                                text="102 version number of all integrated control gear:"/>
                                         <Label layoutX="412.0" layoutY="1163.0" text="Hardware version (minor):"/>
                                         <Label layoutX="404.0" layoutY="925.0" text="Identification number byte 2:"/>
                                         <Label layoutX="56.0" layoutY="864.0"
                                                text="Address of last accessible memory location:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="293.0" layoutY="995.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="308.0" layoutY="997.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="400.0" layoutY="1028.0" text="Identification number byte 5:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="860.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="307.0" layoutY="862.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="143.0" layoutY="1131.0" text="Firmware version (major):"/>
                                         <Label layoutX="373.0" layoutY="860.0"
                                                text="Identification number byte 0 (MSB):"/>
                                         <Label layoutX="403.0" layoutY="957.0" text="Identification number byte 3:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="292.0" layoutY="960.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="307.0" layoutY="962.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="922.0" layoutY="924.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="945.0" layoutY="925.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <Label layoutX="631.0" layoutY="960.0"
+                                        <Label layoutX="647.0" layoutY="961.0"
                                                text="Number of logical control device units in the bus unit:"/>
                                         <Label layoutX="73.0" layoutY="896.0"
                                                text="Number of last accessible memory bank:"/>
                                         <Label layoutX="218.0" layoutY="999.0" text="GTIN byte 2:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="294.0" layoutY="1159.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="309.0" layoutY="1161.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="136.0" layoutY="1163.0" text="Firmware version (minor):"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="293.0" layoutY="1027.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="308.0" layoutY="1029.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="294.0" layoutY="1061.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="309.0" layoutY="1063.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="294.0" layoutY="1127.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="309.0" layoutY="1129.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="922.0" layoutY="989.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="945.0" layoutY="990.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="923.0" layoutY="1027.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="946.0" layoutY="1028.0"
                                                    prefHeight="23.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="294.0" layoutY="1093.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="309.0" layoutY="1095.0"
                                                    prefHeight="25.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="214.0" layoutY="1065.0" text="GTIN byte 4:"/>
-                                        <Label layoutX="631.0" layoutY="929.0"
+                                        <Label layoutX="647.0" layoutY="930.0"
                                                text="103 version number of all integrated control devices:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="1024.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="579.0" layoutY="1025.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="571.0" layoutY="1056.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="579.0" layoutY="1057.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="369.0" layoutY="1093.0"
                                                text="Identification number byte 7 (LSB):"/>
-                                        <Label layoutX="802.0" layoutY="864.0" text="101 version number:"/>
+                                        <Label layoutX="818.0" layoutY="865.0" text="101 version number:"/>
                                         <Label layoutX="184.0" layoutY="932.0" text="GTIN byte 0 (MSB):"/>
-                                        <Label layoutX="672.0" layoutY="1031.0"
+                                        <Label layoutX="688.0" layoutY="1032.0"
                                                text="Index number of this logical control gear unit:"/>
                                         <Label layoutX="399.0" layoutY="995.0" text="Identification number byte 4:"/>
                                         <Label layoutX="399.0" layoutY="1060.0" text="Identification number byte 6:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="570.0" layoutY="888.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="578.0" layoutY="889.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
                                         <Label layoutX="218.0" layoutY="964.0" text="GTIN byte 1:"/>
-                                        <TextField alignment="CENTER_RIGHT" layoutX="572.0" layoutY="1159.0"
+                                        <TextField alignment="CENTER_RIGHT" layoutX="580.0" layoutY="1160.0"
                                                    prefHeight="0.0" prefWidth="52.0" text="0"/>
+                                    </children>
+                                </Group>
+                                <Group>
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="325.0"
+                                                   layoutX="44.0" layoutY="1232.0" stroke="BLACK" strokeType="INSIDE"
+                                                   width="969.0"/>
+                                        <Label layoutX="191.0" layoutY="1412.0" text="OEM GTIN byte 2:"/>
+                                        <TextField layoutX="694.0" layoutY="1412.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="306.0" layoutY="1370.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="306.0" layoutY="1441.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="694.0" layoutY="1375.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="306.0" layoutY="1303.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="694.0" layoutY="1308.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="694.0" layoutY="1479.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="481.0" layoutY="1346.0"
+                                               text="OEM identification number byte 2:"/>
+                                        <TextField layoutX="694.0" layoutY="1513.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="151.0" layoutY="1308.0" text="Memory bank 1 lock byte:"/>
+                                        <Label layoutX="482.0" layoutY="1313.0"
+                                               text="OEM identification number byte 1:"/>
+                                        <TextField layoutX="306.0" layoutY="1508.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="191.0" layoutY="1446.0" text="OEM GTIN byte 3:"/>
+                                        <TextField layoutX="306.0" layoutY="1336.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="191.0" layoutY="1479.0" text="OEM GTIN byte 4:"/>
+                                        <Label layoutX="154.0" layoutY="1513.0" text="OEM GTIN byte 5 (LSB):"/>
+                                        <Label layoutX="152.0" layoutY="1341.0" text="OEM GTIN byte 0 (MSB):"/>
+                                        <Label layoutX="480.0" layoutY="1417.0"
+                                               text="OEM identification number byte 4:"/>
+                                        <TextField layoutX="694.0" layoutY="1446.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="306.0" layoutY="1407.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="480.0" layoutY="1484.0"
+                                               text="OEM identification number byte 6:"/>
+                                        <Label layoutX="481.0" layoutY="1380.0"
+                                               text="OEM identification number byte 3:"/>
+                                        <Label layoutX="52.0" layoutY="1274.0"
+                                               text="Address of last accessible memory location:"/>
+                                        <TextField layoutX="306.0" layoutY="1269.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="480.0" layoutY="1451.0"
+                                               text="OEM identification number byte 5:"/>
+                                        <Label layoutX="192.0" layoutY="1375.0" text="OEM GTIN byte 1:"/>
+                                        <Label layoutX="442.0" layoutY="1279.0"
+                                               text="OEM identification number byte 0 (MSB):"/>
+                                        <CheckBox layoutX="456.0" layoutY="1244.0" mnemonicParsing="false"
+                                                  selected="true" text="Memory bank 1"/>
+                                        <TextField layoutX="694.0" layoutY="1341.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="306.0" layoutY="1474.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="694.0" layoutY="1274.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="445.0" layoutY="1518.0"
+                                               text="OEM identification number byte 7 (LSB):"/>
+                                    </children>
+                                </Group>
+                                <Group>
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="156.0"
+                                                   layoutX="747.0" layoutY="1575.0" stroke="BLACK" strokeType="INSIDE"
+                                                   width="249.0"/>
+                                        <Label layoutX="804.0" layoutY="1581.0" text="Gear Features/Status"/>
+                                        <CheckBox layoutX="757.0" layoutY="1609.0" mnemonicParsing="false"
+                                                  text="Automatic Activation"/>
                                     </children>
                                 </Group>
                             </children>
