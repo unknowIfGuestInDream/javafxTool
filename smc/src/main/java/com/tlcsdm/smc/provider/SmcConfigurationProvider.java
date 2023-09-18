@@ -58,7 +58,7 @@ public class SmcConfigurationProvider implements FXSamplerConfiguration {
 
     @Override
     public FXSamplerTheme getTheme() {
-        return FXSamplerTheme.NordLight;
+        return FXSamplerTheme.NORD_LIGHT;
     }
 
 }

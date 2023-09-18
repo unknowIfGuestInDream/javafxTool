@@ -58,7 +58,7 @@ public class QeConfigurationProvider implements FXSamplerConfiguration {
 
     @Override
     public FXSamplerTheme getTheme() {
-        return FXSamplerTheme.PrimerLight;
+        return FXSamplerTheme.PRIMER_LIGHT;
     }
 
 }

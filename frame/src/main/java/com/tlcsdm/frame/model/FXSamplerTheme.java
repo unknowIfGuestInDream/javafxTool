@@ -34,16 +34,16 @@ package com.tlcsdm.frame.model;
  */
 public enum FXSamplerTheme {
 
-    PrimerLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css").toExternalForm()),
-    PrimerDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-dark.css").toExternalForm()),
-    NordLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css").toExternalForm()),
-    NordDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-dark.css").toExternalForm()),
-    Dracula(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/dracula.css").toExternalForm()),
-    CupertinoLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-light.css").toExternalForm()),
-    CupertinoDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-dark.css").toExternalForm()),
-    Bootstrap2(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap2.css").toExternalForm()),
-    Bootstrap3(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css").toExternalForm()),
-    Unused(null);
+    PRIMER_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css").toExternalForm()),
+    PRIMER_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-dark.css").toExternalForm()),
+    NORD_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css").toExternalForm()),
+    NORD_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-dark.css").toExternalForm()),
+    DRACULA(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/dracula.css").toExternalForm()),
+    CUPERTINO_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-light.css").toExternalForm()),
+    CUPERTINO_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-dark.css").toExternalForm()),
+    BOOTSTRAP2(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap2.css").toExternalForm()),
+    BOOTSTRAP3(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css").toExternalForm()),
+    UNUSED(null);
 
     private final String url;
 
