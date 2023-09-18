@@ -40,10 +40,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 测试用，DALi Config.
- * https://www.dali-alliance.org/dali/colour.html
- * https://cache.industry.siemens.com/dl/files/111/109807111/att_1099312/v1/109807111_DALI_RGBWAF_en.pdf
- * https://www.dali-alliance.org/data/downloadables/2/8/1/colour-control-options-added-to-dali-2-certification-program.pdf
+ * 测试用，DALi Configuration.
  *
  * @author unknowIfGuestInDream
  */
@@ -56,7 +53,8 @@ public class DaliDemo extends QeSample implements Initializable {
 
     @Override
     public Node getPanel(Stage stage) {
-        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/daliConfig.fxml"),
+        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
+            DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/daliConfig.fxml"),
             ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
     }

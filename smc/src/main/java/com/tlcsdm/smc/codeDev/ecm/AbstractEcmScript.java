@@ -169,6 +169,7 @@ public abstract class AbstractEcmScript extends SmcSample {
             GroovyCodeArea area = new GroovyCodeArea();
             area.setEditable(false);
             area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
+            area.showParagraphAtTop(0);
             VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(pane);
             VBox.setVgrow(pane, Priority.ALWAYS);

@@ -294,6 +294,7 @@ public class FxAction {
             area.setEditable(false);
             area.appendText(
                 FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+            area.showParagraphAtTop(0);
             VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
