@@ -8,6 +8,7 @@ module com.tlcsdm.frame {
     requires cn.hutool.core;
     requires cn.hutool.log;
     requires cn.hutool.crypto;
+    requires static com.github.benmanes.caffeine;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;

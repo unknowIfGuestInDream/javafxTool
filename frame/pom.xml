@@ -45,6 +45,11 @@
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
