@@ -233,10 +233,6 @@ public class FxAction {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/folder.png");
     }
 
-    public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
-        return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
-    }
-
     public static Action api() {
         return create("JavaFX", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_URL);
@@ -253,6 +249,10 @@ public class FxAction {
         return create("FXML", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_FXML_URL);
         }, "/com/tlcsdm/core/static/menubar/fxml.png");
+    }
+
+    public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
+        return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
     }
 
     public static Action openSysConfig() {
