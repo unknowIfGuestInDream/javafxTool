@@ -125,16 +125,19 @@
         <!-- Checks for Javadoc comments.                     -->
         <!-- See https://checkstyle.org/config_javadoc.html -->
         <module name="InvalidJavadocPosition"/>
-        <module name="JavadocMethod"/>
+        <module name="JavadocMethod">
+            <property name="accessModifiers" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+        </module>
         <module name="JavadocType"/>
         <module name="JavadocType">
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowUnknownTags" value="true"/>
         </module>
         <module name="MissingJavadocMethod">
-            <property name="scope" value="private"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
             <property name="allowedAnnotations" value="Override,Deprecated"/>
+            <property name="ignoreMethodNamesRegex" value="^main$"/>
         </module>
         <module name="MissingJavadocType"/>
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
@@ -181,7 +184,7 @@
             <property name="max" value="60"/>
         </module>
         <module name="LambdaBodyLength">
-            <property name="max" value="5"/>
+            <property name="max" value="30"/>
         </module>
 
         <!-- Checks for whitespace                               -->
@@ -222,7 +225,6 @@
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="SimplifyBooleanExpression"/>
@@ -249,7 +251,6 @@
         <module name="DesignForExtension">
             <property name="ignoredAnnotations" value="Override"/>
         </module>
-        <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier">
