@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,22 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.skin;
-
-import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.smc.provider.SmcConfigurationProvider;
-
-import java.util.Objects;
+package com.tlcsdm.frame.model;
 
 /**
+ * 主题.
+ *
  * @author unknowIfGuestInDream
  */
-public class SmcSkin extends SmcConfigurationProvider {
+public enum FXSamplerTheme {
 
-    @Override
-    public String getSceneStylesheet() {
-        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css"))
-            .toExternalForm();
+    PrimerLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css").toExternalForm()),
+    PrimerDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-dark.css").toExternalForm()),
+    NordLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css").toExternalForm()),
+    NordDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-dark.css").toExternalForm()),
+    Dracula(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/dracula.css").toExternalForm()),
+    CupertinoLight(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-light.css").toExternalForm()),
+    CupertinoDark(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-dark.css").toExternalForm()),
+    Bootstrap2(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap2.css").toExternalForm()),
+    Bootstrap3(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css").toExternalForm()),
+    Unused(null);
+
+    private final String url;
+
+    FXSamplerTheme(String url) {
+        this.url = url;
     }
 
+    public String getUrl() {
+        return url;
+    }
 }

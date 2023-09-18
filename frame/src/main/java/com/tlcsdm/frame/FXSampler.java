@@ -306,6 +306,10 @@ public final class FXSampler extends Application {
             if (stylesheet != null) {
                 scene.getStylesheets().add(stylesheet);
             }
+            String theme = fxsamplerConfiguration.getTheme().getUrl();
+            if (theme != null) {
+                scene.getStylesheets().add(theme);
+            }
             String title = fxsamplerConfiguration.getStageTitle();
             FxApp.setTitle(title);
             FxApp.setAppIcon(fxsamplerConfiguration.getAppIcon());
