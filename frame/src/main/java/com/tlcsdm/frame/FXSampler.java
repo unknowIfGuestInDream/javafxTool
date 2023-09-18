@@ -116,7 +116,7 @@ public final class FXSampler extends Application {
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
     private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
-    private MenubarConfigration menubarConfigration = null;
+    private MenubarConfigration menubarConfigration;
     // 闪屏部分
     private Stage loadingStage;
     private boolean animationFinished;
@@ -256,8 +256,7 @@ public final class FXSampler extends Application {
             if (newSample == null) {
                 return;
             } else if (newSample.getValue() instanceof EmptySample) {
-                Sample selectedSample = newSample.getValue();
-                selectedProject = projectsMap.get(selectedSample.getSampleName());
+                selectedProject = projectsMap.get(newSample.getValue().getSampleName());
                 if (selectedProject != null) {
                     changeToWelcomeTab(selectedProject.getWelcomePage());
                 }
@@ -305,6 +304,10 @@ public final class FXSampler extends Application {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
                 scene.getStylesheets().add(stylesheet);
+            }
+            String theme = fxsamplerConfiguration.getTheme().getUrl();
+            if (theme != null) {
+                scene.getStylesheets().add(theme);
             }
             String title = fxsamplerConfiguration.getStageTitle();
             FxApp.setTitle(title);
