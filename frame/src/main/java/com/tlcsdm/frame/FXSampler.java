@@ -256,8 +256,7 @@ public final class FXSampler extends Application {
             if (newSample == null) {
                 return;
             } else if (newSample.getValue() instanceof EmptySample) {
-                Sample selectedSample = newSample.getValue();
-                selectedProject = projectsMap.get(selectedSample.getSampleName());
+                selectedProject = projectsMap.get(newSample.getValue().getSampleName());
                 if (selectedProject != null) {
                     changeToWelcomeTab(selectedProject.getWelcomePage());
                 }
