@@ -73,7 +73,7 @@ public class FxAction {
     }
 
     /**
-     * create action
+     * create action.
      */
     public static Action create(String text, Consumer<ActionEvent> eventHandler, Node graphic) {
         Action action = new Action(text, actionEvent -> {
