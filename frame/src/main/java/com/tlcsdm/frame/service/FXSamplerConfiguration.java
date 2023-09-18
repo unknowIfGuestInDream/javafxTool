@@ -26,6 +26,7 @@
  */
 package com.tlcsdm.frame.service;
 
+import com.tlcsdm.frame.model.FXSamplerTheme;
 import javafx.scene.image.Image;
 
 /**
@@ -43,4 +44,9 @@ public interface FXSamplerConfiguration {
      * 程序logo
      */
     Image getAppIcon();
+
+    /**
+     * 项目主题.
+     */
+    FXSamplerTheme getTheme();
 }
