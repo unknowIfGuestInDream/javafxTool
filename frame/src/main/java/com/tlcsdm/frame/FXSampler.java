@@ -116,7 +116,7 @@ public final class FXSampler extends Application {
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
     private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
-    private MenubarConfigration menubarConfigration = null;
+    private MenubarConfigration menubarConfigration;
     // 闪屏部分
     private Stage loadingStage;
     private boolean animationFinished;
