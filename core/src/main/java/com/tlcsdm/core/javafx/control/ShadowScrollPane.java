@@ -39,7 +39,6 @@ import javafx.scene.shape.Rectangle;
  * Add a drop shadow to the top of the scroll pane.
  *
  * @author unknowIfGuestInDream
- * @date 2023/8/27 17:35
  */
 public class ShadowScrollPane extends ScrollPane {
 
@@ -63,9 +62,8 @@ public class ShadowScrollPane extends ScrollPane {
         setHbarPolicy(ScrollBarPolicy.NEVER);
 
         shadow.setManaged(false);
-        shadow.setStyle("-fx-pref-height: 10;" +
-            "-fx-background-color: black;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .75), 20, 0.19, 0, 6);");
+        shadow.setStyle("-fx-pref-height: 10;" + "-fx-background-color: black;"
+            + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .75), 20, 0.19, 0, 6);");
         shadow.getStyleClass().add("shadow");
         shadow.visibleProperty().bind(showShadowProperty());
         shadow.setMouseTransparent(true);
@@ -108,7 +106,8 @@ public class ShadowScrollPane extends ScrollPane {
             Insets insets = getInsets();
             double w = getWidth();
             double offset = computeOffset();
-            shadow.resizeRelocate(-10, insets.getTop() - shadow.prefHeight(-1) - SHADOW_HEIGHT + offset, w + 20, shadow.prefHeight(-1) - 1);
+            shadow.resizeRelocate(-10, insets.getTop() - shadow.prefHeight(-1) - SHADOW_HEIGHT + offset, w + 20,
+                shadow.prefHeight(-1) - 1);
             lastOffset = offset;
         }
     }
