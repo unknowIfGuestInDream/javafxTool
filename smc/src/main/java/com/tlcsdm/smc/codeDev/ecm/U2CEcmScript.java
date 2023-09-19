@@ -38,7 +38,7 @@ import javafx.stage.Stage;
  * @author unknowIfGuestInDream
  * @date 2023/3/26 21:17
  */
-public class U2CEcmScript extends AbstractU2XFamilyScript {
+public final class U2CEcmScript extends AbstractU2XFamilyScript {
 
     @Override
     protected void initDefaultValue() {

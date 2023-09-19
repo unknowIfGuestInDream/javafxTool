@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 /**
  * @author unknowIfGuestInDream
  */
-public class EmptySample implements Sample {
+public final class EmptySample implements Sample {
     private final String name;
 
     public EmptySample(String name) {

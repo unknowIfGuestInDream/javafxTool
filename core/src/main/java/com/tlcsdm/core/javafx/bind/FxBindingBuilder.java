@@ -32,7 +32,7 @@ import javafx.beans.binding.Binding;
 /**
  * @author unknowIfGuestInDream
  */
-public interface FxBindingBuilder<T> {
+public sealed interface FxBindingBuilder<T> permits FxBooleanBindingBuilder {
 
     Binding<T> build();
 }

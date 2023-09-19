@@ -27,6 +27,7 @@
 
 package com.tlcsdm.frame;
 
+import com.tlcsdm.frame.model.EmptySample;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -34,7 +35,7 @@ import javafx.stage.Stage;
 /**
  * @author unknowIfGuestInDream
  */
-public interface Sample {
+public sealed interface Sample permits EmptySample, SampleBase {
 
     /**
      * 组件id
