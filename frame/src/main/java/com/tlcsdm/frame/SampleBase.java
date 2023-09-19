@@ -70,7 +70,7 @@ import java.util.ServiceLoader;
  *
  * @author unknowIfGuestInDream
  */
-public abstract class SampleBase extends Application implements Sample {
+public abstract non-sealed class SampleBase extends Application implements Sample {
 
     protected Map<String, Object> userData = new LinkedHashMap<>();
     protected String aesSeed = "3f4eefd3525675154a5e3a0183d8087b";

@@ -43,7 +43,7 @@ import java.util.Map;
  * @author unknowIfGuestInDream
  * @date 2023/5/4 14:53
  */
-public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
+public abstract sealed class AbstractU2XFamilyScript extends AbstractEcmScript permits U2AEcmScript, U2CEcmScript {
 
     @Override
     protected Map<String, Object> dealErrorSourceData(ExcelReader reader, int rowNum, String product) {
@@ -124,7 +124,9 @@ public abstract class AbstractU2XFamilyScript extends AbstractEcmScript {
     /**
      * function数据后置处理
      */
-    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition, boolean optMaskintStatus) {
-        GroovyUtil.invokeMethod(getGroovyPath(), "handlerOperationSupport", operation, funcSupCondition, optMaskintStatus);
+    protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
+        boolean optMaskintStatus) {
+        GroovyUtil.invokeMethod(getGroovyPath(), "handlerOperationSupport", operation, funcSupCondition,
+            optMaskintStatus);
     }
 }

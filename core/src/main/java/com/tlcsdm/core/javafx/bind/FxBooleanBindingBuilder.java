@@ -32,7 +32,7 @@ import javafx.beans.binding.BooleanBinding;
 /**
  * @author unknowIfGuestInDream
  */
-public abstract class FxBooleanBindingBuilder implements FxBindingBuilder<Boolean> {
+public abstract non-sealed class FxBooleanBindingBuilder implements FxBindingBuilder<Boolean> {
 
     @SuppressWarnings("exports")
     @Override
