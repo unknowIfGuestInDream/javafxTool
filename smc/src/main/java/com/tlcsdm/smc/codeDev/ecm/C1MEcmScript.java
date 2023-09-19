@@ -44,12 +44,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * C1M的ECM脚本
+ * C1M的ECM脚本.
  *
  * @author unknowIfGuestInDream
  * @date 2023/3/26 21:17
  */
-public class C1MEcmScript extends AbstractEcmScript {
+public final class C1MEcmScript extends AbstractEcmScript {
 
     @Override
     protected void initDefaultValue() {
@@ -196,7 +196,7 @@ public class C1MEcmScript extends AbstractEcmScript {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-                                         boolean optMaskintStatus) {
+        boolean optMaskintStatus) {
         // Do nothing
     }
 
