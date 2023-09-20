@@ -27,8 +27,9 @@ tlcsdm-common | 1.4.3 | 常用工具类封装
 tlcsdm-asyncTool | 1.0.0 | 并行工具包
 jackson | 2.15.2 | JSON解析库
 pdfbox | 3.0.0 | 操作PDF文档的库
-commons-io | 2.13.0 | IO工具类
-guava | 32.1.2-jre | Google工具类
+commons-io | 2.13.0 | IO工具
+commons-csv | 1.10.0 | csv工具
+guava | 32.1.2-jre | Google工具
 groovy | 4.0.15 | Groovy
 thumbnailator | 0.4.20 | 图片转码和缩略工具
 pdfviewfx | 3.0.0 | PDF视图工具
