@@ -244,7 +244,7 @@
         <module name="UnnecessaryParentheses"/>
         <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
-        <module name="UnusedLocalVariable"/>
+        <!-- <module name="UnusedLocalVariable"/> -->
 
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
