@@ -85,7 +85,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 为specGeneral测试文档的测试生成差异文件, 提高测试效率
+ * 为specGeneral测试文档的测试生成差异文件, 提高测试效率.
  *
  * @author unknowIfGuestInDream
  * @date 2022/12/8 23:12
@@ -97,6 +97,7 @@ public class SpecGeneralTest extends SmcSample {
     private CheckBox onlyGenerateCheck;
     private TextField excelField;
     private FileChooser excelFileChooser;
+    private Button generalButton;
     private TextField generalField;
     private DirectoryChooser generalChooser;
     private TextField outputField;
@@ -360,7 +361,7 @@ public class SpecGeneralTest extends SmcSample {
         generalField = new TextField();
         generalField.setMaxWidth(Double.MAX_VALUE);
         generalChooser = new DirectoryChooser();
-        Button generalButton = FxButton.choose();
+        generalButton = FxButton.choose();
         generalField.setEditable(false);
         generalButton.setOnAction(arg0 -> {
             File file = generalChooser.showDialog(stage);
@@ -450,6 +451,8 @@ public class SpecGeneralTest extends SmcSample {
         diff.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
         mergeResultCheck.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
+        generalButton.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
+        generalField.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
         FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
         FileChooserUtil.setOnDrag(outputField, FileChooserUtil.FileType.FOLDER);
         FileChooserUtil.setOnDrag(generalField, FileChooserUtil.FileType.FOLDER);
@@ -522,7 +525,7 @@ public class SpecGeneralTest extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.4";
+        return "1.0.9";
     }
 
     @Override
