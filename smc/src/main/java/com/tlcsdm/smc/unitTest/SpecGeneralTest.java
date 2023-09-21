@@ -82,7 +82,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率.
@@ -170,9 +169,9 @@ public class SpecGeneralTest extends SmcSample {
                     // 需要数据抽取
                     ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
                     List<String> sheetNames = reader.getSheetNames().stream()
-                        .filter(s -> (markSheetNames.size() == 0 && !ignoreSheetNames.contains(s))
-                            || (markSheetNames.size() != 0 && markSheetNames.contains(s)))
-                        .collect(Collectors.toList());
+                        .filter(s -> (markSheetNames.isEmpty() && !ignoreSheetNames.contains(s))
+                            || (!markSheetNames.isEmpty() && markSheetNames.contains(s)))
+                        .toList();
                     reader.close();
                     String resultPath = outputPath + File.separator
                         + excelName.substring(0, excelName.lastIndexOf("."));
@@ -545,7 +544,6 @@ public class SpecGeneralTest extends SmcSample {
 
     /**
      * 获取EndCell值
-     * <p>
      * 为End Sheet 所在行数 -2
      */
     private String getEndCell(String endCellColumn, ExcelReader reader) {

@@ -129,7 +129,6 @@
             <property name="accessModifiers" value="public"/>
             <property name="allowMissingParamTags" value="true"/>
         </module>
-        <module name="JavadocType"/>
         <module name="JavadocType">
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowUnknownTags" value="true"/>
