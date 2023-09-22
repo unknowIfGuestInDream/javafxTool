@@ -28,6 +28,7 @@
 package com.tlcsdm.smc.provider;
 
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.frame.model.FXSamplerTheme;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.scene.image.Image;
@@ -53,6 +54,11 @@ public class SmcConfigurationProvider implements FXSamplerConfiguration {
     @Override
     public Image getAppIcon() {
         return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/smc/fxsampler/smc_256.png"));
+    }
+
+    @Override
+    public FXSamplerTheme getTheme() {
+        return FXSamplerTheme.NORD_LIGHT;
     }
 
 }

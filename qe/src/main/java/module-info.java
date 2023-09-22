@@ -45,7 +45,6 @@ import com.tlcsdm.qe.provider.QeSampleTreeViewConfiguration;
 import com.tlcsdm.qe.provider.QeSamplerProjectProvider;
 import com.tlcsdm.qe.provider.QeSplashProvider;
 import com.tlcsdm.qe.provider.QeVersionCheckerProvider;
-import com.tlcsdm.qe.skin.QeSkin;
 
 module com.tlcsdm.qe {
     requires java.desktop;
@@ -68,7 +67,6 @@ module com.tlcsdm.qe {
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
     exports com.tlcsdm.qe.tools to com.tlcsdm.frame;
-    exports com.tlcsdm.qe.skin to com.tlcsdm.frame;
     exports com.tlcsdm.qe.config to com.tlcsdm.core;
 
     opens com.tlcsdm.qe.tools to javafx.graphics, javafx.fxml, javafx.base;
@@ -76,7 +74,7 @@ module com.tlcsdm.qe {
     provides FXSamplerProject with QeSamplerProjectProvider;
     provides MenubarConfigration with QeMenubarConfigrationProvider;
     provides CenterPanelService with QeCenterPanelProvider;
-    provides FXSamplerConfiguration with QeConfigurationProvider, QeSkin;
+    provides FXSamplerConfiguration with QeConfigurationProvider;
     provides SplashScreen with QeSplashProvider;
     provides TemplateLoaderService with QeTemplateLoaderProvider;
     provides GroovyLoaderService with QeGroovyLoaderProvider;

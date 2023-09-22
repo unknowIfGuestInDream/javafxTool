@@ -73,7 +73,7 @@ public class FxAction {
     }
 
     /**
-     * create action
+     * create action.
      */
     public static Action create(String text, Consumer<ActionEvent> eventHandler, Node graphic) {
         Action action = new Action(text, actionEvent -> {
@@ -233,10 +233,6 @@ public class FxAction {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/folder.png");
     }
 
-    public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
-        return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
-    }
-
     public static Action api() {
         return create("JavaFX", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_URL);
@@ -253,6 +249,10 @@ public class FxAction {
         return create("FXML", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_FXML_URL);
         }, "/com/tlcsdm/core/static/menubar/fxml.png");
+    }
+
+    public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
+        return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
     }
 
     public static Action openSysConfig() {
@@ -294,6 +294,7 @@ public class FxAction {
             area.setEditable(false);
             area.appendText(
                 FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+            area.showParagraphAtTop(0);
             VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);

@@ -28,6 +28,7 @@
 package com.tlcsdm.qe.provider;
 
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.frame.model.FXSamplerTheme;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.scene.image.Image;
@@ -53,6 +54,11 @@ public class QeConfigurationProvider implements FXSamplerConfiguration {
     @Override
     public Image getAppIcon() {
         return LayoutHelper.icon(getClass().getResource("/com/tlcsdm/qe/fxsampler/qe_256.png"));
+    }
+
+    @Override
+    public FXSamplerTheme getTheme() {
+        return FXSamplerTheme.PRIMER_LIGHT;
     }
 
 }

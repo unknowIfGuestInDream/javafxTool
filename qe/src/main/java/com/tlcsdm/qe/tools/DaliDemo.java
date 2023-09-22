@@ -25,22 +25,76 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.qe.skin;
+package com.tlcsdm.qe.tools;
 
-import com.tlcsdm.frame.FXSampler;
-import com.tlcsdm.qe.provider.QeConfigurationProvider;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.FxmlUtil;
+import com.tlcsdm.qe.QeSample;
+import com.tlcsdm.qe.util.I18nUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
+ * 测试用，DALi Configuration.
+ *
  * @author unknowIfGuestInDream
  */
-public class QeSkin extends QeConfigurationProvider {
+public class DaliDemo extends QeSample implements Initializable {
 
     @Override
-    public String getSceneStylesheet() {
-        return Objects.requireNonNull(FXSampler.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css"))
-            .toExternalForm();
+    public boolean isVisible() {
+        return super.isVisible();
     }
 
+    @Override
+    public Node getPanel(Stage stage) {
+        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
+            DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/daliConfig.fxml"),
+            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+        return fxmlLoader.getRoot();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public String getSampleId() {
+        return "daliConfig";
+    }
+
+    @Override
+    public String getSampleName() {
+        return "DALI Config";
+    }
+
+    @Override
+    public String getOrderKey() {
+        return "daliConfig";
+    }
+
+    @Override
+    public String getSampleDescription() {
+        return "此组件测试用";
+    }
+
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0-Beta";
+    }
+
+    @Override
+    public boolean hasRightPanel() {
+        return false;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
