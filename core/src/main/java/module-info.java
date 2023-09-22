@@ -3,6 +3,7 @@ module com.tlcsdm.core {
     requires javafx.fxml;
     requires javafx.swing;
     requires java.desktop;
+    requires java.net.http;
     requires java.sql;
     requires org.apache.commons.lang3;
     requires javafx.controls;

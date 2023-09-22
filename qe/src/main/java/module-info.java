@@ -58,11 +58,11 @@ module com.tlcsdm.qe {
     requires cn.hutool.core;
     requires cn.hutool.poi;
     requires cn.hutool.log;
-    requires cn.hutool.json;
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
     requires javafx.base;
+    requires com.fasterxml.jackson.databind;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;

@@ -69,6 +69,7 @@ module com.tlcsdm.smc {
     requires org.fxmisc.flowless;
     requires com.dlsc.formsfx;
     requires com.dlsc.preferencesfx;
+    requires com.fasterxml.jackson.databind;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;

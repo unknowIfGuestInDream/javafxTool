@@ -40,7 +40,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 
 /**
  * 转换bean时，需要opens bean所在包
@@ -51,9 +50,7 @@ import java.util.TimeZone;
  * @JsonFormat 用于属性或者方法，把属性的格式序列化时转换成指定的格式。@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
  * @JsonPropertyOrder 用于类， 指定属性在序列化时 json 中的顺序 @JsonPropertyOrder({ "birth_Date", "name" })
  * @JsonCreator 用于构造方法，和 @JsonProperty 配合使用，适用有参数的构造方法
- * <code>
  * @JsonCreator public Person(@JsonProperty("name")String name) {…}
- * </code>
  * @JsonAnySetter 用于属性或者方法，设置未反序列化的属性名和值作为键值存储到 map 中
  * @JsonAnyGetter 用于方法 ，获取所有未序列化的属性
  * }</pre>
@@ -75,7 +72,6 @@ public class JacksonUtil {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         // 序列化时忽略值为默认值的属性
         mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
-        mapper.setTimeZone(TimeZone.getTimeZone("GMT+:08:00"));
     }
 
     private JacksonUtil() {
