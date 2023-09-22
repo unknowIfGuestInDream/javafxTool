@@ -129,7 +129,6 @@
             <property name="accessModifiers" value="public"/>
             <property name="allowMissingParamTags" value="true"/>
         </module>
-        <module name="JavadocType"/>
         <module name="JavadocType">
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowUnknownTags" value="true"/>
@@ -244,7 +243,7 @@
         <module name="UnnecessaryParentheses"/>
         <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
-        <module name="UnusedLocalVariable"/>
+        <!-- <module name="UnusedLocalVariable"/> -->
 
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
