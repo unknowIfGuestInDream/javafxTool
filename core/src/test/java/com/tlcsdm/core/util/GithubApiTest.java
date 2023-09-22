@@ -25,13 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.tool;
+package com.tlcsdm.core.util;
 
 import cn.hutool.core.net.SSLContextBuilder;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.util.JacksonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -42,8 +41,6 @@ import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -97,8 +94,18 @@ class GithubApiTest {
             System.out.println(array.getByPath("[" + i + "].assets[0].browser_download_url"));
         }
 
-        List<Map> list = JacksonUtil.json2List(result, Map.class);
-        System.out.println(list.size());
+//        List<Map> list = JacksonUtil.json2List(result, Map.class);
+//        for (Map map : list) {
+//            System.out.println(map.get("draft"));
+//            System.out.println(map.get("prerelease"));
+//            System.out.println(map.get("tag_name"));
+//            System.out.println(map.get("name"));
+//            System.out.println(map.get("html_url"));
+//            List<Map>  assets = (List<Map>) map.get("assets");
+//            System.out.println(assets.size());
+//            System.out.println(assets.get(0).get("name"));
+//            System.out.println(assets.get(0).get("browser_download_url"));
+//        }
     }
 
 }
