@@ -44,18 +44,16 @@ import java.util.Set;
 /**
  * 转换bean时，需要opens bean所在包
  *
- * <pre><code>
+ * <pre>{@code
  * @JsonIgnore 使用@JsonIgnore注解JSON序列化时将忽略该字段
  * @JsonProperty 用于属性，把属性的名称序列化时转换为另外一个名称 @JsonProperty("blog-remark")
  * @JsonFormat 用于属性或者方法，把属性的格式序列化时转换成指定的格式。@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
  * @JsonPropertyOrder 用于类， 指定属性在序列化时 json 中的顺序 @JsonPropertyOrder({ "birth_Date", "name" })
  * @JsonCreator 用于构造方法，和 @JsonProperty 配合使用，适用有参数的构造方法
- * <code>
  * @JsonCreator public Person(@JsonProperty("name")String name) {…}
- * </code>
  * @JsonAnySetter 用于属性或者方法，设置未反序列化的属性名和值作为键值存储到 map 中
  * @JsonAnyGetter 用于方法 ，获取所有未序列化的属性
- * </code></pre>
+ * }</pre>
  *
  * @author unknowIfGuestInDream
  * @date 2023/4/2 10:16
