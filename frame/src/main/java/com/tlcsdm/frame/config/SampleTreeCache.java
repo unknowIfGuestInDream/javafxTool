@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 通过SPI获取缓存对象.
  * 对UI对象进行缓存，优化使用.
  * key是project名和sample-id构成
  *
