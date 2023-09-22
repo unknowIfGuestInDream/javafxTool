@@ -25,12 +25,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tool.tool;
+package com.tlcsdm.core.tool;
 
 import cn.hutool.core.net.SSLContextBuilder;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.util.JacksonUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -41,6 +42,8 @@ import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -51,12 +54,12 @@ import java.util.concurrent.TimeoutException;
  * @author os_tangliang
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
-public class GithubApiTest {
+class GithubApiTest {
 
     static volatile String result = "";
 
     @Test
-    public void release() {
+    void release() {
         HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
             .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
 
@@ -93,6 +96,9 @@ public class GithubApiTest {
             System.out.println(array.getByPath("[" + i + "].assets[0].name"));
             System.out.println(array.getByPath("[" + i + "].assets[0].browser_download_url"));
         }
+
+        List<Map> list = JacksonUtil.json2List(result, Map.class);
+        System.out.println(list.size());
     }
 
 }

@@ -40,7 +40,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 
 /**
  * 转换bean时，需要opens bean所在包
@@ -75,7 +74,6 @@ public class JacksonUtil {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         // 序列化时忽略值为默认值的属性
         mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
-        mapper.setTimeZone(TimeZone.getTimeZone("GMT+:08:00"));
     }
 
     private JacksonUtil() {
