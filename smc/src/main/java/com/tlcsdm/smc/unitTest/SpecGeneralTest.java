@@ -54,6 +54,7 @@ import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -406,7 +407,7 @@ public class SpecGeneralTest extends SmcSample {
         Label generalFileCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.generalFileCell") + ": ");
         generalFileCellField = new TextField();
 
-        ignoreSheetField.setText("Overview, Summary, Sample-CT");
+        ignoreSheetField.setText("Overview, Summary, Sample-CT, metadata");
         startCellField.setText("C19");
         endCellColumnField.setText("F");
         generalFileCellField.setText("C15");
@@ -445,9 +446,13 @@ public class SpecGeneralTest extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField,
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField,
             macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
-        diff.disabledProperty().bind(emptyValidation);
+        BooleanBinding generalBinding = Bindings.createBooleanBinding(() -> {
+            return onlyGenerateCheck.isSelected()
+                || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty());
+        }, generalField.textProperty(), onlyGenerateCheck.selectedProperty());
+        diff.disabledProperty().bind(emptyValidation.and(generalBinding));
         openOutDir.disabledProperty().bind(outputValidation);
         mergeResultCheck.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
         generalButton.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
