@@ -80,6 +80,7 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-csv.version>1.10.0</commons-csv.version>
         <reflections.version>0.10.2</reflections.version>
+        <javassist.version>3.29.2-GA</javassist.version>
         <log4j2.version>2.20.0</log4j2.version>
         <log4j-over-slf4j.version>2.0.9</log4j-over-slf4j.version>
         <guava.version>32.1.2-jre</guava.version>
@@ -317,6 +318,11 @@
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
