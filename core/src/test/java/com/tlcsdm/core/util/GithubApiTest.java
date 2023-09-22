@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.smc.tool.tool;
+package com.tlcsdm.core.util;
 
 import cn.hutool.core.net.SSLContextBuilder;
 import cn.hutool.json.JSONArray;
@@ -51,12 +51,12 @@ import java.util.concurrent.TimeoutException;
  * @author os_tangliang
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
-public class GithubApiTest {
+class GithubApiTest {
 
     static volatile String result = "";
 
     @Test
-    public void release() {
+    void release() {
         HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
             .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
 
@@ -93,6 +93,19 @@ public class GithubApiTest {
             System.out.println(array.getByPath("[" + i + "].assets[0].name"));
             System.out.println(array.getByPath("[" + i + "].assets[0].browser_download_url"));
         }
+
+//        List<Map> list = JacksonUtil.json2List(result, Map.class);
+//        for (Map map : list) {
+//            System.out.println(map.get("draft"));
+//            System.out.println(map.get("prerelease"));
+//            System.out.println(map.get("tag_name"));
+//            System.out.println(map.get("name"));
+//            System.out.println(map.get("html_url"));
+//            List<Map>  assets = (List<Map>) map.get("assets");
+//            System.out.println(assets.size());
+//            System.out.println(assets.get(0).get("name"));
+//            System.out.println(assets.get(0).get("browser_download_url"));
+//        }
     }
 
 }

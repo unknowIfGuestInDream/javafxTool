@@ -29,13 +29,12 @@ package com.tlcsdm.smc.provider;
 
 import cn.hutool.core.comparator.VersionComparator;
 import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -46,6 +45,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -60,7 +60,7 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
 
     @Override
     public void checkNewVersion() {
-        if (result.length() > 0) {
+        if (!result.isEmpty()) {
             return;
         }
         HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
@@ -85,23 +85,25 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
             StaticLog.error(e);
             Thread.currentThread().interrupt();
         }
-        JSONArray array = JSONUtil.parseArray(result);
-        for (int i = 0; i < array.size(); i++) {
-            boolean isDraft = (boolean) array.getByPath("[" + i + "].draft");
-            boolean isPrerelease = (boolean) array.getByPath("[" + i + "].prerelease");
+        var list = JacksonUtil.json2List(result, Map.class);
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        for (var map : list) {
+            boolean isDraft = (boolean) map.get("draft");
+            boolean isPrerelease = (boolean) map.get("prerelease");
             if (!isDraft && !isPrerelease) {
-                String tag = String.valueOf(array.getByPath("[" + i + "].tag_name"));
+                String tag = String.valueOf(map.get("tag_name"));
                 if (tag.endsWith(SmcConstant.PROJECT_TAG_SUBFIX)) {
                     String version = tag.substring(1, tag.length() - SmcConstant.PROJECT_TAG_SUBFIX.length());
                     int compare = VersionComparator.INSTANCE.compare(version, SmcSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
                         String content = new StringBuilder().append(I18nUtils.get("smc.versionCheck.versionNum"))
                             .append(": ").append(version).append("\r\n").append(I18nUtils.get("smc.versionCheck.body"))
-                            .append(": \n").append(array.getByPath("[" + i + "].body")).append("\r\n").append("\r\n")
+                            .append(": \n").append(map.get("body")).append("\r\n").append("\r\n")
                             .append(I18nUtils.get("smc.versionCheck.desc")).append("\r\n")
                             .append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
-
-                        SmcConstant.PROJECT_RELEASE_URL = String.valueOf(array.getByPath("[" + i + "].html_url"));
+                        SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("html_url"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
                                 .graphic(LayoutHelper

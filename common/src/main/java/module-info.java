@@ -35,7 +35,6 @@ module com.tlcsdm.jfxcommon {
     requires org.controlsfx.controls;
     requires cn.hutool.core;
     requires cn.hutool.log;
-    requires cn.hutool.json;
     requires org.slf4j;
     requires cn.hutool.poi;
     requires org.apache.poi.poi;
