@@ -70,7 +70,7 @@ public final class CompressUtil {
     public void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
                            boolean disableOptimizations) throws IOException, EvaluatorException {
         try (InputStreamReader in = new InputStreamReader(new FileInputStream(js), StandardCharsets.UTF_8);) {
-            JavaScriptCompressor compressor = new JavaScriptCompressor(in, reporter);
+            JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
             compressor.compress(out, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
         }
     }
