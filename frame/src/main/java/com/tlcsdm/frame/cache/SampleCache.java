@@ -31,9 +31,7 @@ import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
 import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
 /**
- * 通过SPI获取缓存对象.
  * 对UI对象进行缓存，优化使用.
- * key是project名和sample-id构成
  *
  * @author unknowIfGuestInDream
  */

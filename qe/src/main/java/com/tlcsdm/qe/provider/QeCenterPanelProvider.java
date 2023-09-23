@@ -30,6 +30,7 @@ package com.tlcsdm.qe.provider;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.SampleBase;
+import com.tlcsdm.frame.cache.SampleCacheFactory;
 import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.service.CenterPanelService;
@@ -99,6 +100,15 @@ public class QeCenterPanelProvider implements CenterPanelService {
     }
 
     private Node buildQeContent(Sample sample) {
-        return SampleBase.buildSample(sample, stage);
+        String key = sample.getProjectName() + sample.getSampleId();
+        if (SampleCacheFactory.containsKey(key)) {
+            Object obj = SampleCacheFactory.get(key);
+            if (obj instanceof Node n) {
+                return n;
+            }
+        }
+        Node node = SampleBase.buildSample(sample, stage);
+        SampleCacheFactory.put(key, node);
+        return node;
     }
 }
