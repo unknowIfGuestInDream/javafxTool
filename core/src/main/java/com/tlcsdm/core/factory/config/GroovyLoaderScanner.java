@@ -30,6 +30,7 @@ package com.tlcsdm.core.factory.config;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.GroovyUtil;
 import groovy.lang.GroovyClassLoader;
@@ -88,7 +89,7 @@ public class GroovyLoaderScanner implements InitializingFactory {
         sac.setDisallowedExpressions(List.of(BytecodeExpression.class));
         sac.setDisallowedStatements(Arrays.asList(BytecodeSequence.class, SynchronizedStatement.class));
         config.addCompilationCustomizers(sac);
-        config.setSourceEncoding("UTF-8");
+        config.setSourceEncoding(CoreConstant.ENCODING_UTF_8);
         scriptEngine.setConfig(config);
     }
 

@@ -35,6 +35,7 @@ import cn.hutool.core.map.multi.ListValueMap;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -62,7 +63,7 @@ public class U2CEcmTest {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
         try {
             configuration.setDirectoryForTemplateLoading(new File(ResourceUtil.getResource("templates").getPath()));
-            configuration.setDefaultEncoding("utf-8");
+            configuration.setDefaultEncoding(CoreConstant.ENCODING_UTF_8);
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20,soft:250");
         } catch (IORuntimeException | IOException | TemplateException e) {

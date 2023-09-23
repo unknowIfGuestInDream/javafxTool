@@ -74,6 +74,11 @@ public class CoreConstant {
     public static final String JVM_WORKENV_PROD = "prod";
 
     /**
+     * 编码UTF-8.
+     */
+    public static final String ENCODING_UTF_8 = "UTF-8";
+
+    /**
      * LICENSE内容
      */
     public static final String PROJECT_LICENSE_CONTENT_STRING = StrUtil.format("""
