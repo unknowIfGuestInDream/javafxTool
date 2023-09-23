@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author unknowIfGuestInDream
  */
-public class CompressTest {
+class CompressTest {
 
     private final String jsCode = """
         /*示例代码*/
@@ -67,13 +67,13 @@ public class CompressTest {
         """;
 
     @Test
-    public void compressJsWithCode() {
+    void compressJsWithCode() {
         Assertions.assertEquals("function echo(c,b){var a=\"你好\";alert(\"hello world\")};", CompressUtil.compressJS(jsCode));
         Assertions.assertEquals("function echo(stringA,stringB){var hello=\"你好\";alert(\"hello world\")};", CompressUtil.compressJS(jsCode, -1, false, false, false, false));
     }
 
     @Test
-    public void compressCssWithCode() {
+    void compressCssWithCode() {
         Assertions.assertEquals("@font-face{font-family:'JetBrains Mono';src:url('JetBrainsMono-Regular.ttf')}.text-groovy-area,.text-java-area{-fx-font-family:'JetBrains Mono';-fx-font-smoothing-type:gray;-fx-font-size:13}.keyword{-fx-fill:purple;-fx-font-weight:bold}.paragraph-box:has-caret{-fx-background-color:#f2f9fc}"
             , CompressUtil.compressCSS(cssCode));
     }
