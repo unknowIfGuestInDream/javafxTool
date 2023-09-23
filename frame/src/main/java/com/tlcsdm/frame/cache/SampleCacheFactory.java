@@ -25,32 +25,47 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.config;
+package com.tlcsdm.frame.cache;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.tlcsdm.frame.Sample;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
+import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
 /**
- * 通过SPI获取缓存对象.
- * 对UI对象进行缓存，优化使用.
- * key是project名和sample-id构成
+ * SampleCache对象获取.
+ * 当引用caffeine时优先使用，否则使用SimpleSampleCache
  *
  * @author unknowIfGuestInDream
  */
-public class SampleTreeCache {
+public class SampleCacheFactory {
 
-    Cache<String, Sample> cache = Caffeine.newBuilder().softValues().build();
-    Map<String, Sample> map = new HashMap<>();
+    private static SampleCache sampleCache;
 
-    public static void put(String key, Sample sample) {
-
+    static {
+        try {
+            Class.forName("com.github.benmanes.caffeine.cache.Cache");
+            sampleCache = new CaffeineSimpleCache();
+        } catch (ClassNotFoundException e) {
+            sampleCache = new SimpleSampleCache();
+        }
     }
 
-    public static Sample get(String key) {
-        return null;
+    public static Object get(String key) {
+        return sampleCache.get(key);
+    }
+
+    public static void put(String key, Object sample) {
+        sampleCache.put(key, sample);
+    }
+
+    public static boolean containsKey(String key) {
+        return sampleCache.containsKey(key);
+    }
+
+    public static void removeKey(String key) {
+        sampleCache.removeKey(key);
+    }
+
+    public static void clear() {
+        sampleCache.clear();
     }
 }
