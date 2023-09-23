@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,6 @@ package com.tlcsdm.qe.tools;
 
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
-import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.fxml.FXMLLoader;
@@ -41,62 +40,41 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 测试用，DALi Configuration.
+ * js/css压缩.
  *
  * @author unknowIfGuestInDream
  */
-public class DaliDemo extends QeSample implements Initializable {
+public class Compress extends QeSample implements Initializable {
+    @Override
+    public String getSampleId() {
+        return "compress";
+    }
 
     @Override
-    public boolean isVisible() {
-        String value = System.getProperty(CoreConstant.JVM_WORKENV);
-        return CoreConstant.JVM_WORKENV_DEV.equals(value);
+    public String getSampleName() {
+        return "Compress";
+    }
+
+    @Override
+    public String getSampleVersion() {
+        return "1.0.0";
     }
 
     @Override
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
-            DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/daliConfig.fxml"),
+            Compress.class.getResource("/com/tlcsdm/qe/fxml/compress.fxml"),
             ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public String getSampleId() {
-        return "daliConfig";
-    }
-
-    @Override
-    public String getSampleName() {
-        return "DALI Config";
-    }
-
     @Override
     public String getOrderKey() {
-        return "daliConfig";
-    }
-
-    @Override
-    public String getSampleDescription() {
-        return "此组件测试用";
-    }
-
-    @Override
-    public String getSampleVersion() {
-        return "1.0.0-Beta";
-    }
-
-    @Override
-    public boolean hasRightPanel() {
-        return false;
+        return "compress";
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // Do nothing
     }
 }
