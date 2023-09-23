@@ -67,7 +67,8 @@ public final class CompressUtil {
      * @param preserveAllSemiColons Preserve all semicolons
      * @param disableOptimizations  Disable all micro optimizations
      */
-    public void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons, boolean disableOptimizations) throws IOException, EvaluatorException {
+    public void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
+                           boolean disableOptimizations) throws IOException, EvaluatorException {
         try (InputStreamReader in = new InputStreamReader(new FileInputStream(js), StandardCharsets.UTF_8);) {
             JavaScriptCompressor compressor = new JavaScriptCompressor(in, reporter);
             compressor.compress(out, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
@@ -81,11 +82,12 @@ public final class CompressUtil {
     /**
      * @param code 待压缩的代码.
      */
-    public String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons, boolean disableOptimizations) throws IOException, EvaluatorException {
+    public String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
+                             boolean disableOptimizations) throws IOException, EvaluatorException {
         StringWriter writer = new StringWriter();
         InputStream in = new ByteArrayInputStream(code.getBytes());
         Reader reader = new InputStreamReader(in);
-        JavaScriptCompressor compressor = new JavaScriptCompressor(reader, reporter);
+        JavaScriptCompressor compressor = new JavaScriptCompressor(reader, ERROR_REPORTER);
         compressor.compress(writer, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
         return writer.toString();
     }
@@ -122,7 +124,7 @@ public final class CompressUtil {
         return writer.toString();
     }
 
-    private static final ErrorReporter reporter = new ErrorReporter() {
+    private static final ErrorReporter ERROR_REPORTER = new ErrorReporter() {
         @Override
         public void warning(String message, String sourceName, int line, String lineSource, int lineOffset) {
             if (line < 0) {
