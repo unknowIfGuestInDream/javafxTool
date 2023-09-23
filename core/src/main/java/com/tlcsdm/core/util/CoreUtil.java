@@ -32,7 +32,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -183,6 +183,18 @@ public class CoreUtil {
     public static boolean isStartupFromJar(Class<?> clazz) {
         URL url = clazz.getResource("");
         return "jar".equals(url.getProtocol());
+    }
+
+    /**
+     * 类是否存在，存在返回true.
+     */
+    public static boolean hasClass(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
 }

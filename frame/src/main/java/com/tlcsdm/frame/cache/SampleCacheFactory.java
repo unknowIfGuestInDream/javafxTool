@@ -27,6 +27,7 @@
 
 package com.tlcsdm.frame.cache;
 
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
 import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
@@ -42,13 +43,12 @@ public class SampleCacheFactory {
         // Do nothing
     }
 
-    private static SampleCache sampleCache;
+    private static final SampleCache sampleCache;
 
     static {
-        try {
-            Class.forName("com.github.benmanes.caffeine.cache.Cache");
+        if (CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache")) {
             sampleCache = new CaffeineSimpleCache();
-        } catch (ClassNotFoundException e) {
+        } else {
             sampleCache = new SimpleSampleCache();
         }
     }

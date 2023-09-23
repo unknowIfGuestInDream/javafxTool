@@ -30,6 +30,7 @@ package com.tlcsdm.core.factory.config;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.GroovyUtil;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyShell;
@@ -58,9 +59,7 @@ public class GroovyLoaderScanner implements InitializingFactory {
 
     @Override
     public void initialize() throws Exception {
-        try {
-            Class.forName("groovy.util.GroovyScriptEngine");
-        } catch (ClassNotFoundException e) {
+        if (!CoreUtil.hasClass("groovy.util.GroovyScriptEngine")) {
             return;
         }
         List<URL> list = new ArrayList<>();
