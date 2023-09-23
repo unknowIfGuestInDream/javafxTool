@@ -37,9 +37,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -52,8 +50,12 @@ import java.nio.charset.StandardCharsets;
  */
 public final class CompressUtil {
 
-    public void compressJS(File js, Writer out) throws IOException, EvaluatorException {
-        compressJS(js, out, -1, true, true, false, false);
+    private CompressUtil() {
+        // Do nothing
+    }
+
+    public static void compressJS(File js, Writer out) {
+        compressJS(js, out, -1, true, false, false, false);
     }
 
     /**
@@ -67,32 +69,37 @@ public final class CompressUtil {
      * @param preserveAllSemiColons Preserve all semicolons
      * @param disableOptimizations  Disable all micro optimizations
      */
-    public void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                           boolean disableOptimizations) throws IOException, EvaluatorException {
+    public static void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
+                                  boolean disableOptimizations) {
         try (InputStreamReader in = new InputStreamReader(new FileInputStream(js), StandardCharsets.UTF_8);) {
             JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
             compressor.compress(out, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
+        } catch (IOException | EvaluatorException e) {
+            StaticLog.error(e);
         }
     }
 
-    public String compressJS(String code) throws IOException, EvaluatorException {
-        return compressJS(code, -1, true, true, false, false);
+    public static String compressJS(String code) {
+        return compressJS(code, -1, true, false, false, false);
     }
 
     /**
      * @param code 待压缩的代码.
      */
-    public String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                             boolean disableOptimizations) throws IOException, EvaluatorException {
-        StringWriter writer = new StringWriter();
-        InputStream in = new ByteArrayInputStream(code.getBytes());
-        Reader reader = new InputStreamReader(in);
-        JavaScriptCompressor compressor = new JavaScriptCompressor(reader, ERROR_REPORTER);
-        compressor.compress(writer, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
-        return writer.toString();
+    public static String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
+                                    boolean disableOptimizations) {
+        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()))) {
+            StringWriter writer = new StringWriter();
+            JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
+            compressor.compress(writer, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
+            return writer.toString();
+        } catch (IOException | EvaluatorException e) {
+            StaticLog.error(e);
+        }
+        return "";
     }
 
-    public void compressCSS(File css, Writer out) throws IOException {
+    public static void compressCSS(File css, Writer out) {
         compressCSS(css, out, -1);
     }
 
@@ -101,27 +108,32 @@ public final class CompressUtil {
      * @param out          输出流
      * @param linebreakpos Insert a line break after the specified column number
      */
-    public void compressCSS(File css, Writer out, int linebreakpos) throws IOException {
+    public static void compressCSS(File css, Writer out, int linebreakpos) {
         try (InputStreamReader in = new InputStreamReader(new FileInputStream(css), StandardCharsets.UTF_8)) {
             CssCompressor compressor = new CssCompressor(in);
             compressor.compress(out, linebreakpos);
+        } catch (IOException e) {
+            StaticLog.error(e);
         }
     }
 
-    public String compressCSS(String code) throws IOException {
+    public static String compressCSS(String code) {
         return compressCSS(code, -1);
     }
 
     /**
      * @param code 待压缩的代码.
      */
-    public String compressCSS(String code, int linebreakpos) throws IOException {
-        StringWriter writer = new StringWriter();
-        InputStream in = new ByteArrayInputStream(code.getBytes());
-        Reader reader = new InputStreamReader(in);
-        CssCompressor compressor = new CssCompressor(reader);
-        compressor.compress(writer, linebreakpos);
-        return writer.toString();
+    public static String compressCSS(String code, int linebreakpos) {
+        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()))) {
+            CssCompressor compressor = new CssCompressor(in);
+            StringWriter writer = new StringWriter();
+            compressor.compress(writer, linebreakpos);
+            return writer.toString();
+        } catch (IOException e) {
+            StaticLog.error(e);
+        }
+        return "";
     }
 
     private static final ErrorReporter ERROR_REPORTER = new ErrorReporter() {
@@ -144,8 +156,7 @@ public final class CompressUtil {
         }
 
         @Override
-        public EvaluatorException runtimeError(String message, String sourceName, int line, String lineSource,
-                                               int lineOffset) {
+        public EvaluatorException runtimeError(String message, String sourceName, int line, String lineSource, int lineOffset) {
             error(message, sourceName, line, lineSource, lineOffset);
             return new EvaluatorException(message);
         }
