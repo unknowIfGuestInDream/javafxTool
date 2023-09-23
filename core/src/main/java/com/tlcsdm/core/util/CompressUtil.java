@@ -47,16 +47,10 @@ import java.nio.charset.StandardCharsets;
 /**
  * yui compressor工具实现.
  * 用于js/css压缩
- * line-break Insert a line break after the specified column number
- * verbose Display informational messages and warnings
- * preservehints Don't elide unrecognized compiler hints (e.g. \"use strict\", \"use asm\")
- * nomunge Minify only, do not obfuscate
- * preserve-semi Preserve all semicolons
- * disable-optimizations Disable all micro optimizations
  *
  * @author unknowIfGuestInDream
  */
-public class CompressUtil {
+public final class CompressUtil {
 
     public void compressJS(File js, Writer out) throws IOException, EvaluatorException {
         compressJS(js, out, -1, true, true, false, false);
@@ -131,18 +125,20 @@ public class CompressUtil {
     private static final ErrorReporter reporter = new ErrorReporter() {
         @Override
         public void warning(String message, String sourceName, int line, String lineSource, int lineOffset) {
-            if (line < 0)
+            if (line < 0) {
                 StaticLog.warn(message);
-            else
+            } else {
                 StaticLog.warn(line + ':' + lineOffset + ':' + message);
+            }
         }
 
         @Override
         public void error(String message, String sourceName, int line, String lineSource, int lineOffset) {
-            if (line < 0)
+            if (line < 0) {
                 StaticLog.error(message);
-            else
+            } else {
                 StaticLog.error(line + ':' + lineOffset + ':' + message);
+            }
         }
 
         @Override
