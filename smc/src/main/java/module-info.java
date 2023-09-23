@@ -70,6 +70,7 @@ module com.tlcsdm.smc {
     requires com.dlsc.formsfx;
     requires com.dlsc.preferencesfx;
     requires com.fasterxml.jackson.databind;
+    requires com.github.benmanes.caffeine;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;

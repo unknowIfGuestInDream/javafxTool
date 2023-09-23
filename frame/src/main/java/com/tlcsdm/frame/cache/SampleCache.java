@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,25 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-module com.tlcsdm.jfxcommon {
-    requires java.desktop;
-    requires javafx.fxml;
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires com.tlcsdm.core;
-    requires com.tlcsdm.frame;
-    requires org.controlsfx.controls;
-    requires cn.hutool.core;
-    requires cn.hutool.log;
-    requires org.slf4j;
-    requires cn.hutool.poi;
+package com.tlcsdm.frame.cache;
 
-    exports com.tlcsdm.jfxcommon;
-    exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
+import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
-    opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
+/**
+ * 对UI对象进行缓存，优化使用.
+ *
+ * @author unknowIfGuestInDream
+ */
+public sealed interface SampleCache permits CaffeineSimpleCache, SimpleSampleCache {
 
-    provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
+    /**
+     * 存储Sample.
+     */
+    void put(String key, Object value);
 
+    /**
+     * 获取Sample.
+     */
+    Object get(String key);
+
+    /**
+     * 包含key.
+     */
+    boolean containsKey(String key);
+
+    /**
+     * 移除key.
+     */
+    void removeKey(String key);
+
+    /**
+     * 清空缓存.
+     */
+    void clear();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,25 +25,43 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-module com.tlcsdm.jfxcommon {
-    requires java.desktop;
-    requires javafx.fxml;
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires com.tlcsdm.core;
-    requires com.tlcsdm.frame;
-    requires org.controlsfx.controls;
-    requires cn.hutool.core;
-    requires cn.hutool.log;
-    requires org.slf4j;
-    requires cn.hutool.poi;
+package com.tlcsdm.frame.cache.impl;
 
-    exports com.tlcsdm.jfxcommon;
-    exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+import com.tlcsdm.frame.cache.SampleCache;
 
-    opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
+import java.util.concurrent.ConcurrentHashMap;
 
-    provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
+/**
+ * ConcurrentHashMap缓存.
+ *
+ * @author unknowIfGuestInDream
+ */
+public final class SimpleSampleCache implements SampleCache {
 
+    private final ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
+
+    @Override
+    public void put(String key, Object value) {
+        map.put(key, value);
+    }
+
+    @Override
+    public Object get(String key) {
+        return map.get(key);
+    }
+
+    @Override
+    public boolean containsKey(String key) {
+        return map.containsKey(key);
+    }
+
+    @Override
+    public void removeKey(String key) {
+        map.remove(key);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
 }
