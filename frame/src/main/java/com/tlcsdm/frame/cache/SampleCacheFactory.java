@@ -43,13 +43,13 @@ public class SampleCacheFactory {
         // Do nothing
     }
 
-    private static final SampleCache sampleCache;
+    private static final SampleCache SAMPLE_CACHE;
 
     static {
         if (CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache")) {
-            sampleCache = new CaffeineSimpleCache();
+            SAMPLE_CACHE = new CaffeineSimpleCache();
         } else {
-            sampleCache = new SimpleSampleCache();
+            SAMPLE_CACHE = new SimpleSampleCache();
         }
     }
 
@@ -57,34 +57,34 @@ public class SampleCacheFactory {
      * 获取对象.
      */
     public static Object get(String key) {
-        return sampleCache.get(key);
+        return SAMPLE_CACHE.get(key);
     }
 
     /**
      * 缓存对象.
      */
     public static void put(String key, Object sample) {
-        sampleCache.put(key, sample);
+        SAMPLE_CACHE.put(key, sample);
     }
 
     /**
      * 是否包含key值，存在返回true.
      */
     public static boolean containsKey(String key) {
-        return sampleCache.containsKey(key);
+        return SAMPLE_CACHE.containsKey(key);
     }
 
     /**
      * 移除key.
      */
     public static void removeKey(String key) {
-        sampleCache.removeKey(key);
+        SAMPLE_CACHE.removeKey(key);
     }
 
     /**
      * 清空缓存.
      */
     public static void clear() {
-        sampleCache.clear();
+        SAMPLE_CACHE.clear();
     }
 }
