@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,25 +25,66 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-module com.tlcsdm.jfxcommon {
-    requires java.desktop;
-    requires javafx.fxml;
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires com.tlcsdm.core;
-    requires com.tlcsdm.frame;
-    requires org.controlsfx.controls;
-    requires cn.hutool.core;
-    requires cn.hutool.log;
-    requires org.slf4j;
-    requires cn.hutool.poi;
+package com.tlcsdm.frame.cache;
 
-    exports com.tlcsdm.jfxcommon;
-    exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
+import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
-    opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
+/**
+ * SampleCache对象获取.
+ * 当引用caffeine时优先使用，否则使用SimpleSampleCache
+ *
+ * @author unknowIfGuestInDream
+ */
+public class SampleCacheFactory {
 
-    provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
+    private SampleCacheFactory() {
+        // Do nothing
+    }
 
+    private static SampleCache sampleCache;
+
+    static {
+        try {
+            Class.forName("com.github.benmanes.caffeine.cache.Cache");
+            sampleCache = new CaffeineSimpleCache();
+        } catch (ClassNotFoundException e) {
+            sampleCache = new SimpleSampleCache();
+        }
+    }
+
+    /**
+     * 获取对象.
+     */
+    public static Object get(String key) {
+        return sampleCache.get(key);
+    }
+
+    /**
+     * 缓存对象.
+     */
+    public static void put(String key, Object sample) {
+        sampleCache.put(key, sample);
+    }
+
+    /**
+     * 是否包含key值，存在返回true.
+     */
+    public static boolean containsKey(String key) {
+        return sampleCache.containsKey(key);
+    }
+
+    /**
+     * 移除key.
+     */
+    public static void removeKey(String key) {
+        sampleCache.removeKey(key);
+    }
+
+    /**
+     * 清空缓存.
+     */
+    public static void clear() {
+        sampleCache.clear();
+    }
 }

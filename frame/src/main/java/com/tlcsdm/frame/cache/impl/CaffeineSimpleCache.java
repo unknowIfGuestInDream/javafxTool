@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,25 +25,43 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-module com.tlcsdm.jfxcommon {
-    requires java.desktop;
-    requires javafx.fxml;
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires com.tlcsdm.core;
-    requires com.tlcsdm.frame;
-    requires org.controlsfx.controls;
-    requires cn.hutool.core;
-    requires cn.hutool.log;
-    requires org.slf4j;
-    requires cn.hutool.poi;
+package com.tlcsdm.frame.cache.impl;
 
-    exports com.tlcsdm.jfxcommon;
-    exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.tlcsdm.frame.cache.SampleCache;
 
-    opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
+/**
+ * Caffeine缓存.
+ *
+ * @author unknowIfGuestInDream
+ */
+public final class CaffeineSimpleCache implements SampleCache {
+    private final Cache<String, Object> cache = Caffeine.newBuilder()
+        .softValues().build();
 
-    provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
+    @Override
+    public void put(String key, Object value) {
+        cache.put(key, value);
+    }
 
+    @Override
+    public Object get(String key) {
+        return cache.getIfPresent(key);
+    }
+
+    @Override
+    public boolean containsKey(String key) {
+        return cache.getIfPresent(key) != null;
+    }
+
+    @Override
+    public void removeKey(String key) {
+        cache.invalidate(key);
+    }
+
+    @Override
+    public void clear() {
+        cache.invalidateAll();
+    }
 }
