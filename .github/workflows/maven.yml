@@ -36,6 +36,6 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml -DskipTests
+        run: mvn -B package --file pom.xml -DskipTests -Dfile.encoding=UTF-8
       - name: Test with Maven
-        run: mvn test --file pom.xml -DworkEnv=ci
+        run: mvn test --file pom.xml -DworkEnv=ci -Dfile.encoding=UTF-8
