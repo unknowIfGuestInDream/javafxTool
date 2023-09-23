@@ -38,6 +38,10 @@ import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
  */
 public class SampleCacheFactory {
 
+    private SampleCacheFactory() {
+        // Do nothing
+    }
+
     private static SampleCache sampleCache;
 
     static {
@@ -49,22 +53,37 @@ public class SampleCacheFactory {
         }
     }
 
+    /**
+     * 获取对象.
+     */
     public static Object get(String key) {
         return sampleCache.get(key);
     }
 
+    /**
+     * 缓存对象.
+     */
     public static void put(String key, Object sample) {
         sampleCache.put(key, sample);
     }
 
+    /**
+     * 是否包含key值，存在返回true.
+     */
     public static boolean containsKey(String key) {
         return sampleCache.containsKey(key);
     }
 
+    /**
+     * 移除key.
+     */
     public static void removeKey(String key) {
         sampleCache.removeKey(key);
     }
 
+    /**
+     * 清空缓存.
+     */
     public static void clear() {
         sampleCache.clear();
     }
