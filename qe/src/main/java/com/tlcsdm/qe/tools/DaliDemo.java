@@ -29,6 +29,7 @@ package com.tlcsdm.qe.tools;
 
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +49,8 @@ public class DaliDemo extends QeSample implements Initializable {
 
     @Override
     public boolean isVisible() {
-        return super.isVisible();
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value);
     }
 
     @Override

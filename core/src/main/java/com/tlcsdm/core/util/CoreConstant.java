@@ -52,6 +52,31 @@ public class CoreConstant {
      * JavaFX FXML API
      */
     public static final String JAVAFX_API_FXML_URL = "https://openjfx.io/javadoc/17/javafx.fxml/javafx/fxml/doc-files/introduction_to_fxml.html";
+    /**
+     * JVM配置key.
+     */
+    public static final String JVM_WORKENV = "workEnv";
+    /**
+     * 开发环境.
+     */
+    public static final String JVM_WORKENV_DEV = "dev";
+    /**
+     * CI/CD环境.
+     */
+    public static final String JVM_WORKENV_CI = "ci";
+    /**
+     * 测试环境.
+     */
+    public static final String JVM_WORKENV_TEST = "test";
+    /**
+     * 生产环境.
+     */
+    public static final String JVM_WORKENV_PROD = "prod";
+
+    /**
+     * 编码UTF-8.
+     */
+    public static final String ENCODING_UTF_8 = "UTF-8";
 
     /**
      * LICENSE内容

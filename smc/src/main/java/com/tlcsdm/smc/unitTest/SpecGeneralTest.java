@@ -27,6 +27,7 @@
 
 package com.tlcsdm.smc.unitTest;
 
+import cn.hutool.core.comparator.VersionComparator;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -49,6 +50,7 @@ import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
@@ -545,6 +547,15 @@ public class SpecGeneralTest extends SmcSample {
     @Override
     public String getSampleDescription() {
         return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+    }
+
+    @Override
+    protected void updateForVersionUpgrade() {
+        // 从1.0.9开始，修改了ignoreSheet默认值，因此对之前版本做清除操作
+        int compare = VersionComparator.INSTANCE.compare("1.0.9", FxXmlUtil.get(getSampleXmlPrefix(), "version", ""));
+        if (compare > 0) {
+            FxXmlUtil.del(getSampleXmlPrefix(), "ignoreSheet");
+        }
     }
 
     /**

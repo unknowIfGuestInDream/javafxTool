@@ -33,6 +33,7 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -125,7 +126,8 @@ public class TestTool extends QeSample {
 
     @Override
     public boolean isVisible() {
-        return true;
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value);
     }
 
     @Override

@@ -31,6 +31,7 @@ import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.LineChartWithMarkers;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.beans.binding.Bindings;
@@ -68,6 +69,9 @@ import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -75,10 +79,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * 测试用，测试fxml集成
@@ -142,7 +142,8 @@ public class FxmlDemo extends QeSample implements Initializable {
 
     @Override
     public boolean isVisible() {
-        return super.isVisible();
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value);
     }
 
     @Override

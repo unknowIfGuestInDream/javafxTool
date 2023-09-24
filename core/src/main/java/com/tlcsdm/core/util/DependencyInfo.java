@@ -141,7 +141,11 @@ public class DependencyInfo {
 
             new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.16.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PreferencesFX", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"));
+                "http://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.yahoo.platform.yui", "yuicompressor", "2.4.8", false,
+                "https://github.com/yui/yuicompressor", "BSD License",
+                "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"));
     }
 
     public static class Dependency {
@@ -155,7 +159,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-            String licenseUrl) {
+                          String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);

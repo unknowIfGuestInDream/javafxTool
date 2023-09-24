@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.util.CoreConstant;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -60,7 +61,7 @@ public class Config {
         Parameters params = new Parameters();
         File propertiesFile = ConfigureUtil.getConfigureFile(CONFIG_FILE_NAME);
         PropertiesBuilderParameters propertiesBuilderParameters = params.properties().setFile(propertiesFile)
-            .setEncoding("UTF-8").setListDelimiterHandler(new DefaultListDelimiterHandler(','))
+            .setEncoding(CoreConstant.ENCODING_UTF_8).setListDelimiterHandler(new DefaultListDelimiterHandler(','))
             .setThrowExceptionOnMissing(false);
         ReloadingFileBasedConfigurationBuilder<PropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(
             PropertiesConfiguration.class).configure(propertiesBuilderParameters);

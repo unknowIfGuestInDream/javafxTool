@@ -139,7 +139,7 @@ public class GroovyUtil {
         String content = "";
         try {
             conn = groovyScriptEngine.getResourceConnection(scriptName);
-            content = IOGroovyMethods.getText(conn.getInputStream(), "UTF-8");
+            content = IOGroovyMethods.getText(conn.getInputStream(), CoreConstant.ENCODING_UTF_8);
         } catch (ResourceException | IOException e) {
             StaticLog.error(e);
         }

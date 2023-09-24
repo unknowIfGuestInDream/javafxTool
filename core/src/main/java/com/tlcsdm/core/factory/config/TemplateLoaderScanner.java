@@ -30,6 +30,7 @@ package com.tlcsdm.core.factory.config;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.FileTemplateLoader;
@@ -70,7 +71,7 @@ public class TemplateLoaderScanner implements InitializingFactory {
         MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
         Configuration configuration = FreemarkerUtil.init();
         configuration.setTemplateLoader(mtl);
-        configuration.setDefaultEncoding("utf-8");
+        configuration.setDefaultEncoding(CoreConstant.ENCODING_UTF_8);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20, soft:250");
     }
