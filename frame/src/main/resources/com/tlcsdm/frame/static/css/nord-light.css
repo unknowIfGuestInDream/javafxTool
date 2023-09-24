@@ -4290,7 +4290,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: -color-fg-default;
-    -fx-padding: 0.4em 0.4em 0.4em 0.4em;
+    -fx-padding: 0.2em 0.2em 0.2em 0.2em;
 }
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label > * {
     -fx-fill: -color-fg-default;

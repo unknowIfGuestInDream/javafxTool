@@ -185,4 +185,16 @@ public class CoreUtil {
         return "jar".equals(url.getProtocol());
     }
 
+    /**
+     * 类是否存在，存在返回true.
+     */
+    public static boolean hasClass(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
 }

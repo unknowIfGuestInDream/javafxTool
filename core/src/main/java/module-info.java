@@ -36,6 +36,7 @@ module com.tlcsdm.core {
     requires static tabula;
     requires jsr305;
     requires static com.dlsc.preferencesfx;
+    requires static yuicompressor;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

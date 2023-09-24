@@ -27,6 +27,7 @@
 
 package com.tlcsdm.frame.cache;
 
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
 import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
@@ -42,14 +43,13 @@ public class SampleCacheFactory {
         // Do nothing
     }
 
-    private static SampleCache sampleCache;
+    private static final SampleCache SAMPLE_CACHE;
 
     static {
-        try {
-            Class.forName("com.github.benmanes.caffeine.cache.Cache");
-            sampleCache = new CaffeineSimpleCache();
-        } catch (ClassNotFoundException e) {
-            sampleCache = new SimpleSampleCache();
+        if (CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache")) {
+            SAMPLE_CACHE = new CaffeineSimpleCache();
+        } else {
+            SAMPLE_CACHE = new SimpleSampleCache();
         }
     }
 
@@ -57,34 +57,34 @@ public class SampleCacheFactory {
      * 获取对象.
      */
     public static Object get(String key) {
-        return sampleCache.get(key);
+        return SAMPLE_CACHE.get(key);
     }
 
     /**
      * 缓存对象.
      */
     public static void put(String key, Object sample) {
-        sampleCache.put(key, sample);
+        SAMPLE_CACHE.put(key, sample);
     }
 
     /**
      * 是否包含key值，存在返回true.
      */
     public static boolean containsKey(String key) {
-        return sampleCache.containsKey(key);
+        return SAMPLE_CACHE.containsKey(key);
     }
 
     /**
      * 移除key.
      */
     public static void removeKey(String key) {
-        sampleCache.removeKey(key);
+        SAMPLE_CACHE.removeKey(key);
     }
 
     /**
      * 清空缓存.
      */
     public static void clear() {
-        sampleCache.clear();
+        SAMPLE_CACHE.clear();
     }
 }

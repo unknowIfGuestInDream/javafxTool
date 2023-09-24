@@ -106,7 +106,7 @@ public class QeConstant {
      * 当前项目加的依赖
      */
     public static final List<String> DEPENDENCY_LIST = List.of("poi", "freemarker", "dom4j", "java-diff-utils",
-        "richtextfx", "thumbnailator", "groovy", "jackson");
+        "richtextfx", "thumbnailator", "yuicompressor", "jackson");
 
     private QeConstant() {
     }

@@ -9,6 +9,7 @@ module com.tlcsdm.frame {
     requires cn.hutool.log;
     requires cn.hutool.crypto;
     requires static com.github.benmanes.caffeine;
+    requires javafx.fxml;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
