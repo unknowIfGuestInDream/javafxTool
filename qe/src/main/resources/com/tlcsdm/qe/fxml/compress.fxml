@@ -30,60 +30,100 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<VBox prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.tlcsdm.qe.tools.Compress">
-    <children>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-            <tabs>
-                <Tab text="JS">
-                    <content>
-                        <GridPane hgap="2.0" vgap="12.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                                    <items>
-                                        <Button mnemonicParsing="false" text="Button"/>
-                                    </items>
-                                </ToolBar>
-                                <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.rowIndex="1"/>
-                                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2"
-                                          GridPane.vgrow="SOMETIMES"/>
-                                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3"
-                                          GridPane.vgrow="SOMETIMES"/>
-                            </children>
-                            <padding>
-                                <Insets bottom="2.0"/>
-                            </padding>
-                        </GridPane>
-                    </content>
-                </Tab>
-                <Tab text="CSS">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-                    </content>
-                </Tab>
-            </tabs>
-            <padding>
-                <Insets left="2.0" right="2.0"/>
-            </padding>
-        </TabPane>
-    </children>
-</VBox>
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="605.0" minWidth="555.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.Compress">
+    <content>
+        <VBox minWidth="550.0" prefHeight="600.0">
+            <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <Tab text="JS">
+                            <content>
+                                <GridPane hgap="2.0" vgap="12.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                            <items>
+                                                <Button fx:id="btnJsCompress" mnemonicParsing="false"
+                                                        onAction="#compressJs"
+                                                        text="%qe.tool.compress.button.jsCompress"/>
+                                            </items>
+                                            <GridPane.margin>
+                                                <Insets top="2.0"/>
+                                            </GridPane.margin>
+                                        </ToolBar>
+                                        <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.rowIndex="1">
+                                            <children>
+                                                <CheckBox fx:id="enableMunge" mnemonicParsing="false"
+                                                          text="%qe.tool.compress.check.enableMunge"
+                                                          GridPane.rowIndex="1">
+                                                    <HBox.margin>
+                                                        <Insets left="5.0"/>
+                                                    </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="enableVerbose" mnemonicParsing="false"
+                                                          text="%qe.tool.compress.check.enableVerbose"/>
+                                                <CheckBox fx:id="enablePreserveAllSemiColons" mnemonicParsing="false"
+                                                          text="%qe.tool.compress.check.enablePreserveAllSemiColons"/>
+                                                <CheckBox fx:id="enableOptimizations" mnemonicParsing="false"
+                                                          selected="true"
+                                                          text="%qe.tool.compress.check.enableOptimizations"/>
+                                                <TextField fx:id="txtLinebreakpos" alignment="CENTER_RIGHT"
+                                                           minWidth="60.0" prefHeight="23.0" prefWidth="55.0"
+                                                           text="5000"/>
+                                                <CheckBox fx:id="enableLinebreakpos" mnemonicParsing="false"
+                                                          text="%qe.tool.compress.check.enableLinebreakpos"/>
+                                            </children>
+                                            <GridPane.margin>
+                                                <Insets/>
+                                            </GridPane.margin>
+                                            <padding>
+                                                <Insets bottom="3.0"/>
+                                            </padding>
+                                        </HBox>
+                                        <TextArea fx:id="txtJsCode" prefHeight="200.0" prefWidth="200.0"
+                                                  GridPane.rowIndex="2" GridPane.vgrow="SOMETIMES"/>
+                                        <TextArea fx:id="txtJsResult" editable="false" prefHeight="200.0"
+                                                  prefWidth="200.0" GridPane.rowIndex="3" GridPane.vgrow="SOMETIMES"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="2.0"/>
+                                    </padding>
+                                </GridPane>
+                            </content>
+                        </Tab>
+                        <Tab text="CSS">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                            </content>
+                        </Tab>
+                    </tabs>
+                    <padding>
+                        <Insets left="2.0" right="2.0"/>
+                    </padding>
+                </TabPane>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
