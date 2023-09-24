@@ -27,7 +27,12 @@
 
 package com.tlcsdm.core.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -38,26 +43,23 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 需要在module.info中将jackson引用中去除static关键字才可启用测试类
+ * 需要在module.info中将jackson引用中去除static关键字才可启用测试类.
  *
- * @author: unknowIfGuestInDream
- * @date: 2023/4/2 10:38
  * @author unknowIfGuestInDream
  * @date 2023/4/2 10:38
  */
 @Disabled
-public class JacksonTest {
+class JacksonTest {
 
     @Test
-    public void entityToJson() throws Exception {
+    void entityToJson() throws Exception {
         //用户信息实体类
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserName("pan_junbiao的博客");
+        userInfo.setUserName("Guest");
         userInfo.setPassword("123456");
-        userInfo.setBlogUrl("https://blog.csdn.net/pan_junbiao");
-        userInfo.setBlogRemark("您好，欢迎访问 pan_junbiao的博客");
+        userInfo.setBlogUrl("https://www.baidu.com");
+        userInfo.setBlogRemark("您好，欢迎访问 Guest");
         userInfo.setCreateDate(new Date());
-
         //将参数转换成JSON对象
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(userInfo);
@@ -66,72 +68,65 @@ public class JacksonTest {
     }
 
     @Test
-    public void jsonToEntity() throws Exception {
+    void jsonToEntity() throws Exception {
         //JSON内容
         String json = "{\n" +
-            "\t\"userName\": \"pan_junbiao的博客\",\n" +
+            "\t\"userName\": \"Guest\",\n" +
             "\t\"password\": \"123456\",\n" +
-            "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
-            "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
+            "\t\"blogUrl\": \"https://www.baidu.com\",\n" +
+            "\t\"blog-remark\": \"您好，欢迎访问 Guest\",\n" +
             "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
             "}";
-
         //将JSON转换为实体类
         ObjectMapper mapper = new ObjectMapper();
         UserInfo userInfo = mapper.readValue(json, UserInfo.class);
-
         //打印结果
-        System.out.println("用户名称：" + userInfo.getUserName());
-        System.out.println("登录密码：" + userInfo.getPassword());
-        System.out.println("博客地址：" + userInfo.getBlogUrl());
-        System.out.println("博客信息：" + userInfo.getBlogRemark());
-        System.out.println("创建时间：" + userInfo.getCreateDate());
+        Assertions.assertEquals("Guest", userInfo.getUserName());
+        Assertions.assertNull(userInfo.getPassword());
+        Assertions.assertEquals("https://www.baidu.com", userInfo.getBlogUrl());
+        Assertions.assertEquals("您好，欢迎访问 Guest", userInfo.getBlogRemark());
+        Assertions.assertEquals(1590826708000L, userInfo.getCreateDate().getTime());
     }
 
     @Test
-    public void bean2Json() {
+    void bean2Json() {
         //用户信息实体类
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserName("pan_junbiao的博客");
+        userInfo.setUserName("Guest");
         userInfo.setPassword("123456");
-        userInfo.setBlogUrl("https://blog.csdn.net/pan_junbiao");
-        userInfo.setBlogRemark("您好，欢迎访问 pan_junbiao的博客");
+        userInfo.setBlogUrl("https://www.baidu.com");
+        userInfo.setBlogRemark("您好，欢迎访问 Guest");
         userInfo.setCreateDate(new Date());
-
         //将参数转换成JSON对象
         String json = JacksonUtil.bean2Json(userInfo);
-        //打印结果
         System.out.println(json);
     }
 
     @Test
-    public void json2Bean() {
+    void json2Bean() {
         //JSON内容
         String json = "{\n" +
-            "\t\"userName\": \"pan_junbiao的博客\",\n" +
+            "\t\"userName\": \"Guest\",\n" +
             "\t\"password\": \"123456\",\n" +
-            "\t\"blogUrl\": \"https://blog.csdn.net/pan_junbiao\",\n" +
-            "\t\"blog-remark\": \"您好，欢迎访问 pan_junbiao的博客\",\n" +
+            "\t\"blogUrl\": \"https://www.baidu.com\",\n" +
+            "\t\"blog-remark\": \"您好，欢迎访问 Guest\",\n" +
             "\t\"createDate\": \"2020-05-30 16:18:28\"\n" +
             "}";
-
         //将JSON转换为实体类
         UserInfo userInfo = JacksonUtil.json2Bean(json, UserInfo.class);
-
-        //打印结果
-        System.out.println("用户名称：" + userInfo.getUserName());
-        System.out.println("登录密码：" + userInfo.getPassword());
-        System.out.println("博客地址：" + userInfo.getBlogUrl());
-        System.out.println("博客信息：" + userInfo.getBlogRemark());
-        System.out.println("创建时间：" + userInfo.getCreateDate());
+        Assertions.assertEquals("Guest", userInfo.getUserName());
+        Assertions.assertNull(userInfo.getPassword());
+        Assertions.assertEquals("https://www.baidu.com", userInfo.getBlogUrl());
+        Assertions.assertEquals("您好，欢迎访问 Guest", userInfo.getBlogRemark());
+        Assertions.assertEquals(1590826708000L, userInfo.getCreateDate().getTime());
     }
 
     @Test
-    public void json2Set() {
+    void json2Set() {
         Set<String> userSet = new HashSet<>();
-        userSet.add("pan_junbiao的博客");
-        userSet.add("您好，欢迎访问 pan_junbiao的博客");
-        userSet.add("https://blog.csdn.net/pan_junbiao");
+        userSet.add("Guest");
+        userSet.add("您好，欢迎访问 Guest");
+        userSet.add("https://www.baidu.com");
 
         //将Set转化为JSON数据
         String json = JacksonUtil.bean2Json(userSet);
@@ -145,20 +140,98 @@ public class JacksonTest {
     }
 
     @Test
-    public void json2Map() {
+    void json2Map() {
         Map<String, String> userMap = new HashMap<>();
-        userMap.put("userName", "pan_junbiao的博客");
-        userMap.put("blogUrl", "https://blog.csdn.net/pan_junbiao");
-        userMap.put("blogRemark", "您好，欢迎访问 pan_junbiao的博客");
+        userMap.put("userName", "Guest");
+        userMap.put("blogUrl", "https://www.baidu.com");
+        userMap.put("blogRemark", "您好，欢迎访问 Guest");
 
         //将map转化为JSON数据
         String json = JacksonUtil.bean2Json(userMap);
 
         //将JSON数据转换成Map集合
         Map<String, String> jsonToMap = JacksonUtil.json2Map(json, String.class, String.class);
-        System.out.println("用户名称：" + jsonToMap.get("userName"));
-        System.out.println("博客地址：" + jsonToMap.get("blogUrl"));
-        System.out.println("博客备注：" + jsonToMap.get("blogRemark"));
+        Assertions.assertEquals("Guest", jsonToMap.get("userName"));
+        Assertions.assertEquals("https://www.baidu.com", jsonToMap.get("blogUrl"));
+        Assertions.assertEquals("您好，欢迎访问 Guest", jsonToMap.get("blogRemark"));
     }
-}
 
+    /**
+     * 忽略未知字段配置测试.
+     */
+    @Test
+    void testUnknownProperties() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String json = "{\"age\":10,\"name\":\"曹操\",\"class\":\"语文\"}";
+        Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+    /**
+     * 属性为NULL不被序列化测试.
+     */
+    @Test
+    void testNonNull() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        User user = new User();
+        user.setAge(10);
+        Assertions.assertDoesNotThrow(() -> objectMapper.writeValueAsString(user));
+    }
+
+    /**
+     * json字符串值带反斜杠("\")，默认反序列化会失败测试.
+     */
+    @Test
+    void testFailOnEmptyBeans() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
+        String json = "{\"age\":10,\"name\":\"曹\\操\"}";
+        Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+    /**
+     * json字符串带注释符，默认反序列化会失败测试.
+     */
+    @Test
+    void testAllowComments() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+        String json = "{"
+            + "\"age\"" + ":" + 10 +
+            "/*" + "," +
+            "\"name\"" + ":" + "\"曹操\"*/" +
+            "}";
+        //Feature.ALLOW_COMMENTS打开时，JSON里的注释符会被过滤掉,解析器能解析
+        Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+    /**
+     * 反序列Json字符串中包含制控制字符测试.
+     */
+    @Test
+    void testAllowSingleQuotes() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        //开启单引号解析
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        //开启JSON字符串包含非引号控制字符的解析（\n换行符）
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        String json = "{'age':12, 'name':'曹操\n'}";
+        Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+    /**
+     * 反序列Json字符串中属性名没有双引号测试.
+     */
+    @Test
+    void testAllowUnquotedFieldNames() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        //开启单引号解析
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        //开启属性名没有双引号的非标准json字符串
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        String json = "{age:12, name:'曹操'}";
+        Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+}
