@@ -67,6 +67,14 @@ public class Compress extends QeSample implements Initializable {
     private TextField txtLinebreakpos;
     @FXML
     private TextArea txtJsCode, txtJsResult;
+    @FXML
+    private Button btnCssCompress;
+    @FXML
+    private CheckBox enableCssLinebreakpos;
+    @FXML
+    private TextField txtCssLinebreakpos;
+    @FXML
+    private TextArea txtCssCode, txtCssResult;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     @Override
@@ -114,6 +122,8 @@ public class Compress extends QeSample implements Initializable {
     public void initializeBindings() {
         txtLinebreakpos.disableProperty().bind(enableLinebreakpos.selectedProperty().not());
         btnJsCompress.disableProperty().bind(txtJsCode.textProperty().isEmpty());
+        btnCssCompress.disableProperty().bind(txtCssCode.textProperty().isEmpty());
+        txtCssLinebreakpos.disableProperty().bind(enableCssLinebreakpos.selectedProperty().not());
     }
 
     @Override
@@ -125,10 +135,13 @@ public class Compress extends QeSample implements Initializable {
         userData.put("enablePreserveAllSemiColons", enablePreserveAllSemiColons);
         userData.put("enableLinebreakpos", enableLinebreakpos);
         userData.put("txtLinebreakpos", txtLinebreakpos);
+        userData.put("enableCssLinebreakpos", enableCssLinebreakpos);
+        userData.put("txtCssLinebreakpos", txtCssLinebreakpos);
     }
 
     private void initializeUI() {
         btnJsCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+        btnCssCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
     @FXML
@@ -144,6 +157,22 @@ public class Compress extends QeSample implements Initializable {
         txtJsResult.setText(result);
         OSUtil.writeToClipboard(result);
         notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.success"));
+        notificationBuilder.showInformation();
+        bindUserData();
+    }
+
+    @FXML
+    public void compressCss(ActionEvent actionEvent) {
+        int linebreakpos = enableCssLinebreakpos.isSelected() ? Integer.parseInt(txtCssLinebreakpos.getText()) : -1;
+        String result = CompressUtil.compressCSS(txtCssCode.getText(), linebreakpos);
+        if (result.isEmpty()) {
+            notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.fail"));
+            notificationBuilder.showInformation();
+            return;
+        }
+        txtCssResult.setText(result);
+        OSUtil.writeToClipboard(result);
+        notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.success"));
         notificationBuilder.showInformation();
         bindUserData();
     }
