@@ -33,8 +33,8 @@ import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ import java.util.Set;
  * @author unknowIfGuestInDream
  * @date 2023/4/2 10:38
  */
-@Disabled
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class JacksonTest {
 
     @Test
