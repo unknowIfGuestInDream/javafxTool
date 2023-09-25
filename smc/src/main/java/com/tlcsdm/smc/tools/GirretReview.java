@@ -52,6 +52,7 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -632,6 +633,7 @@ public class GirretReview extends SmcSample {
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
         });
+        OSUtil.openAndSelectedFile(resultPath);
     }
 
     // 设置生成的excel样式
