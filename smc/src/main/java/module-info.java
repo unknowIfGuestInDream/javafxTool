@@ -80,6 +80,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
+    exports com.tlcsdm.smc.tools.girret to com.fasterxml.jackson.databind;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
     opens com.tlcsdm.smc.codeDev.ecm to javafx.graphics;
