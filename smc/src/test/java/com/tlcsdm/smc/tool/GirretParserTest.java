@@ -29,24 +29,25 @@ package com.tlcsdm.smc.tool;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.smc.tools.girret.Change;
 import com.tlcsdm.smc.tools.girret.Comment;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * girret json解析测试.
- *
- * @author unknowIfGuestInDream
- */
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GirretParserTest {
 
     @Test
+    @Order(1)
     void change() {
         String changeJson = FileUtil
             .readUtf8String(FileUtil.file(ResourceUtil.getResource("girret").getPath(), "changes.json"));
@@ -57,6 +58,7 @@ class GirretParserTest {
     }
 
     @Test
+    @Order(2)
     void comment() {
         String commentJson = FileUtil
             .readUtf8String(FileUtil.file(ResourceUtil.getResource("girret").getPath(), "comments.json"));
@@ -64,6 +66,16 @@ class GirretParserTest {
         if (map != null) {
             Assertions.assertEquals(2, map.size());
         }
+    }
+
+    @Test
+    @Order(3)
+    @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
+    void writePretty() throws JsonProcessingException {
+        String changeJson = FileUtil
+            .readUtf8String(FileUtil.file(ResourceUtil.getResource("girret").getPath(), "changes.json"));
+        List<Change> changeList = JacksonUtil.json2List(changeJson, Change.class);
+        System.out.println(JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changeList));
     }
 
 }

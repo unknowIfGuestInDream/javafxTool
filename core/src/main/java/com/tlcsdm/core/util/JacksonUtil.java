@@ -98,7 +98,7 @@ public class JacksonUtil {
         // map序列化后，是否用key对其排序
         .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, false)
         // 是否使用缩进，格式化输出
-        .configure(SerializationFeature.INDENT_OUTPUT, false)
+        .configure(SerializationFeature.INDENT_OUTPUT, true)
         // 使用getter取代setter探测属性，这是针对集合类型，可以直接修改集合的属性
         .configure(MapperFeature.USE_GETTERS_AS_SETTERS, true)
         // 如何处理transient字段，如果true(不能访问此属性) ，若是false则不能通过字段访问（还是可以使用getter和setter访问）
