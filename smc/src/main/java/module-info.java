@@ -61,7 +61,6 @@ module com.tlcsdm.smc {
     requires cn.hutool.core;
     requires cn.hutool.poi;
     requires cn.hutool.log;
-    requires cn.hutool.json;
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;

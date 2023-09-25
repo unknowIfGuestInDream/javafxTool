@@ -313,6 +313,7 @@ public final class FXSampler extends Application {
             FxApp.setTitle(title);
             FxApp.setAppIcon(fxsamplerConfiguration.getAppIcon());
         }
+        stage.setAlwaysOnTop(true);
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(600);
