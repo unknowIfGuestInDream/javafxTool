@@ -52,6 +52,7 @@ import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
@@ -221,7 +222,7 @@ public class GirretReview extends SmcSample {
                                 if (result.startsWith(")]}'")) {
                                     result = result.substring(4);
                                 }
-                                JSONArray array = JSONUtil.parseArray(result);
+                                List<Map> array = JacksonUtil.json2List(result, Map.class);
                                 handleChanges(array, paramN);
                                 if (changesEnd) {
                                     break;
@@ -432,7 +433,7 @@ public class GirretReview extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.3";
+        return "1.0.9";
     }
 
     @Override
@@ -459,26 +460,28 @@ public class GirretReview extends SmcSample {
     /**
      * girret changes 数据处理
      */
-    private void handleChanges(JSONArray array, int paramN) {
+    private void handleChanges(List<Map> array, int paramN) {
         for (int i = 0; i < array.size(); i++) {
-            if (changesFilter(array.get(i), array, i)) {
-                String submitted = String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", "");
+            Map changeMap = array.get(i);
+            if (changesFilter(changeMap, array, i)) {
+                String submitted = String.valueOf(changeMap.get("submitted")).replace(".000000000", "");
                 if (startDatePicker.getValue() != null) {
                     if ((startDatePicker.getValue().toString() + " 00:00:00").compareTo(submitted) >= 0) {
                         changesEnd = true;
                         break;
                     }
                 }
+                Map userMap = (Map) changeMap.get("owner");
                 Map<String, String> map = new HashMap<>();
-                map.put("girretNum", String.valueOf(array.getByPath("[" + i + "]._number")));
-                map.put("project", String.valueOf(array.getByPath("[" + i + "].project")));
-                map.put("changeId", String.valueOf(array.getByPath("[" + i + "].change_id")));
-                map.put("subject", String.valueOf(array.getByPath("[" + i + "].subject")));
-                map.put("created", String.valueOf(array.getByPath("[" + i + "].created")).replace(".000000000", ""));
+                map.put("girretNum", String.valueOf(changeMap.get("_number")));
+                map.put("project", String.valueOf(changeMap.get("project")));
+                map.put("changeId", String.valueOf(changeMap.get("change_id")));
+                map.put("subject", String.valueOf(changeMap.get("subject")));
+                map.put("created", String.valueOf(changeMap.get("created")).replace(".000000000", ""));
                 map.put("submitted", submitted);
-                map.put("insertions", String.valueOf(array.getByPath("[" + i + "].insertions")));
-                map.put("deletions", String.valueOf(array.getByPath("[" + i + "].deletions")));
-                map.put("ownerUserName", String.valueOf(array.getByPath("[" + i + "].owner.username")));
+                map.put("insertions", String.valueOf(changeMap.get("insertions")));
+                map.put("deletions", String.valueOf(changeMap.get("deletions")));
+                map.put("ownerUserName", String.valueOf(userMap.get("username")));
                 changesList.add(map);
             }
         }
@@ -491,13 +494,15 @@ public class GirretReview extends SmcSample {
     /**
      * changes数据过滤
      */
-    private boolean changesFilter(Object obj, JSONArray array, int i) {
+    private boolean changesFilter(Object obj, List<Map> array, int i) {
+        Map map = array.get(i);
         // 未合并的提交不统计
-        if (!Objects.equals("MERGED", array.getByPath("[" + i + "].status"))) {
+        if (!Objects.equals("MERGED", map.get("status"))) {
             return false;
         }
         // 提交者不是userName的不统计
-        String queryEmail = array.getByPath("[" + i + "].owner.email").toString();
+        Map ownerMap = (Map) map.get("owner");
+        String queryEmail = ownerMap.get("email").toString();
         if (StrUtil.isNotEmpty(ownerEmailField.getText())) {
             if (!ownerEmailField.getText().startsWith(userNameField.getText())) {
                 if (!Objects.equals(ownerEmailField.getText(), queryEmail)) {
@@ -514,12 +519,14 @@ public class GirretReview extends SmcSample {
             }
         }
         List<String> ignoreGirretNumberList = StrUtil.splitTrim(ignoreGirretNumberField.getText(), ",");
-        if (ignoreGirretNumberList.size() > 0) {
-            return !ignoreGirretNumberList.contains(array.getByPath("[" + i + "].owner._number"));
+        if (!ignoreGirretNumberList.isEmpty()) {
+            if (ignoreGirretNumberList.contains(map.get("_number"))) {
+                return false;
+            }
         }
         // 过滤project
-        if (projectList.size() > 0) {
-            if (!projectList.contains(array.getByPath("[" + i + "].project"))) {
+        if (!projectList.isEmpty()) {
+            if (!projectList.contains(map.get("project"))) {
                 return false;
             }
         }
@@ -532,7 +539,7 @@ public class GirretReview extends SmcSample {
      */
     private void handleComments(String commentsRequestUrl, String resultPath, String resultFileName)
         throws IOException, InterruptedException {
-        if (changesList.size() == 0) {
+        if (changesList.isEmpty()) {
             FxApp.runLater(() -> {
                 notificationBuilder.text("No need changes");
                 notificationBuilder.showInformation();
@@ -590,7 +597,7 @@ public class GirretReview extends SmcSample {
      * 数据结果处理
      */
     private void handleResult(String resultPath, String resultFileName) {
-        if (commentsList.size() == 0) {
+        if (commentsList.isEmpty()) {
             FxApp.runLater(() -> {
                 notificationBuilder.text("No need comments");
                 notificationBuilder.showInformation();
@@ -620,6 +627,7 @@ public class GirretReview extends SmcSample {
             FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList), FileUtil.file(resultPath,
                 LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN) + "-comments.json"));
         }
+        StaticLog.info("Generate successfully...");
         FxApp.runLater(() -> {
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
