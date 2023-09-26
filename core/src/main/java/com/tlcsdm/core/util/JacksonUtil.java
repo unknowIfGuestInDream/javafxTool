@@ -40,6 +40,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.type.SimpleType;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -97,7 +98,7 @@ public class JacksonUtil {
         // map序列化后，是否用key对其排序
         .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, false)
         // 是否使用缩进，格式化输出
-        .configure(SerializationFeature.INDENT_OUTPUT, false)
+        .configure(SerializationFeature.INDENT_OUTPUT, true)
         // 使用getter取代setter探测属性，这是针对集合类型，可以直接修改集合的属性
         .configure(MapperFeature.USE_GETTERS_AS_SETTERS, true)
         // 如何处理transient字段，如果true(不能访问此属性) ，若是false则不能通过字段访问（还是可以使用getter和setter访问）
@@ -212,9 +213,27 @@ public class JacksonUtil {
     public static <T> List<T> json2List(String jsonData, Class<T> beanType) {
         try {
             JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, beanType);
-            List<T> resultList = mapper.readValue(jsonData, javaType);
-            return resultList;
-        } catch (Exception e) {
+            return mapper.readValue(jsonData, javaType);
+        } catch (JsonProcessingException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * 将JSON数据转换成List<Map<K, V>>.
+     *
+     * @param jsonData  JSON数据
+     * @param keyType   键类型
+     * @param valueType 值类型
+     * @return 列表
+     */
+    public static <K, V> List<Map<K, V>> json2ListMap(String jsonData, Class<K> keyType, Class<V> valueType) {
+        try {
+            JavaType mapType = mapper.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, mapType);
+            return mapper.readValue(jsonData, javaType);
+        } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
         return null;
@@ -230,9 +249,8 @@ public class JacksonUtil {
     public static <E> Set<E> json2Set(String jsonData, Class<E> elementType) {
         try {
             JavaType javaType = mapper.getTypeFactory().constructCollectionType(Set.class, elementType);
-            Set<E> resultSet = mapper.readValue(jsonData, javaType);
-            return resultSet;
-        } catch (Exception e) {
+            return mapper.readValue(jsonData, javaType);
+        } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
         return null;
@@ -249,9 +267,27 @@ public class JacksonUtil {
     public static <K, V> Map<K, V> json2Map(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
             JavaType javaType = mapper.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            Map<K, V> resultMap = mapper.readValue(jsonData, javaType);
-            return resultMap;
-        } catch (Exception e) {
+            return mapper.readValue(jsonData, javaType);
+        } catch (JsonProcessingException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * 将JSON数据转换成Map<K, List<T>>.
+     *
+     * @param jsonData JSON数据
+     * @param keyType  键类型
+     * @param beanType List值类型
+     * @return Map集合
+     */
+    public static <K, T> Map<K, List<T>> json2MapValueList(String jsonData, Class<K> keyType, Class<T> beanType) {
+        try {
+            JavaType listType = mapper.getTypeFactory().constructParametricType(List.class, beanType);
+            JavaType javaType = mapper.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
+            return mapper.readValue(jsonData, javaType);
+        } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
         return null;

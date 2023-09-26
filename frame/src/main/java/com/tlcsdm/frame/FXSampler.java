@@ -345,6 +345,7 @@ public final class FXSampler extends Application {
         if (!supportAnim) {
             stage.show();
         }
+        stage.requestFocus();
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
