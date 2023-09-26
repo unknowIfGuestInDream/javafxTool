@@ -1,0 +1,270 @@
+{
+    "/PATCHSET_LEVEL": [
+        {
+            "author": {
+                "_account_id": 1000128,
+                "name": "User 2",
+                "email": "user2@demo.com",
+                "username": "user2",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "07ee8173c2ae49385bdced4d1c38c0ce5d221a3b",
+            "unresolved": false,
+            "patch_set": 2,
+            "id": "9471bce5_59557609",
+            "updated": "2023-07-03 03:37:11.000000000",
+            "message": "Review-Time: 2m",
+            "commit_id": "0e6298a9636860a4870f052bfc955a7d7c6b459f"
+        },
+        {
+            "author": {
+                "_account_id": 1000128,
+                "name": "User 2",
+                "email": "user2@demo.com",
+                "username": "user2",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "942e4c240062879fa9971e96b214e0e998ab0732",
+            "unresolved": false,
+            "patch_set": 3,
+            "id": "7c9069cd_b15df266",
+            "updated": "2023-07-04 06:16:16.000000000",
+            "message": "Review-Time: 15m",
+            "commit_id": "7d331cafcf72e3ee9356e66b1341de7a96b11916"
+        },
+        {
+            "author": {
+                "_account_id": 1000024,
+                "name": "Admin",
+                "email": "admin@demo.com",
+                "username": "admin",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/b11e00ee1d1f97a4fbf126e3eb14ea16.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/b11e00ee1d1f97a4fbf126e3eb14ea16.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/b11e00ee1d1f97a4fbf126e3eb14ea16.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/b11e00ee1d1f97a4fbf126e3eb14ea16.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "3b3243a647181227636c20398fb383ebdd4f8082",
+            "unresolved": false,
+            "patch_set": 4,
+            "id": "3ca82df2_2abd5b1d",
+            "updated": "2023-07-04 09:27:47.000000000",
+            "message": "Review-Time: 1m",
+            "commit_id": "ba188fab53cfe10b49a60b8be6117268de19b251"
+        }
+    ],
+    "bundles/com.renesas.qe.afe.component/src/com/renesas/afe/component/rx/connection/ChScanPeriodCalculator.java": [
+        {
+            "author": {
+                "_account_id": 1000128,
+                "name": "User 2",
+                "email": "user2@demo.com",
+                "username": "user2",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "07ee8173c2ae49385bdced4d1c38c0ce5d221a3b",
+            "unresolved": true,
+            "patch_set": 2,
+            "id": "a79237f1_a7eba8cf",
+            "line": 102,
+            "range": {
+                "start_line": 102,
+                "start_character": 9,
+                "end_line": 102,
+                "end_character": 14
+            },
+            "updated": "2023-07-03 03:37:11.000000000",
+            "message": "Why change fMod?",
+            "commit_id": "0e6298a9636860a4870f052bfc955a7d7c6b459f"
+        },
+        {
+            "author": {
+                "_account_id": 1000488,
+                "name": "User 1",
+                "display_name": "User 1",
+                "email": "user1@bp.demo.com",
+                "username": "user1",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "0fa8be399fc4279a0891897106e2ef4184aef849",
+            "unresolved": true,
+            "patch_set": 2,
+            "id": "d05eaf68_82028f12",
+            "line": 102,
+            "range": {
+                "start_line": 102,
+                "start_character": 9,
+                "end_line": 102,
+                "end_character": 14
+            },
+            "in_reply_to": "7dd99574_33f89174",
+            "updated": "2023-07-04 05:35:55.000000000",
+            "message": "Modified.",
+            "commit_id": "0e6298a9636860a4870f052bfc955a7d7c6b459f"
+        },
+        {
+            "author": {
+                "_account_id": 1000128,
+                "name": "User 2",
+                "email": "user2@demo.com",
+                "username": "user2",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/7572a58e3106519c8d8e2cf2557c7d0f.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "92502eb5a9101a52102eb5580076baf1f5044f91",
+            "unresolved": true,
+            "patch_set": 2,
+            "id": "7dd99574_33f89174",
+            "line": 102,
+            "range": {
+                "start_line": 102,
+                "start_character": 9,
+                "end_line": 102,
+                "end_character": 14
+            },
+            "in_reply_to": "935a35b3_bd190cfb",
+            "updated": "2023-07-03 03:45:49.000000000",
+            "message": "Only the PCLKC of the setting time formula becomes PCLKB.",
+            "commit_id": "0e6298a9636860a4870f052bfc955a7d7c6b459f"
+        },
+        {
+            "author": {
+                "_account_id": 1000488,
+                "name": "User 1",
+                "display_name": "User 1",
+                "email": "user1@bp.demo.com",
+                "username": "user1",
+                "avatars": [
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d32",
+                        "height": 32
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d56",
+                        "height": 56
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d100",
+                        "height": 100
+                    },
+                    {
+                        "url": "http://www.gravatar.com/avatar/42eb2a0cd20350f0458a0bc8cb38d580.jpg?d\u003didenticon\u0026r\u003dpg\u0026s\u003d120",
+                        "height": 120
+                    }
+                ]
+            },
+            "change_message_id": "9267979e4002787d13ae42e5f3093b412aec6ab3",
+            "unresolved": true,
+            "patch_set": 2,
+            "id": "935a35b3_bd190cfb",
+            "line": 102,
+            "range": {
+                "start_line": 102,
+                "start_character": 9,
+                "end_line": 102,
+                "end_character": 14
+            },
+            "in_reply_to": "a79237f1_a7eba8cf",
+            "updated": "2023-07-03 03:40:11.000000000",
+            "message": "Because in the current design, tcPCLKC changed to tcPCLKB.",
+            "commit_id": "0e6298a9636860a4870f052bfc955a7d7c6b459f"
+        }
+    ]
+}

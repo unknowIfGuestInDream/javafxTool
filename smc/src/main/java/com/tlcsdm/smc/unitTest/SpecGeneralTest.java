@@ -45,6 +45,7 @@ import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.control.ProgressStage;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -148,6 +149,8 @@ public class SpecGeneralTest extends SmcSample {
      * </pre>
      */
     private final Action diff = FxAction.create(I18nUtils.get("smc.tool.specGeneralTest.button.diff"), actionEvent -> {
+        ProgressStage ps = ProgressStage.of();
+        ps.show();
         ThreadPoolTaskExecutor.get().execute(new Runnable() {
 
             @Override
@@ -310,12 +313,14 @@ public class SpecGeneralTest extends SmcSample {
                         DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
                     }
                     FxApp.runLater(() -> {
+                        ps.close();
                         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
                         notificationBuilder.showInformation();
                     });
                     bindUserData();
                 } catch (Exception e) {
                     FxApp.runLater(() -> {
+                        ps.close();
                         ExceptionDialog exceptionDialog = new ExceptionDialog(e);
                         exceptionDialog.show();
                     });
