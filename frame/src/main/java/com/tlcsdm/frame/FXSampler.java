@@ -42,6 +42,7 @@ import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
@@ -78,6 +79,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -115,7 +117,8 @@ public final class FXSampler extends Application {
     private Project selectedProject;
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
-    private ServiceLoader<FXSamplerConfiguration> samplerConfigurations;
+    private FXSamplerConfiguration fxsamplerConfiguration;
+    private Image appicon;
     private MenubarConfigration menubarConfigration;
     // 闪屏部分
     private Stage loadingStage;
@@ -133,6 +136,7 @@ public final class FXSampler extends Application {
         stage = primaryStage;
         StaticLog.debug("Load splash screen.");
         EventBus.getDefault().register(this);
+        loadConfiguration();
         loadSplash();
         StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
@@ -157,6 +161,21 @@ public final class FXSampler extends Application {
     }
 
     /**
+     * 加载程序配置，主要是程序图标加载.
+     */
+    public void loadConfiguration() {
+        ServiceLoader<FXSamplerConfiguration> samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
+        for (FXSamplerConfiguration configuration : samplerConfigurations) {
+            fxsamplerConfiguration = configuration;
+        }
+        if (fxsamplerConfiguration == null) {
+            appicon = LayoutHelper.icon(getClass().getResource("/fxsampler/logo.png"));
+        } else {
+            appicon = fxsamplerConfiguration.getAppIcon();
+        }
+    }
+
+    /**
      * 加载闪屏功能
      */
     public void loadSplash() {
@@ -175,6 +194,7 @@ public final class FXSampler extends Application {
         scene.setFill(Color.TRANSPARENT);
         scene.setCamera(new PerspectiveCamera());
         loadingStage.setScene(scene);
+        loadingStage.getIcons().add(appicon);
         loadingStage.initStyle(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.show();
         stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
@@ -200,8 +220,7 @@ public final class FXSampler extends Application {
      * 初始化系统配置
      */
     public void initializeSystem() {
-        FxApp.init(stage, getClass().getResource("/fxsampler/logo.png"), getHostServices());
-        samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
+        FxApp.init(stage, appicon, getHostServices());
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
         for (MenubarConfigration m : menubarConfigrations) {
             menubarConfigration = m;
@@ -300,7 +319,7 @@ public final class FXSampler extends Application {
         Scene scene = new Scene(bp);
         scene.getStylesheets()
             .add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
-        for (FXSamplerConfiguration fxsamplerConfiguration : samplerConfigurations) {
+        if (fxsamplerConfiguration != null) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
                 scene.getStylesheets().add(stylesheet);
@@ -311,7 +330,6 @@ public final class FXSampler extends Application {
             }
             String title = fxsamplerConfiguration.getStageTitle();
             FxApp.setTitle(title);
-            FxApp.setAppIcon(fxsamplerConfiguration.getAppIcon());
         }
         stage.setScene(scene);
         stage.setMinWidth(800);
