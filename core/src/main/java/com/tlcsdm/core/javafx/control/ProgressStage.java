@@ -98,7 +98,6 @@ public class ProgressStage {
         stage = new Stage();
         stage.initOwner(parent);
         // style
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
 

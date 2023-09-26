@@ -313,7 +313,6 @@ public final class FXSampler extends Application {
             FxApp.setTitle(title);
             FxApp.setAppIcon(fxsamplerConfiguration.getAppIcon());
         }
-        stage.setAlwaysOnTop(true);
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(600);
@@ -346,6 +345,7 @@ public final class FXSampler extends Application {
         if (!supportAnim) {
             stage.show();
         }
+        stage.requestFocus();
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
