@@ -27,6 +27,8 @@
 
 package com.tlcsdm.qe.tools;
 
+import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -50,6 +52,8 @@ import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -88,6 +92,11 @@ public class Compress extends QeSample implements Initializable {
     }
 
     @Override
+    public String getSampleDescription() {
+        return "";
+    }
+
+    @Override
     public String getSampleVersion() {
         return "1.0.0";
     }
@@ -98,6 +107,30 @@ public class Compress extends QeSample implements Initializable {
             Compress.class.getResource("/com/tlcsdm/qe/fxml/compress.fxml"),
             ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
+    }
+
+    @Override
+    public Node getControlPanel() {
+        String content = """
+
+            """;
+
+        Map<String, String> map = new HashMap<>(32);
+//        map.put("diffButton", diff.getText());
+//        map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
+//        map.put("Required", I18nUtils.get("smc.tool.control.required"));
+//        map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
+//        map.put("excelDesc", "eg: TestSpec_General_RH850U2A.xlsx");
+//        map.put("generalLabel", I18nUtils.get("smc.tool.specGeneralTest.label.general"));
+//        map.put("generalDesc", "eg: {user.dir}\\src\\smc_gen\\general");
+//        map.put("macroLengthLabel", I18nUtils.get("smc.tool.specGeneralTest.label.macroLength"));
+//        map.put("macroLengthDesc", I18nUtils.get("smc.tool.specGeneralTest.control.macroLengthDesc"));
+//        map.put("markSheetLabel", I18nUtils.get("smc.tool.specGeneralTest.label.markSheet"));
+//        map.put("markSheetDesc", I18nUtils.get("smc.tool.specGeneralTest.control.markSheetDesc"));
+//        map.put("note", I18nUtils.get("smc.tool.control.note"));
+//        map.put("noteDesc", I18nUtils.get("smc.tool.specGeneralTest.control.noteDesc"));
+
+        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     @Override
@@ -140,15 +173,17 @@ public class Compress extends QeSample implements Initializable {
     }
 
     private void initializeUI() {
-        btnJsCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
-        btnCssCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+        btnJsCompress
+            .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+        btnCssCompress
+            .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
     @FXML
     public void compressJs(ActionEvent actionEvent) {
         int linebreakpos = enableLinebreakpos.isSelected() ? Integer.parseInt(txtLinebreakpos.getText()) : -1;
-        String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(), enableVerbose.isSelected(),
-            enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
+        String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
+            enableVerbose.isSelected(), enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
         if (result.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.fail"));
             notificationBuilder.showInformation();
