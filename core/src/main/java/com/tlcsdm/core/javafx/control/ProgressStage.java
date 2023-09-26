@@ -32,6 +32,7 @@ import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -58,12 +59,13 @@ import javafx.stage.StageStyle;
  */
 public class ProgressStage {
     private Stage stage;
+    private Stage parentStage;
 
     private ProgressStage() {
     }
 
     /**
-     * 创建
+     * 创建加载动画
      */
     public static ProgressStage of(Stage parent, String msg) {
         ProgressStage ps = new ProgressStage();
@@ -83,6 +85,7 @@ public class ProgressStage {
      * 显示
      */
     public void show() {
+        parentStage.getScene().getRoot().setEffect(new GaussianBlur());
         stage.show();
     }
 
@@ -90,11 +93,13 @@ public class ProgressStage {
         FxApp.runLater(() -> {
             if (stage.isShowing()) {
                 stage.close();
+                parentStage.getScene().getRoot().setEffect(null);
             }
         });
     }
 
     private void initUI(Stage parent, String msg) {
+        this.parentStage = parent;
         stage = new Stage();
         stage.initOwner(parent);
         // style
@@ -108,7 +113,6 @@ public class ProgressStage {
         // progress
         ProgressIndicator indicator = new ProgressIndicator();
         indicator.setProgress(-1);
-
         // pack
         VBox vBox = new VBox();
         vBox.setSpacing(10);
