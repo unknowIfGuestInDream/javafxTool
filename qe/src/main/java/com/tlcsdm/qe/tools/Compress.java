@@ -152,7 +152,9 @@ public class Compress extends QeSample implements Initializable {
         initializeUI();
     }
 
+    @Override
     public void initializeBindings() {
+        super.initializeBindings();
         txtLinebreakpos.disableProperty().bind(enableLinebreakpos.selectedProperty().not());
         btnJsCompress.disableProperty().bind(txtJsCode.textProperty().isEmpty());
         btnCssCompress.disableProperty().bind(txtCssCode.textProperty().isEmpty());
