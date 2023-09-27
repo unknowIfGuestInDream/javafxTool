@@ -183,7 +183,7 @@ public class FxmlDemo extends QeSample implements Initializable {
     }
 
     @Override
-    public boolean hasRightPanel() {
+    public boolean hasControlPanel() {
         return false;
     }
 

@@ -91,7 +91,7 @@ public class DaliDemo extends QeSample implements Initializable {
     }
 
     @Override
-    public boolean hasRightPanel() {
+    public boolean hasControlPanel() {
         return false;
     }
 
