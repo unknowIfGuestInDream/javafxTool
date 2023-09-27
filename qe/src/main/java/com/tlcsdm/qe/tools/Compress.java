@@ -119,7 +119,9 @@ public class Compress extends QeSample implements Initializable {
         initializeUI();
     }
 
+    @Override
     public void initializeBindings() {
+        super.initializeBindings();
         txtLinebreakpos.disableProperty().bind(enableLinebreakpos.selectedProperty().not());
         btnJsCompress.disableProperty().bind(txtJsCode.textProperty().isEmpty());
         btnCssCompress.disableProperty().bind(txtCssCode.textProperty().isEmpty());
@@ -140,15 +142,17 @@ public class Compress extends QeSample implements Initializable {
     }
 
     private void initializeUI() {
-        btnJsCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
-        btnCssCompress.setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+        btnJsCompress
+            .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
+        btnCssCompress
+            .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
     @FXML
     public void compressJs(ActionEvent actionEvent) {
         int linebreakpos = enableLinebreakpos.isSelected() ? Integer.parseInt(txtLinebreakpos.getText()) : -1;
-        String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(), enableVerbose.isSelected(),
-            enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
+        String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
+            enableVerbose.isSelected(), enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
         if (result.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.fail"));
             notificationBuilder.showInformation();
