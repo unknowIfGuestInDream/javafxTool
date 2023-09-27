@@ -109,7 +109,7 @@ public final class EmptySample implements Sample {
     }
 
     @Override
-    public boolean hasRightPanel() {
+    public boolean hasControlPanel() {
         return false;
     }
 
