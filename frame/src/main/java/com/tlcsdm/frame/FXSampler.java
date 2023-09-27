@@ -100,6 +100,8 @@ import java.util.Objects;
 import java.util.ServiceLoader;
 
 /**
+ * 启动入口.
+ *
  * @author unknowIfGuestInDream
  */
 public final class FXSampler extends Application {
@@ -118,7 +120,6 @@ public final class FXSampler extends Application {
     private final StopWatch stopWatch = new StopWatch();
     // 用于 初始化UI
     private FXSamplerConfiguration fxsamplerConfiguration;
-    private Image appicon;
     private MenubarConfigration menubarConfigration;
     // 闪屏部分
     private Stage loadingStage;
@@ -136,7 +137,6 @@ public final class FXSampler extends Application {
         stage = primaryStage;
         StaticLog.debug("Load splash screen.");
         EventBus.getDefault().register(this);
-        loadConfiguration();
         loadSplash();
         StaticLog.debug("Initialize the system environment.");
         JavaFxSystemUtil.initSystemLocal();
@@ -161,24 +161,9 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 加载程序配置，主要是程序图标加载.
-     */
-    public void loadConfiguration() {
-        ServiceLoader<FXSamplerConfiguration> samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
-        for (FXSamplerConfiguration configuration : samplerConfigurations) {
-            fxsamplerConfiguration = configuration;
-        }
-        if (fxsamplerConfiguration == null) {
-            appicon = LayoutHelper.icon(getClass().getResource("/fxsampler/logo.png"));
-        } else {
-            appicon = fxsamplerConfiguration.getAppIcon();
-        }
-    }
-
-    /**
      * 加载闪屏功能
      */
-    public void loadSplash() {
+    private void loadSplash() {
         Parent parent = null;
         // 加载闪屏图片
         ServiceLoader<SplashScreen> splashScreens = ServiceLoader.load(SplashScreen.class);
@@ -189,15 +174,21 @@ public final class FXSampler extends Application {
         if (parent == null) {
             return;
         }
-        loadingStage = new Stage();
+        Stage mainStage = new Stage();
+        mainStage.initStyle(StageStyle.UTILITY);
+        mainStage.setX(Double.MAX_VALUE);
+        mainStage.show();
+        loadingStage = new Stage(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
+        loadingStage.initOwner(mainStage);
         Scene scene = new Scene(parent);
         scene.setFill(Color.TRANSPARENT);
         scene.setCamera(new PerspectiveCamera());
         loadingStage.setScene(scene);
-        loadingStage.getIcons().add(appicon);
-        loadingStage.initStyle(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.show();
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> loadingStage.close());
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
+            loadingStage.close();
+            mainStage.close();
+        });
     }
 
     @Subscribe
@@ -219,8 +210,15 @@ public final class FXSampler extends Application {
     /**
      * 初始化系统配置
      */
-    public void initializeSystem() {
-        FxApp.init(stage, appicon, getHostServices());
+    private void initializeSystem() {
+        loadConfiguration();
+        Image appIcon;
+        if (fxsamplerConfiguration == null) {
+            appIcon = LayoutHelper.icon(getClass().getResource("/fxsampler/logo.png"));
+        } else {
+            appIcon = fxsamplerConfiguration.getAppIcon();
+        }
+        FxApp.init(stage, appIcon, getHostServices());
         ServiceLoader<MenubarConfigration> menubarConfigrations = ServiceLoader.load(MenubarConfigration.class);
         for (MenubarConfigration m : menubarConfigrations) {
             menubarConfigration = m;
@@ -237,9 +235,19 @@ public final class FXSampler extends Application {
     }
 
     /**
+     * 加载程序配置，主要是程序图标加载.
+     */
+    private void loadConfiguration() {
+        ServiceLoader<FXSamplerConfiguration> samplerConfigurations = ServiceLoader.load(FXSamplerConfiguration.class);
+        for (FXSamplerConfiguration configuration : samplerConfigurations) {
+            fxsamplerConfiguration = configuration;
+        }
+    }
+
+    /**
      * 初始化
      */
-    public void initializeUI() {
+    private void initializeUI() {
         buildSampleTree(null);
         // simple layout: TreeView on left, sample area on right
         GridPane grid = new GridPane();
@@ -372,7 +380,7 @@ public final class FXSampler extends Application {
     /**
      * 启动后初始化资源
      */
-    public void initializeSource() {
+    private void initializeSource() {
         // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
         SamplePostProcessorService.Samples.addAll(projects);
         ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader
@@ -386,7 +394,7 @@ public final class FXSampler extends Application {
         }
     }
 
-    void buildSampleTree(String searchText) {
+    private void buildSampleTree(String searchText) {
         // rebuild the whole tree (it isn't memory intensive - we only scan
         // classes once at startup)
         root = new TreeItem<>(new EmptySample(I18nUtils.get("frame.sample.emptySample")));
@@ -417,7 +425,7 @@ public final class FXSampler extends Application {
     }
 
     // 切换左侧菜单时触发
-    void changeSample() {
+    private void changeSample() {
         if (selectedSample == null) {
             return;
         }
