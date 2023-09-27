@@ -69,8 +69,8 @@ public class QeSplashProvider implements SplashScreen {
         int radius = 64;
         pane.setPrefSize(w, h);
         SVGPath icon = new SVGPath();
-        icon.setScaleX(2);
-        icon.setScaleY(2);
+        icon.setScaleX(2.5);
+        icon.setScaleY(2.5);
         icon.setContent("""
             M8.7,6.8c0-1.1-0.4-2.1-0.9-2.7C7,3.3,6.2,3,5.1,3s-2,0.3-2.6,1S1.5,5.6,1.5,6.8s0.4,2.1,0.9,2.7
             	c0.6,0.7,1.5,1,2.6,1c0.2,0,0.6,0,0.8-0.1c0,0,0.4,0.5,0.7,0.7c0.5,0.2,1.3,0,1.3,0l-0.1-0.8c-0.1,0-0.4,0-0.5-0.1
