@@ -78,8 +78,9 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
     private final Action export = FxAction.export(actionEvent -> FxXmlHelper.exportData(QeConstant.PROJECT_NAME));
 
     private final Action induct = FxAction.induct(actionEvent -> {
-        FxXmlHelper.importData(QeConstant.PROJECT_NAME);
-        FXSampler.restart();
+        if (FxXmlHelper.importData(QeConstant.PROJECT_NAME)) {
+            FXSampler.restart();
+        }
     });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
