@@ -176,7 +176,7 @@ public final class FXSampler extends Application {
         }
         Stage mainStage = new Stage();
         mainStage.initStyle(StageStyle.UTILITY);
-        mainStage.setX(Double.MAX_VALUE);
+        mainStage.setOpacity(0);
         mainStage.show();
         loadingStage = new Stage(supportAnim ? StageStyle.TRANSPARENT : StageStyle.UNDECORATED);
         loadingStage.initOwner(mainStage);
