@@ -81,7 +81,7 @@ public class FxXmlHelper {
             includeCommon = true;
         }
         FileChooser outputChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("jfxt", "*.jfxt");
         outputChooser.getExtensionFilters().add(extFilter);
         outputChooser.setInitialFileName(projectName);
         File output = outputChooser.showSaveDialog(FxApp.primaryStage);
@@ -116,9 +116,9 @@ public class FxXmlHelper {
         }
     }
 
-    public static void importData(String projectName) {
+    public static boolean importData(String projectName) {
         FileChooser outputChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("conf", "*.conf");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("jfxt", "*.jfxt");
         outputChooser.getExtensionFilters().add(extFilter);
         File output = outputChooser.showOpenDialog(FxApp.primaryStage);
         if (output != null) {
@@ -131,8 +131,10 @@ public class FxXmlHelper {
                         });
                     }
                 });
+                return true;
             }
         }
+        return false;
     }
 
 }

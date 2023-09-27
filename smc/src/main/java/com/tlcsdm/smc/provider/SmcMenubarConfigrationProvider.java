@@ -80,8 +80,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action export = FxAction.export(actionEvent -> FxXmlHelper.exportData(SmcConstant.PROJECT_NAME));
 
     private final Action induct = FxAction.induct(actionEvent -> {
-        FxXmlHelper.importData(SmcConstant.PROJECT_NAME);
-        FXSampler.restart();
+        if (FxXmlHelper.importData(SmcConstant.PROJECT_NAME)) {
+            FXSampler.restart();
+        }
     });
 
     private final Action logConsole = FxAction.logConsole(actionEvent -> LogConsoleDialog.addLogConsole());
