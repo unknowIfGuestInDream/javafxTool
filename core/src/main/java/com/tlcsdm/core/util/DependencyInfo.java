@@ -145,11 +145,7 @@ public class DependencyInfo {
 
             new Dependency("com.yahoo.platform.yui", "yuicompressor", "2.4.8", false,
                 "https://github.com/yui/yuicompressor", "BSD License",
-                "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"),
-
-            new Dependency("com.googlecode.htmlcompressor", "htmlcompressor", "1.5.2", false,
-                "https://code.google.com/archive/p/htmlcompressor/", "Apache License, Version 2.0",
-                "https://www.apache.org/licenses/LICENSE-2.0"));
+                "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"));
     }
 
     public static class Dependency {

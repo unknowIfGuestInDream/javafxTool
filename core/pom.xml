@@ -189,11 +189,6 @@
             <artifactId>yuicompressor</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.htmlcompressor</groupId>
-            <artifactId>htmlcompressor</artifactId>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>

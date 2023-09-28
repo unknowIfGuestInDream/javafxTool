@@ -102,7 +102,6 @@
         <tabula.version>1.0.5</tabula.version>
         <preferencesfx.version>11.16.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
-        <htmlcompressor.version>1.5.2</htmlcompressor.version>
     </properties>
 
     <issueManagement>
@@ -598,11 +597,6 @@
                 <groupId>com.yahoo.platform.yui</groupId>
                 <artifactId>yuicompressor</artifactId>
                 <version>${yuicompressor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.htmlcompressor</groupId>
-                <artifactId>htmlcompressor</artifactId>
-                <version>${htmlcompressor.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
