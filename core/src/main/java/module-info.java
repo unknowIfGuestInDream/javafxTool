@@ -37,6 +37,7 @@ module com.tlcsdm.core {
     requires jsr305;
     requires static com.dlsc.preferencesfx;
     requires static yuicompressor;
+    requires static htmlcompressor;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
