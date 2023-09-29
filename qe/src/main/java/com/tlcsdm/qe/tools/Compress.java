@@ -33,6 +33,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CompressUtil;
@@ -60,6 +61,7 @@ import java.util.ResourceBundle;
  * js/css压缩.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class Compress extends QeSample implements Initializable {
 
@@ -93,7 +95,7 @@ public class Compress extends QeSample implements Initializable {
 
     @Override
     public String getSampleDescription() {
-        return "";
+        return I18nUtils.get("qe.tool.compress.description");
     }
 
     @Override
@@ -112,24 +114,26 @@ public class Compress extends QeSample implements Initializable {
     @Override
     public Node getControlPanel() {
         String content = """
-
+            {note}
+            {enableMunge}: {enableMungeDesc}
+            {enableVerbose}: {enableVerboseDesc}
+            {enableOptimizations}: {enableOptimizationsDesc}
+            {enablePreserveAllSemiColons}: {enablePreserveAllSemiColonsDesc}
+            {enableLinebreakpos}: {enableLinebreakposDesc}
             """;
 
         Map<String, String> map = new HashMap<>(32);
-//        map.put("diffButton", diff.getText());
-//        map.put("diffDesc", I18nUtils.get("smc.tool.specGeneralTest.button.diff.desc"));
-//        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-//        map.put("excelLabel", I18nUtils.get("smc.tool.specGeneralTest.label.excel"));
-//        map.put("excelDesc", "eg: TestSpec_General_RH850U2A.xlsx");
-//        map.put("generalLabel", I18nUtils.get("smc.tool.specGeneralTest.label.general"));
-//        map.put("generalDesc", "eg: {user.dir}\\src\\smc_gen\\general");
-//        map.put("macroLengthLabel", I18nUtils.get("smc.tool.specGeneralTest.label.macroLength"));
-//        map.put("macroLengthDesc", I18nUtils.get("smc.tool.specGeneralTest.control.macroLengthDesc"));
-//        map.put("markSheetLabel", I18nUtils.get("smc.tool.specGeneralTest.label.markSheet"));
-//        map.put("markSheetDesc", I18nUtils.get("smc.tool.specGeneralTest.control.markSheetDesc"));
-//        map.put("note", I18nUtils.get("smc.tool.control.note"));
-//        map.put("noteDesc", I18nUtils.get("smc.tool.specGeneralTest.control.noteDesc"));
-
+        map.put("note", I18nUtils.get("qe.tool.compress.description.note"));
+        map.put("enableMunge", I18nUtils.get("qe.tool.compress.check.enableMunge"));
+        map.put("enableVerbose", I18nUtils.get("qe.tool.compress.check.enableVerbose"));
+        map.put("enableOptimizations", I18nUtils.get("qe.tool.compress.check.enableOptimizations"));
+        map.put("enablePreserveAllSemiColons", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons"));
+        map.put("enableLinebreakpos", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos"));
+        map.put("enableMungeDesc", I18nUtils.get("qe.tool.compress.check.enableMunge.description"));
+        map.put("enableVerboseDesc", I18nUtils.get("qe.tool.compress.check.enableVerbose.description"));
+        map.put("enableOptimizationsDesc", I18nUtils.get("qe.tool.compress.check.enableOptimizations.description"));
+        map.put("enablePreserveAllSemiColonsDesc", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons.description"));
+        map.put("enableLinebreakposDesc", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos.description"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
@@ -159,6 +163,8 @@ public class Compress extends QeSample implements Initializable {
         btnJsCompress.disableProperty().bind(txtJsCode.textProperty().isEmpty());
         btnCssCompress.disableProperty().bind(txtCssCode.textProperty().isEmpty());
         txtCssLinebreakpos.disableProperty().bind(enableCssLinebreakpos.selectedProperty().not());
+        FileChooserUtil.setOnDragByOpenFile(txtJsCode);
+        FileChooserUtil.setOnDragByOpenFile(txtCssCode);
     }
 
     @Override
@@ -187,13 +193,13 @@ public class Compress extends QeSample implements Initializable {
         String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
             enableVerbose.isSelected(), enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
         if (result.isEmpty()) {
-            notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.fail"));
+            notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.fail"));
             notificationBuilder.showInformation();
             return;
         }
         txtJsResult.setText(result);
         OSUtil.writeToClipboard(result);
-        notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.success"));
+        notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.success"));
         notificationBuilder.showInformation();
         bindUserData();
     }
