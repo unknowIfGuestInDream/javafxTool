@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2019, 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,24 +25,30 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.jfxcommon;
+package com.tlcsdm.jfxcommon.config;
 
-import com.tlcsdm.frame.SampleBase;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.TemplateLoader;
 
 /**
+ * freemarker加载路径配置.
+ * 需要在应用模块的spi配置中引用才可初始化
+ *
  * @author unknowIfGuestInDream
- * @date 2023/4/16 11:22
  */
-public abstract class CommonSample extends SampleBase {
+public class CommonTemplateLoaderProvider implements TemplateLoaderService {
 
     @Override
-    public String getProjectName() {
-        return "common";
-    }
-
-    @Override
-    public String getProjectVersion() {
-        return "1.0.1";
+    public TemplateLoader getTemplateLoader() {
+        try {
+            return new ClassTemplateLoader(CommonTemplateLoaderProvider.class, "/com/tlcsdm/jfxcommon/static/templates");
+        } catch (IORuntimeException e) {
+            StaticLog.error(e);
+        }
+        return null;
     }
 
 }

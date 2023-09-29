@@ -30,6 +30,7 @@ package com.tlcsdm.jfxcommon.tools;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -43,6 +44,7 @@ import java.util.Map;
  * 数据格式转换.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.1
  */
 public class DataFormatConvert extends CommonSample {
 
@@ -102,6 +104,11 @@ public class DataFormatConvert extends CommonSample {
     @Override
     public String getOrderKey() {
         return "dataFormatConvert";
+    }
+
+    @Override
+    public boolean isVisible() {
+        return CoreUtil.hasClass("freemarker.cache.TemplateLoader");
     }
 
 }
