@@ -27,10 +27,13 @@
 
 package com.tlcsdm.qe.tools;
 
+import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CompressUtil;
@@ -50,12 +53,15 @@ import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
  * js/css压缩.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class Compress extends QeSample implements Initializable {
 
@@ -88,6 +94,11 @@ public class Compress extends QeSample implements Initializable {
     }
 
     @Override
+    public String getSampleDescription() {
+        return I18nUtils.get("qe.tool.compress.description");
+    }
+
+    @Override
     public String getSampleVersion() {
         return "1.0.0";
     }
@@ -98,6 +109,32 @@ public class Compress extends QeSample implements Initializable {
             Compress.class.getResource("/com/tlcsdm/qe/fxml/compress.fxml"),
             ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
         return fxmlLoader.getRoot();
+    }
+
+    @Override
+    public Node getControlPanel() {
+        String content = """
+            {note}
+            {enableMunge}: {enableMungeDesc}
+            {enableVerbose}: {enableVerboseDesc}
+            {enableOptimizations}: {enableOptimizationsDesc}
+            {enablePreserveAllSemiColons}: {enablePreserveAllSemiColonsDesc}
+            {enableLinebreakpos}: {enableLinebreakposDesc}
+            """;
+
+        Map<String, String> map = new HashMap<>(32);
+        map.put("note", I18nUtils.get("qe.tool.compress.description.note"));
+        map.put("enableMunge", I18nUtils.get("qe.tool.compress.check.enableMunge"));
+        map.put("enableVerbose", I18nUtils.get("qe.tool.compress.check.enableVerbose"));
+        map.put("enableOptimizations", I18nUtils.get("qe.tool.compress.check.enableOptimizations"));
+        map.put("enablePreserveAllSemiColons", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons"));
+        map.put("enableLinebreakpos", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos"));
+        map.put("enableMungeDesc", I18nUtils.get("qe.tool.compress.check.enableMunge.description"));
+        map.put("enableVerboseDesc", I18nUtils.get("qe.tool.compress.check.enableVerbose.description"));
+        map.put("enableOptimizationsDesc", I18nUtils.get("qe.tool.compress.check.enableOptimizations.description"));
+        map.put("enablePreserveAllSemiColonsDesc", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons.description"));
+        map.put("enableLinebreakposDesc", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos.description"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     @Override
@@ -126,6 +163,8 @@ public class Compress extends QeSample implements Initializable {
         btnJsCompress.disableProperty().bind(txtJsCode.textProperty().isEmpty());
         btnCssCompress.disableProperty().bind(txtCssCode.textProperty().isEmpty());
         txtCssLinebreakpos.disableProperty().bind(enableCssLinebreakpos.selectedProperty().not());
+        FileChooserUtil.setOnDragByOpenFile(txtJsCode);
+        FileChooserUtil.setOnDragByOpenFile(txtCssCode);
     }
 
     @Override
@@ -148,23 +187,29 @@ public class Compress extends QeSample implements Initializable {
             .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
+    /**
+     * 压缩js.
+     */
     @FXML
     public void compressJs(ActionEvent actionEvent) {
         int linebreakpos = enableLinebreakpos.isSelected() ? Integer.parseInt(txtLinebreakpos.getText()) : -1;
         String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
             enableVerbose.isSelected(), enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
         if (result.isEmpty()) {
-            notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.fail"));
+            notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.fail"));
             notificationBuilder.showInformation();
             return;
         }
         txtJsResult.setText(result);
         OSUtil.writeToClipboard(result);
-        notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.jsCompress.success"));
+        notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.success"));
         notificationBuilder.showInformation();
         bindUserData();
     }
 
+    /**
+     * 压缩css.
+     */
     @FXML
     public void compressCss(ActionEvent actionEvent) {
         int linebreakpos = enableCssLinebreakpos.isSelected() ? Integer.parseInt(txtCssLinebreakpos.getText()) : -1;
