@@ -47,7 +47,7 @@ module com.tlcsdm.jfxcommon {
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+    exports com.tlcsdm.jfxcommon.tools to javafx.fxml, com.tlcsdm.frame;
 
     opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
 

@@ -30,15 +30,21 @@ package com.tlcsdm.jfxcommon.tools;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.I18nUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * 数据格式转换.
@@ -46,12 +52,18 @@ import java.util.Map;
  * @author unknowIfGuestInDream
  * @since 1.0.1
  */
-public class DataFormatConvert extends CommonSample {
+public class DataFormatConvert extends CommonSample implements Initializable {
 
     @Override
-    public Node getPanel(Stage stage) {
-        GridPane grid = new GridPane();
-        return grid;
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeUserDataBindings();
+        initializeBindings();
+        initializeUserData();
+
+        initializeUI();
+    }
+
+    private void initializeUI() {
     }
 
     @Override
@@ -62,6 +74,14 @@ public class DataFormatConvert extends CommonSample {
     @Override
     public void initializeUserDataBindings() {
         super.initializeUserDataBindings();
+    }
+
+    @Override
+    public Node getPanel(Stage stage) {
+        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
+            DataFormatConvert.class.getResource("/com/tlcsdm/jfxcommon/fxml/dataFormatConvert.fxml"),
+            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+        return fxmlLoader.getRoot();
     }
 
     @Override
