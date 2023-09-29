@@ -57,10 +57,10 @@ public class DependencyInfo {
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
             new Dependency("org.apache.poi", "poi", "5.2.3", false, "https://poi.apache.org/",
-                "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.freemarker", "freemarker", "2.3.32", false, "https://freemarker.apache.org/",
-                "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("ch.qos.logback", "logback", "1.4.9", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
@@ -70,15 +70,15 @@ public class DependencyInfo {
 
             new Dependency("org.apache.commons", "commons-lang3", "3.13.0", true,
                 "https://commons.apache.org/proper/commons-lang/", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.apache.commons", "commons-csv", "1.10.0", false,
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.apache.commons", "commons-configuration2", "2.9.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("commons-io", "commons-io", "2.13.0", true, "https://commons.apache.org/proper/commons-io/",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
@@ -98,7 +98,7 @@ public class DependencyInfo {
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.txt"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.apache.pdfbox", "pdfbox", "3.0.0", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
@@ -108,7 +108,7 @@ public class DependencyInfo {
 
             new Dependency("com.fasterxml.jackson.core", "jackson", "2.15.2", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.testfx", "testfx", "4.0.16-alpha", false, "https://github.com/TestFX/TestFX", "EUPL",
                 "http://ec.europa.eu/idabc/eupl.html"),
@@ -159,7 +159,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-                          String licenseUrl) {
+            String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);
