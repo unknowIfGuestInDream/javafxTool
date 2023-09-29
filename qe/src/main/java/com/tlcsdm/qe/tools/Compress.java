@@ -187,6 +187,9 @@ public class Compress extends QeSample implements Initializable {
             .setGraphic(LayoutHelper.iconView(FxAction.class.getResource("/com/tlcsdm/core/static/icon/generate.png")));
     }
 
+    /**
+     * 压缩js.
+     */
     @FXML
     public void compressJs(ActionEvent actionEvent) {
         int linebreakpos = enableLinebreakpos.isSelected() ? Integer.parseInt(txtLinebreakpos.getText()) : -1;
@@ -204,6 +207,9 @@ public class Compress extends QeSample implements Initializable {
         bindUserData();
     }
 
+    /**
+     * 压缩css.
+     */
     @FXML
     public void compressCss(ActionEvent actionEvent) {
         int linebreakpos = enableCssLinebreakpos.isSelected() ? Integer.parseInt(txtCssLinebreakpos.getText()) : -1;
