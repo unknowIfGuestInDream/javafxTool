@@ -16,7 +16,7 @@ jobs:
           CONTRIB_OUTPUT_FILE: 'CONTRIBUTORS.md'
           CONTRIB_IGNORE: github-actions[bot],renovate-bot,dependabot,imgbot,deepsourcebot,ImgBotApp,dependabot[bot],imgbot[bot],renovate[bot]
       - name: Create a PR
-        uses: peter-evans/create-pull-request@v4.2.0
+        uses: peter-evans/create-pull-request@v5.0.2
         with:
           commit-message: "bot: Update Contributors"
           title: "bot: Update Contributors File"
