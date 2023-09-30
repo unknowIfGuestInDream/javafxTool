@@ -230,8 +230,9 @@ public final class FXSampler extends Application {
         if (centerPanelService == null) {
             centerPanelService = new EmptyCenterPanel();
         }
-        projectsMap = new SampleScanner().discoverSamples();
+        // 先初始化资源，再扫描可用组件，使组件isVisible()可以调用初始化的资源
         InterfaceScanner.invoke(InitializingFactory.class, "initialize");
+        projectsMap = new SampleScanner().discoverSamples();
     }
 
     /**

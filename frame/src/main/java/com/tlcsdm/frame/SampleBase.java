@@ -226,8 +226,8 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     /**
-     * Manually call the current method after the function completes For example
-     * manually calling the current method after clicking the generate button
+     * Manually call the current method after the function completes.
+     * For example manually calling the current method after clicking the generate button
      */
     protected void bindUserData() {
         if (userData.isEmpty() || StrUtil.isEmpty(getSampleId())) {
