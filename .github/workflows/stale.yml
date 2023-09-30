@@ -29,3 +29,4 @@ jobs:
         exempt-pr-labels: 'wip'
         days-before-stale: 30
         days-before-close: 5
+        labels-to-remove-when-stale: "Ready-to-Go"
