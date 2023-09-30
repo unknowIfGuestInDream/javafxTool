@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,31 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.jfxcommon.config;
-
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.freemarker.TemplateLoaderService;
-import com.tlcsdm.jfxcommon.util.CommonConstant;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.TemplateLoader;
+package com.tlcsdm.jfxcommon.util;
 
 /**
- * freemarker加载路径配置.
- * 需要在应用模块的spi配置中引用才可初始化
+ * 常量池.
  *
  * @author unknowIfGuestInDream
  */
-public class CommonTemplateLoaderProvider implements TemplateLoaderService {
+public class CommonConstant {
 
-    @Override
-    public TemplateLoader getTemplateLoader() {
-        try {
-            return new ClassTemplateLoader(CommonTemplateLoaderProvider.class, CommonConstant.FREEMARKER_BASE_PACKAGE_PATH);
-        } catch (IORuntimeException e) {
-            StaticLog.error(e);
-        }
-        return null;
-    }
-
+    /**
+     * freemarker basePackagePath值.
+     */
+    public static final String FREEMARKER_BASE_PACKAGE_PATH = "/com/tlcsdm/jfxcommon/static/templates";
 }

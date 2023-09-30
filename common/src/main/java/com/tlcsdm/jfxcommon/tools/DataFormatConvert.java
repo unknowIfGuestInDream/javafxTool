@@ -33,8 +33,13 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
+import com.tlcsdm.jfxcommon.util.CommonConstant;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -126,9 +131,26 @@ public class DataFormatConvert extends CommonSample implements Initializable {
         return "dataFormatConvert";
     }
 
+    /**
+     * 此结果在开发环境和打包后执行结果不同，原因是打包后执行SPI配置时需要从应用模块的配置中读取.
+     * 但在开发环境由于模块化原因即使SPI配置中未配置实现也可以读取到.
+     */
     @Override
     public boolean isVisible() {
-        return CoreUtil.hasClass("freemarker.cache.TemplateLoader");
+        if (!CoreUtil.hasClass("freemarker.cache.TemplateLoader")) {
+            return false;
+        }
+        TemplateLoader templateLoader = FreemarkerUtil.configuration().getTemplateLoader();
+        if (templateLoader instanceof MultiTemplateLoader loader) {
+            for (int i = 0; i < loader.getTemplateLoaderCount(); i++) {
+                if (loader.getTemplateLoader(i) instanceof ClassTemplateLoader l) {
+                    if (l.getBasePackagePath().contains(CommonConstant.FREEMARKER_BASE_PACKAGE_PATH)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }
