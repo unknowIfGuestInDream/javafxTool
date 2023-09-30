@@ -27,11 +27,13 @@
 
 package com.tlcsdm.jfxcommon.tools;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.javafx.util.Config;
-import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
@@ -40,16 +42,29 @@ import com.tlcsdm.jfxcommon.util.I18nUtils;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
 
-import java.net.URL;
+import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * 数据格式转换.
@@ -57,19 +72,37 @@ import java.util.ResourceBundle;
  * @author unknowIfGuestInDream
  * @since 1.0.1
  */
-public class DataFormatConvert extends CommonSample implements Initializable {
+public class DataFormatConvert extends CommonSample {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeUserDataBindings();
-        initializeBindings();
-        initializeUserData();
+    private final FileChooser outputChooser = new FileChooser();
+    private final ObservableList<String> datasourceList = FXCollections.observableArrayList();
+    private final ObservableList<String> tableList = FXCollections.observableArrayList();
+    private ComboBox<String> cmbDatasource;
+    private TextArea dataArea;
+    private TableView dataTable;
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
-        initializeUI();
-    }
+    private final Action generate = FxAction.generate(actionEvent -> {
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        outputChooser.getExtensionFilters().add(extFilter);
+        File output = outputChooser.showSaveDialog(FxApp.primaryStage);
+        if (output != null) {
+            if (!StrUtil.endWith(output.getName(), ".xlsx")) {
+                notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
+                notificationBuilder.showWarning();
+                return;
+            }
+            String resultFileName = output.getName();
+            String resultPath = output.getParent();
+            outputChooser.setInitialDirectory(output.getParentFile());
+            if (output.exists()) {
+                FileUtil.del(output);
+            }
+            //bindUserData();
+        }
+    });
 
-    private void initializeUI() {
-    }
+    private final Collection<? extends Action> actions = List.of(generate);
 
     @Override
     public void initializeBindings() {
@@ -83,10 +116,35 @@ public class DataFormatConvert extends CommonSample implements Initializable {
 
     @Override
     public Node getPanel(Stage stage) {
-        FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
-            DataFormatConvert.class.getResource("/com/tlcsdm/jfxcommon/fxml/dataFormatConvert.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
-        return fxmlLoader.getRoot();
+        GridPane grid = new GridPane();
+        grid.setVgap(12);
+        grid.setHgap(12);
+        grid.setPadding(new Insets(10));
+
+        ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+
+        Label datasourceLabel = new Label("data from");
+        cmbDatasource = new ComboBox<>(datasourceList);
+        cmbDatasource.setMaxWidth(Double.MAX_VALUE);
+
+        Label sheetNameLabel = new Label("textarea");
+        dataArea = new TextArea();
+
+        Label startRowLabel = new Label("table");
+        dataTable = new TableView(tableList);
+
+        TabPane resultPane = new TabPane();
+
+        grid.add(toolBar, 0, 0, 2, 1);
+        grid.add(datasourceLabel, 0, 1);
+        grid.add(cmbDatasource, 1, 1);
+        grid.add(sheetNameLabel, 0, 2);
+        grid.add(dataArea, 1, 2);
+        grid.add(startRowLabel, 0, 3);
+        grid.add(dataTable, 1, 3);
+        grid.add(resultPane, 0, 4, 2, 1);
+        return grid;
     }
 
     @Override
