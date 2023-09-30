@@ -25,24 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.jfxcommon;
-
-import com.tlcsdm.frame.SampleBase;
+package com.tlcsdm.jfxcommon.util;
 
 /**
+ * 常量池.
+ *
  * @author unknowIfGuestInDream
- * @date 2023/4/16 11:22
  */
-public abstract class CommonSample extends SampleBase {
+public class CommonConstant {
 
-    @Override
-    public String getProjectName() {
-        return "common";
-    }
-
-    @Override
-    public String getProjectVersion() {
-        return "1.0.1";
-    }
-
+    /**
+     * freemarker basePackagePath值.
+     */
+    public static final String FREEMARKER_BASE_PACKAGE_PATH = "/com/tlcsdm/jfxcommon/static/templates";
 }

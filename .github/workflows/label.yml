@@ -19,5 +19,4 @@ jobs:
     steps:
     - uses: actions/labeler@v4
       with:
-        repo-token: "${{ secrets.CHANGELOG }}"
         sync-labels: true
