@@ -27,8 +27,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.CHANGELOG }}
       - name: Set up JDK ${{ matrix.Java }}
         uses: actions/setup-java@v3
         with:
