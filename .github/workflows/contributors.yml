@@ -25,3 +25,6 @@ jobs:
           labels: automerge
           branch: contributors
           body: "skip-checks:true"
+          reviewers: |
+            unknowIfGuestInDream
+            DreamAwakenFateBroke
