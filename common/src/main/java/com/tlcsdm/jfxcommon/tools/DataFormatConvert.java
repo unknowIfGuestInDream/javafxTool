@@ -29,6 +29,7 @@ package com.tlcsdm.jfxcommon.tools;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
@@ -36,13 +37,9 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
-import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
-import com.tlcsdm.jfxcommon.util.CommonConstant;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.TemplateLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -50,6 +47,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
@@ -118,6 +116,7 @@ public class DataFormatConvert extends CommonSample {
             datasourceList.add("JSON");
         }
         cmbDatasource.valueProperty().addListener((observable, oldValue, newValue) -> {
+            dataField.clear();
         });
         cmbDatasource.getSelectionModel().select(0);
     }
@@ -149,6 +148,9 @@ public class DataFormatConvert extends CommonSample {
         GridPane.setHgrow(dataField, Priority.ALWAYS);
 
         TabPane resultPane = new TabPane();
+        resultPane.getTabs().add(new Tab("markdown"));
+        resultPane.getTabs().add(new Tab("json"));
+        resultPane.getTabs().add(new Tab("xml"));
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(datasourceLabel, 0, 1);
@@ -164,13 +166,23 @@ public class DataFormatConvert extends CommonSample {
      * 选择数据源文件.
      */
     private void chooseDataSource() {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xml");
+        FileChooser.ExtensionFilter filter = getFilter(cmbDatasource.getValue());
         FileChooser dataChooser = new FileChooser();
-        dataChooser.getExtensionFilters().add(extFilter);
+        dataChooser.getExtensionFilters().add(filter);
         File file = dataChooser.showOpenDialog(FxApp.primaryStage);
         if (file != null) {
             dataField.setText(file.getPath());
         }
+    }
+
+    private FileChooser.ExtensionFilter getFilter(String value) {
+        return switch (value) {
+            case "XML" -> FileChooserUtil.xmlFilter();
+            case "CSV" -> FileChooserUtil.csvFilter();
+            case "Excel" -> FileChooserUtil.xlsxFilter();
+            case "JSON" -> FileChooserUtil.jsonFilter();
+            default -> throw new UnExpectedResultException("Unexpected value: " + cmbDatasource.getValue());
+        };
     }
 
     @Override
@@ -221,20 +233,22 @@ public class DataFormatConvert extends CommonSample {
      */
     @Override
     public boolean isVisible() {
-        if (!CoreUtil.hasClass("freemarker.cache.TemplateLoader")) {
-            return false;
-        }
-        TemplateLoader templateLoader = FreemarkerUtil.configuration().getTemplateLoader();
-        if (templateLoader instanceof MultiTemplateLoader loader) {
-            for (int i = 0; i < loader.getTemplateLoaderCount(); i++) {
-                if (loader.getTemplateLoader(i) instanceof ClassTemplateLoader l) {
-                    if (l.getBasePackagePath().contains(CommonConstant.FREEMARKER_BASE_PACKAGE_PATH)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value);
+//        if (!CoreUtil.hasClass("freemarker.cache.TemplateLoader")) {
+//            return false;
+//        }
+//        TemplateLoader templateLoader = FreemarkerUtil.configuration().getTemplateLoader();
+//        if (templateLoader instanceof MultiTemplateLoader loader) {
+//            for (int i = 0; i < loader.getTemplateLoaderCount(); i++) {
+//                if (loader.getTemplateLoader(i) instanceof ClassTemplateLoader l) {
+//                    if (l.getBasePackagePath().contains(CommonConstant.FREEMARKER_BASE_PACKAGE_PATH)) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
     }
 
 }
