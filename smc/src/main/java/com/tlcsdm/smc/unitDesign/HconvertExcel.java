@@ -89,7 +89,7 @@ public class HconvertExcel extends SmcSample {
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
         outputChooser.getExtensionFilters().add(extFilter);
         File output = outputChooser.showSaveDialog(FxApp.primaryStage);
         if (output != null) {

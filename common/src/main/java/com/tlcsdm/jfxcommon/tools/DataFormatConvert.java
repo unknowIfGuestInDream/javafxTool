@@ -30,15 +30,16 @@ package com.tlcsdm.jfxcommon.tools;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.FreemarkerUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.CommonConstant;
-import com.tlcsdm.jfxcommon.util.I18nUtils;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -46,14 +47,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
@@ -76,22 +78,15 @@ public class DataFormatConvert extends CommonSample {
 
     private final FileChooser outputChooser = new FileChooser();
     private final ObservableList<String> datasourceList = FXCollections.observableArrayList();
-    private final ObservableList<String> tableList = FXCollections.observableArrayList();
     private ComboBox<String> cmbDatasource;
-    private TextArea dataArea;
-    private TableView dataTable;
+    private TextField dataField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.excelFilter();
         outputChooser.getExtensionFilters().add(extFilter);
         File output = outputChooser.showSaveDialog(FxApp.primaryStage);
         if (output != null) {
-            if (!StrUtil.endWith(output.getName(), ".xlsx")) {
-                notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message2"));
-                notificationBuilder.showWarning();
-                return;
-            }
             String resultFileName = output.getName();
             String resultPath = output.getParent();
             outputChooser.setInitialDirectory(output.getParentFile());
@@ -107,6 +102,24 @@ public class DataFormatConvert extends CommonSample {
     @Override
     public void initializeBindings() {
         super.initializeBindings();
+        FileChooserUtil.setOnDrag(dataField, FileChooserUtil.FileType.FILE);
+        initializeDataSource();
+    }
+
+    private void initializeDataSource() {
+        datasourceList.add("XML");
+        if (CoreUtil.hasClass("org.apache.commons.csv.CSVParser")) {
+            datasourceList.add("CSV");
+        }
+        if (CoreUtil.hasClass("org.apache.poi.Version")) {
+            datasourceList.add("Excel");
+        }
+        if (CoreUtil.hasClass("com.fasterxml.jackson.databind.ObjectMapper")) {
+            datasourceList.add("JSON");
+        }
+        cmbDatasource.valueProperty().addListener((observable, oldValue, newValue) -> {
+        });
+        cmbDatasource.getSelectionModel().select(0);
     }
 
     @Override
@@ -122,29 +135,42 @@ public class DataFormatConvert extends CommonSample {
         grid.setPadding(new Insets(10));
 
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        GridPane.setHgrow(toolBar, Priority.ALWAYS);
 
         Label datasourceLabel = new Label("data from");
         cmbDatasource = new ComboBox<>(datasourceList);
         cmbDatasource.setMaxWidth(Double.MAX_VALUE);
 
         Label sheetNameLabel = new Label("textarea");
-        dataArea = new TextArea();
-
-        Label startRowLabel = new Label("table");
-        dataTable = new TableView(tableList);
+        dataField = new TextField();
+        dataField.setEditable(false);
+        Button dataButton = FxButton.choose();
+        dataButton.setOnAction(arg0 -> chooseDataSource());
+        GridPane.setHgrow(dataField, Priority.ALWAYS);
 
         TabPane resultPane = new TabPane();
 
-        grid.add(toolBar, 0, 0, 2, 1);
+        grid.add(toolBar, 0, 0, 3, 1);
         grid.add(datasourceLabel, 0, 1);
-        grid.add(cmbDatasource, 1, 1);
+        grid.add(cmbDatasource, 1, 1, 2, 1);
         grid.add(sheetNameLabel, 0, 2);
-        grid.add(dataArea, 1, 2);
-        grid.add(startRowLabel, 0, 3);
-        grid.add(dataTable, 1, 3);
-        grid.add(resultPane, 0, 4, 2, 1);
+        grid.add(dataButton, 1, 2);
+        grid.add(dataField, 2, 2);
+        grid.add(resultPane, 0, 3, 3, 1);
         return grid;
+    }
+
+    /**
+     * 选择数据源文件.
+     */
+    private void chooseDataSource() {
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xml");
+        FileChooser dataChooser = new FileChooser();
+        dataChooser.getExtensionFilters().add(extFilter);
+        File file = dataChooser.showOpenDialog(FxApp.primaryStage);
+        if (file != null) {
+            dataField.setText(file.getPath());
+        }
     }
 
     @Override
