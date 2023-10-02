@@ -49,6 +49,7 @@
         <module>core</module>
         <module>qe</module>
         <module>common</module>
+        <module>cg</module>
     </modules>
 
     <properties>

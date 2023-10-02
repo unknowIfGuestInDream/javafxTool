@@ -13,7 +13,7 @@ modules. demo is the provided example module.
 - login: Login module (provides SPI interface)
 - demo: demo example (based on controlsfx demo transformation)
 - common: Common component module, used by application modules
-- smc, qe: Personal application (no reference required)
+- smc, qe, cg: Personal application (no reference required)
 
 ## Interface
 
