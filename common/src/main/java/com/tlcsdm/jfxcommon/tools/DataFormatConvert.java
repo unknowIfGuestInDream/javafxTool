@@ -45,6 +45,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -54,6 +55,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
@@ -68,6 +70,8 @@ import java.util.Map;
 
 /**
  * 数据格式转换.
+ * 需要工厂模式设计进行，且结果不应该使用freemarker生成，结果的使能条件应交给子类实现，
+ * 目前暂缓开发，在完善设计后在发布.
  *
  * @author unknowIfGuestInDream
  * @since 1.0.1
@@ -148,9 +152,7 @@ public class DataFormatConvert extends CommonSample {
         GridPane.setHgrow(dataField, Priority.ALWAYS);
 
         TabPane resultPane = new TabPane();
-        resultPane.getTabs().add(new Tab("markdown"));
-        resultPane.getTabs().add(new Tab("json"));
-        resultPane.getTabs().add(new Tab("xml"));
+        initTabPane(resultPane);
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(datasourceLabel, 0, 1);
@@ -173,6 +175,46 @@ public class DataFormatConvert extends CommonSample {
         if (file != null) {
             dataField.setText(file.getPath());
         }
+    }
+
+    private void initTabPane(TabPane resultPane) {
+        resultPane.getTabs().addAll(createMarkdownTab(), createXmlTab(), createExcelTab(), createJsonTab());
+    }
+
+    private Tab createMarkdownTab() {
+        Tab tab = new Tab("Markdown");
+        tab.setClosable(false);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(new CheckBox("第一行作为标题"), new CheckBox("使用精简格式"));
+        tab.setContent(vbox);
+        return tab;
+    }
+
+    private Tab createXmlTab() {
+        Tab tab = new Tab("XML");
+        tab.setClosable(false);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(new CheckBox("第一行作为标题"), new CheckBox("使用精简格式"));
+        tab.setContent(vbox);
+        return tab;
+    }
+
+    private Tab createExcelTab() {
+        Tab tab = new Tab("Excel");
+        tab.setClosable(false);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(new CheckBox("第一行作为标题"), new CheckBox("使用精简格式"));
+        tab.setContent(vbox);
+        return tab;
+    }
+
+    private Tab createJsonTab() {
+        Tab tab = new Tab("JSON");
+        tab.setClosable(false);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(new CheckBox("第一行作为标题"), new CheckBox("使用精简格式"));
+        tab.setContent(vbox);
+        return tab;
     }
 
     private FileChooser.ExtensionFilter getFilter(String value) {
