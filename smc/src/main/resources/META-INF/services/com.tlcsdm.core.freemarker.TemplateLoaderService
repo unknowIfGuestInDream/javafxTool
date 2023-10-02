@@ -26,4 +26,3 @@
 #
 
 com.tlcsdm.smc.config.SmcTemplateLoaderProvider
-com.tlcsdm.jfxcommon.config.CommonTemplateLoaderProvider

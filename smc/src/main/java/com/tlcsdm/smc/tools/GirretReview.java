@@ -50,6 +50,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.JacksonUtil;
@@ -459,7 +460,7 @@ public class GirretReview extends SmcSample {
 
     // 初始化组件
     private void initComponment() {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
         outPutChooser.getExtensionFilters().add(extFilter);
     }
 
