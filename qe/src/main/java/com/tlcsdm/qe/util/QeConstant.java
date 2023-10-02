@@ -92,7 +92,7 @@ public class QeConstant {
     /**
      * 项目构建日期
      */
-    public static final String PROJECT_BUILD_DAY = "2023-04-02";
+    public static final String PROJECT_BUILD_DAY = "2023-10-02";
     /**
      * 检查更新所用的api
      */
