@@ -148,7 +148,7 @@ public class FileChooserUtil {
     }
 
     /**
-     * FileChooser选择excel文件
+     * FileChooser选择excel文件.
      */
     public static FileChooser.ExtensionFilter excelFilter() {
         return new FileChooser.ExtensionFilter("excel file", "*.xlsx", "*.xls", "*.xlsm");
@@ -156,6 +156,27 @@ public class FileChooserUtil {
 
     public static FileChooser.ExtensionFilter xlsxFilter() {
         return new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+    }
+
+    /**
+     * FileChooser选择xml文件.
+     */
+    public static FileChooser.ExtensionFilter xmlFilter() {
+        return new FileChooser.ExtensionFilter("Xml file", "*.xml");
+    }
+
+    /**
+     * FileChooser选择json文件.
+     */
+    public static FileChooser.ExtensionFilter jsonFilter() {
+        return new FileChooser.ExtensionFilter("Json file", "*.json");
+    }
+
+    /**
+     * FileChooser选择csv文件.
+     */
+    public static FileChooser.ExtensionFilter csvFilter() {
+        return new FileChooser.ExtensionFilter("CSV file", "*.csv");
     }
 
     public enum FileType {
