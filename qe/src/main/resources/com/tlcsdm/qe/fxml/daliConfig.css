@@ -100,8 +100,8 @@
     -fx-background-radius: 5 5 0 0;
     -fx-background-color: transparent;
     -fx-border-color: gray;
-    -fx-border-width: 1.5 1.5 0.5 1.5;
-    -fx-padding: 3 10 5 10;
+    -fx-border-width: 1.5 1.5 0.5;
+    -fx-padding: 3 10 5;
     -fx-background-insets: 0;
 }
 
@@ -119,7 +119,7 @@
 
 .tab-pane .tab-header-area .tab:selected {
     -fx-focus-color: transparent;
-    -fx-border-color: #dddddd #dddddd white #dddddd;
+    -fx-border-color: #dddddd #dddddd white;
     -fx-background-color: white;
 }
 
