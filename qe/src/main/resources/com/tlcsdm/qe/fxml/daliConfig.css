@@ -26,7 +26,7 @@
  */
 
 .root {
-    -color-renesas: rgb(68, 113, 169);
+    --color-renesas: rgb(68, 113, 169);
 }
 
 /**
@@ -106,7 +106,7 @@
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-    -fx-text-fill: -color-renesas;
+    -fx-text-fill: --color-renesas;
 }
 
 .tab-pane .tab-header-area .tab:hover {
@@ -140,7 +140,7 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
-    -fx-background-color: -color-renesas;
+    -fx-background-color: --color-renesas;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button {
