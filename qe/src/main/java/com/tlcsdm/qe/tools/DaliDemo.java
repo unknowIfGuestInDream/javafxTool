@@ -32,9 +32,21 @@ import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -46,6 +58,27 @@ import java.util.ResourceBundle;
  * @author unknowIfGuestInDream
  */
 public class DaliDemo extends QeSample implements Initializable {
+
+    @FXML
+    private Group grpSetting;
+    @FXML
+    private Pane gearVariablePane, gearMemoryBankPane, unsupPane;
+    @FXML
+    private CheckBox enableLedModules, enableColourColtrol;
+    @FXML
+    private Button btnLedModules, btnColourControl;
+    @FXML
+    private CheckBox enablePushButtons, enableAbsoluteInputDevices, enableOccupancySensors, enableLightSensors;
+    @FXML
+    private Button btnPushButtons, btnAbsoluteInputDevices, btnOccupancySensors, btnLightSensors;
+    @FXML
+    private TabPane gearVariableTabPane;
+    @FXML
+    private ImageView imgBoard;
+    @FXML
+    private ComboBox<String> cmbBoard, cmbCompiler;
+    @FXML
+    private TitledPane detailPane;
 
     @Override
     public boolean isVisible() {
@@ -97,6 +130,52 @@ public class DaliDemo extends QeSample implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeOption();
+        initializeUI();
+    }
 
+    public void initializeOption() {
+        btnLedModules.disableProperty().bind(enableLedModules.selectedProperty().not());
+        btnColourControl.disableProperty().bind(enableColourColtrol.selectedProperty().not());
+        btnPushButtons.disableProperty().bind(enablePushButtons.selectedProperty().not());
+        btnAbsoluteInputDevices.disableProperty().bind(enableAbsoluteInputDevices.selectedProperty().not());
+        btnOccupancySensors.disableProperty().bind(enableOccupancySensors.selectedProperty().not());
+        btnLightSensors.disableProperty().bind(enableLightSensors.selectedProperty().not());
+
+        cmbBoard.getItems().add("EZ-0012");
+        cmbBoard.getSelectionModel().select(0);
+        cmbCompiler.getItems().addAll("Renesas CCRL", "ICC-RL", "LLVM");
+        cmbCompiler.getSelectionModel().select(0);
+    }
+
+    public void initializeUI() {
+        if (gearVariableTabPane.getTabs().size() != 3) {
+            Tab tab1 = new Tab("Channel 1");
+            tab1.setClosable(false);
+            Tab tab2 = new Tab("Channel 2");
+            tab2.setClosable(false);
+            gearVariableTabPane.getTabs().addAll(tab1, tab2);
+        }
+        imgBoard.setImage((new Image(getClass().getResource("/com/tlcsdm/qe/static/QeTool.png").toExternalForm())));
+    }
+
+    @FXML
+    public void showDetailPane(ActionEvent event) {
+        if (event.getSource() instanceof Button button) {
+            String text = button.getText();
+            if ("Variable".equals(text)) {
+                gearVariablePane.setVisible(true);
+                gearMemoryBankPane.setVisible(false);
+                unsupPane.setVisible(false);
+            } else if ("Memory bank".equals(text)) {
+                gearVariablePane.setVisible(false);
+                gearMemoryBankPane.setVisible(true);
+                unsupPane.setVisible(false);
+            } else {
+                unsupPane.setVisible(true);
+                gearVariablePane.setVisible(false);
+                gearMemoryBankPane.setVisible(false);
+            }
+        }
     }
 }
