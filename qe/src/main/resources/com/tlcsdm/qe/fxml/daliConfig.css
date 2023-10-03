@@ -26,7 +26,7 @@
  */
 
 .root {
-    --color-renesas: rgb(68, 113, 169);
+    -color-renesas: rgb(68, 113, 169);
 }
 
 /**
@@ -99,14 +99,14 @@
     -fx-border-radius: 4 4 0 0;
     -fx-background-radius: 5 5 0 0;
     -fx-background-color: transparent;
-    -fx-border-color: rgb(128, 128, 128);
-    -fx-border-width: 1.5 1.5 0.5 1.5;
-    -fx-padding: 3 10 5 10;
+    -fx-border-color: gray;
+    -fx-border-width: 1.5 1.5 0.5;
+    -fx-padding: 3 10 5;
     -fx-background-insets: 0;
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-    -fx-text-fill: --color-renesas;
+    -fx-text-fill: -color-renesas;
 }
 
 .tab-pane .tab-header-area .tab:hover {
@@ -119,7 +119,7 @@
 
 .tab-pane .tab-header-area .tab:selected {
     -fx-focus-color: transparent;
-    -fx-border-color: #dddddd #dddddd white #dddddd;
+    -fx-border-color: #dddddd #dddddd white;
     -fx-background-color: white;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
-    -fx-background-color: --color-renesas;
+    -fx-background-color: -color-renesas;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button {
