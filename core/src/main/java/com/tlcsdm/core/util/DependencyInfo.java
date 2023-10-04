@@ -133,7 +133,7 @@ public class DependencyInfo {
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
                 "MIT License", "http://www.sikulix.com/disclaimer/#license"),
 
-            new Dependency("com.googlecode.aviator", "aviator", "5.3.3", false, "https://github.com/killme2008/aviator",
+            new Dependency("com.googlecode.aviator", "aviator", "5.4.0", false, "https://github.com/killme2008/aviator",
                 "GNU LESSER GENERAL PUBLIC LICENSE", "http://www.gnu.org/licenses/lgpl.html"),
 
             new Dependency("net.coobird", "thumbnailator", "0.4.20", false, "https://github.com/coobird/thumbnailator",
