@@ -25,10 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-.root {
-    --color-renesas: rgb(68, 113, 169);
-}
-
 /**
  * Stack Selection
  */
@@ -48,7 +44,7 @@
     -fx-alignment: top-center;
 }
 
-#daliMajorTitle_103:pressed, #daliMajorTitle_103:selected, #daliMajorTitle_103:focused {
+#daliMajorTitle_103:hover {
     -fx-background-color: #286090;
     -fx-border-color: #204d74;
     -fx-text-fill: white;
@@ -61,7 +57,7 @@
     -fx-pref-height: 45;
 }
 
-.daliSubTitle_2xx:pressed, .daliSubTitle_2xx:selected, .daliSubTitle_2xx:focused {
+.daliSubTitle_2xx:hover {
     -fx-background-color: #449d44;
     -fx-border-color: #398439;
     -fx-text-fill: white;
@@ -74,7 +70,7 @@
     -fx-pref-width: 210;
 }
 
-.daliSubTitle_3xx:pressed, .daliSubTitle_3xx:selected, .daliSubTitle_3xx:focused {
+.daliSubTitle_3xx:hover {
     -fx-background-color: #286090;
     -fx-border-color: #204d74;
     -fx-text-fill: white;
@@ -99,14 +95,14 @@
     -fx-border-radius: 4 4 0 0;
     -fx-background-radius: 5 5 0 0;
     -fx-background-color: transparent;
-    -fx-border-color: gray;
+    -fx-border-color: rgb(128, 128, 128);
     -fx-border-width: 1.5 1.5 0.5;
     -fx-padding: 3 10 5;
     -fx-background-insets: 0;
 }
 
 .tab-pane .tab-header-area .tab .tab-label {
-    -fx-text-fill: --color-renesas;
+    -fx-text-fill: rgb(68, 113, 169);
 }
 
 .tab-pane .tab-header-area .tab:hover {
@@ -140,7 +136,7 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
-    -fx-background-color: --color-renesas;
+    -fx-background-color: rgb(68, 113, 169);
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button {
