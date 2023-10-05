@@ -47,3 +47,4 @@ docs/*          linguist-vendored
 *.vsd           binary
 *.xls           binary
 *.xlsx          binary
+*.csv          binary
