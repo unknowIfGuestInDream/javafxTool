@@ -7,149 +7,210 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<Pane styleClass="daliDetailPane" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.dali.VariableController">
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<GridPane hgap="10.0" vgap="2.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.tlcsdm.qe.tools.dali.VariableController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="190.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+    </rowConstraints>
     <children>
-        <AnchorPane>
-            <children>
-                <Group layoutX="-25.0" layoutY="109.0">
-                    <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f200" height="267.0" layoutX="44.0"
-                                   layoutY="479.0" stroke="BLACK" strokeType="INSIDE" width="735.0"/>
-                        <CheckBox layoutX="60.0" layoutY="690.0" mnemonicParsing="false" text="Scene 12"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="137.0" layoutY="686.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="292.0" layoutY="686.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <CheckBox layoutX="399.0" layoutY="525.0" mnemonicParsing="false" text="Scene 2"/>
-                        <CheckBox layoutX="64.0" layoutY="582.0" mnemonicParsing="false" text="Scene 4"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="654.0" layoutY="631.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="468.0" layoutY="631.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <CheckBox layoutX="223.0" layoutY="582.0" mnemonicParsing="false" text="Scene 5"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="137.0" layoutY="631.0" prefHeight="25.0"
-                                   prefWidth="55.0" text="80"/>
-                        <CheckBox layoutX="227.0" layoutY="525.0" mnemonicParsing="false" text="Scene 1"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="476.0" layoutY="521.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="296.0" layoutY="631.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <Label layoutX="383.0" layoutY="493.0" text="Scene"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="662.0" layoutY="521.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="20"/>
-                        <CheckBox layoutX="581.0" layoutY="582.0" mnemonicParsing="false" text="Scene 7"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="141.0" layoutY="521.0" prefHeight="25.0"
-                                   prefWidth="55.0" text="80"/>
-                        <CheckBox layoutX="577.0" layoutY="690.0" mnemonicParsing="false" text="Scene 15"/>
-                        <CheckBox layoutX="391.0" layoutY="690.0" mnemonicParsing="false" text="Scene 14"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="468.0" layoutY="686.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <CheckBox layoutX="577.0" layoutY="635.0" mnemonicParsing="false" text="Scene 11"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="654.0" layoutY="686.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <CheckBox layoutX="395.0" layoutY="582.0" mnemonicParsing="false" text="Scene 6"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="472.0" layoutY="578.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="80"/>
-                        <CheckBox layoutX="68.0" layoutY="525.0" mnemonicParsing="false" selected="true"
-                                  text="Scene 0"/>
-                        <CheckBox layoutX="585.0" layoutY="525.0" mnemonicParsing="false" text="Scene 3"/>
-                        <CheckBox layoutX="60.0" layoutY="635.0" mnemonicParsing="false" selected="true"
-                                  text="Scene 8"/>
-                        <CheckBox layoutX="215.0" layoutY="690.0" mnemonicParsing="false" text="Scene 13"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="304.0" layoutY="521.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="80"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="141.0" layoutY="578.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="0"/>
-                        <CheckBox layoutX="391.0" layoutY="635.0" mnemonicParsing="false" text="Scene 10"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="658.0" layoutY="578.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="80"/>
-                        <CheckBox layoutX="219.0" layoutY="635.0" mnemonicParsing="false" text="Scene 9"/>
-                        <TextField alignment="CENTER_RIGHT" disable="true" layoutX="300.0" layoutY="578.0"
-                                   prefHeight="25.0" prefWidth="55.0" text="80"/>
-                    </children>
-                </Group>
-                <Group>
-                    <children>
-                        <Label layoutX="468.0" layoutY="180.0" text="Fade Rate:"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="539.0" layoutY="267.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="255"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="89.0" prefHeight="27.0"
-                                   prefWidth="149.0" text="254"/>
-                        <Label layoutX="82.0" layoutY="47.0" text="Version Number:"/>
-                        <Label layoutX="34.0" layoutY="223.0" text="Extended Fade Time Base:"/>
-                        <Label layoutX="78.0" layoutY="359.0" text="Operating Mode:"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="539.0" layoutY="43.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="1"/>
-                        <ComboBox layoutX="184.0" layoutY="219.0" prefWidth="150.0" promptText="0"/>
-                        <Label layoutX="95.0" layoutY="271.0" text="Short Address:"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="267.0" prefHeight="23.0"
-                                   prefWidth="149.0"/>
-                        <Label layoutX="413.0" layoutY="93.0" text="System Failure Level:"/>
-                        <ComboBox layoutX="538.0" layoutY="219.0" prefWidth="150.0" promptText="0"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="184.0" layoutY="89.0" prefHeight="27.0"
-                                   prefWidth="148.0" text="254"/>
-                        <Label layoutX="114.0" layoutY="180.0" text="Fade Time:"/>
-                        <Label layoutX="414.0" layoutY="317.0" text="Random Address (L):"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="132.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="254"/>
-                        <ComboBox layoutX="538.0" layoutY="176.0" prefWidth="150.0" promptText="7(44.7steps/sec)"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="538.0" layoutY="313.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="255"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="43.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="3.0"/>
-                        <Label layoutX="81.0" layoutY="93.0" text="Power On Level:"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="185.0" layoutY="132.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="1"/>
-                        <TextField alignment="CENTER_RIGHT" layoutX="184.0" layoutY="313.0" prefHeight="23.0"
-                                   prefWidth="149.0" text="255"/>
-                        <Label layoutX="57.0" layoutY="317.0" text="Random Address (M):"/>
-                        <Label layoutX="412.0" layoutY="271.0" text="Random Address (H):"/>
-                        <ComboBox layoutX="184.0" layoutY="176.0" prefWidth="150.0" promptText="0(no fade)"/>
-                        <Label layoutX="394.0" layoutY="47.0" text="Physical Minimum Level:"/>
-                        <Label layoutX="114.0" layoutY="136.0" text="Min Level:"/>
-                        <Label layoutX="359.0" layoutY="223.0" text="Extended Fade Time Multiplier:"/>
-                        <Label layoutX="468.0" layoutY="136.0" text="Max Level:"/>
-                        <ComboBox layoutX="183.0" layoutY="355.0" prefWidth="150.0" promptText="0"/>
-                    </children>
-                </Group>
-                <Group layoutX="-489.0" layoutY="363.0">
-                    <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f200" height="144.0" layoutX="508.0"
-                                   layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="736.0"/>
-                        <Label layoutX="843.0" layoutY="60.0" text="Group"/>
-                        <CheckBox layoutX="524.0" layoutY="141.0" mnemonicParsing="false" text="Group 8"/>
-                        <CheckBox layoutX="607.0" layoutY="141.0" mnemonicParsing="false" text="Group 9"/>
-                        <CheckBox layoutX="961.0" layoutY="141.0" mnemonicParsing="false" text="Group 13"/>
-                        <CheckBox layoutX="1047.0" layoutY="141.0" mnemonicParsing="false" text="Group 14"/>
-                        <CheckBox layoutX="778.0" layoutY="93.0" mnemonicParsing="false" text="Group 3"/>
-                        <CheckBox layoutX="1133.0" layoutY="93.0" mnemonicParsing="false" text="Group 7"/>
-                        <CheckBox layoutX="1133.0" layoutY="141.0" mnemonicParsing="false" text="Group 15"/>
-                        <CheckBox layoutX="867.0" layoutY="141.0" mnemonicParsing="false" text="Group 12"/>
-                        <CheckBox layoutX="1050.0" layoutY="93.0" mnemonicParsing="false" text="Group 6"/>
-                        <CheckBox layoutX="961.0" layoutY="93.0" mnemonicParsing="false" text="Group 5"/>
-                        <CheckBox layoutX="607.0" layoutY="93.0" mnemonicParsing="false" text="Group 1"/>
-                        <CheckBox layoutX="870.0" layoutY="93.0" mnemonicParsing="false" text="Group 4"/>
-                        <CheckBox layoutX="691.0" layoutY="141.0" mnemonicParsing="false" text="Group 10"/>
-                        <CheckBox layoutX="524.0" layoutY="93.0" mnemonicParsing="false" text="Group 0"/>
-                        <CheckBox layoutX="775.0" layoutY="141.0" mnemonicParsing="false" text="Group 11"/>
-                        <CheckBox layoutX="694.0" layoutY="93.0" mnemonicParsing="false" text="Group 2"/>
-                    </children>
-                </Group>
-            </children>
-        </AnchorPane>
-        <TabPane fx:id="gearVariableTabPane" prefHeight="39.0" prefWidth="759.0" VBox.vgrow="ALWAYS">
+        <TabPane fx:id="gearVariableTabPane" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
             <tabs>
                 <Tab closable="false" text="Channel 0"/>
             </tabs>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
         </TabPane>
+        <Label text="Version Number:" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </Label>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="3.0" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1"/>
+        <Label text="Physical Minimum Level:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="1" GridPane.columnIndex="3"
+                   GridPane.rowIndex="1"/>
+        <Label text="Power On Level:" GridPane.rowIndex="2"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="148.0" text="254" GridPane.columnIndex="1"
+                   GridPane.rowIndex="2"/>
+        <Label text="System Failure Level:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="149.0" text="254" GridPane.columnIndex="3"
+                   GridPane.rowIndex="2"/>
+        <Label text="Min Level:" GridPane.rowIndex="3"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="1" GridPane.columnIndex="1"
+                   GridPane.rowIndex="3"/>
+        <Label text="Max Level:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="254" GridPane.columnIndex="3"
+                   GridPane.rowIndex="3"/>
+        <Label text="Fade Time:" GridPane.rowIndex="4"/>
+        <ComboBox prefWidth="150.0" promptText="0(no fade)" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Fade Rate:" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+        <ComboBox prefWidth="150.0" promptText="7(44.7steps/sec)" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+        <Label text="Extended Fade Time Base:" GridPane.rowIndex="5"/>
+        <ComboBox prefWidth="150.0" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Label text="Extended Fade Time Multiplier:" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+        <ComboBox prefWidth="150.0" promptText="0" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+        <Label text="Short Address:" GridPane.rowIndex="6"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" GridPane.columnIndex="1"
+                   GridPane.rowIndex="6"/>
+        <Label text="Random Address (H):" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="255" GridPane.columnIndex="3"
+                   GridPane.rowIndex="6"/>
+        <Label text="Random Address (M):" GridPane.rowIndex="7"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="255" GridPane.columnIndex="1"
+                   GridPane.rowIndex="7"/>
+        <Label text="Random Address (L):" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+        <TextField alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="149.0" text="255" GridPane.columnIndex="3"
+                   GridPane.rowIndex="7"/>
+        <Label text="Operating Mode:" GridPane.rowIndex="8"/>
+        <ComboBox prefWidth="150.0" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+        <GridPane hgap="5.0" vgap="10.0" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9"
+                  GridPane.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <CheckBox mnemonicParsing="false" text="Group 5" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 7" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 9" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 3" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 6" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 14" GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 12" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 10" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 8" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 4" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 2" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 0" GridPane.rowIndex="1"/>
+                <CheckBox mnemonicParsing="false" text="Group 13" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 15" GridPane.columnIndex="7" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 11" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                <CheckBox mnemonicParsing="false" text="Group 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Group" GridPane.columnSpan="8" GridPane.halignment="CENTER"/>
+            </children>
+            <GridPane.margin>
+                <Insets left="5.0" right="5.0"/>
+            </GridPane.margin>
+        </GridPane>
+        <GridPane hgap="5.0" vgap="10.0" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <CheckBox layoutX="60.0" layoutY="690.0" mnemonicParsing="false" text="Scene 12" GridPane.rowIndex="4"/>
+                <CheckBox layoutX="68.0" layoutY="525.0" mnemonicParsing="false" selected="true" text="Scene 0"
+                          GridPane.rowIndex="1"/>
+                <CheckBox layoutX="585.0" layoutY="525.0" mnemonicParsing="false" text="Scene 3"
+                          GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="468.0" layoutY="686.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="654.0" layoutY="631.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="7" GridPane.rowIndex="3"/>
+                <CheckBox layoutX="395.0" layoutY="582.0" mnemonicParsing="false" text="Scene 6"
+                          GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                <TextField alignment="CENTER_RIGHT" layoutX="141.0" layoutY="521.0" prefHeight="25.0" prefWidth="55.0"
+                           text="80" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="296.0" layoutY="631.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                <Label layoutX="383.0" layoutY="493.0" text="Scene" GridPane.columnSpan="8"
+                       GridPane.halignment="CENTER"/>
+                <CheckBox layoutX="577.0" layoutY="635.0" mnemonicParsing="false" text="Scene 11"
+                          GridPane.columnIndex="6" GridPane.rowIndex="3"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="141.0" layoutY="578.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="654.0" layoutY="686.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="7" GridPane.rowIndex="4"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="292.0" layoutY="686.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                <CheckBox layoutX="399.0" layoutY="525.0" mnemonicParsing="false" text="Scene 2"
+                          GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                <CheckBox layoutX="581.0" layoutY="582.0" mnemonicParsing="false" text="Scene 7"
+                          GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+                <CheckBox layoutX="391.0" layoutY="635.0" mnemonicParsing="false" text="Scene 10"
+                          GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+                <CheckBox layoutX="391.0" layoutY="690.0" mnemonicParsing="false" text="Scene 14"
+                          GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="137.0" layoutY="686.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="476.0" layoutY="521.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="304.0" layoutY="521.0" prefHeight="25.0"
+                           prefWidth="55.0" text="80" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="300.0" layoutY="578.0" prefHeight="25.0"
+                           prefWidth="55.0" text="80" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="468.0" layoutY="631.0" prefHeight="25.0"
+                           prefWidth="55.0" text="0" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
+                <CheckBox layoutX="227.0" layoutY="525.0" mnemonicParsing="false" text="Scene 1"
+                          GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="472.0" layoutY="578.0" prefHeight="25.0"
+                           prefWidth="55.0" text="80" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="662.0" layoutY="521.0" prefHeight="25.0"
+                           prefWidth="55.0" text="20" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+                <TextField alignment="CENTER_RIGHT" disable="true" layoutX="658.0" layoutY="578.0" prefHeight="25.0"
+                           prefWidth="55.0" text="80" GridPane.columnIndex="7" GridPane.rowIndex="2"/>
+                <CheckBox layoutX="577.0" layoutY="690.0" mnemonicParsing="false" text="Scene 15"
+                          GridPane.columnIndex="6" GridPane.rowIndex="4"/>
+                <CheckBox layoutX="219.0" layoutY="635.0" mnemonicParsing="false" text="Scene 9"
+                          GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <CheckBox layoutX="215.0" layoutY="690.0" mnemonicParsing="false" text="Scene 13"
+                          GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                <CheckBox layoutX="60.0" layoutY="635.0" mnemonicParsing="false" selected="true" text="Scene 8"
+                          GridPane.rowIndex="3"/>
+                <TextField alignment="CENTER_RIGHT" layoutX="137.0" layoutY="631.0" prefHeight="25.0" prefWidth="55.0"
+                           text="80" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <CheckBox layoutX="64.0" layoutY="582.0" mnemonicParsing="false" text="Scene 4" GridPane.rowIndex="2"/>
+                <CheckBox layoutX="223.0" layoutY="582.0" mnemonicParsing="false" text="Scene 5"
+                          GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            </children>
+            <GridPane.margin>
+                <Insets left="5.0" right="5.0" top="5.0"/>
+            </GridPane.margin>
+        </GridPane>
     </children>
-    <padding>
-        <Insets right="5.0"/>
-    </padding>
-</Pane>
+</GridPane>
