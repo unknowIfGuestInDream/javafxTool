@@ -167,16 +167,16 @@
                                 <Group layoutX="-37.0" layoutY="-1221.0">
                                     <children>
                                         <Label layoutX="191.0" layoutY="1412.0" text="OEM GTIN byte 2:"/>
-                                        <TextField layoutX="694.0" layoutY="1412.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="660.0" layoutY="1410.0" prefHeight="27.0" prefWidth="51.0"/>
                                         <TextField layoutX="306.0" layoutY="1370.0" prefHeight="27.0" prefWidth="51.0"/>
                                         <TextField layoutX="306.0" layoutY="1441.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <TextField layoutX="694.0" layoutY="1375.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <TextField layoutX="694.0" layoutY="1308.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <TextField layoutX="694.0" layoutY="1479.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <Label layoutX="481.0" layoutY="1346.0"
+                                        <TextField layoutX="660.0" layoutY="1373.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="660.0" layoutY="1306.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="660.0" layoutY="1477.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="447.0" layoutY="1344.0"
                                                text="OEM identification number byte 2:"/>
-                                        <TextField layoutX="694.0" layoutY="1513.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <Label layoutX="482.0" layoutY="1313.0"
+                                        <TextField layoutX="660.0" layoutY="1511.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="448.0" layoutY="1311.0"
                                                text="OEM identification number byte 1:"/>
                                         <TextField layoutX="306.0" layoutY="1508.0" prefHeight="27.0" prefWidth="51.0"/>
                                         <Label layoutX="191.0" layoutY="1446.0" text="OEM GTIN byte 3:"/>
@@ -184,28 +184,28 @@
                                         <Label layoutX="191.0" layoutY="1479.0" text="OEM GTIN byte 4:"/>
                                         <Label layoutX="154.0" layoutY="1513.0" text="OEM GTIN byte 5 (LSB):"/>
                                         <Label layoutX="152.0" layoutY="1341.0" text="OEM GTIN byte 0 (MSB):"/>
-                                        <Label layoutX="480.0" layoutY="1417.0"
+                                        <Label layoutX="446.0" layoutY="1415.0"
                                                text="OEM identification number byte 4:"/>
-                                        <TextField layoutX="694.0" layoutY="1446.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="660.0" layoutY="1444.0" prefHeight="27.0" prefWidth="51.0"/>
                                         <TextField layoutX="306.0" layoutY="1407.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <Label layoutX="480.0" layoutY="1484.0"
+                                        <Label layoutX="446.0" layoutY="1482.0"
                                                text="OEM identification number byte 6:"/>
-                                        <Label layoutX="481.0" layoutY="1380.0"
+                                        <Label layoutX="447.0" layoutY="1378.0"
                                                text="OEM identification number byte 3:"/>
                                         <Label layoutX="51.0" layoutY="1271.0"
                                                text="Address of last accessible memory location:"/>
                                         <TextField layoutX="306.0" layoutY="1266.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <Label layoutX="480.0" layoutY="1451.0"
+                                        <Label layoutX="446.0" layoutY="1449.0"
                                                text="OEM identification number byte 5:"/>
                                         <Label layoutX="192.0" layoutY="1375.0" text="OEM GTIN byte 1:"/>
-                                        <Label layoutX="442.0" layoutY="1279.0"
+                                        <Label layoutX="408.0" layoutY="1277.0"
                                                text="OEM identification number byte 0 (MSB):"/>
                                         <CheckBox layoutX="138.0" layoutY="1242.0" mnemonicParsing="false"
                                                   selected="true" text="Enable Memory bank 1"/>
-                                        <TextField layoutX="694.0" layoutY="1341.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <TextField layoutX="660.0" layoutY="1339.0" prefHeight="27.0" prefWidth="51.0"/>
                                         <TextField layoutX="306.0" layoutY="1474.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <TextField layoutX="694.0" layoutY="1274.0" prefHeight="27.0" prefWidth="51.0"/>
-                                        <Label layoutX="445.0" layoutY="1518.0"
+                                        <TextField layoutX="660.0" layoutY="1272.0" prefHeight="27.0" prefWidth="51.0"/>
+                                        <Label layoutX="411.0" layoutY="1516.0"
                                                text="OEM identification number byte 7 (LSB):"/>
                                         <CheckBox layoutX="183.0" layoutY="1305.0" mnemonicParsing="false"
                                                   text="Indicator byte"/>
