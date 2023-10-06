@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * @author unknowIfGuestInDream
  */
-public class MemoryBankController implements Initializable {
+public class MemoryBankController extends AbstractDaliConfigurationController implements Initializable {
     @FXML
     private TabPane channelPane;
     @FXML

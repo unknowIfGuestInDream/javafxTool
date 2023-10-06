@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * @author unknowIfGuestInDream
  */
-public class VariableController implements Initializable {
+public class VariableController extends AbstractDaliConfigurationController implements Initializable {
 
     @FXML
     TabPane gearVariableTabPane;
