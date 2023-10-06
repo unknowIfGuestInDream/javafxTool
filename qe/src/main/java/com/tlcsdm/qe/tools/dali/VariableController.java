@@ -22,9 +22,9 @@ public class VariableController implements Initializable {
     private TextField txtVersionNumber, txtPhm, txtPowerOnLevel, txtSysFailLevel, txtMinLevel, txtMaxLevel, txtShortAddress,
         txtRandomAddressH, txtRandomAddressM, txtRandomAddressL;
     @FXML
-    private ComboBox<String> cmbExtendFadeTimeBase, cmbExtendFadeTimeMulti, cmbOperatingMode;
+    private ComboBox<String> cmbExtendFadeTimeMulti, cmbOperatingMode;
     @FXML
-    private ComboBox<FadeData> cmbFadeTime, cmbFadeRate;
+    private ComboBox<FadeData> cmbFadeTime, cmbFadeRate, cmbExtendFadeTimeBase;
     @FXML
     private CheckBox enableGroup0, enableGroup1, enableGroup2, enableGroup3, enableGroup4, enableGroup5, enableGroup6,
         enableGroup7, enableGroup8, enableGroup9, enableGroup10, enableGroup11, enableGroup12, enableGroup13, enableGroup14, enableGroup15;
@@ -80,6 +80,17 @@ public class VariableController implements Initializable {
             new FadeData(12, "7.9steps/sec", "7.906"), new FadeData(13, "5.6steps/sec", "5.591"),
             new FadeData(14, "4.0steps/sec", "3.953"), new FadeData(15, "2.8steps/sec", "2.795"));
         cmbFadeRate.getSelectionModel().select(6);
+
+        cmbExtendFadeTimeBase.getItems().addAll(new FadeData(1, "", "0000"), new FadeData(1, "", "0000"),
+            new FadeData(2, "", "0001"), new FadeData(3, "", "0010"), new FadeData(4, "", "0011"),
+            new FadeData(5, "", "0100"), new FadeData(6, "", "0101"), new FadeData(7, "", "0110"),
+            new FadeData(8, "", "0111"), new FadeData(9, "", "1000"), new FadeData(10, "", "1001"),
+            new FadeData(11, "", "1010"), new FadeData(12, "", "1011"), new FadeData(13, "", "1100"),
+            new FadeData(14, "", "1101"), new FadeData(15, "", "1110"), new FadeData(16, "", "1111"));
+        cmbExtendFadeTimeBase.getSelectionModel().select(0);
+
+        cmbExtendFadeTimeMulti.getItems().addAll("0 ms", "100 ms", "1 s", "10 s", "1 min");
+        cmbExtendFadeTimeMulti.getSelectionModel().select(0);
     }
 
     private void initializeUI() {
@@ -99,8 +110,10 @@ public class VariableController implements Initializable {
 
         @Override
         public String toString() {
+            if (desc == null || desc.isEmpty()) {
+                return String.valueOf(setting);
+            }
             return setting + "(" + desc + ")";
-
         }
     }
 
