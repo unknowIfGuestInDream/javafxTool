@@ -1,19 +1,15 @@
 package com.tlcsdm.qe.tools.dali;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * @author unknowIfGuestInDream
  */
-public class MemoryBankController extends AbstractDaliConfigurationController implements Initializable {
+public class MemoryBankController extends AbstractDaliConfigurationController {
     @FXML
     private TabPane channelPane;
     @FXML
@@ -33,8 +29,8 @@ public class MemoryBankController extends AbstractDaliConfigurationController im
         txt1OemIndentifyNumberByte2, txt1OemIndentifyNumberByte3, txt1OemIndentifyNumberByte4, txt1OemIndentifyNumberByte5,
         txt1OemIndentifyNumberByte6, txt1OemIndentifyNumberByte7;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         initializeOption();
         initializeUI();
     }

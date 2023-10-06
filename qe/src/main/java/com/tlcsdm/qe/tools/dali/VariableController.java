@@ -1,20 +1,16 @@
 package com.tlcsdm.qe.tools.dali;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * @author unknowIfGuestInDream
  */
-public class VariableController extends AbstractDaliConfigurationController implements Initializable {
+public class VariableController extends AbstractDaliConfigurationController {
 
     @FXML
     TabPane gearVariableTabPane;
@@ -35,8 +31,8 @@ public class VariableController extends AbstractDaliConfigurationController impl
     private CheckBox enableScene0, enableScene1, enableScene2, enableScene3, enableScene4, enableScene5, enableScene6,
         enableScene7, enableScene8, enableScene9, enableScene10, enableScene11, enableScene12, enableScene13, enableScene14, enableScene15;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         initializeOption();
         initializeUI();
     }
