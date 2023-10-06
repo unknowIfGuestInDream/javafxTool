@@ -91,6 +91,10 @@ public class VariableController extends AbstractDaliConfigurationController impl
 
         cmbExtendFadeTimeMulti.getItems().addAll("0 ms", "100 ms", "1 s", "10 s", "1 min");
         cmbExtendFadeTimeMulti.getSelectionModel().select(0);
+
+        setIntFormatter(txtPhm, txtPowerOnLevel, txtSysFailLevel, txtMinLevel, txtMaxLevel, txtShortAddress, txtRandomAddressH,
+            txtRandomAddressM, txtRandomAddressL, txtScene0, txtScene1, txtScene2, txtScene3, txtScene4, txtScene5, txtScene6,
+            txtScene7, txtScene8, txtScene9, txtScene10, txtScene11, txtScene12, txtScene13, txtScene14, txtScene15);
     }
 
     private void initializeUI() {
