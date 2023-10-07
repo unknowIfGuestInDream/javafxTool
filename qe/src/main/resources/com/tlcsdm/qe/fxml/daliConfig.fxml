@@ -39,8 +39,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="1140.0" minWidth="1500.0" pannable="true"
-            stylesheets="@daliConfig.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<ScrollPane id="rootPane" fitToHeight="true" fitToWidth="true" pannable="true" stylesheets="@daliConfig.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.tlcsdm.qe.tools.DaliDemo">
     <content>
         <AnchorPane>
@@ -123,7 +123,7 @@
                         </Group>
                     </content>
                 </TitledPane>
-                <TitledPane fx:id="detailPane" collapsible="false" layoutX="585.0" layoutY="19.0"/>
+                <TitledPane fx:id="detailPane" collapsible="false" layoutX="564.0" layoutY="19.0"/>
             </children>
             <padding>
                 <Insets bottom="5.0"/>

@@ -31,6 +31,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
+import com.tlcsdm.qe.tools.dali.AbstractDaliConfigurationController;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,6 +73,8 @@ public class DaliDemo extends QeSample implements Initializable {
     private ComboBox<String> cmbBoard, cmbCompiler;
     @FXML
     private TitledPane detailPane;
+
+    private AbstractDaliConfigurationController daliConfigurationController;
 
     @Override
     public boolean isVisible() {
@@ -159,17 +162,20 @@ public class DaliDemo extends QeSample implements Initializable {
                     DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/dali/variable.fxml"));
                 detailPane.setContent(fxmlLoader.getRoot());
                 detailPane.setText("Variable");
-                //fxmlLoader.getController();
+                daliConfigurationController = fxmlLoader.getController();
             } else if ("Memory bank".equals(text)) {
                 FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
                     DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/dali/memoryBank.fxml"));
                 detailPane.setContent(fxmlLoader.getRoot());
                 detailPane.setText("Memory bank");
+                daliConfigurationController = fxmlLoader.getController();
             } else {
                 FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
                     DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/dali/unsupport.fxml"));
                 detailPane.setContent(fxmlLoader.getRoot());
                 detailPane.setText(text);
+                // null
+                daliConfigurationController = fxmlLoader.getController();
             }
         }
     }
