@@ -25,6 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#rootPane {
+    -fx-min-width: 1340;
+    -fx-min-height: 1020;
+}
+
 /**
  * Stack Selection
  */
@@ -41,6 +46,7 @@
 #daliMajorTitle_103 {
     -fx-background-color: #8adaff;
     -fx-pref-width: 210;
+    -fx-pref-height: 100;
     -fx-alignment: top-center;
 }
 
