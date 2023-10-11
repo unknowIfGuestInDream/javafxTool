@@ -60,5 +60,4 @@ release:
 automerge:
   - all: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
   - all: [ 'CHANGELOG.md' ]
-  - all: [ '.github/**' ]
   - all: [ 'CONTRIBUTORS.md' ]
