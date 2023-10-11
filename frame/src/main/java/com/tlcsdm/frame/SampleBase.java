@@ -226,8 +226,8 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     /**
-     * Manually call the current method after the function completes For example
-     * manually calling the current method after clicking the generate button
+     * Manually call the current method after the function completes.
+     * For example manually calling the current method after clicking the generate button
      */
     protected void bindUserData() {
         if (userData.isEmpty() || StrUtil.isEmpty(getSampleId())) {
@@ -348,7 +348,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
             addRightPanel = true;
         }
 
-        if (addRightPanel && sample.hasRightPanel()) {
+        if (addRightPanel && sample.hasControlPanel()) {
             ScrollPane scrollPane = new ScrollPane(rightPanel);
             scrollPane.setMaxHeight(Double.MAX_VALUE);
             scrollPane.setFitToWidth(true);
@@ -357,7 +357,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
             SplitPane.setResizableWithParent(scrollPane, false);
             splitPane.getItems().add(scrollPane);
         }
-        if (splitPane.getDividers().size() > 0) {
+        if (!splitPane.getDividers().isEmpty()) {
             splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
                 Config.set(Keys.ControlDividerPosition, String.format("%.2f", newValue));
             });
@@ -366,7 +366,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     @Override
-    public boolean hasRightPanel() {
+    public boolean hasControlPanel() {
         return true;
     }
 

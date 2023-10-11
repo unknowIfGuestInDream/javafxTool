@@ -1,0 +1,121 @@
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.samples-tree {
+    -fx-background-color: -fx-outer-border, -fx-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 2, 0;
+}
+
+.right-panel {
+    -fx-padding: 5;
+}
+
+.right-panel > .sample-name {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.right-panel > .separator {
+    -fx-padding: 5 0;
+}
+
+.right-panel > .description {
+    -fx-text-alignment: justify;
+    -fx-font-size: 18;
+}
+
+.right-panel > .sampleVersion {
+    -fx-text-alignment: justify;
+    -fx-font-size: 14;
+}
+
+.right-panel > * > .project-name-title,
+.right-panel > * > .property {
+    -fx-font-weight: bold;
+}
+
+.right-panel > * > .project-name {
+    -fx-font-size: 16;
+    -fx-text-alignment: justify;
+}
+
+/*
+ * The area beneath the description specifically to allow people to interact with
+ * the sample.
+ */
+.right-panel > .control-panel {
+    -fx-padding: 5 0 0;
+}
+
+.control-textarea {
+    -fx-background-color: rgb(250, 250, 252) !important;
+    -fx-focus-color: rgb(250, 250, 252) !important;
+    -fx-faint-focus-color: rgb(250, 250, 252) !important;
+    -fx-box-border: rgb(250, 250, 252) !important;
+    -fx-translate-y: -7;
+    -fx-font-size: 16;
+}
+
+.control-textarea .scroll-pane {
+    -fx-background-color: rgb(250, 250, 252) !important;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: -1;
+}
+
+.control-textarea .scroll-pane .content {
+    -fx-background-color: rgb(250, 250, 252) !important;
+}
+
+.dialog-pane {
+
+}
+
+.dialog-pane > .header-panel {
+    -fx-font-size: 18;
+}
+
+.dialog-pane > .content {
+    -fx-font-size: 14;
+}
+
+/* TreeView节点 */
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-background-color: #13227a;
+    -fx-padding: 0.333333em 0.229em; /* 4 */
+    -fx-shape: "M 0 -3.5 L 4 0 L 0 3.5 z";
+}
+
+.tree-cell:expanded .tree-disclosure-node .arrow {
+    -fx-rotate: 90;
+}
+
+.tree-cell:filled:selected {
+    -color-cell-fg: #ECEFF4;
+    -fx-background-color: rgba(67, 159, 240, 0.8);
+}

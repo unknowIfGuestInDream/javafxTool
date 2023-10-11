@@ -10,7 +10,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | JDK                    | 17         | JDK                            |
 | JavaFX                 | 17.0.8     | JavaFX                         |
 | controlsfx             | 11.1.2     | javafx UI控件                    |
-| poi-ooxml              | 5.2.3      | 用于Microsoft Documents的Java API |
+| poi-ooxml              | 5.2.4      | 用于Microsoft Documents的Java API |
 | freemarker             | 2.3.32     | 模板引擎库                          |
 | sikulixapi             | 2.0.5      | 基于OpenCV图像识别的自动化工具             |
 | commons-lang3          | 3.12.0     | Java工具类库                       |
@@ -27,7 +27,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | tlcsdm-asyncTool       | 1.0.0      | 并行工具包                          |
 | jackson                | 2.15.2     | JSON解析库                        |
 | pdfbox                 | 3.0.0      | 操作PDF文档的库                      |
-| commons-io             | 2.13.0     | IO工具                           |
+| commons-io             | 2.14.0     | IO工具                           |
 | commons-csv            | 1.10.0     | csv工具                          |
 | guava                  | 32.1.2-jre | Google工具                       |
 | groovy                 | 4.0.15     | Groovy                         |

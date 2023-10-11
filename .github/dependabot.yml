@@ -9,3 +9,18 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    reviewers:
+      - "unknowIfGuestInDream"
+      - "DreamAwakenFateBroke"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      timezone: "Asia/Shanghai"
+    reviewers:
+      - "unknowIfGuestInDream"
+      - "DreamAwakenFateBroke"
+    labels:
+      - "workflow"
+      - "github_actions"

@@ -118,6 +118,6 @@ public sealed interface Sample permits EmptySample, SampleBase {
     /**
      * 是否有右侧区域
      */
-    boolean hasRightPanel();
+    boolean hasControlPanel();
 
 }

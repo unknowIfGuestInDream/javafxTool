@@ -179,7 +179,7 @@ public class DtsTriggerSourceXml extends SmcSample {
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
 
         Label excelLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceXml.label.excel") + ": ");
         excelField = new TextField();

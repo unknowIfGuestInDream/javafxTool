@@ -283,7 +283,7 @@ public class CodeStyleLength120 extends SmcSample {
 
     // 初始化组件
     private void initComponment() {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
         outPutChooser.getExtensionFilters().add(extFilter);
         outPutChooser.setInitialFileName(resultFileName);
     }

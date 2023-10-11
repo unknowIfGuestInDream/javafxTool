@@ -117,7 +117,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                 downloadChooser.setInitialDirectory(new File(FileUtil.getParent(templatePath, 1)));
             }
             downloadChooser.setInitialFileName(defaultTemplateName);
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+            FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
             downloadChooser.getExtensionFilters().add(extFilter);
             File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
             if (file != null) {
