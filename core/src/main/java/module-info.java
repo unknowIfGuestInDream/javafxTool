@@ -3,6 +3,7 @@ module com.tlcsdm.core {
     requires javafx.fxml;
     requires javafx.swing;
     requires java.desktop;
+    requires java.net.http;
     requires java.sql;
     requires org.apache.commons.lang3;
     requires javafx.controls;
@@ -35,10 +36,11 @@ module com.tlcsdm.core {
     requires static tabula;
     requires jsr305;
     requires static com.dlsc.preferencesfx;
+    requires static yuicompressor;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
-    opens com.tlcsdm.core.util to org.junit.platform.engine;
+    opens com.tlcsdm.core.util to org.junit.platform.engine, org.junit.jupiter.api;
 
     exports com.tlcsdm.core.javafx;
     exports com.tlcsdm.core.javafx.control;

@@ -37,6 +37,7 @@ import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,6 +58,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -148,6 +150,11 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
 
     @Override
     public void initialize() {
+        Class<?> clazz = getClass();
+        //在实现Initializable接口的控制类中，initialize初始化滞后，需要禁用此接口手动初始化.
+        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
+            return;
+        }
         initializeUserDataBindings();
         initializeBindings();
         initializeUserData();
@@ -219,11 +226,11 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     /**
-     * Manually call the current method after the function completes For example
-     * manually calling the current method after clicking the generate button
+     * Manually call the current method after the function completes.
+     * For example manually calling the current method after clicking the generate button
      */
     protected void bindUserData() {
-        if (userData.size() == 0 || StrUtil.isEmpty(getSampleId())) {
+        if (userData.isEmpty() || StrUtil.isEmpty(getSampleId())) {
             return;
         }
         bindUserDataBefore();
@@ -341,7 +348,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
             addRightPanel = true;
         }
 
-        if (addRightPanel && sample.hasRightPanel()) {
+        if (addRightPanel && sample.hasControlPanel()) {
             ScrollPane scrollPane = new ScrollPane(rightPanel);
             scrollPane.setMaxHeight(Double.MAX_VALUE);
             scrollPane.setFitToWidth(true);
@@ -350,7 +357,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
             SplitPane.setResizableWithParent(scrollPane, false);
             splitPane.getItems().add(scrollPane);
         }
-        if (splitPane.getDividers().size() > 0) {
+        if (!splitPane.getDividers().isEmpty()) {
             splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
                 Config.set(Keys.ControlDividerPosition, String.format("%.2f", newValue));
             });
@@ -359,7 +366,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     @Override
-    public boolean hasRightPanel() {
+    public boolean hasControlPanel() {
         return true;
     }
 

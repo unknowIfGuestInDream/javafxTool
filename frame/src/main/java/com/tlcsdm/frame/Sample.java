@@ -86,6 +86,7 @@ public sealed interface Sample permits EmptySample, SampleBase {
 
     /**
      * Note that initialize() is called after getPanel()
+     * 如果控制此实现了 Initializable接口，那此接口不会生效，需要手动初始化
      */
     void initialize();
 
@@ -117,6 +118,6 @@ public sealed interface Sample permits EmptySample, SampleBase {
     /**
      * 是否有右侧区域
      */
-    boolean hasRightPanel();
+    boolean hasControlPanel();
 
 }

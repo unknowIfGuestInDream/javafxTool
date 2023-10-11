@@ -27,15 +27,12 @@
 
 package com.tlcsdm.core.javafx;
 
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.net.URL;
 
 /**
  * @author unknowIfGuestInDream
@@ -50,12 +47,9 @@ public class FxApp {
     private FxApp() {
     }
 
-    public static void init(Stage primaryStage, URL resource, HostServices hostServices) {
+    public static void init(Stage primaryStage, Image icon, HostServices hostServices) {
         FxApp.primaryStage = primaryStage;
-        if (resource != null) {
-            appIcon = LayoutHelper.icon(resource);
-            primaryStage.getIcons().add(appIcon);
-        }
+        setAppIcon(icon);
         FxApp.hostServices = hostServices;
     }
 

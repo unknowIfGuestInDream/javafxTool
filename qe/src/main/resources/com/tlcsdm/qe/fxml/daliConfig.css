@@ -1,0 +1,156 @@
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#rootPane {
+    -fx-min-width: 1340;
+    -fx-min-height: 1020;
+}
+
+/**
+ * Stack Selection
+ */
+.daliMajorTitle {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+#daliMajorTitle_102 {
+    -fx-fill: #bee396;
+    -fx-stroke-width: 0;
+}
+
+#daliMajorTitle_103 {
+    -fx-background-color: #8adaff;
+    -fx-pref-width: 210;
+    -fx-pref-height: 100;
+    -fx-alignment: top-center;
+}
+
+#daliMajorTitle_103:hover {
+    -fx-background-color: #286090;
+    -fx-border-color: #204d74;
+    -fx-text-fill: white;
+}
+
+.daliSubTitle_2xx {
+    -fx-font-size: 14;
+    -fx-background-color: #e9f6dc;
+    -fx-pref-width: 200;
+    -fx-pref-height: 45;
+}
+
+.daliSubTitle_2xx:hover {
+    -fx-background-color: #449d44;
+    -fx-border-color: #398439;
+    -fx-text-fill: white;
+}
+
+.daliSubTitle_3xx {
+    -fx-font-size: 14;
+    -fx-background-color: #daf4fd;
+    -fx-pref-height: 45;
+    -fx-pref-width: 210;
+}
+
+.daliSubTitle_3xx:hover {
+    -fx-background-color: #286090;
+    -fx-border-color: #204d74;
+    -fx-text-fill: white;
+}
+
+.daliDetailPane {
+    -fx-background-color: white;
+}
+
+/**
+ * tabPane
+ */
+.tab-pane .tab-header-background {
+    -fx-background-color: #f4f4f4;
+}
+
+.tab-pane.plain .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area .tab {
+    -fx-border-radius: 4 4 0 0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-background-color: transparent;
+    -fx-border-color: rgb(128, 128, 128);
+    -fx-border-width: 1.5 1.5 0.5;
+    -fx-padding: 3 10 5;
+    -fx-background-insets: 0;
+}
+
+.tab-pane .tab-header-area .tab .tab-label {
+    -fx-text-fill: rgb(68, 113, 169);
+}
+
+.tab-pane .tab-header-area .tab:hover {
+    -fx-background-color: #eeeeee;
+}
+
+.tab-pane .tab-header-area .tab:disabled:hover {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area .tab:selected {
+    -fx-focus-color: transparent;
+    -fx-border-color: #dddddd #dddddd white;
+    -fx-background-color: white;
+}
+
+.tab-pane .tab-header-area .tab:selected .tab-label {
+    -fx-text-fill: #333333;
+}
+
+.tab-pane > .tab-content-area {
+    -fx-background-color: white;
+}
+
+.tab-pane .tab-header-area .tab .tab-label {
+    -fx-focus-color: transparent;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    -fx-background-color: rgb(68, 113, 169);
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button {
+    -fx-background-color: #333333;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
+    -fx-background-color: red;
+    -fx-cursor: hand;
+}
+

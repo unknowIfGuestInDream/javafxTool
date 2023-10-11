@@ -8,11 +8,14 @@ module com.tlcsdm.frame {
     requires cn.hutool.core;
     requires cn.hutool.log;
     requires cn.hutool.crypto;
+    requires static com.github.benmanes.caffeine;
+    requires javafx.fxml;
 
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
     exports com.tlcsdm.frame.service;
     exports com.tlcsdm.frame.event;
+    exports com.tlcsdm.frame.cache;
 
     uses com.tlcsdm.frame.service.FXSamplerProject;
     uses com.tlcsdm.frame.service.MenubarConfigration;

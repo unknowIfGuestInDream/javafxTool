@@ -12,7 +12,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 - login: 登录模块(提供SPI接口)
 - demo: demo示例(基于controlsfx demo改造)
 - common: 通用组件模块，用于应用模块使用
-- smc, qe: 个人应用(无需参考)
+- smc, qe, cg: 个人应用(无需参考)
 
 ## 接口
 

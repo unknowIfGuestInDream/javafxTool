@@ -35,6 +35,7 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.MoneyToChineseUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
@@ -79,7 +80,8 @@ public class MoneyToChinese extends CommonSample {
 
     @Override
     public boolean isVisible() {
-        return false;
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value);
     }
 
     @Override

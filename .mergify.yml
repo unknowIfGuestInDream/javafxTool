@@ -259,6 +259,7 @@ pull_request_rules:
       - author=dependabot[bot]
       - "-status-failure=Title Validator"
       - label!=invalid
+      - label!=github_actions
       - "-closed"
       - "-draft"
       - "-conflict"
@@ -292,3 +293,16 @@ pull_request_rules:
       - label=Ready-to-Go
     actions:
       update:
+  - name: prepare for release
+    conditions:
+      - author!=unknowIfGuestInDream
+      - label=release
+      - "-closed"
+      - "-draft"
+      - "-conflict"
+      - "-merged"
+    actions:
+      comment:
+        message: |
+          @unknowIfGuestInDream
+          Please confirm the modification of MANIFEST.MF.

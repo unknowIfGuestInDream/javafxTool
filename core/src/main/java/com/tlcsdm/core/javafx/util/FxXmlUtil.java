@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.util.CoreConstant;
 import org.apache.commons.configuration2.XMLPropertiesConfiguration;
 import org.apache.commons.configuration2.builder.ReloadingFileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -61,7 +62,7 @@ public class FxXmlUtil {
 
         Parameters params = new Parameters();
         File propertiesFile = ConfigureUtil.getConfigureXmlFile(Config.USERDATA_FILE_NAME);
-        XMLBuilderParameters xmlBuilderParameters = params.xml().setFile(propertiesFile).setEncoding("UTF-8")
+        XMLBuilderParameters xmlBuilderParameters = params.xml().setFile(propertiesFile).setEncoding(CoreConstant.ENCODING_UTF_8)
             .setListDelimiterHandler(new DefaultListDelimiterHandler(',')).setThrowExceptionOnMissing(false);
         ReloadingFileBasedConfigurationBuilder<XMLPropertiesConfiguration> builder = new ReloadingFileBasedConfigurationBuilder<>(
             XMLPropertiesConfiguration.class).configure(xmlBuilderParameters);

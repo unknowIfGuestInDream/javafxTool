@@ -33,13 +33,11 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.net.UserPassAuthenticator;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.style.StyleUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
@@ -47,12 +45,19 @@ import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.control.ProgressStage;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
+import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.tools.girret.Change;
+import com.tlcsdm.smc.tools.girret.Comment;
+import com.tlcsdm.smc.tools.girret.Owner;
 import com.tlcsdm.smc.util.I18nUtils;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
@@ -163,6 +168,8 @@ public class GirretReview extends SmcSample {
                 notificationBuilder.showWarning();
                 return;
             }
+            ProgressStage ps = ProgressStage.of();
+            ps.show();
             ThreadPoolTaskExecutor.get().execute(new Runnable() {
 
                 @Override
@@ -199,7 +206,7 @@ public class GirretReview extends SmcSample {
                             FileUtil.del(file);
                         }
                         int paramN = Integer.parseInt(limitField.getText());
-                        projectList = new ArrayList();
+                        projectList = new ArrayList<>();
                         List<String> projects = StrUtil.splitTrim(projectField.getText(), "\n");
                         for (String project : projects) {
                             projectList.add(project.trim());
@@ -214,14 +221,13 @@ public class GirretReview extends SmcSample {
                                 "application/json", "User-Agent",
                                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
                                 .build();
-                            HttpResponse<String> response = null;
-                            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                             if (response.statusCode() == 200) {
                                 String result = response.body();
                                 if (result.startsWith(")]}'")) {
                                     result = result.substring(4);
                                 }
-                                JSONArray array = JSONUtil.parseArray(result);
+                                List<Change> array = JacksonUtil.json2List(result, Change.class);
                                 handleChanges(array, paramN);
                                 if (changesEnd) {
                                     break;
@@ -232,9 +238,11 @@ public class GirretReview extends SmcSample {
                             }
                         }
                         handleComments(commentsRequestUrl, resultPath, resultFileName);
+                        ps.close();
                         bindUserData();
                     } catch (Exception e) {
-                        FxAlerts.exception(e);
+                        ps.close();
+                        FxApp.runLater(() -> FxAlerts.exception(e));
                         StaticLog.error(e);
                     }
                 }
@@ -432,7 +440,7 @@ public class GirretReview extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.3";
+        return "1.0.9";
     }
 
     @Override
@@ -452,33 +460,35 @@ public class GirretReview extends SmcSample {
 
     // 初始化组件
     private void initComponment() {
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel file", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = FileChooserUtil.xlsxFilter();
         outPutChooser.getExtensionFilters().add(extFilter);
     }
 
     /**
      * girret changes 数据处理
      */
-    private void handleChanges(JSONArray array, int paramN) {
+    private void handleChanges(List<Change> array, int paramN) {
         for (int i = 0; i < array.size(); i++) {
-            if (changesFilter(array.get(i), array, i)) {
-                String submitted = String.valueOf(array.getByPath("[" + i + "].submitted")).replace(".000000000", "");
+            Change change = array.get(i);
+            if (changesFilter(change, array, i)) {
+                String submitted = change.getSubmitted().replace(".000000000", "");
                 if (startDatePicker.getValue() != null) {
                     if ((startDatePicker.getValue().toString() + " 00:00:00").compareTo(submitted) >= 0) {
                         changesEnd = true;
                         break;
                     }
                 }
+                Owner owner = change.getOwner();
                 Map<String, String> map = new HashMap<>();
-                map.put("girretNum", String.valueOf(array.getByPath("[" + i + "]._number")));
-                map.put("project", String.valueOf(array.getByPath("[" + i + "].project")));
-                map.put("changeId", String.valueOf(array.getByPath("[" + i + "].change_id")));
-                map.put("subject", String.valueOf(array.getByPath("[" + i + "].subject")));
-                map.put("created", String.valueOf(array.getByPath("[" + i + "].created")).replace(".000000000", ""));
+                map.put("girretNum", String.valueOf(change.getNumber()));
+                map.put("project", change.getProject());
+                map.put("changeId", change.getChangeId());
+                map.put("subject", change.getSubject());
+                map.put("created", change.getCreated().replace(".000000000", ""));
                 map.put("submitted", submitted);
-                map.put("insertions", String.valueOf(array.getByPath("[" + i + "].insertions")));
-                map.put("deletions", String.valueOf(array.getByPath("[" + i + "].deletions")));
-                map.put("ownerUserName", String.valueOf(array.getByPath("[" + i + "].owner.username")));
+                map.put("insertions", String.valueOf(change.getInsertions()));
+                map.put("deletions", String.valueOf(change.getDeletions()));
+                map.put("ownerUserName", owner.getUsername());
                 changesList.add(map);
             }
         }
@@ -491,13 +501,15 @@ public class GirretReview extends SmcSample {
     /**
      * changes数据过滤
      */
-    private boolean changesFilter(Object obj, JSONArray array, int i) {
+    private boolean changesFilter(Object obj, List<Change> array, int i) {
+        Change change = array.get(i);
         // 未合并的提交不统计
-        if (!Objects.equals("MERGED", array.getByPath("[" + i + "].status"))) {
+        if (!Objects.equals("MERGED", change.getStatus())) {
             return false;
         }
         // 提交者不是userName的不统计
-        String queryEmail = array.getByPath("[" + i + "].owner.email").toString();
+        Owner owner = change.getOwner();
+        String queryEmail = owner.getEmail();
         if (StrUtil.isNotEmpty(ownerEmailField.getText())) {
             if (!ownerEmailField.getText().startsWith(userNameField.getText())) {
                 if (!Objects.equals(ownerEmailField.getText(), queryEmail)) {
@@ -514,12 +526,14 @@ public class GirretReview extends SmcSample {
             }
         }
         List<String> ignoreGirretNumberList = StrUtil.splitTrim(ignoreGirretNumberField.getText(), ",");
-        if (ignoreGirretNumberList.size() > 0) {
-            return !ignoreGirretNumberList.contains(array.getByPath("[" + i + "].owner._number"));
+        if (!ignoreGirretNumberList.isEmpty()) {
+            if (ignoreGirretNumberList.contains(change.getNumber().toString())) {
+                return false;
+            }
         }
         // 过滤project
-        if (projectList.size() > 0) {
-            if (!projectList.contains(array.getByPath("[" + i + "].project"))) {
+        if (!projectList.isEmpty()) {
+            if (!projectList.contains(change.getProject())) {
                 return false;
             }
         }
@@ -532,7 +546,7 @@ public class GirretReview extends SmcSample {
      */
     private void handleComments(String commentsRequestUrl, String resultPath, String resultFileName)
         throws IOException, InterruptedException {
-        if (changesList.size() == 0) {
+        if (changesList.isEmpty()) {
             FxApp.runLater(() -> {
                 notificationBuilder.text("No need changes");
                 notificationBuilder.showInformation();
@@ -554,13 +568,16 @@ public class GirretReview extends SmcSample {
                 if (result.startsWith(")]}'")) {
                     result = result.substring(4);
                 }
-                JSONObject jsonObject = JSONUtil.parseObj(result);
-                jsonObject.remove("/PATCHSET_LEVEL");
-                for (Map.Entry<String, Object> vo : jsonObject.entrySet()) {
-                    JSONArray array = JSONUtil.parseArray(vo.getValue());
-                    for (int j = 0; j < array.size(); j++) {
-                        String commentMessage = String.valueOf(array.getByPath("[" + j + "].message"));
-                        String commentAuthorUserName = String.valueOf(array.getByPath("[" + j + "].author.username"));
+                Map<String, List<Comment>> map = JacksonUtil.json2MapValueList(result, String.class, Comment.class);
+                if (map == null) {
+                    return;
+                }
+                map.remove("/PATCHSET_LEVEL");
+                for (Map.Entry<String, List<Comment>> vo : map.entrySet()) {
+                    List<Comment> array = vo.getValue();
+                    for (Comment value : array) {
+                        String commentMessage = value.getMessage();
+                        String commentAuthorUserName = value.getAuthor().getUsername();
                         Map<String, String> comment = new HashMap<>(changesList.get(i));
                         if ("Done".equals(commentMessage)
                             || comment.get("ownerUserName").equals(commentAuthorUserName)) {
@@ -568,7 +585,7 @@ public class GirretReview extends SmcSample {
                         }
                         comment.put("commentFileName", vo.getKey());
                         comment.put("commentAuthorUserName", commentAuthorUserName);
-                        comment.put("commentAuthorName", String.valueOf(array.getByPath("[" + j + "].author.name")));
+                        comment.put("commentAuthorName", value.getAuthor().getName());
                         comment.put("commentMessage", commentMessage);
                         commentsList.add(comment);
                     }
@@ -589,8 +606,8 @@ public class GirretReview extends SmcSample {
     /**
      * 数据结果处理
      */
-    private void handleResult(String resultPath, String resultFileName) {
-        if (commentsList.size() == 0) {
+    private void handleResult(String resultPath, String resultFileName) throws JsonProcessingException {
+        if (commentsList.isEmpty()) {
             FxApp.runLater(() -> {
                 notificationBuilder.text("No need comments");
                 notificationBuilder.showInformation();
@@ -615,15 +632,23 @@ public class GirretReview extends SmcSample {
         writer.close();
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
-            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(changesList), FileUtil.file(resultPath,
-                LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN) + "-changes.json"));
-            FileUtil.writeUtf8String(JSONUtil.toJsonPrettyStr(commentsList), FileUtil.file(resultPath,
-                LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN) + "-comments.json"));
+            FileUtil.writeUtf8String(
+                JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changesList),
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-changes.json"));
+            FileUtil.writeUtf8String(
+                JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(commentsList),
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-comments.json"));
         }
+        StaticLog.info("Generate successfully...");
         FxApp.runLater(() -> {
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
         });
+        OSUtil.openAndSelectedFile(resultPath);
     }
 
     // 设置生成的excel样式

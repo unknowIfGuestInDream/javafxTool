@@ -168,8 +168,8 @@ public class FxAlerts {
             FxApp.setupModality(alert);
             Optional<ButtonType> result = alert.showAndWait();
             return result.orElse(FxButtonType.CANCEL);
-        } catch (Exception var7) {
-            var7.printStackTrace();
+        } catch (Exception e) {
+            StaticLog.error(e);
             return FxButtonType.CANCEL;
         }
     }

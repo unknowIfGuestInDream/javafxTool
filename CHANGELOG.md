@@ -1,5 +1,55 @@
 # CHANGELOG
 
+## [v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44
+
+1. First release
+2. JS/CSS compression
+
+### Feature
+
+- common:
+  - 增加DataFormatConvert (#799) ([65d7fe2](https://github.com/unknowIfGuestInDream/javafxTool/commit/65d7fe2a7225ac6c3ae3235841ae0d0e310fe22f)) ([#799](https://github.com/unknowIfGuestInDream/javafxTool/pull/799))
+  - 新增DataFormatConvert工具 (#773) ([feb5585](https://github.com/unknowIfGuestInDream/javafxTool/commit/feb55856cc1fd86d70cd5986368bff8c7d04713f)) ([#773](https://github.com/unknowIfGuestInDream/javafxTool/pull/773))
+  - common模块设计修改 (#787) ([fc9ae70](https://github.com/unknowIfGuestInDream/javafxTool/commit/fc9ae70844448fe5e420d5ecbcf50028a02881a6)) ([#787](https://github.com/unknowIfGuestInDream/javafxTool/pull/787))
+
+- qe:
+  - 补充compress的说明 (#770) ([2c92110](https://github.com/unknowIfGuestInDream/javafxTool/commit/2c92110e69551eca9e42e61095aa6cc98d6d45ee)) ([#770](https://github.com/unknowIfGuestInDream/javafxTool/pull/770))
+  - 调整动画UI (#784) ([1e3c50f](https://github.com/unknowIfGuestInDream/javafxTool/commit/1e3c50f6b33f81f8b3ce70567bba5dba28b1d5dc)) ([#784](https://github.com/unknowIfGuestInDream/javafxTool/pull/784))
+  - 更换启动logo (#781) ([8560019](https://github.com/unknowIfGuestInDream/javafxTool/commit/85600194f241528a01b7482dd3d10f7af55f6a04)) ([#781](https://github.com/unknowIfGuestInDream/javafxTool/pull/781))
+  - js/css压缩 (#755) ([c9994f0](https://github.com/unknowIfGuestInDream/javafxTool/commit/c9994f0c8cca60c2fe26ac3c0aab5eb96c1bf592)) ([#755](https://github.com/unknowIfGuestInDream/javafxTool/pull/755))
+  - dali config添加 (#742) ([ad2a123](https://github.com/unknowIfGuestInDream/javafxTool/commit/ad2a123b7331ee814d044643d3a1cea4a11e1168)) ([#742](https://github.com/unknowIfGuestInDream/javafxTool/pull/742))
+
+- frame:
+  - 接口重命名 (#780) ([e9aa922](https://github.com/unknowIfGuestInDream/javafxTool/commit/e9aa922f9df81053555fd215798e2ad2c4bbb657)) ([#780](https://github.com/unknowIfGuestInDream/javafxTool/pull/780))
+  - 隐藏闪屏的托盘图标 (#779) ([0a52412](https://github.com/unknowIfGuestInDream/javafxTool/commit/0a52412d814821dfc13014adf52626a5ccd749d8)) ([#779](https://github.com/unknowIfGuestInDream/javafxTool/pull/779))
+  - 优化启动动画时的托盘图标 (#772) ([37f2258](https://github.com/unknowIfGuestInDream/javafxTool/commit/37f225860a9115b065d0b207a38e8458d155aea2)) ([#772](https://github.com/unknowIfGuestInDream/javafxTool/pull/772))
+  - 新增菜单缓存 (#748) ([76a9776](https://github.com/unknowIfGuestInDream/javafxTool/commit/76a977612c729321f3f58ffa83850e41787db859)) ([#748](https://github.com/unknowIfGuestInDream/javafxTool/pull/748))
+  - 接口权限控制 (#750) ([920ab67](https://github.com/unknowIfGuestInDream/javafxTool/commit/920ab67ad63945b0c96680865ec7a0c71beffd79)) ([#750](https://github.com/unknowIfGuestInDream/javafxTool/pull/750))
+  - 增加选择主题接口 (#747) ([c329200](https://github.com/unknowIfGuestInDream/javafxTool/commit/c32920007ab037dc40797fccc78f290219a4a5c4)) ([#747](https://github.com/unknowIfGuestInDream/javafxTool/pull/747))
+
+- core:
+  - ProgressStage增加高斯模糊效果 (#769) ([683a5b9](https://github.com/unknowIfGuestInDream/javafxTool/commit/683a5b98b091e982daee357a13f4a08157b61b71)) ([#769](https://github.com/unknowIfGuestInDream/javafxTool/pull/769))
+  - Jackson配置优化 (#761) ([aabb7c7](https://github.com/unknowIfGuestInDream/javafxTool/commit/aabb7c77dd3c534f0ff65d5faec151f32e2f90c7)) ([#761](https://github.com/unknowIfGuestInDream/javafxTool/pull/761))
+  - 新增ScreenColorPickerHideWindow配置 (#734) ([505b1bb](https://github.com/unknowIfGuestInDream/javafxTool/commit/505b1bb03af83fa0e0821428aa1e3d4adbffcbf2)) ([#734](https://github.com/unknowIfGuestInDream/javafxTool/pull/734))
+
+- smc:
+  - girret工具bug修复 (#765) ([4d877c1](https://github.com/unknowIfGuestInDream/javafxTool/commit/4d877c1b497b4c33e5f9750e2c808352eedcc1a9)) ([#765](https://github.com/unknowIfGuestInDream/javafxTool/pull/765))
+  - specGeneral使能条件优化，功能优化 (#757) ([deac9aa](https://github.com/unknowIfGuestInDream/javafxTool/commit/deac9aa6a8e7f8b21f20df94e12634329b862c21)) ([#757](https://github.com/unknowIfGuestInDream/javafxTool/pull/757))
+  - SpecGeneralTest UI使能条件优化 (#754) ([ef43c48](https://github.com/unknowIfGuestInDream/javafxTool/commit/ef43c48c6a78ced76518519ed8348cbfc4724a25)) ([#754](https://github.com/unknowIfGuestInDream/javafxTool/pull/754))
+  - 修复按钮的国际化问题 (#719) ([b15261a](https://github.com/unknowIfGuestInDream/javafxTool/commit/b15261a796eff2d8a85eca49ec281b214eb5ba9c)) ([#719](https://github.com/unknowIfGuestInDream/javafxTool/pull/719))
+
+- general:
+  - jackson替换hutool-json (#756) ([9eb7813](https://github.com/unknowIfGuestInDream/javafxTool/commit/9eb78136d844a1f15c6dfecb2a401e64e3f3a6e2)) ([#756](https://github.com/unknowIfGuestInDream/javafxTool/pull/756))
+
+### Bug Fixes
+
+- frame:
+  - 修复mac arm环境下隐藏失败的问题 (#783) ([59106a2](https://github.com/unknowIfGuestInDream/javafxTool/commit/59106a2470d09c119428438ecc516cc0be4d401e)) ([#783](https://github.com/unknowIfGuestInDream/javafxTool/pull/783))
+
+- core:
+  - 修复导入设置取消时的异常重启 (#777) ([79af1d0](https://github.com/unknowIfGuestInDream/javafxTool/commit/79af1d0e08c25b307a04c4cb8be7ca7402798f69)) ([#777](https://github.com/unknowIfGuestInDream/javafxTool/pull/777))
+  - PathWatchTool国际化错误修复 (#760) ([b13235a](https://github.com/unknowIfGuestInDream/javafxTool/commit/b13235a966f747b3baf1cbb738a529d81e94f3dd)) ([#760](https://github.com/unknowIfGuestInDream/javafxTool/pull/760))
+
 ## [v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48
 
 1. GroovyCodeArea stack overflow fixed and style modified

@@ -27,6 +27,7 @@
 
 package com.tlcsdm.smc.unitTest;
 
+import cn.hutool.core.comparator.VersionComparator;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -44,16 +45,19 @@ import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.control.ProgressStage;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -145,6 +149,8 @@ public class SpecGeneralTest extends SmcSample {
      * </pre>
      */
     private final Action diff = FxAction.create(I18nUtils.get("smc.tool.specGeneralTest.button.diff"), actionEvent -> {
+        ProgressStage ps = ProgressStage.of();
+        ps.show();
         ThreadPoolTaskExecutor.get().execute(new Runnable() {
 
             @Override
@@ -307,12 +313,14 @@ public class SpecGeneralTest extends SmcSample {
                         DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
                     }
                     FxApp.runLater(() -> {
+                        ps.close();
                         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
                         notificationBuilder.showInformation();
                     });
                     bindUserData();
                 } catch (Exception e) {
                     FxApp.runLater(() -> {
+                        ps.close();
                         ExceptionDialog exceptionDialog = new ExceptionDialog(e);
                         exceptionDialog.show();
                     });
@@ -406,7 +414,7 @@ public class SpecGeneralTest extends SmcSample {
         Label generalFileCellLabel = new Label(I18nUtils.get("smc.tool.specGeneralTest.label.generalFileCell") + ": ");
         generalFileCellField = new TextField();
 
-        ignoreSheetField.setText("Overview, Summary, Sample-CT");
+        ignoreSheetField.setText("Overview, Summary, Sample-CT, metadata");
         startCellField.setText("C19");
         endCellColumnField.setText("F");
         generalFileCellField.setText("C15");
@@ -445,9 +453,13 @@ public class SpecGeneralTest extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, generalField, outputField,
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField,
             macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
-        diff.disabledProperty().bind(emptyValidation);
+        BooleanBinding generalBinding = Bindings.createBooleanBinding(() -> {
+            return onlyGenerateCheck.isSelected()
+                || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty());
+        }, generalField.textProperty(), onlyGenerateCheck.selectedProperty());
+        diff.disabledProperty().bind(emptyValidation.and(generalBinding));
         openOutDir.disabledProperty().bind(outputValidation);
         mergeResultCheck.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
         generalButton.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());
@@ -540,6 +552,15 @@ public class SpecGeneralTest extends SmcSample {
     @Override
     public String getSampleDescription() {
         return I18nUtils.get("smc.sampleName.specGeneralTest.description");
+    }
+
+    @Override
+    protected void updateForVersionUpgrade() {
+        // 从1.0.9开始，修改了ignoreSheet默认值，因此对之前版本做清除操作
+        int compare = VersionComparator.INSTANCE.compare("1.0.9", FxXmlUtil.get(getSampleXmlPrefix(), "version", ""));
+        if (compare > 0) {
+            FxXmlUtil.del(getSampleXmlPrefix(), "ignoreSheet");
+        }
     }
 
     /**

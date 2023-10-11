@@ -61,7 +61,6 @@ module com.tlcsdm.smc {
     requires cn.hutool.core;
     requires cn.hutool.poi;
     requires cn.hutool.log;
-    requires cn.hutool.json;
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;
@@ -69,6 +68,8 @@ module com.tlcsdm.smc {
     requires org.fxmisc.flowless;
     requires com.dlsc.formsfx;
     requires com.dlsc.preferencesfx;
+    requires com.fasterxml.jackson.databind;
+    requires com.github.benmanes.caffeine;
 
     exports com.tlcsdm.smc;
     exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
@@ -78,6 +79,7 @@ module com.tlcsdm.smc {
     exports com.tlcsdm.smc.codeDev.ecm to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitDesign to com.tlcsdm.frame;
     exports com.tlcsdm.smc.config to com.tlcsdm.core;
+    exports com.tlcsdm.smc.tools.girret to com.fasterxml.jackson.databind;
 
     opens com.tlcsdm.smc.codeDev to javafx.graphics;
     opens com.tlcsdm.smc.codeDev.ecm to javafx.graphics;

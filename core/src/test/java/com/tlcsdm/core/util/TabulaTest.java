@@ -52,7 +52,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
@@ -145,7 +145,7 @@ public class TabulaTest {
     public String loadJson(String path) throws IOException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -159,7 +159,7 @@ public class TabulaTest {
     public String loadCsv(String path) throws IOException {
 
         StringBuilder out = new StringBuilder();
-        CSVParser parse = org.apache.commons.csv.CSVParser.parse(new File(path), Charset.forName("utf-8"),
+        CSVParser parse = org.apache.commons.csv.CSVParser.parse(new File(path), StandardCharsets.UTF_8,
             CSVFormat.EXCEL);
 
         CSVPrinter printer = new CSVPrinter(out, CSVFormat.EXCEL);

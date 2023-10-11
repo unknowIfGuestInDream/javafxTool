@@ -19,11 +19,15 @@ qe:
 common:
   - common/**
 
+cg:
+  - cg/**
+
 test:
   - smc/src/test/**
   - core/src/test/**
   - qe/src/test/**
   - common/src/test/**
+  - cg/src/test/**
 
 workflow:
   - .github/**
@@ -45,9 +49,13 @@ dependencies:
   - core/pom.xml
   - qe/pom.xml
   - common/pom.xml
+  - cg/pom.xml
 
 i18ns:
-- any: ['**/i18n/*.properties']
+  - any: [ '**/i18n/*.properties' ]
+
+release:
+  - any: [ '**/META-INF/MANIFEST.MF' ]
 
 automerge:
   - all: [ 'README.md', 'README_zh.md', 'README_jp.md' ]

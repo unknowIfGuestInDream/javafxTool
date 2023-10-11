@@ -377,4 +377,12 @@ public class FxAction {
     public static Action preferences() {
         return preferences(actionEvent -> new PreferencesView().show());
     }
+
+    public static Action choose(Consumer<ActionEvent> eventHandler) {
+        return choose(I18nUtils.get("core.button.choose"), eventHandler);
+    }
+
+    public static Action choose(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/choose.png");
+    }
 }

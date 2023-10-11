@@ -25,6 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import com.tlcsdm.jfxcommon.config.CommonTemplateLoaderProvider;
+
 module com.tlcsdm.jfxcommon {
     requires java.desktop;
     requires javafx.fxml;
@@ -35,17 +38,20 @@ module com.tlcsdm.jfxcommon {
     requires org.controlsfx.controls;
     requires cn.hutool.core;
     requires cn.hutool.log;
-    requires cn.hutool.json;
     requires org.slf4j;
     requires cn.hutool.poi;
-    requires org.apache.poi.poi;
+    requires static freemarker;
+    requires static com.fasterxml.jackson.databind;
+    requires static org.apache.commons.csv;
+    requires static org.apache.poi.poi;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to com.tlcsdm.frame;
+    exports com.tlcsdm.jfxcommon.tools to javafx.fxml, com.tlcsdm.frame;
 
     opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
 
     provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
+    provides TemplateLoaderService with CommonTemplateLoaderProvider;
 
 }
