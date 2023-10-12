@@ -199,6 +199,16 @@
             <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.gtk.linux.ppc64le</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
