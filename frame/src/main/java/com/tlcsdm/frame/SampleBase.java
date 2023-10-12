@@ -27,16 +27,19 @@
 
 package com.tlcsdm.frame;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -58,9 +61,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -155,6 +161,18 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
             return;
         }
+        try {
+            Method method = getClass().getMethod("initialize");
+            final List<Annotation> annotations = AnnotationUtil.scanMethod(method);
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof FXML) {
+                    return;
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            StaticLog.error(e);
+        }
+
         initializeUserDataBindings();
         initializeBindings();
         initializeUserData();

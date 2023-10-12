@@ -36,7 +36,6 @@ import com.tlcsdm.qe.util.I18nUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -47,7 +46,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
@@ -55,7 +53,7 @@ import java.util.ResourceBundle;
  *
  * @author unknowIfGuestInDream
  */
-public class DaliDemo extends QeSample implements Initializable {
+public class DaliDemo extends QeSample {
 
     @FXML
     private Group grpSetting;
@@ -124,10 +122,16 @@ public class DaliDemo extends QeSample implements Initializable {
         return false;
     }
 
+    @FXML
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
+        super.initialize();
         initializeOption();
         initializeUI();
+
+        initializeUserDataBindings();
+        initializeBindings();
+        initializeUserData();
     }
 
     public void initializeOption() {
