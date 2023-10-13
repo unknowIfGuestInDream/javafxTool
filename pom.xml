@@ -50,6 +50,7 @@
         <module>qe</module>
         <module>common</module>
         <module>cg</module>
+        <module>swt</module>
     </modules>
 
     <properties>
@@ -220,6 +221,11 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-common</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-swt</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>
