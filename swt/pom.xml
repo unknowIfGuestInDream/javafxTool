@@ -9,14 +9,10 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-swt</artifactId>
+    <version>1.0.0</version>
     <name>swt</name>
     <description>swt引用</description>
     <packaging>pom</packaging>
-    <modules>
-        <module>swt-mac</module>
-        <module>swt-window</module>
-        <module>swt-linux</module>
-    </modules>
 
     <profiles>
         <profile>
