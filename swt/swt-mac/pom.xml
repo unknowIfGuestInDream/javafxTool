@@ -13,6 +13,7 @@
         <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
