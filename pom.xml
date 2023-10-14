@@ -110,6 +110,9 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.31.0</jface.version>
         <swt.version>3.124.100</swt.version>
+        <jna.version>5.7.0</jna.version>
+        <vosk.version>0.3.45</vosk.version>
+        <java2.version>3.3.1</java2.version>
     </properties>
 
     <issueManagement>
@@ -628,6 +631,35 @@
                 <version>${swt.version}</version>
             </dependency>
             <!-- swt end -->
+            <!-- vosk start -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alphacephei</groupId>
+                <artifactId>vosk</artifactId>
+                <version>${vosk.version}</version>
+            </dependency>
+            <!-- vosk end -->
+            <!-- Java Audio Video Encoder end -->
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-core</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-win64</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-osxm1</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <!-- Java Audio Video Encoder end -->
         </dependencies>
     </dependencyManagement>
 
