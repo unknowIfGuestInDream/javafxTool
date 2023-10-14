@@ -27,10 +27,19 @@
 
 package com.tlcsdm.frame;
 
+import cn.hutool.core.annotation.AnnotationUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.model.EmptySample;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.List;
 
 /**
  * @author unknowIfGuestInDream
@@ -119,5 +128,29 @@ public sealed interface Sample permits EmptySample, SampleBase {
      * 是否有右侧区域
      */
     boolean hasControlPanel();
+
+    /**
+     * 当前实现类是否是fxml实现，如果是的话初始化需要额外处理。
+     */
+    default boolean isFxml() {
+        Class<?> clazz = getClass();
+        // 实现FXML的Initializable接口
+        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+        // 通过被@FXML修饰的initialize的实现
+        try {
+            Method method = getClass().getMethod("initialize");
+            final List<Annotation> annotations = AnnotationUtil.scanMethod(method);
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof FXML) {
+                    return true;
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            StaticLog.error(e);
+        }
+        return false;
+    }
 
 }

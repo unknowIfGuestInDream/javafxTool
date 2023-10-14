@@ -27,20 +27,16 @@
 
 package com.tlcsdm.frame;
 
-import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,12 +57,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -156,21 +148,9 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
 
     @Override
     public void initialize() {
-        Class<?> clazz = getClass();
-        //在实现Initializable接口的控制类中，initialize初始化滞后，需要禁用此接口手动初始化.
-        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
+        // 是fxml实现时禁用初始化
+        if (isFxml()) {
             return;
-        }
-        try {
-            Method method = getClass().getMethod("initialize");
-            final List<Annotation> annotations = AnnotationUtil.scanMethod(method);
-            for (Annotation annotation : annotations) {
-                if (annotation instanceof FXML) {
-                    return;
-                }
-            }
-        } catch (NoSuchMethodException e) {
-            StaticLog.error(e);
         }
 
         initializeUserDataBindings();
@@ -300,7 +280,9 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         // we guarantee that the build order is panel then control panel.
         final Node samplePanel = sample.getPanel(stage);
         final Node controlPanel = sample.getControlPanel();
-        sample.initialize();
+        if (!sample.isFxml()) {
+            sample.initialize();
+        }
         splitPane.setDividerPosition(0, sample.getControlPanelDividerPosition());
 
         if (samplePanel != null) {
@@ -391,4 +373,5 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     @Override
     public void dispose() {
     }
+
 }

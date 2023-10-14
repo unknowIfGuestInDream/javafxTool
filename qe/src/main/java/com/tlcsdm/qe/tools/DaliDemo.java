@@ -123,9 +123,7 @@ public class DaliDemo extends QeSample {
     }
 
     @FXML
-    @Override
     public void initialize() {
-        super.initialize();
         initializeOption();
         initializeUI();
 
