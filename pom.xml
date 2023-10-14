@@ -96,7 +96,7 @@
         <jexl.version>3.3</jexl.version>
         <pdfbox.version>3.0.0</pdfbox.version>
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
-        <jackson.version>2.15.2</jackson.version>
+        <jackson.version>2.15.3</jackson.version>
         <testfx.version>4.0.17</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
