@@ -36,6 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-smc</artifactId>
+    <version>1.0.9</version>
     <name>smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
@@ -138,6 +139,15 @@
                 <configuration>
                     <archive>
                         <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Built-By>${user.name}</Built-By>
+                            <Build-OS>${os.name}</Build-OS>
+                            <Build-Jdk>${java.vendor} ${java.version}</Build-Jdk>
+                            <Build-Day>${maven.build.timestamp}</Build-Day>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
