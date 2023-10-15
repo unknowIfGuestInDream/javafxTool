@@ -159,22 +159,21 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     }
 
     /**
-     * 将在getPanel要设置的binding提取出来
+     * 将在getPanel要设置的binding提取出来.
      */
     protected void initializeBindings() {
         // init binding
     }
 
     /**
-     * 将在getPanel要设置的userData binding提取出来
+     * 将在getPanel要设置的userData binding提取出来.
      */
     protected void initializeUserDataBindings() {
         // init UserData binding
     }
 
     /**
-     * Because initialize() is called after getPanel() so userData needs to be
-     * initialized before this func
+     * Because initialize() is called after getPanel() so userData needs to be initialized before this func.
      */
     protected void initializeUserData() {
         if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
@@ -255,13 +254,16 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         });
     }
 
+    /**
+     * 在生成userData前设置id和version.
+     */
     protected void bindUserDataBefore() {
         FxXmlUtil.set(getSampleXmlPrefix(), "id", getSampleId());
         FxXmlUtil.set(getSampleXmlPrefix(), "version", getSampleVersion());
     }
 
     /**
-     * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
+     * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现.
      */
     protected void updateForVersionUpgrade() {
         // Do nothing

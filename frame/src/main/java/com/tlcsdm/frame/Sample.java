@@ -87,7 +87,7 @@ public sealed interface Sample permits EmptySample, SampleBase {
     /**
      * Returns the main sample panel.
      */
-    Node getPanel(final Stage stage);
+    Node getPanel(Stage stage);
 
     /**
      * Returns the panel to display to the user that allows for manipulating
@@ -132,7 +132,7 @@ public sealed interface Sample permits EmptySample, SampleBase {
     boolean hasControlPanel();
 
     /**
-     * 当前实现类是否是fxml实现，如果是的话初始化需要额外处理。
+     * 当前实现类是否是fxml实现，如果是的话初始化需要额外处理.
      */
     default boolean isFxml() {
         Class<?> clazz = getClass();
