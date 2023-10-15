@@ -42,17 +42,19 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 /**
+ * 组件对象.
+ *
  * @author unknowIfGuestInDream
  */
 public sealed interface Sample permits EmptySample, SampleBase {
 
     /**
-     * 组件id
+     * 组件id.
      */
     String getSampleId();
 
     /**
-     * A short, most likely single-word, name to show to the user - e.g. "CheckBox"
+     * A short, most likely single-word, name to show to the user - e.g. "CheckBox".
      */
     String getSampleName();
 
@@ -62,23 +64,23 @@ public sealed interface Sample permits EmptySample, SampleBase {
     String getSampleDescription();
 
     /**
-     * Returns the name of the project that this sample belongs to (e.g. 'JFXtras'
+     * Returns the name of the project that this sample belongs to (e.g. 'JFXtras'.
      * or 'ControlsFX').
      */
     String getProjectName();
 
     /**
-     * Returns the version of the project that this sample belongs to (e.g. '1.0.0')
+     * Returns the version of the project that this sample belongs to (e.g. '1.0.0').
      */
     String getProjectVersion();
 
     /**
-     * sample version
+     * sample version.
      */
     String getSampleVersion();
 
     /**
-     * sample icon
+     * sample icon.
      */
     ImageView getSampleImageIcon();
 
@@ -94,18 +96,18 @@ public sealed interface Sample permits EmptySample, SampleBase {
     Node getControlPanel();
 
     /**
-     * Note that initialize() is called after getPanel()
-     * 如果控制此实现了 Initializable接口，那此接口不会生效，需要手动初始化
+     * Note that initialize() is called after getPanel().
+     * 实现类是FXML实现，推荐不使用此接口初始化，而是需要手动初始化
      */
     void initialize();
 
     /**
-     * Provides a place to dispose of any resources when sample is deselected
+     * Provides a place to dispose of any resources when sample is deselected.
      */
     void dispose();
 
     /**
-     * Returns divider position to use for split between main panel and control panel
+     * Returns divider position to use for split between main panel and control panel.
      */
     double getControlPanelDividerPosition();
 
@@ -115,17 +117,17 @@ public sealed interface Sample permits EmptySample, SampleBase {
     boolean isVisible();
 
     /**
-     * 排序字段
+     * 排序字段.
      */
     String getOrderKey();
 
     /**
-     * xml配置key前缀，用于导出等功能使用
+     * xml配置key前缀，用于导出等功能使用.
      */
     String getSampleXmlPrefix();
 
     /**
-     * 是否有右侧区域
+     * 是否有右侧区域.
      */
     boolean hasControlPanel();
 

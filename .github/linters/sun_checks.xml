@@ -232,7 +232,10 @@
         <module name="DefaultComesLast"/>
         <module name="EqualsAvoidNull"/>
         <module name="ExplicitInitialization"/>
-        <module name="IllegalCatch"/>
+        <module name="IllegalCatch">
+            <property name="illegalClassNames"
+                      value="Error, Exception, RuntimeException, java.lang.Error, java.lang.Exception, java.lang.RuntimeException"/>
+        </module>
         <module name="NoEnumTrailingComma"/>
         <module name="NoFinalizer"/>
         <module name="OneStatementPerLine">
