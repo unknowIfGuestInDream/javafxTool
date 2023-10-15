@@ -136,7 +136,7 @@
         </module>
         <module name="MissingJavadocMethod">
             <property name="allowMissingPropertyJavadoc" value="true"/>
-            <property name="allowedAnnotations" value="Override,Deprecated"/>
+            <property name="allowedAnnotations" value="Override,Deprecated,FXML"/>
             <property name="ignoreMethodNamesRegex" value="^main$"/>
         </module>
         <module name="MissingJavadocType"/>
@@ -184,7 +184,7 @@
             <property name="max" value="60"/>
         </module>
         <module name="LambdaBodyLength">
-            <property name="max" value="30"/>
+            <property name="max" value="40"/>
         </module>
 
         <!-- Checks for whitespace                               -->
@@ -212,7 +212,9 @@
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See https://checkstyle.org/config_blocks.html -->
         <module name="AvoidNestedBlocks"/>
-        <module name="EmptyBlock"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
         <module name="EmptyCatchBlock"/>
         <module name="LeftCurly"/>
         <module name="NeedBraces"/>
@@ -232,7 +234,10 @@
         <module name="DefaultComesLast"/>
         <module name="EqualsAvoidNull"/>
         <module name="ExplicitInitialization"/>
-        <module name="IllegalCatch"/>
+        <module name="IllegalCatch">
+            <property name="illegalClassNames"
+                      value="Error, Exception, RuntimeException, java.lang.Error, java.lang.Exception, java.lang.RuntimeException"/>
+        </module>
         <module name="NoEnumTrailingComma"/>
         <module name="NoFinalizer"/>
         <module name="OneStatementPerLine">
@@ -248,7 +253,7 @@
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override"/>
+            <property name="ignoredAnnotations" value="After, AfterClass, Before, BeforeClass, Test, Override, FXML"/>
         </module>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>

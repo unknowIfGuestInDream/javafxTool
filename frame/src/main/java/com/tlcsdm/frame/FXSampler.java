@@ -161,7 +161,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 加载闪屏功能
+     * 加载闪屏功能.
      */
     private void loadSplash() {
         Parent parent = null;
@@ -191,6 +191,9 @@ public final class FXSampler extends Application {
         });
     }
 
+    /**
+     * 动画闪屏时使用，判断资源类是否加载完成.
+     */
     @Subscribe
     public void appPreparedHandler(ApplicationPreparedEvent event) {
         hasPrepared = true;
@@ -200,6 +203,9 @@ public final class FXSampler extends Application {
         }
     }
 
+    /**
+     * 动画闪屏时使用，判断动画是否完成.
+     */
     @Subscribe
     public void splashAnimFinishedHandler(SplashAnimFinishedEvent event) {
         animationFinished = true;
@@ -210,7 +216,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 初始化系统配置
+     * 初始化系统配置.
      */
     private void initializeSystem() {
         loadConfiguration();
@@ -248,7 +254,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 初始化
+     * 初始化UI.
      */
     private void initializeUI() {
         buildSampleTree(null);
@@ -382,7 +388,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 启动后初始化资源
+     * 启动后初始化资源.
      */
     private void initializeSource() {
         // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
@@ -442,7 +448,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 确认退出系统
+     * 确认退出系统.
      */
     public static void confirmExit(Event event) {
         if (Config.getBoolean(Keys.ConfirmExit, true)) {
@@ -458,7 +464,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 退出系统
+     * 退出系统.
      */
     public static void doExit() {
         StageUtil.savePrimaryStageBound(stage);
@@ -467,7 +473,7 @@ public final class FXSampler extends Application {
     }
 
     /**
-     * 重启程序
+     * 重启程序.
      */
     public static void restart() {
         Platform.runLater(() -> {
