@@ -148,7 +148,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
 
     @Override
     public void initialize() {
-        // 是fxml实现时禁用初始化
+        // 是fxml实现时禁用初始化，需要在initialize中手动进行初始化.
         if (isFxml()) {
             return;
         }

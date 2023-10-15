@@ -134,11 +134,11 @@ public sealed interface Sample permits EmptySample, SampleBase {
      */
     default boolean isFxml() {
         Class<?> clazz = getClass();
-        // 实现FXML的Initializable接口
+        // 判断是否实现FXML的Initializable接口
         if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
             return true;
         }
-        // 通过被@FXML修饰的initialize的实现
+        // 通过被@FXML修饰的initialize的实现判断是否时fxml实现
         try {
             Method method = getClass().getMethod("initialize");
             final List<Annotation> annotations = AnnotationUtil.scanMethod(method);
