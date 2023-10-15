@@ -199,6 +199,7 @@ public final class FXSampler extends Application {
         hasPrepared = true;
         if (loadingStage != null && loadingStage.isShowing() && supportAnim && animationFinished) {
             stage.show();
+            stage.requestFocus();
         }
     }
 
@@ -210,6 +211,7 @@ public final class FXSampler extends Application {
         animationFinished = true;
         if (loadingStage != null && loadingStage.isShowing() && hasPrepared) {
             stage.show();
+            stage.requestFocus();
         }
     }
 
@@ -377,8 +379,9 @@ public final class FXSampler extends Application {
         });
         if (!supportAnim) {
             stage.show();
+            stage.requestFocus();
         }
-        stage.requestFocus();
+
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
