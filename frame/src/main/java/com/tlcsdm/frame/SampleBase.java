@@ -37,7 +37,6 @@ import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -58,7 +57,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -150,33 +148,32 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
 
     @Override
     public void initialize() {
-        Class<?> clazz = getClass();
-        //在实现Initializable接口的控制类中，initialize初始化滞后，需要禁用此接口手动初始化.
-        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
+        // 是fxml实现时禁用初始化，需要在initialize中手动进行初始化.
+        if (isFxml()) {
             return;
         }
+
         initializeUserDataBindings();
         initializeBindings();
         initializeUserData();
     }
 
     /**
-     * 将在getPanel要设置的binding提取出来
+     * 将在getPanel要设置的binding提取出来.
      */
     protected void initializeBindings() {
         // init binding
     }
 
     /**
-     * 将在getPanel要设置的userData binding提取出来
+     * 将在getPanel要设置的userData binding提取出来.
      */
     protected void initializeUserDataBindings() {
         // init UserData binding
     }
 
     /**
-     * Because initialize() is called after getPanel() so userData needs to be
-     * initialized before this func
+     * Because initialize() is called after getPanel() so userData needs to be initialized before this func.
      */
     protected void initializeUserData() {
         if (!FxXmlUtil.hasKey(getSampleXmlPrefix(), "id")) {
@@ -257,13 +254,16 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         });
     }
 
+    /**
+     * 在生成userData前设置id和version.
+     */
     protected void bindUserDataBefore() {
         FxXmlUtil.set(getSampleXmlPrefix(), "id", getSampleId());
         FxXmlUtil.set(getSampleXmlPrefix(), "version", getSampleVersion());
     }
 
     /**
-     * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现
+     * 版本升级后初始化对用户数据的更新, 默认为不进行修改, 由各个组件自己实现.
      */
     protected void updateForVersionUpgrade() {
         // Do nothing
@@ -282,7 +282,9 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         // we guarantee that the build order is panel then control panel.
         final Node samplePanel = sample.getPanel(stage);
         final Node controlPanel = sample.getControlPanel();
-        sample.initialize();
+        if (!sample.isFxml()) {
+            sample.initialize();
+        }
         splitPane.setDividerPosition(0, sample.getControlPanelDividerPosition());
 
         if (samplePanel != null) {
@@ -373,4 +375,5 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
     @Override
     public void dispose() {
     }
+
 }
