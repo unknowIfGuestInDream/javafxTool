@@ -149,7 +149,7 @@ public class DaliDemo extends QeSample {
     }
 
     private void initializeUI() {
-        imgBoard.setImage((new Image(getClass().getResource("/com/tlcsdm/qe/static/QeTool.png").toExternalForm())));
+        imgBoard.setImage(new Image(getClass().getResource("/com/tlcsdm/qe/static/QeTool.png").toExternalForm()));
     }
 
     @FXML
