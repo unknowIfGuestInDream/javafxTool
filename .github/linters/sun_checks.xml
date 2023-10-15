@@ -253,7 +253,7 @@
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override"/>
+            <property name="ignoredAnnotations" value="After, AfterClass, Before, BeforeClass, Test, Override, FXML"/>
         </module>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>

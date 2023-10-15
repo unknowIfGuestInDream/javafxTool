@@ -132,7 +132,7 @@ public class DaliDemo extends QeSample {
         initializeUserData();
     }
 
-    public void initializeOption() {
+    private void initializeOption() {
         btnLedModules.disableProperty().bind(enableLedModules.selectedProperty().not());
         btnColourControl.disableProperty().bind(enableColourColtrol.selectedProperty().not());
         btnPushButtons.disableProperty().bind(enablePushButtons.selectedProperty().not());
@@ -148,7 +148,7 @@ public class DaliDemo extends QeSample {
         detailPane.setVisible(false);
     }
 
-    public void initializeUI() {
+    private void initializeUI() {
         imgBoard.setImage((new Image(getClass().getResource("/com/tlcsdm/qe/static/QeTool.png").toExternalForm())));
     }
 
