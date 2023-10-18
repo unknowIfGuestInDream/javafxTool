@@ -67,6 +67,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.10.0</junit.version>
         <javafx.version>17.0.8</javafx.version>
+        <javafx.swt.version>17.0.8</javafx.swt.version>
         <controlsfx.version>11.1.2</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.4</tlcsdm-common.version>
@@ -88,7 +89,7 @@
         <commons-csv.version>1.10.0</commons-csv.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
-        <log4j2.version>2.20.0</log4j2.version>
+        <log4j2.version>2.21.0</log4j2.version>
         <log4j-over-slf4j.version>2.0.9</log4j-over-slf4j.version>
         <guava.version>32.1.3-jre</guava.version>
         <caffeine.version>3.1.8</caffeine.version>
@@ -205,6 +206,11 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-swing</artifactId>
                 <version>${javafx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafx-swt</artifactId>
+                <version>${javafx.swt.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
