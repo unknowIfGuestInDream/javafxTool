@@ -40,10 +40,11 @@ modules. demo is the provided example module.
 
 ## Pack
 
-It is recommended to package through IDEA\
+1. IDEA artifact packaging\
 Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest file
 path -> Done\
 Package: Build -> Build Artifacts -> Build
+2. It is recommended to package through `mvn package`.
 
 ## Connect
 
