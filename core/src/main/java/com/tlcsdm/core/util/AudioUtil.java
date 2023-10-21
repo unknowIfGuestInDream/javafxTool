@@ -71,7 +71,7 @@ public class AudioUtil {
             try {
                 MultimediaObject multimediaObject = new MultimediaObject(file);
                 return multimediaObject.getInfo();
-            } catch (Exception e) {
+            } catch (EncoderException e) {
                 StaticLog.error(e);
             }
         }
