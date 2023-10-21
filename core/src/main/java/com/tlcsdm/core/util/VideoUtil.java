@@ -78,8 +78,8 @@ public class VideoUtil {
     public static String addWatermark(String sourceUrl, String targetUrl, String waterIconPath) throws EncoderException {
         // 如果没有传入生成后的地址,在在源目录下保存生成后的水印视频
         if (StringUtils.isBlank(targetUrl)) {
-            targetUrl = sourceUrl.substring(0, sourceUrl.lastIndexOf(".")) + NEW_VIDOE_WATER_NAME_PRE_STR +
-                sourceUrl.substring(sourceUrl.lastIndexOf("."));
+            targetUrl = sourceUrl.substring(0, sourceUrl.lastIndexOf(".")) + NEW_VIDOE_WATER_NAME_PRE_STR
+                + sourceUrl.substring(sourceUrl.lastIndexOf("."));
         }
         if (StringUtils.isBlank(waterIconPath)) {
             throw new UnExpectedResultException("The waterIconPath cannot be empty.");
@@ -410,8 +410,8 @@ public class VideoUtil {
     /**
      * 自定义实现 {@link EncoderProgressListener}监听编码进度.
      * <pre>{@code
-     * 	    Encoder encoder = new Encoder();
-     * 	    encoder.encode(new MultimediaObject(source), target, attrs, new ChanageEncoderProgressListener());
+     * Encoder encoder = new Encoder();
+     * encoder.encode(new MultimediaObject(source), target, attrs, new ChanageEncoderProgressListener());
      * }</pre>
      *
      * @author dufy
