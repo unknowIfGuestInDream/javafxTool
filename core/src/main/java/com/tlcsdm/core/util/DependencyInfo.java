@@ -47,7 +47,7 @@ public class DependencyInfo {
 
     private static class SingletonInstance {
         private static final List<Dependency> INSTANCE = List.of(
-            new Dependency("org.openjfx", "javafx", "17.0.8", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
+            new Dependency("org.openjfx", "javafx", "17.0.9", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
             new Dependency("org.controlsfx", "controlsfx", "11.1.2", true, "https://github.com/controlsfx/controlsfx",
@@ -62,7 +62,7 @@ public class DependencyInfo {
             new Dependency("org.freemarker", "freemarker", "2.3.32", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.4.9", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.4.11", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.22", true, "https://github.com/dromara/hutool",
@@ -93,7 +93,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true, "http://github.com/ronmamo/reflections",
                 "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("com.google.guava", "guava", "32.1.2-jre", false, "https://github.com/google/guava",
+            new Dependency("com.google.guava", "guava", "32.1.3-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
@@ -106,11 +106,11 @@ public class DependencyInfo {
             new Dependency("technology.tabula", "tabula", "1.0.5", false, "https://github.com/tabulapdf/tabula-java",
                 "MIT License", "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.15.2", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.15.3", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.testfx", "testfx", "4.0.16-alpha", false, "https://github.com/TestFX/TestFX", "EUPL",
+            new Dependency("org.testfx", "testfx", "4.0.17", false, "https://github.com/TestFX/TestFX", "EUPL",
                 "http://ec.europa.eu/idabc/eupl.html"),
 
             new Dependency("org.kordamp.bootstrapfx", "bootstrapfx", "0.4.0", false,
