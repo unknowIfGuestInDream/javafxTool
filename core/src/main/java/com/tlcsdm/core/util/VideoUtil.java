@@ -173,7 +173,7 @@ public class VideoUtil {
             String targetUrl = targetPath + NEW_SC_NAME_PRE_STR + seconds + ".jpg";
             int width = -1;
             int height = -1;
-            long millis = seconds * 1000;
+            long millis = seconds * 1000L;
             File outputFile = new File(targetUrl);
             int quality = 1;
             screenExtractor.renderOneImage(multimediaObject, width, height, millis, outputFile, quality);
