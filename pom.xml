@@ -665,6 +665,11 @@
                 <artifactId>jave-nativebin-osxm1</artifactId>
                 <version>${java2.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-linux64</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
             <!-- Java Audio Video Encoder end -->
         </dependencies>
     </dependencyManagement>

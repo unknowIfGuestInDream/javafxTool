@@ -255,6 +255,22 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>Linux</name>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>ws.schild</groupId>
+                    <artifactId>jave-nativebin-linux64</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>

@@ -1,6 +1,5 @@
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.io.FileUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.vosk.LibVosk;
@@ -25,7 +24,7 @@ public class VoskTest {
 
     @Test
     void decoder() throws IOException, UnsupportedAudioFileException {
-        LibVosk.setLogLevel(LogLevel.DEBUG);
+        LibVosk.setLogLevel(LogLevel.INFO);
         try (Model model = new Model("D:\\minIO\\Data\\modal\\vosk-model-cn-0.22");
              InputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream
                  (new FileInputStream("E:\\testPlace\\vosk\\test.wav")));
@@ -35,17 +34,13 @@ public class VoskTest {
             byte[] b = new byte[4096];
             while ((nbytes = ais.read(b)) >= 0) {
                 if (recognizer.acceptWaveForm(b, nbytes)) {
-                    //System.out.println(recognizer.getResult());
-                    if (!recognizer.getResult().isEmpty()) {
-                        FileUtil.appendUtf8String(recognizer.getResult() + "\n", "E:\\testPlace\\vosk\\result.txt");
-                    }
+                    System.out.println(recognizer.getResult());
                 } else {
-                    // System.out.println(recognizer.getPartialResult());
+                    System.out.println(recognizer.getPartialResult());
                 }
             }
-            //Console.log(recognizer.getFinalResult());
             String result = recognizer.getFinalResult();
-            FileUtil.appendUtf8String(result, "E:\\testPlace\\vosk\\result.txt");
+            System.out.println(result);
         }
     }
 }
