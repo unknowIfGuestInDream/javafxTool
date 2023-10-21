@@ -34,6 +34,9 @@ import java.util.List;
  */
 public class AudioUtil {
 
+    private AudioUtil() {
+    }
+
     /**
      * 音频转换为mp3格式，audioPath可更换为要转换的音频格式.
      */
@@ -100,8 +103,6 @@ public class AudioUtil {
         audio.setBitRate(srcMediaInfo.getAudio().getBitRate());
         audio.setSamplingRate(srcMediaInfo.getAudio().getSamplingRate());
         audio.setChannels(srcMediaInfo.getAudio().getChannels());
-        // 如果截取的时候，希望同步调整编码，可以设置不同的编码
-        // audio.setCodec("pcm_u8");
         audio.setCodec(srcMediaInfo.getAudio().getDecoder().split(" ")[0]);
         encodingAttributes.setInputFormat("wav");
         encodingAttributes.setAudioAttributes(audio);

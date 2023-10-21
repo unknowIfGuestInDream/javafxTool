@@ -20,7 +20,7 @@ import java.io.InputStream;
  * @author unknowIfGuestInDream
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
-public class VoskTest {
+class VoskTest {
 
     @Test
     void decoder() throws IOException, UnsupportedAudioFileException {

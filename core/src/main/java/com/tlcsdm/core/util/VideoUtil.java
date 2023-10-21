@@ -50,6 +50,9 @@ import java.util.List;
  */
 public class VideoUtil {
 
+    private VideoUtil() {
+    }
+
     static final String ALLOW_IMG_FORMAT = "avi|wma|rmvb|flash|mp4|mid|3gp|wmv|mpg|mp3|mkv|mpeg|mov|flv";
     /**
      * 水印视频名字拼接
@@ -284,7 +287,6 @@ public class VideoUtil {
         if (target.exists()) {
             target.delete();
         }
-        MultimediaInfo mi = VideoUtil.getVideoInfo(srcPath);
         AudioAttributes audio = new AudioAttributes();
         audio.setCodec("eac3");
         VideoAttributes video = new VideoAttributes();
