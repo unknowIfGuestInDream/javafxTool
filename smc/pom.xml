@@ -132,22 +132,19 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>
                         </manifest>
-                        <manifestEntries>
-                            <Built-By>${user.name}</Built-By>
-                            <Build-OS>${os.name}</Build-OS>
-                            <Build-Jdk>${java.vendor} ${java.version}</Build-Jdk>
-                            <Build-Day>${maven.build.timestamp}</Build-Day>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
