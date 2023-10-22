@@ -769,6 +769,7 @@
                             <!-- 设置依赖的存放路径 -->
                             <configuration>
                                 <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                <includeScope>runtime</includeScope>
                             </configuration>
                         </execution>
                     </executions>
