@@ -37,10 +37,13 @@ module com.tlcsdm.core {
     requires jsr305;
     requires static com.dlsc.preferencesfx;
     requires static yuicompressor;
+    requires static jave.core;
+    requires static vosk;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
     opens com.tlcsdm.core.util to org.junit.platform.engine, org.junit.jupiter.api;
+    opens com.tlcsdm.core.modal;
 
     exports com.tlcsdm.core.javafx;
     exports com.tlcsdm.core.javafx.control;

@@ -62,15 +62,16 @@
         <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.10.0</junit.version>
         <javafx.version>17.0.9</javafx.version>
-        <javafx.swt.version>17.0.8</javafx.swt.version>
+        <javafx.swt.version>17.0.9</javafx.swt.version>
         <controlsfx.version>11.1.2</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <tlcsdm-common.version>1.4.4</tlcsdm-common.version>
+        <tlcsdm-common.version>1.4.5</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.30</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
@@ -112,6 +113,9 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.31.0</jface.version>
         <swt.version>3.124.100</swt.version>
+        <jna.version>5.7.0</jna.version>
+        <vosk.version>0.3.45</vosk.version>
+        <java2.version>3.3.1</java2.version>
     </properties>
 
     <issueManagement>
@@ -640,6 +644,40 @@
                 <version>${swt.version}</version>
             </dependency>
             <!-- swt end -->
+            <!-- vosk start -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alphacephei</groupId>
+                <artifactId>vosk</artifactId>
+                <version>${vosk.version}</version>
+            </dependency>
+            <!-- vosk end -->
+            <!-- Java Audio Video Encoder end -->
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-core</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-win64</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-osxm1</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ws.schild</groupId>
+                <artifactId>jave-nativebin-linux64</artifactId>
+                <version>${java2.version}</version>
+            </dependency>
+            <!-- Java Audio Video Encoder end -->
         </dependencies>
     </dependencyManagement>
 
@@ -663,6 +701,58 @@
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>${user.name}</Built-By>
+                            <Build-OS>${os.name}</Build-OS>
+                            <Build-Jdk>${java.vendor} ${java.version}</Build-Jdk>
+                            <Build-Day>${maven.build.timestamp}</Build-Day>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <show>private</show>
+                    <failOnError>false</failOnError>
+                    <nohelp>true</nohelp>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -673,8 +763,22 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven-jar-plugin.version}</version>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <!-- 绑定生命周期 -->
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <!-- 设置依赖的存放路径 -->
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                <includeScope>runtime</includeScope>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -685,32 +789,7 @@
             <id>release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+
                     <!-- mvn clean deploy -P release -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
