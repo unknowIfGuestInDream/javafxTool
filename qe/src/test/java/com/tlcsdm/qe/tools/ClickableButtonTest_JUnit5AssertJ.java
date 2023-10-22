@@ -11,6 +11,9 @@ import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 
+/**
+ * testfx测试使用.
+ */
 @ExtendWith(ApplicationExtension.class)
 class ClickableButtonTest_JUnit5AssertJ {
 
