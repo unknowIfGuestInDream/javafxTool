@@ -218,13 +218,17 @@ public class DataFormatConvert extends CommonSample {
     }
 
     private FileChooser.ExtensionFilter getFilter(String value) {
-        return switch (value) {
-            case "XML" -> FileChooserUtil.xmlFilter();
-            case "CSV" -> FileChooserUtil.csvFilter();
-            case "Excel" -> FileChooserUtil.xlsxFilter();
-            case "JSON" -> FileChooserUtil.jsonFilter();
-            default -> throw new UnExpectedResultException("Unexpected value: " + cmbDatasource.getValue());
-        };
+        if ("XML".equals(value)) {
+            return FileChooserUtil.xmlFilter();
+        } else if ("CSV".equals(value)) {
+            return FileChooserUtil.csvFilter();
+        } else if ("Excel".equals(value)) {
+            return FileChooserUtil.xlsxFilter();
+        } else if ("JSON".equals(value)) {
+            return FileChooserUtil.jsonFilter();
+        } else {
+            throw new UnExpectedResultException("Unexpected value: " + cmbDatasource.getValue());
+        }
     }
 
     @Override
