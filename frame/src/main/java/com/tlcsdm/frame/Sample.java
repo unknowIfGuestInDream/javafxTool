@@ -27,23 +27,34 @@
 
 package com.tlcsdm.frame;
 
+import cn.hutool.core.annotation.AnnotationUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.model.EmptySample;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.List;
+
 /**
+ * 组件对象.
+ *
  * @author unknowIfGuestInDream
  */
 public sealed interface Sample permits EmptySample, SampleBase {
 
     /**
-     * 组件id
+     * 组件id.
      */
     String getSampleId();
 
     /**
-     * A short, most likely single-word, name to show to the user - e.g. "CheckBox"
+     * A short, most likely single-word, name to show to the user - e.g. "CheckBox".
      */
     String getSampleName();
 
@@ -53,30 +64,30 @@ public sealed interface Sample permits EmptySample, SampleBase {
     String getSampleDescription();
 
     /**
-     * Returns the name of the project that this sample belongs to (e.g. 'JFXtras'
+     * Returns the name of the project that this sample belongs to (e.g. 'JFXtras'.
      * or 'ControlsFX').
      */
     String getProjectName();
 
     /**
-     * Returns the version of the project that this sample belongs to (e.g. '1.0.0')
+     * Returns the version of the project that this sample belongs to (e.g. '1.0.0').
      */
     String getProjectVersion();
 
     /**
-     * sample version
+     * sample version.
      */
     String getSampleVersion();
 
     /**
-     * sample icon
+     * sample icon.
      */
     ImageView getSampleImageIcon();
 
     /**
      * Returns the main sample panel.
      */
-    Node getPanel(final Stage stage);
+    Node getPanel(Stage stage);
 
     /**
      * Returns the panel to display to the user that allows for manipulating
@@ -85,18 +96,18 @@ public sealed interface Sample permits EmptySample, SampleBase {
     Node getControlPanel();
 
     /**
-     * Note that initialize() is called after getPanel()
-     * 如果控制此实现了 Initializable接口，那此接口不会生效，需要手动初始化
+     * Note that initialize() is called after getPanel().
+     * 实现类是FXML实现，推荐不使用此接口初始化，而是需要手动初始化
      */
     void initialize();
 
     /**
-     * Provides a place to dispose of any resources when sample is deselected
+     * Provides a place to dispose of any resources when sample is deselected.
      */
     void dispose();
 
     /**
-     * Returns divider position to use for split between main panel and control panel
+     * Returns divider position to use for split between main panel and control panel.
      */
     double getControlPanelDividerPosition();
 
@@ -106,18 +117,42 @@ public sealed interface Sample permits EmptySample, SampleBase {
     boolean isVisible();
 
     /**
-     * 排序字段
+     * 排序字段.
      */
     String getOrderKey();
 
     /**
-     * xml配置key前缀，用于导出等功能使用
+     * xml配置key前缀，用于导出等功能使用.
      */
     String getSampleXmlPrefix();
 
     /**
-     * 是否有右侧区域
+     * 是否有右侧区域.
      */
     boolean hasControlPanel();
+
+    /**
+     * 当前实现类是否是fxml实现，如果是的话初始化需要额外处理.
+     */
+    default boolean isFxml() {
+        Class<?> clazz = getClass();
+        // 判断是否实现FXML的Initializable接口
+        if (!clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()) && Initializable.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+        // 通过被@FXML修饰的initialize的实现判断是否时fxml实现
+        try {
+            Method method = getClass().getMethod("initialize");
+            final List<Annotation> annotations = AnnotationUtil.scanMethod(method);
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof FXML) {
+                    return true;
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            StaticLog.error(e);
+        }
+        return false;
+    }
 
 }
