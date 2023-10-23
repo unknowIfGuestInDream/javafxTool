@@ -38,6 +38,7 @@ module com.tlcsdm.core {
     requires static com.dlsc.preferencesfx;
     requires static yuicompressor;
     requires static jave.core;
+    requires static com.sun.jna;
     requires static vosk;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
