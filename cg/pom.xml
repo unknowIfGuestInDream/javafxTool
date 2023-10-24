@@ -36,7 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-cg</artifactId>
-    <name>cg</name>
+    <name>javafxTool-cg</name>
     <packaging>jar</packaging>
     <description>cg开发工具组件</description>
 
@@ -102,7 +102,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.tlcsdm.cg.CgSampler</mainClass>

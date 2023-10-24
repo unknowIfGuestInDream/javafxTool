@@ -36,7 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-qe</artifactId>
-    <name>qe</name>
+    <name>javafxTool-qe</name>
     <packaging>jar</packaging>
     <description>qe开发工具组件</description>
 
@@ -116,7 +116,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.tlcsdm.qe.QeSampler</mainClass>
