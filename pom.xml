@@ -103,7 +103,7 @@
         <testfx.version>4.0.17</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
-        <richtextfx.version>0.11.1</richtextfx.version>
+        <richtextfx.version>0.11.2</richtextfx.version>
         <groovy.version>4.0.15</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
