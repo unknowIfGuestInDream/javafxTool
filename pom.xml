@@ -703,10 +703,13 @@
                     <archive>
                         <manifestEntries>
                             <Built-By>${user.name}</Built-By>
-                            <Build-OS>${os.name}</Build-OS>
+                            <Build-Os>${os.name} (${os.version}; (${os.arch})</Build-Os>
                             <Build-Jdk>${java.vendor} ${java.version}</Build-Jdk>
                             <Build-Day>${maven.build.timestamp}</Build-Day>
                         </manifestEntries>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>

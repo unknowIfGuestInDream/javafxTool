@@ -37,7 +37,7 @@
     </parent>
     <artifactId>javafxTool-smc</artifactId>
     <version>1.0.9</version>
-    <name>smc</name>
+    <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
 
@@ -140,7 +140,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>

@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-demo</artifactId>
-    <name>demo</name>
+    <name>javafxTool-demo</name>
     <packaging>jar</packaging>
     <description>javafxTool demo</description>
 
