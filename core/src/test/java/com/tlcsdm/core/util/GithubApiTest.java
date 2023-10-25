@@ -27,13 +27,6 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONUtil;
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -45,10 +38,19 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
+import com.tlcsdm.core.exception.UnExpectedResultException;
+
+import cn.hutool.core.net.SSLContextBuilder;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
+
 /**
- * github api 测试 用于检查更新功能
+ * github api 测试 用于检查更新功能.
  *
- * @author os_tangliang
+ * @author unknowIfGuestInDream
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class GithubApiTest {
@@ -58,14 +60,14 @@ class GithubApiTest {
     @Test
     void release() {
         HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-            .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
+                .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(1000)).build();
 
         HttpRequest request = HttpRequest
-            .newBuilder(URI.create("https://api.github.com/repos/unknowIfGuestInDream/genCode/releases")).GET()
-            .headers("Content-Type", "application/json", "User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
-                "accept", "application/vnd.github+json")
-            .build();
+                .newBuilder(URI.create("https://api.github.com/repos/unknowIfGuestInDream/genCode/releases")).GET()
+                .headers("Content-Type", "application/json", "User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+                        "accept", "application/vnd.github+json")
+                .build();
         var future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
             if (response.statusCode() != 200) {
                 throw new UnExpectedResultException(response.body());
