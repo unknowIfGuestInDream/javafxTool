@@ -1,5 +1,11 @@
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.comparator.VersionComparator;
+import cn.hutool.core.net.SSLContextBuilder;
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -7,16 +13,10 @@ import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
-import com.tlcsdm.core.exception.UnExpectedResultException;
-
-import cn.hutool.core.net.SSLContextBuilder;
 
 /**
  * gitlab api 测试 用于检查更新功能.
@@ -53,7 +53,30 @@ class GitlabApiTest {
         } catch (InterruptedException | ExecutionException | TimeoutException | UnExpectedResultException e) {
             e.printStackTrace();
         }
-        System.out.println(result);
+        var list = JacksonUtil.json2List(result, Map.class);
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        for (var map : list) {
+            boolean isPrerelease = (boolean) map.get("upcoming_release");
+            if (!isPrerelease) {
+                String tag = String.valueOf(map.get("tag_name"));
+                if (tag.endsWith("-smc")) {
+                    String version = tag.substring(1, tag.length() - 4);
+                    int compare = VersionComparator.INSTANCE.compare(version, "1.0.8");
+                    if (compare > 0) {
+                        String content = new StringBuilder().append("Version Number: ")
+                            .append(": ").append(version).append("\r\n").append("body:")
+                            .append(": \n").append(map.get("description")).append("\r\n").toString();
+                        System.out.println(content);
+                        //http://scgitlab.rdb.renesas.com:8080/liangtang/javafxTool/-/releases/v1.0.0-qe
+                        //map.get("_links").get("self")
+                        //SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("html_url"));
+                    }
+                    break;
+                }
+            }
+        }
     }
 
 }
