@@ -1,11 +1,5 @@
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.comparator.VersionComparator;
-import cn.hutool.core.net.SSLContextBuilder;
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -18,6 +12,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
+import com.tlcsdm.core.exception.UnExpectedResultException;
+
+import cn.hutool.core.comparator.VersionComparator;
+import cn.hutool.core.net.SSLContextBuilder;
+
 /**
  * gitlab api 测试 用于检查更新功能.
  *
@@ -26,8 +28,8 @@ import java.util.concurrent.TimeoutException;
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class GitlabApiTest {
 
-    private String gitlabWeb = "";
-    private String token = "";
+    private String gitlabWeb = "http://scgitlab.rdb.renesas.com:8080/";
+    private String token = "glpat-vZG4SwtsduWQn89xtgFS";
     private String result = "";
 
     @Test
@@ -65,13 +67,15 @@ class GitlabApiTest {
                     String version = tag.substring(1, tag.length() - 4);
                     int compare = VersionComparator.INSTANCE.compare(version, "1.0.8");
                     if (compare > 0) {
-                        String content = new StringBuilder().append("Version Number: ")
-                            .append(": ").append(version).append("\r\n").append("body:")
-                            .append(": \n").append(map.get("description")).append("\r\n").toString();
+                        String content = new StringBuilder().append("Version Number: ").append(": ").append(version)
+                                .append("\r\n").append("body:").append(": \n").append(map.get("description"))
+                                .append("\r\n").toString();
                         System.out.println(content);
-                        //http://scgitlab.rdb.renesas.com:8080/liangtang/javafxTool/-/releases/v1.0.0-qe
-                        //map.get("_links").get("self")
-                        //SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("html_url"));
+                        // http://scgitlab.rdb.renesas.com:8080/liangtang/javafxTool/-/releases/v1.0.0-qe
+                        var links = (Map<String, String>) map.get("_links");
+                        System.out.println(links.get("self"));
+                        // map.get("_links").get("self")
+                        // SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("html_url"));
                     }
                     break;
                 }
