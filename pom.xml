@@ -115,6 +115,7 @@
         <jna.version>5.7.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.3.1</java2.version>
+        <jakarta.activation.version>2.1.2</jakarta.activation.version>
     </properties>
 
     <issueManagement>
@@ -672,6 +673,11 @@
                 <version>${java2.version}</version>
             </dependency>
             <!-- Java Audio Video Encoder end -->
+            <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>${jakarta.activation.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

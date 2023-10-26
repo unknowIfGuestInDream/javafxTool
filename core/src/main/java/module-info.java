@@ -40,6 +40,7 @@ module com.tlcsdm.core {
     requires static jave.core;
     requires static com.sun.jna;
     requires static vosk;
+    requires static jakarta.activation;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -67,6 +68,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.logging.logback;
     exports com.tlcsdm.core.eventbus;
     exports com.tlcsdm.core.event;
+    exports com.tlcsdm.core.httpserver;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
