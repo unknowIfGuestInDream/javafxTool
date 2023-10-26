@@ -772,7 +772,6 @@
             <id>release</id>
             <build>
                 <plugins>
-
                     <!-- mvn clean deploy -P release -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
