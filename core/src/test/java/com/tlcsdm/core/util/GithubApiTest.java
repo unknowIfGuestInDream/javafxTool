@@ -46,9 +46,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * github api 测试 用于检查更新功能
+ * github api 测试 用于检查更新功能.
  *
- * @author os_tangliang
+ * @author unknowIfGuestInDream
  */
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class GithubApiTest {
