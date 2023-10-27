@@ -51,7 +51,7 @@ public class QeConstant {
     /**
      * 项目许可证
      */
-    public static final String PROJECT_LICENSE_URL = "https://www.tlcsdm.com/LICENSE.txt";
+    public static final String PROJECT_LICENSE_URL = "https://javafxtool.tlcsdm.com/LICENSE.txt";
     /**
      * 项目许可证名称
      */
