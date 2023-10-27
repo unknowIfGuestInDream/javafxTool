@@ -27,9 +27,16 @@
 
 package com.tlcsdm.smc.provider;
 
-import cn.hutool.core.comparator.VersionComparator;
-import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.log.StaticLog;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -40,15 +47,9 @@ import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import cn.hutool.core.comparator.VersionComparator;
+import cn.hutool.core.net.SSLContextBuilder;
+import cn.hutool.log.StaticLog;
 
 /**
  * @author unknowIfGuestInDream
@@ -64,12 +65,12 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
             return;
         }
         HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
-            .followRedirects(HttpClient.Redirect.NORMAL).sslContext(SSLContextBuilder.create().build())
-            .connectTimeout(Duration.ofMillis(2000)).build();
+                .followRedirects(HttpClient.Redirect.NORMAL).sslContext(SSLContextBuilder.create().build())
+                .connectTimeout(Duration.ofMillis(2000)).build();
         HttpRequest request = HttpRequest.newBuilder(URI.create(SmcConstant.PROJECT_VERSION_CHECK_URL)).GET().headers(
-            "Content-Type", "application/json", "User-Agent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
-            "accept", "application/vnd.github+json").build();
+                "Content-Type", "application/json", "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+                "accept", "application/vnd.github+json").build();
         var future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
             if (response.statusCode() != 200) {
                 throw new UnExpectedResultException(response.body());
@@ -99,16 +100,17 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
                     int compare = VersionComparator.INSTANCE.compare(version, SmcSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
                         String content = new StringBuilder().append(I18nUtils.get("smc.versionCheck.versionNum"))
-                            .append(": ").append(version).append("\r\n").append(I18nUtils.get("smc.versionCheck.body"))
-                            .append(": \n").append(map.get("body")).append("\r\n").append("\r\n")
-                            .append(I18nUtils.get("smc.versionCheck.desc")).append("\r\n")
-                            .append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n").toString();
+                                .append(": ").append(version).append("\r\n")
+                                .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(map.get("body"))
+                                .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
+                                .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n")
+                                .toString();
                         SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("html_url"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
-                                .graphic(LayoutHelper
-                                    .iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/release.png"), 48.0D))
-                                .text(content).show();
+                                    .graphic(LayoutHelper.iconView(
+                                            getClass().getResource("/com/tlcsdm/smc/static/icon/release.png"), 48.0D))
+                                    .text(content).show();
                         });
                     }
                     break;
