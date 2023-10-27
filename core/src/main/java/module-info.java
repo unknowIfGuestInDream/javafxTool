@@ -40,6 +40,7 @@ module com.tlcsdm.core {
     requires static jave.core;
     requires static com.sun.jna;
     requires static vosk;
+    requires static cn.hutool.http;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
