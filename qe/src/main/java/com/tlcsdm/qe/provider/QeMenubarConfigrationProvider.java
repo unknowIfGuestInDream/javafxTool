@@ -27,9 +27,9 @@
 
 package com.tlcsdm.qe.provider;
 
-import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
-
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.httpserver.SimpleHttpServer;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
@@ -63,10 +63,13 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
 import org.controlsfx.control.action.ActionUtils;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
+
+import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
 
 /**
  * @author unknowIfGuestInDream
@@ -170,6 +173,12 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         dialog.show();
     });
 
+    private final Action helpContent = FxAction.helpContent(actionEvent -> {
+        int port = NetUtil.getUsableLocalPort(8000);
+        new SimpleHttpServer(port, CoreUtil.getRootPath() + File.separator + "docs").start();
+        CoreUtil.openWeb("http://localhost:" + port);
+    });
+
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(QeConstant.PROJECT_RELEASE_URL));
 
     CheckLangAction chinese = new CheckLangAction(QeConstant.LANGUAGE_CHINESE);
@@ -181,7 +190,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
-            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, release, about));
+            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     /**
      * 初始化action
