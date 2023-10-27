@@ -46,7 +46,7 @@
   <!-- 设置浏览器图标 -->
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-  <link rel=”canonical” href="https://www.tlcsdm.com"/>
+    <link rel=”canonical” href="https://javafxtool.tlcsdm.com"/>
   <meta name="description" content="javafx工具，基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚手架。">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -79,6 +79,8 @@
     // 自定义侧边栏后默认不会再生成目录，设置生成目录的最大层级，建议配置为1或者2
     subMaxLevel: 2,
     alias: {
+      '/overview/(.*)':
+          '../overview/$1',
       '/smc/(.*)':
               '../smc/$1',
       '/qe/(.*)':
