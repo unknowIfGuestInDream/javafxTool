@@ -42,7 +42,7 @@ import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
 
-module com.tlcsdm.qe {
+module com.tlcsdm.cg {
     requires java.desktop;
     requires java.net.http;
     requires javafx.fxml;
@@ -58,6 +58,7 @@ module com.tlcsdm.qe {
     requires com.fasterxml.jackson.databind;
     requires com.tlcsdm.frame;
     requires com.tlcsdm.core;
+    requires jdk.httpserver;
 
     exports com.tlcsdm.cg;
     exports com.tlcsdm.cg.provider to com.tlcsdm.core, com.tlcsdm.frame;
