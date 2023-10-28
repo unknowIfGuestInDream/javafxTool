@@ -59,7 +59,7 @@
 <div id="app"></div>
 <script>
   window.$docsify = {
-    themeColor: '#429db9',//主题颜色
+      themeColor: '#4471A9FF',//主题颜色
     homepage: '../README.md',
     // 项目名称
     name: 'JavaFXTool',
@@ -77,10 +77,12 @@
     // 最大支持渲染的标题层级
     maxLevel: 4,
     // 自定义侧边栏后默认不会再生成目录，设置生成目录的最大层级，建议配置为1或者2
-    subMaxLevel: 2,
+      subMaxLevel: 3,
     alias: {
       '/overview/(.*)':
           '../overview/$1',
+        '/develop/(.*)':
+            '../develop/$1',
       '/smc/(.*)':
               '../smc/$1',
       '/qe/(.*)':
@@ -104,7 +106,7 @@
       noData: '找不到结果',
       depth: 4,
       hideOtherSidebarContent: false,
-      namespace: 'website-1',
+        namespace: 'website-2',
     },
     count: {
       countable: true,
