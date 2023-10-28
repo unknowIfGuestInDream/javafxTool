@@ -72,7 +72,7 @@ public class QeConstant {
      * 发布版本
      * 可由VersionCheckerService实现类修改数据
      */
-    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=smc&expanded=true";
+    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=qe&expanded=true";
     /**
      * 简体中文
      */
