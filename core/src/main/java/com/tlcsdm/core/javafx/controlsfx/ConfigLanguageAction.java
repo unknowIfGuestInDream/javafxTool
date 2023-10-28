@@ -46,17 +46,17 @@ public class ConfigLanguageAction extends Action {
     public ConfigLanguageAction(LanguageType language, Consumer<Object> consumer) {
         super(language.getText());
         setEventHandler(ae -> {
-            if (LanguageType.chinese.equals(language)) {
+            if (LanguageType.CHINESE.equals(language)) {
                 if (Config.defaultLocale == Locale.SIMPLIFIED_CHINESE) {
                     return;
                 }
                 Config.set(Keys.Locale, Locale.SIMPLIFIED_CHINESE);
-            } else if (LanguageType.english.equals(language)) {
+            } else if (LanguageType.ENGLISH.equals(language)) {
                 if (Config.defaultLocale == Locale.ENGLISH) {
                     return;
                 }
                 Config.set(Keys.Locale, Locale.ENGLISH);
-            } else if (LanguageType.japanese.equals(language)) {
+            } else if (LanguageType.JAPANESE.equals(language)) {
                 if (Config.defaultLocale == Locale.JAPANESE) {
                     return;
                 }

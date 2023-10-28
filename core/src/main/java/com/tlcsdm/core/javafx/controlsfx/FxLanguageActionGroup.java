@@ -44,9 +44,9 @@ public class FxLanguageActionGroup {
     ConfigLanguageAction japanese;
 
     public FxLanguageActionGroup(Consumer<Object> consumer) {
-        chinese = new ConfigLanguageAction(LanguageType.chinese, consumer);
-        english = new ConfigLanguageAction(LanguageType.english, consumer);
-        japanese = new ConfigLanguageAction(LanguageType.japanese, consumer);
+        chinese = new ConfigLanguageAction(LanguageType.CHINESE, consumer);
+        english = new ConfigLanguageAction(LanguageType.ENGLISH, consumer);
+        japanese = new ConfigLanguageAction(LanguageType.JAPANESE, consumer);
         // 语言设置
         if (Config.defaultLocale.equals(Locale.ENGLISH)) {
             english.setSelected(true);

@@ -33,9 +33,9 @@ package com.tlcsdm.core.javafx.controlsfx;
  * @author unknowIfGuestInDream
  */
 public enum LanguageType {
-    chinese("简体中文"),
-    english("English"),
-    japanese("日本語");
+    CHINESE("简体中文"),
+    ENGLISH("English"),
+    JAPANESE("日本語");
 
     private final String text;
 
