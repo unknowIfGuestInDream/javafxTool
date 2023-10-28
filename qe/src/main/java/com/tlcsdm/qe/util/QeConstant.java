@@ -51,7 +51,7 @@ public class QeConstant {
     /**
      * 项目许可证
      */
-    public static final String PROJECT_LICENSE_URL = "https://www.tlcsdm.com/LICENSE.txt";
+    public static final String PROJECT_LICENSE_URL = "https://javafxtool.tlcsdm.com/LICENSE.txt";
     /**
      * 项目许可证名称
      */
@@ -72,7 +72,7 @@ public class QeConstant {
      * 发布版本
      * 可由VersionCheckerService实现类修改数据
      */
-    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=smc&expanded=true";
+    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=qe&expanded=true";
     /**
      * 简体中文
      */

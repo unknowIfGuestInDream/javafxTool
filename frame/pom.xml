@@ -36,7 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-frame</artifactId>
-    <name>frame</name>
+    <name>javafxTool-frame</name>
     <packaging>jar</packaging>
     <description>javafx 基本框架</description>
 

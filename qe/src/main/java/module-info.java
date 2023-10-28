@@ -63,6 +63,7 @@ module com.tlcsdm.qe {
     requires freemarker;
     requires javafx.base;
     requires com.fasterxml.jackson.databind;
+    requires jdk.httpserver;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;

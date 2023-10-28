@@ -37,7 +37,7 @@
     </parent>
     <artifactId>javafxTool-smc</artifactId>
     <version>1.0.9</version>
-    <name>smc</name>
+    <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
 
@@ -140,7 +140,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>
@@ -151,6 +150,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- 绑定生命周期 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <!-- 设置依赖的存放路径 -->
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>

@@ -36,7 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-core</artifactId>
-    <name>core</name>
+    <name>javafxTool-core</name>
     <packaging>jar</packaging>
     <description>javafxTool 核心组件</description>
 
@@ -202,6 +202,11 @@
         <dependency>
             <groupId>ws.schild</groupId>
             <artifactId>jave-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

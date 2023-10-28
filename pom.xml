@@ -36,7 +36,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>javafxTool</name>
-    <url>https://www.tlcsdm.com</url>
+    <url>https://javafxtool.tlcsdm.com</url>
     <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces
         such as frame, login and core
     </description>
@@ -58,11 +58,11 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-        <maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -76,7 +76,7 @@
         <lombok.version>1.18.30</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.4</poi-ooxml.version>
-        <commons-io.version>2.14.0</commons-io.version>
+        <commons-io.version>2.15.0</commons-io.version>
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
@@ -90,7 +90,7 @@
         <commons-csv.version>1.10.0</commons-csv.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
-        <log4j2.version>2.21.0</log4j2.version>
+        <log4j2.version>2.21.1</log4j2.version>
         <log4j-over-slf4j.version>2.0.9</log4j-over-slf4j.version>
         <guava.version>32.1.3-jre</guava.version>
         <caffeine.version>3.1.8</caffeine.version>
@@ -104,7 +104,7 @@
         <assertj.version>3.13.2</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
-        <richtextfx.version>0.11.1</richtextfx.version>
+        <richtextfx.version>0.11.2</richtextfx.version>
         <groovy.version>4.0.15</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
@@ -113,7 +113,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.31.0</jface.version>
         <swt.version>3.124.100</swt.version>
-        <jna.version>5.7.0</jna.version>
+        <jna.version>5.9.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.3.1</java2.version>
     </properties>
@@ -125,7 +125,7 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://www.tlcsdm.com/LICENSE.txt</url>
+            <url>https://javafxtool.tlcsdm.com/LICENSE.txt</url>
         </license>
     </licenses>
     <scm>
@@ -368,6 +368,11 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-crypto</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-http</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
             <dependency>
@@ -709,10 +714,13 @@
                     <archive>
                         <manifestEntries>
                             <Built-By>${user.name}</Built-By>
-                            <Build-OS>${os.name}</Build-OS>
+                            <Build-Os>${os.name} (${os.version}; (${os.arch})</Build-Os>
                             <Build-Jdk>${java.vendor} ${java.version}</Build-Jdk>
                             <Build-Day>${maven.build.timestamp}</Build-Day>
                         </manifestEntries>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>
@@ -765,20 +773,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${maven-dependency-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <!-- 绑定生命周期 -->
-                            <phase>package</phase>
-                            <goals>
-                                <goal>copy-dependencies</goal>
-                            </goals>
-                            <!-- 设置依赖的存放路径 -->
-                            <configuration>
-                                <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                <includeScope>runtime</includeScope>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -789,7 +783,6 @@
             <id>release</id>
             <build>
                 <plugins>
-
                     <!-- mvn clean deploy -P release -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

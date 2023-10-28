@@ -36,7 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-qe</artifactId>
-    <name>qe</name>
+    <name>javafxTool-qe</name>
     <packaging>jar</packaging>
     <description>qe开发工具组件</description>
 
@@ -115,6 +115,10 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -126,7 +130,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.tlcsdm.qe.QeSampler</mainClass>
@@ -137,6 +140,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- 绑定生命周期 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <!-- 设置依赖的存放路径 -->
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
