@@ -76,7 +76,7 @@
         <lombok.version>1.18.30</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.4</poi-ooxml.version>
-        <commons-io.version>2.14.0</commons-io.version>
+        <commons-io.version>2.15.0</commons-io.version>
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
@@ -112,7 +112,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.31.0</jface.version>
         <swt.version>3.124.100</swt.version>
-        <jna.version>5.7.0</jna.version>
+        <jna.version>5.9.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.3.1</java2.version>
     </properties>
