@@ -28,7 +28,6 @@
 package com.tlcsdm.cg.provider;
 
 import cn.hutool.core.net.NetUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.cg.CgSample;
 import com.tlcsdm.cg.util.CgConstant;
 import com.tlcsdm.cg.util.I18nUtils;
@@ -37,6 +36,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
+import com.tlcsdm.core.javafx.controlsfx.FxLanguageActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
@@ -44,10 +44,8 @@ import com.tlcsdm.core.javafx.dialog.LicenseDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
-import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
@@ -60,13 +58,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionCheck;
+import org.controlsfx.control.action.ActionGroup;
 import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Consumer;
 
 import static org.controlsfx.control.action.ActionUtils.ACTION_SEPARATOR;
@@ -181,105 +178,25 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(CgConstant.PROJECT_RELEASE_URL));
 
-    CheckLangAction chinese = new CheckLangAction(CgConstant.LANGUAGE_CHINESE);
-    CheckLangAction english = new CheckLangAction(CgConstant.LANGUAGE_ENGLISH);
-    CheckLangAction japanese = new CheckLangAction(CgConstant.LANGUAGE_JAPANESE);
+    private final ActionGroup languageGroup = new FxLanguageActionGroup((s) -> {
+        if (FxAlerts.confirmOkCancel(I18nUtils.get("cg.menubar.setting.language.dialog.title"),
+            I18nUtils.get("cg.menubar.setting.language.dialog.message"))) {
+            FXSampler.getStage().close();
+            Platform.runLater(() -> new FXSampler().start(new Stage()));
+        }
+    }).create();
 
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(systemSetting, FxActionGroup.language(chinese, english, japanese)),
+        FxActionGroup.setting(systemSetting, languageGroup),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
-    /**
-     * 初始化action
-     */
-    private void initActions() {
-        // 语言设置
-        if (Config.defaultLocale.equals(Locale.ENGLISH)) {
-            english.setSelected(true);
-        } else if (Config.defaultLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
-            chinese.setSelected(true);
-        } else if (Config.defaultLocale.equals(Locale.JAPANESE)) {
-            japanese.setSelected(true);
-        }
-        chinese.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue) {
-                return;
-            }
-            if (newValue) {
-                english.setSelected(false);
-                japanese.setSelected(false);
-            }
-        });
-        english.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue) {
-                return;
-            }
-            if (newValue) {
-                japanese.setSelected(false);
-                chinese.setSelected(false);
-            }
-        });
-        japanese.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue) {
-                return;
-            }
-            if (newValue) {
-                english.setSelected(false);
-                chinese.setSelected(false);
-            }
-        });
-    }
-
     @Override
     public MenuBar setMenuBar(MenuBar menuBar) {
-        initActions();
         ActionUtils.updateMenuBar(menuBar, actions);
         return menuBar;
-    }
-
-    @ActionCheck
-    private static class CheckLangAction extends Action {
-
-        public CheckLangAction(String name) {
-            super(name);
-            init();
-        }
-
-        private void init() {
-            setEventHandler(ae -> {
-                String languageType = getText();
-                if (CgConstant.LANGUAGE_CHINESE.equals(languageType)) {
-                    if (Config.defaultLocale == Locale.SIMPLIFIED_CHINESE) {
-                        return;
-                    }
-                    Config.set(Keys.Locale, Locale.SIMPLIFIED_CHINESE);
-                } else if (CgConstant.LANGUAGE_ENGLISH.equals(languageType)) {
-                    if (Config.defaultLocale == Locale.ENGLISH) {
-                        return;
-                    }
-                    Config.set(Keys.Locale, Locale.ENGLISH);
-                } else if (CgConstant.LANGUAGE_JAPANESE.equals(languageType)) {
-                    if (Config.defaultLocale == Locale.JAPANESE) {
-                        return;
-                    }
-                    Config.set(Keys.Locale, Locale.JAPANESE);
-                }
-                if (FxAlerts.confirmOkCancel(I18nUtils.get("cg.menubar.setting.language.dialog.title"),
-                    I18nUtils.get("cg.menubar.setting.language.dialog.message"))) {
-                    FXSampler.getStage().close();
-                    Platform.runLater(() -> {
-                        try {
-                            new FXSampler().start(new Stage());
-                        } catch (Exception e) {
-                            StaticLog.error(e);
-                        }
-                    });
-                }
-            });
-        }
     }
 
 }
