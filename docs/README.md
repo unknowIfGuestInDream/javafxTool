@@ -34,7 +34,3 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | pdfviewfx              | 3.0.0      | PDF视图工具                        |
 | preferencesfx          | 11.16.0    | 为应用程序设置/首选项创建 UI 的框架           |
 | yuicompressor          | 2.4.8      | JS/CSS压缩工具                     |
-
-## 项目地址
-- github地址：[https://github.com/unknowIfGuestInDream/javafxTool](https://github.com/unknowIfGuestInDream/javafxTool ':target=_blank')
-- gitee地址：[https://gitee.com/unknowIfGuestInDream/javafxTool](https://gitee.com/unknowIfGuestInDream/javafxTool ':target=_blank')

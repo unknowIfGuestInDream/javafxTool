@@ -36,6 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-qe</artifactId>
+    <version>1.0.0</version>
     <name>javafxTool-qe</name>
     <packaging>jar</packaging>
     <description>qe开发工具组件</description>
