@@ -26,7 +26,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | tlcsdm-asyncTool       | 1.0.1      | 并行工具包                          |
 | jackson                | 2.15.3     | JSON解析库                        |
 | pdfbox                 | 3.0.0      | 操作PDF文档的库                      |
-| commons-io             | 2.14.0     | IO工具                           |
+| commons-io             | 2.15.0     | IO工具                           |
 | commons-csv            | 1.10.0     | csv工具                          |
 | guava                  | 32.1.3-jre | Google工具                       |
 | groovy                 | 4.0.15     | Groovy                         |
