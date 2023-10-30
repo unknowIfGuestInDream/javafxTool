@@ -36,6 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-cg</artifactId>
+    <version>1.0.0</version>
     <name>javafxTool-cg</name>
     <packaging>jar</packaging>
     <description>cg开发工具组件</description>
