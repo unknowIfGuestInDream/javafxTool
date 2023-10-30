@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import com.sun.jna.platform.mac.IOKitUtil;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
 import org.junit.jupiter.api.Test;
@@ -45,5 +46,11 @@ class JnaTest {
     void register() {
         System.out.println(Advapi32Util.registryGetStringValue(
             WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\7-Zip", "Path"));
+    }
+
+    @EnabledOnOs({OS.MAC})
+    @Test
+    void mac() {
+        System.out.println(IOKitUtil.getMatchingService("AppleSMC"));
     }
 }
