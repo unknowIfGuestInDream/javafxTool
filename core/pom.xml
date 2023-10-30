@@ -210,6 +210,11 @@
             <artifactId>hutool-http</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
