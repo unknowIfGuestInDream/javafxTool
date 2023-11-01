@@ -22,6 +22,7 @@ javafx脚手架，基于JDK17 + JavaFX17 + controlsfx 11.x.x + Maven开发。
   - javafx: javafx对象封装
   - logging: 日志对象
   - util: 工具包
+  - wrap: 包装包，对一些依赖的方法进行包装，方便解决工具在升级后带来的兼容问题
 - login: 登录模块(提供SPI接口，需要使用登录校验的话还需要额外实现，这里仅提供了部分框架)
 - demo: demo示例(展示controlsfx的demo)
 - common: 通用组件模块，用于应用模块使用
