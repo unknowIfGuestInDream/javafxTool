@@ -27,18 +27,6 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.net.NetUtil;
-import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.exception.GroovyCompilationErrorsException;
-import com.tlcsdm.core.exception.UnsupportedFeatureException;
-import groovy.lang.Binding;
-import groovy.lang.GroovyObject;
-import groovy.util.GroovyScriptEngine;
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
-import org.codehaus.groovy.control.MultipleCompilationErrorsException;
-import org.codehaus.groovy.runtime.IOGroovyMethods;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -46,6 +34,20 @@ import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.codehaus.groovy.control.MultipleCompilationErrorsException;
+import org.codehaus.groovy.runtime.IOGroovyMethods;
+
+import com.tlcsdm.core.exception.GroovyCompilationErrorsException;
+import com.tlcsdm.core.exception.UnsupportedFeatureException;
+import com.tlcsdm.core.wrap.hutool.NetUtil;
+
+import cn.hutool.log.StaticLog;
+import groovy.lang.Binding;
+import groovy.lang.GroovyObject;
+import groovy.util.GroovyScriptEngine;
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
 
 /**
  * Groovy工具类
@@ -69,7 +71,7 @@ public class GroovyUtil {
     public static GroovyScriptEngine getEngine() {
         if (groovyScriptEngine == null) {
             throw new UnsupportedFeatureException(
-                "Groovy is not supported, please confirm whether there is a groovy dependency.");
+                    "Groovy is not supported, please confirm whether there is a groovy dependency.");
         }
         return groovyScriptEngine;
     }
@@ -82,7 +84,7 @@ public class GroovyUtil {
      * @param params     方法参数
      * @return
      */
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public static Object invokeMethod(String scriptName, String methodName, Object... params) {
         Object ret = null;
         Class scriptClass;
@@ -92,11 +94,11 @@ public class GroovyUtil {
             scriptClass = groovyScriptEngine.loadScriptByName(scriptName);
             scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
         } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException
-            | NoSuchMethodException | InvocationTargetException e1) {
+                | NoSuchMethodException | InvocationTargetException e1) {
             StaticLog.warn("Load script [" + scriptName + "] failed.", e1);
         } catch (MultipleCompilationErrorsException e) {
             throw new GroovyCompilationErrorsException(
-                scriptName + " compilation exception, the program has terminated.", e);
+                    scriptName + " compilation exception, the program has terminated.", e);
         }
 
         try {
@@ -122,7 +124,7 @@ public class GroovyUtil {
             StaticLog.warn("Load script [" + scriptName + "] failed.", e);
         } catch (MultipleCompilationErrorsException e) {
             throw new GroovyCompilationErrorsException(
-                scriptName + " compilation exception, the program has terminated.", e);
+                    scriptName + " compilation exception, the program has terminated.", e);
         }
         return ret;
     }
@@ -155,7 +157,7 @@ public class GroovyUtil {
             port = NetUtil.getUsableLocalPort();
         }
         Map<String, Object> map = new HashMap<>(4);
-        map.put("args", new String[]{String.valueOf(port), contextRoot, docBase});
+        map.put("args", new String[] { String.valueOf(port), contextRoot, docBase });
         GroovyUtil.run("SimpleHttpServer.groovy", map);
     }
 }

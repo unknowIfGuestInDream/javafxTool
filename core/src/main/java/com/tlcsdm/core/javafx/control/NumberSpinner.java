@@ -27,6 +27,11 @@
 
 package com.tlcsdm.core.javafx.control;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+
+import javax.swing.JSpinner;
+
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -44,10 +49,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-
-import javax.swing.*;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 
 /**
  * JavaFX Control that behaves like a {@link JSpinner} known in Swing. The
@@ -111,14 +112,14 @@ public class NumberSpinner extends HBox {
         Path arrowUp = new Path();
         arrowUp.setId(ARROW);
         arrowUp.getElements().addAll(new MoveTo(-ARROW_SIZE, 0), new LineTo(ARROW_SIZE, 0), new LineTo(0, -ARROW_SIZE),
-            new LineTo(-ARROW_SIZE, 0));
+                new LineTo(-ARROW_SIZE, 0));
         // mouse clicks should be forwarded to the underlying button
         arrowUp.setMouseTransparent(true);
 
         Path arrowDown = new Path();
         arrowDown.setId(ARROW);
         arrowDown.getElements().addAll(new MoveTo(-ARROW_SIZE, 0), new LineTo(ARROW_SIZE, 0), new LineTo(0, ARROW_SIZE),
-            new LineTo(-ARROW_SIZE, 0));
+                new LineTo(-ARROW_SIZE, 0));
         arrowDown.setMouseTransparent(true);
 
         // the spinner buttons scale with the textfield size

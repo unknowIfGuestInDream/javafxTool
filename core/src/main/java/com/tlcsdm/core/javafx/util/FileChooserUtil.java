@@ -27,19 +27,21 @@
 
 package com.tlcsdm.core.javafx.util;
 
-import cn.hutool.core.io.FileUtil;
-import com.tlcsdm.core.javafx.helper.DropContentHelper;
-import com.tlcsdm.core.util.I18nUtils;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+
+import javax.swing.filechooser.FileSystemView;
+
+import com.tlcsdm.core.javafx.helper.DropContentHelper;
+import com.tlcsdm.core.util.I18nUtils;
+import com.tlcsdm.core.wrap.hutool.FileUtil;
+
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 /**
  * @author unknowIfGuestInDream
@@ -104,11 +106,18 @@ public class FileChooserUtil {
     }
 
     public static File chooseSaveCommonImageFile(String fileName) {
-        return chooseSaveFile(fileName, new FileChooser.ExtensionFilter("All Images", "*.*"), new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"), new FileChooser.ExtensionFilter("GIF", "*.gif"), new FileChooser.ExtensionFilter("JPEG", "*.jpeg"), new FileChooser.ExtensionFilter("BMP", "*.bmp"));
+        return chooseSaveFile(fileName, new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("GIF", "*.gif"), new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"));
     }
 
     public static File chooseSaveImageFile(String fileName) {
-        return chooseSaveFile(fileName, new FileChooser.ExtensionFilter("All Images", "*.*"), new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"), new FileChooser.ExtensionFilter("gif", "*.gif"), new FileChooser.ExtensionFilter("jpeg", "*.jpeg"), new FileChooser.ExtensionFilter("bmp", "*.bmp"), new FileChooser.ExtensionFilter("ICO", "*.ico"), new FileChooser.ExtensionFilter("RGBE", "*.rgbe"));
+        return chooseSaveFile(fileName, new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("gif", "*.gif"), new FileChooser.ExtensionFilter("jpeg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("bmp", "*.bmp"), new FileChooser.ExtensionFilter("ICO", "*.ico"),
+                new FileChooser.ExtensionFilter("RGBE", "*.rgbe"));
     }
 
     public static File chooseDirectory() {
@@ -142,9 +151,12 @@ public class FileChooserUtil {
     }
 
     public static void setOnDragByOpenFile(TextInputControl textField) {
-        DropContentHelper.accept(textField, (dragboard) -> dragboard.hasFiles() && dragboard.getFiles().stream().anyMatch(File::isFile), (__, dragboard) -> {
-            textField.setText(dragboard.getFiles().stream().filter(File::isFile).map(FileUtil::readUtf8String).findFirst().orElse(""));
-        });
+        DropContentHelper.accept(textField,
+                (dragboard) -> dragboard.hasFiles() && dragboard.getFiles().stream().anyMatch(File::isFile),
+                (__, dragboard) -> {
+                    textField.setText(dragboard.getFiles().stream().filter(File::isFile).map(FileUtil::readUtf8String)
+                            .findFirst().orElse(""));
+                });
     }
 
     /**

@@ -27,29 +27,22 @@
 
 package com.tlcsdm.jfxcommon.config;
 
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import com.tlcsdm.jfxcommon.util.CommonConstant;
+
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
 
 /**
- * freemarker加载路径配置.
- * 需要在应用模块的spi配置中引用才可初始化
+ * freemarker加载路径配置. 需要在应用模块的spi配置中引用才可初始化
  *
  * @author unknowIfGuestInDream
  */
 public class CommonTemplateLoaderProvider implements TemplateLoaderService {
 
-    @Override
-    public TemplateLoader getTemplateLoader() {
-        try {
-            return new ClassTemplateLoader(CommonTemplateLoaderProvider.class, CommonConstant.FREEMARKER_BASE_PACKAGE_PATH);
-        } catch (IORuntimeException e) {
-            StaticLog.error(e);
-        }
-        return null;
-    }
+	@Override
+	public TemplateLoader getTemplateLoader() {
+		return new ClassTemplateLoader(CommonTemplateLoaderProvider.class, CommonConstant.FREEMARKER_BASE_PACKAGE_PATH);
+	}
 
 }

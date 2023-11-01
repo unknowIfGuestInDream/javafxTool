@@ -27,12 +27,6 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import com.github.difflib.DiffUtils;
-import com.github.difflib.UnifiedDiffUtils;
-import com.github.difflib.patch.Patch;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -44,6 +38,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
+
+import com.github.difflib.DiffUtils;
+import com.github.difflib.UnifiedDiffUtils;
+import com.github.difflib.patch.Patch;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
+
+import cn.hutool.log.StaticLog;
 
 /**
  * @author unknowIfGuestInDream
@@ -74,14 +75,14 @@ public class DiffHandleUtil {
      * @param revisedFileName  对比文件名
      */
     public static List<String> diffString(List<String> original, List<String> revised, String originalFileName,
-        String revisedFileName) {
+            String revisedFileName) {
         originalFileName = originalFileName == null ? "原始文件" : originalFileName;
         revisedFileName = revisedFileName == null ? "对比文件" : revisedFileName;
         // 两文件的不同点
         Patch<String> patch = DiffUtils.diff(original, revised);
         // 生成统一的差异格式
         List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original,
-            patch, 0);
+                patch, 0);
         int diffCount = unifiedDiff.size();
         if (diffCount == 0) {
             // 如果两文件没差异则插入如下
@@ -162,41 +163,41 @@ public class DiffHandleUtil {
         map.put("diff2htmlCss", diff2htmlCss);
         map.put("diff2htmlJs", diff2htmlJs);
         String template = """
-            <!DOCTYPE html>
-            <html lang="en-us">
+                <!DOCTYPE html>
+                <html lang="en-us">
 
-            <head>
-              <meta charset="utf-8" />
-              <meta name="google" content="notranslate" />
-              <meta name="author" content="liang.tang.cx@gmail.com">
-              <link rel="stylesheet" href="{githubCss}" />
-              <link rel="stylesheet" type="text/css" href="{diff2htmlCss}" />
-              <script type="text/javascript" src="{diff2htmlJs}"></script>
-            </head>
-            <script>
-            {diffString}
+                <head>
+                  <meta charset="utf-8" />
+                  <meta name="google" content="notranslate" />
+                  <meta name="author" content="liang.tang.cx@gmail.com">
+                  <link rel="stylesheet" href="{githubCss}" />
+                  <link rel="stylesheet" type="text/css" href="{diff2htmlCss}" />
+                  <script type="text/javascript" src="{diff2htmlJs}"></script>
+                </head>
+                <script>
+                {diffString}
 
-              document.addEventListener('DOMContentLoaded', function () {
-            {targetElement}
-                var configuration = {
-                  drawFileList: true,
-                  fileListToggle: true,
-                  fileListStartVisible: true,
-                  fileContentToggle: true,
-                  matching: 'lines',
-                  outputFormat: 'side-by-side',
-                  synchronisedScroll: true,
-                  highlight: true,
-                  renderNothingWhenEmpty: true,
-                };
-            {diff2htmlUi}
-              });
-            </script>
-            <body>
-            {divElement}
-            </body>
-            </html>
-            """;
+                  document.addEventListener('DOMContentLoaded', function () {
+                {targetElement}
+                    var configuration = {
+                      drawFileList: true,
+                      fileListToggle: true,
+                      fileListStartVisible: true,
+                      fileContentToggle: true,
+                      matching: 'lines',
+                      outputFormat: 'side-by-side',
+                      synchronisedScroll: true,
+                      highlight: true,
+                      renderNothingWhenEmpty: true,
+                    };
+                {diff2htmlUi}
+                  });
+                </script>
+                <body>
+                {divElement}
+                </body>
+                </html>
+                """;
         StringJoiner diffStringJoiner = new StringJoiner("\n");
         StringJoiner targetElementJoiner = new StringJoiner("\n");
         StringJoiner divElementJoiner = new StringJoiner("\n");
@@ -213,21 +214,23 @@ public class DiffHandleUtil {
             joinMap.put("index", i);
             joinMap.put("temp", builder.toString());
             diffStringJoiner.add(StrUtil.format("""
-                  const diffString{index} = `
-                {temp}
-                `;
-                """, joinMap));
+                      const diffString{index} = `
+                    {temp}
+                    `;
+                    """, joinMap));
             targetElementJoiner.add(StrUtil.format("""
-                    var targetElement{index} = document.getElementById('myDiffElement{index}');
-                """, joinMap));
+                        var targetElement{index} = document.getElementById('myDiffElement{index}');
+                    """, joinMap));
             divElementJoiner.add(StrUtil.format("""
-                  <div id="myDiffElement{index}"></div>
-                """, joinMap));
-            diff2htmlUiJoiner.add(StrUtil.format("""
-                    var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
-                    diff2htmlUi{index}.draw();
-                    diff2htmlUi{index}.highlightCode();
-                """, joinMap));
+                      <div id="myDiffElement{index}"></div>
+                    """, joinMap));
+            diff2htmlUiJoiner.add(StrUtil.format(
+                    """
+                                var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
+                                diff2htmlUi{index}.draw();
+                                diff2htmlUi{index}.highlightCode();
+                            """,
+                    joinMap));
         }
         map.put("diffString", diffStringJoiner.toString());
         map.put("targetElement", targetElementJoiner.toString());

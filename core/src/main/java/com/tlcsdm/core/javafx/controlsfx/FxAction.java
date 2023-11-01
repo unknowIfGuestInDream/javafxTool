@@ -27,7 +27,11 @@
 
 package com.tlcsdm.core.javafx.controlsfx;
 
-import cn.hutool.core.io.FileUtil;
+import java.util.function.Consumer;
+
+import org.controlsfx.control.action.Action;
+import org.fxmisc.flowless.VirtualizedScrollPane;
+
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.FxButton;
 import com.tlcsdm.core.javafx.controller.PreferencesView;
@@ -48,15 +52,13 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.I18nUtils;
+import com.tlcsdm.core.wrap.hutool.FileUtil;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.action.Action;
-import org.fxmisc.flowless.VirtualizedScrollPane;
-
-import java.util.function.Consumer;
 
 /**
  * controlsfx Action的初始化封装
@@ -260,17 +262,17 @@ public class FxAction {
             VBox vbox = new VBox();
             Button button = FxButton.openWithSystemWithGrapgic();
             button.setOnAction(
-                ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
+                    ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME)));
             PropertiesArea area = new PropertiesArea();
             area.setEditable(false);
             area.appendText(
-                FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
+                    FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
             VirtualizedScrollPane<PropertiesArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
-                .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
-                .setButtonTypes(FxButtonType.CLOSE);
+                    .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
+                    .setButtonTypes(FxButtonType.CLOSE);
             dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
@@ -289,18 +291,18 @@ public class FxAction {
             VBox vbox = new VBox();
             Button button = FxButton.openWithSystemWithGrapgic();
             button.setOnAction(
-                ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
+                    ae -> JavaFxSystemUtil.openDirectory(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME)));
             XmlEditorArea area = new XmlEditorArea();
             area.setEditable(false);
             area.appendText(
-                FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
+                    FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.USERDATA_FILE_NAME))));
             area.showParagraphAtTop(0);
             VirtualizedScrollPane<XmlEditorArea> pane = new VirtualizedScrollPane<>(area);
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openUserData"))
-                .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
-                .setButtonTypes(FxButtonType.CLOSE);
+                    .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
+                    .setButtonTypes(FxButtonType.CLOSE);
             dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,67 +25,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.jfxcommon.provider;
+package com.tlcsdm.core.wrap.hutool;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.tlcsdm.core.wrap.hutool.StrUtil;
-import com.tlcsdm.frame.model.WelcomePage;
-import com.tlcsdm.frame.service.FXSamplerProject;
-import com.tlcsdm.jfxcommon.util.I18nUtils;
-
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import java.math.BigDecimal;
 
 /**
+ * {@link cn.hutool.core.util.NumberUtil}
+ * 
  * @author unknowIfGuestInDream
  */
-public class CommonSamplerProjectProvider implements FXSamplerProject {
+public class NumberUtil {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getProjectName() {
-		return "Common";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getSampleBasePackage() {
-		return "com.tlcsdm.jfxcommon";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getModuleName() {
-		return "com.tlcsdm.jfxcommon";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public WelcomePage getWelcomePage() {
-		VBox vBox = new VBox();
-		vBox.getStyleClass().add("welcomePage");
-		Label label = new Label();
-		label.setWrapText(true);
-		String desc = """
-				{introduce}
-				""";
-		Map<String, String> map = new HashMap<>();
-		map.put("introduce", I18nUtils.get("common.welcomePage.desc.introduce"));
-		label.setText(StrUtil.format(desc, map));
-		label.setStyle("-fx-font-size: 1.5em; -fx-padding: 20 0 0 5;");
-
-		vBox.getChildren().addAll(getWelcomeBackgroundImagePane(), label);
-		return new WelcomePage("Common", vBox);
-	}
-
+    /**
+     * {@inheritDoc}
+     */
+    public static BigDecimal toBigDecimal(String numberStr) {
+        return cn.hutool.core.util.NumberUtil.toBigDecimal(numberStr);
+    }
 }

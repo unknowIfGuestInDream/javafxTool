@@ -25,52 +25,61 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.richtext;
+package com.tlcsdm.core.wrap.hutool;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.nio.file.Path;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
-import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
-
-import com.tlcsdm.core.wrap.hutool.CharSequenceUtil;
-import com.tlcsdm.core.wrap.hutool.StrUtil;
-
 /**
- * Properties TextArea
- *
+ * {@link cn.hutool.core.io.FileUtil}
+ * 
  * @author unknowIfGuestInDream
- * @date 2023/8/4 10:03
  */
-public class PropertiesArea extends CodeArea {
+public class FileUtil {
 
-    public PropertiesArea() {
-        super();
-        getStyleClass().add("text-properties-area");
-        getStylesheets()
-                .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/properties.css").toExternalForm());
-        this.setParagraphGraphicFactory(LineNumberFactory.get(this));
-        this.textProperty().addListener((obs, oldText, newText) -> {
-            this.setStyleSpans(0, computeHighlighting(newText));
-        });
+    /**
+     * {@inheritDoc}
+     */
+    public static File file(String path) {
+        return cn.hutool.core.io.FileUtil.file(path);
     }
 
-    private StyleSpans<Collection<String>> computeHighlighting(String text) {
-        List<String> list = StrUtil.split(text, "\n");
-        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        for (String str : list) {
-            List<String> l = CharSequenceUtil.split(str, "=");
-            if (l.size() != 2) {
-                continue;
-            }
-            spansBuilder.add(Collections.singleton("propertyKey"), l.get(0).length());
-            spansBuilder.add(Collections.singleton("propertyEqu"), 1);
-            spansBuilder.add(Collections.emptyList(), l.get(1).length() + 1);
-        }
-        return spansBuilder.create();
+    /**
+     * {@inheritDoc}
+     */
+    public static boolean del(File file) {
+        return cn.hutool.core.io.FileUtil.del(file);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static String readUtf8String(File file) {
+        return cn.hutool.core.io.FileUtil.readUtf8String(file);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static boolean isEmpty(File file) {
+        return cn.hutool.core.io.FileUtil.isEmpty(file);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static <T> File appendUtf8Lines(Collection<T> list, File file) {
+        return cn.hutool.core.io.FileUtil.appendUtf8Lines(list, file);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static List<File> loopFiles(Path path, int maxDepth, FileFilter fileFilter) {
+        return cn.hutool.core.io.FileUtil.loopFiles(path, maxDepth, fileFilter);
     }
 
 }

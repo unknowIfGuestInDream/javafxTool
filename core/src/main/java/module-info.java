@@ -11,6 +11,8 @@ module com.tlcsdm.core {
     requires org.controlsfx.controls;
     requires cn.hutool.log;
     requires cn.hutool.core;
+    requires static cn.hutool.http;
+    requires static cn.hutool.poi;
     requires static io.github.javadiffutils;
     requires static freemarker;
     requires static com.fasterxml.jackson.core;
@@ -40,7 +42,6 @@ module com.tlcsdm.core {
     requires static jave.core;
     requires static com.sun.jna;
     requires static vosk;
-    requires static cn.hutool.http;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -69,6 +70,8 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.eventbus;
     exports com.tlcsdm.core.event;
     exports com.tlcsdm.core.httpserver;
+    exports com.tlcsdm.core.wrap.hutool;
+    exports com.tlcsdm.core.wrap.hutool.poi;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;

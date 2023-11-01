@@ -27,10 +27,11 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
-
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 
 /**
  * @author unknowIfGuestInDream
@@ -78,31 +79,37 @@ public class CoreConstant {
      */
     public static final String ENCODING_UTF_8 = "UTF-8";
 
+    private static Map<String, Object> progectMap = new HashMap<>();
+
+    static {
+        progectMap.put("year", LocalDate.now().getYear());
+    }
+
     /**
      * LICENSE内容
      */
     public static final String PROJECT_LICENSE_CONTENT_STRING = StrUtil.format("""
-        MIT License
+            MIT License
 
-        Copyright (c) {year} unknowIfGuestInDream
+            Copyright (c) {year} unknowIfGuestInDream
 
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
 
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
 
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
-                """, MapUtil.builder("year", LocalDate.now().getYear()).build());
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+                    """, progectMap);
 
 }
