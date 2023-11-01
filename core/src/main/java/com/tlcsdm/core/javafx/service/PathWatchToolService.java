@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.javafx.service;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controller.PathWatchToolController;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.geometry.Pos;
 import javafx.util.Duration;

@@ -28,8 +28,8 @@
 package com.tlcsdm.qe.config;
 
 import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
+import com.tlcsdm.core.logging.StaticLog;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;
 

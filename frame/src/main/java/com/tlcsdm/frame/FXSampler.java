@@ -29,8 +29,6 @@ package com.tlcsdm.frame;
 
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.event.ApplicationFailedEvent;
 import com.tlcsdm.core.event.ApplicationPreparedEvent;
 import com.tlcsdm.core.event.ApplicationReadyEvent;
@@ -47,7 +45,9 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.InterfaceScanner;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptyCenterPanel;

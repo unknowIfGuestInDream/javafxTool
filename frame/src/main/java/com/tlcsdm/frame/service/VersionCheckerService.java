@@ -27,6 +27,14 @@
 
 package com.tlcsdm.frame.service;
 
+import cn.hutool.core.net.SSLContextBuilder;
+import cn.hutool.crypto.Mode;
+import cn.hutool.crypto.Padding;
+import cn.hutool.crypto.symmetric.AES;
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.util.JacksonUtil;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -40,18 +48,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.util.JacksonUtil;
-
-import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.crypto.Mode;
-import cn.hutool.crypto.Padding;
-import cn.hutool.crypto.symmetric.AES;
-import cn.hutool.log.StaticLog;
-
 /**
  * 检查更新(支持github和gitlab).
- * 
+ *
  *
  * @author unknowIfGuestInDream
  */
@@ -71,7 +70,7 @@ public interface VersionCheckerService {
 
     /**
      * 获取releases结果.
-     * 
+     *
      * @param url releases接口地址
      * @param encryptStr 加密token密文
      */

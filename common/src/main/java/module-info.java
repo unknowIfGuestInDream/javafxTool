@@ -36,6 +36,7 @@ module com.tlcsdm.jfxcommon {
 	requires com.tlcsdm.frame;
 	requires org.controlsfx.controls;
 	requires org.slf4j;
+    requires cn.hutool.poi;
 	requires static freemarker;
 	requires static com.fasterxml.jackson.databind;
 	requires static org.apache.commons.csv;

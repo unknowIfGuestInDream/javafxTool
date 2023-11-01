@@ -6,7 +6,6 @@ module com.tlcsdm.frame {
     requires javafx.base;
     requires com.tlcsdm.core;
     requires cn.hutool.core;
-    requires cn.hutool.log;
     requires cn.hutool.crypto;
     requires static com.github.benmanes.caffeine;
     requires javafx.fxml;

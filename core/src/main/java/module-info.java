@@ -66,12 +66,12 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.freemarker;
     exports com.tlcsdm.core.freemarker.template;
     exports com.tlcsdm.core.groovy;
+    exports com.tlcsdm.core.logging;
     exports com.tlcsdm.core.logging.logback;
     exports com.tlcsdm.core.eventbus;
     exports com.tlcsdm.core.event;
     exports com.tlcsdm.core.httpserver;
     exports com.tlcsdm.core.wrap.hutool;
-    exports com.tlcsdm.core.wrap.hutool.poi;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;

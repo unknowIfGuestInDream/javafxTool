@@ -29,8 +29,8 @@ package com.tlcsdm.qe.provider;
 
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.exception.SampleDefinitionException;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;
 import com.tlcsdm.frame.service.SamplePostProcessorService;

@@ -26,7 +26,7 @@
  */
 package com.tlcsdm.frame.model;
 
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.frame.Sample;
 

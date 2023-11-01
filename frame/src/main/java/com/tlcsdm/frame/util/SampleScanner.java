@@ -27,7 +27,7 @@
 
 package com.tlcsdm.frame.util;
 
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.EmptySample;

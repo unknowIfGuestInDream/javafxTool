@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.log.StaticLog;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -41,6 +40,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.type.SimpleType;
+import com.tlcsdm.core.logging.StaticLog;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

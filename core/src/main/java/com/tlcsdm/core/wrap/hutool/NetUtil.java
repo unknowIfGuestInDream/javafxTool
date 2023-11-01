@@ -28,24 +28,12 @@
 package com.tlcsdm.core.wrap.hutool;
 
 /**
- * {@link cn.hutool.core.net}
- * 
+ * Wrapper for {@link cn.hutool.core.net}.
+ *
  * @author unknowIfGuestInDream
  */
-public class NetUtil {
+public class NetUtil extends cn.hutool.core.net.NetUtil {
 
-    /**
-     * {@inheritDoc}
-     */
-    public static boolean isUsableLocalPort(int port) {
-        return cn.hutool.core.net.NetUtil.isUsableLocalPort(port);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public static int getUsableLocalPort() {
-        return cn.hutool.core.net.NetUtil.getUsableLocalPort();
-    }
 
 }

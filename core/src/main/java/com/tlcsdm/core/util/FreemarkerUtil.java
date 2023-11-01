@@ -27,9 +27,9 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.exception.UnsupportedFeatureException;
+import com.tlcsdm.core.logging.StaticLog;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

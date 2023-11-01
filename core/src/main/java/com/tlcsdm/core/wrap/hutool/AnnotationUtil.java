@@ -27,21 +27,11 @@
 
 package com.tlcsdm.core.wrap.hutool;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-
 /**
- * {@link cn.hutool.core.annotation}
- * 
+ * Wrapper for {@link cn.hutool.core.annotation}.
+ *
  * @author unknowIfGuestInDream
  */
-public class AnnotationUtil {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static <T> T getAnnotationValue(AnnotatedElement annotationEle, Class<? extends Annotation> annotationType) {
-        return cn.hutool.core.annotation.AnnotationUtil.getAnnotationValue(annotationEle, annotationType);
-    }
+public class AnnotationUtil extends cn.hutool.core.annotation.AnnotationUtil {
 
 }

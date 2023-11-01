@@ -27,7 +27,7 @@
 
 package com.tlcsdm.smc.provider;
 
-import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.service.FXSamplerProject;
 import com.tlcsdm.smc.util.I18nUtils;

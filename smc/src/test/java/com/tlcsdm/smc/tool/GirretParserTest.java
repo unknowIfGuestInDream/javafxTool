@@ -27,10 +27,10 @@
 
 package com.tlcsdm.smc.tool;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tlcsdm.core.util.JacksonUtil;
+import com.tlcsdm.core.wrap.hutool.FileUtil;
 import com.tlcsdm.smc.tools.girret.Change;
 import com.tlcsdm.smc.tools.girret.Comment;
 import org.junit.jupiter.api.Assertions;

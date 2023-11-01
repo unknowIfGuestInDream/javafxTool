@@ -27,8 +27,8 @@
 
 package com.tlcsdm.frame;
 
-import cn.hutool.core.annotation.AnnotationUtil;
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.wrap.hutool.AnnotationUtil;
 import com.tlcsdm.frame.model.EmptySample;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

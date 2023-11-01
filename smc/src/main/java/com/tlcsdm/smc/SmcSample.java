@@ -27,8 +27,8 @@
 
 package com.tlcsdm.smc;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.SampleBase;
 import com.tlcsdm.smc.util.SmcConstant;
 

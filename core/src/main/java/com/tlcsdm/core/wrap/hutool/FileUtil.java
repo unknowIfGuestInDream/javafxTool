@@ -27,59 +27,11 @@
 
 package com.tlcsdm.core.wrap.hutool;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.List;
-
 /**
- * {@link cn.hutool.core.io.FileUtil}
- * 
+ * Wrapper for {@link cn.hutool.core.io.FileUtil}.
+ *
  * @author unknowIfGuestInDream
  */
-public class FileUtil {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static File file(String path) {
-        return cn.hutool.core.io.FileUtil.file(path);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static boolean del(File file) {
-        return cn.hutool.core.io.FileUtil.del(file);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static String readUtf8String(File file) {
-        return cn.hutool.core.io.FileUtil.readUtf8String(file);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static boolean isEmpty(File file) {
-        return cn.hutool.core.io.FileUtil.isEmpty(file);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static <T> File appendUtf8Lines(Collection<T> list, File file) {
-        return cn.hutool.core.io.FileUtil.appendUtf8Lines(list, file);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static List<File> loopFiles(Path path, int maxDepth, FileFilter fileFilter) {
-        return cn.hutool.core.io.FileUtil.loopFiles(path, maxDepth, fileFilter);
-    }
+public class FileUtil extends cn.hutool.core.io.FileUtil {
 
 }

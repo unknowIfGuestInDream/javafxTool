@@ -27,8 +27,8 @@
 
 package com.tlcsdm.core.javafx.richtext;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
+import com.tlcsdm.core.logging.StaticLog;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;

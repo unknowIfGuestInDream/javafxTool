@@ -27,9 +27,9 @@
 
 package com.tlcsdm.core.javafx.dialog;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;

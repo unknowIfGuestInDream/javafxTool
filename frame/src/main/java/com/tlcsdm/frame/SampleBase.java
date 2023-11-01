@@ -27,13 +27,13 @@
 
 package com.tlcsdm.frame;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.Keys;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.util.I18nUtils;
 import javafx.application.Application;

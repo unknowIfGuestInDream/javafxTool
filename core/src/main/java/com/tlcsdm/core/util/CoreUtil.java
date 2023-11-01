@@ -27,6 +27,11 @@
 
 package com.tlcsdm.core.util;
 
+import com.tlcsdm.core.annotation.Order;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.wrap.hutool.AnnotationUtil;
+import com.tlcsdm.core.wrap.hutool.FileUtil;
+
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,12 +45,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-
-import com.tlcsdm.core.annotation.Order;
-import com.tlcsdm.core.wrap.hutool.AnnotationUtil;
-import com.tlcsdm.core.wrap.hutool.FileUtil;
-
-import cn.hutool.log.StaticLog;
 
 /**
  * 工具包

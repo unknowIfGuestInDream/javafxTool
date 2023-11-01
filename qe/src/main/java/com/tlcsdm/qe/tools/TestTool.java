@@ -28,12 +28,12 @@
 package com.tlcsdm.qe.tools;
 
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.core.util.CoreConstant;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.qe.QeSample;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

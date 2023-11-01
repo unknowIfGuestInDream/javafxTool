@@ -27,9 +27,9 @@
 
 package com.tlcsdm.cg;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.cg.util.CgConstant;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.frame.SampleBase;
 
 import java.io.InputStream;

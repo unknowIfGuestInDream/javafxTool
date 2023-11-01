@@ -27,7 +27,7 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;

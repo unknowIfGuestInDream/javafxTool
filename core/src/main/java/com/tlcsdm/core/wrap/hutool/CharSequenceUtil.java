@@ -27,20 +27,11 @@
 
 package com.tlcsdm.core.wrap.hutool;
 
-import java.util.List;
-
 /**
- * {@link cn.hutool.core.text.CharSequenceUtil}
- * 
+ * Wrapper for {@link cn.hutool.core.text.CharSequenceUtil}.
+ *
  * @author unknowIfGuestInDream
  */
-public class CharSequenceUtil {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static List<String> split(CharSequence str, CharSequence separator) {
-        return cn.hutool.core.text.CharSequenceUtil.split(str, separator);
-    }
+public class CharSequenceUtil extends cn.hutool.core.text.CharSequenceUtil {
 
 }

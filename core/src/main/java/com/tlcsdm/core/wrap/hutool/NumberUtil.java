@@ -27,19 +27,11 @@
 
 package com.tlcsdm.core.wrap.hutool;
 
-import java.math.BigDecimal;
-
 /**
- * {@link cn.hutool.core.util.NumberUtil}
- * 
+ * Wrapper for {@link cn.hutool.core.util.NumberUtil}.
+ *
  * @author unknowIfGuestInDream
  */
-public class NumberUtil {
+public class NumberUtil extends cn.hutool.core.util.NumberUtil {
 
-    /**
-     * {@inheritDoc}
-     */
-    public static BigDecimal toBigDecimal(String numberStr) {
-        return cn.hutool.core.util.NumberUtil.toBigDecimal(numberStr);
-    }
 }

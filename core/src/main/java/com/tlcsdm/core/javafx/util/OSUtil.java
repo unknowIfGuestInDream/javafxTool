@@ -27,8 +27,8 @@
 
 package com.tlcsdm.core.javafx.util;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.logging.StaticLog;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;

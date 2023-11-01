@@ -27,10 +27,10 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import cn.hutool.log.StaticLog;
 import com.dlsc.pdfviewfx.PDFView;
 import com.dlsc.pdfviewfx.PDFView.Document;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -46,17 +46,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+import javax.swing.SwingUtilities;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-import javax.swing.SwingUtilities;
-
 /**
  * PDF View
- * 
+ *
  * @author unknowIfGuestInDream
  */
 public class PdfViewStage extends Stage {

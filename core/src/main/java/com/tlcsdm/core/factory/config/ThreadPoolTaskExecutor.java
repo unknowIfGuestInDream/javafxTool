@@ -27,9 +27,9 @@
 
 package com.tlcsdm.core.factory.config;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
 import com.tlcsdm.core.factory.InitializingFactory;
+import com.tlcsdm.core.logging.StaticLog;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.util.concurrent.LinkedBlockingQueue;

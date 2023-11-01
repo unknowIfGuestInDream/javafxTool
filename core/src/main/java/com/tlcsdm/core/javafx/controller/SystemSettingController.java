@@ -27,10 +27,10 @@
 
 package com.tlcsdm.core.javafx.controller;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.view.SystemSettingView;
+import com.tlcsdm.core.logging.StaticLog;
 
 import java.net.URL;
 import java.util.ResourceBundle;

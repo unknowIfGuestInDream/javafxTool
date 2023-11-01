@@ -27,7 +27,6 @@
 
 package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
@@ -37,6 +36,7 @@ import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CompressUtil;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.event.ActionEvent;

@@ -27,13 +27,14 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.util.EscapeUtil;
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.wrap.hutool.EscapeUtil;
+import com.tlcsdm.core.wrap.hutool.ReUtil;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
 
 /**
+ * Html相关工具类.
+ *
  * @author unknowIfGuestInDream
- * @date 2023/4/16 10:01
  */
 public class HtmlUtil {
 

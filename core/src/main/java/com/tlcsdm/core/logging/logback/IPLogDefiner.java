@@ -28,7 +28,7 @@
 package com.tlcsdm.core.logging.logback;
 
 import ch.qos.logback.core.PropertyDefinerBase;
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

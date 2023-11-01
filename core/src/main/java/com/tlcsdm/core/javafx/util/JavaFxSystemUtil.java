@@ -27,12 +27,14 @@
 
 package com.tlcsdm.core.javafx.util;
 
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

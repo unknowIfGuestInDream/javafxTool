@@ -27,7 +27,7 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.logging.StaticLog;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ConfigurationBuilder;

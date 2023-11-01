@@ -27,49 +27,11 @@
 
 package com.tlcsdm.core.wrap.hutool;
 
-import java.util.List;
-import java.util.Map;
-
 /**
- * {@link cn.hutool.core.util.StrUtil}
- * 
+ * Wrapper for {@link cn.hutool.core.util.StrUtil}.
+ *
  * @author unknowIfGuestInDream
  */
-public class StrUtil {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static String format(CharSequence template, Map<?, ?> map) {
-        return cn.hutool.core.util.StrUtil.format(template, map, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static List<String> split(CharSequence str, CharSequence separator) {
-        return cn.hutool.core.util.StrUtil.split(str, separator);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static List<String> splitTrim(CharSequence str, CharSequence separator) {
-        return cn.hutool.core.util.StrUtil.splitTrim(str, separator, -1);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static boolean isEmpty(CharSequence str) {
-        return cn.hutool.core.util.StrUtil.isEmpty(str);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static String replace(CharSequence str, CharSequence searchStr, CharSequence replacement) {
-        return cn.hutool.core.util.StrUtil.replace(str, searchStr, replacement);
-    }
+public class StrUtil extends cn.hutool.core.util.StrUtil {
 
 }

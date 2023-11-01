@@ -57,7 +57,6 @@ module com.tlcsdm.qe {
     requires org.controlsfx.controls;
     requires cn.hutool.core;
     requires cn.hutool.poi;
-    requires cn.hutool.log;
     requires org.apache.poi.poi;
     requires org.slf4j;
     requires freemarker;

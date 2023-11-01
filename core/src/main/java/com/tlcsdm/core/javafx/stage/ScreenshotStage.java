@@ -27,11 +27,11 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.OSUtil;
+import com.tlcsdm.core.logging.StaticLog;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,27 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.wrap.hutool.poi;
+package com.tlcsdm.core.wrap.hutool;
 
 /**
- * {@link cn.hutool.poi.excel.ExcelUtil}
- * 
+ * Wrapper for {@link cn.hutool.core.util.EscapeUtil}.
+ *
  * @author unknowIfGuestInDream
  */
-public class ExcelUtil {
-
-    /**
-     * {@inheritDoc}
-     */
-    public static int colNameToIndex(String colName) {
-        return cn.hutool.poi.excel.ExcelUtil.colNameToIndex(colName);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static String indexToColName(int index) {
-        return cn.hutool.poi.excel.ExcelUtil.indexToColName(index);
-    }
-
+public class EscapeUtil extends cn.hutool.core.util.EscapeUtil {
 }

@@ -27,6 +27,12 @@
 
 package com.tlcsdm.core.util;
 
+import com.github.difflib.DiffUtils;
+import com.github.difflib.UnifiedDiffUtils;
+import com.github.difflib.patch.Patch;
+import com.tlcsdm.core.logging.StaticLog;
+import com.tlcsdm.core.wrap.hutool.StrUtil;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -38,13 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
-
-import com.github.difflib.DiffUtils;
-import com.github.difflib.UnifiedDiffUtils;
-import com.github.difflib.patch.Patch;
-import com.tlcsdm.core.wrap.hutool.StrUtil;
-
-import cn.hutool.log.StaticLog;
 
 /**
  * @author unknowIfGuestInDream

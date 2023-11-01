@@ -27,7 +27,6 @@
 
 package com.tlcsdm.cg.provider;
 
-import cn.hutool.core.net.NetUtil;
 import com.tlcsdm.cg.CgSample;
 import com.tlcsdm.cg.util.CgConstant;
 import com.tlcsdm.cg.util.I18nUtils;
@@ -49,6 +48,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
+import com.tlcsdm.core.wrap.hutool.NetUtil;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import javafx.application.Platform;
