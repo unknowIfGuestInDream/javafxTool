@@ -39,7 +39,8 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 /**
- * SimpleHTTPServer for Groovy, inspired by Python's SimpleHTTPServer
+ * SimpleHTTPServer for Groovy, inspired by Python's SimpleHTTPServer.
+ * 可能会有资源回收问题，之后考虑使用@Singleton重写为单例。
  * requires jdk.httpserver
  */
 @CompileStatic
