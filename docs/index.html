@@ -59,12 +59,17 @@
 <div id="app"></div>
 <script>
   window.$docsify = {
-      themeColor: '#4471A9FF',//主题颜色
+    themeColor: '#4471A9FF',//主题颜色
     homepage: '../README.md',
     // 项目名称
     name: 'JavaFXTool',
     // 仓库地址，点击右上角的Github章鱼猫头像会跳转到此地址
-    repo: 'https://github.com/unknowIfGuestInDream/javafxTool',
+    // repo: 'https://github.com/unknowIfGuestInDream/javafxTool',
+    repo:'true',
+    corner: {
+      url: "https://github.com/unknowIfGuestInDream/javafxTool",
+      icon: "github"
+    },
     auto2top: true,//切换页面后是否自动跳转到页面顶部。
     onlyCover: false, //将封面跟文档分开 而不是上下连接
     // 侧边栏支持，默认加载的是项目根目录下的_sidebar.md文件
@@ -174,6 +179,8 @@
 <script src="lib/docsify.min.js"></script>
 <!-- 主题 -->
 <script src="lib/docsify-themeable.min.js"></script>
+<!-- 右上角repo -->
+<script src="lib/docsify-corner.min.js"></script>
 <!-- emoji表情支持 -->
 <script src="lib/emoji.min.js"></script>
 <!-- tab插件 -->
