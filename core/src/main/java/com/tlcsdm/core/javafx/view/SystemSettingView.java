@@ -31,6 +31,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
 
 /**
  * 设置页面
@@ -38,7 +39,8 @@ import javafx.scene.control.CheckBox;
  * @author xufeng
  */
 public abstract class SystemSettingView implements Initializable {
-
+    @FXML
+    protected VBox vbox;
     @FXML
     protected CheckBox exitShowAlertCheckBox;
     @FXML

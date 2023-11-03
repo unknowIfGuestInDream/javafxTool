@@ -31,6 +31,7 @@ import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.view.SystemSettingView;
+import javafx.scene.Node;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +58,23 @@ public class SystemSettingController extends SystemSettingView {
         } catch (Exception e) {
             StaticLog.error("Init setting failed: ", e);
         }
+    }
+
+    public void disableKeys(Keys... excludeKeys) {
+        for (Keys key : excludeKeys) {
+            switch (key) {
+                case ConfirmExit -> disableNode(exitShowAlertCheckBox);
+                case RememberWindowLocation -> disableNode(saveStageBoundCheckBox);
+                case CheckForUpdatesAtStartup -> disableNode(checkForUpdatesAtStartupCheckBox);
+                case ScreenshotHideWindow -> disableNode(screenshotHideWindowCheckBox);
+                case ScreenColorPickerHideWindow -> disableNode(screenColorPickerHideWindowCheckBox);
+            }
+        }
+    }
+
+    private void disableNode(Node node) {
+        node.setVisible(false);
+        node.setManaged(false);
     }
 
     public void applySettings() {

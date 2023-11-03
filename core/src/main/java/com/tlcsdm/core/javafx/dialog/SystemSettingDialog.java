@@ -30,6 +30,7 @@ package com.tlcsdm.core.javafx.dialog;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.controller.SystemSettingController;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.scene.control.ButtonType;
 
@@ -46,14 +47,14 @@ public class SystemSettingDialog {
     private SystemSettingDialog() {
     }
 
-    public static void openSystemSettings(String title) {
+    public static void openSystemSettings(String title, Keys... excludeKeys) {
         FxDialog<SystemSettingController> dialog = new FxDialog<SystemSettingController>()
             .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
             .setBodyFxml(SystemSettingDialog.class.getResource("/com/tlcsdm/core/fxml/SystemSetting.fxml"))
             .setOwner(FxApp.primaryStage).setButtonTypes(ButtonType.OK, ButtonType.CANCEL);
 
         SystemSettingController controller = dialog.show();
-
+        controller.disableKeys(excludeKeys);
         dialog.setButtonHandler(ButtonType.OK, (actionEvent, stage) -> {
             controller.applySettings();
             stage.close();

@@ -45,6 +45,7 @@ import com.tlcsdm.core.javafx.stage.ScreenshotStage;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.I18nUtils;
@@ -153,9 +154,9 @@ public class FxAction {
     /**
      * menubar systemSetting
      */
-    public static Action systemSetting() {
+    public static Action systemSetting(Keys... excludeKeys) {
         return create(I18nUtils.get("core.menubar.setting.systemSetting"), actionEvent -> {
-            SystemSettingDialog.openSystemSettings(I18nUtils.get("core.menubar.setting.systemSetting"));
+            SystemSettingDialog.openSystemSettings(I18nUtils.get("core.menubar.setting.systemSetting"), excludeKeys);
         }, "/com/tlcsdm/core/static/menubar/system.png");
     }
 
@@ -374,8 +375,8 @@ public class FxAction {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/preferences.png");
     }
 
-    public static Action preferences() {
-        return preferences(actionEvent -> new PreferencesView().show());
+    public static Action preferences(Keys... excludeKeys) {
+        return preferences(actionEvent -> new PreferencesView(excludeKeys).show());
     }
 
     public static Action choose(Consumer<ActionEvent> eventHandler) {
