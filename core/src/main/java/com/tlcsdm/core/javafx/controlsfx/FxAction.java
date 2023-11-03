@@ -69,12 +69,23 @@ public class FxAction {
     private FxAction() {
     }
 
+    /**
+     * 创建Action对象.
+     *
+     * @param text         文本
+     * @param url          图片资源url
+     * @param eventHandler 触发事件
+     */
     public static Action create(String text, Consumer<ActionEvent> eventHandler, String url) {
         return create(text, eventHandler, LayoutHelper.iconView(FxAction.class.getResource(url)));
     }
 
     /**
-     * create action.
+     * 创建Action对象.
+     *
+     * @param text         文本
+     * @param eventHandler 触发事件
+     * @param graphic      图片对象
      */
     public static Action create(String text, Consumer<ActionEvent> eventHandler, Node graphic) {
         Action action = new Action(text, actionEvent -> {
@@ -89,70 +100,108 @@ public class FxAction {
         return action;
     }
 
+    /**
+     * @see #generate(String, Consumer).
+     */
     public static Action generate(Consumer<ActionEvent> eventHandler) {
         return generate(I18nUtils.get("core.button.generate"), eventHandler);
     }
 
+    /**
+     * 生成.
+     */
     public static Action generate(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/generate.png");
     }
 
+    /**
+     * @see #download(String, Consumer).
+     */
     public static Action download(Consumer<ActionEvent> eventHandler) {
         return download(I18nUtils.get("core.button.download"), eventHandler);
     }
 
+    /**
+     * 下载.
+     */
     public static Action download(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/download.png");
     }
 
+    /**
+     * @see #convert(String, Consumer).
+     */
     public static Action convert(Consumer<ActionEvent> eventHandler) {
         return convert(I18nUtils.get("core.button.convert"), eventHandler);
     }
 
+    /**
+     * 转换.
+     */
     public static Action convert(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/convert.png");
     }
 
+    /**
+     * @see #copy(String, Consumer).
+     */
     public static Action copy(Consumer<ActionEvent> eventHandler) {
         return copy(I18nUtils.get("core.button.copy"), eventHandler);
     }
 
+    /**
+     * 拷贝.
+     */
     public static Action copy(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/copy.png");
     }
 
+    /**
+     * @see #reset(String, Consumer).
+     */
     public static Action reset(Consumer<ActionEvent> eventHandler) {
         return reset(I18nUtils.get("core.button.reset"), eventHandler);
     }
 
+    /**
+     * 重置.
+     */
     public static Action reset(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/reset.png");
     }
 
+    /**
+     * @see #restart(String, Consumer).
+     */
     public static Action restart(Consumer<ActionEvent> eventHandler) {
         return restart(I18nUtils.get("core.menubar.file.restart"), eventHandler);
     }
 
     /**
-     * menubar restart
+     * 重启.
      */
     public static Action restart(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/restart.png");
     }
 
+    /**
+     * @see #exit(String, Consumer).
+     */
     public static Action exit(Consumer<ActionEvent> eventHandler) {
         return exit(I18nUtils.get("core.menubar.file.exit"), eventHandler);
     }
 
     /**
-     * menubar exit
+     * 退出.
      */
     public static Action exit(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/exit.png");
     }
 
     /**
-     * menubar systemSetting
+     * 系统设置弹窗.
+     *
+     * @param excludeKeys 排除的配置
      */
     public static Action systemSetting(Keys... excludeKeys) {
         return create(I18nUtils.get("core.menubar.setting.systemSetting"), actionEvent -> {
@@ -161,7 +210,7 @@ public class FxAction {
     }
 
     /**
-     * menubar pathWatch
+     * 文件夹监控功能.
      */
     public static Action pathWatch() {
         return create(I18nUtils.get("core.menubar.setting.pathWatch"), actionEvent -> {
@@ -169,93 +218,145 @@ public class FxAction {
         }, "/com/tlcsdm/core/static/menubar/monitor.png");
     }
 
+    /**
+     * 颜色提取器.
+     */
     public static Action colorPicker() {
         return create(I18nUtils.get("core.menubar.setting.colorPicker"), actionEvent -> {
             new ScreenColorPickerStage().showStage();
         }, "/com/tlcsdm/core/static/menubar/colorPicker.png");
     }
 
+    /**
+     * 屏幕截图.
+     */
     public static Action screenshot() {
         return create(I18nUtils.get("core.menubar.setting.screenshot"), actionEvent -> {
             new ScreenshotStage().showStage();
         }, "/com/tlcsdm/core/static/menubar/screenshot.png");
     }
 
-    public static Action pdf(String text, Consumer<ActionEvent> eventHandler) {
-        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/pdf.png");
+    /**
+     * @see #pdf(String, Consumer).
+     */
+    public static Action pdf() {
+        return pdf(actionEvent -> new PdfViewStage().showStage());
     }
 
+    /**
+     * @see #pdf(String, Consumer).
+     */
     public static Action pdf(Consumer<ActionEvent> eventHandler) {
         return pdf(I18nUtils.get("core.button.pdf"), eventHandler);
     }
 
-    public static Action pdf() {
-        return pdf(actionEvent -> {
-            new PdfViewStage().showStage();
-        });
+    /**
+     * PDF视图.
+     */
+    public static Action pdf(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/icon/pdf.png");
     }
 
+    /**
+     * @see #about(String, Consumer).
+     */
     public static Action about(Consumer<ActionEvent> eventHandler) {
         return about(I18nUtils.get("core.menubar.help.about"), eventHandler);
     }
 
     /**
-     * menubar about
+     * 关于.
      */
     public static Action about(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/about.png");
     }
 
+    /**
+     * @see #contactSupport(String, Consumer).
+     */
     public static Action contactSupport(Consumer<ActionEvent> eventHandler) {
         return contactSupport(I18nUtils.get("core.menubar.help.contactSupport"), eventHandler);
     }
 
+    /**
+     * 联系支持.
+     */
     public static Action contactSupport(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/support.png");
     }
 
+    /**
+     * @see #submitFeedback(String, Consumer).
+     */
     public static Action submitFeedback(Consumer<ActionEvent> eventHandler) {
         return submitFeedback(I18nUtils.get("core.menubar.help.submitFeedback"), eventHandler);
     }
 
+    /**
+     * 提交反馈.
+     */
     public static Action submitFeedback(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/feedback.png");
     }
 
+    /**
+     * 打开日志文件夹.
+     */
     public static Action openLogDir(Consumer<ActionEvent> eventHandler) {
         return openDir(I18nUtils.get("core.menubar.help.openLogDir"), eventHandler);
     }
 
+    /**
+     * 打开输出文件夹.
+     */
     public static Action openOutDir(Consumer<ActionEvent> eventHandler) {
         return openDir(I18nUtils.get("core.menubar.help.openOutDir"), eventHandler);
     }
 
+    /**
+     * 打开文件夹.
+     */
     public static Action openDir(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/folder.png");
     }
 
+    /**
+     * 打开JavaFX API网址.
+     */
     public static Action api() {
         return create("JavaFX", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_URL);
         }, "/com/tlcsdm/core/static/menubar/jfx.png");
     }
 
+    /**
+     * 打开JavaFX CSS API网址.
+     */
     public static Action cssApi() {
         return create("CSS", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_CSS_URL);
         }, "/com/tlcsdm/core/static/menubar/css.png");
     }
 
+    /**
+     * 打开JavaFX Fxml API网址.
+     */
     public static Action fxmlApi() {
         return create("FXML", actionEvent -> {
             CoreUtil.openWeb(CoreConstant.JAVAFX_API_FXML_URL);
         }, "/com/tlcsdm/core/static/menubar/fxml.png");
     }
 
+    /**
+     * @see #openSysConfig(String, Consumer).
+     */
     public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
         return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
     }
 
+    /**
+     * 查看系统配置 (默认实现).
+     */
     public static Action openSysConfig() {
         return openSysConfig(actionEvent -> {
             VBox vbox = new VBox();
@@ -277,14 +378,23 @@ public class FxAction {
         });
     }
 
+    /**
+     * 查看系统配置.
+     */
     public static Action openSysConfig(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/sysConfig.png");
     }
 
+    /**
+     * @see #openUserData(String, Consumer).
+     */
     public static Action openUserData(Consumer<ActionEvent> eventHandler) {
         return openUserData(I18nUtils.get("core.menubar.help.openUserData"), eventHandler);
     }
 
+    /**
+     * 查看用户数据 (默认实现).
+     */
     public static Action openUserData() {
         return openUserData(actionEvent -> {
             VBox vbox = new VBox();
@@ -307,82 +417,142 @@ public class FxAction {
         });
     }
 
+    /**
+     * 查看用户数据.
+     */
     public static Action openUserData(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/userData.png");
     }
 
+    /**
+     * @see #release(String, Consumer).
+     */
     public static Action release(Consumer<ActionEvent> eventHandler) {
         return release(I18nUtils.get("core.menubar.help.release"), eventHandler);
     }
 
+    /**
+     * 检查更新.
+     */
     public static Action release(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/release.png");
     }
 
+    /**
+     * @see #helpContent(String, Consumer).
+     */
     public static Action helpContent(Consumer<ActionEvent> eventHandler) {
         return helpContent(I18nUtils.get("core.menubar.help.helpContent"), eventHandler);
     }
 
+    /**
+     * 帮助文档.
+     */
     public static Action helpContent(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/document.png");
     }
 
+    /**
+     * @see #clear(String, Consumer).
+     */
     public static Action clear(Consumer<ActionEvent> eventHandler) {
         return clear(I18nUtils.get("core.button.clear"), eventHandler);
     }
 
+    /**
+     * 清除.
+     */
     public static Action clear(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/clear.png");
     }
 
+    /**
+     * @see #logConsole(String, Consumer).
+     */
     public static Action logConsole(Consumer<ActionEvent> eventHandler) {
         return logConsole(I18nUtils.get("core.button.logConsole"), eventHandler);
     }
 
+    /**
+     * 日志控制台.
+     */
     public static Action logConsole(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/console.png");
     }
 
+    /**
+     * @see #export(String, Consumer).
+     */
     public static Action export(Consumer<ActionEvent> eventHandler) {
         return export(I18nUtils.get("core.button.export"), eventHandler);
     }
 
+    /**
+     * 导出.
+     */
     public static Action export(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/export.png");
     }
 
+    /**
+     * @see #induct(String, Consumer).
+     */
     public static Action induct(Consumer<ActionEvent> eventHandler) {
         return induct(I18nUtils.get("core.button.import"), eventHandler);
     }
 
+    /**
+     * 导入.
+     */
     public static Action induct(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/import.png");
     }
 
+    /**
+     * @see #view(String, Consumer).
+     */
     public static Action view(Consumer<ActionEvent> eventHandler) {
         return view(I18nUtils.get("core.button.view"), eventHandler);
     }
 
+    /**
+     * 查看.
+     */
     public static Action view(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/view.png");
     }
 
+    /**
+     * @see #preferences(String, Consumer).
+     */
     public static Action preferences(Consumer<ActionEvent> eventHandler) {
         return preferences(I18nUtils.get("core.button.preferences"), eventHandler);
     }
 
+    /**
+     * preferences 设置.
+     */
     public static Action preferences(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/preferences.png");
     }
 
+    /**
+     * preferences (默认实现).
+     */
     public static Action preferences(Keys... excludeKeys) {
         return preferences(actionEvent -> new PreferencesView(excludeKeys).show());
     }
 
+    /**
+     * @see #choose(String, Consumer).
+     */
     public static Action choose(Consumer<ActionEvent> eventHandler) {
         return choose(I18nUtils.get("core.button.choose"), eventHandler);
     }
 
+    /**
+     * 选择.
+     */
     public static Action choose(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/choose.png");
     }

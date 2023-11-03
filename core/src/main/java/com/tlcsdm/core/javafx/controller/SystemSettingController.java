@@ -30,18 +30,18 @@ package com.tlcsdm.core.javafx.controller;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
-import com.tlcsdm.core.javafx.view.SystemSettingView;
+import com.tlcsdm.core.javafx.view.AbstractSystemSettingView;
 import javafx.scene.Node;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 设置页面
+ * 设置页面.
  *
  * @author unknowIfGuestInDream
  */
-public class SystemSettingController extends SystemSettingView {
+public class SystemSettingController extends AbstractSystemSettingView {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,17 +49,18 @@ public class SystemSettingController extends SystemSettingView {
     }
 
     private void initView() {
-        try {
-            exitShowAlertCheckBox.setSelected(Config.getBoolean(Keys.ConfirmExit, true));
-            saveStageBoundCheckBox.setSelected(Config.getBoolean(Keys.RememberWindowLocation, true));
-            checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
-            screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
-            screenColorPickerHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenColorPickerHideWindow, true));
-        } catch (Exception e) {
-            StaticLog.error("Init setting failed: ", e);
-        }
+        exitShowAlertCheckBox.setSelected(Config.getBoolean(Keys.ConfirmExit, true));
+        saveStageBoundCheckBox.setSelected(Config.getBoolean(Keys.RememberWindowLocation, true));
+        checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
+        screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
+        screenColorPickerHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenColorPickerHideWindow, true));
     }
 
+    /**
+     * 禁用配置项.
+     *
+     * @param excludeKeys Keys
+     */
     public void disableKeys(Keys... excludeKeys) {
         for (Keys key : excludeKeys) {
             switch (key) {
@@ -68,6 +69,9 @@ public class SystemSettingController extends SystemSettingView {
                 case CheckForUpdatesAtStartup -> disableNode(checkForUpdatesAtStartupCheckBox);
                 case ScreenshotHideWindow -> disableNode(screenshotHideWindowCheckBox);
                 case ScreenColorPickerHideWindow -> disableNode(screenColorPickerHideWindowCheckBox);
+                default -> {
+                    // Do nothing
+                }
             }
         }
     }
@@ -77,6 +81,10 @@ public class SystemSettingController extends SystemSettingView {
         node.setManaged(false);
     }
 
+    /**
+     * 执行保存.
+     * 将UI值设置到系统配置中
+     */
     public void applySettings() {
         try {
             Config.set(Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());

@@ -34,11 +34,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 
 /**
- * 设置页面
+ * 设置页面Node对象.
  *
  * @author xufeng
  */
-public abstract class SystemSettingView implements Initializable {
+public abstract class AbstractSystemSettingView implements Initializable {
     @FXML
     protected VBox vbox;
     @FXML
