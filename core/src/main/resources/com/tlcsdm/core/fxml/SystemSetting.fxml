@@ -32,7 +32,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml" spacing="15"
-      fx:controller="com.tlcsdm.core.javafx.controller.SystemSettingController">
+      fx:controller="com.tlcsdm.core.javafx.controller.SystemSettingController" fx:id="vbox">
 
     <padding>
         <Insets topRightBottomLeft="30"/>

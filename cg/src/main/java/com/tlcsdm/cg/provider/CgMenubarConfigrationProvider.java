@@ -46,6 +46,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
@@ -87,13 +88,11 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
-    private final Action systemSetting = FxAction.systemSetting();
+    private final Action systemSetting = FxAction.systemSetting(Keys.ScreenshotHideWindow);
 
     private final Action pathWatch = FxAction.pathWatch();
 
     private final Action colorPicker = FxAction.colorPicker();
-
-    private final Action screenshot = FxAction.screenshot();
 
     private final Action contactSupport = FxAction
         .contactSupport(actionEvent -> CoreUtil.openWeb(CgConstant.GITHUB_PROJECT_SUPPORT_URL));
@@ -189,7 +188,7 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, languageGroup),
-        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
+        FxActionGroup.tool(logConsole, pathWatch, colorPicker),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
