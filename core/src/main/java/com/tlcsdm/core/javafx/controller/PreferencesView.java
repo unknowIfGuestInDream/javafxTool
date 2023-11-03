@@ -65,6 +65,11 @@ public class PreferencesView extends StackPane {
     BooleanProperty supScreenshotHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty supScreenColorPickerHideWindow = new SimpleBooleanProperty(true);
 
+    /**
+     * 资源初始化.
+     *
+     * @param excludeKeys 排除的配置项
+     */
     public PreferencesView(Keys... excludeKeys) {
         initVisibilityProperty(excludeKeys);
         preferencesFx = createPreferences();

@@ -60,7 +60,7 @@ import org.fxmisc.flowless.VirtualizedScrollPane;
 import java.util.function.Consumer;
 
 /**
- * controlsfx Action的初始化封装
+ * controlsfx Action的初始化封装.
  *
  * @author unknowIfGuestInDream
  */
@@ -101,7 +101,7 @@ public class FxAction {
     }
 
     /**
-     * @see #generate(String, Consumer).
+     * @see #generate(String, Consumer)
      */
     public static Action generate(Consumer<ActionEvent> eventHandler) {
         return generate(I18nUtils.get("core.button.generate"), eventHandler);
@@ -115,7 +115,7 @@ public class FxAction {
     }
 
     /**
-     * @see #download(String, Consumer).
+     * @see #download(String, Consumer)
      */
     public static Action download(Consumer<ActionEvent> eventHandler) {
         return download(I18nUtils.get("core.button.download"), eventHandler);
@@ -129,7 +129,7 @@ public class FxAction {
     }
 
     /**
-     * @see #convert(String, Consumer).
+     * @see #convert(String, Consumer)
      */
     public static Action convert(Consumer<ActionEvent> eventHandler) {
         return convert(I18nUtils.get("core.button.convert"), eventHandler);
@@ -143,7 +143,7 @@ public class FxAction {
     }
 
     /**
-     * @see #copy(String, Consumer).
+     * @see #copy(String, Consumer)
      */
     public static Action copy(Consumer<ActionEvent> eventHandler) {
         return copy(I18nUtils.get("core.button.copy"), eventHandler);
@@ -157,7 +157,7 @@ public class FxAction {
     }
 
     /**
-     * @see #reset(String, Consumer).
+     * @see #reset(String, Consumer)
      */
     public static Action reset(Consumer<ActionEvent> eventHandler) {
         return reset(I18nUtils.get("core.button.reset"), eventHandler);
@@ -171,7 +171,7 @@ public class FxAction {
     }
 
     /**
-     * @see #restart(String, Consumer).
+     * @see #restart(String, Consumer)
      */
     public static Action restart(Consumer<ActionEvent> eventHandler) {
         return restart(I18nUtils.get("core.menubar.file.restart"), eventHandler);
@@ -185,7 +185,7 @@ public class FxAction {
     }
 
     /**
-     * @see #exit(String, Consumer).
+     * @see #exit(String, Consumer)
      */
     public static Action exit(Consumer<ActionEvent> eventHandler) {
         return exit(I18nUtils.get("core.menubar.file.exit"), eventHandler);
@@ -237,14 +237,14 @@ public class FxAction {
     }
 
     /**
-     * @see #pdf(String, Consumer).
+     * @see #pdf(String, Consumer)
      */
     public static Action pdf() {
         return pdf(actionEvent -> new PdfViewStage().showStage());
     }
 
     /**
-     * @see #pdf(String, Consumer).
+     * @see #pdf(String, Consumer)
      */
     public static Action pdf(Consumer<ActionEvent> eventHandler) {
         return pdf(I18nUtils.get("core.button.pdf"), eventHandler);
@@ -258,7 +258,7 @@ public class FxAction {
     }
 
     /**
-     * @see #about(String, Consumer).
+     * @see #about(String, Consumer)
      */
     public static Action about(Consumer<ActionEvent> eventHandler) {
         return about(I18nUtils.get("core.menubar.help.about"), eventHandler);
@@ -272,7 +272,7 @@ public class FxAction {
     }
 
     /**
-     * @see #contactSupport(String, Consumer).
+     * @see #contactSupport(String, Consumer)
      */
     public static Action contactSupport(Consumer<ActionEvent> eventHandler) {
         return contactSupport(I18nUtils.get("core.menubar.help.contactSupport"), eventHandler);
@@ -286,7 +286,7 @@ public class FxAction {
     }
 
     /**
-     * @see #submitFeedback(String, Consumer).
+     * @see #submitFeedback(String, Consumer)
      */
     public static Action submitFeedback(Consumer<ActionEvent> eventHandler) {
         return submitFeedback(I18nUtils.get("core.menubar.help.submitFeedback"), eventHandler);
@@ -348,7 +348,7 @@ public class FxAction {
     }
 
     /**
-     * @see #openSysConfig(String, Consumer).
+     * @see #openSysConfig(String, Consumer)
      */
     public static Action openSysConfig(Consumer<ActionEvent> eventHandler) {
         return openSysConfig(I18nUtils.get("core.menubar.help.openSysConfigDir"), eventHandler);
@@ -386,7 +386,7 @@ public class FxAction {
     }
 
     /**
-     * @see #openUserData(String, Consumer).
+     * @see #openUserData(String, Consumer)
      */
     public static Action openUserData(Consumer<ActionEvent> eventHandler) {
         return openUserData(I18nUtils.get("core.menubar.help.openUserData"), eventHandler);
@@ -425,7 +425,7 @@ public class FxAction {
     }
 
     /**
-     * @see #release(String, Consumer).
+     * @see #release(String, Consumer)
      */
     public static Action release(Consumer<ActionEvent> eventHandler) {
         return release(I18nUtils.get("core.menubar.help.release"), eventHandler);
@@ -439,7 +439,7 @@ public class FxAction {
     }
 
     /**
-     * @see #helpContent(String, Consumer).
+     * @see #helpContent(String, Consumer)
      */
     public static Action helpContent(Consumer<ActionEvent> eventHandler) {
         return helpContent(I18nUtils.get("core.menubar.help.helpContent"), eventHandler);
@@ -453,7 +453,7 @@ public class FxAction {
     }
 
     /**
-     * @see #clear(String, Consumer).
+     * @see #clear(String, Consumer)
      */
     public static Action clear(Consumer<ActionEvent> eventHandler) {
         return clear(I18nUtils.get("core.button.clear"), eventHandler);
@@ -467,7 +467,7 @@ public class FxAction {
     }
 
     /**
-     * @see #logConsole(String, Consumer).
+     * @see #logConsole(String, Consumer)
      */
     public static Action logConsole(Consumer<ActionEvent> eventHandler) {
         return logConsole(I18nUtils.get("core.button.logConsole"), eventHandler);
@@ -481,7 +481,7 @@ public class FxAction {
     }
 
     /**
-     * @see #export(String, Consumer).
+     * @see #export(String, Consumer)
      */
     public static Action export(Consumer<ActionEvent> eventHandler) {
         return export(I18nUtils.get("core.button.export"), eventHandler);
@@ -495,7 +495,7 @@ public class FxAction {
     }
 
     /**
-     * @see #induct(String, Consumer).
+     * @see #induct(String, Consumer)
      */
     public static Action induct(Consumer<ActionEvent> eventHandler) {
         return induct(I18nUtils.get("core.button.import"), eventHandler);
@@ -509,7 +509,7 @@ public class FxAction {
     }
 
     /**
-     * @see #view(String, Consumer).
+     * @see #view(String, Consumer)
      */
     public static Action view(Consumer<ActionEvent> eventHandler) {
         return view(I18nUtils.get("core.button.view"), eventHandler);
@@ -523,7 +523,7 @@ public class FxAction {
     }
 
     /**
-     * @see #preferences(String, Consumer).
+     * @see #preferences(String, Consumer)
      */
     public static Action preferences(Consumer<ActionEvent> eventHandler) {
         return preferences(I18nUtils.get("core.button.preferences"), eventHandler);
@@ -544,7 +544,7 @@ public class FxAction {
     }
 
     /**
-     * @see #choose(String, Consumer).
+     * @see #choose(String, Consumer)
      */
     public static Action choose(Consumer<ActionEvent> eventHandler) {
         return choose(I18nUtils.get("core.button.choose"), eventHandler);

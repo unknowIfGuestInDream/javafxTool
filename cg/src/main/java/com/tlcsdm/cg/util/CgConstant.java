@@ -93,7 +93,7 @@ public class CgConstant {
     /**
      * 当前项目加的依赖
      */
-    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx", "jackson", "thumbnailator");
+    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx", "jackson");
 
     private CgConstant() {
     }

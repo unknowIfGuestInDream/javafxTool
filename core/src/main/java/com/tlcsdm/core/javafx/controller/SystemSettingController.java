@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.controller;
 
-import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.view.AbstractSystemSettingView;
@@ -86,14 +85,10 @@ public class SystemSettingController extends AbstractSystemSettingView {
      * 将UI值设置到系统配置中
      */
     public void applySettings() {
-        try {
-            Config.set(Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());
-            Config.set(Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
-            Config.set(Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
-            Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
-            Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
-        } catch (Exception e) {
-            StaticLog.error("Save setting failed: ", e);
-        }
+        Config.set(Keys.ConfirmExit, exitShowAlertCheckBox.isSelected());
+        Config.set(Keys.RememberWindowLocation, saveStageBoundCheckBox.isSelected());
+        Config.set(Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
+        Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
+        Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
     }
 }
