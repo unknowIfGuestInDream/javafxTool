@@ -64,10 +64,6 @@
     -fx-text-alignment: justify;
 }
 
-.center-panel > .tool-bar {
-    -fx-background-color: transparent;
-}
-
 /*
  * The area beneath the description specifically to allow people to interact with
  * the sample.
@@ -78,8 +74,8 @@
 
 .control-textarea {
     -fx-background-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: transparent;
+    -fx-highlight-text-fill: transparent;
     -fx-box-border: transparent;
     -fx-translate-y: -7;
     -fx-font-size: 16;
