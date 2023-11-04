@@ -12,7 +12,6 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | controlsfx             | 11.1.2     | javafx UI控件                    |
 | poi-ooxml              | 5.2.4      | 用于Microsoft Documents的Java API |
 | freemarker             | 2.3.32     | 模板引擎库                          |
-| sikulixapi             | 2.0.5      | 基于OpenCV图像识别的自动化工具             |
 | commons-lang3          | 3.13.0     | Java工具类库                       |
 | hutool                 | 5.8.22     | Java工具类库                       |
 | logback                | 1.4.11     | Java日志框架                       |
@@ -20,7 +19,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | reflections            | 0.10.2     | Java 运行时元数据分析                  |
 | java-diff-utils        | 4.12       | 用于在文本或某种数据之间执行比较/差异操作          |
 | dom4j                  | 2.1.4      | XML 框架                         |
-| richtextfx             | 0.11.1     | JavaFX 的富文本组件                  |
+| richtextfx             | 0.11.2     | JavaFX 的富文本组件                  |
 | junit                  | 5.10.0     | 单元测试框架                         |
 | tlcsdm-common          | 1.4.5      | 常用工具类封装                        |
 | tlcsdm-asyncTool       | 1.0.1      | 并行工具包                          |
@@ -30,7 +29,9 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | commons-csv            | 1.10.0     | csv工具                          |
 | guava                  | 32.1.3-jre | Google工具                       |
 | groovy                 | 4.0.15     | Groovy                         |
+| caffeine               | 3.1.8      | 本地缓存                           |
 | thumbnailator          | 0.4.20     | 图片转码和缩略工具                      |
 | pdfviewfx              | 3.0.0      | PDF视图工具                        |
 | preferencesfx          | 11.16.0    | 为应用程序设置/首选项创建 UI 的框架           |
 | yuicompressor          | 2.4.8      | JS/CSS压缩工具                     |
+| sikulixapi             | 2.0.5      | 基于OpenCV图像识别的自动化工具             |

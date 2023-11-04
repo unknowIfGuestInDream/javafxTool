@@ -124,7 +124,7 @@ public class DependencyInfo {
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.1", false, "https://github.com/FXMisc/RichTextFX",
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.2", false, "https://github.com/FXMisc/RichTextFX",
                 "The BSD 2-Clause License", "http://opensource.org/licenses/BSD-2-Clause"),
 
             new Dependency("org.apache.groovy", "groovy", "4.0.15", false, "https://groovy-lang.org",
