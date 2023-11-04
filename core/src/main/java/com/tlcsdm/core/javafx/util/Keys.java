@@ -48,7 +48,8 @@ public enum Keys {
     ConfirmExit("confirmExit"),
     CheckForUpdatesAtStartup("checkForUpdatesAtStartup"),
     ScreenshotHideWindow("screenshotHideWindow"),
-    ScreenColorPickerHideWindow("screenColorPickerHideWindow");
+    ScreenColorPickerHideWindow("screenColorPickerHideWindow"),
+    Theme("theme");
 
     private final String keyName;
 

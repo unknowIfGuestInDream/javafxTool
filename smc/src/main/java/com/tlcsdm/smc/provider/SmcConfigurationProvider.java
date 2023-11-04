@@ -28,6 +28,8 @@
 package com.tlcsdm.smc.provider;
 
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.model.FXSamplerTheme;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -58,7 +60,7 @@ public class SmcConfigurationProvider implements FXSamplerConfiguration {
 
     @Override
     public FXSamplerTheme getTheme() {
-        return FXSamplerTheme.NORD_LIGHT;
+        return FXSamplerTheme.fromThemeName(Config.get(Keys.Theme, FXSamplerTheme.NORD_LIGHT.getName()), FXSamplerTheme.NORD_LIGHT);
     }
 
 }

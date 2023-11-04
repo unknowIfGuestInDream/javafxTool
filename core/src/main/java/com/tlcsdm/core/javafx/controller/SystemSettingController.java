@@ -75,9 +75,11 @@ public class SystemSettingController extends AbstractSystemSettingView {
         }
     }
 
-    private void disableNode(Node node) {
-        node.setVisible(false);
-        node.setManaged(false);
+    private void disableNode(Node... nodes) {
+        for (Node node : nodes) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
     }
 
     /**
