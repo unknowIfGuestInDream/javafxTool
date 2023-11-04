@@ -27,6 +27,9 @@
 
 package com.tlcsdm.frame.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 主题.
  *
@@ -34,24 +37,50 @@ package com.tlcsdm.frame.model;
  */
 public enum FXSamplerTheme {
 
-    PRIMER_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css").toExternalForm()),
-    PRIMER_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-dark.css").toExternalForm()),
-    NORD_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css").toExternalForm()),
-    NORD_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-dark.css").toExternalForm()),
-    DRACULA(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/dracula.css").toExternalForm()),
-    CUPERTINO_LIGHT(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-light.css").toExternalForm()),
-    CUPERTINO_DARK(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-dark.css").toExternalForm()),
-    BOOTSTRAP2(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap2.css").toExternalForm()),
-    BOOTSTRAP3(FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css").toExternalForm()),
-    UNUSED(null);
+    PRIMER_LIGHT("Primer-Light", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-light.css").toExternalForm()),
+    PRIMER_DARK("Primer-Dark", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/primer-dark.css").toExternalForm()),
+    NORD_LIGHT("Nord-Light", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-light.css").toExternalForm()),
+    NORD_DARK("Nord-Dark", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/nord-dark.css").toExternalForm()),
+    DRACULA("Dracula", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/dracula.css").toExternalForm()),
+    CUPERTINO_LIGHT("Cupertino-Light", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-light.css").toExternalForm()),
+    CUPERTINO_DARK("Cupertino-Dark", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/cupertino-dark.css").toExternalForm()),
+    BOOTSTRAP2("Bootstrap2", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap2.css").toExternalForm()),
+    BOOTSTRAP3("Bootstrap3", FXSamplerTheme.class.getResource("/com/tlcsdm/frame/static/css/bootstrap3.css").toExternalForm()),
+    UNUSED("Modena", null);
 
+    private final String name;
     private final String url;
 
-    FXSamplerTheme(String url) {
+    FXSamplerTheme(String name, String url) {
+        this.name = name;
         this.url = url;
     }
 
     public String getUrl() {
         return url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 根据name获取FXSamplerTheme.
+     */
+    public static FXSamplerTheme fromThemeName(String name, FXSamplerTheme defaultTheme) {
+        for (FXSamplerTheme theme : FXSamplerTheme.values()) {
+            if (theme.getName().equals(name)) {
+                return theme;
+            }
+        }
+        return defaultTheme;
+    }
+
+    /**
+     * 获取主题.
+     */
+    public static List<String> getThemes(FXSamplerTheme... excludeThemes) {
+        List<FXSamplerTheme> themes = List.of(excludeThemes);
+        return Arrays.stream(FXSamplerTheme.values()).filter(t -> !themes.contains(t)).map(FXSamplerTheme::getName).toList();
     }
 }

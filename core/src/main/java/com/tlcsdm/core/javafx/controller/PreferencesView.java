@@ -32,8 +32,10 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -42,11 +44,13 @@ import javafx.scene.layout.StackPane;
 import java.util.ResourceBundle;
 
 /**
+ * Preferences视图.
+ *
  * @author unknowIfGuestInDream
  */
 public class PreferencesView extends StackPane {
 
-    public PreferencesFx preferencesFx;
+    private final PreferencesFx preferencesFx;
 
     BooleanProperty exitShowAlert = new SimpleBooleanProperty(true);
     BooleanProperty saveStageBound = new SimpleBooleanProperty(true);
@@ -54,12 +58,43 @@ public class PreferencesView extends StackPane {
     BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty screenColorPickerHideWindow = new SimpleBooleanProperty(true);
 
-    public PreferencesView() {
+    // VisibilityProperty
+    BooleanProperty supExitShowAlert = new SimpleBooleanProperty(true);
+    BooleanProperty supSaveStageBound = new SimpleBooleanProperty(true);
+    BooleanProperty supCheckForUpdatesAtStartup = new SimpleBooleanProperty(true);
+    BooleanProperty supScreenshotHideWindow = new SimpleBooleanProperty(true);
+    BooleanProperty supScreenColorPickerHideWindow = new SimpleBooleanProperty(true);
+
+    /**
+     * 资源初始化.
+     *
+     * @param excludeKeys 排除的配置项
+     */
+    public PreferencesView(Keys... excludeKeys) {
+        initVisibilityProperty(excludeKeys);
         preferencesFx = createPreferences();
     }
 
+    /**
+     * 显示视图.
+     */
     public void show() {
         preferencesFx.show();
+    }
+
+    private void initVisibilityProperty(Keys... excludeKeys) {
+        for (Keys key : excludeKeys) {
+            switch (key) {
+                case ConfirmExit -> supExitShowAlert.setValue(false);
+                case RememberWindowLocation -> supSaveStageBound.setValue(false);
+                case CheckForUpdatesAtStartup -> supCheckForUpdatesAtStartup.setValue(false);
+                case ScreenshotHideWindow -> supScreenshotHideWindow.setValue(false);
+                case ScreenColorPickerHideWindow -> supScreenColorPickerHideWindow.setValue(false);
+                default -> {
+                    // Do nothing
+                }
+            }
+        }
     }
 
     private PreferencesFx createPreferences() {
@@ -70,17 +105,24 @@ public class PreferencesView extends StackPane {
             .of(new CoreStorageHandler(),
                 Category.of("core.preference.general").expand().subCategories(
                     Category.of("core.menubar.setting.systemSetting",
-                        Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert),
-                            Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound),
-                            Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup",
-                                checkForUpdatesAtStartup))
+                        VisibilityProperty.of(supExitShowAlert.or(supSaveStageBound).or(supCheckForUpdatesAtStartup)),
+                        Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert,
+                                    VisibilityProperty.of(supExitShowAlert)),
+                                Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound,
+                                    VisibilityProperty.of(supSaveStageBound)),
+                                Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup",
+                                    checkForUpdatesAtStartup,
+                                    VisibilityProperty.of(supCheckForUpdatesAtStartup)))
                             .description("core.menubar.setting.systemSetting")),
                     Category.of("core.menubar.tool",
-                        Group.of(
-                            Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow))
+                        VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)),
+                        Group.of(VisibilityProperty.of(supScreenshotHideWindow),
+                                Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow,
+                                    VisibilityProperty.of(supScreenshotHideWindow)))
                             .description("core.menubar.setting.screenshot"),
-                        Group.of(
-                                Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow", screenColorPickerHideWindow))
+                        Group.of(VisibilityProperty.of(supScreenColorPickerHideWindow),
+                                Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow", screenColorPickerHideWindow,
+                                    VisibilityProperty.of(supScreenColorPickerHideWindow)))
                             .description("core.menubar.setting.colorPicker")
                     )))
             .i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
