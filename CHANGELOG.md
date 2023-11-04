@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## [v1.0.10-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.10-smc) - 2023-11-04 04:45:40
+
+1. Maven packaging configuration modification
+2. Fix the UI is not displayed after the animation splash screen under Mac
+3. Version update supports gitlab
+4. Added simpleHttpServer support
+5. Improve SystemSetting
+6. Optimize theme style
+7. Dependency upgrade
+
+### Feature
+
+- general:
+  - Improve theme (#892) ([9921cc3](https://github.com/unknowIfGuestInDream/javafxTool/commit/9921cc3b9a20be1bfa43de8c9c52756e8bb4a059)) ([#892](https://github.com/unknowIfGuestInDream/javafxTool/pull/892))
+  - Improve SystemSetting (#891) ([a528191](https://github.com/unknowIfGuestInDream/javafxTool/commit/a5281918514262b9a19a7de70d835de9733a7354)) ([#891](https://github.com/unknowIfGuestInDream/javafxTool/pull/891))
+  - 语言切换功能集成 (#876) ([e52ca9d](https://github.com/unknowIfGuestInDream/javafxTool/commit/e52ca9d19f27cfc2d93c0840684e67e78f4851fb)) ([#876](https://github.com/unknowIfGuestInDream/javafxTool/pull/876))
+  - simpleHttpServer支持 (#864) ([0919314](https://github.com/unknowIfGuestInDream/javafxTool/commit/0919314459292e0e46bdcc49585e03a3ab3aa79d)) ([#864](https://github.com/unknowIfGuestInDream/javafxTool/pull/864))
+
+- frame:
+  - Improve VersionCheckerService (#867) ([1498248](https://github.com/unknowIfGuestInDream/javafxTool/commit/1498248e383b83f49e5d2bee0b7e5765628a8fc6)) ([#867](https://github.com/unknowIfGuestInDream/javafxTool/pull/867))
+
+- qe:
+  - DALI UI调整 (#813) ([374ee85](https://github.com/unknowIfGuestInDream/javafxTool/commit/374ee852676dbafd4ec786f3a8c7e4773abb2169)) ([#813](https://github.com/unknowIfGuestInDream/javafxTool/pull/813))
+
+- cg:
+  - 初始化CG (#804) ([2977091](https://github.com/unknowIfGuestInDream/javafxTool/commit/2977091996a11f7c622cda453118af6593ff4c8d)) ([#804](https://github.com/unknowIfGuestInDream/javafxTool/pull/804))
+
+### Bug Fixes
+
+- general:
+  - 修复mac 下动画闪屏后UI未显示的问题 (#833) ([6be59ce](https://github.com/unknowIfGuestInDream/javafxTool/commit/6be59cef7526d9c7bd34d67876ee72e075d73235)) ([#833](https://github.com/unknowIfGuestInDream/javafxTool/pull/833))
+
 ## [v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44
 
 1. First release
