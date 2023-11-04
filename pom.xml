@@ -115,6 +115,8 @@
         <jna.version>5.9.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.3.1</java2.version>
+        <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
+        <jaxb.version>4.0.4</jaxb.version>
     </properties>
 
     <issueManagement>
@@ -655,7 +657,7 @@
                 <version>${vosk.version}</version>
             </dependency>
             <!-- vosk end -->
-            <!-- Java Audio Video Encoder end -->
+            <!-- Java Audio Video Encoder start -->
             <dependency>
                 <groupId>ws.schild</groupId>
                 <artifactId>jave-core</artifactId>
@@ -677,6 +679,28 @@
                 <version>${java2.version}</version>
             </dependency>
             <!-- Java Audio Video Encoder end -->
+            <!-- JAXB start -->
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.xml.bind-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-xjc</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-jxc</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <!-- JAXB end -->
         </dependencies>
     </dependencyManagement>
 

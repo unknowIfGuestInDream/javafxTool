@@ -41,6 +41,7 @@ module com.tlcsdm.core {
     requires static com.sun.jna;
     requires static vosk;
     requires static cn.hutool.http;
+    requires static jakarta.xml.bind;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

@@ -145,7 +145,10 @@ public class DependencyInfo {
 
             new Dependency("com.yahoo.platform.yui", "yuicompressor", "2.4.8", false,
                 "https://github.com/yui/yuicompressor", "BSD License",
-                "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"));
+                "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"),
+            new Dependency("com.sun.xml.bind", "jaxb", "4.0.4", false,
+                "https://github.com/eclipse-ee4j/jaxb-ri", "BSD-3-Clause license",
+                "https://github.com/eclipse-ee4j/jaxb-ri/blob/master/LICENSE.md"));
     }
 
     public static class Dependency {
@@ -159,7 +162,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-            String licenseUrl) {
+                          String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);
