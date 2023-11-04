@@ -4595,6 +4595,8 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .text-area .content {
     -fx-cursor: text;
     -fx-padding: 8px 12px 8px 12px;
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent;
 }
 
 .password-field {

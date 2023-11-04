@@ -65,7 +65,7 @@
 }
 
 .center-panel > .tool-bar {
-    -fx-background-color: #DCDCDC;
+    -fx-background-color: transparent;
 }
 
 /*
@@ -77,23 +77,23 @@
 }
 
 .control-textarea {
-    -fx-background-color: rgb(244, 244, 244) !important;
-    -fx-focus-color: rgb(244, 244, 244) !important;
-    -fx-faint-focus-color: rgb(244, 244, 244) !important;
-    -fx-box-border: rgb(244, 244, 244) !important;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-box-border: transparent;
     -fx-translate-y: -7;
     -fx-font-size: 16;
 }
 
 .control-textarea .scroll-pane {
-    -fx-background-color: rgb(244, 244, 244) !important;
+    -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-background-insets: 0;
     -fx-border-width: -1;
 }
 
 .control-textarea .scroll-pane .content {
-    -fx-background-color: rgb(244, 244, 244) !important;
+    -fx-background-color: transparent;
 }
 
 .dialog-pane {
