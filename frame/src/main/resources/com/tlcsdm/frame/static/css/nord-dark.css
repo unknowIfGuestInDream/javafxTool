@@ -140,6 +140,7 @@
     -fx-background-insets: inherit;
     -fx-padding: inherit;
 }
+
 .root.popup {
     -fx-background-color: transparent;
 }
@@ -460,71 +461,88 @@ Text {
     -fx-alignment: CENTER;
     -fx-padding: 8px 12px 8px 12px;
 }
+
 .button .font-icon, .button .ikonli-font-icon {
     -fx-icon-color: -color-button-fg;
     -fx-fill: -color-button-fg;
 }
+
 .button:disabled {
     -fx-opacity: 0.55;
     -fx-effect: none;
 }
+
 .button:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-button-fg;
 }
+
 .button.button-icon {
     -fx-padding: 8px;
     -fx-content-display: graphic-only;
 }
+
 .button.button-circle {
     -fx-background-radius: 50;
     -fx-padding: 6px 8px 6px 8px;
     -fx-content-display: graphic-only;
     -fx-effect: none;
 }
+
 .button.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
     -fx-background-insets: 0, 1px 0 1px 1px;
     -fx-effect: none;
 }
+
 .button.left-pill:hover, .button.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .button.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, 1px 0 1px 0;
     -fx-effect: none;
 }
+
 .button.center-pill:hover, .button.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .button.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
     -fx-background-insets: 0, 1px 1px 1px 0;
     -fx-effect: none;
 }
+
 .button.right-pill:hover, .button.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .button:hover {
     -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
     -fx-text-fill: -color-button-fg-hover;
     -fx-opacity: 0.9;
 }
+
 .button:hover:focused {
     -fx-background-color: -color-button-border-focused, -color-button-bg-hover;
 }
+
 .button:hover .font-icon, .button:hover .ikonli-font-icon {
     -fx-icon-color: -color-button-fg-hover;
     -fx-fill: -color-button-fg-hover;
 }
+
 .button:focused {
     -fx-background-color: -color-button-border-focused, -color-button-bg-focused;
     -fx-text-fill: -color-button-fg-focused;
 }
+
 .button:focused .font-icon, .button:focused .ikonli-font-icon {
     -fx-icon-color: -color-button-fg-focused;
     -fx-fill: -color-button-fg-focused;
 }
+
 .button:armed, .button:focused:armed {
     -fx-background-color: -color-button-border-pressed, -color-button-bg-pressed;
     -fx-text-fill: -color-button-fg-pressed;
@@ -556,16 +574,19 @@ Text {
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .button:default.button-outlined, .button.accent.button-outlined {
     -color-button-bg: -color-bg-default;
     -color-button-fg: -color-accent-fg;
     -color-button-bg-hover: -color-accent-emphasis;
     -color-button-fg-hover: -color-fg-emphasis;
 }
+
 .button:default.flat, .button.accent.flat {
     -color-button-fg: -color-accent-fg;
     -color-button-bg-hover: -color-accent-subtle;
 }
+
 .button.success {
     -color-button-bg: -color-success-emphasis;
     -color-button-fg: -color-fg-emphasis;
@@ -580,16 +601,19 @@ Text {
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .button.success.button-outlined {
     -color-button-bg: -color-bg-default;
     -color-button-fg: -color-success-fg;
     -color-button-bg-hover: -color-success-emphasis;
     -color-button-fg-hover: -color-fg-emphasis;
 }
+
 .button.success.flat {
     -color-button-fg: -color-success-fg;
     -color-button-bg-hover: -color-success-subtle;
 }
+
 .button.danger {
     -color-button-bg: -color-danger-emphasis;
     -color-button-fg: -color-fg-emphasis;
@@ -604,16 +628,19 @@ Text {
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .button.danger.button-outlined {
     -color-button-bg: -color-bg-default;
     -color-button-fg: -color-danger-fg;
     -color-button-bg-hover: -color-danger-emphasis;
     -color-button-fg-hover: -color-fg-emphasis;
 }
+
 .button.danger.flat {
     -color-button-fg: -color-danger-fg;
     -color-button-bg-hover: -color-danger-subtle;
 }
+
 .button.flat {
     -color-button-bg: transparent;
     -color-button-fg: -color-fg-default;
@@ -629,17 +656,21 @@ Text {
     -color-button-border-pressed: transparent;
     -fx-effect: none;
 }
+
 .button.flat:hover {
     -fx-underline: true;
 }
+
 .button.small {
     -fx-padding: 5.7142857143px 8.5714285714px 5.7142857143px 8.5714285714px;
     -fx-font-size: 0.8em;
 }
+
 .button.large {
     -fx-padding: 11.2px 16.8px 11.2px 16.8px;
     -fx-font-size: 1.25em;
 }
+
 .button.rounded {
     -fx-background-radius: 10em;
 }
@@ -652,57 +683,73 @@ Text {
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
 }
+
 .combo-box-base:disabled {
     -fx-opacity: 0.55;
 }
+
 .combo-box-base:success, .combo-box-base:success:focused {
     -fx-background-color: -color-success-emphasis, -color-bg-default;
 }
+
 .combo-box-base:danger, .combo-box-base:danger:focused {
     -fx-background-color: -color-danger-emphasis, -color-bg-default;
 }
+
 .combo-box-base:focused {
     -fx-background-color: -color-accent-emphasis, -color-bg-default;
 }
+
 .combo-box-base.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
     -fx-background-insets: 0, 1px 0 1px 1px;
 }
+
 .combo-box-base.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .combo-box-base.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, 1px 0 1px 0;
 }
+
 .combo-box-base.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .combo-box-base.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
     -fx-background-insets: 0, 1px 1px 1px 0;
 }
+
 .combo-box-base.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .combo-box-base > .arrow-button {
     -fx-padding: 8px 12px 8px 12px;
 }
+
 .combo-box-base > .arrow-button > .arrow {
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-muted;
 }
+
 .combo-box-base > .text-field {
     -fx-background-insets: 0, 1px 0 1px 1px;
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
 }
+
 .combo-box-base:success > .arrow-button > .arrow {
     -fx-background-color: -color-success-fg;
 }
+
 .combo-box-base:danger > .arrow-button > .arrow {
     -fx-background-color: -color-danger-fg;
 }
+
 .combo-box-base.alt-icon > .arrow-button > .arrow {
     -fx-shape: "M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z";
     -fx-scale-shape: false;
@@ -714,9 +761,11 @@ Text {
     -fx-padding: 8px 12px 8px 12px;
     -fx-graphic-text-gap: 6px;
 }
+
 .combo-box:success > .list-cell {
     -fx-text-fill: -color-success-fg;
 }
+
 .combo-box:danger > .list-cell {
     -fx-text-fill: -color-danger-fg;
 }
@@ -777,53 +826,68 @@ Text {
     -fx-content-display: LEFT;
     -fx-padding: 8px 12px 8px 12px;
 }
+
 .choice-box:disabled {
     -fx-opacity: 0.55;
 }
+
 .choice-box:success, .choice-box:success:focused {
     -fx-background-color: -color-success-emphasis, -color-bg-default;
 }
+
 .choice-box:danger, .choice-box:danger:focused {
     -fx-background-color: -color-danger-emphasis, -color-bg-default;
 }
+
 .choice-box:focused {
     -fx-background-color: -color-accent-emphasis, -color-bg-default;
 }
+
 .choice-box.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
     -fx-background-insets: 0, 1px 0 1px 1px;
 }
+
 .choice-box.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .choice-box.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, 1px 0 1px 0;
 }
+
 .choice-box.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .choice-box.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
     -fx-background-insets: 0, 1px 1px 1px 0;
 }
+
 .choice-box.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .choice-box > .label {
     -fx-text-fill: -color-fg-default;
 }
+
 .choice-box > .open-button > .arrow {
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-muted;
 }
+
 .choice-box:success > .label {
     -fx-text-fill: -color-success-fg;
 }
+
 .choice-box:success > .open-button > .arrow {
     -fx-background-color: -color-success-fg;
 }
+
 .choice-box:danger > .label {
     -fx-text-fill: -color-danger-fg;
 }
@@ -874,9 +938,11 @@ Text {
     -fx-background-radius: 0;
     -fx-padding: 0;
 }
+
 .cell .check-box {
     -fx-padding: 0 6px 0 0;
 }
+
 .cell .choice-box {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -885,6 +951,7 @@ Text {
     -fx-alignment: CENTER_LEFT;
     -fx-content-display: LEFT;
 }
+
 .cell .combo-box {
     -fx-background-color: transparent;
     -fx-alignment: CENTER_LEFT;
@@ -918,16 +985,20 @@ Text {
     -fx-border-width: 1px;
     -fx-border-radius: 0;
 }
+
 .list-view > .virtual-flow > .corner {
     -fx-background-color: -color-cell-border;
     -fx-opacity: 0.55;
 }
+
 .list-view > .virtual-flow:disabled {
     -fx-opacity: 0.55;
 }
+
 .list-view.edge-to-edge {
     -fx-border-width: 0;
 }
+
 .list-view .list-cell {
     -fx-background-color: -color-cell-bg;
     -fx-text-fill: -color-cell-fg;
@@ -948,9 +1019,11 @@ Text {
 .list-view.dense .list-cell {
     -fx-cell-size: 2em;
 }
+
 .list-view.striped .list-cell {
     -fx-border-width: 0;
 }
+
 .list-view.striped .list-cell:filled:odd {
     -fx-background-color: -color-cell-bg-odd;
 }
@@ -971,24 +1044,30 @@ Text {
     -color-header-bg: -color-bg-subtle;
     -color-header-fg: -color-fg-default;
 }
+
 .table-view > .virtual-flow > .corner {
     -fx-background-color: -color-cell-border;
     -fx-opacity: 0.55;
 }
+
 .table-view > .virtual-flow:disabled {
     -fx-opacity: 0.55;
 }
+
 .table-view.edge-to-edge {
     -fx-border-width: 0;
 }
+
 .table-view.bordered > .column-header-background .column-header {
     -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 1 0 0;
 }
+
 .table-view > .column-header-background {
     -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 0 1 0;
 }
+
 .table-view > .column-header-background .column-header {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -998,59 +1077,73 @@ Text {
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 1 1 0;
 }
+
 .table-view > .column-header-background .column-header .label {
     -fx-text-fill: -color-header-fg;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0.5em 0 0.5em;
 }
+
 .table-view > .column-header-background .column-header GridPane {
     -fx-padding: 0 4px 0 0;
 }
+
 .table-view > .column-header-background .column-header .arrow {
     -fx-background-color: -color-header-fg;
     -fx-padding: 3px 4px 3px 4px;
     -fx-shape: "M 0 0 h 7 l -3.5 4 z";
 }
+
 .table-view > .column-header-background .column-header .sort-order-dots-container {
     -fx-padding: 2px 0 2px 0;
 }
+
 .table-view > .column-header-background .column-header .sort-order-dots-container > .sort-order-dot {
     -fx-background-color: -color-header-fg;
     -fx-padding: 0.115em;
     -fx-background-radius: 0.115em;
 }
+
 .table-view > .column-header-background .column-header .sort-order {
     -fx-padding: 0 0 0 2px;
 }
+
 .table-view > .column-header-background > .filler {
     -fx-background-color: transparent;
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 0 1 0;
 }
+
 .table-view > .column-header-background > .show-hide-columns-button {
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 0 1 0;
     -fx-cursor: hand;
 }
+
 .table-view > .column-header-background > .show-hide-columns-button > .show-hide-column-image {
     -fx-background-color: -color-header-fg;
     -fx-shape: "M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z";
     -fx-scale-shape: true;
     -fx-padding: 0.4em 0.115em 0.4em 0.115em;
 }
+
 .table-view .column-resize-line {
     -fx-background-color: -color-accent-emphasis;
     -fx-padding: 0 1 0 1;
 }
+
 .table-view .column-drag-header {
     -fx-background-color: -color-accent-muted;
 }
+
 .table-view .column-overlay {
     -fx-background-color: -color-accent-muted;
 }
+
 .table-view .placeholder > .label {
     -fx-font-size: 1.25em;
 }
+
 .table-view.bordered .table-row-cell > .table-cell {
     -fx-border-color: transparent -color-cell-border transparent transparent;
 }
@@ -1066,9 +1159,11 @@ Text {
 .table-view.dense .table-row-cell {
     -fx-cell-size: 2em;
 }
+
 .table-view.striped .table-row-cell {
     -fx-background-insets: 0;
 }
+
 .table-view.striped.bordered .table-row-cell {
     -fx-background-insets: 0, 0 0 1 0;
 }
@@ -1089,24 +1184,30 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 0;
     -fx-cell-size: 2.8em;
 }
+
 .table-view .table-row-cell:empty {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
+
 .table-view .table-row-cell:empty > .table-cell {
     -fx-border-color: transparent;
 }
+
 .table-view .table-row-cell > .table-cell {
     -fx-padding: 0 0.5em 0 0.5em;
     -fx-text-fill: -color-cell-fg;
     -fx-alignment: BASELINE_LEFT;
 }
+
 .table-view .table-row-cell > .table-cell.table-column.align-left {
     -fx-alignment: BASELINE_LEFT;
 }
+
 .table-view .table-row-cell > .table-cell.table-column.align-center {
     -fx-alignment: BASELINE_CENTER;
 }
+
 .table-view .table-row-cell > .table-cell.table-column.align-right {
     -fx-alignment: BASELINE_RIGHT;
 }
@@ -1136,27 +1237,34 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-border-width: 1px;
     -fx-border-radius: 0;
 }
+
 .tree-view > .virtual-flow > .corner {
     -fx-background-color: -color-cell-border;
     -fx-opacity: 0.55;
 }
+
 .tree-view > .virtual-flow:disabled {
     -fx-opacity: 0.55;
 }
+
 .tree-view.edge-to-edge {
     -fx-border-width: 0;
 }
+
 .tree-view.dense .tree-cell {
     -fx-padding: 0.25em 0 0.25em 0;
 }
+
 .tree-view.alt-icon .tree-cell > .tree-disclosure-node {
     -fx-padding: 0.3em 0.5em 0 0.5em;
 }
+
 .tree-view.alt-icon .tree-cell > .tree-disclosure-node > .arrow {
     -fx-shape: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
     -fx-scale-shape: false;
     -fx-padding: 0.333333em;
 }
+
 .tree-view.alt-icon .tree-cell:expanded > .tree-disclosure-node > .arrow {
     -fx-shape: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z";
     -fx-scale-shape: false;
@@ -1169,6 +1277,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 0.5em 0 0.5em 0;
     -fx-indent: 1.2em;
 }
+
 .tree-cell > .tree-disclosure-node {
     -fx-padding: 0.35em 0.5em 0 0.5em;
     -fx-background-color: transparent;
@@ -1204,24 +1313,30 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-header-bg: -color-bg-subtle;
     -color-header-fg: -color-fg-default;
 }
+
 .tree-table-view > .virtual-flow > .corner {
     -fx-background-color: -color-cell-border;
     -fx-opacity: 0.55;
 }
+
 .tree-table-view > .virtual-flow:disabled {
     -fx-opacity: 0.55;
 }
+
 .tree-table-view.edge-to-edge {
     -fx-border-width: 0;
 }
+
 .tree-table-view.bordered > .column-header-background .column-header {
     -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 1 0 0;
 }
+
 .tree-table-view > .column-header-background {
     -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 0 1 0;
 }
+
 .tree-table-view > .column-header-background .column-header {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -1231,59 +1346,73 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 1 1 0;
 }
+
 .tree-table-view > .column-header-background .column-header .label {
     -fx-text-fill: -color-header-fg;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0.5em 0 0.5em;
 }
+
 .tree-table-view > .column-header-background .column-header GridPane {
     -fx-padding: 0 4px 0 0;
 }
+
 .tree-table-view > .column-header-background .column-header .arrow {
     -fx-background-color: -color-header-fg;
     -fx-padding: 3px 4px 3px 4px;
     -fx-shape: "M 0 0 h 7 l -3.5 4 z";
 }
+
 .tree-table-view > .column-header-background .column-header .sort-order-dots-container {
     -fx-padding: 2px 0 2px 0;
 }
+
 .tree-table-view > .column-header-background .column-header .sort-order-dots-container > .sort-order-dot {
     -fx-background-color: -color-header-fg;
     -fx-padding: 0.115em;
     -fx-background-radius: 0.115em;
 }
+
 .tree-table-view > .column-header-background .column-header .sort-order {
     -fx-padding: 0 0 0 2px;
 }
+
 .tree-table-view > .column-header-background > .filler {
     -fx-background-color: transparent;
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 0 1 0;
 }
+
 .tree-table-view > .column-header-background > .show-hide-columns-button {
     -fx-border-color: -color-cell-border;
     -fx-border-width: 0 0 1 0;
     -fx-cursor: hand;
 }
+
 .tree-table-view > .column-header-background > .show-hide-columns-button > .show-hide-column-image {
     -fx-background-color: -color-header-fg;
     -fx-shape: "M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z";
     -fx-scale-shape: true;
     -fx-padding: 0.4em 0.115em 0.4em 0.115em;
 }
+
 .tree-table-view .column-resize-line {
     -fx-background-color: -color-accent-emphasis;
     -fx-padding: 0 1 0 1;
 }
+
 .tree-table-view .column-drag-header {
     -fx-background-color: -color-accent-muted;
 }
+
 .tree-table-view .column-overlay {
     -fx-background-color: -color-accent-muted;
 }
+
 .tree-table-view .placeholder > .label {
     -fx-font-size: 1.25em;
 }
+
 .tree-table-view.bordered .tree-table-row-cell > .tree-table-cell {
     -fx-border-color: transparent -color-cell-border transparent transparent;
 }
@@ -1299,12 +1428,15 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .tree-table-view.dense .tree-table-row-cell {
     -fx-cell-size: 2em;
 }
+
 .tree-table-view.dense .tree-table-row-cell > .tree-disclosure-node {
     -fx-padding: 0.6em 0.5em 0 0.5em;
 }
+
 .tree-table-view.striped .tree-table-row-cell {
     -fx-background-insets: 0;
 }
+
 .tree-table-view.striped.bordered .tree-table-row-cell {
     -fx-background-insets: 0, 0 0 1 0;
 }
@@ -1326,33 +1458,41 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-cell-size: 2.8em;
     -fx-indent: 1em;
 }
+
 .tree-table-view .tree-table-row-cell:empty {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
+
 .tree-table-view .tree-table-row-cell > .tree-disclosure-node {
     -fx-padding: 1em 0.5em 0 0.5em;
     -fx-background-color: transparent;
 }
+
 .tree-table-view .tree-table-row-cell > .tree-table-cell {
     -fx-padding: 0 0.5em 0 0.5em;
     -fx-text-fill: -color-cell-fg;
     -fx-alignment: BASELINE_LEFT;
 }
+
 .tree-table-view .tree-table-row-cell > .tree-table-cell.table-column.align-left {
     -fx-alignment: BASELINE_LEFT;
 }
+
 .tree-table-view .tree-table-row-cell > .tree-table-cell.table-column.align-center {
     -fx-alignment: BASELINE_CENTER;
 }
+
 .tree-table-view .tree-table-row-cell > .tree-table-cell.table-column.align-right {
     -fx-alignment: BASELINE_RIGHT;
 }
+
 .tree-table-view.alt-icon .tree-table-row-cell > .tree-disclosure-node > .arrow {
     -fx-shape: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
     -fx-scale-shape: false;
     -fx-padding: 0.333333em;
 }
+
 .tree-table-view.alt-icon .tree-table-row-cell:expanded > .tree-disclosure-node > .arrow {
     -fx-shape: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z";
     -fx-scale-shape: false;
@@ -1365,9 +1505,11 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-radius: 0;
     -fx-padding: 0;
 }
+
 .menu-bar > .container {
     -fx-padding: 4px 4px 4px 4px;
 }
+
 .menu-bar > .container > .menu-button {
     -fx-background-color: transparent;
     -fx-background-insets: 0 0 1px 0;
@@ -1375,17 +1517,21 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 6px 10px 6px 10px;
     -fx-effect: none;
 }
+
 .menu-bar > .container > .menu-button > .label {
     -fx-padding: 0;
     -fx-text-fill: -color-fg-default;
 }
+
 .menu-bar > .container > .menu-button > .arrow-button {
     -fx-padding: 0;
 }
+
 .menu-bar > .container > .menu-button > .arrow-button > .arrow {
     -fx-padding: 0;
     -fx-background-color: transparent;
 }
+
 .menu-bar > .container > .menu-button:hover, .menu-bar > .container > .menu-button:focused, .menu-bar > .container > .menu-button:showing {
     -fx-background-color: -color-base-7, -color-base-7;
 }
@@ -1393,6 +1539,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .menu {
     -fx-background-color: transparent;
 }
+
 .menu > .right-container > .arrow {
     -fx-shape: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
     -fx-scale-shape: false;
@@ -1418,9 +1565,11 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 8px 12px 8px 12px;
     -fx-background-radius: 0;
 }
+
 .menu-item > .graphic-container {
     -fx-padding: 0 6px 0 0;
 }
+
 .menu-item > .label {
     -fx-padding: 0 1em 0 0;
     -fx-text-fill: -color-fg-default;
@@ -1488,6 +1637,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .caption-menu-item > .label {
     -fx-text-fill: -color-fg-muted;
 }
+
 .caption-menu-item > .label > .text {
     -fx-font-weight: bold;
 }
@@ -1499,17 +1649,21 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-radius: 1, 0px;
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8px, 0.6, 0, 2);
 }
+
 .context-menu > .scroll-arrow {
     -fx-padding: 0.5em;
     -fx-background-color: transparent;
 }
+
 .context-menu > .scroll-arrow:hover {
     -fx-background-color: -color-base-7;
     -fx-text-fill: -color-fg-default;
 }
+
 .context-menu .separator:horizontal {
     -fx-padding: 0.25em 0 0.25em 0;
 }
+
 .context-menu .separator:horizontal .line {
     -fx-border-color: -color-border-muted transparent transparent transparent;
     -fx-border-insets: 1px 0.5em 0 0.5em;
@@ -1857,47 +2011,58 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .pagination > .page {
     -fx-background-color: transparent;
 }
+
 .pagination > .pagination-control {
     -fx-background-color: transparent;
     -fx-font-size: 1em;
 }
+
 .pagination > .pagination-control > .control-box {
     -fx-padding: 0.5em 0 0 0;
     -fx-spacing: 2px;
     -fx-alignment: CENTER;
 }
+
 .pagination > .pagination-control > .control-box .number-button {
     -fx-padding: 0;
 }
+
 .pagination > .pagination-control > .control-box > .left-arrow-button > .left-arrow {
     -fx-shape: "M14 7l-5 5 5 5V7z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-default;
 }
+
 .pagination > .pagination-control > .control-box > .right-arrow-button > .right-arrow {
     -fx-shape: "M10 17l5-5-5-5v10z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-default;
 }
+
 .pagination > .pagination-control > .page-information {
     -fx-padding: 0.5em 0 0 0;
 }
+
 .pagination.bullet > .pagination-control > .control-box {
     -fx-spacing: 0;
 }
+
 .pagination.bullet > .pagination-control > .control-box > .left-arrow-button {
     -fx-background-radius: 1;
     -fx-padding: 0 0.25em 0 0.083em;
 }
+
 .pagination.bullet > .pagination-control > .control-box > .right-arrow-button {
     -fx-background-radius: 1;
     -fx-padding: 0 0.083em 0 0.25em;
 }
+
 .pagination.bullet > .pagination-control > .control-box > .bullet-button {
     -fx-background-radius: 0, 1, 1;
     -fx-background-color: transparent, -color-border-default, -color-bg-subtle;
     -fx-background-insets: 0, 5, 6;
 }
+
 .pagination.bullet > .pagination-control > .control-box > .bullet-button:selected {
     -fx-background-color: transparent, -color-accent-emphasis;
 }
@@ -1909,64 +2074,80 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-slider-track-progress: -color-accent-emphasis;
     -color-slider-tick: -color-fg-muted;
 }
+
 .slider.large {
     -color-slider-thumb: -color-fg-default;
     -color-slider-thumb-border: -color-fg-default;
 }
+
 .slider > .thumb {
     -fx-background-color: -color-slider-thumb-border, -color-slider-thumb;
     -fx-background-insets: 0, 2px;
     -fx-background-radius: 1;
     -fx-effect: none;
 }
+
 .slider > .track {
     -fx-background-color: transparent, -color-slider-track;
     -fx-background-radius: 1;
 }
+
 .slider > .axis {
     -fx-tick-label-fill: -color-slider-tick;
     -fx-tick-length: 5px;
     -fx-minor-tick-length: 3px;
 }
+
 .slider > .axis > .axis-tick-mark,
 .slider > .axis > .axis-minor-tick-mark {
     -fx-stroke: -color-slider-tick;
 }
+
 .slider:disabled {
     -fx-opacity: 0.55;
 }
+
 .slider:horizontal > .thumb {
     -fx-padding: 10px 4px 10px 4px;
 }
+
 .slider:horizontal > .track {
     -fx-padding: 10px 0 10px 0;
     -fx-background-insets: 0, 6px 0 6px 0;
 }
+
 .slider.small:horizontal > .thumb {
     -fx-padding: 8px 4px 8px 4px;
 }
+
 .slider.small:horizontal > .track {
     -fx-padding: 8px 0 8px 0;
     -fx-background-insets: 0, 6px 0 6px 0;
 }
+
 .slider.large:horizontal > .thumb {
     -fx-padding: 14px 4px 14px 4px;
     -fx-effect: none;
 }
+
 .slider.large:horizontal > .track {
     -fx-padding: 14px 0 14px 0;
     -fx-background-insets: 0, 2px 0 2px 0;
 }
+
 .slider:vertical > .thumb {
     -fx-padding: 4px 10px 4px 10px;
 }
+
 .slider:vertical > .track {
     -fx-padding: 0 10px 0 10px;
     -fx-background-insets: 0, 0 6px 0 6px;
 }
+
 .slider.small:vertical > .thumb {
     -fx-padding: 4px 8px 4px 8px;
 }
+
 .slider.small:vertical > .track {
     -fx-padding: 0 8px 0 8px;
     -fx-background-insets: 0, 0 6px 0 6px;
@@ -2134,6 +2315,8 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .text-area .content {
     -fx-cursor: text;
     -fx-padding: 8px 12px 8px 12px;
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent;
 }
 
 .password-field {
@@ -2229,15 +2412,19 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 0.3em 4px 0.3em 4px;
     -fx-alignment: TOP_LEFT;
 }
+
 .tool-bar:vertical > .container > .separator {
     -fx-orientation: horizontal;
 }
+
 .tool-bar:vertical > .tool-bar-overflow-button {
     -fx-padding: 4px 0 0.3em 0;
 }
+
 .tool-bar:vertical.right {
     -fx-background-insets: 0, 0 0 0 1px;
 }
+
 .tool-bar.bottom {
     -fx-background-insets: 0, 1px 0 0 0;
 }
@@ -2245,11 +2432,13 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .toggle-switch {
     -fx-thumb-move-animation-time: 200;
 }
+
 .toggle-switch > .label-container > .label {
     -fx-font-size: 1em;
     -fx-text-fill: -color-fg-default;
     -fx-padding: 2px 6px 2px 0;
 }
+
 .toggle-switch > .thumb {
     -fx-background-color: -color-border-default, -color-fg-emphasis;
     -fx-background-insets: 0, 3px;
@@ -2259,6 +2448,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-content-display: LEFT;
     -fx-opacity: 0.8;
 }
+
 .toggle-switch > .thumb-area {
     -fx-background-radius: 1;
     -fx-background-color: -color-border-default, -color-bg-subtle;
@@ -2416,56 +2606,71 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .chart > .chart-content {
     -fx-padding: 10px;
 }
+
 .chart > .chart-content > .chart-plot-background {
     -fx-background-color: -color-bg-default;
 }
+
 .chart:disabled > .chart-content {
     -fx-opacity: 0.55;
 }
+
 .chart:disabled > .chart-content .label {
     -fx-opacity: 1;
 }
+
 .chart > .chart-legend {
     -fx-padding: 6px;
 }
+
 .chart .axis {
     -fx-axis-color: -color-border-default;
     -fx-tick-label-font-size: 0.8em;
     -fx-tick-label-fill: -color-fg-default;
 }
+
 .chart .axis:top {
     -fx-border-color: transparent transparent -fx-axis-color transparent;
 }
+
 .chart .axis:right {
     -fx-border-color: transparent transparent transparent -fx-axis-color;
 }
+
 .chart .axis:bottom {
     -fx-border-color: -fx-axis-color transparent transparent transparent;
 }
+
 .chart .axis:left {
     -fx-border-color: transparent -fx-axis-color transparent transparent;
 }
+
 .chart .axis:top > .axis-label, .chart .axis:left > .axis-label {
     -fx-padding: 0 0 4px 0;
 }
+
 .chart .axis:bottom > .axis-label, .chart .axis:right > .axis-label {
     -fx-padding: 4px 0 0 0;
 }
+
 .chart .axis > .axis-tick-mark,
 .chart .axis > .axis-minor-tick-mark {
     -fx-fill: none;
     -fx-stroke: -fx-axis-color;
 }
+
 .chart .chart-horizontal-grid-lines,
 .chart .chart-vertical-grid-lines {
     -fx-stroke: -color-border-muted;
     -fx-stroke-dash-array: 0.25em, 0.25em;
 }
+
 .chart .chart-alternative-row-fill,
 .chart .chart-alternative-column-fill {
     -fx-fill: none;
     -fx-stroke: none;
 }
+
 .chart .chart-vertical-zero-line,
 .chart .chart-horizontal-zero-line {
     -fx-stroke: -color-fg-default;
@@ -2879,6 +3084,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-text-fill: -color-fg-default;
     -fx-label-padding: 2px 2px 0 6px;
 }
+
 .check-box > .box {
     -fx-background-color: -color-border-default, -color-bg-default;
     -fx-background-insets: 0, 1.5px;
@@ -2886,6 +3092,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 3px 4px 3px 4px;
     -fx-alignment: CENTER;
 }
+
 .check-box > .box > .mark {
     -fx-background-color: -color-bg-default;
     -fx-shape: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
@@ -2909,18 +3116,23 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-shape: "M 17,13 H 7 v -2 h 10 z";
     -fx-scale-shape: false;
 }
+
 .check-box:disabled {
     -fx-opacity: 0.55;
 }
+
 .check-box:disabled > .box {
     -fx-opacity: 0.55;
 }
+
 .check-box:selected > .box {
     -fx-background-color: -color-accent-emphasis, -color-accent-emphasis;
 }
+
 .check-box:selected > .box > .mark {
     -fx-background-color: -color-fg-emphasis;
 }
+
 .check-box:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-fg-muted;
 }
@@ -2928,12 +3140,15 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .color-picker > .color-picker-label {
     -fx-padding: 8px 12px 8px 12px;
 }
+
 .color-picker > .color-picker-label > .label {
     -fx-text-fill: -color-fg-default;
 }
+
 .color-picker > .color-picker-label > .picker-color > .picker-color-rect {
     -fx-stroke: -color-border-default;
 }
+
 .color-picker.button > .color-picker-label {
     -fx-padding: 0;
 }
@@ -2946,10 +3161,12 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 1em;
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8px, 0.6, 0, 2);
 }
+
 .color-palette > .color-picker-grid {
     -fx-padding: 0.5px;
     -fx-snap-to-pixel: false;
 }
+
 .color-palette > .color-picker-grid > .color-square {
     -fx-background-color: transparent;
     -fx-padding: 0.5px;
@@ -2958,6 +3175,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .color-palette-region {
     -fx-effect: dropshadow(gaussian, transparent, 6, 0, 0, 8);
 }
+
 .color-palette-region > .color-square.hover-square {
     -fx-background-color: -color-accent-fg, -color-bg-default;
     -fx-background-insets: -2, -1;
@@ -2973,19 +3191,23 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 1.25em;
     -fx-spacing: 1.25em;
 }
+
 .custom-color-dialog > .color-rect-pane {
     -fx-spacing: 1em;
     -fx-pref-height: 16em;
     -fx-alignment: TOP-LEFT;
     -fx-fill-height: true;
 }
+
 .custom-color-dialog > .color-rect-pane > .color-rect {
     -fx-min-width: 16em;
     -fx-min-height: 16em;
 }
+
 .custom-color-dialog > .color-rect-pane > .color-rect .color-rect-border {
     -fx-border-color: -color-border-default;
 }
+
 .custom-color-dialog > .color-rect-pane > .color-rect #color-rect-indicator {
     -fx-background-color: none;
     -fx-border-color: white;
@@ -2996,12 +3218,14 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-translate-y: -0.4166667em;
     -fx-effect: dropshadow(three-pass-box, black, 2, 0, 0, 1);
 }
+
 .custom-color-dialog > .color-rect-pane > .color-bar {
     -fx-min-width: 1.666667em;
     -fx-min-height: 16.666667em;
     -fx-max-width: 1.666667em;
     -fx-border-color: -color-border-default;
 }
+
 .custom-color-dialog > .color-rect-pane > .color-bar #color-bar-indicator {
     -fx-border-radius: 0.333333em;
     -fx-border-color: white;
@@ -3011,75 +3235,92 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-translate-y: -0.4166667em;
     -fx-effect: dropshadow(three-pass-box, black, 2, 0, 0, 1);
 }
+
 .custom-color-dialog > .controls-pane > .current-new-color-grid > .label {
     -fx-padding: 0 0 0 2px;
 }
+
 .custom-color-dialog > .controls-pane > .current-new-color-grid > #current-new-color-border {
     -fx-border-color: -color-border-default;
     -fx-border-width: 1px;
 }
+
 .custom-color-dialog > .controls-pane > .current-new-color-grid > .color-rect {
     -fx-min-width: 10em;
     -fx-pref-width: 10em;
     -fx-min-height: 1.75em;
     -fx-pref-height: 1.75em;
 }
+
 .custom-color-dialog > .controls-pane > .current-new-color-grid > #spacer1 {
     -fx-min-height: 5px;
     -fx-pref-height: 5px;
     -fx-max-height: 5px;
 }
+
 .custom-color-dialog > .controls-pane > .current-new-color-grid > #spacer2 {
     -fx-min-height: 1em;
     -fx-pref-height: 1em;
     -fx-max-height: 1em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane {
     -fx-hgap: 6px;
     -fx-vgap: 6px;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .customcolor-controls-background {
     -fx-background-color: -color-border-default, -color-bg-default;
     -fx-background-insets: 13px 0 5px 0, 14px 1px 6px 1px;
     -fx-background-radius: 1, 0px;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .settings-label {
     -fx-min-width: 5.75em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .settings-unit {
     -fx-min-width: 1.5em;
     -fx-pref-width: 1.5em;
     -fx-max-width: 1.5em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .slider {
     -fx-pref-width: 10em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .color-input-field {
     -fx-max-width: 4em;
     -fx-pref-width: 4em;
     -fx-min-width: 4em;
     -fx-pref-column-count: 3;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > #spacer-side {
     -fx-min-width: 0.5em;
     -fx-pref-width: 0.5em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > #spacer-bottom {
     -fx-min-height: 1em;
     -fx-pref-height: 1em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .web-field {
     -fx-pref-column-count: 6;
     -fx-pref-width: 8em;
 }
+
 .custom-color-dialog > .controls-pane #settings-pane > .webcolor-field:dir(rtl) > .text-field:dir(ltr) {
     -fx-alignment: BASELINE_RIGHT;
 }
+
 .custom-color-dialog > .controls-pane > #buttons-hbox {
     -fx-spacing: 10px;
     -fx-padding: 1em 0 0 0;
     -fx-alignment: BOTTOM_RIGHT;
 }
+
 .custom-color-dialog > .controls-pane .transparent-pattern {
     -fx-background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpCOTBEQkE1RjJFMjA2ODExOUExMUM5NDhFOTUyQzM3MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGRkE3MDZERThFNUYxMUUxQjU5RUNFQTE3OTA1RDFFMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGRkE3MDZERDhFNUYxMUUxQjU5RUNFQTE3OTA1RDFFMSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1LjEgTWFjaW50b3NoIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDk4MDExNzQwNzIwNjgxMTg3MUZDMUExNDFCMTYwNzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QjkwREJBNUYyRTIwNjgxMTlBMTFDOTQ4RTk1MkMzNzAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz71FDCdAAAAKElEQVR42mI8c+YMAwwYGxvD2UwMOADpEoz///+Hc86ePUsLOwACDABC1ghwV8TLOQAAAABJRU5ErkJggg==");
     -fx-background-repeat: repeat;
@@ -3089,22 +3330,28 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .custom-text-field:left-node-visible {
     -fx-padding: 8px 12px 8px 0;
 }
+
 .custom-text-field:left-node-visible .left-pane {
     -fx-padding: 0 4px 0 6px;
 }
+
 .custom-text-field:right-node-visible {
     -fx-padding: 8px 0 8px 12px;
 }
+
 .custom-text-field:right-node-visible .right-pane {
     -fx-padding: 0 6px 0 4px;
 }
+
 .custom-text-field:left-node-visible:right-node-visible {
     -fx-padding: 8px 0 8px 0;
 }
+
 .custom-text-field:success .font-icon, .custom-text-field:success .ikonli-font-icon {
     -fx-icon-color: -color-success-fg;
     -fx-fill: -color-success-fg;
 }
+
 .custom-text-field:danger .font-icon, .custom-text-field:danger .ikonli-font-icon {
     -fx-icon-color: -color-danger-fg;
     -fx-fill: -color-danger-fg;
@@ -3158,12 +3405,14 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-spacing: 0;
     -fx-padding: 1px;
 }
+
 .date-picker-popup > .month-year-pane {
     -fx-padding: 8px 8px 8px 8px;
     -fx-background-color: -color-date-month-year-bg;
     -fx-background-insets: 0;
     -fx-background-radius: 1 1 0 0;
 }
+
 .date-picker-popup > .month-year-pane > .spinner {
     -fx-spacing: 4px;
     -fx-alignment: CENTER;
@@ -3172,31 +3421,37 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-border-color: transparent;
     -fx-font-size: 1.1em;
 }
+
 .date-picker-popup > .month-year-pane > .spinner > .button {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-cursor: hand;
 }
+
 .date-picker-popup > .month-year-pane > .spinner > .button > .left-arrow {
     -fx-shape: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z";
     -fx-scale-shape: false;
     -fx-background-color: -color-date-month-year-fg;
 }
+
 .date-picker-popup > .month-year-pane > .spinner > .button > .right-arrow {
     -fx-shape: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
     -fx-scale-shape: false;
     -fx-background-color: -color-date-month-year-fg;
 }
+
 .date-picker-popup > .month-year-pane > .spinner > .label {
     -fx-alignment: CENTER;
     -fx-text-fill: -color-date-month-year-fg;
 }
+
 .date-picker-popup > .month-year-pane > .secondary-label {
     -fx-alignment: BASELINE_CENTER;
     -fx-padding: 0.5em 0 0 0;
     -fx-text-fill: -color-date-month-year-fg;
 }
+
 .date-picker-popup > .calendar-grid {
     -fx-background-color: -color-date-bg;
     -fx-padding: 8px;
@@ -3204,6 +3459,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-vgap: 0;
     -fx-background-radius: 1;
 }
+
 .date-picker-popup > .calendar-grid > .date-cell {
     -fx-background-color: transparent;
     -fx-padding: 0;
@@ -3213,31 +3469,38 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-cell-size: 2.5em;
     -fx-font-size: 1em;
 }
+
 .date-picker-popup > .calendar-grid > .week-number-cell {
     -fx-padding: 8px 4px 8px 4px;
     -fx-background-color: -color-date-week-bg;
     -fx-text-fill: -color-date-week-fg;
     -fx-font-size: 1em;
 }
+
 .date-picker-popup > .calendar-grid > .day-cell {
     -fx-padding: 8px 4px 8px 4px;
     -fx-background-color: -color-date-day-bg;
 }
+
 .date-picker-popup > .calendar-grid > .day-cell > .secondary-text {
     -fx-fill: -color-date-chrono-fg;
 }
+
 .date-picker-popup > .calendar-grid > .day-cell:disabled {
     -fx-opacity: 0.55;
 }
+
 .date-picker-popup > .calendar-grid .day-name-cell {
     -fx-padding: 8px 4px 8px 4px;
     -fx-font-size: 0.9em;
 }
+
 .date-picker-popup > .calendar-grid > .hijrah-day-cell {
     -fx-alignment: TOP_LEFT;
     -fx-padding: 0.083333em 4px 0.083333em 0.333333em;
     -fx-cell-size: 2.75em;
 }
+
 .date-picker-popup > .calendar-grid > .today {
     -fx-background-color: -color-date-today-bg;
     -fx-text-fill: -color-date-today-fg;
@@ -3344,59 +3607,76 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 0;
     -fx-max-width: 600px;
 }
+
 .dialog-pane > .expandable-content {
     -fx-padding: 1em 1em 1em 1em;
 }
+
 .dialog-pane > .button-bar > .container {
     -fx-padding: 2em 1em 1em 1em;
 }
+
 .dialog-pane > .button-bar > .container > .details-button {
     -fx-padding: 0;
     -fx-alignment: BASELINE_LEFT;
     -fx-focus-traversable: false;
     -fx-text-fill: -color-fg-default;
 }
+
 .dialog-pane > .button-bar > .container > .details-button:hover {
     -fx-underline: true;
 }
+
 .dialog-pane > .content {
     -fx-padding: 1em 1em 0 1em;
 }
+
 .dialog-pane > .content.label {
     -fx-alignment: TOP_LEFT;
 }
+
 .dialog-pane:header > .header-panel {
     -fx-padding: 1em 1em 1em 1em;
     -fx-background-color: -color-border-default, -color-bg-inset;
     -fx-background-insets: 0, 0 0 1px 0;
 }
+
 .dialog-pane:header > .header-panel > .label {
     -fx-wrap-text: true;
 }
+
 .dialog-pane:header > .header-panel > .graphic-container {
     -fx-padding: 0 0 0 1em;
 }
+
 .dialog-pane:no-header > .content {
     -fx-padding: 1em 1em 0 0;
 }
+
 .dialog-pane:no-header > * > .graphic-container {
     -fx-padding: 1em 1em 0 1em;
 }
+
 .dialog-pane.information > .header-panel {
     -fx-background-color: -color-accent-fg, -color-bg-subtle;
 }
+
 .dialog-pane.information > .header-panel > .label {
     -fx-text-fill: -color-fg-default;
 }
+
 .dialog-pane.warning > .header-panel {
     -fx-background-color: -color-warning-fg, -color-bg-subtle;
 }
+
 .dialog-pane.warning > .header-panel > .label {
     -fx-text-fill: -color-fg-default;
 }
+
 .dialog-pane.error > .header-panel {
     -fx-background-color: -color-danger-fg, -color-bg-subtle;
 }
+
 .dialog-pane.error > .header-panel > .label {
     -fx-text-fill: -color-fg-default;
 }
@@ -3424,16 +3704,20 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-insets: 0, 1px;
     -fx-padding: 2px;
 }
+
 .html-editor:contains-focus {
     -fx-background-color: -color-accent-emphasis, -color-bg-default;
 }
+
 .html-editor .tool-bar {
     -fx-padding: 4px;
 }
+
 .html-editor .button,
 .html-editor .toggle-button {
     -fx-background-insets: 0;
 }
+
 .html-editor .toggle-button {
     -color-button-bg-selected: -color-base-6;
     -color-button-border-focused: transparent;
@@ -3446,6 +3730,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-color-rect-height: 8px;
     -fx-color-label-visible: false;
 }
+
 .color-picker.html-editor-background {
     -fx-color-rect-x: 0;
     -fx-color-rect-y: -4px;
@@ -3453,6 +3738,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-color-rect-height: 8px;
     -fx-color-label-visible: false;
 }
+
 .color-picker.html-editor-foreground > .color-picker-label > .picker-color > .picker-color-rect, .color-picker.html-editor-background > .color-picker-label > .picker-color > .picker-color-rect {
     -fx-stroke: none;
 }
@@ -3553,16 +3839,20 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-underline: true;
     -fx-text-fill: -color-link-fg;
 }
+
 .hyperlink:visited {
     -fx-text-fill: -color-link-fg-visited;
 }
+
 .hyperlink:armed {
     -fx-text-fill: -color-link-fg-armed;
     -fx-underline: false;
 }
+
 .hyperlink:disabled {
     -fx-opacity: 0.55;
 }
+
 .hyperlink:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
 }
@@ -3570,57 +3860,73 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .label {
     -fx-text-fill: -color-fg-default;
 }
+
 .label:disabled {
     -fx-opacity: 0.55;
 }
+
 .label:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-fg-default;
 }
+
 .label.left-pill, .label.center-pill, .label.right-pill {
     -fx-padding: 8px 12px 8px 12px;
     -fx-background-color: -color-border-default, -color-bg-subtle;
     -fx-background-insets: 0, 1px;
 }
+
 .label.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
 }
+
 .label.center-pill {
     -fx-background-radius: 0;
 }
+
 .label.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
 }
+
 .label.accent {
     -fx-text-fill: -color-accent-fg;
 }
+
 .label.accent .font-icon, .label.accent .ikonli-font-icon {
     -fx-icon-color: -color-accent-fg;
     -fx-fill: -color-accent-fg;
 }
+
 .label.success {
     -fx-text-fill: -color-success-fg;
 }
+
 .label.success .font-icon, .label.success .ikonli-font-icon {
     -fx-icon-color: -color-success-fg;
     -fx-fill: -color-success-fg;
 }
+
 .label.warning {
     -fx-text-fill: -color-warning-fg;
 }
+
 .label.warning .font-icon, .label.warning .ikonli-font-icon {
     -fx-icon-color: -color-warning-fg;
     -fx-fill: -color-warning-fg;
 }
+
 .label.danger {
     -fx-text-fill: -color-danger-fg;
 }
+
 .label.danger .font-icon, .label.danger .ikonli-font-icon {
     -fx-icon-color: -color-danger-fg;
     -fx-fill: -color-danger-fg;
 }
+
 .label.text-muted {
     -fx-text-fill: -color-fg-muted;
 }
+
 .label.text-muted .font-icon, .label.text-muted .ikonli-font-icon {
     -fx-icon-color: -color-fg-muted;
     -fx-fill: -color-fg-muted;
@@ -3656,20 +3962,25 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .label:success {
     -fx-text-fill: -color-success-emphasis;
 }
+
 .label:success .font-icon, .label:success .ikonli-font-icon {
     -fx-icon-color: -color-success-fg;
     -fx-fill: -color-success-fg;
 }
+
 .label:warning {
     -fx-text-fill: -color-warning-emphasis;
 }
+
 .label:warning .font-icon, .label:warning .ikonli-font-icon {
     -fx-icon-color: -color-warning-fg;
     -fx-fill: -color-warning-fg;
 }
+
 .label:danger {
     -fx-text-fill: -color-danger-emphasis;
 }
+
 .label:danger .font-icon, .label:danger .ikonli-font-icon {
     -fx-icon-color: -color-danger-fg;
     -fx-fill: -color-danger-fg;
@@ -3699,26 +4010,31 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 0;
     -fx-alignment: CENTER_LEFT;
 }
+
 .menu-button .font-icon, .menu-button .ikonli-font-icon,
 .split-menu-button .font-icon,
 .split-menu-button .ikonli-font-icon {
     -fx-icon-color: -color-button-fg;
     -fx-fill: -color-button-fg;
 }
+
 .menu-button:disabled,
 .split-menu-button:disabled {
     -fx-opacity: 0.55;
     -fx-effect: none;
 }
+
 .menu-button:show-mnemonics > .mnemonic-underline,
 .split-menu-button:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-button-fg;
 }
+
 .menu-button.button-icon,
 .split-menu-button.button-icon {
     -fx-padding: 8px;
     -fx-content-display: graphic-only;
 }
+
 .menu-button.button-circle,
 .split-menu-button.button-circle {
     -fx-background-radius: 50;
@@ -3726,48 +4042,57 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-content-display: graphic-only;
     -fx-effect: none;
 }
+
 .menu-button.left-pill,
 .split-menu-button.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
     -fx-background-insets: 0, 1px 0 1px 1px;
     -fx-effect: none;
 }
+
 .menu-button.left-pill:hover, .menu-button.left-pill:focused,
 .split-menu-button.left-pill:hover,
 .split-menu-button.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .menu-button.center-pill,
 .split-menu-button.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, 1px 0 1px 0;
     -fx-effect: none;
 }
+
 .menu-button.center-pill:hover, .menu-button.center-pill:focused,
 .split-menu-button.center-pill:hover,
 .split-menu-button.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .menu-button.right-pill,
 .split-menu-button.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
     -fx-background-insets: 0, 1px 1px 1px 0;
     -fx-effect: none;
 }
+
 .menu-button.right-pill:hover, .menu-button.right-pill:focused,
 .split-menu-button.right-pill:hover,
 .split-menu-button.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .menu-button > .label,
 .split-menu-button > .label {
     -fx-padding: 8px 12px 8px 12px;
     -fx-text-fill: -color-button-fg;
 }
+
 .menu-button > .arrow-button,
 .split-menu-button > .arrow-button {
     -fx-padding: 8px 12px 8px 0;
 }
+
 .menu-button > .arrow-button > .arrow,
 .split-menu-button > .arrow-button > .arrow {
     -fx-shape: "M10 17l5-5-5-5v10z";
@@ -3775,67 +4100,81 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-color: -color-button-fg;
     -fx-min-width: 0.5em;
 }
+
 .menu-button:openvertically > .arrow-button > .arrow,
 .split-menu-button:openvertically > .arrow-button > .arrow {
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
 }
+
 .menu-button:show-mnemonics > .label > .mnemonic-underline,
 .split-menu-button:show-mnemonics > .label > .mnemonic-underline {
     -fx-stroke: -color-button-fg;
 }
+
 .menu-button.button-icon,
 .split-menu-button.button-icon {
     -fx-padding: 0;
 }
+
 .menu-button:hover,
 .split-menu-button:hover {
     -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
     -fx-opacity: 0.9;
 }
+
 .menu-button:hover > .label,
 .split-menu-button:hover > .label {
     -fx-text-fill: -color-button-fg-hover;
 }
+
 .menu-button:hover > .arrow-button > .arrow,
 .split-menu-button:hover > .arrow-button > .arrow {
     -fx-background-color: -color-button-fg-hover;
 }
+
 .menu-button:hover .font-icon, .menu-button:hover .ikonli-font-icon,
 .split-menu-button:hover .font-icon,
 .split-menu-button:hover .ikonli-font-icon {
     -fx-icon-color: -color-button-fg-hover;
     -fx-fill: -color-button-fg-hover;
 }
+
 .menu-button:focused,
 .split-menu-button:focused {
     -fx-background-color: -color-button-border-focused, -color-button-bg-focused;
 }
+
 .menu-button:focused > .label,
 .split-menu-button:focused > .label {
     -fx-text-fill: -color-button-fg-focused;
 }
+
 .menu-button:focused > .arrow-button > .arrow,
 .split-menu-button:focused > .arrow-button > .arrow {
     -fx-background-color: -color-button-fg-focused;
 }
+
 .menu-button:focused .font-icon, .menu-button:focused .ikonli-font-icon,
 .split-menu-button:focused .font-icon,
 .split-menu-button:focused .ikonli-font-icon {
     -fx-icon-color: -color-button-fg-focused;
     -fx-fill: -color-button-fg-focused;
 }
+
 .menu-button:armed, .menu-button:focused:armed,
 .split-menu-button:armed,
 .split-menu-button:focused:armed {
     -fx-background-color: -color-button-border-pressed, -color-button-bg-pressed;
     -fx-text-fill: -color-button-fg-pressed;
 }
+
 .menu-button:armed > .label, .menu-button:focused:armed > .label,
 .split-menu-button:armed > .label,
 .split-menu-button:focused:armed > .label {
     -fx-text-fill: -color-button-fg-pressed;
 }
+
 .menu-button:armed > .arrow-button > .arrow, .menu-button:focused:armed > .arrow-button > .arrow,
 .split-menu-button:armed > .arrow-button > .arrow,
 .split-menu-button:focused:armed > .arrow-button > .arrow {
@@ -3874,6 +4213,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .menu-button.accent.button-outlined,
 .split-menu-button.accent.button-outlined {
     -color-button-bg: -color-bg-default;
@@ -3881,11 +4221,13 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-bg-hover: -color-accent-emphasis;
     -color-button-fg-hover: -color-fg-emphasis;
 }
+
 .menu-button.accent.flat,
 .split-menu-button.accent.flat {
     -color-button-fg: -color-accent-fg;
     -color-button-bg-hover: -color-accent-subtle;
 }
+
 .menu-button.success,
 .split-menu-button.success {
     -color-button-bg: -color-success-emphasis;
@@ -3901,6 +4243,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .menu-button.success.button-outlined,
 .split-menu-button.success.button-outlined {
     -color-button-bg: -color-bg-default;
@@ -3908,11 +4251,13 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-bg-hover: -color-success-emphasis;
     -color-button-fg-hover: -color-fg-emphasis;
 }
+
 .menu-button.success.flat,
 .split-menu-button.success.flat {
     -color-button-fg: -color-success-fg;
     -color-button-bg-hover: -color-success-subtle;
 }
+
 .menu-button.danger,
 .split-menu-button.danger {
     -color-button-bg: -color-danger-emphasis;
@@ -3928,6 +4273,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-fg-pressed: -color-fg-emphasis;
     -color-button-border-pressed: transparent;
 }
+
 .menu-button.danger.button-outlined,
 .split-menu-button.danger.button-outlined {
     -color-button-bg: -color-bg-default;
@@ -3977,6 +4323,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .split-menu-button > .label {
     -fx-padding: 8px 6px 8px 12px;
 }
+
 .split-menu-button:hover > .arrow-button, .split-menu-button:focused:hover > .arrow-button {
     -fx-background-color: -color-neutral-emphasis-plus;
     -fx-background-insets: 1px;
@@ -3984,6 +4331,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-border-color: transparent;
     -fx-opacity: 0.75;
 }
+
 .split-menu-button:hover > .arrow-button > .arrow, .split-menu-button:focused:hover > .arrow-button > .arrow {
     -fx-background-color: -color-fg-emphasis;
     -fx-opacity: 1;
@@ -4017,25 +4365,31 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-color: -color-bg-overlay;
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8px, 0.6, 0, 2);
 }
+
 .popover > .border {
     -fx-stroke: -color-border-default;
     -fx-stroke-width: 1px;
     -fx-fill: -color-bg-overlay;
 }
+
 .popover > .content {
     -fx-padding: 10px 10px 10px 10px;
 }
+
 .popover > .content > .title {
     -fx-padding: 0 0 1em 0;
 }
+
 .popover > .content > .title > .text {
     -fx-text-fill: -color-fg-default;
     -fx-font-size: 1.25em;
     -fx-alignment: CENTER_LEFT;
 }
+
 .popover > .content > .title > .icon > .graphics > .circle {
     -fx-fill: transparent;
 }
+
 .popover > .content > .title > .icon > .graphics > .line {
     -fx-stroke: -color-fg-default;
     -fx-stroke-width: 1px;
@@ -4049,26 +4403,32 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-indeterminate-bar-flip: true;
     -fx-indeterminate-bar-animation-time: 2;
 }
+
 .progress-bar > .track {
     -fx-background-color: -color-progress-bar-track;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }
+
 .progress-bar > .bar {
     -fx-background-color: -color-progress-bar-fill;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
     -fx-padding: 0.4em;
 }
+
 .progress-bar.small > .bar {
     -fx-padding: 2px;
 }
+
 .progress-bar.medium > .bar {
     -fx-padding: 0.4em;
 }
+
 .progress-bar.large > .bar {
     -fx-padding: 0.8em;
 }
+
 .progress-bar:disabled {
     -fx-opacity: 0.55;
 }
@@ -4077,27 +4437,33 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-indeterminate-segment-count: 12;
     -fx-spin-enabled: true;
 }
+
 .progress-indicator > .determinate-indicator > .indicator {
     -fx-background-color: -color-border-default, -color-bg-default;
     -fx-background-insets: 0, 1;
 }
+
 .progress-indicator > .determinate-indicator > .progress {
     -fx-background-color: -color-accent-emphasis;
     -fx-padding: 0.6em;
 }
+
 .progress-indicator > .determinate-indicator > .tick {
     -fx-background-color: -color-fg-emphasis;
     -fx-background-insets: 0;
     -fx-shape: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
     -fx-scale-shape: true;
 }
+
 .progress-indicator > .determinate-indicator > .percentage {
     -fx-font-size: 0.8em;
     -fx-fill: -color-fg-default;
 }
+
 .progress-indicator > .determinate-indicator:disabled {
     -fx-opacity: 0.55;
 }
+
 .progress-indicator:indeterminate > .spinner {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -4107,42 +4473,55 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-border-radius: 0;
     -fx-padding: 0;
 }
+
 .progress-indicator:indeterminate .segment {
     -fx-background-color: -color-accent-emphasis;
 }
+
 .progress-indicator:indeterminate .segment0 {
     -fx-shape: "M41.98 14.74 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment1 {
     -fx-shape: "M33.75 6.51 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment2 {
     -fx-shape: "M22.49 3.5 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment3 {
     -fx-shape: "M11.24 6.51 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment4 {
     -fx-shape: "M3.01 14.74 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment5 {
     -fx-shape: "M0.0 26.0 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment6 {
     -fx-shape: "M3.01 37.25 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment7 {
     -fx-shape: "M11.25 45.48 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment8 {
     -fx-shape: "M22.5 48.5 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment9 {
     -fx-shape: "M33.75 45.48 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment10 {
     -fx-shape: "M41.98 37.25 a3.5,3.5 0 1,1 0,1 Z";
 }
+
 .progress-indicator:indeterminate .segment11 {
     -fx-shape: "M45.0 26.0 a3.5,3.5 0 1,1 0,1 Z";
 }
@@ -4152,23 +4531,29 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-progress-indicator-track: -color-bg-subtle;
     -color-progress-indicator-fill: -color-accent-emphasis;
 }
+
 .ring-progress-indicator > .container {
     -fx-min-width: 4em;
 }
+
 .ring-progress-indicator > .container > .track {
     -fx-stroke: -color-progress-indicator-track;
     -fx-stroke-width: 5px;
 }
+
 .ring-progress-indicator > .container > .ring {
     -fx-stroke: -color-progress-indicator-fill;
     -fx-stroke-width: 5px;
 }
+
 .ring-progress-indicator:indeterminate > .container {
     -fx-min-width: 1.5em;
 }
+
 .ring-progress-indicator:indeterminate > .container > .track {
     visibility: hidden;
 }
+
 .ring-progress-indicator:indeterminate > .container > .ring {
     -fx-stroke: linear-gradient(-color-bg-default, -color-progress-indicator-fill);
     -fx-stroke-width: 2px;
@@ -4179,6 +4564,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-text-fill: -color-fg-default;
     -fx-label-padding: 2px 2px 0 6px;
 }
+
 .radio-button > .radio {
     -fx-background-color: -color-border-default, -color-bg-default;
     -fx-background-insets: 0, 1.5px;
@@ -4186,6 +4572,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 3px;
     -fx-alignment: CENTER;
 }
+
 .radio-button > .radio > .dot {
     -fx-background-color: transparent, transparent;
     -fx-background-insets: 0, 1px;
@@ -4195,22 +4582,28 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-min-width: 0.75em;
     -fx-max-width: 0.75em;
 }
+
 .radio-button > .radio:hover {
     -fx-background-color: -color-fg-muted, -color-bg-subtle;
 }
+
 .radio-button:disabled {
     -fx-opacity: 0.55;
 }
+
 .radio-button:disabled > .radio {
     -fx-opacity: 0.55;
 }
+
 .radio-button:selected > .radio {
     -fx-background-color: -color-accent-emphasis, -color-accent-emphasis;
 }
+
 .radio-button:selected > .radio > .dot {
     -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
     -fx-background-insets: 0, 1px;
 }
+
 .radio-button:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-fg-muted;
 }
@@ -4219,36 +4612,45 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-color: -color-border-subtle;
     -fx-opacity: 0.5;
 }
+
 .scroll-bar > .thumb {
     -fx-background-color: -color-fg-muted;
     -fx-background-radius: 1;
 }
+
 .scroll-bar > .track {
     -fx-background-color: transparent;
     -fx-border-radius: 0;
 }
+
 .scroll-bar > .increment-button {
     visibility: hidden;
     -fx-managed: false;
 }
+
 .scroll-bar > .increment-button > .increment-arrow {
     -fx-shape: " ";
     -fx-padding: 0;
 }
+
 .scroll-bar > .decrement-button {
     visibility: hidden;
     -fx-managed: false;
 }
+
 .scroll-bar > .decrement-button > .decrement-arrow {
     -fx-shape: " ";
     -fx-padding: 0;
 }
+
 .scroll-bar:horizontal {
     -fx-pref-height: 8px;
 }
+
 .scroll-bar:vertical {
     -fx-pref-width: 8px;
 }
+
 .scroll-bar:hover, .scroll-bar:pressed, .scroll-bar:focused {
     -fx-opacity: 1;
 }
@@ -4259,13 +4661,16 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-radius: 0;
     -fx-padding: 0;
 }
+
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
+
 .scroll-pane > .corner {
     -fx-background-color: -color-border-subtle;
     -fx-opacity: 0.5;
 }
+
 .scroll-pane:disabled > .scroll-bar {
     -fx-opacity: 0.25;
 }
@@ -4277,32 +4682,41 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .separator:horizontal {
     -fx-padding: 0.75em 0 0.75em 0;
 }
+
 .separator:horizontal > .line {
     -fx-border-color: -color-separator transparent transparent transparent;
     -fx-border-insets: 1px 0 0 0;
 }
+
 .separator:vertical {
     -fx-padding: 0 0.75em 0 0.75em;
 }
+
 .separator:vertical > .line {
     -fx-border-color: transparent transparent transparent -color-separator;
     -fx-border-insets: 0 0 0 1px;
 }
+
 .separator.small:horizontal {
     -fx-padding: 0.25em 0 0.25em 0;
 }
+
 .separator.small:vertical {
     -fx-padding: 0 0.25em 0 0.25em;
 }
+
 .separator.medium:horizontal {
     -fx-padding: 0.75em 0 0.75em 0;
 }
+
 .separator.medium:vertical {
     -fx-padding: 0 0.75em 0 0.75em;
 }
+
 .separator.large:horizontal {
     -fx-padding: 1.5em 0 1.5em 0;
 }
+
 .separator.large:vertical {
     -fx-padding: 0 1.5em 0 1.5em;
 }
@@ -4346,15 +4760,18 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-shape: "M7 14l5-5 5 5z";
     -fx-scale-shape: false;
 }
+
 .spinner > .decrement-arrow-button {
     -fx-background-color: -color-bg-subtle;
     -fx-background-insets: -1 0 0 0;
     -fx-background-radius: 0 0 1 0;
     -fx-padding: 10px;
 }
+
 .spinner > .decrement-arrow-button:hover {
     -fx-background-color: -color-base-6;
 }
+
 .spinner > .decrement-arrow-button > .decrement-arrow {
     -fx-background-color: -color-fg-default;
     -fx-background-insets: 0;
@@ -4362,95 +4779,119 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
 }
+
 .spinner:disabled {
     -fx-opacity: 0.55;
 }
+
 .spinner:focused:focused, .spinner:contains-focus:focused {
     -fx-border-color: -color-accent-emphasis;
 }
+
 .spinner.arrows-on-left-vertical > .text-field {
     -fx-background-radius: 0 1 1 0;
     -fx-alignment: CENTER_RIGHT;
 }
+
 .spinner.arrows-on-left-vertical > .increment-arrow-button {
     -fx-background-radius: 1 0 0 0;
 }
+
 .spinner.arrows-on-left-vertical > .decrement-arrow-button {
     -fx-background-radius: 0 0 0 1;
 }
+
 .spinner.arrows-on-right-horizontal > .increment-arrow-button {
     -fx-background-radius: 0 1 1 0;
     -fx-background-insets: 0;
 }
+
 .spinner.arrows-on-right-horizontal > .increment-arrow-button > .increment-arrow {
     -fx-shape: "M 18,12.857142 H 12.857142 V 18 H 11.142858 V 12.857142 H 6 v -1.714284 h 5.142858 V 6 h 1.714284 v 5.142858 H 18 Z";
     -fx-scale-shape: false;
 }
+
 .spinner.arrows-on-right-horizontal > .decrement-arrow-button {
     -fx-background-radius: 0;
     -fx-background-insets: 0;
 }
+
 .spinner.arrows-on-right-horizontal > .decrement-arrow-button > .decrement-arrow {
     -fx-shape: "M 17,13 H 7 v -2 h 10 z";
     -fx-scale-shape: false;
 }
+
 .spinner.arrows-on-left-horizontal > .text-field {
     -fx-background-radius: 0 1 1 0;
     -fx-alignment: CENTER_RIGHT;
 }
+
 .spinner.arrows-on-left-horizontal > .increment-arrow-button {
     -fx-background-radius: 0;
     -fx-background-insets: 0;
 }
+
 .spinner.arrows-on-left-horizontal > .increment-arrow-button > .increment-arrow {
     -fx-shape: "M 18,12.857142 H 12.857142 V 18 H 11.142858 V 12.857142 H 6 v -1.714284 h 5.142858 V 6 h 1.714284 v 5.142858 H 18 Z";
     -fx-scale-shape: false;
 }
+
 .spinner.arrows-on-left-horizontal > .decrement-arrow-button {
     -fx-background-radius: 1 0 0 1;
     -fx-background-insets: 0;
 }
+
 .spinner.arrows-on-left-horizontal > .decrement-arrow-button > .decrement-arrow {
     -fx-shape: "M 17,13 H 7 v -2 h 10 z";
     -fx-scale-shape: false;
 }
+
 .spinner.split-arrows-horizontal > .text-field {
     -fx-background-radius: 0;
     -fx-alignment: CENTER;
 }
+
 .spinner.split-arrows-horizontal > .increment-arrow-button {
     -fx-background-radius: 0 1 1 0;
     -fx-background-insets: 0;
 }
+
 .spinner.split-arrows-horizontal > .increment-arrow-button > .increment-arrow {
     -fx-shape: "M 18,12.857142 H 12.857142 V 18 H 11.142858 V 12.857142 H 6 v -1.714284 h 5.142858 V 6 h 1.714284 v 5.142858 H 18 Z";
     -fx-scale-shape: false;
 }
+
 .spinner.split-arrows-horizontal > .decrement-arrow-button {
     -fx-background-radius: 1 0 0 1;
     -fx-background-insets: 0;
 }
+
 .spinner.split-arrows-horizontal > .decrement-arrow-button > .decrement-arrow {
     -fx-shape: "M 17,13 H 7 v -2 h 10 z";
     -fx-scale-shape: false;
 }
+
 .spinner.split-arrows-vertical > .text-field {
     -fx-background-radius: 0;
     -fx-alignment: CENTER;
 }
+
 .spinner.split-arrows-vertical > .increment-arrow-button {
     -fx-background-radius: 1 1 0 0;
     -fx-background-insets: 0;
 }
+
 .spinner.split-arrows-vertical > .increment-arrow-button > .increment-arrow {
     -fx-shape: "M 18,12.857142 H 12.857142 V 18 H 11.142858 V 12.857142 H 6 v -1.714284 h 5.142858 V 6 h 1.714284 v 5.142858 H 18 Z";
     -fx-scale-shape: false;
     -fx-padding: 0.25em 0 0.25em 0;
 }
+
 .spinner.split-arrows-vertical > .decrement-arrow-button {
     -fx-background-radius: 0 0 1 1;
     -fx-background-insets: 0;
 }
+
 .spinner.split-arrows-vertical > .decrement-arrow-button > .decrement-arrow {
     -fx-shape: "M 17,13 H 7 v -2 h 10 z";
     -fx-scale-shape: false;
@@ -4466,29 +4907,36 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
+
 .split-pane > .split-pane-divider {
     -fx-background-color: -color-split-divider;
     -fx-padding: 0 2px 0 2px;
     -fx-opacity: 0.5;
 }
+
 .split-pane > .split-pane-divider > .horizontal-grabber {
     -fx-background-color: -color-split-grabber;
     -fx-padding: 10px 2px 10px 2px;
 }
+
 .split-pane > .split-pane-divider > .vertical-grabber {
     -fx-background-color: -color-split-grabber;
     -fx-padding: 2px 10px 2px 10px;
 }
+
 .split-pane > .split-pane-divider:pressed {
     -fx-background-color: -color-split-divider-pressed;
 }
+
 .split-pane > .split-pane-divider:pressed > .horizontal-grabber,
 .split-pane > .split-pane-divider:pressed > .vertical-grabber {
     -fx-background-color: -color-split-grabber-pressed;
 }
+
 .split-pane > .split-pane-divider:hover {
     -fx-opacity: 1;
 }
+
 .split-pane > .split-pane-divider:disabled {
     -fx-opacity: 0.25;
 }
@@ -4504,69 +4952,87 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-color: -color-bg-default;
     -fx-alignment: CENTER;
 }
+
 .tab-pane > .tab-header-area > .tab-header-background {
     -fx-background-insets: 0 0 0 0, 0 0 2px 0;
     -fx-background-color: -color-border-default, -color-bg-default;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab {
     -fx-background-insets: 0 0 0 0, 0 0 2px 0;
     -fx-background-color: transparent, transparent;
     -fx-padding: 0.3em 0.6em 0.3em 0.6em;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: -color-fg-default;
     -fx-padding: 0.4em 0.4em 0.4em 0.4em;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label > * {
     -fx-fill: -color-fg-default;
     -fx-icon-color: -color-fg-default;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
     -fx-background-color: -color-fg-default;
     -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
     -fx-scale-shape: false;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
     -fx-cursor: hand;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:hover {
     -fx-background-color: -color-border-default, -color-bg-subtle;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:top:selected, .tab-pane > .tab-header-area > .headers-region > .tab:bottom:selected {
     -fx-background-color: -color-tab-border-selected, -color-tab-bg-selected;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:top:selected > .tab-container > .tab-label, .tab-pane > .tab-header-area > .headers-region > .tab:bottom:selected > .tab-container > .tab-label {
     -fx-fill: -color-tab-fg-selected;
     -fx-text-fill: -color-tab-fg-selected;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:top:selected > .tab-container > .tab-label > *, .tab-pane > .tab-header-area > .headers-region > .tab:bottom:selected > .tab-container > .tab-label > * {
     -fx-fill: -color-tab-fg-selected;
     -fx-icon-color: -color-tab-fg-selected;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:top:selected > .tab-container > .tab-close-button, .tab-pane > .tab-header-area > .headers-region > .tab:bottom:selected > .tab-container > .tab-close-button {
     -fx-background-color: -color-tab-fg-selected;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:disabled {
     -fx-background-color: -color-border-default, -color-bg-default;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:disabled > .tab-container {
     -fx-opacity: 0.55;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left > .tab-container > .tab-label, .tab-pane > .tab-header-area > .headers-region > .tab:right > .tab-container > .tab-label {
     -fx-padding: 0.2em 0.4em 0.2em 0.4em;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left:hover, .tab-pane > .tab-header-area > .headers-region > .tab:right:hover {
     -fx-background-color: -color-border-default, -color-bg-subtle;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left:hover > .tab-container > .tab-label, .tab-pane > .tab-header-area > .headers-region > .tab:right:hover > .tab-container > .tab-label {
     -fx-text-fill: -color-fg-default;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left:hover > .tab-container > .tab-close-button, .tab-pane > .tab-header-area > .headers-region > .tab:right:hover > .tab-container > .tab-close-button {
     -fx-background-color: -color-fg-default;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left:selected, .tab-pane > .tab-header-area > .headers-region > .tab:right:selected {
     -fx-background-color: -color-tab-border-selected, -color-tab-bg-selected;
 }
@@ -4584,23 +5050,29 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .tab-pane > .tab-header-area > .headers-region > .tab:left:selected > .tab-container > .tab-close-button, .tab-pane > .tab-header-area > .headers-region > .tab:right:selected > .tab-container > .tab-close-button {
     -fx-background-color: -color-tab-fg-selected;
 }
+
 .tab-pane > .tab-header-area > .headers-region > .tab:left:disabled, .tab-pane > .tab-header-area > .headers-region > .tab:right:disabled {
     -fx-background-color: transparent;
 }
+
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button {
     -fx-padding: 1em;
 }
+
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:disabled {
     -fx-opacity: 0.55;
 }
+
 .tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button > .arrow {
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-default;
 }
+
 .tab-pane.dense > .tab-header-area > .headers-region > .tab {
     -fx-padding: 0.2em 0.3em 0.2em 0.3em;
 }
+
 .tab-pane.dense > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-padding: 0.2em 0.2em 0.2em 0.2em;
 }
@@ -4619,11 +5091,13 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-background-color: -color-border-default, -color-bg-inset;
     -fx-background-insets: 0, 0 0 1px 0;
 }
+
 .tab-pane.floating > .tab-header-area > .headers-region > .tab {
     -fx-background-insets: 0;
     -fx-background-color: transparent;
     -fx-padding: 0.3em 0 0.3em 3px;
 }
+
 .tab-pane.floating > .tab-header-area > .headers-region > .tab > .tab-container {
     -fx-background-color: -color-border-subtle, -color-bg-inset;
     -fx-background-insets: 0, 0 1 0 0;
@@ -4756,37 +5230,46 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-text-fill: -color-fg-default;
     -fx-effect: none;
 }
+
 .titled-pane.elevated-1 {
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 2px, 0.5, 0, 2);
 }
+
 .titled-pane.elevated-2 {
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8px, 0.5, 0, 2);
 }
+
 .titled-pane.elevated-3 {
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 16px, 0.5, 0, 2);
 }
+
 .titled-pane.elevated-4 {
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 20px, 0.5, 0, 2);
 }
+
 .titled-pane > .title {
     -fx-background-color: -color-border-default, -color-bg-default;
     -fx-padding: 10px 20px 10px 20px;
 }
+
 .titled-pane > .title > .text {
     -fx-font-size: 1.25em;
 }
+
 .titled-pane > .title > .arrow-button {
     -fx-background-color: none;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-padding: 0 10px 0 0;
 }
+
 .titled-pane > .title > .arrow-button > .arrow {
     -fx-shape: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z";
     -fx-scale-shape: false;
     -fx-background-color: -color-fg-default;
     -fx-padding: 4px 5px 4px 5px;
 }
+
 .titled-pane > .content {
     -fx-border-color: -color-border-default;
     -fx-border-width: 0 1px 1px 1px;
@@ -4796,36 +5279,46 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -fx-padding: 20px 20px 10px 20px;
     -fx-alignment: TOP_LEFT;
 }
+
 .titled-pane:disabled > .title > *,
 .titled-pane:disabled > .content > * {
     -fx-opacity: 0.55;
 }
+
 .titled-pane:expanded > .title {
     -fx-background-radius: 1 1 0 0, 0px 0px 0 0;
     -fx-background-insets: 0, 1px 1px 0 1px;
 }
+
 .titled-pane:collapsed > .title {
     -fx-background-insets: 0, 1px;
     -fx-background-radius: 1, 0px;
 }
+
 .titled-pane.interactive:hover {
     -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8px, 0.5, 0, 2);
 }
+
 .titled-pane:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-fg-default;
 }
+
 .titled-pane.dense > .title {
     -fx-padding: 5px 10px 5px 10px;
 }
+
 .titled-pane.dense > .title > .text {
     -fx-font-size: 1.1em;
 }
+
 .titled-pane.dense > .title > .arrow-button {
     -fx-padding: 0 10px 0 0;
 }
+
 .titled-pane.dense > .content {
     -fx-padding: 10px 10px 5px 10px;
 }
+
 .titled-pane.alt-icon > .title > .arrow-button > .arrow {
     -fx-shape: "M7 10l5 5 5-5z";
     -fx-scale-shape: false;
@@ -4855,69 +5348,86 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
     -color-button-fg-selected: -color-fg-emphasis;
     -fx-padding: 8px 12px 8px 12px;
 }
+
 .toggle-button .font-icon, .toggle-button .ikonli-font-icon {
     -fx-icon-color: -color-button-fg;
     -fx-fill: -color-button-fg;
 }
+
 .toggle-button:disabled {
     -fx-opacity: 0.55;
     -fx-effect: none;
 }
+
 .toggle-button:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -color-button-fg;
 }
+
 .toggle-button.button-icon {
     -fx-padding: 8px;
     -fx-content-display: graphic-only;
 }
+
 .toggle-button.button-circle {
     -fx-background-radius: 50;
     -fx-padding: 6px 8px 6px 8px;
     -fx-content-display: graphic-only;
     -fx-effect: none;
 }
+
 .toggle-button.left-pill {
     -fx-background-radius: 1 0 0 1, 0px 0 0 0px;
     -fx-background-insets: 0, 1px 0 1px 1px;
     -fx-effect: none;
 }
+
 .toggle-button.left-pill:hover, .toggle-button.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .toggle-button.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, 1px 0 1px 0;
     -fx-effect: none;
 }
+
 .toggle-button.center-pill:hover, .toggle-button.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .toggle-button.right-pill {
     -fx-background-radius: 0 1 1 0, 0 0px 0px 0;
     -fx-background-insets: 0, 1px 1px 1px 0;
     -fx-effect: none;
 }
+
 .toggle-button.right-pill:hover, .toggle-button.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .toggle-button:selected, .toggle-button:selected:focused {
     -fx-background-color: -color-accent-emphasis, -color-button-bg-selected;
     -fx-text-fill: -color-button-fg-selected;
     -fx-background-insets: 0;
 }
+
 .toggle-button:selected .font-icon, .toggle-button:selected .ikonli-font-icon, .toggle-button:selected:focused .font-icon, .toggle-button:selected:focused .ikonli-font-icon {
     -fx-fill: -color-button-fg-selected;
     -fx-icon-color: -color-button-fg-selected;
 }
+
 .toggle-button:show-mnemonics:selected > .mnemonic-underline {
     -fx-stroke: -color-button-fg-selected;
 }
+
 .toggle-button:selected.left-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .toggle-button:selected.center-pill:focused {
     -fx-background-insets: 0, 1px;
 }
+
 .toggle-button:selected.right-pill:focused {
     -fx-background-insets: 0, 1px;
 }
