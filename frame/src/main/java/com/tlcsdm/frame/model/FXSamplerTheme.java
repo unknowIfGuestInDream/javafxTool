@@ -67,13 +67,13 @@ public enum FXSamplerTheme {
     /**
      * 根据name获取FXSamplerTheme.
      */
-    public static FXSamplerTheme fromThemeName(String name) {
+    public static FXSamplerTheme fromThemeName(String name, FXSamplerTheme defaultTheme) {
         for (FXSamplerTheme theme : FXSamplerTheme.values()) {
             if (theme.getName().equals(name)) {
                 return theme;
             }
         }
-        return UNUSED;
+        return defaultTheme;
     }
 
     /**
