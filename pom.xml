@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2019, 2023 unknowIfGuestInDream
+  ~ Copyright (c) 2023 unknowIfGuestInDream.
   ~ All rights reserved.
   ~
   ~ Redistribution and use in source and binary forms, with or without
@@ -101,6 +101,7 @@
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.15.3</jackson.version>
         <testfx.version>4.0.17</testfx.version>
+        <assertj.version>3.13.2</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.2</richtextfx.version>
@@ -177,7 +178,6 @@
             <artifactId>controlsfx</artifactId>
             <version>${controlsfx.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -435,6 +435,11 @@
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-junit5</artifactId>
                 <version>${testfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.pdfbox</groupId>
