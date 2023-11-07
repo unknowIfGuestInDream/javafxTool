@@ -21,7 +21,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | dom4j                  | 2.1.4      | XML 框架                          |
 | jaxb                   | 4.0.4      | 支持将Java对象编组为XML，以及将XML解组为Java对象 |
 | richtextfx             | 0.11.2     | JavaFX 的富文本组件                   |
-| junit                  | 5.10.0     | 单元测试框架                          |
+| junit                  | 5.10.1     | 单元测试框架                          |
 | tlcsdm-common          | 1.4.5      | 常用工具类封装                         |
 | tlcsdm-asyncTool       | 1.0.1      | 并行工具包                           |
 | jackson                | 2.15.3     | JSON解析库                         |
