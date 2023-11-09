@@ -58,18 +58,18 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
-        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
+        <maven-javadoc-plugin.version>3.6.2</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>5.10.0</junit.version>
+        <junit.version>5.10.1</junit.version>
         <javafx.version>17.0.9</javafx.version>
         <javafx.swt.version>17.0.9</javafx.swt.version>
-        <controlsfx.version>11.1.2</controlsfx.version>
+        <controlsfx.version>11.2.0</controlsfx.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.5</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
