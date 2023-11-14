@@ -81,7 +81,7 @@
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
-        <hutool.version>5.8.22</hutool.version>
+        <hutool.version>5.8.23</hutool.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <logback-classic.version>1.4.11</logback-classic.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
@@ -115,7 +115,7 @@
         <swt.version>3.124.100</swt.version>
         <jna.version>5.9.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
-        <java2.version>3.3.1</java2.version>
+        <java2.version>3.4.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
         <jaxb.version>4.0.4</jaxb.version>
     </properties>
