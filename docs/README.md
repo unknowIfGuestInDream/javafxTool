@@ -9,11 +9,11 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 |------------------------|------------|---------------------------------|
 | JDK                    | 17         | JDK                             |
 | JavaFX                 | 17.0.9     | JavaFX                          |
-| controlsfx             | 11.1.2     | javafx UI控件                     |
+| controlsfx             | 11.2.0     | javafx UI控件                     |
 | poi-ooxml              | 5.2.4      | 用于Microsoft Documents的Java API  |
 | freemarker             | 2.3.32     | 模板引擎库                           |
 | commons-lang3          | 3.13.0     | Java工具类库                        |
-| hutool                 | 5.8.22     | Java工具类库                        |
+| hutool                 | 5.8.23     | Java工具类库                        |
 | logback                | 1.4.11     | Java日志框架                        |
 | commons-configuration2 | 2.9.0      | 用于从各种源读取配置数据                    |
 | reflections            | 0.10.2     | Java 运行时元数据分析                   |
@@ -21,7 +21,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | dom4j                  | 2.1.4      | XML 框架                          |
 | jaxb                   | 4.0.4      | 支持将Java对象编组为XML，以及将XML解组为Java对象 |
 | richtextfx             | 0.11.2     | JavaFX 的富文本组件                   |
-| junit                  | 5.10.0     | 单元测试框架                          |
+| junit                  | 5.10.1     | 单元测试框架                          |
 | tlcsdm-common          | 1.4.5      | 常用工具类封装                         |
 | tlcsdm-asyncTool       | 1.0.1      | 并行工具包                           |
 | jackson                | 2.15.3     | JSON解析库                         |

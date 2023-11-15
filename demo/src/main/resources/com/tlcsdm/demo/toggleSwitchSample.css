@@ -15,7 +15,7 @@
 
 .styled-toggle .thumb-area{
     -fx-background-radius: 5;
-    -fx-padding: 5 50 5 50; /* describes length: 50+50 = 100 width, 5+5=10 height */
+    -fx-padding: 5 50; /* describes length: 50+50 = 100 width, 5+5=10 height */
 }
 
 .styled-toggle .label {
