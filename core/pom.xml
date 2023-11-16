@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2019, 2023 unknowIfGuestInDream
+  ~ Copyright (c) 2023 unknowIfGuestInDream.
   ~ All rights reserved.
   ~
   ~ Redistribution and use in source and binary forms, with or without
@@ -198,6 +198,11 @@
         <dependency>
             <groupId>com.alphacephei</groupId>
             <artifactId>vosk</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
