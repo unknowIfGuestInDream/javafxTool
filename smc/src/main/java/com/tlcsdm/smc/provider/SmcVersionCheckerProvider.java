@@ -27,7 +27,6 @@
 
 package com.tlcsdm.smc.provider;
 
-import cn.hutool.core.comparator.VersionComparator;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -35,6 +34,8 @@ import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
+
+import cn.hutool.core.comparator.VersionComparator;
 
 /**
  * @author unknowIfGuestInDream
@@ -51,6 +52,9 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
             return;
         }
         result = getReleaseResult(SmcConstant.PROJECT_VERSION_CHECK_URL, "");
+        if (result.isEmpty()) {
+            return;
+        }
         var list = parseReleaseResult(SmcConstant.PROJECT_VERSION_CHECK_URL, result);
         for (var map : list) {
             boolean isPrerelease = (boolean) map.get("isPrerelease");
@@ -61,17 +65,18 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
                     int compare = VersionComparator.INSTANCE.compare(version, SmcSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
                         String content = new StringBuilder().append(I18nUtils.get("smc.versionCheck.versionNum"))
-                            .append(": ").append(version).append("\r\n")
-                            .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(map.get("body"))
-                            .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
-                            .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n")
-                            .toString();
+                                .append(": ").append(version).append("\r\n")
+                                .append(I18nUtils.get("smc.versionCheck.body")).append(": \n").append(map.get("body"))
+                                .append("\r\n").append("\r\n").append(I18nUtils.get("smc.versionCheck.desc"))
+                                .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n")
+                                .toString();
                         SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("releaseUrl"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
-                                .graphic(LayoutHelper.iconView(
-                                    LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"), 48.0D))
-                                .text(content).show();
+                                    .graphic(LayoutHelper.iconView(
+                                            LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
+                                            48.0D))
+                                    .text(content).show();
                         });
                     }
                     break;
