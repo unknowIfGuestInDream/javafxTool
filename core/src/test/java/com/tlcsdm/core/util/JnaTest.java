@@ -27,14 +27,19 @@
 
 package com.tlcsdm.core.util;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.Platform;
-import com.sun.jna.Structure;
-import com.sun.jna.win32.StdCallLibrary;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+import com.sun.jna.Platform;
+import com.sun.jna.Structure;
+import com.sun.jna.win32.StdCallLibrary;
 
 /**
  * JNA 测试.
@@ -56,7 +61,7 @@ public class JnaTest {
      * Windows kernel32 library.
      */
     @Test
-    @EnabledOnOs({OS.WINDOWS})
+    @EnabledOnOs({ OS.WINDOWS })
     void kernel32() {
         Kernel32 INSTANCE = Native.load("kernel32", Kernel32.class);
         // Optional: wraps every call to the native library in a
@@ -66,6 +71,23 @@ public class JnaTest {
         SYNC_INSTANCE.GetSystemTime(time);
 
         System.out.println("Today's integer value is " + time.wDay);
+    }
+
+    @Test
+    @EnabledOnOs({ OS.WINDOWS })
+    void dllCall() {
+        Map<String, Object> optionsMap = new HashMap<>();
+        optionsMap.put(Library.OPTION_STRING_ENCODING, "UTF-16LE");
+        NativeLibrary instance = NativeLibrary.getInstance(
+                "C:\\Users\\os_tangliang\\git\\javafxTool\\core\\src\\test\\resources\\jna\\RMWCommunicationLibrary.dll",
+                optionsMap);
+        // 动态库的一个函数
+        // String NationEcTrans(String strUrl, String InData, Pointer OutData);
+        // 调用函数
+
+        String returnCode = instance.getFunction("Connect").invokeString(new Object[] { "3", 30000 }, false);
+        // 释放动态库连接，也可以不释放，没有太大关系
+        instance.dispose();
     }
 
     // This is the standard, stable way of mapping, which supports extensive
@@ -84,7 +106,7 @@ public class JnaTest {
         void GetSystemTime(SYSTEMTIME result);
     }
 
-    @Structure.FieldOrder({"wYear", "wMonth", "wDayOfWeek", "wDay", "wHour", "wMinute", "wSecond", "wMilliseconds"})
+    @Structure.FieldOrder({ "wYear", "wMonth", "wDayOfWeek", "wDay", "wHour", "wMinute", "wSecond", "wMilliseconds" })
     public static class SYSTEMTIME extends Structure {
         public short wYear;
         public short wMonth;
