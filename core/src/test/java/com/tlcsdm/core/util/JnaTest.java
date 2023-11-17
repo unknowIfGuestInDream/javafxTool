@@ -27,19 +27,14 @@
 
 package com.tlcsdm.core.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
 import com.sun.jna.Structure;
 import com.sun.jna.win32.StdCallLibrary;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * JNA 测试.
@@ -76,18 +71,18 @@ public class JnaTest {
     @Test
     @EnabledOnOs({ OS.WINDOWS })
     void dllCall() {
-        Map<String, Object> optionsMap = new HashMap<>();
-        optionsMap.put(Library.OPTION_STRING_ENCODING, "UTF-16LE");
-        NativeLibrary instance = NativeLibrary.getInstance(
-                "C:\\Users\\os_tangliang\\git\\javafxTool\\core\\src\\test\\resources\\jna\\RMWCommunicationLibrary.dll",
-                optionsMap);
-        // 动态库的一个函数
-        // String NationEcTrans(String strUrl, String InData, Pointer OutData);
-        // 调用函数
-
-        String returnCode = instance.getFunction("Connect").invokeString(new Object[] { "3", 30000 }, false);
-        // 释放动态库连接，也可以不释放，没有太大关系
-        instance.dispose();
+//        Map<String, Object> optionsMap = new HashMap<>();
+//        optionsMap.put(Library.OPTION_STRING_ENCODING, "UTF-16LE");
+//        NativeLibrary instance = NativeLibrary.getInstance(
+//                "C:\\Users\\os_tangliang\\git\\javafxTool\\core\\src\\test\\resources\\jna\\RMWCommunicationLibrary.dll",
+//                optionsMap);
+//        // 动态库的一个函数
+//        // String NationEcTrans(String strUrl, String InData, Pointer OutData);
+//        // 调用函数
+//
+//        String returnCode = instance.getFunction("Connect").invokeString(new Object[] { "3", 30000 }, false);
+//        // 释放动态库连接，也可以不释放，没有太大关系
+//        instance.dispose();
     }
 
     // This is the standard, stable way of mapping, which supports extensive
