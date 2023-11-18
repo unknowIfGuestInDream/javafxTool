@@ -56,7 +56,7 @@ public class JnaTest {
      * Windows kernel32 library.
      */
     @Test
-    @EnabledOnOs({ OS.WINDOWS })
+    @EnabledOnOs({OS.WINDOWS})
     void kernel32() {
         Kernel32 INSTANCE = Native.load("kernel32", Kernel32.class);
         // Optional: wraps every call to the native library in a
@@ -69,8 +69,15 @@ public class JnaTest {
     }
 
     @Test
-    @EnabledOnOs({ OS.WINDOWS })
+    @EnabledOnOs({OS.WINDOWS})
     void dllCall() {
+        //IScopeSetting.INSTANCE.Connect("COM3",290000);
+        //NativeLibrary.addSearchPath("RMWCommunicationLibrary", "E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary");
+        // ComCommunication.INSTANCE
+
+//        Native.
+//            load("E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary", ComCommunication.class);
+
 //        Map<String, Object> optionsMap = new HashMap<>();
 //        optionsMap.put(Library.OPTION_STRING_ENCODING, "UTF-16LE");
 //        NativeLibrary instance = NativeLibrary.getInstance(
@@ -83,6 +90,12 @@ public class JnaTest {
 //        String returnCode = instance.getFunction("Connect").invokeString(new Object[] { "3", 30000 }, false);
 //        // 释放动态库连接，也可以不释放，没有太大关系
 //        instance.dispose();
+    }
+
+    public interface ComCommunication extends Library {
+        ComCommunication INSTANCE = Native.
+            load("E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary", ComCommunication.class);
+
     }
 
     // This is the standard, stable way of mapping, which supports extensive
@@ -101,7 +114,7 @@ public class JnaTest {
         void GetSystemTime(SYSTEMTIME result);
     }
 
-    @Structure.FieldOrder({ "wYear", "wMonth", "wDayOfWeek", "wDay", "wHour", "wMinute", "wSecond", "wMilliseconds" })
+    @Structure.FieldOrder({"wYear", "wMonth", "wDayOfWeek", "wDay", "wHour", "wMinute", "wSecond", "wMilliseconds"})
     public static class SYSTEMTIME extends Structure {
         public short wYear;
         public short wMonth;
