@@ -65,7 +65,7 @@ public class JacksonUtil {
      */
     public static String bean2Json(Object data) {
         try {
-            return SingletonInstance.JSON_MAPPER.writeValueAsString(data);
+            return JSON_INSTANCE.JSON_MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -81,7 +81,7 @@ public class JacksonUtil {
      */
     public static <T> T json2Bean(String jsonData, Class<T> beanType) {
         try {
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, beanType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, beanType);
         } catch (IOException e) {
             StaticLog.error(e);
         }
@@ -97,8 +97,8 @@ public class JacksonUtil {
      */
     public static <T> List<T> json2List(String jsonData, Class<T> beanType) {
         try {
-            JavaType javaType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -115,9 +115,9 @@ public class JacksonUtil {
      */
     public static <K, V> List<Map<K, V>> json2ListMap(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType mapType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            JavaType javaType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, mapType);
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType mapType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, mapType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -133,8 +133,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> json2Set(String jsonData, Class<E> elementType) {
         try {
-            JavaType javaType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -151,8 +151,8 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> json2Map(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -169,9 +169,9 @@ public class JacksonUtil {
      */
     public static <K, T> Map<K, List<T>> json2MapValueList(String jsonData, Class<K> keyType, Class<T> beanType) {
         try {
-            JavaType listType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-            JavaType javaType = SingletonInstance.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
-            return SingletonInstance.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType listType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
+            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
+            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -183,7 +183,7 @@ public class JacksonUtil {
      */
     public static String bean2Yaml(Object data) {
         try {
-            return SingletonInstance.YAML_MAPPER.writeValueAsString(data);
+            return YAML_INSTANCE.YAML_MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -195,7 +195,7 @@ public class JacksonUtil {
      */
     public static <T> T yaml2Bean(String data, Class<T> beanType) {
         try {
-            return SingletonInstance.YAML_MAPPER.readValue(data, beanType);
+            return YAML_INSTANCE.YAML_MAPPER.readValue(data, beanType);
         } catch (IOException e) {
             StaticLog.error(e);
         }
@@ -211,8 +211,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> yaml2Set(String data, Class<E> elementType) {
         try {
-            JavaType javaType = SingletonInstance.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
-            return SingletonInstance.YAML_MAPPER.readValue(data, javaType);
+            JavaType javaType = YAML_INSTANCE.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            return YAML_INSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -229,8 +229,8 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> yaml2Map(String data, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = SingletonInstance.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            return SingletonInstance.YAML_MAPPER.readValue(data, javaType);
+            JavaType javaType = YAML_INSTANCE.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            return YAML_INSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -238,14 +238,14 @@ public class JacksonUtil {
     }
 
     public static JsonMapper getJsonMapper() {
-        return SingletonInstance.JSON_MAPPER;
+        return JSON_INSTANCE.JSON_MAPPER;
     }
 
     public static YAMLMapper getYamlMapper() {
-        return SingletonInstance.YAML_MAPPER;
+        return YAML_INSTANCE.YAML_MAPPER;
     }
 
-    private static class SingletonInstance {
+    private static class JSON_INSTANCE {
         private static final JsonMapper JSON_MAPPER = JsonMapper.builder()
             // 反序列化时忽略json中存在但Java对象不存在的属性
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -347,6 +347,9 @@ public class JacksonUtil {
             .findAndAddModules()
             .build();
 
+    }
+
+    private static class YAML_INSTANCE {
         private static final YAMLMapper YAML_MAPPER = YAMLMapper.builder()
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .findAndAddModules()
