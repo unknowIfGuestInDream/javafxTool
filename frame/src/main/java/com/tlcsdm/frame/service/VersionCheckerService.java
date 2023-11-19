@@ -103,7 +103,7 @@ public interface VersionCheckerService {
         try {
             return future.get(3, TimeUnit.SECONDS);
         } catch (ExecutionException | TimeoutException | UnExpectedResultException e) {
-            StaticLog.error("Failed to check for updates");
+            StaticLog.error("Failed to check for updates.");
         } catch (InterruptedException e) {
             StaticLog.error(e);
             Thread.currentThread().interrupt();
