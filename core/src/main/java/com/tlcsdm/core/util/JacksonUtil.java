@@ -52,20 +52,23 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+/**
+ * Jackson 工具类.
+ */
 public class JacksonUtil {
 
     private JacksonUtil() {
     }
 
     /**
-     * 将对象转换成JSON数据
+     * 将对象转换成JSON数据.
      *
      * @param data 对象
      * @return JSON数据
      */
     public static String bean2Json(Object data) {
         try {
-            return JSON_INSTANCE.JSON_MAPPER.writeValueAsString(data);
+            return JSONINSTANCE.JSON_MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -73,7 +76,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成对象
+     * 将JSON数据转换成对象.
      *
      * @param jsonData JSON数据
      * @param beanType 对象类型
@@ -81,7 +84,7 @@ public class JacksonUtil {
      */
     public static <T> T json2Bean(String jsonData, Class<T> beanType) {
         try {
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, beanType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, beanType);
         } catch (IOException e) {
             StaticLog.error(e);
         }
@@ -89,7 +92,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成列表
+     * 将JSON数据转换成列表.
      *
      * @param jsonData JSON数据
      * @param beanType 对象类型
@@ -97,8 +100,8 @@ public class JacksonUtil {
      */
     public static <T> List<T> json2List(String jsonData, Class<T> beanType) {
         try {
-            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -115,9 +118,9 @@ public class JacksonUtil {
      */
     public static <K, V> List<Map<K, V>> json2ListMap(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType mapType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, mapType);
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType mapType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, mapType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -125,7 +128,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成Set集合
+     * 将JSON数据转换成Set集合.
      *
      * @param jsonData    JSON数据
      * @param elementType 元素类型
@@ -133,8 +136,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> json2Set(String jsonData, Class<E> elementType) {
         try {
-            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -142,7 +145,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成Map集合
+     * 将JSON数据转换成Map集合.
      *
      * @param jsonData  JSON数据
      * @param keyType   键类型
@@ -151,8 +154,8 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> json2Map(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -169,9 +172,9 @@ public class JacksonUtil {
      */
     public static <K, T> Map<K, List<T>> json2MapValueList(String jsonData, Class<K> keyType, Class<T> beanType) {
         try {
-            JavaType listType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-            JavaType javaType = JSON_INSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
-            return JSON_INSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
+            JavaType listType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
+            return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -183,7 +186,7 @@ public class JacksonUtil {
      */
     public static String bean2Yaml(Object data) {
         try {
-            return YAML_INSTANCE.YAML_MAPPER.writeValueAsString(data);
+            return YAMLINSTANCE.YAML_MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -191,11 +194,11 @@ public class JacksonUtil {
     }
 
     /**
-     * 将Yaml数据转换成对象
+     * 将Yaml数据转换成对象.
      */
     public static <T> T yaml2Bean(String data, Class<T> beanType) {
         try {
-            return YAML_INSTANCE.YAML_MAPPER.readValue(data, beanType);
+            return YAMLINSTANCE.YAML_MAPPER.readValue(data, beanType);
         } catch (IOException e) {
             StaticLog.error(e);
         }
@@ -203,7 +206,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将Yaml数据转换成Set集合
+     * 将Yaml数据转换成Set集合.
      *
      * @param data        Yaml数据
      * @param elementType 元素类型
@@ -211,8 +214,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> yaml2Set(String data, Class<E> elementType) {
         try {
-            JavaType javaType = YAML_INSTANCE.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
-            return YAML_INSTANCE.YAML_MAPPER.readValue(data, javaType);
+            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            return YAMLINSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -220,7 +223,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将Yaml数据转换成Map集合
+     * 将Yaml数据转换成Map集合.
      *
      * @param data      Yaml数据
      * @param keyType   键类型
@@ -229,8 +232,8 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> yaml2Map(String data, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = YAML_INSTANCE.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
-            return YAML_INSTANCE.YAML_MAPPER.readValue(data, javaType);
+            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            return YAMLINSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
@@ -238,14 +241,14 @@ public class JacksonUtil {
     }
 
     public static JsonMapper getJsonMapper() {
-        return JSON_INSTANCE.JSON_MAPPER;
+        return JSONINSTANCE.JSON_MAPPER;
     }
 
     public static YAMLMapper getYamlMapper() {
-        return YAML_INSTANCE.YAML_MAPPER;
+        return YAMLINSTANCE.YAML_MAPPER;
     }
 
-    private static class JSON_INSTANCE {
+    private static class JSONINSTANCE {
         private static final JsonMapper JSON_MAPPER = JsonMapper.builder()
             // 反序列化时忽略json中存在但Java对象不存在的属性
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -349,7 +352,7 @@ public class JacksonUtil {
 
     }
 
-    private static class YAML_INSTANCE {
+    private static class YAMLINSTANCE {
         private static final YAMLMapper YAML_MAPPER = YAMLMapper.builder()
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
             .findAndAddModules()
