@@ -109,7 +109,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成List<Map<K, V>>.
+     * 将JSON数据转换成List<Map>.
      *
      * @param jsonData  JSON数据
      * @param keyType   键类型
@@ -163,7 +163,7 @@ public class JacksonUtil {
     }
 
     /**
-     * 将JSON数据转换成Map<K, List<T>>.
+     * 将JSON数据转换成Map<K, List>.
      *
      * @param jsonData JSON数据
      * @param keyType  键类型
