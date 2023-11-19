@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,7 +75,7 @@ class GirretParserTest {
         String changeJson = FileUtil
             .readUtf8String(FileUtil.file(ResourceUtil.getResource("girret").getPath(), "changes.json"));
         List<Change> changeList = JacksonUtil.json2List(changeJson, Change.class);
-        System.out.println(JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changeList));
+        System.out.println(JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changeList));
     }
 
 }

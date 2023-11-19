@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -109,11 +109,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * 用于收集girret上指定用户的指摘信息
- *
- * @author unknowIfGuestInDream
- */
 public class GirretReview extends SmcSample {
 
     private final static String defaultGirretUrl = "http://172.29.44.217/";
@@ -633,12 +628,12 @@ public class GirretReview extends SmcSample {
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
             FileUtil.writeUtf8String(
-                JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changesList),
+                JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changesList),
                 FileUtil.file(resultPath,
                     LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
                         + "-changes.json"));
             FileUtil.writeUtf8String(
-                JacksonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(commentsList),
+                JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(commentsList),
                 FileUtil.file(resultPath,
                     LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
                         + "-comments.json"));
