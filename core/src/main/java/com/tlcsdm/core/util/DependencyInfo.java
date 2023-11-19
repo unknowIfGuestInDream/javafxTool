@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c)  2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,17 +27,11 @@
 
 package com.tlcsdm.core.util;
 
-import java.util.List;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- * 项目总体依赖信息 可能需要手动维护，用于应用项目获取相应数据使用(需要应用模块过滤)
- *
- * @author unknowIfGuestInDream
- * @date 2023/8/3 17:05
- */
+import java.util.List;
+
 public class DependencyInfo {
 
     public static List<Dependency> getDependencyList() {
@@ -108,7 +102,7 @@ public class DependencyInfo {
                         "https://github.com/tabulapdf/tabula-java", "MIT License",
                         "http://www.opensource.org/licenses/mit-license.php"),
 
-                new Dependency("com.fasterxml.jackson.core", "jackson", "2.15.3", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.0", false,
                         "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                         "https://www.apache.org/licenses/LICENSE-2.0"),
 
