@@ -41,6 +41,8 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.type.SimpleType;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -176,8 +178,71 @@ public class JacksonUtil {
         return null;
     }
 
+    /**
+     * bean转换为Yaml 文本.
+     */
+    public static String bean2Yaml(Object data) {
+        try {
+            return SingletonInstance.YAML_MAPPER.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * 将Yaml数据转换成对象
+     */
+    public static <T> T yaml2Bean(String data, Class<T> beanType) {
+        try {
+            return SingletonInstance.YAML_MAPPER.readValue(data, beanType);
+        } catch (IOException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * 将Yaml数据转换成Set集合
+     *
+     * @param data        Yaml数据
+     * @param elementType 元素类型
+     * @return Set集合
+     */
+    public static <E> Set<E> yaml2Set(String data, Class<E> elementType) {
+        try {
+            JavaType javaType = SingletonInstance.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            return SingletonInstance.YAML_MAPPER.readValue(data, javaType);
+        } catch (JsonProcessingException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * 将Yaml数据转换成Map集合
+     *
+     * @param data      Yaml数据
+     * @param keyType   键类型
+     * @param valueType 值类型
+     * @return Map集合
+     */
+    public static <K, V> Map<K, V> yaml2Map(String data, Class<K> keyType, Class<V> valueType) {
+        try {
+            JavaType javaType = SingletonInstance.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            return SingletonInstance.YAML_MAPPER.readValue(data, javaType);
+        } catch (JsonProcessingException e) {
+            StaticLog.error(e);
+        }
+        return null;
+    }
+
     public static JsonMapper getJsonMapper() {
         return SingletonInstance.JSON_MAPPER;
+    }
+
+    public static YAMLMapper getYamlMapper() {
+        return SingletonInstance.YAML_MAPPER;
     }
 
     private static class SingletonInstance {
@@ -279,6 +344,12 @@ public class JacksonUtil {
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             // 序列化时自定义时间日期格式
             .defaultDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+            .findAndAddModules()
+            .build();
+
+        private static final YAMLMapper YAML_MAPPER = YAMLMapper.builder()
+            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+            .findAndAddModules()
             .build();
     }
 }

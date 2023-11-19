@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,18 +36,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * 需要在module.info中将jackson引用中去除static关键字才可启用测试类.
- *
- * @author unknowIfGuestInDream
- * @date 2023/4/2 10:38
- */
 @Disabled
 class JacksonTest {
 
@@ -232,6 +232,29 @@ class JacksonTest {
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         String json = "{age:12, name:'曹操'}";
         Assertions.assertDoesNotThrow(() -> objectMapper.readValue(json, User.class));
+    }
+
+    @Test
+    void yaml() {
+        String yaml = """
+            orderNo: A001
+            date: 2019-04-17
+            customerName: Customer, Joe
+            orderLines:
+               - item: No. 9 Sprockets
+                 quantity: 12
+                 unitPrice: 1.23
+               - item: Widget (10mm)
+                 quantity: 4
+                 unitPrice: 3.45
+            """;
+        List<OrderLine> lines = new ArrayList<>();
+        lines.add(new OrderLine("Copper Wire", 1, new BigDecimal(50.67).setScale(2, RoundingMode.HALF_UP)));
+        lines.add(new OrderLine("Washer", 24, new BigDecimal(.15).setScale(2, RoundingMode.HALF_UP)));
+        LocalDate orderDate = LocalDate.parse("2019-04-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Order order = new Order("B-9910", orderDate, "New,Jane", lines);
+        System.out.println(JacksonUtil.bean2Yaml(order));
+        System.out.println(JacksonUtil.yaml2Bean(yaml, Order.class));
     }
 
 }

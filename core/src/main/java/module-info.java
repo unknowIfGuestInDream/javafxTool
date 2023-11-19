@@ -43,6 +43,7 @@ module com.tlcsdm.core {
     requires static cn.hutool.http;
     requires static jakarta.xml.bind;
     requires static com.fasterxml.jackson.dataformat.yaml;
+    requires static com.fasterxml.jackson.datatype.jsr310;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
