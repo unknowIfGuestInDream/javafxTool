@@ -12,8 +12,9 @@ jobs:
   lock:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v4
+      - uses: dessant/lock-threads@v5
         with:
+          process-only: 'issues, prs'
           issue-inactive-days: '7'
           issue-comment: >
             This issue has been automatically locked since there has not been any recent activity after it was closed.

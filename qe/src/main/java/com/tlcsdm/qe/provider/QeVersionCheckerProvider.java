@@ -27,7 +27,6 @@
 
 package com.tlcsdm.qe.provider;
 
-import cn.hutool.core.comparator.VersionComparator;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -35,6 +34,8 @@ import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import com.tlcsdm.qe.util.QeConstant;
+
+import cn.hutool.core.comparator.VersionComparator;
 
 /**
  * @author unknowIfGuestInDream
@@ -50,6 +51,9 @@ public class QeVersionCheckerProvider implements VersionCheckerService {
             return;
         }
         result = getReleaseResult(QeConstant.PROJECT_VERSION_CHECK_URL, "");
+        if (result.isEmpty()) {
+            return;
+        }
         var list = parseReleaseResult(QeConstant.PROJECT_VERSION_CHECK_URL, result);
         for (var map : list) {
             boolean isPrerelease = (boolean) map.get("isPrerelease");
@@ -60,16 +64,18 @@ public class QeVersionCheckerProvider implements VersionCheckerService {
                     int compare = VersionComparator.INSTANCE.compare(version, QeSample.PROJECT_INFO.getVersion());
                     if (compare > 0) {
                         String content = new StringBuilder().append(I18nUtils.get("qe.versionCheck.versionNum"))
-                            .append(": ").append(version).append("\r\n").append(I18nUtils.get("qe.versionCheck.body"))
-                            .append(": \n").append(map.get("body")).append("\r\n").append("\r\n")
-                            .append(I18nUtils.get("qe.versionCheck.desc")).append("\r\n")
-                            .append(I18nUtils.get("qe.versionCheck.desc.other")).append("\n").toString();
+                                .append(": ").append(version).append("\r\n")
+                                .append(I18nUtils.get("qe.versionCheck.body")).append(": \n").append(map.get("body"))
+                                .append("\r\n").append("\r\n").append(I18nUtils.get("qe.versionCheck.desc"))
+                                .append("\r\n").append(I18nUtils.get("qe.versionCheck.desc.other")).append("\n")
+                                .toString();
                         QeConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("releaseUrl"));
                         FxApp.runLater(() -> {
                             FxNotifications.defaultNotify().title(I18nUtils.get("qe.versionCheck.title"))
-                                .graphic(LayoutHelper
-                                    .iconView(LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"), 48.0D))
-                                .text(content).show();
+                                    .graphic(LayoutHelper.iconView(
+                                            LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
+                                            48.0D))
+                                    .text(content).show();
                         });
                     }
                     break;
