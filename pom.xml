@@ -119,6 +119,7 @@
         <java2.version>3.4.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
         <jaxb.version>4.0.4</jaxb.version>
+        <formsfx.version>11.6.0</formsfx.version>
     </properties>
 
     <issueManagement>
@@ -515,6 +516,11 @@
                 <groupId>org.kordamp.bootstrapfx</groupId>
                 <artifactId>bootstrapfx-core</artifactId>
                 <version>${bootstrapfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dlsc.formsfx</groupId>
+                <artifactId>formsfx-core</artifactId>
+                <version>${formsfx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.kordamp.ikonli</groupId>
