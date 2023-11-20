@@ -27,10 +27,10 @@
 
 package com.tlcsdm.core.util;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-
-import java.util.List;
 
 public class DependencyInfo {
 
@@ -102,7 +102,7 @@ public class DependencyInfo {
                         "https://github.com/tabulapdf/tabula-java", "MIT License",
                         "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.0", false,
+                new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.0", false,
                         "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                         "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -140,6 +140,10 @@ public class DependencyInfo {
 
                 new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.16.0", false,
                         "https://github.com/dlsc-software-consulting-gmbh/PreferencesFX", "Apache License, Version 2.0",
+                        "http://www.apache.org/licenses/LICENSE-2.0"),
+
+                new Dependency("com.dlsc.formsfx", "formsfx", "11.6.0", false,
+                        "https://github.com/dlsc-software-consulting-gmbh/FormsFX", "Apache License, Version 2.0",
                         "http://www.apache.org/licenses/LICENSE-2.0"),
 
                 new Dependency("com.yahoo.platform.yui", "yuicompressor", "2.4.8", false,
