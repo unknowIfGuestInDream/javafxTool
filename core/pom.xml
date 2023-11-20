@@ -211,6 +211,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>ws.schild</groupId>
             <artifactId>jave-core</artifactId>
             <scope>provided</scope>
