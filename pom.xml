@@ -674,6 +674,11 @@
                 <version>${vosk.version}</version>
             </dependency>
             <!-- vosk end -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
             <!-- Java Audio Video Encoder start -->
             <dependency>
                 <groupId>ws.schild</groupId>
