@@ -3,6 +3,7 @@
 
 # These are explicitly windows files and should use crlf
 *.bat           text eol=crlf
+*.vbs           text eol=crlf
 
 # These files are text and should be normalized (Convert crlf => lf)
 *.bash          text eol=lf
@@ -49,3 +50,5 @@ docs/*          linguist-vendored
 *.xlsx          binary
 *.csv           binary
 *.dll           binary
+*.bat           shell
+*.vbs           shell
