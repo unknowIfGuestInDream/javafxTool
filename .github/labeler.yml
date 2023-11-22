@@ -22,6 +22,9 @@ common:
 cg:
   - cg/**
 
+ci:
+  - jenkins/**
+
 test:
   - smc/src/test/**
   - core/src/test/**
