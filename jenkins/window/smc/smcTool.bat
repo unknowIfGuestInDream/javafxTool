@@ -1,7 +1,8 @@
 @echo off
 set check_flag=true
+set java_path=.\jre\bin\java.exe
 if exist .\jre\bin\java.exe (
-  .\jre\bin\java.exe -version
+  %java_path% -version
 ) else (
 if "true" == "%check_flag%" (
   java -version
@@ -12,8 +13,9 @@ if not %errorlevel% == 0 (
   pause
   goto END
 )
+set java_path=java
 )
 :START
-cmd /c start /b .\jre\bin\java.exe -jar javafxTool-smc.jar
+cmd /c start /b %java_path% -jar javafxTool-smc.jar
 
 :END

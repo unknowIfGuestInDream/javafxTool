@@ -83,7 +83,7 @@
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.23</hutool.version>
-        <commons-lang3.version>3.13.0</commons-lang3.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
         <logback-classic.version>1.4.11</logback-classic.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
