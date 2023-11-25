@@ -245,6 +245,11 @@
             <artifactId>jaxb-jxc</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
