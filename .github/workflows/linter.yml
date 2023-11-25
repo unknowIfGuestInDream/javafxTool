@@ -54,3 +54,4 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_NATURAL_LANGUAGE: true
           VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_PYTHON: true
