@@ -30,6 +30,9 @@ package com.tlcsdm.smc.provider;
 import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.smc.SmcSample;
 
+/**
+ * Banner.
+ */
 public class SmcBanner implements BannerPrinterService {
     @Override
     public void printBanner() {

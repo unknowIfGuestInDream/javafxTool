@@ -30,6 +30,9 @@ package com.tlcsdm.cg.provider;
 import com.tlcsdm.cg.CgSample;
 import com.tlcsdm.frame.service.BannerPrinterService;
 
+/**
+ * Banner.
+ */
 public class CgBanner implements BannerPrinterService {
     @Override
     public void printBanner() {

@@ -30,6 +30,9 @@ package com.tlcsdm.qe.provider;
 import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.qe.QeSample;
 
+/**
+ * Banner.
+ */
 public class QeBanner implements BannerPrinterService {
     @Override
     public void printBanner() {
