@@ -121,6 +121,7 @@
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
         <jaxb.version>4.0.4</jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
+        <jython.version>2.7.3</jython.version>
     </properties>
 
     <issueManagement>
@@ -725,6 +726,11 @@
                 <version>${jaxb.version}</version>
             </dependency>
             <!-- JAXB end -->
+            <dependency>
+                <groupId>org.python</groupId>
+                <artifactId>jython-standalone</artifactId>
+                <version>${jython.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
