@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,7 @@
 
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
+import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.FXSamplerProject;
@@ -38,6 +39,7 @@ import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.login.service.LoginCheck;
 import com.tlcsdm.smc.config.SmcGroovyLoaderProvider;
 import com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
+import com.tlcsdm.smc.provider.SmcBanner;
 import com.tlcsdm.smc.provider.SmcCenterPanelProvider;
 import com.tlcsdm.smc.provider.SmcConfigurationProvider;
 import com.tlcsdm.smc.provider.SmcLoginCheckProvider;
@@ -98,4 +100,5 @@ module com.tlcsdm.smc {
     provides SamplePostProcessorService with SmcSamplePostProcessorProvider;
     provides VersionCheckerService with SmcVersionCheckerProvider;
     provides SamplesTreeViewConfiguration with SmcSampleTreeViewConfiguration;
+    provides BannerPrinterService with SmcBanner;
 }
