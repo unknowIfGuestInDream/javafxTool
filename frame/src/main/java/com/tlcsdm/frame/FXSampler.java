@@ -100,6 +100,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
+/**
+ * 启动类.
+ */
 public final class FXSampler extends Application {
 
     private Map<String, Project> projectsMap;
