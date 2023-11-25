@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,7 @@
 
 import com.tlcsdm.core.freemarker.TemplateLoaderService;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
+import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.FXSamplerProject;
@@ -37,6 +38,7 @@ import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.qe.config.QeGroovyLoaderProvider;
 import com.tlcsdm.qe.config.QeTemplateLoaderProvider;
+import com.tlcsdm.qe.provider.QeBanner;
 import com.tlcsdm.qe.provider.QeCenterPanelProvider;
 import com.tlcsdm.qe.provider.QeConfigurationProvider;
 import com.tlcsdm.qe.provider.QeMenubarConfigrationProvider;
@@ -83,4 +85,5 @@ module com.tlcsdm.qe {
     provides SamplePostProcessorService with QeSamplePostProcessorProvider;
     provides VersionCheckerService with QeVersionCheckerProvider;
     provides SamplesTreeViewConfiguration with QeSampleTreeViewConfiguration;
+    provides BannerPrinterService with QeBanner;
 }

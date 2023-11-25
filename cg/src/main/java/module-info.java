@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import com.tlcsdm.cg.provider.CgBanner;
 import com.tlcsdm.cg.provider.CgCenterPanelProvider;
 import com.tlcsdm.cg.provider.CgConfigurationProvider;
 import com.tlcsdm.cg.provider.CgMenubarConfigrationProvider;
@@ -33,6 +34,7 @@ import com.tlcsdm.cg.provider.CgSampleTreeViewConfiguration;
 import com.tlcsdm.cg.provider.CgSamplerProjectProvider;
 import com.tlcsdm.cg.provider.CgSplashProvider;
 import com.tlcsdm.cg.provider.CgVersionCheckerProvider;
+import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.FXSamplerProject;
@@ -71,5 +73,6 @@ module com.tlcsdm.cg {
     provides SamplePostProcessorService with CgSamplePostProcessorProvider;
     provides VersionCheckerService with CgVersionCheckerProvider;
     provides SamplesTreeViewConfiguration with CgSampleTreeViewConfiguration;
+    provides BannerPrinterService with CgBanner;
 
 }

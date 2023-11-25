@@ -17,6 +17,9 @@ max_line_length = 120
 indent_style = space
 indent_size = 4
 
+[*.txt]
+insert_final_newline = false
+
 # Indentation override for all JS under lib directory
 [*.js]
 indent_style = space

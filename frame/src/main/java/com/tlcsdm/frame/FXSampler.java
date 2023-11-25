@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,6 +56,7 @@ import com.tlcsdm.frame.model.Project;
 import com.tlcsdm.frame.model.SampleTree;
 import com.tlcsdm.frame.model.SampleTreeViewModel;
 import com.tlcsdm.frame.model.WelcomePage;
+import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.frame.service.CenterPanelService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.MenubarConfigration;
@@ -100,9 +101,7 @@ import java.util.Objects;
 import java.util.ServiceLoader;
 
 /**
- * 启动入口.
- *
- * @author unknowIfGuestInDream
+ * 启动类.
  */
 public final class FXSampler extends Application {
 
@@ -134,6 +133,7 @@ public final class FXSampler extends Application {
     @Override
     public void start(final Stage primaryStage) {
         stopWatch.start();
+        this.printBanner();
         stage = primaryStage;
         StaticLog.debug("Load splash screen.");
         EventBus.getDefault().register(this);
@@ -546,5 +546,15 @@ public final class FXSampler extends Application {
         welcomeLabel2.setStyle("-fx-font-size: 1.25em; -fx-padding: 0 0 0 5;");
 
         return new WelcomePage(I18nUtils.get("frame.sample.welcome"), new VBox(5, welcomeLabel1, welcomeLabel2));
+    }
+
+    /**
+     * 输出banner.
+     */
+    private void printBanner() {
+        ServiceLoader<BannerPrinterService> banners = ServiceLoader.load(BannerPrinterService.class);
+        for (BannerPrinterService banner : banners) {
+            banner.printBanner();
+        }
     }
 }
