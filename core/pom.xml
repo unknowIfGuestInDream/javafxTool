@@ -250,6 +250,11 @@
             <artifactId>jython-standalone</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>se.bjurr.violations</groupId>
+            <artifactId>violations-lib</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
