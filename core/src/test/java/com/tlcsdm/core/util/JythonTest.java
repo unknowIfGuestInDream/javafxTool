@@ -98,12 +98,8 @@ class JythonTest {
     }
 
     @Test
-    void jythonUtil() {
-//        JythonUtil shellInter = new JythonUtil("");
-//        String path = ResourceUtil.getResource("jython/test1.py").getPath();
-//        shellInter.execfile(path);
-//        PyFunction function = shellInter.loadPythonFunc(shellInter.interpreter, "testStrAdd");
-//        Object hello = shellInter.execFuncOfArr(function, "hello");
-//        System.out.println(hello);
+    void cpplint() {
+        String cppPath = ResourceUtil.getResource("cpp/Decorator.cpp").getPath();
+        String lintPath = ResourceUtil.getResource("jython/cpplint.py").getPath();
     }
 }
