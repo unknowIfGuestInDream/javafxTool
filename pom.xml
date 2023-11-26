@@ -123,6 +123,8 @@
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.3</jython.version>
         <violations.version>1.156.7</violations.version>
+        <asm.version>9.6</asm.version>
+        <pmd.version>6.55.0</pmd.version>
     </properties>
 
     <issueManagement>
@@ -738,6 +740,45 @@
                 <artifactId>violations-lib</artifactId>
                 <version>${violations.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <!-- PMD end -->
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-java</artifactId>
+                <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-test</artifactId>
+                <version>${pmd.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-lang-test</artifactId>
+                <version>${pmd.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-xml</artifactId>
+                <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-cpp</artifactId>
+                <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-python</artifactId>
+                <version>${pmd.version}</version>
+            </dependency>
+            <!-- PMD end -->
         </dependencies>
     </dependencyManagement>
 
