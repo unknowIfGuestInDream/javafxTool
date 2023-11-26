@@ -16,6 +16,10 @@
 # github
 *.ftl           linguist-language=freemarker
 *.groovy        linguist-language=Groovy
+*.cpp           linguist-language=C++
+*.py            linguist-language=Python
+*.bat           linguist-language=Shell
+*.vbs           linguist-language=Shell
 frame/src/main/resources/com/tlcsdm/frame/static/css/*        linguist-vendored
 docs/*          linguist-vendored
 
@@ -50,5 +54,4 @@ docs/*          linguist-vendored
 *.xlsx          binary
 *.csv           binary
 *.dll           binary
-*.bat           shell
-*.vbs           shell
+*.txt           binary
