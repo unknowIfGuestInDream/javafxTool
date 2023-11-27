@@ -731,7 +731,7 @@
             <!-- JAXB end -->
             <dependency>
                 <groupId>org.python</groupId>
-                <artifactId>jython-standalone</artifactId>
+                <artifactId>jython-slim</artifactId>
                 <version>${jython.version}</version>
             </dependency>
             <!-- 用于解析静态代码分析报告文件的 Java 库 -->
