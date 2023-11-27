@@ -27,8 +27,12 @@
 
 package com.tlcsdm.cg.provider;
 
+import cn.hutool.core.io.FileUtil;
 import com.tlcsdm.cg.CgSample;
 import com.tlcsdm.frame.service.BannerPrinterService;
+
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Banner.
@@ -36,7 +40,19 @@ import com.tlcsdm.frame.service.BannerPrinterService;
 public class CgBanner implements BannerPrinterService {
     @Override
     public void printBanner() {
-        System.out.println(getTextBanner());
+        String banner = getTextBanner();
+        if (banner == null || banner.isEmpty()) {
+            return;
+        }
+        System.out.println(banner);
         System.out.printf(" :: CgTool ::                         (v%s)%n", CgSample.PROJECT_INFO.getVersion());
+    }
+
+    private String getTextBanner() {
+        URL url = CgBanner.class.getResource("/banner.txt");
+        if (url != null) {
+            return FileUtil.readString(url, StandardCharsets.UTF_8);
+        }
+        return "";
     }
 }

@@ -27,11 +27,6 @@
 
 package com.tlcsdm.frame.service;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-
-import java.net.URL;
-
 /**
  * 启动输出banner.
  *
@@ -43,16 +38,5 @@ public interface BannerPrinterService {
      * 打印banner.
      */
     void printBanner();
-
-    /**
-     * 获取banner.txt的内容.
-     */
-    default String getTextBanner() {
-        URL url = ResourceUtil.getResource("/banner.txt", getClass());
-        if (url != null) {
-            return FileUtil.readUtf8String(url.toExternalForm());
-        }
-        return "";
-    }
 
 }
