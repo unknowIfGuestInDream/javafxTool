@@ -33,6 +33,7 @@ modules. demo is the provided example module.
 - SamplePostProcessorService: Sample post-processing
 - VersionCheckerService: Version update check
 - SamplesTreeViewConfiguration: Menu tree configuration
+- BannerPrinterService: Start Banner
 
 ## login
 

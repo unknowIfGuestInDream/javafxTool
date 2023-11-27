@@ -125,6 +125,7 @@
         <violations.version>1.156.7</violations.version>
         <asm.version>9.6</asm.version>
         <pmd.version>6.55.0</pmd.version>
+        <bytebuddy.version>1.14.10</bytebuddy.version>
     </properties>
 
     <issueManagement>
@@ -731,7 +732,7 @@
             <!-- JAXB end -->
             <dependency>
                 <groupId>org.python</groupId>
-                <artifactId>jython-standalone</artifactId>
+                <artifactId>jython-slim</artifactId>
                 <version>${jython.version}</version>
             </dependency>
             <!-- 用于解析静态代码分析报告文件的 Java 库 -->
@@ -779,6 +780,21 @@
                 <version>${pmd.version}</version>
             </dependency>
             <!-- PMD end -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${bytebuddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${bytebuddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-dep</artifactId>
+                <version>${bytebuddy.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -894,7 +910,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
