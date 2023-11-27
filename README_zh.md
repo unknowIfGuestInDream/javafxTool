@@ -31,6 +31,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 - SamplePostProcessorService: Sample资源后置处理
 - VersionCheckerService: 版本更新检查
 - SamplesTreeViewConfiguration: 菜单树配置
+- BannerPrinterService: 启动Banner
 
 ## login
 
