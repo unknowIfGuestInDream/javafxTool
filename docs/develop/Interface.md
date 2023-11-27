@@ -12,6 +12,7 @@
     6. SamplePostProcessorService: Sample资源后置处理
     7. VersionCheckerService: 版本更新检查
     8. SamplesTreeViewConfiguration: 菜单树配置
+    9. BannerPrinterService: 启动Banner
 - login
     1. LoginCheck: 登录校验
 

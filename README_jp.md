@@ -31,6 +31,7 @@ frameとloginは基本モジュールで、Java SPI経由でプラグイン可�
 - SamplePostProcessorService: Sampleの後処理サンプル
 - VersionCheckerService: バージョン更新チェック
 - SamplesTreeViewConfiguration: メニューツリーの構成
+- BannerPrinterService: スタートバナー
 
 ## login
 
