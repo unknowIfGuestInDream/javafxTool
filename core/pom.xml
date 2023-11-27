@@ -247,8 +247,8 @@
         </dependency>
         <dependency>
             <groupId>org.python</groupId>
-            <artifactId>jython-standalone</artifactId>
-            <scope>test</scope>
+            <artifactId>jython-slim</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>se.bjurr.violations</groupId>
