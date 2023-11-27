@@ -27,12 +27,8 @@
 
 package com.tlcsdm.qe.provider;
 
-import cn.hutool.core.io.FileUtil;
 import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.qe.QeSample;
-
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Banner.
@@ -48,11 +44,4 @@ public class QeBanner implements BannerPrinterService {
         System.out.printf(" :: QeTool ::                          (v%s)%n", QeSample.PROJECT_INFO.getVersion());
     }
 
-    private String getTextBanner() {
-        URL url = QeBanner.class.getResource("/banner.txt");
-        if (url != null) {
-            return FileUtil.readString(url, StandardCharsets.UTF_8);
-        }
-        return "";
-    }
 }
