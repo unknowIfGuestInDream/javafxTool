@@ -76,27 +76,27 @@ public class DependencyInfo {
 
             new Dependency("commons-io", "commons-io", "2.15.0", true,
                 "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.dom4j", "dom4j", "2.1.4", false, "http://dom4j.github.io/", "Plexus",
                 "https://github.com/dom4j/dom4j/blob/master/LICENSE"),
 
             new Dependency("io.github.java-diff-utils", "java-diff-utils", "4.12", false,
                 "https://github.com/java-diff-utils/java-diff-utils", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
             new Dependency("com.google.guava", "guava", "32.1.3-jre", false, "https://github.com/google/guava",
-                "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.apache.pdfbox", "pdfbox", "3.0.0", false, "https://pdfbox.apache.org/",
-                "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("technology.tabula", "tabula", "1.0.5", false,
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
@@ -118,14 +118,14 @@ public class DependencyInfo {
 
             new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.0.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.2", false,
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
             new Dependency("org.apache.groovy", "groovy", "4.0.15", false, "https://groovy-lang.org",
-                "Apache License, Version 2.0", "http://www.apache.org/licenses/LICENSE-2.0"),
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
                 "MIT License", "http://www.sikulix.com/disclaimer/#license"),
@@ -140,11 +140,11 @@ public class DependencyInfo {
 
             new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.16.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PreferencesFX", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.dlsc.formsfx", "formsfx", "11.6.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/FormsFX", "Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0"),
+                "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.yahoo.platform.yui", "yuicompressor", "2.4.8", false,
                 "https://github.com/yui/yuicompressor", "BSD License",
@@ -154,7 +154,10 @@ public class DependencyInfo {
                 "BSD-3-Clause license", "https://github.com/eclipse-ee4j/jaxb-ri/blob/master/LICENSE.md"),
 
             new Dependency("org.python", "jython", "2.7.3", false, "https://github.com/jython/jython",
-                "PSF license", "https://github.com/jython/jython/blob/master/LICENSE.txt"));
+                "PSF license", "https://github.com/jython/jython/blob/master/LICENSE.txt"),
+
+            new Dependency("net.bytebuddy", "byte-buddy", "1.14.10", false, "https://bytebuddy.net/",
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     public static class Dependency {
