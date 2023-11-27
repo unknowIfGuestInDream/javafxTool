@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -175,6 +175,13 @@ public class CoreUtil {
             }
         });
         return !list.isEmpty() ? path : file.getParent();
+    }
+
+    /**
+     * 获取运行位置下runtime文件夹.
+     */
+    public static String getRuntimePath() {
+        return getRootPath() + File.separator + "runtime";
     }
 
     /**
