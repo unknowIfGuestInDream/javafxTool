@@ -36,7 +36,12 @@ import com.tlcsdm.qe.QeSample;
 public class QeBanner implements BannerPrinterService {
     @Override
     public void printBanner() {
-        System.out.println(getTextBanner());
+        String banner = getTextBanner();
+        if (banner == null || banner.isEmpty()) {
+            return;
+        }
+        System.out.println(banner);
         System.out.printf(" :: QeTool ::                          (v%s)%n", QeSample.PROJECT_INFO.getVersion());
     }
+
 }
