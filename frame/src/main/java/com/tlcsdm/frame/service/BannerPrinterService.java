@@ -31,6 +31,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 启动输出banner.
@@ -50,7 +51,7 @@ public interface BannerPrinterService {
     default String getTextBanner() {
         URL url = ResourceUtil.getResource("/banner.txt", getClass());
         if (url != null) {
-            return FileUtil.readUtf8String(url.toExternalForm());
+            return FileUtil.readString(url, StandardCharsets.UTF_8);
         }
         return "";
     }
