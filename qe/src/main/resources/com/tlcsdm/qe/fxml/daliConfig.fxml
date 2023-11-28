@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright (c) 2023 unknowIfGuestInDream
+  ~ Copyright (c) 2023 unknowIfGuestInDream.
   ~ All rights reserved.
   ~
   ~ Redistribution and use in source and binary forms, with or without
@@ -34,13 +34,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <ScrollPane id="rootPane" fitToHeight="true" fitToWidth="true" pannable="true" stylesheets="@daliConfig.css"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.tlcsdm.qe.tools.DaliDemo">
     <content>
         <AnchorPane>
@@ -83,7 +84,11 @@
                                         onAction="#showDetailPane" prefHeight="44.0" prefWidth="200.0"
                                         styleClass="daliSubTitle_2xx" text="207: LED modules"/>
                                 <Button layoutX="138.0" layoutY="125.0" mnemonicParsing="false"
-                                        onAction="#showDetailPane" text="Memory bank"/>
+                                        onAction="#showDetailPane" text="Memory bank">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
                                 <Button fx:id="btnColourControl" layoutX="47.0" layoutY="247.0" mnemonicParsing="false"
                                         onAction="#showDetailPane" prefHeight="44.0" prefWidth="200.0"
                                         styleClass="daliSubTitle_2xx" text="209: Colour Control"/>
