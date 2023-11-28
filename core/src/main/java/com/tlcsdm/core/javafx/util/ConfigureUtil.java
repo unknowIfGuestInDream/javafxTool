@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,16 +29,13 @@ package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.util.CoreUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author unknowIfGuestInDream
- * @date 2022/11/27 0:10
- */
 public class ConfigureUtil {
 
     private ConfigureUtil() {
@@ -49,11 +46,11 @@ public class ConfigureUtil {
     }
 
     public static String getConfigureTemplatePath() {
-        return getConfigurePath() + "/templates";
+        return CoreUtil.getRuntimePath() + "/templates";
     }
 
     public static String getConfigureGroovyPath() {
-        return getConfigurePath() + "/groovy";
+        return CoreUtil.getRuntimePath() + "/groovy";
     }
 
     public static String getConfigureTemplatePath(String fileName) {

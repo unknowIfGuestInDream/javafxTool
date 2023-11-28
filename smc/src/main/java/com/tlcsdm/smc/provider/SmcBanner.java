@@ -36,7 +36,12 @@ import com.tlcsdm.smc.SmcSample;
 public class SmcBanner implements BannerPrinterService {
     @Override
     public void printBanner() {
-        System.out.println(getTextBanner());
+        String banner = getTextBanner();
+        if (banner == null || banner.isEmpty()) {
+            return;
+        }
+        System.out.println(banner);
         System.out.printf(" :: SmcTool ::                                     (v%s)%n", SmcSample.PROJECT_INFO.getVersion());
     }
+
 }

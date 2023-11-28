@@ -36,7 +36,12 @@ import com.tlcsdm.frame.service.BannerPrinterService;
 public class CgBanner implements BannerPrinterService {
     @Override
     public void printBanner() {
-        System.out.println(getTextBanner());
+        String banner = getTextBanner();
+        if (banner == null || banner.isEmpty()) {
+            return;
+        }
+        System.out.println(banner);
         System.out.printf(" :: CgTool ::                         (v%s)%n", CgSample.PROJECT_INFO.getVersion());
     }
+
 }
