@@ -74,7 +74,7 @@ public class DependencyInfo {
                         "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                         "https://www.apache.org/licenses/LICENSE-2.0"),
 
-                new Dependency("commons-io", "commons-io", "2.15.0", true,
+                new Dependency("commons-io", "commons-io", "2.15.1", true,
                         "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
                         "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -95,7 +95,7 @@ public class DependencyInfo {
                         "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                         "https://www.apache.org/licenses/LICENSE-2.0"),
 
-                new Dependency("org.apache.pdfbox", "pdfbox", "3.0.0", false, "https://pdfbox.apache.org/",
+                new Dependency("org.apache.pdfbox", "pdfbox", "3.0.1", false, "https://pdfbox.apache.org/",
                         "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
                 new Dependency("technology.tabula", "tabula", "1.0.5", false,
@@ -124,7 +124,7 @@ public class DependencyInfo {
                         "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                         "http://opensource.org/licenses/BSD-2-Clause"),
 
-                new Dependency("org.apache.groovy", "groovy", "4.0.15", false, "https://groovy-lang.org",
+                new Dependency("org.apache.groovy", "groovy", "4.0.16", false, "https://groovy-lang.org",
                         "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
                 new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
