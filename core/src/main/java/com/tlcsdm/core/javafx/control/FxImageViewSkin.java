@@ -29,11 +29,24 @@ package com.tlcsdm.core.javafx.control;
 
 import com.dlsc.pdfviewfx.PDFView;
 import com.dlsc.pdfviewfx.skins.PDFViewSkin;
+import javafx.animation.ParallelTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Separator;
 import javafx.scene.control.SkinBase;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,92 +68,20 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 
     private final ListView<PDFViewSkin.PageSearchResult> searchResultListView = new ListView<>();
 
+    private final ImageView imageView;
+
     private final Map<Integer, Image> imageCache = new HashMap<>();
 
-    protected FxImageViewSkin(FxImageView fxImageView) {
-        super(fxImageView);
-//        view.getSearchResults().addListener((Observable it) -> {
-//            ObservableList<PDFView.SearchResult> searchResults = view.getSearchResults();
-//            Map<Integer, PDFViewSkin.PageSearchResult> itemMap = new HashMap<>();
-//
-//            searchResults.forEach(result -> {
-//                PDFViewSkin.PageSearchResult pageSearchResult = itemMap.computeIfAbsent(result.getPageNumber(),
-//                    key -> new PDFViewSkin.PageSearchResult(result.getPageNumber(), result.getSearchText()));
-//                pageSearchResult.getItems().add(result);
-//            });
-//
-//            List<PDFViewSkin.PageSearchResult> list = new ArrayList<>(itemMap.values());
-//            Collections.sort(list);
-//            pageSearchResults.setAll(list);
-//        });
-//
-//        searchResultListView.getStyleClass().add("search-result-list-view");
-//        searchResultListView.visibleProperty().bind(Bindings.isNotEmpty(pageSearchResults).and(view.showSearchResultsProperty()));
-//        searchResultListView.managedProperty().bind(Bindings.isNotEmpty(pageSearchResults).and(view.showSearchResultsProperty()));
-//        searchResultListView.setPlaceholder(null);
-//        searchResultListView.setCellFactory(listView -> new PDFViewSkin.SearchResultListCell());
-//        searchResultListView.setItems(pageSearchResults);
-//        searchResultListView.getSelectionModel().selectedItemProperty().addListener(it -> {
-//            PDFViewSkin.PageSearchResult result = searchResultListView.getSelectionModel().getSelectedItem();
-//            if (result != null) {
-//                view.setSelectedSearchResult(result.getItems().get(0));
-//            }
-//        });
-//
-//        view.selectedSearchResultProperty().addListener(it -> {
-//            PDFView.SearchResult result = view.getSelectedSearchResult();
-//            if (result != null) {
-//                pageSearchResults.stream()
-//                    .filter(r -> r.getPageNumber() == result.getPageNumber()).findFirst()
-//                    .ifPresent(r -> {
-//                        searchResultListView.getSelectionModel().select(r);
-//                        maybeScrollTo(searchResultListView, r);
-//                    });
-//            }
-//        });
-//
-//        thumbnailListView.getStyleClass().add("thumbnail-list-view");
-//        thumbnailListView.setPlaceholder(null);
-//        thumbnailListView.setCellFactory(listView -> new PDFViewSkin.PdfPageListCell());
-//        thumbnailListView.setItems(pdfFilePages);
-//        thumbnailListView.prefWidthProperty().bind(view.thumbnailSizeProperty().multiply(1.25));
-//        thumbnailListView.requestFocus();
-//        thumbnailListView.setFixedCellSize(-1);
-//        thumbnailListView.getSelectionModel().selectedItemProperty().addListener(it -> {
-//            Integer selectedItem = thumbnailListView.getSelectionModel().getSelectedItem();
-//            if (selectedItem != null) {
-//                view.setPage(selectedItem);
-//            }
-//        });
-//
-//        view.pageProperty().addListener(it -> {
-//            thumbnailListView.getSelectionModel().select(view.getPage());
-//            maybeScrollTo(thumbnailListView, view.getPage());
-//
-//            if (!pageSearchResults.isEmpty()) {
-//                /*
-//                 * We have page search results and the current page changes. Let's make sure we select a
-//                 * matching page result, if one exits.
-//                 */
-//                pageSearchResults.stream()
-//                    .filter(result -> result.getPageNumber() == view.getPage())
-//                    .findFirst()
-//                    .ifPresent(result -> searchResultListView.getSelectionModel().select(result));
-//            }
-//        });
-//
-//        pdfFilePages.addListener((Observable it) -> {
-//            if (!pdfFilePages.isEmpty()) {
-//                thumbnailListView.getSelectionModel().select(0);
-//            }
-//        });
-//
-//        view.documentProperty().addListener(it -> updatePagesList());
+    protected FxImageViewSkin(FxImageView view) {
+        super(view);
+        this.imageView = view.getImageView();
+
+//        view.imageViewProperty().addListener(it -> updatePagesList());
 //        updatePagesList();
 //
-//        ToolBar toolBar = createToolBar(view);
-//        toolBar.visibleProperty().bind(view.showToolBarProperty());
-//        toolBar.managedProperty().bind(view.showToolBarProperty());
+        ToolBar toolBar = createToolBar(view);
+        toolBar.visibleProperty().bind(view.showToolBarProperty());
+        toolBar.managedProperty().bind(view.showToolBarProperty());
 //
 //        HBox searchNavigator = createSearchNavigator();
 //
@@ -174,7 +115,7 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //        view.searchTextProperty().addListener(it -> search());
     }
 
-//    private <T> void maybeScrollTo(ListView<T> listView, T item) {
+    //    private <T> void maybeScrollTo(ListView<T> listView, T item) {
 //        /*
 //         * We want to make sure that the selected result will be visible within the list view,
 //         * but we do not want to scroll every time the selected search result changes. We really
@@ -271,246 +212,102 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //
 //    private final DoubleProperty requestedVValue = new SimpleDoubleProperty(-1);
 //
-//    private ToolBar createToolBar(PDFView pdfView) {
-//        PDFView view = getSkinnable();
-//
-//        // show all
-//        ToggleButton showAll = new ToggleButton();
-//        showAll.setGraphic(new FontIcon(MaterialDesign.MDI_FULLSCREEN));
-//        showAll.getStyleClass().addAll("tool-bar-button", "show-all-button");
-//        showAll.setTooltip(new Tooltip("Show all / whole page"));
-//        showAll.selectedProperty().bindBidirectional(pdfView.showAllProperty());
-//
-//        // paging
-//        Button goLeft = new Button();
-//        goLeft.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_LEFT));
-//        goLeft.setTooltip(new Tooltip("Show previous page"));
-//        goLeft.setOnAction(evt -> view.gotoPreviousPage());
-//        goLeft.getStyleClass().addAll("tool-bar-button", "previous-page-button");
-//        goLeft.disableProperty().bind(Bindings.createBooleanBinding(() -> view.getPage() <= 0, view.pageProperty(), view.documentProperty()));
-//        goLeft.setMaxHeight(Double.MAX_VALUE);
-//
-//        Button goRight = new Button();
-//        goRight.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_RIGHT));
-//        goRight.setTooltip(new Tooltip("Show next page"));
-//        goRight.setOnAction(evt -> view.gotoNextPage());
-//        goRight.getStyleClass().addAll("tool-bar-button", "next-page-button");
-//        goRight.disableProperty().bind(Bindings.createBooleanBinding(() -> view.getDocument() == null || view.getDocument().getNumberOfPages() <= view.getPage() + 1, view.pageProperty(), view.documentProperty()));
-//        goRight.setMaxHeight(Double.MAX_VALUE);
-//
-//        IntegerInputField pageField = new IntegerInputField();
-//        pageField.setTooltip(new Tooltip("Current page number"));
-//        pageField.getStyleClass().add("page-field");
-//        pageField.setAllowNegatives(false);
-//        pageField.setMaxHeight(Double.MAX_VALUE);
-//        pageField.setAlignment(Pos.CENTER);
-//        pageField.setMinimumValue(0);
-//        updateCurrentPageNumber(view, pageField);
-//        view.pageProperty().addListener(it -> updateCurrentPageNumber(view, pageField));
-//        pageField.valueProperty().addListener(it -> {
-//            Integer value = pageField.getValue();
-//            if (value != null) {
-//                view.setPage(value - 1);
-//            }
-//        });
-//        updateMaximumValue(pageField);
-//        view.documentProperty().addListener(it -> updateMaximumValue(pageField));
-//
-//        Button totalPages = new Button();
-//        totalPages.setTooltip(new Tooltip("Total number of pages"));
-//        totalPages.getStyleClass().add("page-number-button");
-//        totalPages.setMaxHeight(Double.MAX_VALUE);
-//        totalPages.setAlignment(Pos.CENTER);
-//        totalPages.setOnAction(event -> view.gotoLastPage());
-//        totalPages.setFocusTraversable(false);
-//        totalPages.setMaxHeight(Double.MAX_VALUE);
-//        updateTotalPagesNumber(totalPages);
-//        view.documentProperty().addListener(it -> updateTotalPagesNumber(totalPages));
-//
-//        HBox pageControl = new HBox(goLeft, pageField, totalPages, goRight);
-//        pageControl.setFillHeight(true);
-//        pageControl.disableProperty().bind(view.documentProperty().isNull());
-//        pageControl.getStyleClass().add("page-control");
-//
-//        // rotate buttons
-//        Button rotateLeft = new Button();
-//        rotateLeft.getStyleClass().addAll("tool-bar-button", "rotate-left");
-//        rotateLeft.setTooltip(new Tooltip("Rotate page left"));
-//        rotateLeft.setGraphic(new FontIcon(MaterialDesign.MDI_ROTATE_LEFT));
-//        rotateLeft.setOnAction(evt -> view.rotateLeft());
-//
-//        Button rotateRight = new Button();
-//        rotateRight.getStyleClass().addAll("tool-bar-button", "rotate-right");
-//        rotateRight.setTooltip(new Tooltip("Rotate page right"));
-//        rotateRight.setGraphic(new FontIcon(MaterialDesign.MDI_ROTATE_RIGHT));
-//        rotateRight.setOnAction(evt -> view.rotateRight());
-//
-//        // zoom slider
-//        Slider zoomSlider = new Slider();
-//        zoomSlider.setMin(1);
-//        zoomSlider.maxProperty().bind(view.maxZoomFactorProperty());
-//        zoomSlider.valueProperty().bindBidirectional(view.zoomFactorProperty());
-//        zoomSlider.disableProperty().bind(view.showAllProperty());
-//
-//        Label zoomLabel = new Label("Zoom");
-//        zoomLabel.disableProperty().bind(view.showAllProperty());
-//
-//        // search icon / field
-//        FontIcon searchClearIcon = new FontIcon(MaterialDesign.MDI_CLOSE_CIRCLE);
-//        searchClearIcon.visibleProperty().bind(view.searchTextProperty().isNotEmpty());
-//        searchClearIcon.setOnMouseClicked(evt -> view.setSearchText(null));
-//        Tooltip.install(searchClearIcon, new Tooltip("Clear search text"));
-//
-//        CustomTextField searchField = new CustomTextField();
-//        searchField.setText("Search text");
-//        searchField.getStyleClass().add("search-field");
-//        searchField.addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
-//            if (evt.getCode() == KeyCode.ESCAPE) {
-//                searchField.setText("");
-//            }
-//        });
-//
-//        searchField.setRight(searchClearIcon);
-//        searchField.setPromptText("Search ...");
-//        searchField.textProperty().bindBidirectional(view.searchTextProperty());
-//        searchField.managedProperty().bind(searchField.visibleProperty());
-//        searchField.visibleProperty().bind(Bindings.createBooleanBinding(() -> pdfView.getDocument() instanceof PDFView.SearchableDocument, pdfView.documentProperty()));
-//
-//        Region spacer = new Region();
-//        HBox.setHgrow(spacer, Priority.ALWAYS);
-//
-//        // toolbar
-//        return new ToolBar(
-//            showAll,
-//            new Separator(Orientation.VERTICAL),
-//            zoomLabel,
-//            zoomSlider,
-//            new Separator(Orientation.VERTICAL),
-//            pageControl,
-//            new Separator(Orientation.VERTICAL),
-//            rotateLeft,
-//            rotateRight,
-//            spacer,
-//            searchField
-//        );
-//    }
-//
-//    private HBox createSearchNavigator() {
-//        PDFView view = getSkinnable();
-//
-//        Label searchLabel = new Label();
-//        searchLabel.textProperty().bind(Bindings.createObjectBinding(() -> "Found " + view.getSearchResults().size() + " occurrences on " + pageSearchResults.size() + " pages", view.getSearchResults(), pageSearchResults));
-//        searchLabel.getStyleClass().add("search-result-label");
-//
-//        Button previousResultButton = new Button();
-//        previousResultButton.getStyleClass().addAll("search-bar-button", "previous-search-result");
-//        previousResultButton.setTooltip(new Tooltip("Go to previous search result"));
-//        previousResultButton.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_LEFT));
-//        previousResultButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//        previousResultButton.setOnAction(evt -> showPreviousSearchResult());
-//        previousResultButton.setMaxHeight(Double.MAX_VALUE);
-//
-//        Button nextResultButton = new Button();
-//        nextResultButton.getStyleClass().addAll("search-bar-button", "next-search-result");
-//        nextResultButton.setTooltip(new Tooltip("Go to next search result"));
-//        nextResultButton.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_RIGHT));
-//        nextResultButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//        nextResultButton.setOnAction(evt -> showNextSearchResult());
-//        nextResultButton.setMaxHeight(Double.MAX_VALUE);
-//
-//        Button doneButton = new Button("Done");
-//        doneButton.setOnAction(evt -> view.setSearchText(null));
-//        doneButton.getStyleClass().addAll("search-bar-button");
-//
-//        BooleanBinding searchResultsAvailable = Bindings.isNotEmpty(view.getSearchResults());
-//
-//        HBox buttonBox = new HBox(previousResultButton, nextResultButton);
-//
-//        HBox searchBox = new HBox(searchLabel, buttonBox, doneButton);
-//        searchBox.getStyleClass().add("search-navigator");
-//        searchBox.visibleProperty().bind(searchResultsAvailable);
-//        searchBox.managedProperty().bind(searchResultsAvailable);
-//
-//        return searchBox;
-//    }
-//
-//    public final void showNextSearchResult() {
-//        PDFView view = getSkinnable();
-//        int index = view.getSearchResults().indexOf(view.getSelectedSearchResult());
-//        if (index < view.getSearchResults().size() - 1) {
-//            view.setSelectedSearchResult(view.getSearchResults().get(index + 1));
-//        } else {
-//            view.setSelectedSearchResult(view.getSearchResults().get(0));
-//        }
-//    }
-//
-//    public final void showPreviousSearchResult() {
-//        PDFView view = getSkinnable();
-//        int index = view.getSearchResults().indexOf(view.getSelectedSearchResult());
-//        if (index > 0) {
-//            view.setSelectedSearchResult(view.getSearchResults().get(index - 1));
-//        } else {
-//            view.setSelectedSearchResult(view.getSearchResults().get(view.getSearchResults().size() - 1));
-//        }
-//    }
-//
-//    private void updateMaximumValue(IntegerInputField pageField) {
-//        PDFView.Document document = getSkinnable().getDocument();
-//        if (document != null) {
-//            pageField.setMaximumValue(document.getNumberOfPages());
-//        }
-//    }
-//
-//    private void updateCurrentPageNumber(PDFView view, IntegerInputField pageField) {
-//        if (view.getDocument() != null) {
-//            pageField.setMinimumValue(1);
-//            pageField.setValue(view.getPage() + 1);
-//        } else {
-//            pageField.setMinimumValue(0);
-//            pageField.setValue(0);
-//        }
-//    }
-//
-//    private void updateTotalPagesNumber(Button totalPagesButton) {
-//        PDFView.Document document = getSkinnable().getDocument();
-//        if (document != null) {
-//            totalPagesButton.setText("/ " + document.getNumberOfPages());
-//        } else {
-//            totalPagesButton.setText("/ " + 0);
-//        }
-//    }
-//
-//    /**
-//     * Method to decrease the zoom factor for value specified as {@code delta}.
-//     *
-//     * @param delta zoom factor (decrease) delta
-//     * @return true if the operation actually did cause a zoom change
-//     */
-//
-//    private boolean decreaseZoomFactor(double delta) {
-//        PDFView pdfView = getSkinnable();
-//        double currentZoomFactor = pdfView.getZoomFactor();
+    private ToolBar createToolBar(FxImageView fxImageView) {
+        FxImageView view = getSkinnable();
+
+        // show all
+        ToggleButton showAll = new ToggleButton();
+        //showAll.setGraphic(new FontIcon(MaterialDesign.MDI_FULLSCREEN));
+        showAll.getStyleClass().addAll("tool-bar-button", "show-all-button");
+        showAll.setTooltip(new Tooltip("Show all / whole page"));
+        //showAll.selectedProperty().bindBidirectional(fxImageView.showAllProperty());
+
+        // paging
+        Button goLeft = new Button();
+        //goLeft.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_LEFT));
+        goLeft.setTooltip(new Tooltip("Show previous page"));
+        //goLeft.setOnAction(evt -> view.gotoPreviousPage());
+        goLeft.getStyleClass().addAll("tool-bar-button", "previous-page-button");
+        //goLeft.disableProperty().bind(Bindings.createBooleanBinding(() -> view.getPage() <= 0, view.pageProperty(), view.documentProperty()));
+        goLeft.setMaxHeight(Double.MAX_VALUE);
+
+        Button goRight = new Button();
+        //goRight.setGraphic(new FontIcon(MaterialDesign.MDI_CHEVRON_RIGHT));
+        goRight.setTooltip(new Tooltip("Show next page"));
+        //goRight.setOnAction(evt -> view.gotoNextPage());
+        goRight.getStyleClass().addAll("tool-bar-button", "next-page-button");
+        //goRight.disableProperty().bind(Bindings.createBooleanBinding(() -> view.getDocument() == null || view.getDocument().getNumberOfPages() <= view.getPage() + 1, view.pageProperty(), view.documentProperty()));
+        goRight.setMaxHeight(Double.MAX_VALUE);
+
+        // rotate buttons
+        Button rotateLeft = new Button();
+        rotateLeft.getStyleClass().addAll("tool-bar-button", "rotate-left");
+        rotateLeft.setTooltip(new Tooltip("Rotate page left"));
+        //rotateLeft.setGraphic(new FontIcon(MaterialDesign.MDI_ROTATE_LEFT));
+        rotateLeft.setOnAction(evt -> view.rotateLeft());
+
+        Button rotateRight = new Button();
+        rotateRight.getStyleClass().addAll("tool-bar-button", "rotate-right");
+        rotateRight.setTooltip(new Tooltip("Rotate page right"));
+        //rotateRight.setGraphic(new FontIcon(MaterialDesign.MDI_ROTATE_RIGHT));
+        rotateRight.setOnAction(evt -> view.rotateRight());
+
+        // zoom slider
+        Slider zoomSlider = new Slider();
+        zoomSlider.setMin(1);
+        zoomSlider.maxProperty().bind(view.maxZoomFactorProperty());
+        zoomSlider.valueProperty().bindBidirectional(view.zoomFactorProperty());
+        // zoomSlider.disableProperty().bind(view.showAllProperty());
+
+        Label zoomLabel = new Label("Zoom");
+        //zoomLabel.disableProperty().bind(view.showAllProperty());
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        // toolbar
+        return new ToolBar(
+            showAll,
+            new Separator(Orientation.VERTICAL),
+            zoomLabel,
+            zoomSlider,
+            new Separator(Orientation.VERTICAL),
+            rotateLeft,
+            rotateRight,
+            spacer
+        );
+    }
+
+    /**
+     * Method to decrease the zoom factor for value specified as {@code delta}.
+     *
+     * @param delta zoom factor (decrease) delta
+     * @return true if the operation actually did cause a zoom change
+     */
+    private boolean decreaseZoomFactor(double delta) {
+        FxImageView pdfView = getSkinnable();
+        double currentZoomFactor = pdfView.getZoomFactor();
 //        if (!pdfView.isShowAll()) {
 //            pdfView.setZoomFactor(Math.max(1, currentZoomFactor - delta));
 //        }
-//        return currentZoomFactor != pdfView.getZoomFactor();
-//    }
-//
-//    /**
-//     * Method to increase the zoom factor for value specified as {@code delta}.
-//     *
-//     * @param delta zoom factor (increase) delta
-//     * @return true if the operation actually did cause a zoom change
-//     */
-//    private boolean increaseZoomFactor(double delta) {
-//        PDFView pdfView = getSkinnable();
-//        double currentZoomFactor = pdfView.getZoomFactor();
+        return currentZoomFactor != pdfView.getZoomFactor();
+    }
+
+    /**
+     * Method to increase the zoom factor for value specified as {@code delta}.
+     *
+     * @param delta zoom factor (increase) delta
+     * @return true if the operation actually did cause a zoom change
+     */
+    private boolean increaseZoomFactor(double delta) {
+        FxImageView pdfView = getSkinnable();
+        double currentZoomFactor = pdfView.getZoomFactor();
 //        if (!pdfView.isShowAll()) {
 //            pdfView.setZoomFactor(Math.min(pdfView.getMaxZoomFactor(), currentZoomFactor + delta));
 //        }
-//        return currentZoomFactor != pdfView.getZoomFactor();
-//    }
-//
+        return currentZoomFactor != pdfView.getZoomFactor();
+    }
+
 //    class PagerService extends Service<Void> {
 //        private boolean up;
 //
@@ -561,15 +358,15 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //
 //        public MainAreaScrollPane() {
 //
-//            PDFView pdfView = getSkinnable();
+//            FxImageView fxImageView = getSkinnable();
 //
 //            bouncer.getStyleClass().add("bouncer");
 //            bouncer.setManaged(false);
-//            bouncer.fillProperty().bind(pdfView.searchResultColorProperty());
-//            bouncer.visibleProperty().bind(pdfView.selectedSearchResultProperty().isNotNull());
+//            bouncer.fillProperty().bind(fxImageView.searchResultColorProperty());
+//            bouncer.visibleProperty().bind(fxImageView.selectedSearchResultProperty().isNotNull());
 //
-//            pdfView.selectedSearchResultProperty().addListener(it -> bounceSearchResult());
-//            pdfView.getSearchResults().addListener((Observable it) -> mainAreaRenderService.restart());
+//            fxImageView.selectedSearchResultProperty().addListener(it -> bounceSearchResult());
+//            fxImageView.getSearchResults().addListener((Observable it) -> mainAreaRenderService.restart());
 //
 //            mainAreaRenderService.setOnSucceeded(evt -> {
 //                double vValue = requestedVValue.get();
@@ -585,9 +382,9 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //                    case LEFT:
 //                    case PAGE_UP:
 //                    case HOME:
-//                        if (getVvalue() == 0 || pdfView.isShowAll() || evt.getCode() == KeyCode.LEFT) {
+//                        if (getVvalue() == 0 || fxImageView.isShowAll() || evt.getCode() == KeyCode.LEFT) {
 //                            requestedVValue.set(1);
-//                            pdfView.gotoPreviousPage();
+//                            fxImageView.gotoPreviousPage();
 //                        }
 //                        break;
 //                    case DOWN:
@@ -679,12 +476,12 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //                }
 //            };
 //
-//            pdfView.selectedSearchResultProperty().addListener(it -> wrapper.requestLayout());
+//            fxImageView.selectedSearchResultProperty().addListener(it -> wrapper.requestLayout());
 //
 //            wrapper.getStyleClass().add("image-view-wrapper");
 //            wrapper.setMaxWidth(Region.USE_PREF_SIZE);
 //            wrapper.setMaxHeight(Region.USE_PREF_SIZE);
-//            wrapper.rotateProperty().bind(pdfView.pageRotationProperty());
+//            wrapper.rotateProperty().bind(fxImageView.pageRotationProperty());
 //            wrapper.addEventHandler(ScrollEvent.SCROLL, evt -> {
 //                if (evt.isShortcutDown()) {
 //                    if (evt.getDeltaY() > 0) {
@@ -708,18 +505,18 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //
 //                if (isPortrait()) {
 //
-//                    double prefWidth = newBounds.getWidth() * pdfView.getZoomFactor() - 5;
+//                    double prefWidth = newBounds.getWidth() * fxImageView.getZoomFactor() - 5;
 //                    pane.setPrefWidth(prefWidth);
 //                    pane.setMinWidth(prefWidth);
 //
-//                    if (pdfView.isShowAll()) {
+//                    if (fxImageView.isShowAll()) {
 //                        pane.setPrefHeight(newBounds.getHeight() - 5);
 //                    } else {
 //                        Image image = getImage();
 //                        if (image != null) {
 //                            double scale = newBounds.getWidth() / image.getWidth();
 //                            double scaledImageHeight = image.getHeight() * scale;
-//                            double prefHeight = scaledImageHeight * pdfView.getZoomFactor();
+//                            double prefHeight = scaledImageHeight * fxImageView.getZoomFactor();
 //                            pane.setPrefHeight(prefHeight);
 //                            pane.setMinHeight(prefHeight);
 //                        }
@@ -731,18 +528,18 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //                     * Image has been rotated.
 //                     */
 //
-//                    double prefHeight = newBounds.getHeight() * pdfView.getZoomFactor() - 5;
+//                    double prefHeight = newBounds.getHeight() * fxImageView.getZoomFactor() - 5;
 //                    pane.setPrefHeight(prefHeight);
 //                    pane.setMinHeight(prefHeight);
 //
-//                    if (pdfView.isShowAll()) {
+//                    if (fxImageView.isShowAll()) {
 //                        pane.setPrefWidth(newBounds.getWidth() - 5);
 //                    } else {
 //                        Image image = getImage();
 //                        if (image != null) {
 //                            double scale = newBounds.getHeight() / image.getWidth();
 //                            double scaledImageHeight = image.getHeight() * scale;
-//                            double prefWidth = scaledImageHeight * pdfView.getZoomFactor();
+//                            double prefWidth = scaledImageHeight * fxImageView.getZoomFactor();
 //                            pane.setPrefWidth(prefWidth);
 //                            pane.setMinWidth(prefWidth);
 //                        }
@@ -764,18 +561,18 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //                wrapper.requestLayout(); // bouncer needs layout now
 //            });
 //
-//            pdfView.showAllProperty().addListener(it -> {
+//            fxImageView.showAllProperty().addListener(it -> {
 //                updateScrollbarPolicies();
 //                layoutImage();
 //                requestLayout();
 //            });
 //
-//            pdfView.pageRotationProperty().addListener(it -> {
+//            fxImageView.pageRotationProperty().addListener(it -> {
 //                updateScrollbarPolicies();
 //                layoutImage();
 //            });
 //
-//            pdfView.zoomFactorProperty().addListener(it -> {
+//            fxImageView.zoomFactorProperty().addListener(it -> {
 //                updateScrollbarPolicies();
 //                requestLayout();
 //            });
@@ -784,19 +581,19 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //
 //            layoutImage();
 //        }
-//
-//        private ParallelTransition parallel;
-//
+
+    private ParallelTransition parallel;
+
 //        private void bounceSearchResult() {
 //            if (parallel != null) {
 //                parallel.stop();
 //            }
 //
-//            PDFView.SearchResult selectedSearchResult = getSkinnable().getSelectedSearchResult();
-//
-//            if (selectedSearchResult == null) {
-//                return;
-//            }
+////            PDFView.SearchResult selectedSearchResult = getSkinnable().getSelectedSearchResult();
+////
+////            if (selectedSearchResult == null) {
+////                return;
+////            }
 //
 //            final int SCALE_FACTOR = 3;
 //            final int DURATION = 150;
@@ -837,6 +634,7 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //
 //            parallel.play();
 //        }
+
 //
 //        private final ObjectProperty<Image> image = new SimpleObjectProperty<>(this, "image");
 //
