@@ -79,14 +79,14 @@
         <lombok.version>1.18.30</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.5</poi-ooxml.version>
-        <commons-io.version>2.15.0</commons-io.version>
+        <commons-io.version>2.15.1</commons-io.version>
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.23</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <logback-classic.version>1.4.13</logback-classic.version>
+        <logback-classic.version>1.4.14</logback-classic.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -100,14 +100,14 @@
         <java-diff-utils.version>4.12</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
         <jexl.version>3.3</jexl.version>
-        <pdfbox.version>3.0.0</pdfbox.version>
+        <pdfbox.version>3.0.1</pdfbox.version>
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.16.0</jackson.version>
         <testfx.version>4.0.17</testfx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.2</richtextfx.version>
-        <groovy.version>4.0.15</groovy.version>
+        <groovy.version>4.0.16</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
