@@ -30,11 +30,9 @@ package com.tlcsdm.core.javafx.control;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.image.ImageView;
@@ -54,7 +52,7 @@ public class FxImageView extends Control {
             }
         });
 
-        getStylesheets().add(getUserAgentStylesheet());
+        //getStylesheets().add(getUserAgentStylesheet());
     }
 
     /**
@@ -177,18 +175,20 @@ public class FxImageView extends Control {
     /**
      * The currently loaded and displayed PDF document.
      */
-    private final ObjectProperty<ImageView> imageView = new SimpleObjectProperty<>(this, "imageView");
+//    private final ObjectProperty<ImageView> imageView = new SimpleObjectProperty<>(this, "imageView");
+//
+//    public final ObjectProperty<ImageView> imageViewProperty() {
+//        return imageView;
+//    }
 
-    public final ObjectProperty<ImageView> imageViewProperty() {
+    private ImageView imageView;
+
+    public final ImageView getImageView() {
         return imageView;
     }
 
-    public final ImageView getImageView() {
-        return imageView.get();
-    }
-
     public final void setImageView(ImageView image) {
-        imageView.set(image);
+        this.imageView = image;
     }
 
     @Override

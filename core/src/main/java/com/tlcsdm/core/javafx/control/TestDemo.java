@@ -41,7 +41,7 @@ public class TestDemo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         root = new Pane();
-        root.getChildren().add(new FxImageView(new ImageView("E:\\testPlace\\2.png")));
+        root.getChildren().add(new FxImageView(new ImageView(getClass().getResource("/com/tlcsdm/core/static/graphic/dialog-error.png").toExternalForm())));
         stage.setScene(new Scene(root, w, h));
         stage.setTitle("Snow");
         stage.show();

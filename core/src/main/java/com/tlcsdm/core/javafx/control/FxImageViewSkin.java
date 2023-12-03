@@ -36,6 +36,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.Slider;
@@ -44,9 +45,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,6 +85,11 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
         ToolBar toolBar = createToolBar(view);
         toolBar.visibleProperty().bind(view.showToolBarProperty());
         toolBar.managedProperty().bind(view.showToolBarProperty());
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(getSkinnable().getImageView());
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
 //
 //        HBox searchNavigator = createSearchNavigator();
 //
@@ -97,13 +105,12 @@ public class FxImageViewSkin extends SkinBase<FxImageView> {
 //        leftSide.visibleProperty().bind(view.showThumbnailsProperty());
 //        leftSide.managedProperty().bind(view.showThumbnailsProperty());
 //
-//        BorderPane borderPane = new BorderPane();
-//        borderPane.setTop(toolBar);
-//        borderPane.setLeft(leftSide);
-//        borderPane.setCenter(rightSide);
-//        borderPane.setFocusTraversable(false);
-//
-//        getChildren().add(borderPane);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(toolBar);
+        borderPane.setCenter(scrollPane);
+        borderPane.setFocusTraversable(false);
+
+        getChildren().add(borderPane);
 //
 //        view.documentProperty().addListener(it -> {
 //            mainArea.setImage(null);
