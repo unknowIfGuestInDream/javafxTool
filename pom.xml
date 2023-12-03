@@ -86,7 +86,7 @@
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.23</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <logback-classic.version>1.4.13</logback-classic.version>
+        <logback-classic.version>1.4.14</logback-classic.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -100,7 +100,7 @@
         <java-diff-utils.version>4.12</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
         <jexl.version>3.3</jexl.version>
-        <pdfbox.version>3.0.0</pdfbox.version>
+        <pdfbox.version>3.0.1</pdfbox.version>
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.16.0</jackson.version>
         <testfx.version>4.0.17</testfx.version>
