@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.javafx.dialog;
 
+import com.tlcsdm.core.javafx.factory.BaseStage;
+import com.tlcsdm.core.javafx.stage.SnowState;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.VPos;
@@ -42,9 +44,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * @author unknowIfGuestInDream
- */
 public class SnowApp extends Application {
 
     static final Image FLASK_IMG = new Image(SnowApp.class.getResource("/com/tlcsdm/core/static/graphic/flake.png").toExternalForm(),
@@ -97,7 +96,8 @@ public class SnowApp extends Application {
         String bgUrl = getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg").toExternalForm();
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
-
+        BaseStage.setStage(primaryStage);
+        SnowState.getInstance().show();
         primaryStage.setScene(new Scene(root, w, h));
         primaryStage.setTitle("Snow");
         primaryStage.show();
