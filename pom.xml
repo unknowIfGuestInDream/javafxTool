@@ -126,6 +126,7 @@
         <asm.version>9.6</asm.version>
         <pmd.version>6.55.0</pmd.version>
         <bytebuddy.version>1.14.10</bytebuddy.version>
+        <tess4j.version>5.8.0</tess4j.version>
     </properties>
 
     <issueManagement>
@@ -794,6 +795,11 @@
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy-dep</artifactId>
                 <version>${bytebuddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.tess4j</groupId>
+                <artifactId>tess4j</artifactId>
+                <version>${tess4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
