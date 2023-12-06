@@ -27,10 +27,10 @@
 
 package com.tlcsdm.core.util;
 
-import java.util.List;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.List;
 
 public class DependencyInfo {
 
@@ -157,7 +157,10 @@ public class DependencyInfo {
                         "PSF license", "https://github.com/jython/jython/blob/master/LICENSE.txt"),
 
                 new Dependency("net.bytebuddy", "byte-buddy", "1.14.10", false, "https://bytebuddy.net/",
-                        "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"));
+                    "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.8.0", false, "https://github.com/nguyenq/tess4j",
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     public static class Dependency {
