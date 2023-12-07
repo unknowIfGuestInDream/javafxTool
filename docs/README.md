@@ -40,4 +40,4 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | sikulixapi             | 2.0.5      | 基于OpenCV图像识别的自动化工具               |
 | jython                 | 2.7.3      | 用于Java平台的Python                  |
 | byte-buddy             | 1.14.10    | 字节码操作库                           |
-| tess4j                 | 5.8.0      | Tesseract OCR API的 Java JNA 封装程序 |
+| tess4j                 | 5.9.0      | Tesseract OCR API的 Java JNA 封装程序 |
