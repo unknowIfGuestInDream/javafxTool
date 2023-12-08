@@ -55,11 +55,17 @@ dependencies:
   - cg/pom.xml
 
 i18ns:
-  - any: [ '**/i18n/*.properties' ]
+  - any:
+      - changed-files:
+          - AnyGlobToAnyFile: [ '**/i18n/*.properties' ]
 
 release:
-  - any: [ '**/META-INF/MANIFEST.MF' ]
+  - any:
+      - changed-files:
+          - AnyGlobToAnyFile: [ '**/META-INF/MANIFEST.MF' ]
 
 automerge:
-  - all: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
-  - all: [ 'CONTRIBUTORS.md' ]
+  - any:
+      - changed-files:
+          - AnyGlobToAllFiles: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
+          - AnyGlobToAnyFile: [ 'CONTRIBUTORS.md' ]
