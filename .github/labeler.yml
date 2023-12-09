@@ -38,6 +38,10 @@ test:
   - changed-files:
       - any-glob-to-any-file: [ '*/src/test/**' ]
 
+IDEA:
+  - changed-files:
+      - any-glob-to-any-file: .idea/**
+
 workflow:
   - changed-files:
       - any-glob-to-any-file: .github/**
