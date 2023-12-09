@@ -52,13 +52,13 @@ dependencies:
 
 i18ns:
   - changed-files:
-      - AnyGlobToAnyFile: [ '**/i18n/*.properties' ]
+      - any-glob-to-any-file: [ '**/i18n/*.properties' ]
 
 release:
   - changed-files:
-      - AnyGlobToAnyFile: [ '**/META-INF/MANIFEST.MF' ]
+      - any-glob-to-any-file: [ '**/META-INF/MANIFEST.MF' ]
 
 automerge:
   - changed-files:
-      - AnyGlobToAllFiles: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
-      - AnyGlobToAnyFile: [ 'CONTRIBUTORS.md' ]
+      - any-glob-to-all-files: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
+      - any-glob-to-any-file: [ 'CONTRIBUTORS.md' ]
