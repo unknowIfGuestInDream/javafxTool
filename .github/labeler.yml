@@ -1,65 +1,68 @@
 demo:
-  - demo/**
+  - changed-files:
+      - any-glob-to-any-file: demo/**
 
 frame:
-  - frame/**
+  - changed-files:
+      - any-glob-to-any-file: frame/**
 
 login:
-  - login/**
+  - changed-files:
+      - any-glob-to-any-file: login/**
 
 smc:
-  - smc/**
+  - changed-files:
+      - any-glob-to-any-file: smc/**
 
 core:
-  - core/**
+  - changed-files:
+      - any-glob-to-any-file: core/**
 
 qe:
-  - qe/**
+  - changed-files:
+      - any-glob-to-any-file: qe/**
 
 common:
-  - common/**
+  - changed-files:
+      - any-glob-to-any-file: common/**
 
 cg:
-  - cg/**
+  - changed-files:
+      - any-glob-to-any-file: cg/**
 
 ci:
-  - jenkins/**
+  - changed-files:
+      - any-glob-to-any-file: jenkins/**
 
 test:
-  - smc/src/test/**
-  - core/src/test/**
-  - qe/src/test/**
-  - common/src/test/**
-  - cg/src/test/**
+  - changed-files:
+      - any-glob-to-any-file: [ '*/src/test/**' ]
+
+IDEA:
+  - changed-files:
+      - any-glob-to-any-file: .idea/**
 
 workflow:
-  - .github/**
+  - changed-files:
+      - any-glob-to-any-file: .github/**
 
 documentation:
-  - CHANGELOG.md
-  - LICENSE
-  - README.md
-  - README_zh.md
-  - README_jp.md
-  - docs/**
+  - changed-files:
+      - any-glob-to-any-file: [ 'CHANGELOG.md' ,'LICENSE' ,'README.md' ,'README_zh.md' ,'README_jp.md' ,'docs/**' ]
 
 dependencies:
-  - pom.xml
-  - demo/pom.xml
-  - frame/pom.xml
-  - login/pom.xml
-  - smc/pom.xml
-  - core/pom.xml
-  - qe/pom.xml
-  - common/pom.xml
-  - cg/pom.xml
+  - changed-files:
+      - any-glob-to-any-file: [ 'pom.xml' ,'**/pom.xml' ]
 
 i18ns:
-  - any: [ '**/i18n/*.properties' ]
+  - changed-files:
+      - any-glob-to-any-file: [ '**/i18n/*.properties' ]
 
 release:
-  - any: [ '**/META-INF/MANIFEST.MF' ]
+  - changed-files:
+      - any-glob-to-any-file: [ '**/META-INF/MANIFEST.MF' ]
 
 automerge:
-  - all: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
-  - all: [ 'CONTRIBUTORS.md' ]
+  - changed-files:
+      - any-glob-to-all-files: [ 'README.md', 'README_zh.md', 'README_jp.md' ]
+      - any-glob-to-any-file: [ 'CONTRIBUTORS.md' ]

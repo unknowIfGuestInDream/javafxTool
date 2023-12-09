@@ -127,7 +127,7 @@
         <asm.version>9.6</asm.version>
         <pmd.version>6.55.0</pmd.version>
         <bytebuddy.version>1.14.10</bytebuddy.version>
-        <tess4j.version>5.8.0</tess4j.version>
+        <tess4j.version>5.9.0</tess4j.version>
     </properties>
 
     <issueManagement>
