@@ -17,6 +17,7 @@ data/
 ### IntelliJ IDEA ###
 .idea/**
 !.idea/icon.png
+!.idea/copyright
 !.idea/copyright/profiles_settings.xml
 !.idea/copyright/tlcsdm.xml
 !.idea/vcs.xml
