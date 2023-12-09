@@ -15,11 +15,18 @@ data/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/**
+!.idea/icon.png
+!.idea/copyright
+!.idea/copyright/profiles_settings.xml
+!.idea/copyright/tlcsdm.xml
+!.idea/vcs.xml
+!.idea/jarRepositories.xml
 *.iws
 *.iml
 *.ipr
 out/
+qodana.sarif.json
 
 ### NetBeans ###
 /nbproject/private/
