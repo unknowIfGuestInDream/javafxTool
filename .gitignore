@@ -27,6 +27,7 @@ data/
 *.ipr
 out/
 qodana.sarif.json
+**/integration-test-screenshots/**
 
 ### NetBeans ###
 /nbproject/private/

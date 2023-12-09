@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,5 +27,20 @@
 
 package com.tlcsdm.qe;
 
-public class Test {
+import java.util.function.Supplier;
+
+public class TestHelper {
+
+    public static <T> T waitFor(Supplier<T> supplier, long timeoutMs) throws InterruptedException {
+        final long end = System.currentTimeMillis() + timeoutMs;
+        while (System.currentTimeMillis() < end) {
+            final T result = supplier.get();
+            if (result != null) {
+                return result;
+            }
+            Thread.sleep(10);
+        }
+        throw new IllegalStateException("No result found after " + timeoutMs + " ms");
+    }
+
 }

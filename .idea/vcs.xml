@@ -6,7 +6,7 @@
                 <IssueNavigationLink>
                     <option name="issueRegexp" value="#(\d+)"/>
                     <option name="linkRegexp"
-                            value="https://github.com/unknowIfGuestInDream/javafxTool/issues/$1"/>
+                            value="https://github.com/unknowIfGuestInDream/javafxTool/pull/$1"/>
                 </IssueNavigationLink>
             </list>
         </option>

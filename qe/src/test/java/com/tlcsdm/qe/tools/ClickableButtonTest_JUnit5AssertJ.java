@@ -31,12 +31,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.Start;
 
 @ExtendWith(ApplicationExtension.class)
 class ClickableButtonTest_JUnit5AssertJ {
@@ -48,8 +48,8 @@ class ClickableButtonTest_JUnit5AssertJ {
      *
      * @param stage - Will be injected by the test runner.
      */
-    @BeforeEach
-    private void start(Stage stage) {
+    @Start
+    public void start(@SuppressWarnings("unused") Stage stage) {
         button = new Button("click me!");
         button.setId("myButton");
         button.setOnAction(actionEvent -> button.setText("clicked!"));
@@ -78,7 +78,6 @@ class ClickableButtonTest_JUnit5AssertJ {
     void when_button_is_clicked_text_changes(FxRobot robot) {
         // when:
         robot.clickOn(".button");
-
         // then:
         Assertions.assertThat(button).hasText("clicked!");
         // or (lookup by css id):
