@@ -25,6 +25,7 @@ data/
 *.iml
 *.ipr
 out/
+qodana.sarif.json
 
 ### NetBeans ###
 /nbproject/private/
