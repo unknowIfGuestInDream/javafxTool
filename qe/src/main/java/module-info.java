@@ -72,6 +72,7 @@ module com.tlcsdm.qe {
     exports com.tlcsdm.qe.tools to com.tlcsdm.frame;
     exports com.tlcsdm.qe.config to com.tlcsdm.core;
 
+    opens com.tlcsdm.qe;
     opens com.tlcsdm.qe.tools to javafx.graphics, javafx.fxml, javafx.base;
     opens com.tlcsdm.qe.tools.dali to javafx.graphics, javafx.fxml, javafx.base;
 
