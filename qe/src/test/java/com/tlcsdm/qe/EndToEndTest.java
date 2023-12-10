@@ -31,8 +31,6 @@ import cn.hutool.log.StaticLog;
 import com.tlcsdm.frame.FXSampler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -47,7 +45,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ExtendWith(ApplicationExtension.class)
-@EnabledOnOs({OS.WINDOWS, OS.MAC})
+
 public abstract class EndToEndTest {
 
     private static final AtomicInteger testNumber = new AtomicInteger();
