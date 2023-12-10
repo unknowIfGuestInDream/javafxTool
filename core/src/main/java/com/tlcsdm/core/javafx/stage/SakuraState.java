@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.javafx.factory.BaseStage;
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -53,9 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 　@description: TODO
  * 　@author secret
- * 　@date 2021/1/6 8:52
  */
 public class SakuraState extends BaseStage {
     private static SakuraState instance = null;
@@ -98,7 +95,7 @@ public class SakuraState extends BaseStage {
     }
 
     public void start() {
-        Stage stage = BaseStage.getStage();
+        Stage stage = getStage();
         mainStage = new Stage();
         mainStage.initOwner(stage);
         mainStage.setTitle("sakura-desktop");
@@ -193,10 +190,6 @@ public class SakuraState extends BaseStage {
             //隐藏就停止动画，节省性能
             timeLine.stop();
         }
-    }
-
-    public static Stage getStage() {
-        return mainStage;
     }
 
     @Override

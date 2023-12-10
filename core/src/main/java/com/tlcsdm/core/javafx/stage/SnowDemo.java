@@ -25,10 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.dialog;
+package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.javafx.factory.BaseStage;
-import com.tlcsdm.core.javafx.stage.SnowState;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.VPos;
@@ -44,9 +42,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SnowApp extends Application {
+public class SnowDemo extends Application {
 
-    static final Image FLASK_IMG = new Image(SnowApp.class.getResource("/com/tlcsdm/core/static/graphic/flake.png").toExternalForm(),
+    static final Image FLASK_IMG = new Image(SnowDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png").toExternalForm(),
         5, 5, true, true);
 
     private ArrayList<Flake> flakes = new ArrayList<>(2000);
@@ -96,7 +94,7 @@ public class SnowApp extends Application {
         String bgUrl = getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg").toExternalForm();
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
-        BaseStage.setStage(primaryStage);
+        SnowState.getInstance().setStage(primaryStage);
         SnowState.getInstance().show();
         primaryStage.setScene(new Scene(root, w, h));
         primaryStage.setTitle("Snow");

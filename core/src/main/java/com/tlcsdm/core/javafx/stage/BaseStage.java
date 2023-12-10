@@ -27,70 +27,43 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.javafx.factory.SingletonFactory;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.factory.StageInterface;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.net.URL;
 
 /**
+ * 　javafx启动的主舞台
  * 　@author secret
  */
-public final class BubbleCursorStage extends BaseStage {
-    private static BubbleCursorStage instance = null;
-    private Stage mainStage;
+public class BaseStage implements StageInterface {
 
-    public static BubbleCursorStage getInstance() {
-        if (instance == null) {
-            instance = SingletonFactory.getWeakInstace(BubbleCursorStage.class);
+    private Stage stage;
+
+    public Stage getStage() {
+        if (stage == null) {
+            stage = FxApp.primaryStage;
         }
-        return instance;
+        return stage;
     }
 
-    private void start() throws Exception {
-        Stage stage = new Stage();
-        mainStage = stage;
-        stage.initOwner(getStage());
-        stage.initStyle(StageStyle.TRANSPARENT);
-        URL url = BubbleCursorStage.class.getResource("/com/tlcsdm/core/fxml/stage/bubbleCursor.fxml");
-
-        String urlStr = java.net.URLDecoder.decode(String.valueOf(url), "utf-8");
-        url = new URL(urlStr);
-        FXMLLoader fxmlLoader = new FXMLLoader(url);
-        Parent root = fxmlLoader.load();
-
-        // TODO
-        //Scene scene=new Scene(root, HardwareUtil.getScreenWeight(),HardwareUtil.getScreenHeight());
-        Scene scene = new Scene(root, 500, 500);
-        scene.setFill(null);
-        stage.setX(0);
-        stage.setY(0);
-        stage.setScene(scene);
-        stage.show();
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @Override
     public void close() {
-        if (mainStage != null) {
-            mainStage.close();
+        if (stage != null) {
+            stage.close();
         }
     }
 
     @Override
     public void show() {
-        if (mainStage == null) {
-            try {
-                getInstance().start();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-            return;
-        }
-        if (!mainStage.isShowing()) {
-            mainStage.show();
-        }
+        stage.show();
+    }
+
+    @Override
+    public void setFps(double fps) {
+
     }
 }

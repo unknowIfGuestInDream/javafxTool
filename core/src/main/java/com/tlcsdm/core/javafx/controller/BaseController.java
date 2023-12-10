@@ -25,45 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.factory;
-
-import com.tlcsdm.core.javafx.FxApp;
-import javafx.stage.Stage;
+package com.tlcsdm.core.javafx.controller;
 
 /**
- * 　@description: javafx启动的主舞台
  * 　@author secret
- * 　@date 2021/1/5 17:27
  */
-public class BaseStage implements StageInterface {
+public class BaseController {
 
-    private static Stage stage;
-
-    public static Stage getStage() {
-        if (stage == null) {
-            stage = FxApp.primaryStage;
-        }
-        return stage;
+    BaseController() {
     }
 
-    public static void setStage(Stage stage) {
-        BaseStage.stage = stage;
-    }
-
-    @Override
-    public void close() {
-        if (stage != null) {
-            stage.close();
-        }
-    }
-
-    @Override
     public void show() {
-        stage.show();
     }
 
-    @Override
-    public void setFps(double fps) {
-
+    public void close() {
     }
 }

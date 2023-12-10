@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.javafx.factory.BaseStage;
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,11 +37,10 @@ import javafx.stage.StageStyle;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
- * 　@description: TODO
  * 　@author secret
- * 　@date 2021/1/19 11:30
  */
 public class WebWallpaperStage extends BaseStage {
     private static WebWallpaperStage instance = null;
@@ -65,15 +63,14 @@ public class WebWallpaperStage extends BaseStage {
         Stage stage = new Stage();
         mainStage = stage;
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
-        stage.initOwner(BaseStage.getStage());
+        stage.initOwner(getStage());
         stage.initStyle(StageStyle.TRANSPARENT);
-        URL url = WebWallpaperStage.class.getResource("/fxml/webWallpaper.fxml");
+        URL url = WebWallpaperStage.class.getResource("/com/tlcsdm/core/fxml/stage/webWallpaper.fxml");
 
-        String urlStr = java.net.URLDecoder.decode(String.valueOf(url), "utf-8");
+        String urlStr = java.net.URLDecoder.decode(String.valueOf(url), StandardCharsets.UTF_8);
         url = new URL(urlStr);
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent root = fxmlLoader.load();
-        root.getStylesheets().add(getClass().getResource("/css/webWallpaper.css").toExternalForm());
         root.setMouseTransparent(true);
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         stage.setX(0);

@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.javafx.factory.BaseStage;
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -51,9 +50,7 @@ import java.awt.Toolkit;
 import java.util.Random;
 
 /**
- * 　@description: TODO
  * 　@author secret
- * 　@date 2021/1/5 8:38
  */
 public class CodeRainState extends BaseStage {
 
@@ -106,7 +103,7 @@ public class CodeRainState extends BaseStage {
     }
 
     public void start() {
-        Stage stage = BaseStage.getStage();
+        Stage stage = getStage();
         // 设置风格为 UTILITY
 //        stage.initStyle(StageStyle.DECORATED);
         // 设置父级透明度为0
@@ -251,10 +248,6 @@ public class CodeRainState extends BaseStage {
         if (timeLine.getStatus() != Animation.Status.STOPPED) {
             timeLine.stop();
         }
-    }
-
-    public static Stage getStage() {
-        return mainStage;
     }
 
     public static String getTextColor() {
