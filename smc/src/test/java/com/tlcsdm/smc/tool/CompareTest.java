@@ -27,11 +27,16 @@
 
 package com.tlcsdm.smc.tool;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Assert;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
@@ -76,6 +81,36 @@ public class CompareTest {
     @Test
     public void path() {
         System.out.println(ResourceUtil.getResource("templates").getPath());
+    }
+
+    @Test
+    void prop() {
+        String message = """
+                -Dosgi.requiredJavaVersion=17
+                -Dosgi.dataAreaRequiresExplicitInit=true
+                -XX:+UseG1GC
+                -XX:+UseStringDeduplication
+                -Xms512m
+                -Xmx1g
+                --add-modules=ALL-SYSTEM
+                -qeforafe-dtime=1000
+                -Djava.class.path=D:\\Tools\\AFE\\user\\com.demo.product-win32.win32.x86_64_b001\\eclipse\\plugins/org.eclipse.equinox.launcher_1.6.400.v2022.jar
+                """;
+        List<String> list = getCommandLinePartFromString(message);
+        System.out.println(list);
+//        Properties vargsProps = new Properties();
+//        try {
+//            vargsProps.load(new ByteArrayInputStream(message.getBytes()));
+//        } catch (IOException e) {
+//        }
+        // System.out.println(vargsProps.getProperty("-qeforafe-dtime", ""));
+    }
+
+    private static List<String> getCommandLinePartFromString(String lineDelimitedArgs) {
+        if (lineDelimitedArgs == null) {
+            return new LinkedList<String>();
+        }
+        return lineDelimitedArgs.lines().filter(line -> !line.isEmpty()).collect(Collectors.toList());
     }
 
 }
