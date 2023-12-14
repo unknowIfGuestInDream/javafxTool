@@ -61,10 +61,14 @@
         <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
         <maven-help-plugin.version>3.4.0</maven-help-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <license-maven-plugin.version>2.3.0</license-maven-plugin.version>
+        <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
+        <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,7 +77,6 @@
         <javafx.version>17.0.9</javafx.version>
         <javafx.swt.version>17.0.9</javafx.swt.version>
         <controlsfx.version>11.2.0</controlsfx.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.5</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.30</lombok.version>
@@ -818,7 +821,13 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <release>${maven.compiler.target}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <verbose>true</verbose>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>256m</maxmem>
                 </configuration>
             </plugin>
             <plugin>
@@ -834,6 +843,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven-jar-plugin.version}</version>
                 <configuration>
+                    <forceCreation>true</forceCreation>
                     <archive>
                         <manifestEntries>
                             <Built-By>${user.name}</Built-By>
@@ -932,6 +942,51 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${license-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>download-licenses</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>download-licenses</goal>
+                            </goals>
+                            <configuration>
+                                <licensesOutputDirectory>${project.build.directory}/generated-resources/licenses
+                                </licensesOutputDirectory>
+                                <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>add-third-party</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>add-third-party</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/generated-sources/license</outputDirectory>
+                                <thirdPartyFilename>THIRD-PARTY.txt</thirdPartyFilename>
+                                <force>true</force>
+                                <licenseMerges>
+                                    <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
+                                        |Apache Software Licenses|Apache License, Version 2.0
+                                        |The Apache License, Version 2.0|Apache-2.0|Apache License 2.0
+                                    </licenseMerge>
+                                    <licenseMerge>MIT License|The MIT License</licenseMerge>
+                                </licenseMerges>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>third-party-report</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>third-party-report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
