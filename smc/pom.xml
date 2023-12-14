@@ -41,6 +41,10 @@
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
 
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tlcsdm</groupId>
