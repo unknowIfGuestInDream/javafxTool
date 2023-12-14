@@ -821,7 +821,13 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <release>${maven.compiler.target}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <verbose>true</verbose>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>256m</maxmem>
                 </configuration>
             </plugin>
             <plugin>
@@ -837,6 +843,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven-jar-plugin.version}</version>
                 <configuration>
+                    <forceCreation>true</forceCreation>
                     <archive>
                         <manifestEntries>
                             <Built-By>${user.name}</Built-By>
