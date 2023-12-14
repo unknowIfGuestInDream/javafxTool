@@ -912,28 +912,6 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${maven-dependency-plugin.version}</version>
                 </plugin>
-                <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <dataFile>target/jacoco.exec</dataFile>
-                    <outputDirectory>target/jacoco-ut</outputDirectory>
-                    <formats>
-                        <format>HTML</format>
-                    </formats>
-                    <footer>${project.name}}</footer>
-                </configuration>
-            </plugin>
                 <!-- Ignore/Execute plugin execution -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
