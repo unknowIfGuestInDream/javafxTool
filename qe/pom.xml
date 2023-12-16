@@ -40,6 +40,7 @@
     <name>javafxTool-qe</name>
     <packaging>jar</packaging>
     <description>qe开发工具组件</description>
+    <url>https://javafxtool.tlcsdm.com</url>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
