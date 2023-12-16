@@ -64,6 +64,7 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-help-plugin.version>3.4.0</maven-help-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <license-maven-plugin.version>2.3.0</license-maven-plugin.version>
@@ -874,6 +875,32 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-licence</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/license</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../</directory>
+                                    <includes>
+                                        <include>LICENSE</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
@@ -987,6 +1014,7 @@
                             <configuration>
                                 <licensesOutputDirectory>${project.build.directory}/generated-resources/licenses
                                 </licensesOutputDirectory>
+                                <licensesOutputFile>${project.build.directory}/license/licenses.xml</licensesOutputFile>
                                 <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
                                 <offline>true</offline>
                             </configuration>
@@ -998,8 +1026,8 @@
                                 <goal>add-third-party</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>${project.build.directory}/generated-sources/license</outputDirectory>
-                                <thirdPartyFilename>THIRD-PARTY.txt</thirdPartyFilename>
+                                <outputDirectory>${project.build.directory}/license</outputDirectory>
+                                <thirdPartyFilename>third-party.txt</thirdPartyFilename>
                                 <force>true</force>
                                 <licenseMerges>
                                     <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
@@ -1016,6 +1044,9 @@
                             <goals>
                                 <goal>third-party-report</goal>
                             </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/license/third-party</outputDirectory>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
