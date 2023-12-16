@@ -52,6 +52,9 @@ import java.util.List;
  */
 public class VoskUtil {
 
+    private VoskUtil() {
+    }
+
     /**
      * 获取wav音频文件文本.
      */
@@ -62,9 +65,7 @@ public class VoskUtil {
         List<String> list = new ArrayList<>();
         System.setProperty("jna.encoding", CoreConstant.ENCODING_UTF_8);
         LibVosk.setLogLevel(LogLevel.INFO);
-        try (Model model = new Model(modalPath);
-             InputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(wavPath)));
-             Recognizer recognizer = new Recognizer(model, 16000)) {
+        try (Model model = new Model(modalPath); InputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(wavPath))); Recognizer recognizer = new Recognizer(model, 16000)) {
             int nbytes;
             byte[] b = new byte[4096];
             while ((nbytes = ais.read(b)) >= 0) {
