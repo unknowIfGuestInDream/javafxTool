@@ -47,6 +47,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * vosk 工具类.
+ */
 public class VoskUtil {
 
     /**
@@ -60,8 +63,7 @@ public class VoskUtil {
         System.setProperty("jna.encoding", CoreConstant.ENCODING_UTF_8);
         LibVosk.setLogLevel(LogLevel.INFO);
         try (Model model = new Model(modalPath);
-             InputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream
-                 (new FileInputStream(wavPath)));
+             InputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(wavPath)));
              Recognizer recognizer = new Recognizer(model, 16000)) {
             int nbytes;
             byte[] b = new byte[4096];
