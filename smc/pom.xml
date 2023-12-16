@@ -40,9 +40,11 @@
     <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
+    <url>https://javafxtool.tlcsdm.com</url>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <dependencies>

@@ -37,7 +37,7 @@ $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 
 for mod in smc qe cg
 do
-$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dlicense.skipDownloadLicenses=true package
+$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
 cp -r ${mod}/target/apidocs apidocs
@@ -52,7 +52,7 @@ $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac 
 $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 for mod in smc qe cg
 do
-$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dlicense.skipDownloadLicenses=true package
+$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
 cp -r ${mod}/target/apidocs apidocs
