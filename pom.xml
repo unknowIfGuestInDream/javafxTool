@@ -122,7 +122,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.32.0</jface.version>
         <swt.version>3.124.200</swt.version>
-        <jna.version>5.9.0</jna.version>
+        <jna.version>5.14.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.4.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
