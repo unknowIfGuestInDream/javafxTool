@@ -64,11 +64,14 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-help-plugin.version>3.4.0</maven-help-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <license-maven-plugin.version>2.3.0</license-maven-plugin.version>
         <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
         <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <exec-maven-plugin.version>3.1.1</exec-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -872,6 +875,32 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-licence</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/license</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../</directory>
+                                    <includes>
+                                        <include>LICENSE</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
@@ -898,6 +927,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-help-plugin</artifactId>
                 <version>${maven-help-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                    <pomElements>
+                        <url>keep</url>
+                        <scm>flatten</scm>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -957,7 +1014,9 @@
                             <configuration>
                                 <licensesOutputDirectory>${project.build.directory}/generated-resources/licenses
                                 </licensesOutputDirectory>
+                                <licensesOutputFile>${project.build.directory}/license/licenses.xml</licensesOutputFile>
                                 <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
+                                <offline>true</offline>
                             </configuration>
                         </execution>
                         <execution>
@@ -967,8 +1026,8 @@
                                 <goal>add-third-party</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>${project.build.directory}/generated-sources/license</outputDirectory>
-                                <thirdPartyFilename>THIRD-PARTY.txt</thirdPartyFilename>
+                                <outputDirectory>${project.build.directory}/license</outputDirectory>
+                                <thirdPartyFilename>third-party.txt</thirdPartyFilename>
                                 <force>true</force>
                                 <licenseMerges>
                                     <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
@@ -985,8 +1044,16 @@
                             <goals>
                                 <goal>third-party-report</goal>
                             </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/license/third-party</outputDirectory>
+                            </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
