@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,8 @@ package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.util.DependencyUtil;
+import com.tlcsdm.core.util.Win32Util;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -37,6 +39,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 系统工具.
+ *
  * @author unknowIfGuestInDream
  */
 public class OSUtil {
@@ -44,14 +48,17 @@ public class OSUtil {
     private OSUtil() {
     }
 
+    /**
+     * 系统.
+     */
     public enum OS {
         //操作系统
-        WINDOWS,
-        LINUX,
-        MAC,
-        UNKNOWN
+        WINDOWS, LINUX, MAC, UNKNOWN
     }
 
+    /**
+     * 当前系统.
+     */
     private static OS os;
 
     public static OS getOS() {
@@ -71,7 +78,7 @@ public class OSUtil {
     }
 
     /**
-     * 图片写入剪切板
+     * 图片写入剪切板.
      */
     public static void writeToClipboard(WritableImage writableImage) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -81,7 +88,7 @@ public class OSUtil {
     }
 
     /**
-     * 文本写入到剪切板
+     * 文本写入到剪切板.
      */
     public static void writeToClipboard(String contentStr) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -91,7 +98,7 @@ public class OSUtil {
     }
 
     /**
-     * 获得剪切板的文字
+     * 获得剪切板的文字.
      */
     public static String getClipboardString() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -99,14 +106,14 @@ public class OSUtil {
     }
 
     /**
-     * 系统默认软件显示文档
+     * 系统默认软件显示文档.
      */
     public static void showDoc(String fileUri) {
         FxApp.hostServices.showDocument(fileUri);
     }
 
     /**
-     * win mac linux 系统直接打开文件夹并选中文件
+     * win mac linux 系统直接打开文件夹并选中文件.
      * 其余系统打开文件夹
      */
     public static void openAndSelectedFile(String filePath) {
@@ -140,8 +147,39 @@ public class OSUtil {
 
     }
 
+    /**
+     * 打开文件夹并选中文件.
+     */
     public static void openAndSelectedFile(File file) {
         openAndSelectedFile(file.getPath());
+    }
+
+    /**
+     * 设置程序到图层后.
+     *
+     * @param title 程序标题
+     */
+    public static void setWinIconAfter(String title) {
+        if (OS.WINDOWS.equals(getOS())) {
+            if (!DependencyUtil.hasJna()) {
+                return;
+            }
+            Win32Util.setWinIconAfter(title);
+        }
+    }
+
+    /**
+     * 设置程序到图层前.
+     *
+     * @param title 程序标题
+     */
+    public static void setWinIconTop(String title) {
+        if (OS.WINDOWS.equals(getOS())) {
+            if (!DependencyUtil.hasJna()) {
+                return;
+            }
+            Win32Util.setWinIconTop(title);
+        }
     }
 
 }

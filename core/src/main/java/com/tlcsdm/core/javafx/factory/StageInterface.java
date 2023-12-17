@@ -25,66 +25,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.cache;
-
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
-import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
+package com.tlcsdm.core.javafx.factory;
 
 /**
- * SampleCache对象获取.
- * 当引用caffeine时优先使用，否则使用SimpleSampleCache
+ * 特效Stage接口.
  *
  * @author unknowIfGuestInDream
  */
-public class SampleCacheFactory {
-
-    private SampleCacheFactory() {
-        // Do nothing
-    }
-
-    private static final SampleCache SAMPLE_CACHE;
-
-    static {
-        if (DependencyUtil.hasCaffeine()) {
-            SAMPLE_CACHE = new CaffeineSimpleCache();
-        } else {
-            SAMPLE_CACHE = new SimpleSampleCache();
-        }
-    }
+public interface StageInterface {
 
     /**
-     * 获取对象.
+     * 初始化.
      */
-    public static Object get(String key) {
-        return SAMPLE_CACHE.get(key);
-    }
+    void init();
 
     /**
-     * 缓存对象.
+     * 显示stage.
      */
-    public static void put(String key, Object sample) {
-        SAMPLE_CACHE.put(key, sample);
-    }
+    void show();
 
     /**
-     * 是否包含key值，存在返回true.
+     * 关闭stage.
      */
-    public static boolean containsKey(String key) {
-        return SAMPLE_CACHE.containsKey(key);
-    }
+    void close();
 
     /**
-     * 移除key.
+     * 设置fps.
+     *
+     * @param fps FPS
      */
-    public static void removeKey(String key) {
-        SAMPLE_CACHE.removeKey(key);
-    }
+    void setFps(double fps);
 
-    /**
-     * 清空缓存.
-     */
-    public static void clear() {
-        SAMPLE_CACHE.clear();
-    }
 }

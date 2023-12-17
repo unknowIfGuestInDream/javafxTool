@@ -25,66 +25,72 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.cache;
-
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
-import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
+package com.tlcsdm.core.util;
 
 /**
- * SampleCache对象获取.
- * 当引用caffeine时优先使用，否则使用SimpleSampleCache
+ * 依赖工具类.
+ * 主要用于获取当前是否存在某个依赖项
  *
  * @author unknowIfGuestInDream
  */
-public class SampleCacheFactory {
+public class DependencyUtil {
 
-    private SampleCacheFactory() {
-        // Do nothing
-    }
-
-    private static final SampleCache SAMPLE_CACHE;
-
-    static {
-        if (DependencyUtil.hasCaffeine()) {
-            SAMPLE_CACHE = new CaffeineSimpleCache();
-        } else {
-            SAMPLE_CACHE = new SimpleSampleCache();
-        }
+    private DependencyUtil() {
     }
 
     /**
-     * 获取对象.
+     * 因否存在JNA库.
      */
-    public static Object get(String key) {
-        return SAMPLE_CACHE.get(key);
+    public static boolean hasJna() {
+        return CoreUtil.hasClass("com.sun.jna.platform.win32.User32") && CoreUtil.hasClass("com.sun.jna.Native");
     }
 
     /**
-     * 缓存对象.
+     * 因否存在Groovy库.
      */
-    public static void put(String key, Object sample) {
-        SAMPLE_CACHE.put(key, sample);
+    public static boolean hasGroovy() {
+        return CoreUtil.hasClass("groovy.util.GroovyScriptEngine");
     }
 
     /**
-     * 是否包含key值，存在返回true.
+     * 因否存在Freemarker库.
      */
-    public static boolean containsKey(String key) {
-        return SAMPLE_CACHE.containsKey(key);
+    public static boolean hasFreemarker() {
+        return CoreUtil.hasClass("freemarker.cache.TemplateLoader");
     }
 
     /**
-     * 移除key.
+     * 因否存在commons-csv库.
      */
-    public static void removeKey(String key) {
-        SAMPLE_CACHE.removeKey(key);
+    public static boolean hasCommonsCsv() {
+        return CoreUtil.hasClass("org.apache.commons.csv.CSVParser");
     }
 
     /**
-     * 清空缓存.
+     * 因否存在poi库.
      */
-    public static void clear() {
-        SAMPLE_CACHE.clear();
+    public static boolean hasPoi() {
+        return CoreUtil.hasClass("org.apache.poi.Version");
+    }
+
+    /**
+     * 因否存在Jackson库.
+     */
+    public static boolean hasJackson() {
+        return CoreUtil.hasClass("com.fasterxml.jackson.databind.ObjectMapper");
+    }
+
+    /**
+     * 因否存在java-diff-utils库.
+     */
+    public static boolean hasDifflib() {
+        return CoreUtil.hasClass("com.github.difflib.DiffUtils");
+    }
+
+    /**
+     * 因否存在caffeine库.
+     */
+    public static boolean hasCaffeine() {
+        return CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache");
     }
 }

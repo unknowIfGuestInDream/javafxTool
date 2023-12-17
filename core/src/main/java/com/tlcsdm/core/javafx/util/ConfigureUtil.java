@@ -36,6 +36,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 配置工具.
+ *
+ * @author unknowIfGuestInDream
+ */
 public class ConfigureUtil {
 
     private ConfigureUtil() {

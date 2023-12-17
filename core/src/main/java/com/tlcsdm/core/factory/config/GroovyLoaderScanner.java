@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@ import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.groovy.GroovyLoaderService;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.util.CoreConstant;
-import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.core.util.GroovyUtil;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyShell;
@@ -60,7 +60,7 @@ public class GroovyLoaderScanner implements InitializingFactory {
 
     @Override
     public void initialize() throws Exception {
-        if (!CoreUtil.hasClass("groovy.util.GroovyScriptEngine")) {
+        if (!DependencyUtil.hasGroovy()) {
             return;
         }
         List<URL> list = new ArrayList<>();

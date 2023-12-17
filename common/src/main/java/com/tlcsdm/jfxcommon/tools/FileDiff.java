@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
-import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
@@ -284,6 +284,6 @@ public class FileDiff extends CommonSample {
 
     @Override
     public boolean isVisible() {
-        return CoreUtil.hasClass("com.github.difflib.DiffUtils");
+        return DependencyUtil.hasDifflib();
     }
 }

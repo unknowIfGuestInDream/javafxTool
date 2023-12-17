@@ -25,66 +25,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.cache;
+.root {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
 
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
-import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
-
-/**
- * SampleCache对象获取.
- * 当引用caffeine时优先使用，否则使用SimpleSampleCache
- *
- * @author unknowIfGuestInDream
- */
-public class SampleCacheFactory {
-
-    private SampleCacheFactory() {
-        // Do nothing
-    }
-
-    private static final SampleCache SAMPLE_CACHE;
-
-    static {
-        if (DependencyUtil.hasCaffeine()) {
-            SAMPLE_CACHE = new CaffeineSimpleCache();
-        } else {
-            SAMPLE_CACHE = new SimpleSampleCache();
-        }
-    }
-
-    /**
-     * 获取对象.
-     */
-    public static Object get(String key) {
-        return SAMPLE_CACHE.get(key);
-    }
-
-    /**
-     * 缓存对象.
-     */
-    public static void put(String key, Object sample) {
-        SAMPLE_CACHE.put(key, sample);
-    }
-
-    /**
-     * 是否包含key值，存在返回true.
-     */
-    public static boolean containsKey(String key) {
-        return SAMPLE_CACHE.containsKey(key);
-    }
-
-    /**
-     * 移除key.
-     */
-    public static void removeKey(String key) {
-        SAMPLE_CACHE.removeKey(key);
-    }
-
-    /**
-     * 清空缓存.
-     */
-    public static void clear() {
-        SAMPLE_CACHE.clear();
-    }
+.media-view {
+    -fx-background: transparent;
 }

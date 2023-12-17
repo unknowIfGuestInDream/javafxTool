@@ -25,66 +25,79 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.cache;
+package com.tlcsdm.core.javafx.util;
 
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
-import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
+import javafx.scene.Node;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
- * SampleCache对象获取.
- * 当引用caffeine时优先使用，否则使用SimpleSampleCache
+ * 系统或组件Screen获取.
  *
  * @author unknowIfGuestInDream
  */
-public class SampleCacheFactory {
+public class ScreenUtil {
 
-    private SampleCacheFactory() {
-        // Do nothing
-    }
-
-    private static final SampleCache SAMPLE_CACHE;
-
-    static {
-        if (DependencyUtil.hasCaffeine()) {
-            SAMPLE_CACHE = new CaffeineSimpleCache();
-        } else {
-            SAMPLE_CACHE = new SimpleSampleCache();
-        }
+    private ScreenUtil() {
     }
 
     /**
-     * 获取对象.
+     * 组件X坐标.
+     *
+     * @param control 组件
      */
-    public static Object get(String key) {
-        return SAMPLE_CACHE.get(key);
+    public static double getScreenX(Node control) {
+        return control.getScene().getWindow().getX() + control.getScene().getX() + control.localToScene(0.0D, 0.0D).getX();
     }
 
     /**
-     * 缓存对象.
+     * 组件Y坐标.
+     *
+     * @param control 组件
      */
-    public static void put(String key, Object sample) {
-        SAMPLE_CACHE.put(key, sample);
+    public static double getScreenY(Node control) {
+        return control.getScene().getWindow().getY() + control.getScene().getY() + control.localToScene(0.0D, 0.0D).getY();
     }
 
     /**
-     * 是否包含key值，存在返回true.
+     * 组件宽度.
+     *
+     * @param control 组件
      */
-    public static boolean containsKey(String key) {
-        return SAMPLE_CACHE.containsKey(key);
+    public static double getWidth(Node control) {
+        return control.getBoundsInParent().getWidth();
     }
 
     /**
-     * 移除key.
+     * 组件高度.
+     *
+     * @param control 组件
      */
-    public static void removeKey(String key) {
-        SAMPLE_CACHE.removeKey(key);
+    public static double getHeight(Node control) {
+        return control.getBoundsInParent().getHeight();
     }
 
     /**
-     * 清空缓存.
+     * 获取屏幕宽度.
      */
-    public static void clear() {
-        SAMPLE_CACHE.clear();
+    public static double getScreenWeight() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.getWidth();
+    }
+
+    /**
+     * 获取屏幕高度.
+     */
+    public static double getScreenHeight() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.getHeight();
+    }
+
+    /**
+     * 屏幕分辨率字符串 w x h.
+     */
+    public static String getScreenToString() {
+        return String.format("%.0f", getScreenWeight()) + " x " + String.format("%.0f", getScreenHeight());
     }
 }

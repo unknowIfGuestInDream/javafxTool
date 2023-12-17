@@ -25,66 +25,51 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.cache;
+package com.tlcsdm.core.javafx.stage;
 
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
-import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.factory.StageInterface;
+import javafx.stage.Stage;
 
 /**
- * SampleCache对象获取.
- * 当引用caffeine时优先使用，否则使用SimpleSampleCache
+ * 特效Stage基类.
  *
  * @author unknowIfGuestInDream
  */
-public class SampleCacheFactory {
+public class BaseStage implements StageInterface {
 
-    private SampleCacheFactory() {
-        // Do nothing
+    private Stage stage;
+
+    public Stage getStage() {
+        if (stage == null) {
+            stage = FxApp.primaryStage;
+        }
+        return stage;
     }
 
-    private static final SampleCache SAMPLE_CACHE;
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
-    static {
-        if (DependencyUtil.hasCaffeine()) {
-            SAMPLE_CACHE = new CaffeineSimpleCache();
-        } else {
-            SAMPLE_CACHE = new SimpleSampleCache();
+    @Override
+    public void close() {
+        if (stage != null) {
+            stage.close();
         }
     }
 
-    /**
-     * 获取对象.
-     */
-    public static Object get(String key) {
-        return SAMPLE_CACHE.get(key);
+    @Override
+    public void init() {
+        // Do nothing
     }
 
-    /**
-     * 缓存对象.
-     */
-    public static void put(String key, Object sample) {
-        SAMPLE_CACHE.put(key, sample);
+    @Override
+    public void show() {
+        stage.show();
     }
 
-    /**
-     * 是否包含key值，存在返回true.
-     */
-    public static boolean containsKey(String key) {
-        return SAMPLE_CACHE.containsKey(key);
-    }
-
-    /**
-     * 移除key.
-     */
-    public static void removeKey(String key) {
-        SAMPLE_CACHE.removeKey(key);
-    }
-
-    /**
-     * 清空缓存.
-     */
-    public static void clear() {
-        SAMPLE_CACHE.clear();
+    @Override
+    public void setFps(double fps) {
+        // Do nothing
     }
 }
