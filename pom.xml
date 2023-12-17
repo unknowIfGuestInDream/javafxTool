@@ -37,6 +37,7 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://javafxtool.tlcsdm.com</url>
+    <inceptionYear>2023</inceptionYear>
     <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces
         such as frame, login and core
     </description>
@@ -150,16 +151,24 @@
         <connection>https://github.com/unknowIfGuestInDream/javafxTool.git</connection>
         <url>https://github.com/unknowIfGuestInDream/javafxTool</url>
     </scm>
+    <organization>
+        <name>Tlcsdm</name>
+        <url>https://github.com/tlcsdm</url>
+    </organization>
     <developers>
         <developer>
             <name>UnknowIfGuestInDream</name>
             <email>liang.tang.cx@gmail.com</email>
+            <url>https://tlcsdm.com</url>
             <organization>Tlcsdm</organization>
+            <organizationUrl>https://github.com/tlcsdm</organizationUrl>
         </developer>
         <developer>
             <name>DreamAwakenFateBroke</name>
             <email>ifguestindream@163.com</email>
+            <url>https://github.com/DreamAwakenFateBroke</url>
             <organization>Tlcsdm</organization>
+            <organizationUrl>https://github.com/tlcsdm</organizationUrl>
         </developer>
     </developers>
 
