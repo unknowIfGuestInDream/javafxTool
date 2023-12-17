@@ -25,9 +25,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.tlcsdm.core.javafx.stage;
 
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -57,35 +85,33 @@ import java.awt.Toolkit;
 public class SnowState extends BaseStage {
     private static SnowState instance = null;
     private static Stage mainStage;
-    private static double FPS = 10.0;
+    private static double FPS = 30.0;
+    private final String title = "snow-desktop";
     private Timeline timeLine;
     GraphicsContext gc;
     int[] xx = new int[100];
     int[] yy = new int[100];
-    int[] vx = new int[100];//x轴移动速度
-    int[] vy = new int[100];//y轴下落速度
-    int[] r = new int[100];//初始化角度
-    int[] rv = new int[100];//初始化角度增量
+    //x轴移动速度
+    int[] vx = new int[100];
+    //y轴下落速度
+    int[] vy = new int[100];
+    //初始化角度
+    int[] r = new int[100];
+    //初始化角度增量
+    int[] rv = new int[100];
     double[] fonts = new double[100];
     private Dimension screenSize;
 
-    //动画事件
+    // 动画事件
     private final EventHandler<ActionEvent> eventHandler = e -> {
         // 刷新操作
         gc.clearRect(0, 0, screenSize.getWidth(), screenSize.getHeight());
         snow(gc);
     };
 
-    static {
-        //初始化fps
-        // Double fpsConfig= ConfigPropertiesUtil.getDouble(ConfigEnum.ANIMATIONFPS.getKey());
-        Double fpsConfig = 30.0;
-        if (fpsConfig != null) {
-            FPS = fpsConfig;
-        }
-    }
-
-    //调用单例工厂
+    /**
+     * 调用单例工厂.
+     */
     public static SnowState getInstance() {
         if (instance == null) {
             instance = SingletonFactory.getWeakInstace(SnowState.class);
@@ -96,13 +122,13 @@ public class SnowState extends BaseStage {
     public void start() {
         Stage stage = getStage();
         mainStage = new Stage();
-        mainStage.setTitle("snow-desktop");
+        mainStage.setTitle(title);
         mainStage.initOwner(stage);
         //透明窗口
         mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.setX(0);
         mainStage.setY(0);
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         AnchorPane root = new AnchorPane();
         root.setStyle("-fx-fill: null;-fx-background-color: rgba(0,0,0,0)");
         Canvas canvas = new Canvas(screenSize.getWidth(), screenSize.getHeight());
@@ -115,16 +141,20 @@ public class SnowState extends BaseStage {
         stage.show();
         mainStage.show();
         //置于图标下层
-        //OsUtil.setWinIconAfter(StageTitleConst.SNOWTITLE);
+        OSUtil.setWinIconAfter(title);
         //初始化雪花坐标
         for (int i = 0; i < 100; ++i) {
             this.xx[i] = (int) (Math.random() * screenSize.getWidth());
             this.yy[i] = (int) (Math.random() * screenSize.getHeight());
             this.vx[i] = 5 - (int) (Math.random() * 10);
-            this.vy[i] = 1 + (int) (Math.random() * 10);//下落速度 [1,11)
-            this.r[i] = 360 - (int) (Math.random() * 720);//初始化角度 [-360 ,360)
-            this.rv[i] = 5 - (int) (Math.random() * 10);//角度改变 [-5,5)
-            this.fonts[i] = 10 + (int) (Math.random() * 8);//字体大小[10,18)
+            //下落速度 [1,11)
+            this.vy[i] = 1 + (int) (Math.random() * 10);
+            //初始化角度 [-360 ,360)
+            this.r[i] = 360 - (int) (Math.random() * 720);
+            //角度改变 [-5,5)
+            this.rv[i] = 5 - (int) (Math.random() * 10);
+            //字体大小[10,18)
+            this.fonts[i] = 10 + (int) (Math.random() * 8);
         }
         // 获取画板对象
         gc = canvas.getGraphicsContext2D();
@@ -164,7 +194,7 @@ public class SnowState extends BaseStage {
             Rotate rotate = new Rotate(r[i], xx[i] + fonts[i] / 2.0, yy[i] + fonts[i] / 2.0);
             gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(),
                 rotate.getTx(), rotate.getTy());
-            gc.setFont(Font.font("微软雅黑", FontWeight.findByWeight(1), fonts[i]));
+            gc.setFont(Font.font("Microsoft YaHei", FontWeight.findByWeight(1), fonts[i]));
             gc.fillText("*", this.xx[i], this.yy[i]);
         }
         // 恢复现场
@@ -209,8 +239,16 @@ public class SnowState extends BaseStage {
         if (!mainStage.isShowing()) {
             mainStage.show();
             timeLine.play();
-            //OsUtil.setWinIconAfter(StageTitleConst.SNOWTITLE);
+            OSUtil.setWinIconAfter(title);
         }
+    }
+
+    public static double getFPS() {
+        return FPS;
+    }
+
+    public static void setFPS(double FPS) {
+        SnowState.FPS = FPS;
     }
 
 }
