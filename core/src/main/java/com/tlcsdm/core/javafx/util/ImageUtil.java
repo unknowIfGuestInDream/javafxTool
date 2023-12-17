@@ -52,6 +52,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.tlcsdm.core.javafx.util;
 
 import cn.hutool.log.StaticLog;
@@ -97,13 +124,14 @@ public class ImageUtil {
             for (int readY = 0; readY < tempHeight; readY++) {
                 for (int readX = 0; readX < image.getWidth(); readX++) {
                     Color color = pixelReader.getColor(readX, readY);
-                    if (color.getOpacity() == 0) {//如果是透明的，就不改变
+                    //如果是透明的，就不改变
+                    if (color.getOpacity() == 0) {
                         continue;
                     }
                     // 最后一个参数是透明设置。需要设置透明不能改变原来的，只能重新创建对象赋值，
                     Color c1 = new Color(color.getRed(), color.getGreen(), color.getBlue(),
                         opacity);
-//					c1=c1.darker();
+                    // c1=c1.darker();
                     pixelWriter.setColor(readX, readY, c1);
                 }
             }
@@ -115,12 +143,13 @@ public class ImageUtil {
             for (int readY = (int) tempHeight; readY < 2 * tempHeight; readY++) {
                 for (int readX = 0; readX < image.getWidth(); readX++) {
                     Color color = pixelReader.getColor(readX, readY);
-                    if (color.getOpacity() == 0) {//如果是透明的，就不改变
+                    //如果是透明的，就不改变
+                    if (color.getOpacity() == 0) {
                         continue;
                     }
                     Color c1 = new Color(color.getRed(), color.getGreen(), color.getBlue(),
                         opacity);
-//					c1=c1.darker();
+                    // c1=c1.darker();
                     pixelWriter.setColor(readX, readY, c1);
                 }
             }
@@ -132,12 +161,13 @@ public class ImageUtil {
             for (int readY = (int) (2 * tempHeight); readY < imgHeight; readY++) {
                 for (int readX = 0; readX < image.getWidth(); readX++) {
                     Color color = pixelReader.getColor(readX, readY);
-                    if (color.getOpacity() == 0) {//如果是rgb为0且透明的，就不改变
+                    //如果是rgb为0且透明的，就不改变
+                    if (color.getOpacity() == 0) {
                         continue;
                     }
                     Color c1 = new Color(color.getRed(), color.getGreen(), color.getBlue(),
                         opacity);
-//                    c1=c1.darker();
+                    // c1=c1.darker();
                     pixelWriter.setColor(readX, readY, c1);
                 }
             }
@@ -146,7 +176,7 @@ public class ImageUtil {
         });
         new Thread(futureTask3, "The third opacity rendering thread").start();
 
-        //这部分代码可以自主选用。用了可以保证全部图片全部刷新完再展示，不然图片是先渲染上部分，再是中下部分
+        // 这部分代码可以自主选用。用了可以保证全部图片全部刷新完再展示，不然图片是先渲染上部分，再是中下部分
         try {
             // 等待三个线程全部执行完毕
             if (futureTask1.get() && futureTask2.get() && futureTask3.get()) {
