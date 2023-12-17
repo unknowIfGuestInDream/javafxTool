@@ -2,6 +2,8 @@ module com.tlcsdm.core {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.swing;
+    requires javafx.media;
+    requires javafx.web;
     requires java.desktop;
     requires java.net.http;
     requires java.sql;
@@ -39,6 +41,7 @@ module com.tlcsdm.core {
     requires static yuicompressor;
     requires static jave.core;
     requires static com.sun.jna;
+    requires static com.sun.jna.platform;
     requires static vosk;
     requires static cn.hutool.http;
     requires static jakarta.xml.bind;

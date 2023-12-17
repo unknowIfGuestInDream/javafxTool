@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,34 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.util;
-
-import javafx.scene.Node;
+package com.tlcsdm.core.javafx.controller;
 
 /**
+ * 特效Stage 的BaseController.
+ *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 21:03
  */
-public class GetScreenUtil {
+public class BaseController {
 
-    private GetScreenUtil() {
+    BaseController() {
     }
 
-    public static double getScreenX(Node control) {
-        return control.getScene().getWindow().getX() + control.getScene().getX()
-            + control.localToScene(0.0D, 0.0D).getX();
+    /**
+     * 显示.
+     */
+    public void show() {
+        // Do nothing
     }
 
-    public static double getScreenY(Node control) {
-        return control.getScene().getWindow().getY() + control.getScene().getY()
-            + control.localToScene(0.0D, 0.0D).getY();
-    }
-
-    public static double getWidth(Node control) {
-        return control.getBoundsInParent().getWidth();
-    }
-
-    public static double getHeight(Node control) {
-        return control.getBoundsInParent().getHeight();
+    /**
+     * 关闭.
+     */
+    public void close() {
+        // Do nothing
     }
 }

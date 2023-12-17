@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,11 +44,10 @@ import java.io.StringWriter;
 import java.net.URL;
 
 /**
- * Dom4j工具类
+ * Dom4j工具类.
  * 使用xpath需要引用jaxen
  *
  * @author unknowIfGuestInDream
- * @date 2023/4/22 18:34
  */
 public class Dom4jUtil {
 

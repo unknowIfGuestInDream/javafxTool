@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.util.CoreConstant;
-import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,13 +110,13 @@ public class DataFormatConvert extends CommonSample {
 
     private void initializeDataSource() {
         datasourceList.add("XML");
-        if (CoreUtil.hasClass("org.apache.commons.csv.CSVParser")) {
+        if (DependencyUtil.hasCommonsCsv()) {
             datasourceList.add("CSV");
         }
-        if (CoreUtil.hasClass("org.apache.poi.Version")) {
+        if (DependencyUtil.hasPoi()) {
             datasourceList.add("Excel");
         }
-        if (CoreUtil.hasClass("com.fasterxml.jackson.databind.ObjectMapper")) {
+        if (DependencyUtil.hasJackson()) {
             datasourceList.add("JSON");
         }
         cmbDatasource.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -281,7 +281,7 @@ public class DataFormatConvert extends CommonSample {
     public boolean isVisible() {
         String value = System.getProperty(CoreConstant.JVM_WORKENV);
         return CoreConstant.JVM_WORKENV_DEV.equals(value);
-//        if (!CoreUtil.hasClass("freemarker.cache.TemplateLoader")) {
+//        if (!DependencyUtil.hasFreemarker()) {
 //            return false;
 //        }
 //        TemplateLoader templateLoader = FreemarkerUtil.configuration().getTemplateLoader();

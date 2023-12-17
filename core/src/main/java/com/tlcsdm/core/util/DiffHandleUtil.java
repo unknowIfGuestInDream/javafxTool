@@ -46,9 +46,10 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 /**
+ * 文本差异工具.
+ *
  * @author unknowIfGuestInDream
- * @date 2022/9/3 17:05
- * @since: 1.0
+ * @since 1.0
  */
 public class DiffHandleUtil {
 
@@ -73,15 +74,13 @@ public class DiffHandleUtil {
      * @param originalFileName 原始文件名
      * @param revisedFileName  对比文件名
      */
-    public static List<String> diffString(List<String> original, List<String> revised, String originalFileName,
-        String revisedFileName) {
+    public static List<String> diffString(List<String> original, List<String> revised, String originalFileName, String revisedFileName) {
         originalFileName = originalFileName == null ? "原始文件" : originalFileName;
         revisedFileName = revisedFileName == null ? "对比文件" : revisedFileName;
         // 两文件的不同点
         Patch<String> patch = DiffUtils.diff(original, revised);
         // 生成统一的差异格式
-        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original,
-            patch, 0);
+        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original, patch, 0);
         int diffCount = unifiedDiff.size();
         if (diffCount == 0) {
             // 如果两文件没差异则插入如下

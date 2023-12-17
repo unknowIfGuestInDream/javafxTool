@@ -40,6 +40,7 @@
     <name>javafxTool-core</name>
     <packaging>jar</packaging>
     <description>javafxTool 核心组件</description>
+    <url>https://javafxtool.tlcsdm.com</url>
 
     <dependencies>
         <dependency>

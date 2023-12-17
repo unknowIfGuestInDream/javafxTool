@@ -37,6 +37,7 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://javafxtool.tlcsdm.com</url>
+    <inceptionYear>2023</inceptionYear>
     <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces
         such as frame, login and core
     </description>
@@ -58,13 +59,20 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-help-plugin.version>3.4.0</maven-help-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <license-maven-plugin.version>2.3.0</license-maven-plugin.version>
+        <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
+        <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <exec-maven-plugin.version>3.1.1</exec-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,7 +81,6 @@
         <javafx.version>17.0.9</javafx.version>
         <javafx.swt.version>17.0.9</javafx.swt.version>
         <controlsfx.version>11.2.0</controlsfx.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <tlcsdm-common.version>1.4.5</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.30</lombok.version>
@@ -104,7 +111,7 @@
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.16.0</jackson.version>
         <testfx.version>4.0.17</testfx.version>
-        <assertj.version>3.13.2</assertj.version>
+        <assertj.version>3.24.2</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.2</richtextfx.version>
@@ -116,7 +123,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.32.0</jface.version>
         <swt.version>3.124.200</swt.version>
-        <jna.version>5.9.0</jna.version>
+        <jna.version>5.14.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.4.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
@@ -144,16 +151,24 @@
         <connection>https://github.com/unknowIfGuestInDream/javafxTool.git</connection>
         <url>https://github.com/unknowIfGuestInDream/javafxTool</url>
     </scm>
+    <organization>
+        <name>Tlcsdm</name>
+        <url>https://github.com/tlcsdm</url>
+    </organization>
     <developers>
         <developer>
             <name>UnknowIfGuestInDream</name>
             <email>liang.tang.cx@gmail.com</email>
+            <url>https://tlcsdm.com</url>
             <organization>Tlcsdm</organization>
+            <organizationUrl>https://github.com/tlcsdm</organizationUrl>
         </developer>
         <developer>
             <name>DreamAwakenFateBroke</name>
             <email>ifguestindream@163.com</email>
+            <url>https://github.com/DreamAwakenFateBroke</url>
             <organization>Tlcsdm</organization>
+            <organizationUrl>https://github.com/tlcsdm</organizationUrl>
         </developer>
     </developers>
 
@@ -818,7 +833,13 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <release>${maven.compiler.target}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <verbose>true</verbose>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>256m</maxmem>
                 </configuration>
             </plugin>
             <plugin>
@@ -834,6 +855,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven-jar-plugin.version}</version>
                 <configuration>
+                    <forceCreation>true</forceCreation>
                     <archive>
                         <manifestEntries>
                             <Built-By>${user.name}</Built-By>
@@ -857,6 +879,32 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-licence</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/license</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../</directory>
+                                    <includes>
+                                        <include>LICENSE</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -888,6 +936,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-help-plugin</artifactId>
                 <version>${maven-help-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                    <pomElements>
+                        <url>keep</url>
+                        <scm>flatten</scm>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -932,6 +1008,61 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${license-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>download-licenses</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>download-licenses</goal>
+                            </goals>
+                            <configuration>
+                                <licensesOutputDirectory>${project.build.directory}/generated-resources/licenses
+                                </licensesOutputDirectory>
+                                <licensesOutputFile>${project.build.directory}/license/licenses.xml</licensesOutputFile>
+                                <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory>
+                                <offline>true</offline>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>add-third-party</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>add-third-party</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/license</outputDirectory>
+                                <thirdPartyFilename>third-party.txt</thirdPartyFilename>
+                                <force>true</force>
+                                <licenseMerges>
+                                    <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
+                                        |Apache Software Licenses|Apache License, Version 2.0
+                                        |The Apache License, Version 2.0|Apache-2.0|Apache License 2.0
+                                    </licenseMerge>
+                                    <licenseMerge>MIT License|The MIT License</licenseMerge>
+                                </licenseMerges>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>third-party-report</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>third-party-report</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/license/third-party</outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

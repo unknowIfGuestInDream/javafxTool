@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,8 @@ public class TooltipUtil {
         double x;
         double y;
         if (node != null) {
-            x = GetScreenUtil.getScreenX(node) + GetScreenUtil.getWidth(node) / 2.0D;
-            y = GetScreenUtil.getScreenY(node) + GetScreenUtil.getHeight(node);
+            x = ScreenUtil.getScreenX(node) + ScreenUtil.getWidth(node) / 2.0D;
+            y = ScreenUtil.getScreenY(node) + ScreenUtil.getHeight(node);
         } else {
             x = window.getX() + window.getWidth() / 2.0D;
             y = window.getY() + window.getHeight();
@@ -103,7 +103,7 @@ public class TooltipUtil {
     }
 
     public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos,
-        EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
+                                 EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
         Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title)
             .text(message).graphic(graphic).onAction(onAction);
         if (owner != null) {

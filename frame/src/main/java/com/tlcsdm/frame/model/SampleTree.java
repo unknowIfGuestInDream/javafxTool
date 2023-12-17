@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,9 +33,6 @@ import javafx.scene.control.TreeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author unknowIfGuestInDream
- */
 public class SampleTree {
     private final TreeNode root;
 
@@ -154,9 +151,9 @@ public class SampleTree {
             TreeItem<Sample> treeItem = null;
 
             if (sample != null) {
-                treeItem = new TreeItem<Sample>(sample);
+                treeItem = new TreeItem<>(sample);
             } else if (packageName != null) {
-                treeItem = new TreeItem<Sample>(new EmptySample(packageName));
+                treeItem = new TreeItem<>(new EmptySample(packageName));
             }
 
             treeItem.setExpanded(true);

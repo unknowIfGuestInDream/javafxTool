@@ -28,6 +28,7 @@ data/
 out/
 qodana.sarif.json
 **/integration-test-screenshots/**
+.flattened-pom.xml
 
 ### NetBeans ###
 /nbproject/private/

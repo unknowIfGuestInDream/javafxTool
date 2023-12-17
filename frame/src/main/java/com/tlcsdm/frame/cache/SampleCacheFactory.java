@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,7 +27,7 @@
 
 package com.tlcsdm.frame.cache;
 
-import com.tlcsdm.core.util.CoreUtil;
+import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.frame.cache.impl.CaffeineSimpleCache;
 import com.tlcsdm.frame.cache.impl.SimpleSampleCache;
 
@@ -46,7 +46,7 @@ public class SampleCacheFactory {
     private static final SampleCache SAMPLE_CACHE;
 
     static {
-        if (CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache")) {
+        if (DependencyUtil.hasCaffeine()) {
             SAMPLE_CACHE = new CaffeineSimpleCache();
         } else {
             SAMPLE_CACHE = new SimpleSampleCache();
