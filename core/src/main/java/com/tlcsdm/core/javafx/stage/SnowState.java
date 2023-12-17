@@ -164,7 +164,7 @@ public class SnowState extends BaseStage {
                 this.yy[i] = 0;
                 this.vy[i] = 1 + (int) (Math.random() * 10);
                 this.r[i] = 360 - (int) (Math.random() * 720);
-                this.fonts[i] = 10 + (int) (Math.random() * 8);
+                this.fonts[i] = 10.0 + (int) (Math.random() * 8.0);
             }
 
             this.fonts[i] += 0.1;
