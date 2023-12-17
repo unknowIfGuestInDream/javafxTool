@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,9 +35,6 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 
-/**
- * @author unknowIfGuestInDream
- */
 public class SmcSampleTreeViewConfiguration implements SamplesTreeViewConfiguration {
 
     @Override
@@ -48,5 +45,8 @@ public class SmcSampleTreeViewConfiguration implements SamplesTreeViewConfigurat
     @Override
     public void configSampleTreeView(SampleTreeViewModel sampleTreeViewModel) {
         // Do nothing
+//        sampleTreeViewModel.samplesTreeView().getRoot().getChildren().forEach(s -> {
+//            s.setExpanded(false);
+//        });
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,9 +47,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author unknowIfGuestInDream
- */
 public class SmcSamplePostProcessorProvider implements SamplePostProcessorService {
 
     private static final List<TreeNode<String>> sampleNodeList = new ArrayList<>();
@@ -63,7 +60,7 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
     @Override
     public void postProcessBeanFactory() {
         // 防止重启带来的重复数据
-        if (sampleNodeList.size() > 0) {
+        if (!sampleNodeList.isEmpty()) {
             return;
         }
         SamplePostProcessorService.Samples.forEach(s -> {
@@ -90,7 +87,7 @@ public class SmcSamplePostProcessorProvider implements SamplePostProcessorServic
                 return;
             }
             if (set.contains(n.getId())) {
-                throw new SampleDefinitionException("Componment '" + n.getId() + "' Already defined.");
+                throw new SampleDefinitionException("Component '" + n.getId() + "' Already defined.");
             }
             set.add(n.getId());
         });
