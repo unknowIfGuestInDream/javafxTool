@@ -79,6 +79,60 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/*
+ * Copyright (c) 2023 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.tlcsdm.core.javafx.stage;
 
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
@@ -151,9 +205,9 @@ public class CodeRainState extends BaseStage {
     public void start() {
         Stage stage = getStage();
         // 设置风格为 UTILITY
-//        stage.initStyle(StageStyle.DECORATED);
+        // stage.initStyle(StageStyle.DECORATED);
         // 设置父级透明度为0
-//        stage.setOpacity(0);
+        // stage.setOpacity(0);
         mainStage = new Stage();
         mainStage.setTitle(title);
         mainStage.initOwner(stage);
@@ -163,7 +217,7 @@ public class CodeRainState extends BaseStage {
         mainStage.setY(0);
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
         //最大化
-//        mainStage.setMaximized(true);
+        // mainStage.setMaximized(true);
         AnchorPane root = new AnchorPane();
         root.setStyle("-fx-fill: null;-fx-background-color: rgba(0,0,0,0)");
         Canvas canvas = new Canvas(screenSize.getWidth(), screenSize.getHeight());
@@ -240,13 +294,13 @@ public class CodeRainState extends BaseStage {
                 gc.setFill(Color.rgb(cr, cg, cb));
                 gc.fillText(String.valueOf(getChr()), x, j * gap);
             }
-            //每放完一帧，当前列上雨点的位置随机下移1~5行
-//            posArr[currentColumn] += random.nextInt(5);
+            // 每放完一帧，当前列上雨点的位置随机下移1~5行
+            // posArr[currentColumn] += random.nextInt(5);
             posArr[currentColumn] += 1;
-            //当雨点位置超过屏幕高度时，重新产生一个随机位置
+            // 当雨点位置超过屏幕高度时，重新产生一个随机位置
             if (posArr[currentColumn] * gap > screenSize.height) {
                 posArr[currentColumn] = random.nextInt(lines);
-//                posArr[currentColumn] = 0;
+                // posArr[currentColumn] = 0;
             }
             currentColumn++;
         }
