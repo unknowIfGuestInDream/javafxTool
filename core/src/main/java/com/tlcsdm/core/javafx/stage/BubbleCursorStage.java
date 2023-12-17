@@ -92,13 +92,7 @@ public final class BubbleCursorStage extends BaseStage {
 
     @Override
     public void show() {
-        if (mainStage == null) {
-            try {
-                getInstance().start();
-            } catch (IOException e) {
-                StaticLog.error(e);
-            }
-        }
+        init();
         if (!mainStage.isShowing()) {
             mainStage.show();
         }

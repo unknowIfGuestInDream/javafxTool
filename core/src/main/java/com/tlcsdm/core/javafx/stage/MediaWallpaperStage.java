@@ -37,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -56,8 +57,9 @@ public class MediaWallpaperStage extends BaseStage {
     private Stage mainStage;
     private final String title = "media-wallpaper-desktop";
 
-    public MediaWallpaperStage() {
+    private static String mediaWallpaperPath;
 
+    public MediaWallpaperStage() {
     }
 
     /**
@@ -88,6 +90,7 @@ public class MediaWallpaperStage extends BaseStage {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent root = fxmlLoader.load();
         MediaWallpaperController mediaWallpaperController = fxmlLoader.getController();
+        mediaWallpaperController.setMedia(mediaWallpaperPath);
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         mainStage.setX(0);
         mainStage.setY(0);
@@ -103,13 +106,7 @@ public class MediaWallpaperStage extends BaseStage {
 
     @Override
     public void show() {
-        if (mainStage == null) {
-            try {
-                getInstance().start();
-            } catch (IOException e) {
-                StaticLog.error(e);
-            }
-        }
+        init();
         if (!mainStage.isShowing()) {
             mainStage.show();
             OSUtil.setWinIconAfter(title);
@@ -119,12 +116,23 @@ public class MediaWallpaperStage extends BaseStage {
     @Override
     public void init() {
         if (mainStage == null) {
+            if (StringUtils.isEmpty(mediaWallpaperPath)) {
+                throw new IllegalArgumentException("Please initialize mediaWallpaperPath!");
+            }
             try {
                 getInstance().start();
             } catch (IOException e) {
                 StaticLog.error(e);
             }
         }
+    }
+
+    public static String getMediaWallpaperPath() {
+        return mediaWallpaperPath;
+    }
+
+    public static void setMediaWallpaperPath(String mediaWallpaperPath) {
+        MediaWallpaperStage.mediaWallpaperPath = mediaWallpaperPath;
     }
 
 }

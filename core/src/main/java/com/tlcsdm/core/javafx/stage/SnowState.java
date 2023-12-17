@@ -209,9 +209,7 @@ public class SnowState extends BaseStage {
 
     @Override
     public void show() {
-        if (mainStage == null) {
-            getInstance().start();
-        }
+        init();
         if (!mainStage.isShowing()) {
             mainStage.show();
             timeLine.play();

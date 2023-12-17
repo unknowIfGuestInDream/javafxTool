@@ -35,7 +35,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -64,14 +63,7 @@ public class MediaWallpaperController extends BaseController {
         Platform.runLater(() -> stage = (Stage) rootFlowPane.getScene().getWindow());
         // 获取屏幕
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        //String mediaWallpaperPathConf = ConfigPropertiesUtil.get(ConfigEnum.MEDIAWALLPAPERPATH.getKey());
-        String mediaWallpaperPathConf = "";
         initMediaView();
-        if (!StringUtils.isEmpty(mediaWallpaperPathConf)) {
-//            setMedia("file:///E:/upload/secretBlog/media/20200520221446179/20200520221446184.mp4");
-            setMedia(mediaWallpaperPathConf);
-//            setMedia("http://secretopen.gitee.io/secret-performance-desktop/media/test.mp4");
-        }
     }
 
     private void initMediaView() {
@@ -95,12 +87,10 @@ public class MediaWallpaperController extends BaseController {
     @Override
     public void show() {
         if (!stage.isShowing()) {
-            MediaWallpaperStage.getInstance().show();
-            //String mediaWallpaperPathConf = ConfigPropertiesUtil.get(ConfigEnum.MEDIAWALLPAPERPATH.getKey());
-            String mediaWallpaperPathConf = "";
-            if (!StringUtils.isEmpty(mediaWallpaperPathConf)) {
-                setMedia(mediaWallpaperPathConf);
+            if (mediaView.getMediaPlayer() == null) {
+                throw new IllegalArgumentException("Please initialize mediaView!");
             }
+            MediaWallpaperStage.getInstance().show();
         }
     }
 

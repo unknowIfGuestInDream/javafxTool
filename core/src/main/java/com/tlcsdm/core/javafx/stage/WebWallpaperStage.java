@@ -37,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -54,6 +55,8 @@ public class WebWallpaperStage extends BaseStage {
     private Dimension screenSize;
     private Stage mainStage;
     private final String title = "web-wallpaper-desktop";
+
+    private static String webWallpaperPath;
 
     public WebWallpaperStage() {
 
@@ -87,6 +90,7 @@ public class WebWallpaperStage extends BaseStage {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent root = fxmlLoader.load();
         WebWallpaperController webWallpaperController = fxmlLoader.getController();
+        webWallpaperController.setWeb(webWallpaperPath);
         root.setMouseTransparent(true);
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         mainStage.setX(0);
@@ -103,13 +107,7 @@ public class WebWallpaperStage extends BaseStage {
 
     @Override
     public void show() {
-        if (mainStage == null) {
-            try {
-                getInstance().start();
-            } catch (IOException e) {
-                StaticLog.error(e);
-            }
-        }
+        init();
         if (!mainStage.isShowing()) {
             mainStage.show();
             OSUtil.setWinIconAfter(title);
@@ -119,11 +117,22 @@ public class WebWallpaperStage extends BaseStage {
     @Override
     public void init() {
         if (mainStage == null) {
+            if (StringUtils.isEmpty(webWallpaperPath)) {
+                throw new IllegalArgumentException("Please initialize webWallpaperPath!");
+            }
             try {
                 getInstance().start();
             } catch (IOException e) {
                 StaticLog.error(e);
             }
         }
+    }
+
+    public static String getWebWallpaperPath() {
+        return webWallpaperPath;
+    }
+
+    public static void setWebWallpaperPath(String webWallpaperPath) {
+        WebWallpaperStage.webWallpaperPath = webWallpaperPath;
     }
 }

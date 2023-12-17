@@ -50,8 +50,7 @@ import java.util.Random;
  */
 public class SnowDemo extends Application {
 
-    static final Image FLASK_IMG = new Image(Objects.requireNonNull(
-        SnowDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png")).toExternalForm(), 5, 5, true, true);
+    static final Image FLASK_IMG = new Image(Objects.requireNonNull(SnowDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png")).toExternalForm(), 5, 5, true, true);
 
     private final ArrayList<Flake> flakes = new ArrayList<>(2000);
     private final int flaskNum = 1600;
@@ -97,12 +96,11 @@ public class SnowDemo extends Application {
         textFps.setTextOrigin(VPos.TOP);
         textFps.setFont(Font.font(35));
         root.getChildren().add(textFps);
-        String bgUrl = Objects.requireNonNull(
-            getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg")).toExternalForm();
+        String bgUrl = Objects.requireNonNull(getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg")).toExternalForm();
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
-//        SnowState.getInstance().setStage(primaryStage);
-//        SnowState.getInstance().init();
+        // SnowState.getInstance().setStage(primaryStage);
+        // SnowState.getInstance().init();
         SakuraState.getInstance().setStage(primaryStage);
         SakuraState.getInstance().init();
         CodeRainState.getInstance().setStage(primaryStage);

@@ -27,15 +27,16 @@
 
 package com.tlcsdm.core.javafx.controller;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.stage.WebWallpaperStage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -65,14 +66,7 @@ public class WebWallpaperController extends BaseController {
             stage = (Stage) rootAnchorPane.getScene().getWindow();
         });
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        //String webWallpaperPathConf = ConfigPropertiesUtil.get(ConfigEnum.WEBWALLPAPERPATH.getKey());
-        String webWallpaperPathConf = "";
         initWebView();
-        if (!StringUtils.isEmpty(webWallpaperPathConf)) {
-//            setMedia("file:///E:/upload/secretBlog/media/20200520221446179/20200520221446184.mp4");
-            setWeb(webWallpaperPathConf);
-//            setMedia("http://secretopen.gitee.io/secret-performance-desktop/media/test.mp4");
-        }
     }
 
     private void initWebView() {
@@ -86,9 +80,9 @@ public class WebWallpaperController extends BaseController {
     public void setWeb(String path) {
         WebEngine webEngine = webView.getEngine();
         //alert调试
-//        webEngine.setOnAlert((WebEvent<String> wEvent) -> {
-//            System.out.println("JS alert() message: " + wEvent.getData());
-//        });
+        webEngine.setOnAlert((WebEvent<String> wEvent) -> {
+            StaticLog.info("JS alert() message: " + wEvent.getData());
+        });
         //先跳转到空页面，立即释放部分内存
         webEngine.load(null);
         webEngine.load(path);
@@ -98,11 +92,6 @@ public class WebWallpaperController extends BaseController {
     public void show() {
         if (!stage.isShowing()) {
             WebWallpaperStage.getInstance().show();
-            //String webWallpaperPathConf = ConfigPropertiesUtil.get(ConfigEnum.WEBWALLPAPERPATH.getKey());
-            String webWallpaperPathConf = "";
-            if (!StringUtils.isEmpty(webWallpaperPathConf)) {
-                setWeb(webWallpaperPathConf);
-            }
         }
     }
 
