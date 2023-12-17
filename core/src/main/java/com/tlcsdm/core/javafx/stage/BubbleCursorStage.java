@@ -76,7 +76,6 @@ public final class BubbleCursorStage extends BaseStage {
         url = new URL(urlStr);
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent root = fxmlLoader.load();
-
         Scene scene = new Scene(root, ScreenUtil.getScreenWeight(), ScreenUtil.getScreenHeight());
         scene.setFill(null);
         mainStage.setX(0);
