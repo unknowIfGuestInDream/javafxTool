@@ -36,6 +36,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -69,13 +70,18 @@ public class WebWallpaperStage extends BaseStage {
     }
 
     public void start() throws IOException {
-        Stage stage = new Stage();
-        mainStage = stage;
+        Stage stage = getStage();
+        mainStage = new Stage();
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        stage.initOwner(getStage());
-        stage.initStyle(StageStyle.TRANSPARENT);
+        mainStage.initOwner(stage);
+        mainStage.initStyle(StageStyle.TRANSPARENT);
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
+            show();
+        });
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
+            close();
+        });
         URL url = WebWallpaperStage.class.getResource("/com/tlcsdm/core/fxml/stage/webWallpaper.fxml");
-
         String urlStr = java.net.URLDecoder.decode(String.valueOf(url), StandardCharsets.UTF_8);
         url = new URL(urlStr);
         FXMLLoader fxmlLoader = new FXMLLoader(url);
@@ -83,11 +89,10 @@ public class WebWallpaperStage extends BaseStage {
         WebWallpaperController webWallpaperController = fxmlLoader.getController();
         root.setMouseTransparent(true);
         Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
-        stage.setX(0);
-        stage.setY(0);
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
+        mainStage.setX(0);
+        mainStage.setY(0);
+        mainStage.setTitle(title);
+        mainStage.setScene(scene);
         OSUtil.setWinIconAfter(title);
     }
 

@@ -52,12 +52,12 @@ import java.awt.Point;
  *
  * @author unknowIfGuestInDream
  */
-public class BubbleCorsorController extends BaseController {
+public class BubbleCursorController extends BaseController {
 
     @FXML
     Group root;
 
-    private static BubbleCorsorController instance;
+    private static BubbleCursorController instance;
 
     private Stage stage;
 
@@ -72,13 +72,13 @@ public class BubbleCorsorController extends BaseController {
     /**
      * 淡入淡出结束事件.
      */
-    private EventHandler<ActionEvent> fadeFinishAction = event -> {
+    private final EventHandler<ActionEvent> fadeFinishAction = event -> {
         FadeTransition t = (FadeTransition) event.getSource();
         Circle c = (Circle) t.getNode();
         root.getChildren().remove(c);
     };
 
-    public static BubbleCorsorController getInstance() {
+    public static BubbleCursorController getInstance() {
         return instance;
     }
 
@@ -107,18 +107,18 @@ public class BubbleCorsorController extends BaseController {
     }
 
     protected final void renderFrame(double x, double y) {
-        //随机色
+        // 随机色
         Circle circle = new Circle(1, Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)).brighter());
         circle.setTranslateX(x + 10);
         circle.setTranslateY(y + 10);
         root.getChildren().add(circle);
-        //平移过度
+        // 平移过度
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), circle);
-//        translateTransition.setFromX(20);
+        // translateTransition.setFromX(20);
         translateTransition.setToX(x + 50);
         translateTransition.setToY(y + 50);
 
-//        translateTransition.setCycleCount(Timeline.INDEFINITE);
+        // translateTransition.setCycleCount(Timeline.INDEFINITE);
         translateTransition.setAutoReverse(false);
         translateTransition.play();
         //动画结束，粒子死亡

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <!--
   ~ Copyright (c) 2023 unknowIfGuestInDream.
   ~ All rights reserved.
@@ -28,9 +27,10 @@
   ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 
+<?import javafx.scene.Group?>
 <Group fx:id="root" xmlns="http://javafx.com/javafx"
        xmlns:fx="http://javafx.com/fxml"
-       fx:controller="com.tlcsdm.core.javafx.controller.BubbleCorsorController"
+       fx:controller="com.tlcsdm.core.javafx.controller.BubbleCursorController"
 >
 
 </Group>

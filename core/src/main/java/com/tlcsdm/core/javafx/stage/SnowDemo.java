@@ -102,11 +102,13 @@ public class SnowDemo extends Application {
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
 //        SnowState.getInstance().setStage(primaryStage);
-//        SnowState.getInstance().show();
-//        SakuraState.getInstance().setStage(primaryStage);
-//        SakuraState.getInstance().show();
+//        SnowState.getInstance().init();
+        SakuraState.getInstance().setStage(primaryStage);
+        SakuraState.getInstance().init();
+        CodeRainState.getInstance().setStage(primaryStage);
+        CodeRainState.getInstance().init();
         BubbleCursorStage.getInstance().setStage(primaryStage);
-        BubbleCursorStage.getInstance().show();
+        BubbleCursorStage.getInstance().init();
         primaryStage.setScene(new Scene(root, w, h));
         primaryStage.setTitle("Snow");
         primaryStage.show();
