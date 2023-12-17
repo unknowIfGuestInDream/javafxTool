@@ -51,7 +51,7 @@ import java.nio.charset.StandardCharsets;
  * @author unknowIfGuestInDream
  */
 public class WebWallpaperStage extends BaseStage {
-    private static WebWallpaperStage instance = null;
+    private static WebWallpaperStage instance;
     private Dimension screenSize;
     private Stage mainStage;
     private final String title = "web-wallpaper-desktop";
@@ -59,7 +59,6 @@ public class WebWallpaperStage extends BaseStage {
     private static String webWallpaperPath;
 
     public WebWallpaperStage() {
-
     }
 
     /**
