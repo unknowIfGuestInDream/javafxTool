@@ -49,9 +49,6 @@ import javafx.util.Duration;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-/**
- * 　@author secret
- */
 public class SnowState extends BaseStage {
     private static SnowState instance = null;
     private static Stage mainStage;

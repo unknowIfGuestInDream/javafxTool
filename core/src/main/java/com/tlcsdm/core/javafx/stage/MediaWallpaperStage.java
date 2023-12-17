@@ -39,9 +39,6 @@ import java.awt.Toolkit;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-/**
- * 　@author secret
- */
 public class MediaWallpaperStage extends BaseStage {
 
     private static MediaWallpaperStage instance = null;

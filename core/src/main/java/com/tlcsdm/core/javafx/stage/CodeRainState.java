@@ -49,9 +49,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
 
-/**
- * 　@author secret
- */
 public class CodeRainState extends BaseStage {
 
     private static CodeRainState instance = null;

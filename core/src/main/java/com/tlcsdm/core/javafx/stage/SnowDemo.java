@@ -47,12 +47,12 @@ public class SnowDemo extends Application {
     static final Image FLASK_IMG = new Image(SnowDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png").toExternalForm(),
         5, 5, true, true);
 
-    private ArrayList<Flake> flakes = new ArrayList<>(2000);
-    private int flaskNum = 1600;
-    private int w = 500;
-    private int h = 500;
+    private final ArrayList<Flake> flakes = new ArrayList<>(2000);
+    private final int flaskNum = 1600;
+    private final int w = 500;
+    private final int h = 500;
     private Pane root;
-    private Random random = new Random();
+    private final Random random = new Random();
     private Text textFps;
 
     /**

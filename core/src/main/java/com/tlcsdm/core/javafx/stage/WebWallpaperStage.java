@@ -39,9 +39,6 @@ import java.awt.Toolkit;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-/**
- * 　@author secret
- */
 public class WebWallpaperStage extends BaseStage {
     private static WebWallpaperStage instance = null;
     private Dimension screenSize;

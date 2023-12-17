@@ -51,9 +51,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 　@author secret
- */
 public class SakuraState extends BaseStage {
     private static SakuraState instance = null;
     private static Stage mainStage;

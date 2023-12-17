@@ -36,9 +36,6 @@ import javafx.stage.StageStyle;
 
 import java.net.URL;
 
-/**
- * 　@author secret
- */
 public final class BubbleCursorStage extends BaseStage {
     private static BubbleCursorStage instance = null;
     private Stage mainStage;

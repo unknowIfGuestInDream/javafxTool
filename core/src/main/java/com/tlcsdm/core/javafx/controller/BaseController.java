@@ -27,9 +27,6 @@
 
 package com.tlcsdm.core.javafx.controller;
 
-/**
- * 　@author secret
- */
 public class BaseController {
 
     BaseController() {

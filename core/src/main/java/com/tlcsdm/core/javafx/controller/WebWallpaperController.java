@@ -40,9 +40,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-/**
- * 　@author secret
- */
 public class WebWallpaperController extends BaseController {
     private Dimension screenSize;
     private static WebWallpaperController instance;

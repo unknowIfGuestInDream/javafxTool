@@ -31,10 +31,6 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.factory.StageInterface;
 import javafx.stage.Stage;
 
-/**
- * 　javafx启动的主舞台
- * 　@author secret
- */
 public class BaseStage implements StageInterface {
 
     private Stage stage;
@@ -64,6 +60,6 @@ public class BaseStage implements StageInterface {
 
     @Override
     public void setFps(double fps) {
-
+        // Do nothing
     }
 }

@@ -27,17 +27,23 @@
 
 package com.tlcsdm.core.javafx.factory;
 
-/**
- * 　@description: TODO
- * 　@author secret
- * 　@date 2021/1/6 13:38
- */
 public interface StageInterface {
 
+    /**
+     * 关闭stage.
+     */
     void close();
 
+    /**
+     * 显示stage.
+     */
     void show();
 
+    /**
+     * 设置fps.
+     *
+     * @param fps FPS
+     */
     void setFps(double fps);
 
 }

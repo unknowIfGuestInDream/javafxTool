@@ -47,9 +47,6 @@ import javafx.util.Duration;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
-/**
- * 　@author secret
- */
 public class BubbleCorsorController extends BaseController {
 
     @FXML
