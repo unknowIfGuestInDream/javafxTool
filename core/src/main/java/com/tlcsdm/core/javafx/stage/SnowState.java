@@ -49,6 +49,11 @@ import javafx.util.Duration;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+/**
+ * 雪花特效.
+ *
+ * @author unknowIfGuestInDream
+ */
 public class SnowState extends BaseStage {
     private static SnowState instance = null;
     private static Stage mainStage;

@@ -46,15 +46,20 @@ import javafx.util.Duration;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 樱花特效.
+ *
+ * @author unknowIfGuestInDream
+ */
 public class SakuraState extends BaseStage {
     private static SakuraState instance = null;
     private static Stage mainStage;
-    private static double FPS = 10.0;
+    private static double FPS = 30.0;
     private Timeline timeLine;
     GraphicsContext gc;
     int[] xx = new int[100];//x轴
@@ -65,7 +70,7 @@ public class SakuraState extends BaseStage {
     int[] vx = new int[100];//x轴移动速度
     int[] vy = new int[100];//y轴下落速度
     int[] imageIndex = new int[100];//每个樱花图片下标
-    List<Image> imageList = new ArrayList<Image>();
+    List<Image> imageList = new ArrayList<>();
     private Dimension screenSize;
 
     //动画事件
@@ -128,14 +133,10 @@ public class SakuraState extends BaseStage {
         }
         //初始化樱花图片
         for (int i = 1; i < 4; i++) {
-            try {
-                URL sakuraUrl = getClass().getResource("/images/sakura" + i + ".png");
-                String sakuraUrlStr = java.net.URLDecoder.decode(String.valueOf(sakuraUrl), "utf-8");
-                Image image = new Image(sakuraUrlStr);
-                imageList.add(image);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            URL sakuraUrl = getClass().getResource("/com/tlcsdm/core/static/graphic/sakura" + i + ".png");
+            String sakuraUrlStr = java.net.URLDecoder.decode(String.valueOf(sakuraUrl), StandardCharsets.UTF_8);
+            Image image = new Image(sakuraUrlStr);
+            imageList.add(image);
         }
         // 获取画板对象
         gc = canvas.getGraphicsContext2D();
@@ -174,7 +175,7 @@ public class SakuraState extends BaseStage {
             Rotate rotate = new Rotate(r[i], xx[i] + size[i] / 2.0, yy[i] + size[i] / 2.0);
             gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(),
                 rotate.getTx(), rotate.getTy());
-            gc.drawImage(imageList.get(imageIndex[i]), (double) xx[i], (double) yy[i], size[i], size[i]);
+            gc.drawImage(imageList.get(imageIndex[i]), xx[i], yy[i], size[i], size[i]);
         }
         // 恢复现场
         gc.restore();

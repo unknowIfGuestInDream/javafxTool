@@ -96,6 +96,10 @@ public class SnowDemo extends Application {
         initSnow();
         SnowState.getInstance().setStage(primaryStage);
         SnowState.getInstance().show();
+        SakuraState.getInstance().setStage(primaryStage);
+        SakuraState.getInstance().show();
+//        BubbleCursorStage.getInstance().setStage(primaryStage);
+//        BubbleCursorStage.getInstance().show();
         primaryStage.setScene(new Scene(root, w, h));
         primaryStage.setTitle("Snow");
         primaryStage.show();
