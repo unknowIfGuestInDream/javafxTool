@@ -39,6 +39,11 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 常用的基本的关于编码和解码的函数的集合.
+ *
+ * @author unknowIfGuestInDream
+ */
 public class HashUtil {
     /**
      * 散列算法-MD5.
