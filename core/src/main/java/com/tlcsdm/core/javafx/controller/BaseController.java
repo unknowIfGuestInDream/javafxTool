@@ -41,11 +41,13 @@ public class BaseController {
      * 显示.
      */
     public void show() {
+        // Do nothing
     }
 
     /**
      * 关闭.
      */
     public void close() {
+        // Do nothing
     }
 }
