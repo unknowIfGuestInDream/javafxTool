@@ -236,8 +236,7 @@ public class SakuraState extends BaseStage {
             size[i] += 0.02;
 
             Rotate rotate = new Rotate(r[i], xx[i] + size[i] / 2.0, yy[i] + size[i] / 2.0);
-            gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(),
-                rotate.getTx(), rotate.getTy());
+            gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), rotate.getTx(), rotate.getTy());
             gc.drawImage(imageList.get(imageIndex[i]), xx[i], yy[i], size[i], size[i]);
         }
         // 恢复现场
