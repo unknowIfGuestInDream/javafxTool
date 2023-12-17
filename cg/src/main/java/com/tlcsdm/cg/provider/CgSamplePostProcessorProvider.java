@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,9 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author unknowIfGuestInDream
- */
 public class CgSamplePostProcessorProvider implements SamplePostProcessorService {
 
     private static final List<TreeNode<String>> sampleNodeList = new ArrayList<>();
@@ -81,7 +78,7 @@ public class CgSamplePostProcessorProvider implements SamplePostProcessorService
                 return;
             }
             if (set.contains(n.getId())) {
-                throw new SampleDefinitionException("Componment '" + n.getId() + "' Already defined.");
+                throw new SampleDefinitionException("Component '" + n.getId() + "' Already defined.");
             }
             set.add(n.getId());
         });
