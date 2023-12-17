@@ -59,6 +59,11 @@ public class BaseStage implements StageInterface {
     }
 
     @Override
+    public void init() {
+        // Do nothing
+    }
+
+    @Override
     public void show() {
         stage.show();
     }

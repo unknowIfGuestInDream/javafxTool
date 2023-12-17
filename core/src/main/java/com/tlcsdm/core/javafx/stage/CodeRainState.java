@@ -218,12 +218,18 @@ public class CodeRainState extends BaseStage {
     public void show() {
         if (mainStage == null) {
             getInstance().start();
-            return;
         }
         if (!mainStage.isShowing()) {
             mainStage.show();
             timeLine.play();
             OSUtil.setWinIconAfter(title);
+        }
+    }
+
+    @Override
+    public void init() {
+        if (mainStage == null) {
+            getInstance().start();
         }
     }
 

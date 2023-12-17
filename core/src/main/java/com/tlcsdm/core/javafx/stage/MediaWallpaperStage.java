@@ -98,10 +98,22 @@ public class MediaWallpaperStage extends BaseStage {
 
     @Override
     public void show() {
-        if (mainStage != null) {
+        if (mainStage == null) {
+            try {
+                getInstance().start();
+            } catch (IOException e) {
+                StaticLog.error(e);
+            }
+        }
+        if (!mainStage.isShowing()) {
             mainStage.show();
             OSUtil.setWinIconAfter(title);
-        } else {
+        }
+    }
+
+    @Override
+    public void init() {
+        if (mainStage == null) {
             try {
                 getInstance().start();
             } catch (IOException e) {
