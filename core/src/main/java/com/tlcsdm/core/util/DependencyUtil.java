@@ -26,7 +26,7 @@
  */
 
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,72 +52,72 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.factory.config;
-
-import com.tlcsdm.core.factory.InitializingFactory;
-import com.tlcsdm.core.groovy.GroovyLoaderService;
-import com.tlcsdm.core.javafx.util.ConfigureUtil;
-import com.tlcsdm.core.util.CoreConstant;
-import com.tlcsdm.core.util.DependencyUtil;
-import com.tlcsdm.core.util.GroovyUtil;
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyShell;
-import groovy.util.GroovyScriptEngine;
-import org.codehaus.groovy.ast.stmt.SynchronizedStatement;
-import org.codehaus.groovy.classgen.BytecodeExpression;
-import org.codehaus.groovy.classgen.BytecodeSequence;
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
-
-import java.io.File;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ServiceLoader;
+package com.tlcsdm.core.util;
 
 /**
- * 扫描TemplateLoaderService实现类
- * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
+ * 依赖工具类.
+ * 主要用于获取当前是否存在某个依赖项
  *
  * @author unknowIfGuestInDream
  */
-public class GroovyLoaderScanner implements InitializingFactory {
+public class DependencyUtil {
 
-    @Override
-    public void initialize() throws Exception {
-        if (!DependencyUtil.hasGroovy()) {
-            return;
-        }
-        List<URL> list = new ArrayList<>();
-        ServiceLoader<GroovyLoaderService> templateLoaders = ServiceLoader.load(GroovyLoaderService.class);
-        for (GroovyLoaderService groovyLoaderService : templateLoaders) {
-            list.add(groovyLoaderService.getGroovyLoaderPath());
-        }
-        // core 下模板作为默认模板，这代表着core中的默认模板可以被应用模块重写
-        list.add(GroovyLoaderScanner.class.getResource("/com/tlcsdm/core/groovy/"));
-        // 系统groovy路径
-        File file = new File(ConfigureUtil.getConfigureGroovyPath());
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        list.add(0, file.toURI().toURL());
-        GroovyScriptEngine scriptEngine = GroovyUtil.init(list.toArray(new URL[0]));
-        CompilerConfiguration config = new CompilerConfiguration();
-        SecureASTCustomizer sac = new SecureASTCustomizer();
-        /* disable calling the System.exit() method and use of other dangerous imports */
-        List<String> varList = Arrays.asList(System.class.getName(), GroovyShell.class.getName(),
-            GroovyClassLoader.class.getName(), Runtime.class.getName(), Socket.class.getName());
-        sac.setDisallowedImports(varList);
-        sac.setDisallowedReceivers(varList);
-        sac.setIndirectImportCheckEnabled(true);
-        /* disable dangerous Expressions */
-        sac.setDisallowedExpressions(List.of(BytecodeExpression.class));
-        sac.setDisallowedStatements(Arrays.asList(BytecodeSequence.class, SynchronizedStatement.class));
-        config.addCompilationCustomizers(sac);
-        config.setSourceEncoding(CoreConstant.ENCODING_UTF_8);
-        scriptEngine.setConfig(config);
+    private DependencyUtil() {
     }
 
+    /**
+     * 因否存在JNA库.
+     */
+    public static boolean hasJna() {
+        return CoreUtil.hasClass("com.sun.jna.platform.win32.User32") && CoreUtil.hasClass("com.sun.jna.Native");
+    }
+
+    /**
+     * 因否存在Groovy库.
+     */
+    public static boolean hasGroovy() {
+        return CoreUtil.hasClass("groovy.util.GroovyScriptEngine");
+    }
+
+    /**
+     * 因否存在Freemarker库.
+     */
+    public static boolean hasFreemarker() {
+        return CoreUtil.hasClass("freemarker.cache.TemplateLoader");
+    }
+
+    /**
+     * 因否存在commons-csv库.
+     */
+    public static boolean hasCommonsCsv() {
+        return CoreUtil.hasClass("org.apache.commons.csv.CSVParser");
+    }
+
+    /**
+     * 因否存在poi库.
+     */
+    public static boolean hasPoi() {
+        return CoreUtil.hasClass("org.apache.poi.Version");
+    }
+
+    /**
+     * 因否存在Jackson库.
+     */
+    public static boolean hasJackson() {
+        return CoreUtil.hasClass("com.fasterxml.jackson.databind.ObjectMapper");
+    }
+
+    /**
+     * 因否存在java-diff-utils库.
+     */
+    public static boolean hasDifflib() {
+        return CoreUtil.hasClass("com.github.difflib.DiffUtils");
+    }
+
+    /**
+     * 因否存在caffeine库.
+     */
+    public static boolean hasCaffeine() {
+        return CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache");
+    }
 }
