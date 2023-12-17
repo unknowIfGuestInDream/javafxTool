@@ -54,99 +54,77 @@
 
 package com.tlcsdm.core.javafx.util;
 
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
-import javafx.stage.Window;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.tools.Utils;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
- * 提示组件，可以使用FxNotifications
+ * 系统或组件Screen获取.
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 20:59
  */
-public class TooltipUtil {
+public class ScreenUtil {
 
-    private TooltipUtil() {
+    private ScreenUtil() {
     }
 
-    public static void showToast(String message) {
-        showToast((Node) null, message);
+    /**
+     * 组件X坐标.
+     *
+     * @param control 组件
+     */
+    public static double getScreenX(Node control) {
+        return control.getScene().getWindow().getX() + control.getScene().getX() + control.localToScene(0.0D, 0.0D).getX();
     }
 
-    public static void showToast(Node node, String message) {
-        Window window = Utils.getWindow(node);
-        double x;
-        double y;
-        if (node != null) {
-            x = ScreenUtil.getScreenX(node) + ScreenUtil.getWidth(node) / 2.0D;
-            y = ScreenUtil.getScreenY(node) + ScreenUtil.getHeight(node);
-        } else {
-            x = window.getX() + window.getWidth() / 2.0D;
-            y = window.getY() + window.getHeight();
-        }
-
-        showToast(window, message, 3000L, x, y);
+    /**
+     * 组件Y坐标.
+     *
+     * @param control 组件
+     */
+    public static double getScreenY(Node control) {
+        return control.getScene().getWindow().getY() + control.getScene().getY() + control.localToScene(0.0D, 0.0D).getY();
     }
 
-    public static void showToast(Window window, String message, long time, double x, double y) {
-        final Tooltip tooltip = new Tooltip(message);
-        tooltip.setAutoHide(true);
-        tooltip.setOpacity(0.9D);
-        tooltip.setWrapText(true);
-        tooltip.show(window, x, y);
-        tooltip.setAnchorX(tooltip.getAnchorX() - tooltip.getWidth() / 2.0D);
-        tooltip.setAnchorY(tooltip.getAnchorY() / 5.0D);
-        if (time > 0L) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(tooltip::hide);
-                }
-            }, time);
-        }
+    /**
+     * 组件宽度.
+     *
+     * @param control 组件
+     */
+    public static double getWidth(Node control) {
+        return control.getBoundsInParent().getWidth();
     }
 
-    public static void showToast(String message, Pos pos) {
-        showToast(null, message, null, 3.0D, pos, null, null, true, true);
+    /**
+     * 组件高度.
+     *
+     * @param control 组件
+     */
+    public static double getHeight(Node control) {
+        return control.getBoundsInParent().getHeight();
     }
 
-    public static void showToast(String title, String message) {
-        showToast(title, message, null, 3.0D, Pos.TOP_CENTER, null, null, true, true);
+    /**
+     * 获取屏幕宽度.
+     */
+    public static double getScreenWeight() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
+        return screenSize.getWidth();
     }
 
-    public static void showToast(String title, String message, Pos pos) {
-        showToast(title, message, null, 3.0D, pos, null, null, true, true);
+    /**
+     * 获取屏幕高度.
+     */
+    public static double getScreenHeight() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
+        return screenSize.getHeight();
     }
 
-    public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos,
-                                 EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
-        Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title)
-            .text(message).graphic(graphic).onAction(onAction);
-        if (owner != null) {
-            notificationBuilder.owner(owner);
-        }
-
-        if (isHideCloseButton) {
-            notificationBuilder.hideCloseButton();
-        }
-
-        if (isDarkStyle) {
-            notificationBuilder.darkStyle();
-        }
-
-        Platform.runLater(() -> {
-            notificationBuilder.show();
-        });
+    /**
+     * 屏幕分辨率字符串 w x h.
+     */
+    public static String getScreenToString() {
+        return String.format("%.0f", getScreenWeight()) + " x " + String.format("%.0f", getScreenHeight());
     }
 }

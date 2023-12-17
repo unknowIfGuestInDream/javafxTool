@@ -26,7 +26,7 @@
  */
 
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,101 +52,65 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.util;
+package com.tlcsdm.core.util;
 
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
-import javafx.stage.Window;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.tools.Utils;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinUser;
 
 /**
- * 提示组件，可以使用FxNotifications
+ * Windows API工具.
+ * 基于JNA实现
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 20:59
  */
-public class TooltipUtil {
+public class Win32Util {
+    private static WinDef.HWND desktopWorkerw;
+    private static WinDef.HWND windowhWnd;
 
-    private TooltipUtil() {
+    private Win32Util() {
     }
 
-    public static void showToast(String message) {
-        showToast((Node) null, message);
-    }
-
-    public static void showToast(Node node, String message) {
-        Window window = Utils.getWindow(node);
-        double x;
-        double y;
-        if (node != null) {
-            x = ScreenUtil.getScreenX(node) + ScreenUtil.getWidth(node) / 2.0D;
-            y = ScreenUtil.getScreenY(node) + ScreenUtil.getHeight(node);
-        } else {
-            x = window.getX() + window.getWidth() / 2.0D;
-            y = window.getY() + window.getHeight();
-        }
-
-        showToast(window, message, 3000L, x, y);
-    }
-
-    public static void showToast(Window window, String message, long time, double x, double y) {
-        final Tooltip tooltip = new Tooltip(message);
-        tooltip.setAutoHide(true);
-        tooltip.setOpacity(0.9D);
-        tooltip.setWrapText(true);
-        tooltip.show(window, x, y);
-        tooltip.setAnchorX(tooltip.getAnchorX() - tooltip.getWidth() / 2.0D);
-        tooltip.setAnchorY(tooltip.getAnchorY() / 5.0D);
-        if (time > 0L) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(tooltip::hide);
+    /**
+     * 将窗口置于windows系统桌面与图表之间.
+     *
+     * @param title 标题
+     */
+    public static void setWinIconAfter(String title) {
+        //获取程序经理句柄
+        WinDef.HWND hWnd2 = User32.INSTANCE.FindWindow("Progman", null);
+        //发送消息给程序管理员
+        WinDef.DWORDByReference result = new WinDef.DWORDByReference();
+        WinDef.LRESULT r = User32.INSTANCE.SendMessageTimeout(hWnd2, 0x052C, new WinDef.WPARAM(), new WinDef.LPARAM(), User32.SMTO_NORMAL, 1000, result);
+        //获取到新创建的窗口的句柄
+        WinDef.HWND[] workerw = {new WinDef.HWND(Pointer.NULL)};
+        User32.INSTANCE.EnumWindows(new WinUser.WNDENUMPROC() {
+            @Override
+            public boolean callback(WinDef.HWND hwnd, Pointer pointer) {
+                WinDef.HWND h = User32.INSTANCE.FindWindowEx(hwnd, null, "SHELLDLL_DefView", null);
+                if (h != null) {
+                    workerw[0] = User32.INSTANCE.FindWindowEx(null, hwnd, "WorkerW", null);
                 }
-            }, time);
-        }
+                return true;
+            }
+        }, Pointer.NULL);
+        //在图标和墙纸之间绘制图形
+        //使用标题寻找窗体
+        WinDef.HWND hWnd = User32.INSTANCE.FindWindow(null, title);
+        WinDef.HDC dc = User32.INSTANCE.GetDC(hWnd);
+        User32.INSTANCE.ReleaseDC(workerw[0], dc);
+        //将Windows窗体放在桌面图标后面
+        User32.INSTANCE.SetParent(hWnd, workerw[0]);
+        windowhWnd = hWnd;
+        desktopWorkerw = workerw[0];
     }
 
-    public static void showToast(String message, Pos pos) {
-        showToast(null, message, null, 3.0D, pos, null, null, true, true);
-    }
-
-    public static void showToast(String title, String message) {
-        showToast(title, message, null, 3.0D, Pos.TOP_CENTER, null, null, true, true);
-    }
-
-    public static void showToast(String title, String message, Pos pos) {
-        showToast(title, message, null, 3.0D, pos, null, null, true, true);
-    }
-
-    public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos,
-                                 EventHandler<ActionEvent> onAction, Object owner, boolean isHideCloseButton, boolean isDarkStyle) {
-        Notifications notificationBuilder = FxNotifications.notifications(Duration.seconds(hideTime), pos).title(title)
-            .text(message).graphic(graphic).onAction(onAction);
-        if (owner != null) {
-            notificationBuilder.owner(owner);
-        }
-
-        if (isHideCloseButton) {
-            notificationBuilder.hideCloseButton();
-        }
-
-        if (isDarkStyle) {
-            notificationBuilder.darkStyle();
-        }
-
-        Platform.runLater(() -> {
-            notificationBuilder.show();
-        });
+    /**
+     * 将窗口移动到桌面图标上层.
+     */
+    public static void setWinIconTop(String title) {
+        WinDef.HWND hWnd = User32.INSTANCE.FindWindowEx(desktopWorkerw, null, null, title);
+        User32.INSTANCE.SetParent(hWnd, User32.INSTANCE.GetDesktopWindow());
     }
 }
