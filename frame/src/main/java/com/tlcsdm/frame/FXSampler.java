@@ -31,9 +31,11 @@ import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.event.ApplicationExitEvent;
 import com.tlcsdm.core.event.ApplicationFailedEvent;
 import com.tlcsdm.core.event.ApplicationPreparedEvent;
 import com.tlcsdm.core.event.ApplicationReadyEvent;
+import com.tlcsdm.core.event.ApplicationRestartEvent;
 import com.tlcsdm.core.event.ApplicationStartingEvent;
 import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.eventbus.Subscribe;
@@ -189,6 +191,9 @@ public final class FXSampler extends Application {
             loadingStage.close();
             mainStage.close();
         });
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
+            EventBus.getDefault().post(new ApplicationExitEvent());
+        });
     }
 
     /**
@@ -321,8 +326,7 @@ public final class FXSampler extends Application {
             changeToWelcomeTab(null);
         }
         // 配置samplesTreeView
-        ServiceLoader<SamplesTreeViewConfiguration> samplesTreeViewConfigurations = ServiceLoader
-            .load(SamplesTreeViewConfiguration.class);
+        ServiceLoader<SamplesTreeViewConfiguration> samplesTreeViewConfigurations = ServiceLoader.load(SamplesTreeViewConfiguration.class);
         for (SamplesTreeViewConfiguration samplesTreeViewConfiguration : samplesTreeViewConfigurations) {
             Callback<TreeView<Sample>, TreeCell<Sample>> cellFactory = samplesTreeViewConfiguration.cellFactory();
             if (cellFactory != null) {
@@ -334,8 +338,7 @@ public final class FXSampler extends Application {
         setUserAgentStylesheet(STYLESHEET_MODENA);
         // put it all together
         Scene scene = new Scene(bp);
-        scene.getStylesheets()
-            .add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
         if (fxsamplerConfiguration != null) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
@@ -369,8 +372,7 @@ public final class FXSampler extends Application {
                 // 检查更新
                 StaticLog.debug("Version Checker...");
                 ThreadPoolTaskExecutor.get().execute(() -> {
-                    ServiceLoader<VersionCheckerService> versionCheckerServices = ServiceLoader
-                        .load(VersionCheckerService.class);
+                    ServiceLoader<VersionCheckerService> versionCheckerServices = ServiceLoader.load(VersionCheckerService.class);
                     for (VersionCheckerService versionCheckerService : versionCheckerServices) {
                         versionCheckerService.checkNewVersion();
                     }
@@ -393,8 +395,7 @@ public final class FXSampler extends Application {
     private void initializeSource() {
         // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
         SamplePostProcessorService.Samples.addAll(projects);
-        ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader
-            .load(SamplePostProcessorService.class);
+        ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader.load(SamplePostProcessorService.class);
         try {
             for (SamplePostProcessorService samplePostProcessor : samplePostProcessorServices) {
                 samplePostProcessor.postProcessBeanFactory();
@@ -452,8 +453,7 @@ public final class FXSampler extends Application {
      */
     public static void confirmExit(Event event) {
         if (Config.getBoolean(Keys.ConfirmExit, true)) {
-            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"),
-                I18nUtils.get("frame.main.confirmExit.message"))) {
+            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"), I18nUtils.get("frame.main.confirmExit.message"))) {
                 doExit();
             } else if (event != null) {
                 event.consume();
@@ -468,6 +468,7 @@ public final class FXSampler extends Application {
      */
     public static void doExit() {
         StageUtil.savePrimaryStageBound(stage);
+        EventBus.getDefault().post(new ApplicationExitEvent());
         Platform.exit();
         System.exit(0);
     }
@@ -477,6 +478,7 @@ public final class FXSampler extends Application {
      */
     public static void restart() {
         Platform.runLater(() -> {
+            EventBus.getDefault().post(new ApplicationRestartEvent());
             stage.close();
             try {
                 Thread.sleep(300);
