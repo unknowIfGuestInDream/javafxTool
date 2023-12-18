@@ -29,54 +29,43 @@ package com.tlcsdm.core.factory.config;
 
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
+import com.tlcsdm.core.concurrent.VerboseScheduledExecutorService;
 import com.tlcsdm.core.factory.InitializingFactory;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 线程池初始化
+ * 定时线程池初始化.
  *
  * @author unknowIfGuestInDream
- * @date 2023/2/5 8:36
  */
-@Order(1)
-public final class ThreadPoolTaskExecutor implements InitializingFactory {
+@Order(2)
+public final class ScheduledTaskExecutor implements InitializingFactory {
     private static int corePoolSize;
-    private static int maximumPoolSize;
-    private static long keepAliveTime;
-    private static TimeUnit unit;
-    private static int queueSize;
     private static String threadPreName;
     private static RejectedExecutionHandler handler;
-    private static AtomicBoolean hasInitialized = new AtomicBoolean();
+    private static final AtomicBoolean hasInitialized = new AtomicBoolean();
 
     @Override
     public void initialize() throws Exception {
         corePoolSize = 2;
-        maximumPoolSize = 50;
-        keepAliveTime = 30;
-        unit = TimeUnit.SECONDS;
-        queueSize = 200;
-        threadPreName = "sample-%d";
-        handler = new ThreadPoolExecutor.CallerRunsPolicy();
+        threadPreName = "schedule-%d";
+        handler = new ScheduledThreadPoolExecutor.AbortPolicy();
         hasInitialized.set(true);
     }
 
-    public static ThreadPoolExecutor get() {
+    public static VerboseScheduledExecutorService get() {
         return SingletonInstance.INSTANCE;
     }
 
     private static class SingletonInstance {
-        private static final ThreadPoolExecutor INSTANCE = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
-            keepAliveTime, unit, new LinkedBlockingQueue<>(queueSize),
-            new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
-                .uncaughtExceptionHandler((t, e) -> StaticLog.error("Thread threw exception: " + t, e)).build(),
-            handler);
+        private static final VerboseScheduledExecutorService INSTANCE = new VerboseScheduledExecutorService(
+            new ScheduledThreadPoolExecutor(corePoolSize,
+                new BasicThreadFactory.Builder().namingPattern(threadPreName).daemon(true)
+                    .uncaughtExceptionHandler((t, e) -> StaticLog.error("Thread threw exception: " + t, e)).build(), handler));
     }
 
     public static boolean hasInitialized() {
