@@ -141,6 +141,10 @@
         <system>github</system>
         <url>https://github.com/unknowIfGuestInDream/javafxTool/issues</url>
     </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://jenkins.tlcsdm.com/job/javafxtool/</url>
+    </ciManagement>
     <licenses>
         <license>
             <name>MIT License</name>
