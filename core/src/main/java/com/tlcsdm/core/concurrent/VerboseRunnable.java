@@ -30,6 +30,8 @@ package com.tlcsdm.core.concurrent;
 import cn.hutool.log.StaticLog;
 
 /**
+ * Wrapper for Runnable.
+ *
  * @author unknowIfGuestInDream
  */
 public class VerboseRunnable implements Runnable {

@@ -43,9 +43,8 @@ import java.util.concurrent.TimeoutException;
  * It's pretty annoying when debugging if you ignore the Future
  * so this will log every exception.
  * <pre>{@code
- * 	ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(3, new LogUncaughtExceptionThreadFactory());
+ *  ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(3, new LogUncaughtExceptionThreadFactory());
  *  new VerboseScheduledExecutorService(scheduledExecutorService);
- *
  * 	ScheduledExecutorService executorService = new VerboseScheduledExecutorService(Executors.newScheduledThreadPool(8));
  * }</pre>
  *
@@ -111,8 +110,7 @@ public class VerboseScheduledExecutorService implements ScheduledExecutorService
 
     @Nonnull
     @Override
-    public <T> List<Future<T>> invokeAll(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit)
-        throws InterruptedException {
+    public <T> List<Future<T>> invokeAll(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit) throws InterruptedException {
         return this.executor.invokeAll(tasks, timeout, unit);
     }
 
@@ -123,8 +121,7 @@ public class VerboseScheduledExecutorService implements ScheduledExecutorService
     }
 
     @Override
-    public <T> T invokeAny(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit)
-        throws InterruptedException, ExecutionException, TimeoutException {
+    public <T> T invokeAny(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         return this.executor.invokeAny(tasks, timeout, unit);
     }
 
