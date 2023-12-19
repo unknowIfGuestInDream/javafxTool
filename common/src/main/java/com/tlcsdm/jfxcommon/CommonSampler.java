@@ -25,34 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.tlcsdm.core.freemarker.TemplateLoaderService;
-import com.tlcsdm.jfxcommon.config.CommonTemplateLoaderProvider;
+package com.tlcsdm.jfxcommon;
 
-module com.tlcsdm.jfxcommon {
-    requires java.desktop;
-    requires javafx.base;
-    requires javafx.fxml;
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires com.tlcsdm.core;
-    requires com.tlcsdm.frame;
-    requires org.controlsfx.controls;
-    requires cn.hutool.core;
-    requires cn.hutool.poi;
-    requires cn.hutool.log;
-    requires org.slf4j;
-    requires static freemarker;
-    requires static com.fasterxml.jackson.databind;
-    requires static org.apache.commons.csv;
-    requires static org.apache.poi.poi;
+import com.tlcsdm.frame.FXSampler;
 
-    exports com.tlcsdm.jfxcommon;
-    exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
-    exports com.tlcsdm.jfxcommon.tools to javafx.fxml, com.tlcsdm.frame;
+/**
+ * @author unknowIfGuestInDream
+ */
+public class CommonSampler {
 
-    opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
-
-    provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
-    provides TemplateLoaderService with CommonTemplateLoaderProvider;
-
+    public static void main(String[] args) {
+        // 直接启动应用
+        FXSampler.main(args);
+    }
 }

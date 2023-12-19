@@ -47,6 +47,7 @@ import com.tlcsdm.frame.service.VersionCheckerService;
 module com.tlcsdm.cg {
     requires java.desktop;
     requires java.net.http;
+    requires javafx.base;
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
@@ -56,7 +57,6 @@ module com.tlcsdm.cg {
     requires cn.hutool.log;
     requires org.apache.poi.poi;
     requires org.slf4j;
-    requires javafx.base;
     requires com.fasterxml.jackson.databind;
     requires com.tlcsdm.frame;
     requires com.tlcsdm.core;
