@@ -30,6 +30,9 @@ package com.tlcsdm.jfxcommon;
 import com.tlcsdm.frame.FXSampler;
 
 /**
+ * 通过mvn clean compiler -P dev 或者
+ * mvn clean compiler -DworkEnv=dev 后再启动此类
+ *
  * @author unknowIfGuestInDream
  */
 public class CommonSampler {

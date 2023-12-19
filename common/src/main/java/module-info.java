@@ -34,7 +34,7 @@ module com.tlcsdm.jfxcommon {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
-    requires static javafx.web;
+    requires javafx.web;
     requires com.tlcsdm.core;
     requires com.tlcsdm.frame;
     requires org.controlsfx.controls;

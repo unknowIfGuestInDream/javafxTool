@@ -42,6 +42,10 @@
     <description>common组件</description>
     <url>https://javafxtool.tlcsdm.com</url>
 
+    <properties>
+        <jfxcommon.scope>provided</jfxcommon.scope>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tlcsdm</groupId>
@@ -60,13 +64,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <!-- poi use end -->
         <!-- freemarker use begin -->
@@ -74,25 +76,22 @@
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <!-- freemarker use end -->
         <dependency>
             <groupId>io.github.java-diff-utils</groupId>
             <artifactId>java-diff-utils</artifactId>
-            <scope>runtime</scope>
+            <scope>${jfxcommon.scope}</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -105,20 +104,34 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <scope>runtime</scope>
+            <scope>${jfxcommon.scope}</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.fxmisc.richtext</groupId>
             <artifactId>richtextfx</artifactId>
-            <scope>runtime</scope>
+            <scope>${jfxcommon.scope}</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>workEnv</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <jfxcommon.scope>runtime</jfxcommon.scope>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
