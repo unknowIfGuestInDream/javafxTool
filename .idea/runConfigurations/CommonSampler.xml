@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CommonSampler" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+    <option name="MAIN_CLASS_NAME" value="com.tlcsdm.jfxcommon.CommonSampler" />
+    <module name="javafxTool-common" />
+    <option name="VM_PARAMETERS" value="-DworkEnv=dev" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.tlcsdm.jfxcommon.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2" />
+  </configuration>
+</component>

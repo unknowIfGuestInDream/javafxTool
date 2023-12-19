@@ -20,6 +20,8 @@ data/
 !.idea/copyright
 !.idea/copyright/profiles_settings.xml
 !.idea/copyright/tlcsdm.xml
+!.idea/runConfigurations
+!.idea/runConfigurations/**
 !.idea/vcs.xml
 !.idea/jarRepositories.xml
 *.iws

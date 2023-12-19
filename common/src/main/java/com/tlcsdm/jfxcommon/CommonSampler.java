@@ -31,7 +31,9 @@ import com.tlcsdm.frame.FXSampler;
 
 /**
  * 通过mvn clean compiler -P dev 或者
- * mvn clean compiler -DworkEnv=dev 后再启动此类
+ * mvn clean compiler -DworkEnv=dev 后再启动此类.
+ * 又或者当您您使用IDEA开发时，可以在launch的配置中配置:
+ * - 将带有"provided"作用域的依赖项加到类路径
  *
  * @author unknowIfGuestInDream
  */
