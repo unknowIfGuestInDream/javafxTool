@@ -76,7 +76,7 @@ public class SampleScanner {
      * @return The classes
      */
     public Map<String, Project> discoverSamples() {
-        Class<?>[] results = new Class[] {};
+        Class<?>[] results = new Class[]{};
 
         try {
             results = InterfaceScanner.loadFromPathScanning(Sample.class);
@@ -99,7 +99,7 @@ public class SampleScanner {
             try {
                 sample = (Sample) sampleClass.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
-                | InvocationTargetException e) {
+                     | InvocationTargetException e) {
                 StaticLog.error(e);
             } catch (ExceptionInInitializerError e) {
                 StaticLog.error(e);

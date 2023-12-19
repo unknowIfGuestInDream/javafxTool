@@ -27,13 +27,18 @@
 
 package com.tlcsdm.frame.model;
 
+import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.Sample;
+import com.tlcsdm.frame.SampleBase;
+import com.tlcsdm.frame.cache.SampleCacheFactory;
 import com.tlcsdm.frame.service.CenterPanelService;
+
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 /**
  * @author unknowIfGuestInDream
@@ -41,12 +46,15 @@ import javafx.scene.layout.Priority;
  */
 public class EmptyCenterPanel implements CenterPanelService {
 
+    private Stage stage;
+    private SampleBase selectedSample;
     private TabPane tabPane;
     private Tab sampleTab;
     private Tab welcomeTab;
 
     @Override
     public Node getCenterPanel() {
+        this.stage = FXSampler.getStage();
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.getStyleClass().add(TabPane.STYLE_CLASS_FLOATING);
@@ -68,6 +76,7 @@ public class EmptyCenterPanel implements CenterPanelService {
 
     @Override
     public void updateSampleChild(Sample selectedSample, Project selectedProject) {
+        this.selectedSample = (SampleBase) selectedSample;
         updateTab();
     }
 
@@ -79,5 +88,22 @@ public class EmptyCenterPanel implements CenterPanelService {
     }
 
     private void updateTab() {
+        if (selectedSample == null) {
+            return;
+        }
+        sampleTab.setContent(buildCommonContent(selectedSample));
+    }
+
+    private Node buildCommonContent(Sample sample) {
+        String key = sample.getProjectName() + sample.getSampleId();
+        if (SampleCacheFactory.containsKey(key)) {
+            Object obj = SampleCacheFactory.get(key);
+            if (obj instanceof Node n) {
+                return n;
+            }
+        }
+        Node node = SampleBase.buildSample(sample, stage);
+        SampleCacheFactory.put(key, node);
+        return node;
     }
 }
