@@ -94,7 +94,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("com.google.guava", "guava", "32.1.3-jre", false, "https://github.com/google/guava",
+            new Dependency("com.google.guava", "guava", "33.0.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
