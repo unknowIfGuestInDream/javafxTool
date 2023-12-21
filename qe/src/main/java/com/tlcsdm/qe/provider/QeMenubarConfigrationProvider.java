@@ -152,7 +152,9 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         area.appendText(
             I18nUtils.get("qe.menubar.help.about.contentText.author") + ": " + QeConstant.PROJECT_AUTHOR + "\n");
         area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.projectUrl") + ": ");
-        area.appendWithLink(QeConstant.GITHUB_PROJECT_URL, QeConstant.GITHUB_PROJECT_URL);
+        String displayedUrl = QeConstant.GITHUB_PROJECT_URL.length() < 51 ? QeConstant.GITHUB_PROJECT_URL :
+            CoreUtil.getDomainName(QeConstant.GITHUB_PROJECT_URL);
+        area.appendWithLink(displayedUrl, QeConstant.GITHUB_PROJECT_URL);
         area.appendText("\n");
         area.appendText("\n");
         area.appendText(I18nUtils.get("qe.menubar.help.about.contentText.technicalSupport") + ": [");

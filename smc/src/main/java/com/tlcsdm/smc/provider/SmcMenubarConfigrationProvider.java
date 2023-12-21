@@ -151,7 +151,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         area.appendText(
             I18nUtils.get("smc.menubar.help.about.contentText.author") + ": " + SmcConstant.PROJECT_AUTHOR + "\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.projectUrl") + ": ");
-        area.appendWithLink(SmcConstant.GITHUB_PROJECT_URL, SmcConstant.GITHUB_PROJECT_URL);
+        String displayedUrl = SmcConstant.GITHUB_PROJECT_URL.length() < 51 ? SmcConstant.GITHUB_PROJECT_URL :
+            CoreUtil.getDomainName(SmcConstant.GITHUB_PROJECT_URL);
+        area.appendWithLink(displayedUrl, SmcConstant.GITHUB_PROJECT_URL);
         area.appendText("\n");
         area.appendText("\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport") + ": [");

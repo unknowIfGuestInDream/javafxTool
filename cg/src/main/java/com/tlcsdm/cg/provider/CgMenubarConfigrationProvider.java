@@ -151,7 +151,9 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
         area.appendText(
             I18nUtils.get("cg.menubar.help.about.contentText.author") + ": " + CgConstant.PROJECT_AUTHOR + "\n");
         area.appendText(I18nUtils.get("cg.menubar.help.about.contentText.projectUrl") + ": ");
-        area.appendWithLink(CgConstant.GITHUB_PROJECT_URL, CgConstant.GITHUB_PROJECT_URL);
+        String displayedUrl = CgConstant.GITHUB_PROJECT_URL.length() < 51 ? CgConstant.GITHUB_PROJECT_URL :
+            CoreUtil.getDomainName(CgConstant.GITHUB_PROJECT_URL);
+        area.appendWithLink(displayedUrl, CgConstant.GITHUB_PROJECT_URL);
         area.appendText("\n");
         area.appendText("\n");
         area.appendText(I18nUtils.get("cg.menubar.help.about.contentText.technicalSupport") + ": [");
