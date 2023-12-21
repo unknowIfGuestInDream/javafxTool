@@ -204,4 +204,17 @@ public class CoreUtil {
         }
     }
 
+    /**
+     * 从url中获取域名.
+     */
+    public static String getDomainName(String url) {
+        String host = "";
+        try {
+            URL Url = new URL(url);
+            host = Url.getHost();
+        } catch (Exception e) {
+            StaticLog.error(e);
+        }
+        return host;
+    }
 }
