@@ -46,11 +46,11 @@ import org.controlsfx.control.MaskerPane;
  */
 public class CgCenterPanelProvider implements CenterPanelService {
 
+    private final MaskerPane masker = new MaskerPane();
     private SampleBase selectedSample;
     private Project selectedProject;
     private Stage stage;
     private ScrollPane scrollPane;
-    private final MaskerPane masker = new MaskerPane();
 
     @Override
     public Node getCenterPanel() {

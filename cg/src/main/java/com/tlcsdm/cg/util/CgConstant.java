@@ -69,11 +69,6 @@ public class CgConstant {
      */
     public static final String PROJECT_COPYRIGHT = "Copyright © 2023 unknowIfGuestInDream";
     /**
-     * 发布版本
-     * 可由VersionCheckerService实现类修改数据
-     */
-    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=cg&expanded=true";
-    /**
      * 默认项目版本号
      */
     public static final String PROJECT_VERSION = "1.0.0";
@@ -89,11 +84,15 @@ public class CgConstant {
      * 用于校验的tag后缀
      */
     public static final String PROJECT_TAG_SUBFIX = "-cg";
-
     /**
      * 当前项目加的依赖
      */
     public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx", "jackson");
+    /**
+     * 发布版本
+     * 可由VersionCheckerService实现类修改数据
+     */
+    public static String PROJECT_RELEASE_URL = "https://github.com/unknowIfGuestInDream/javafxTool/releases?q=cg&expanded=true";
 
     private CgConstant() {
     }
