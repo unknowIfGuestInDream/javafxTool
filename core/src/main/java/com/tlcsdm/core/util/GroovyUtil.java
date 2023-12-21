@@ -92,7 +92,7 @@ public class GroovyUtil {
             scriptClass = groovyScriptEngine.loadScriptByName(scriptName);
             scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
         } catch (ResourceException | ScriptException | InstantiationException | IllegalAccessException
-            | NoSuchMethodException | InvocationTargetException e1) {
+                 | NoSuchMethodException | InvocationTargetException e1) {
             StaticLog.warn("Load script [" + scriptName + "] failed.", e1);
         } catch (MultipleCompilationErrorsException e) {
             throw new GroovyCompilationErrorsException(

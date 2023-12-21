@@ -58,7 +58,7 @@ public class InterfaceScanner {
      * @return The classes
      */
     public static List<Class<?>> discover(Class<?> clazz) {
-        Class<?>[] results = new Class[] {};
+        Class<?>[] results = new Class[]{};
         List<Class<?>> list = new ArrayList<>();
         try {
             results = loadFromPathScanning(clazz);
@@ -85,7 +85,7 @@ public class InterfaceScanner {
             try {
                 i.getDeclaredMethod(name, parameterTypes).invoke(i.getDeclaredConstructor().newInstance());
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
-                | InstantiationException e) {
+                     | InstantiationException e) {
                 StaticLog.error(e);
             } catch (NoClassDefFoundError e) {
                 // fix freemarker 依赖找不到却进行初始化的问题

@@ -44,12 +44,12 @@ import java.util.regex.Pattern;
  */
 public class GroovyCodeArea extends CodeArea {
 
-    private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case",
+    private static final String[] KEYWORDS = new String[]{"abstract", "assert", "boolean", "break", "byte", "case",
         "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final",
         "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long",
         "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
         "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while", "record",
-        "def", "as" };
+        "def", "as"};
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
     private static final String PAREN_PATTERN = "\\(|\\)";
@@ -91,11 +91,11 @@ public class GroovyCodeArea extends CodeArea {
         while (matcher.find()) {
             String styleClass = matcher.group("KEYWORD") != null ? "keyword"
                 : matcher.group("PAREN") != null ? "paren"
-                    : matcher.group("BRACE") != null ? "brace"
-                        : matcher.group("BRACKET") != null ? "bracket"
-                            : matcher.group("STRING") != null ? "string"
-                                : matcher.group("STR") != null ? "string"
-                                    : matcher.group("COMMENT") != null ? "comment" : null;
+                : matcher.group("BRACE") != null ? "brace"
+                : matcher.group("BRACKET") != null ? "bracket"
+                : matcher.group("STRING") != null ? "string"
+                : matcher.group("STR") != null ? "string"
+                : matcher.group("COMMENT") != null ? "comment" : null;
             assert styleClass != null;
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());

@@ -36,7 +36,7 @@ import org.fxmisc.richtext.InlineCssTextArea;
 
 /**
  * License弹窗
- * 
+ *
  * @author unknowIfGuestInDream
  */
 public class LicenseDialog {

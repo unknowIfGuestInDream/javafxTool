@@ -45,7 +45,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-import javax.swing.*;
+import javax.swing.JSpinner;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 
