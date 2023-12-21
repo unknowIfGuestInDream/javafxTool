@@ -776,11 +776,6 @@
                 <artifactId>violations-lib</artifactId>
                 <version>${violations.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
             <!-- PMD end -->
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
@@ -815,6 +810,7 @@
                 <version>${pmd.version}</version>
             </dependency>
             <!-- PMD end -->
+            <!-- bytebuddy begin -->
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
@@ -830,6 +826,34 @@
                 <artifactId>byte-buddy-dep</artifactId>
                 <version>${bytebuddy.version}</version>
             </dependency>
+            <!-- bytebuddy end -->
+            <!-- asm begin -->
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-commons</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-util</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-tree</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-analysis</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <!-- asm end -->
             <dependency>
                 <groupId>net.sourceforge.tess4j</groupId>
                 <artifactId>tess4j</artifactId>
@@ -1025,14 +1049,29 @@
                             </goals>
                             <configuration>
                                 <outputDirectory>${project.build.directory}/license</outputDirectory>
-                                <thirdPartyFilename>third-party.txt</thirdPartyFilename>
+                                <thirdPartyFilename>NOTICE</thirdPartyFilename>
                                 <force>true</force>
                                 <licenseMerges>
                                     <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
                                         |Apache Software Licenses|Apache License, Version 2.0
                                         |The Apache License, Version 2.0|Apache-2.0|Apache License 2.0
                                     </licenseMerge>
-                                    <licenseMerge>MIT License|The MIT License</licenseMerge>
+                                    <licenseMerge>MIT|MIT License|The MIT License</licenseMerge>
+                                    <licenseMerge>BSD 3-Clause|The BSD 3-Clause License|The 3-Clause BSD License
+                                    </licenseMerge>
+                                    <licenseMerge>BSD 2-Clause|The BSD 2-Clause License|The 2-Clause BSD License
+                                    </licenseMerge>
+                                    <licenseMerge>LGPL|LGPL, version 2.1|GNU Lesser General Public License
+                                        |GNU Library or Lesser General Public License (LGPL) V2.1
+                                        |GNU Lesser General Public License (LGPL), Version 2.1
+                                        |GNU Lesser General Public License, Version 2.1|LGPL 2.1
+                                    </licenseMerge>
+                                    <licenseMerge>EPL 1.0|Eclipse Public License - Version 1.0
+                                        |Eclipse Public License - v 1.0
+                                    </licenseMerge>
+                                    <licenseMerge>EPL 2.0|Eclipse Public License v2.0</licenseMerge>
+                                    <licenseMerge>GPL|GPL2 w/ CPE|GPLv2+CE|GNU General Public Library</licenseMerge>
+                                    <licenseMerge>MulanPSL2|Mulan Permissive Software License，Version 2</licenseMerge>
                                 </licenseMerges>
                             </configuration>
                         </execution>
