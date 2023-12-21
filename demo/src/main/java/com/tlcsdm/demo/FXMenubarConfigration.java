@@ -28,7 +28,13 @@
 package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.service.MenubarConfigration;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 
 public class FXMenubarConfigration implements MenubarConfigration {
 

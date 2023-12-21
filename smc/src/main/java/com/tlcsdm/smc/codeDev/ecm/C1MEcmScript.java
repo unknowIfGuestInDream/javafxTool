@@ -196,7 +196,7 @@ public final class C1MEcmScript extends AbstractEcmScript {
      * 处理使能条件的 * 信息, 默认是support = true下的
      */
     private void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-        boolean optMaskintStatus) {
+                                         boolean optMaskintStatus) {
         // Do nothing
     }
 

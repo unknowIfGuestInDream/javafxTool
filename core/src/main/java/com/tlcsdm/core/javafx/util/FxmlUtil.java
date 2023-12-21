@@ -54,7 +54,7 @@ public class FxmlUtil {
     }
 
     public static FXMLLoader loadFxmlFromResource(URL location, ResourceBundle resourceBundle,
-        BuilderFactory builderFactory) {
+                                                  BuilderFactory builderFactory) {
         if (builderFactory == null) {
             builderFactory = new JavaFXBuilderFactory();
         }

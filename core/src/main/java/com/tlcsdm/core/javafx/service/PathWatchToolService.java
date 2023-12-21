@@ -151,7 +151,7 @@ public class PathWatchToolService {
         monitor
             .setThreadFactory(ThreadPoolTaskExecutor.hasInitialized() ? ThreadPoolTaskExecutor.get().getThreadFactory()
                 : new BasicThreadFactory.Builder().namingPattern("pathWatch").daemon(true)
-                    .uncaughtExceptionHandler((t, e) -> StaticLog.error(e)).build());
+                .uncaughtExceptionHandler((t, e) -> StaticLog.error(e)).build());
         try {
             monitor.start();
         } catch (Exception e) {
@@ -188,10 +188,10 @@ public class PathWatchToolService {
     }
 
     /**
-     *  File or folder regular match
+     * File or folder regular match
      */
     private boolean ifMatchText(String fileName, String csText, String ncsText, boolean sRegex, Pattern csPattern,
-        Pattern ncsPattern) {
+                                Pattern ncsPattern) {
         boolean match = true;
         String lFileName = fileName.toLowerCase();
         String lcsText = csText.toLowerCase();

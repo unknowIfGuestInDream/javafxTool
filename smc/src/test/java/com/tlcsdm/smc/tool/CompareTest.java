@@ -27,16 +27,15 @@
 
 package com.tlcsdm.smc.tool;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Assert;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author unknowIfGuestInDream
@@ -86,16 +85,16 @@ public class CompareTest {
     @Test
     void prop() {
         String message = """
-                -Dosgi.requiredJavaVersion=17
-                -Dosgi.dataAreaRequiresExplicitInit=true
-                -XX:+UseG1GC
-                -XX:+UseStringDeduplication
-                -Xms512m
-                -Xmx1g
-                --add-modules=ALL-SYSTEM
-                -qeforafe-dtime=1000
-                -Djava.class.path=D:\\Tools\\AFE\\user\\com.demo.product-win32.win32.x86_64_b001\\eclipse\\plugins/org.eclipse.equinox.launcher_1.6.400.v2022.jar
-                """;
+            -Dosgi.requiredJavaVersion=17
+            -Dosgi.dataAreaRequiresExplicitInit=true
+            -XX:+UseG1GC
+            -XX:+UseStringDeduplication
+            -Xms512m
+            -Xmx1g
+            --add-modules=ALL-SYSTEM
+            -qeforafe-dtime=1000
+            -Djava.class.path=D:\\Tools\\AFE\\user\\com.demo.product-win32.win32.x86_64_b001\\eclipse\\plugins/org.eclipse.equinox.launcher_1.6.400.v2022.jar
+            """;
         List<String> list = getCommandLinePartFromString(message);
         System.out.println(list);
 //        Properties vargsProps = new Properties();

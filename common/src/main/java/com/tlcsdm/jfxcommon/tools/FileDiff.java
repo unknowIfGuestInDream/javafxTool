@@ -27,17 +27,7 @@
 
 package com.tlcsdm.jfxcommon.tools;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
+import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -52,8 +42,6 @@ import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
-
-import cn.hutool.core.util.StrUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -68,6 +56,16 @@ import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 文件差分
@@ -158,7 +156,7 @@ public class FileDiff extends CommonSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files", "*.txt", "*.c", "*.h",
-                "*.java", "*.html", "*.xml");
+            "*.java", "*.html", "*.xml");
         // original
         Label originalLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.original") + ": ");
         originalField = new TextField();
@@ -166,7 +164,7 @@ public class FileDiff extends CommonSample {
         originalFileChooser = new FileChooser();
         originalFileChooser.getExtensionFilters().add(extFilter);
         originalFileChooser.getExtensionFilters()
-                .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+            .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button originalButton = FxButton.choose();
         originalField.setEditable(false);
         originalButton.setOnAction(arg0 -> {
@@ -184,7 +182,7 @@ public class FileDiff extends CommonSample {
         compareFileChooser = new FileChooser();
         compareFileChooser.getExtensionFilters().add(extFilter);
         compareFileChooser.getExtensionFilters()
-                .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+            .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button compareButton = FxButton.choose();
         compareField.setEditable(false);
         compareButton.setOnAction(arg0 -> {
@@ -266,14 +264,14 @@ public class FileDiff extends CommonSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {generateButton}:
-                {generateDesc}
-                {Required} {originalLabel}, {compareLabel}
+            {generateButton}:
+            {generateDesc}
+            {Required} {originalLabel}, {compareLabel}
 
-                {downloadButton}:
-                {downloadDesc}
-                {Required} {originalLabel}, {compareLabel}, {outputLabel}
-                """;
+            {downloadButton}:
+            {downloadDesc}
+            {Required} {originalLabel}, {compareLabel}, {outputLabel}
+            """;
         Map<String, String> map = new HashMap<>();
         map.put("generateButton", generate.getText());
         map.put("generateDesc", I18nUtils.get("common.tool.fileDiff.control.textarea1"));
