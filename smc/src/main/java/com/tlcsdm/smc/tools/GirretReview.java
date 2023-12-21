@@ -234,6 +234,7 @@ public class GirretReview extends SmcSample {
                         }
                         handleComments(commentsRequestUrl, resultPath, resultFileName);
                         ps.close();
+                        OSUtil.openAndSelectedFile(file);
                         bindUserData();
                     } catch (Exception e) {
                         ps.close();
