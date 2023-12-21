@@ -68,6 +68,10 @@ public class HtmlEscape extends CommonSample {
 
     private final Collection<? extends Action> actions = List.of(escape, unescape);
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public Node getPanel(Stage stage) {
         GridPane grid = new GridPane();
@@ -113,10 +117,6 @@ public class HtmlEscape extends CommonSample {
     @Override
     public ImageView getSampleImageIcon() {
         return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/html.png"));
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override
