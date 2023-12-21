@@ -49,6 +49,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
@@ -135,6 +136,7 @@ public final class FXSampler extends Application {
     @Override
     public void start(final Stage primaryStage) {
         stopWatch.start();
+        this.initializeProperties();
         this.printBanner();
         stage = primaryStage;
         StaticLog.debug("Load splash screen.");
@@ -557,6 +559,20 @@ public final class FXSampler extends Application {
         ServiceLoader<BannerPrinterService> banners = ServiceLoader.load(BannerPrinterService.class);
         for (BannerPrinterService banner : banners) {
             banner.printBanner();
+        }
+    }
+
+    /**
+     * 初始化虚拟机参数.
+     */
+    private void initializeProperties() {
+        // 如果在启动时设置了workEnv, 那使用设置值,否则根据Keys.UseDevMode来设置参数
+        if (System.getProperty(CoreConstant.JVM_WORKENV) == null) {
+            if (Config.getBoolean(Keys.UseDevMode, false)) {
+                System.setProperty(CoreConstant.JVM_WORKENV, CoreConstant.JVM_WORKENV_DEV);
+            } else {
+                System.setProperty(CoreConstant.JVM_WORKENV, CoreConstant.JVM_WORKENV_PROD);
+            }
         }
     }
 }
