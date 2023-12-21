@@ -52,7 +52,7 @@ module com.tlcsdm.core {
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
     opens com.tlcsdm.core.util to org.junit.platform.engine, org.junit.jupiter.api, jakarta.xml.bind;
-    opens com.tlcsdm.core.modal;
+    opens com.tlcsdm.core.model;
 
     exports com.tlcsdm.core.javafx;
     exports com.tlcsdm.core.javafx.control;

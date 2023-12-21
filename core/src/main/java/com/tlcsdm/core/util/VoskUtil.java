@@ -30,7 +30,7 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.CoreException;
-import com.tlcsdm.core.modal.VoskModal;
+import com.tlcsdm.core.model.VoskModal;
 import org.vosk.LibVosk;
 import org.vosk.LogLevel;
 import org.vosk.Model;
