@@ -53,6 +53,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.smc.SmcSample;
@@ -174,13 +175,9 @@ public class SpecGeneralTest extends SmcSample {
                     StaticLog.info("Processing data...");
                     // 需要数据抽取
                     ExcelReader reader = ExcelUtil.getReader(FileUtil.file(parentDirectoryPath, excelName));
-                    List<String> sheetNames = reader.getSheetNames().stream()
-                        .filter(s -> (markSheetNames.isEmpty() && !ignoreSheetNames.contains(s))
-                            || (!markSheetNames.isEmpty() && markSheetNames.contains(s)))
-                        .toList();
+                    List<String> sheetNames = reader.getSheetNames().stream().filter(s -> (markSheetNames.isEmpty() && !ignoreSheetNames.contains(s)) || (!markSheetNames.isEmpty() && markSheetNames.contains(s))).toList();
                     reader.close();
-                    String resultPath = outputPath + File.separator
-                        + excelName.substring(0, excelName.lastIndexOf("."));
+                    String resultPath = outputPath + File.separator + excelName.substring(0, excelName.lastIndexOf("."));
                     String filesPath = resultPath + File.separator + "files";
                     // 清空resultPath下文件
                     FileUtil.clean(resultPath);
@@ -190,8 +187,7 @@ public class SpecGeneralTest extends SmcSample {
                     Map<String, String> generateFileMap = new HashMap<>();
                     for (String sheetName : sheetNames) {
                         BigExcelWriter excelWriter = ExcelUtil.getBigWriter();
-                        StaticLog.info("========================= Begin Reading {} =========================",
-                            sheetName);
+                        StaticLog.info("========================= Begin Reading {} =========================", sheetName);
                         ExcelReader r = ExcelUtil.getReader(udFile, sheetName);
                         String endCell = getEndCell(endCellColumn, r);
                         StaticLog.info("endCell: {}", endCell);
@@ -232,9 +228,7 @@ public class SpecGeneralTest extends SmcSample {
                                     // 给macro值填充空格
                                     if (j2 == startX + 1) {
                                         String s = "#define " + cv;
-                                        if (s.length() < macroLength && StrUtil
-                                            .trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j))))
-                                            .length() != 0) {
+                                        if (s.length() < macroLength && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j)))).length() != 0) {
                                             cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
                                         }
                                     }
@@ -280,34 +274,27 @@ public class SpecGeneralTest extends SmcSample {
                     for (String sheetName : sheetNames) {
                         ExcelReader r = ExcelUtil.getReader(FileUtil.file(filesPath, sheetName + ".xlsx"), sheetName);
                         String generateFileName = generateFileMap.get(sheetName);
-                        FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""),
-                            FileUtil.file(filesPath, generateFileName));
+                        FileUtil.writeUtf8String(r.readAsText(false).replaceAll("\\t", ""), FileUtil.file(filesPath, generateFileName));
                         r.close();
                         if (onlyGenerate) {
                             continue;
                         }
-                        StaticLog.info("========================= Begin Comparing {} =========================",
-                            generateFileName);
+                        StaticLog.info("========================= Begin Comparing {} =========================", generateFileName);
                         File generateFile = FileUtil.file(generateFilesParentPath, generateFileName);
                         if (FileUtil.exist(generateFile)) {
-                            List<String> diffString = DiffHandleUtil.diffString(
-                                filesPath + File.separator + generateFileName,
-                                generateFilesParentPath + File.separator + generateFileName);
+                            List<String> diffString = DiffHandleUtil.diffString(filesPath + File.separator + generateFileName, generateFilesParentPath + File.separator + generateFileName);
                             if (mergeResult) {
                                 diffStringList.add(diffString);
                             } else {
-                                DiffHandleUtil.generateDiffHtml(diffString,
-                                    resultPath + File.separator + sheetName + ".html");
+                                DiffHandleUtil.generateDiffHtml(diffString, resultPath + File.separator + sheetName + ".html");
                             }
                         } else {
-                            StaticLog.info("========================= Not Found {} =========================",
-                                generateFileName);
+                            StaticLog.info("========================= Not Found {} =========================", generateFileName);
                             continue;
                         }
                         // 此处睡眠, 防止出现读取上的错误
                         ThreadUtil.safeSleep(500);
-                        StaticLog.info("========================= End Comparing {} =========================",
-                            generateFileName);
+                        StaticLog.info("========================= End Comparing {} =========================", generateFileName);
                     }
                     if (!onlyGenerate && mergeResult) {
                         DiffHandleUtil.generateDiffHtml(resultPath + File.separator + "overview.html", diffStringList);
@@ -317,6 +304,9 @@ public class SpecGeneralTest extends SmcSample {
                         notificationBuilder.text(I18nUtils.get("smc.tool.specGeneralTest.button.diff.success"));
                         notificationBuilder.showInformation();
                     });
+                    if (mergeResult) {
+                        OSUtil.showDoc(resultPath + File.separator + "overview.html");
+                    }
                     bindUserData();
                 } catch (Exception e) {
                     FxApp.runLater(() -> {
@@ -453,11 +443,9 @@ public class SpecGeneralTest extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField,
-            macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
         BooleanBinding generalBinding = Bindings.createBooleanBinding(() -> {
-            return onlyGenerateCheck.isSelected()
-                || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty());
+            return onlyGenerateCheck.isSelected() || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty());
         }, generalField.textProperty(), onlyGenerateCheck.selectedProperty());
         diff.disabledProperty().bind(emptyValidation.and(generalBinding));
         openOutDir.disabledProperty().bind(outputValidation);

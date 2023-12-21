@@ -157,7 +157,7 @@ public abstract class AbstractEcmScript extends SmcSample {
                 ZipUtil.zip(file, Charset.defaultCharset(),
                     new ClassPathResource(ftlPath + getFtlPath(), getClass().getClassLoader()),
                     new ClassPathResource(groovyPath + getGroovyPath(), getClass().getClassLoader()));
-
+                OSUtil.openAndSelectedFile(file);
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
             }

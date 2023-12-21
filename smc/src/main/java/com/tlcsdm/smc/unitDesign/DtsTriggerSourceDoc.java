@@ -51,6 +51,7 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
@@ -131,6 +132,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     FileUtil.del(file);
                 }
                 FileUtil.writeFromStream(templateFile, file);
+                OSUtil.openAndSelectedFile(file);
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
             }

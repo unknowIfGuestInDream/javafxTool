@@ -150,6 +150,13 @@ public class FxAction {
     }
 
     /**
+     * @see #copy(String, Consumer)
+     */
+    public static Action copyAll(Consumer<ActionEvent> eventHandler) {
+        return copy(I18nUtils.get("core.button.copyResult"), eventHandler);
+    }
+
+    /**
      * 拷贝.
      */
     public static Action copy(String text, Consumer<ActionEvent> eventHandler) {
@@ -457,6 +464,13 @@ public class FxAction {
      */
     public static Action clear(Consumer<ActionEvent> eventHandler) {
         return clear(I18nUtils.get("core.button.clear"), eventHandler);
+    }
+
+    /**
+     * @see #clear(String, Consumer)
+     */
+    public static Action clearAll(Consumer<ActionEvent> eventHandler) {
+        return clear(I18nUtils.get("core.button.clearAll"), eventHandler);
     }
 
     /**

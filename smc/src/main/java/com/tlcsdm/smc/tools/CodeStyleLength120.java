@@ -133,11 +133,14 @@ public class CodeStyleLength120 extends SmcSample {
             resultPath = file.getParent();
             outPutChooser.setInitialDirectory(file.getParentFile());
             outPutChooser.setInitialFileName(resultFileName);
+            result.clear();
             initData();
             handleResult();
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
-            OSUtil.openAndSelectedFile(file);
+            if (!result.isEmpty()) {
+                OSUtil.openAndSelectedFile(file);
+            }
             bindUserData();
         }
     });
@@ -296,7 +299,7 @@ public class CodeStyleLength120 extends SmcSample {
             @Override
             public boolean accept(File file) {
                 if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
-                    if (fileTypeList.size() == 0) {
+                    if (fileTypeList.isEmpty()) {
                         return true;
                     }
                     for (String fileType : fileTypeList) {
@@ -308,7 +311,7 @@ public class CodeStyleLength120 extends SmcSample {
                 return false;
             }
         });
-        if (files.size() == 0) {
+        if (files.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message3"));
             notificationBuilder.showWarning();
             return;
@@ -334,7 +337,7 @@ public class CodeStyleLength120 extends SmcSample {
      * 结果信息处理
      */
     private void handleResult() {
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.info.message"));
             notificationBuilder.showInformation();
             return;
