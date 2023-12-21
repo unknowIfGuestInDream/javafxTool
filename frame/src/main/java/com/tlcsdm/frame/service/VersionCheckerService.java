@@ -27,6 +27,14 @@
 
 package com.tlcsdm.frame.service;
 
+import cn.hutool.core.net.SSLContextBuilder;
+import cn.hutool.crypto.Mode;
+import cn.hutool.crypto.Padding;
+import cn.hutool.crypto.symmetric.AES;
+import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.util.JacksonUtil;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -40,18 +48,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.util.JacksonUtil;
-
-import cn.hutool.core.net.SSLContextBuilder;
-import cn.hutool.crypto.Mode;
-import cn.hutool.crypto.Padding;
-import cn.hutool.crypto.symmetric.AES;
-import cn.hutool.log.StaticLog;
-
 /**
  * 检查更新(支持github和gitlab).
- * 
  *
  * @author unknowIfGuestInDream
  */
@@ -71,28 +69,28 @@ public interface VersionCheckerService {
 
     /**
      * 获取releases结果.
-     * 
-     * @param url releases接口地址
+     *
+     * @param url        releases接口地址
      * @param encryptStr 加密token密文
      */
     default String getReleaseResult(String url, String encryptStr) {
         HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
-                .followRedirects(HttpClient.Redirect.NORMAL).sslContext(SSLContextBuilder.create().build())
-                .connectTimeout(Duration.ofMillis(2000)).build();
+            .followRedirects(HttpClient.Redirect.NORMAL).sslContext(SSLContextBuilder.create().build())
+            .connectTimeout(Duration.ofMillis(2000)).build();
         HttpRequest request;
         if (isGithub(url)) {
             request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type", "application/json",
-                    "User-Agent",
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
-                    "accept", "application/vnd.github+json").build();
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+                "accept", "application/vnd.github+json").build();
         } else {
             String aesKey = getAesKey();
             AES aes = new AES(Mode.ECB, Padding.PKCS5Padding, aesKey.getBytes());
             String token = aes.decryptStr(encryptStr);
             request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type", "application/json",
-                    "User-Agent",
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
-                    "PRIVATE-TOKEN", token).build();
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+                "PRIVATE-TOKEN", token).build();
         }
         var future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
             if (response.statusCode() != 200) {

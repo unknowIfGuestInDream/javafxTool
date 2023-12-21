@@ -32,7 +32,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -68,7 +70,7 @@ public class JavaFxSystemUtil {
             screenHeight = bounds.getHeight();
         }
 
-        return new double[] { screenWidth, screenHeight };
+        return new double[]{screenWidth, screenHeight};
     }
 
     public static void initSystemLocal() {
@@ -77,10 +79,10 @@ public class JavaFxSystemUtil {
             if (StringUtils.isNotEmpty(localeString)) {
                 localeString = localeString.toLowerCase();
                 switch (localeString) {
-                case "en", "en_us" -> Config.defaultLocale = Locale.ENGLISH;
-                case "zh", "zh_cn" -> Config.defaultLocale = Locale.SIMPLIFIED_CHINESE;
-                case "ja", "ja_jp" -> Config.defaultLocale = Locale.JAPANESE;
-                default -> Config.defaultLocale = Locale.ENGLISH;
+                    case "en", "en_us" -> Config.defaultLocale = Locale.ENGLISH;
+                    case "zh", "zh_cn" -> Config.defaultLocale = Locale.SIMPLIFIED_CHINESE;
+                    case "ja", "ja_jp" -> Config.defaultLocale = Locale.JAPANESE;
+                    default -> Config.defaultLocale = Locale.ENGLISH;
                 }
             } else {
                 if (!SUPPORT_LOCALE.contains(Config.defaultLocale)) {

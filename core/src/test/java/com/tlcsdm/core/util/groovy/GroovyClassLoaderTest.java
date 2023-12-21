@@ -102,7 +102,7 @@ public class GroovyClassLoaderTest {
         try {
             object = (GroovyObject) helloClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-            | NoSuchMethodException e) {
+                 | NoSuchMethodException e) {
             e.printStackTrace();
         }
         Object ret = object.invokeMethod("say", "vivo");

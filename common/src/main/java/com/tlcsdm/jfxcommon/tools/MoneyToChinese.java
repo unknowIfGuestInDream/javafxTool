@@ -65,10 +65,9 @@ import java.util.Map;
  */
 public class MoneyToChinese extends CommonSample {
 
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
     private NumberTextField amountField;
     private TextField chineseAmountField;
-    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
-
     private final Action convert = FxAction.convert(actionEvent -> {
         String chineseAmount = MoneyToChineseUtil.number2CNMonetaryUnit(NumberUtil.toBigDecimal(amountField.getText()));
         chineseAmountField.setText(chineseAmount);
@@ -77,6 +76,10 @@ public class MoneyToChinese extends CommonSample {
     });
 
     private final Collection<? extends Action> actions = List.of(convert);
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public boolean isVisible() {
@@ -133,10 +136,6 @@ public class MoneyToChinese extends CommonSample {
         map.put("Required", I18nUtils.get("common.control.required"));
         map.put("amountLabel", I18nUtils.get("common.tool.moneyToChinese.label.amount"));
         return FxTextInput.textArea(StrUtil.format(content, map));
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override

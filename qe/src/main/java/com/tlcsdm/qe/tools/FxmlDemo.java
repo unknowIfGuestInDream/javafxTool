@@ -648,7 +648,7 @@ public class FxmlDemo extends QeSample implements Initializable {
         if (str.isEmpty()) {
             return false;
         }
-        for (int i = str.length(); --i >= 0;) {
+        for (int i = str.length(); --i >= 0; ) {
             if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }

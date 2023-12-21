@@ -51,6 +51,10 @@ public class CgSamplePostProcessorProvider implements SamplePostProcessorService
     public static String SAMPLES_DEPTH = "depth";
     public static String SAMPLES_FOLDER = "folder";
 
+    public static List<TreeNode<String>> getSampleNodeList() {
+        return sampleNodeList;
+    }
+
     @Override
     public void postProcessBeanFactory() {
         // 防止重启带来的重复数据
@@ -113,9 +117,5 @@ public class CgSamplePostProcessorProvider implements SamplePostProcessorService
             sampleNodeList.add(node);
             buildTree(node, t.getChildren());
         }
-    }
-
-    public static List<TreeNode<String>> getSampleNodeList() {
-        return sampleNodeList;
     }
 }

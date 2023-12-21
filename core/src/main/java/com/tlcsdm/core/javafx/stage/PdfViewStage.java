@@ -46,17 +46,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+import javax.swing.SwingUtilities;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-import javax.swing.SwingUtilities;
-
 /**
  * PDF View
- * 
+ *
  * @author unknowIfGuestInDream
  */
 public class PdfViewStage extends Stage {

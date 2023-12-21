@@ -80,10 +80,7 @@ public class DataFormatConvert extends CommonSample {
 
     private final FileChooser outputChooser = new FileChooser();
     private final ObservableList<String> datasourceList = FXCollections.observableArrayList();
-    private ComboBox<String> cmbDatasource;
-    private TextField dataField;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
-
     private final Action generate = FxAction.generate(actionEvent -> {
         FileChooser.ExtensionFilter extFilter = FileChooserUtil.excelFilter();
         outputChooser.getExtensionFilters().add(extFilter);
@@ -98,8 +95,13 @@ public class DataFormatConvert extends CommonSample {
             //bindUserData();
         }
     });
-
     private final Collection<? extends Action> actions = List.of(generate);
+    private ComboBox<String> cmbDatasource;
+    private TextField dataField;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void initializeBindings() {
@@ -237,10 +239,6 @@ public class DataFormatConvert extends CommonSample {
             """;
         Map<String, String> map = new HashMap<>();
         return FxTextInput.textArea(StrUtil.format(content, map));
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override

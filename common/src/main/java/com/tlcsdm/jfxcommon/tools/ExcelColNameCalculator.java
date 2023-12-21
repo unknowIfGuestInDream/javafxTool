@@ -63,11 +63,10 @@ import java.util.StringJoiner;
  */
 public class ExcelColNameCalculator extends CommonSample {
 
+    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
     private TextField colNameField;
     private NumberTextField offsetField;
     private TextField resultField;
-    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
-
     private final Action generate = FxAction.generate(actionEvent -> {
         List<String> colNameList = StrUtil.splitTrim(colNameField.getText(), ",");
         int offset = Integer.parseInt(offsetField.getText());
@@ -82,6 +81,10 @@ public class ExcelColNameCalculator extends CommonSample {
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public Node getPanel(Stage stage) {
@@ -122,10 +125,6 @@ public class ExcelColNameCalculator extends CommonSample {
         super.initializeBindings();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(colNameField, offsetField).build();
         generate.disabledProperty().bind(emptyValidation);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override

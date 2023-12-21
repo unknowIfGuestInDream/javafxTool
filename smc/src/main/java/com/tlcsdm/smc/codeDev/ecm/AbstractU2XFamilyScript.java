@@ -125,7 +125,7 @@ public abstract sealed class AbstractU2XFamilyScript extends AbstractEcmScript p
      * function数据后置处理
      */
     protected void handlerOperationSupport(Map<String, Object> operation, String funcSupCondition,
-        boolean optMaskintStatus) {
+                                           boolean optMaskintStatus) {
         GroovyUtil.invokeMethod(getGroovyPath(), "handlerOperationSupport", operation, funcSupCondition,
             optMaskintStatus);
     }

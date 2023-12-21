@@ -575,7 +575,7 @@ public abstract class AbstractEcmScript extends SmcSample {
      * 获取tag数据
      */
     protected List<Map<String, Object>> buildTagData(LinkedHashMap<String, String> tagMap, ExcelReader reader,
-        int rowNum) {
+                                                     int rowNum) {
         List<Map<String, Object>> tag = new ArrayList<>();
         for (String tagkey : tagMap.keySet()) {
             String tagCol = tagMap.get(tagkey);
