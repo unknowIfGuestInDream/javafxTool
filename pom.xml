@@ -1058,8 +1058,10 @@
                                     </licenseMerge>
                                     <licenseMerge>MIT|MIT License|The MIT License</licenseMerge>
                                     <licenseMerge>BSD 3-Clause|The BSD 3-Clause License|The 3-Clause BSD License
+                                        |BSD License 3.0
                                     </licenseMerge>
                                     <licenseMerge>BSD 2-Clause|The BSD 2-Clause License|The 2-Clause BSD License
+                                        |BSD License 2.0
                                     </licenseMerge>
                                     <licenseMerge>LGPL|LGPL, version 2.1|GNU Lesser General Public License
                                         |GNU Library or Lesser General Public License (LGPL) V2.1
