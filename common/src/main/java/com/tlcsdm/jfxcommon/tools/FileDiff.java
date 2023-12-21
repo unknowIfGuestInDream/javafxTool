@@ -27,7 +27,17 @@
 
 package com.tlcsdm.jfxcommon.tools;
 
-import cn.hutool.core.util.StrUtil;
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -37,10 +47,13 @@ import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.core.util.DiffHandleUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
+
+import cn.hutool.core.util.StrUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -55,16 +68,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 文件差分
@@ -78,6 +81,7 @@ public class FileDiff extends CommonSample {
     private TextField compareField;
     private FileChooser compareFileChooser;
     private TextField outputField;
+    private TextField fileNameField;
     private DirectoryChooser outputChooser;
     private WebView webView;
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
@@ -110,11 +114,27 @@ public class FileDiff extends CommonSample {
         }
         List<String> diffString = DiffHandleUtil.diffString(originalField.getText(), compareField.getText());
         // 生成一个diff.html文件，打开便可看到两个文件的对比
-        DiffHandleUtil.generateDiffHtml(diffString, outputField.getText() + File.separator + "diff.html");
+        String filePath = outputField.getText() + File.separator + getFileName();
+        DiffHandleUtil.generateDiffHtml(diffString, filePath);
         notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.download.success"));
         notificationBuilder.showInformation();
+        OSUtil.showDoc(filePath);
         bindUserData();
     });
+
+    /**
+     * 下载文件的名称.
+     */
+    private String getFileName() {
+        String fileName = fileNameField.getText();
+        if (StrUtil.isEmpty(fileName)) {
+            return "diff.html";
+        }
+        if (!fileName.endsWith(".html")) {
+            fileName += ".html";
+        }
+        return fileName;
+    }
 
     private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
 
@@ -138,7 +158,7 @@ public class FileDiff extends CommonSample {
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files", "*.txt", "*.c", "*.h",
-            "*.java", "*.html", "*.xml");
+                "*.java", "*.html", "*.xml");
         // original
         Label originalLabel = new Label(I18nUtils.get("common.tool.fileDiff.label.original") + ": ");
         originalField = new TextField();
@@ -146,7 +166,7 @@ public class FileDiff extends CommonSample {
         originalFileChooser = new FileChooser();
         originalFileChooser.getExtensionFilters().add(extFilter);
         originalFileChooser.getExtensionFilters()
-            .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+                .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button originalButton = FxButton.choose();
         originalField.setEditable(false);
         originalButton.setOnAction(arg0 -> {
@@ -163,7 +183,8 @@ public class FileDiff extends CommonSample {
         compareField.setMaxWidth(Double.MAX_VALUE);
         compareFileChooser = new FileChooser();
         compareFileChooser.getExtensionFilters().add(extFilter);
-        compareFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+        compareFileChooser.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button compareButton = FxButton.choose();
         compareField.setEditable(false);
         compareButton.setOnAction(arg0 -> {
@@ -177,7 +198,6 @@ public class FileDiff extends CommonSample {
         // output
         Label outputLabel = new Label(I18nUtils.get("common.tool.label.output") + ": ");
         outputField = new TextField();
-        outputField.setMaxWidth(Double.MAX_VALUE);
         outputChooser = new DirectoryChooser();
         Button outputButton = FxButton.choose();
         outputField.setEditable(false);
@@ -189,10 +209,16 @@ public class FileDiff extends CommonSample {
             }
         });
 
+        Label fileNameLabel = new Label(I18nUtils.get("common.tool.label.fileName") + ": ");
+        fileNameField = new TextField();
+        fileNameField.setPrefWidth(Double.MAX_VALUE);
+
         // webView
         webView = new WebView();
         webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         GridPane.setVgrow(webView, Priority.ALWAYS);
+
+        fileNameField.setText("diff.html");
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(originalLabel, 0, 1);
@@ -204,7 +230,9 @@ public class FileDiff extends CommonSample {
         grid.add(outputLabel, 0, 3);
         grid.add(outputButton, 1, 3);
         grid.add(outputField, 2, 3);
-        grid.add(webView, 0, 4, 3, 1);
+        grid.add(fileNameLabel, 0, 4);
+        grid.add(fileNameField, 1, 4, 2, 1);
+        grid.add(webView, 0, 5, 3, 1);
 
         return grid;
     }
@@ -232,19 +260,20 @@ public class FileDiff extends CommonSample {
         userData.put("compareChoose", compareFileChooser);
         userData.put("output", outputField);
         userData.put("outputChoose", outputChooser);
+        userData.put("fileName", fileNameField);
     }
 
     @Override
     public Node getControlPanel() {
         String content = """
-            {generateButton}:
-            {generateDesc}
-            {Required} {originalLabel}, {compareLabel}
+                {generateButton}:
+                {generateDesc}
+                {Required} {originalLabel}, {compareLabel}
 
-            {downloadButton}:
-            {downloadDesc}
-            {Required} {originalLabel}, {compareLabel}, {outputLabel}
-            """;
+                {downloadButton}:
+                {downloadDesc}
+                {Required} {originalLabel}, {compareLabel}, {outputLabel}
+                """;
         Map<String, String> map = new HashMap<>();
         map.put("generateButton", generate.getText());
         map.put("generateDesc", I18nUtils.get("common.tool.fileDiff.control.textarea1"));
