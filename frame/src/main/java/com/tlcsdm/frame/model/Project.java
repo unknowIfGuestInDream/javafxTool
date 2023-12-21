@@ -67,7 +67,7 @@ public class Project {
         }
 
         // then split up the packages into separate strings
-        String[] packages = packagesWithoutBase.isEmpty() ? new String[] {} : packagesWithoutBase.split("\\.");
+        String[] packages = packagesWithoutBase.isEmpty() ? new String[]{} : packagesWithoutBase.split("\\.");
 
         // then for each package convert to a prettier form
         for (int i = 0; i < packages.length; i++) {
