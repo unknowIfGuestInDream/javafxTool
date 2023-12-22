@@ -55,4 +55,6 @@ public abstract class AbstractSystemSettingView implements Initializable {
     protected Button saveButton;
     @FXML
     protected Button cancelButton;
+    @FXML
+    public CheckBox useDevModeCheckBox;
 }

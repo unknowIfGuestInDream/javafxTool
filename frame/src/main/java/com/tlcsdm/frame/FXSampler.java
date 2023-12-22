@@ -51,6 +51,7 @@ import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.InterfaceScanner;
+import com.tlcsdm.frame.cache.SampleCacheFactory;
 import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.model.DefaultTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptyCenterPanel;
@@ -482,6 +483,7 @@ public final class FXSampler extends Application {
         Platform.runLater(() -> {
             EventBus.getDefault().post(new ApplicationRestartEvent());
             stage.close();
+            SampleCacheFactory.clear();
             try {
                 Thread.sleep(300);
             } catch (InterruptedException e) {
