@@ -51,4 +51,6 @@
     <!--颜色提取时最小化窗口-->
     <CheckBox fx:id="screenColorPickerHideWindowCheckBox" selected="true"
               text="%core.dialog.systemSetting.check.screenColorPickerHideWindow"/>
+    <CheckBox fx:id="useDevModeCheckBox"
+              text="%core.dialog.systemSetting.check.useDevMode"/>
 </VBox>

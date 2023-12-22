@@ -53,6 +53,7 @@ public class SystemSettingController extends AbstractSystemSettingView {
         checkForUpdatesAtStartupCheckBox.setSelected(Config.getBoolean(Keys.CheckForUpdatesAtStartup, true));
         screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
         screenColorPickerHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenColorPickerHideWindow, true));
+        useDevModeCheckBox.setSelected(Config.getBoolean(Keys.UseDevMode, false));
     }
 
     /**
@@ -68,6 +69,7 @@ public class SystemSettingController extends AbstractSystemSettingView {
                 case CheckForUpdatesAtStartup -> disableNode(checkForUpdatesAtStartupCheckBox);
                 case ScreenshotHideWindow -> disableNode(screenshotHideWindowCheckBox);
                 case ScreenColorPickerHideWindow -> disableNode(screenColorPickerHideWindowCheckBox);
+                case UseDevMode -> disableNode(useDevModeCheckBox);
                 default -> {
                     // Do nothing
                 }
@@ -92,5 +94,6 @@ public class SystemSettingController extends AbstractSystemSettingView {
         Config.set(Keys.CheckForUpdatesAtStartup, checkForUpdatesAtStartupCheckBox.isSelected());
         Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
         Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
+        Config.set(Keys.UseDevMode, useDevModeCheckBox.isSelected());
     }
 }
