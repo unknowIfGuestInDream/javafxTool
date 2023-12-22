@@ -128,7 +128,7 @@ public class TestTool extends QeSample {
     @Override
     public boolean isVisible() {
         String value = System.getProperty(CoreConstant.JVM_WORKENV);
-        return CoreConstant.JVM_WORKENV_DEV.equals(value);
+        return CoreConstant.JVM_WORKENV_TEST.equals(value);
     }
 
     @Override

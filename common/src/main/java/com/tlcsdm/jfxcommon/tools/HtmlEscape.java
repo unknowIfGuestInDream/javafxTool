@@ -29,6 +29,8 @@ package com.tlcsdm.jfxcommon.tools;
 
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.OSUtil;
+import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.util.HtmlUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
@@ -57,17 +59,23 @@ public class HtmlEscape extends CommonSample {
     private TextArea originalField;
     private TextArea resultField;
 
-    private final Action escape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.escape"),
-        actionEvent -> {
-            resultField.setText(HtmlUtil.escape(originalField.getText()));
-        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
+    private final Action escape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.escape"), actionEvent -> {
+        resultField.setText(HtmlUtil.escape(originalField.getText()));
+    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
 
-    private final Action unescape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.unescape"),
-        actionEvent -> {
-            resultField.setText(HtmlUtil.unescape(originalField.getText()));
-        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
+    private final Action unescape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.unescape"), actionEvent -> {
+        resultField.setText(HtmlUtil.unescape(originalField.getText()));
+    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
 
-    private final Collection<? extends Action> actions = List.of(escape, unescape);
+    private final Action copyResult = FxAction.copyResult(actionEvent -> {
+        if (resultField.getText().isEmpty()) {
+            return;
+        }
+        OSUtil.writeToClipboard(resultField.getText());
+        TooltipUtil.showToast(I18nUtils.get("common.button.copyResult.success"));
+    });
+
+    private final Collection<? extends Action> actions = List.of(escape, unescape, copyResult);
 
     public static void main(String[] args) {
         launch(args);
@@ -103,6 +111,7 @@ public class HtmlEscape extends CommonSample {
     @Override
     public void initializeBindings() {
         super.initializeBindings();
+        copyResult.disabledProperty().bind(resultField.textProperty().isEmpty());
     }
 
     @Override
@@ -112,7 +121,7 @@ public class HtmlEscape extends CommonSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override

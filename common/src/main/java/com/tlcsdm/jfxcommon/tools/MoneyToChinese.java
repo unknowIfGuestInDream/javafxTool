@@ -35,6 +35,8 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.OSUtil;
+import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.MoneyToChineseUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
@@ -75,7 +77,15 @@ public class MoneyToChinese extends CommonSample {
         notificationBuilder.showInformation();
     });
 
-    private final Collection<? extends Action> actions = List.of(convert);
+    private final Action copyResult = FxAction.copyResult(actionEvent -> {
+        if (chineseAmountField.getText().isEmpty()) {
+            return;
+        }
+        OSUtil.writeToClipboard(chineseAmountField.getText());
+        TooltipUtil.showToast(I18nUtils.get("common.button.copyResult.success"));
+    });
+
+    private final Collection<? extends Action> actions = List.of(convert, copyResult);
 
     public static void main(String[] args) {
         launch(args);
@@ -121,6 +131,7 @@ public class MoneyToChinese extends CommonSample {
         super.initializeBindings();
         BooleanBinding emptyValidation = new TextInputControlEmptyBinding(amountField).build();
         convert.disabledProperty().bind(emptyValidation);
+        copyResult.disabledProperty().bind(chineseAmountField.textProperty().isEmpty());
     }
 
     @Override
@@ -150,7 +161,7 @@ public class MoneyToChinese extends CommonSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
