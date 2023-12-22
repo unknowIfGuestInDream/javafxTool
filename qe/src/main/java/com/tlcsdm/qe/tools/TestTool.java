@@ -99,7 +99,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-//        TooltipUtil.showToast("message");
+//        TooltipUtil.showToast("title", "message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //

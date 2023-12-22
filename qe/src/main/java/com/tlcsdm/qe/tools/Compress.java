@@ -100,7 +100,7 @@ public class Compress extends QeSample implements Initializable {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
