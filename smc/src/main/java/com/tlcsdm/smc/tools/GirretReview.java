@@ -115,6 +115,7 @@ import java.util.Objects;
  * Girret指摘收集, 适配girret 3.9版本.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class GirretReview extends SmcSample {
 

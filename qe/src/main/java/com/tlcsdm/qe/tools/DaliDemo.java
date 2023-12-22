@@ -49,9 +49,10 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 /**
- * 测试用，DALi Configuration.
+ * 测试用.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class DaliDemo extends QeSample {
 

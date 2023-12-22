@@ -47,9 +47,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * html 转义工具
+ * html 转义工具.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class HtmlEscape extends CommonSample {
 

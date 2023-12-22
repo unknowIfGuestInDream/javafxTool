@@ -77,9 +77,10 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 检测指定路径下文件内容长度是否超过120
+ * 检测指定路径下文件内容长度是否超过120.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class CodeStyleLength120 extends SmcSample {
 

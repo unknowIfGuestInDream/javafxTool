@@ -92,7 +92,7 @@ import java.util.Map;
  * 为specGeneral测试文档的测试生成差异文件, 提高测试效率.
  *
  * @author unknowIfGuestInDream
- * @date 2022/12/8 23:12
+ * @since 1.0.0
  */
 public class SpecGeneralTest extends SmcSample {
 

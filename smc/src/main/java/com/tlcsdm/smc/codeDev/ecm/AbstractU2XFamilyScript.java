@@ -38,10 +38,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * U2X系列公共类
+ * U2X系列公共类.
  *
  * @author unknowIfGuestInDream
- * @date 2023/5/4 14:53
+ * @since 1.0.3
  */
 public abstract sealed class AbstractU2XFamilyScript extends AbstractEcmScript permits U2AEcmScript, U2CEcmScript {
 

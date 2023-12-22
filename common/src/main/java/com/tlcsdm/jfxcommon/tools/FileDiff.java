@@ -71,6 +71,7 @@ import java.util.Map;
  * 文件差分
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class FileDiff extends CommonSample {
 
