@@ -49,7 +49,8 @@ public enum Keys {
     CheckForUpdatesAtStartup("checkForUpdatesAtStartup"),
     ScreenshotHideWindow("screenshotHideWindow"),
     ScreenColorPickerHideWindow("screenColorPickerHideWindow"),
-    Theme("theme");
+    Theme("theme"),
+    UseDevMode("useDevMode");
 
     private final String keyName;
 
