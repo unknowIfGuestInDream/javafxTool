@@ -162,7 +162,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.3", false, "https://github.com/jython/jython",
                 "PSF license", "https://github.com/jython/jython/blob/master/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.14.10", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.14.11", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.9.0", false, "https://github.com/nguyenq/tess4j",
