@@ -34,6 +34,7 @@ import com.tlcsdm.core.dsl.commands.FunctionRunnable;
 import com.tlcsdm.core.dsl.commands.VariableRunnable;
 import com.tlcsdm.core.dsl.runtime.DSLRuntime;
 import com.tlcsdm.core.dsl.runtime.DSLRuntimeCommand;
+import com.tlcsdm.core.exception.UnExpectedResultException;
 
 import java.io.File;
 import java.io.IOException;
@@ -239,7 +240,7 @@ public class DSL {
         List<DSLRuntimeCommand> functionContents = subscripts.get(name);
 
         if (functionContents == null)
-            throw new RuntimeException("Subscript " + name + " not found");
+            throw new UnExpectedResultException("Subscript " + name + " not found");
 
         for (DSLRuntimeCommand command : functionContents)
             runtime.execute(command);

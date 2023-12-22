@@ -30,6 +30,8 @@ package com.tlcsdm.core.dsl.stringvars;
 import cn.hutool.log.StaticLog;
 
 /**
+ * StringVars is to add support for recursive String variables, such as $var$ or %var%.
+ *
  * @author unknowIfGuestInDream
  * @author Konloch
  */
