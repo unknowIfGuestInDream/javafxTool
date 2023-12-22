@@ -80,7 +80,6 @@ public class StringVars {
                     parsedKey = new StringBuilder();
                 }
             } else {
-                escaped = false;
                 if (parsingKey) {
                     parsedKey.append(c);
                 } else {
