@@ -115,8 +115,7 @@ public class PreferencesView extends StackPane {
                             Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup", checkForUpdatesAtStartup,
                                 VisibilityProperty.of(supCheckForUpdatesAtStartup)),
                             Setting.of("core.dialog.systemSetting.check.useDevMode", useDevMode,
-                                VisibilityProperty.of(supUseDevMode))).description("core.menubar.setting" +
-                            ".systemSetting")),
+                                VisibilityProperty.of(supUseDevMode))).description("core.menubar.setting.systemSetting")),
                     Category.of("core.menubar.tool",
                         VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)),
                         Group.of(VisibilityProperty.of(supScreenshotHideWindow),
