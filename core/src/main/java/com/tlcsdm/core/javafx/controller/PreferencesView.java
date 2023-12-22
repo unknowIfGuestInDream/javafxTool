@@ -104,6 +104,31 @@ public class PreferencesView extends StackPane {
         // i18n
         ResourceBundle rb = ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale);
         ResourceBundleService rbs = new ResourceBundleService(rb);
-        return PreferencesFx.of(new CoreStorageHandler(), Category.of("core.preference.general").expand().subCategories(Category.of("core.menubar.setting.systemSetting", VisibilityProperty.of(supExitShowAlert.or(supSaveStageBound).or(supCheckForUpdatesAtStartup).or(supUseDevMode)), Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert, VisibilityProperty.of(supExitShowAlert)), Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound, VisibilityProperty.of(supSaveStageBound)), Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup", checkForUpdatesAtStartup, VisibilityProperty.of(supCheckForUpdatesAtStartup)), Setting.of("core.dialog.systemSetting.check.useDevMode", useDevMode, VisibilityProperty.of(supUseDevMode))).description("core.menubar.setting.systemSetting")), Category.of("core.menubar.tool", VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)), Group.of(VisibilityProperty.of(supScreenshotHideWindow), Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow, VisibilityProperty.of(supScreenshotHideWindow))).description("core.menubar.setting.screenshot"), Group.of(VisibilityProperty.of(supScreenColorPickerHideWindow), Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow", screenColorPickerHideWindow, VisibilityProperty.of(supScreenColorPickerHideWindow))).description("core.menubar.setting.colorPicker")))).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true).instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
+        return PreferencesFx.of(new CoreStorageHandler(),
+                Category.of("core.preference.general").expand().subCategories(
+                    Category.of("core.menubar.setting.systemSetting",
+                        VisibilityProperty.of(supExitShowAlert.or(supSaveStageBound).or(supCheckForUpdatesAtStartup).or(supUseDevMode)),
+                        Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert,
+                                VisibilityProperty.of(supExitShowAlert)),
+                            Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound,
+                                VisibilityProperty.of(supSaveStageBound)),
+                            Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup", checkForUpdatesAtStartup,
+                                VisibilityProperty.of(supCheckForUpdatesAtStartup)),
+                            Setting.of("core.dialog.systemSetting.check.useDevMode", useDevMode,
+                                VisibilityProperty.of(supUseDevMode))).description("core.menubar.setting" +
+                            ".systemSetting")),
+                    Category.of("core.menubar.tool",
+                        VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)),
+                        Group.of(VisibilityProperty.of(supScreenshotHideWindow),
+                                Setting.of("core.dialog.systemSetting.check.screenshotHideWindow", screenshotHideWindow,
+                                    VisibilityProperty.of(supScreenshotHideWindow)))
+                            .description("core.menubar.setting.screenshot"),
+                        Group.of(VisibilityProperty.of(supScreenColorPickerHideWindow),
+                                Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow",
+                                    screenColorPickerHideWindow,
+                                    VisibilityProperty.of(supScreenColorPickerHideWindow)))
+                            .description("core.menubar.setting.colorPicker")))).i18n(rbs).persistWindowState(false)
+            .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true).
+            instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
     }
 }
