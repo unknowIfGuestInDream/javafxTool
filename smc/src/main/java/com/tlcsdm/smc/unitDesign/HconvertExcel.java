@@ -72,7 +72,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 头文件转换为excel UD
+ * 头文件转换为excel UD.
  *
  * @author unknowIfGuestInDream
  * @date 2023/2/28 23:12
@@ -133,7 +133,8 @@ public class HconvertExcel extends SmcSample {
                 }
             });
             StaticLog.info("Generate result...");
-            ExcelWriter writer = ExcelUtil.getWriter(FileUtil.file(resultPath, resultFileName));
+            File resultFile = FileUtil.file(resultPath, resultFileName);
+            ExcelWriter writer = ExcelUtil.getWriter(resultFile);
             writer.getStyleSet().setAlign(HorizontalAlignment.LEFT, VerticalAlignment.CENTER);
             writer.getStyleSet().setBorder(BorderStyle.NONE, IndexedColors.BLACK);
             for (int i = 0; i < files.size(); i++) {
@@ -175,7 +176,7 @@ public class HconvertExcel extends SmcSample {
 
             notificationBuilder.text(I18nUtils.get("smc.tool.button.generate.success"));
             notificationBuilder.showInformation();
-            OSUtil.openAndSelectedFile(resultPath);
+            OSUtil.openAndSelectedFile(resultFile);
             bindUserData();
         }
     });

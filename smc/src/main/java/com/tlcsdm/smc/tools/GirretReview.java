@@ -101,7 +101,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -109,11 +111,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Girret指摘收集, 适配girret 3.9版本.
+ *
+ * @author unknowIfGuestInDream
+ */
 public class GirretReview extends SmcSample {
 
     private final static String defaultGirretUrl = "http://172.29.44.217/";
-    private final static String paramO = "81";
-    private final static String defaultParamQ = "is:closed -is:ignored (-is:wip OR owner:self) (owner:self OR reviewer:self OR assignee:self OR cc:self)";
+    private final static String paramO = "5000081";
+    private final static String defaultParamQ = "is:closed (-is:wip OR owner:self) (owner:self OR reviewer:self OR cc:self)";
     // cookie GerritAccount
     private TextField gerritAccountField;
     // cookie XSRF_TOKEN
@@ -184,7 +191,8 @@ public class GirretReview extends SmcSample {
                             .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
                             .cookieHandler(manager).build();
                         // changes请求路径
-                        String changesRequestUrl = girretUrlField.getText() + "changes/?O=%s&S=%s&n=%s&q=%s";
+                        String changesRequestUrl = girretUrlField.getText()
+                            + "changes/?O=%s&S=%s&n=%s&q=%s&allow-incomplete-results=true";
                         // comments请求路径
                         String commentsRequestUrl = girretUrlField.getText() + "changes/{}~{}/comments";
                         int paramS = 0;
@@ -307,6 +315,7 @@ public class GirretReview extends SmcSample {
         limitField.setNumber(BigDecimal.valueOf(50));
         reserveJsonCheck.setSelected(true);
         girretUrlField.setText(defaultGirretUrl);
+        startDatePicker.setValue(LocalDate.now().with(TemporalAdjusters.firstDayOfYear()));
 
         grid.add(toolBar, 0, 0, 3, 1);
         grid.add(gerritAccountLabel, 0, 1);
