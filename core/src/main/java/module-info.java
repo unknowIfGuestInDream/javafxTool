@@ -80,6 +80,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.dsl;
     exports com.tlcsdm.core.dsl.commands;
     exports com.tlcsdm.core.dsl.runtime;
+    exports com.tlcsdm.core.dsl.impl;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
