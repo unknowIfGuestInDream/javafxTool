@@ -99,7 +99,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-//        TooltipUtil.showToast("message");
+//        TooltipUtil.showToast("title", "message");
 //        ProgressStage ps = ProgressStage.of();
 //        ps.show();
 //
@@ -128,7 +128,7 @@ public class TestTool extends QeSample {
     @Override
     public boolean isVisible() {
         String value = System.getProperty(CoreConstant.JVM_WORKENV);
-        return CoreConstant.JVM_WORKENV_DEV.equals(value);
+        return CoreConstant.JVM_WORKENV_TEST.equals(value);
     }
 
     @Override

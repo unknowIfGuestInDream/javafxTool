@@ -559,7 +559,7 @@ public class DmaTriggerSourceCode extends SmcSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.1";
+        return "1.0.11";
     }
 
     @Override

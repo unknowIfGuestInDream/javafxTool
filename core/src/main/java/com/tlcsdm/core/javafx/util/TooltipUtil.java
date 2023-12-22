@@ -43,10 +43,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * 提示组件，可以使用FxNotifications
+ * 提示组件,相当于使用
+ * {@link org.controlsfx.control.Notifications#showInformation()}
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 20:59
  */
 public class TooltipUtil {
 
@@ -91,15 +91,15 @@ public class TooltipUtil {
     }
 
     public static void showToast(String message, Pos pos) {
-        showToast(null, message, null, 3.0D, pos, null, null, true, true);
+        showToast(null, message, null, 3.0D, pos, null, null, true, false);
     }
 
     public static void showToast(String title, String message) {
-        showToast(title, message, null, 3.0D, Pos.TOP_CENTER, null, null, true, true);
+        showToast(title, message, null, 3.0D, Pos.TOP_CENTER, null, null, true, false);
     }
 
     public static void showToast(String title, String message, Pos pos) {
-        showToast(title, message, null, 3.0D, pos, null, null, true, true);
+        showToast(title, message, null, 3.0D, pos, null, null, true, false);
     }
 
     public static void showToast(String title, String message, Node graphic, double hideTime, Pos pos,
@@ -118,8 +118,6 @@ public class TooltipUtil {
             notificationBuilder.darkStyle();
         }
 
-        Platform.runLater(() -> {
-            notificationBuilder.show();
-        });
+        Platform.runLater(notificationBuilder::show);
     }
 }

@@ -152,7 +152,7 @@ public class FxAction {
     /**
      * @see #copy(String, Consumer)
      */
-    public static Action copyAll(Consumer<ActionEvent> eventHandler) {
+    public static Action copyResult(Consumer<ActionEvent> eventHandler) {
         return copy(I18nUtils.get("core.button.copyResult"), eventHandler);
     }
 
