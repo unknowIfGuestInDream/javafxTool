@@ -77,6 +77,9 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.event;
     exports com.tlcsdm.core.httpserver;
     exports com.tlcsdm.core.concurrent;
+    exports com.tlcsdm.core.dsl;
+    exports com.tlcsdm.core.dsl.commands;
+    exports com.tlcsdm.core.dsl.runtime;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;

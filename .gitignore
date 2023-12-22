@@ -49,5 +49,5 @@ logs/
 /mvnw
 /mvnw.cmd
 
-runtime
+/runtime
 .jython_cache
