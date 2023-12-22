@@ -88,10 +88,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * EcmScript脚本超类
+ * EcmScript脚本超类.
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 21:13
+ * @since 1.0.1
  */
 public abstract class AbstractEcmScript extends SmcSample {
 

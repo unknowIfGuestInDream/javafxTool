@@ -81,9 +81,10 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
- * 测试用，测试fxml集成
+ * 测试用，测试fxml集成.
  *
  * @author unknowIfGuestInDream
+ * @since 1.0.0
  */
 public class FxmlDemo extends QeSample implements Initializable {
 

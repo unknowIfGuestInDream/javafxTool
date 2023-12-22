@@ -47,7 +47,7 @@ import java.util.Map;
  * C1M的ECM脚本.
  *
  * @author unknowIfGuestInDream
- * @date 2023/3/26 21:17
+ * @since 1.0.1
  */
 public final class C1MEcmScript extends AbstractEcmScript {
 

@@ -58,10 +58,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 金额转换为中文大写金额
+ * 金额转换为中文大写金额.
  *
  * @author unknowIfGuestInDream
- * @date 2022/12/8 23:12
+ * @since 1.0.0
  */
 public class MoneyToChinese extends CommonSample {
 

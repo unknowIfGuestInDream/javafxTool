@@ -72,10 +72,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 根据DTS的trigger source文档生成xml数据文件，协助CD开发
+ * 根据DTS的trigger source文档生成xml数据文件，协助CD开发.
  *
  * @author unknowIfGuestInDream
- * @date 2022/12/8 23:12
+ * @since 1.0.0
  */
 public class DtsTriggerSourceXml extends SmcSample {
 
