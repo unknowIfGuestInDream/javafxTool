@@ -27,6 +27,64 @@
 
 package com.tlcsdm.smc.tools;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.net.UserPassAuthenticator;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
+import cn.hutool.poi.excel.style.StyleUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tlcsdm.core.exception.UnExpectedResultException;
+import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
+import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
+import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.NumberTextField;
+import com.tlcsdm.core.javafx.control.ProgressStage;
+import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.dialog.FxAlerts;
+import com.tlcsdm.core.javafx.dialog.FxNotifications;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.FileChooserUtil;
+import com.tlcsdm.core.javafx.util.FxXmlUtil;
+import com.tlcsdm.core.javafx.util.OSUtil;
+import com.tlcsdm.core.util.JacksonUtil;
+import com.tlcsdm.smc.SmcSample;
+import com.tlcsdm.smc.tools.girret.Change;
+import com.tlcsdm.smc.tools.girret.Comment;
+import com.tlcsdm.smc.tools.girret.Owner;
+import com.tlcsdm.smc.util.I18nUtils;
+import javafx.beans.binding.BooleanBinding;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
+import org.controlsfx.control.textfield.TextFields;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -52,66 +110,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
-import org.controlsfx.control.textfield.TextFields;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.tlcsdm.core.exception.UnExpectedResultException;
-import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
-import com.tlcsdm.core.javafx.FxApp;
-import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
-import com.tlcsdm.core.javafx.control.FxButton;
-import com.tlcsdm.core.javafx.control.FxTextInput;
-import com.tlcsdm.core.javafx.control.NumberTextField;
-import com.tlcsdm.core.javafx.control.ProgressStage;
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.dialog.FxAlerts;
-import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.javafx.util.FileChooserUtil;
-import com.tlcsdm.core.javafx.util.FxXmlUtil;
-import com.tlcsdm.core.javafx.util.OSUtil;
-import com.tlcsdm.core.util.JacksonUtil;
-import com.tlcsdm.smc.SmcSample;
-import com.tlcsdm.smc.tools.girret.Change;
-import com.tlcsdm.smc.tools.girret.Comment;
-import com.tlcsdm.smc.tools.girret.Owner;
-import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.net.UserPassAuthenticator;
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.ExcelWriter;
-import cn.hutool.poi.excel.style.StyleUtil;
-import javafx.beans.binding.BooleanBinding;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * Girret指摘收集, 适配girret 3.9版本.
@@ -188,19 +186,19 @@ public class GirretReview extends SmcSample {
                         manager.getCookieStore().add(URI.create(girretUrlField.getText()), gerritAccount);
                         manager.getCookieStore().add(URI.create(girretUrlField.getText()), token);
                         Authenticator authenticator = new UserPassAuthenticator(userNameField.getText(),
-                                passwdField.getText().toCharArray());
+                            passwdField.getText().toCharArray());
                         client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
-                                .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
-                                .cookieHandler(manager).build();
+                            .connectTimeout(Duration.ofMillis(10000)).authenticator(authenticator)
+                            .cookieHandler(manager).build();
                         // changes请求路径
                         String changesRequestUrl = girretUrlField.getText()
-                                + "changes/?O=%s&S=%s&n=%s&q=%s&allow-incomplete-results=true";
+                            + "changes/?O=%s&S=%s&n=%s&q=%s&allow-incomplete-results=true";
                         // comments请求路径
                         String commentsRequestUrl = girretUrlField.getText() + "changes/{}~{}/comments";
                         int paramS = 0;
                         String paramQ = defaultParamQ;
                         if (StrUtil.isNotEmpty(ownerEmailField.getText())
-                                && !ownerEmailField.getText().startsWith(userNameField.getText())) {
+                            && !ownerEmailField.getText().startsWith(userNameField.getText())) {
                             paramQ = "owner:" + ownerEmailField.getText();
                         }
                         String resultFileName = file.getName();
@@ -218,14 +216,14 @@ public class GirretReview extends SmcSample {
                         }
                         StaticLog.info("Get request result...");
                         // 开始获取结果
-                        for (;;) {
+                        for (; ; ) {
                             String url = String.format(changesRequestUrl,
-                                    URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
-                                    URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
+                                URLEncoder.encode(paramO, StandardCharsets.UTF_8), paramS, paramN,
+                                URLEncoder.encode(paramQ, StandardCharsets.UTF_8));
                             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                                     "application/json", "User-Agent",
                                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                                    .build();
+                                .build();
                             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                             if (response.statusCode() == 200) {
                                 String result = response.body();
@@ -290,7 +288,7 @@ public class GirretReview extends SmcSample {
         limitField = new NumberTextField(BigDecimal.valueOf(50));
 
         Label ignoreGirretNumberLabel = new Label(
-                I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber") + ": ");
+            I18nUtils.get("smc.tool.girretReview.label.ignoreGirretNumber") + ": ");
         ignoreGirretNumberField = TextFields.createClearableTextField();
         ignoreGirretNumberField.setPromptText(I18nUtils.get("smc.tool.textfield.promptText.list"));
 
@@ -351,7 +349,7 @@ public class GirretReview extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(gerritAccountField, tokenField,
-                userNameField, passwdField, limitField, girretUrlField).build();
+            userNameField, passwdField, limitField, girretUrlField).build();
         generate.disabledProperty().bind(emptyValidation);
     }
 
@@ -375,15 +373,15 @@ public class GirretReview extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                GerritAccount&XSRF_TOKEN{tokenDesc}
-                {userName}&{passwd}{girretUserDesc}
-                {ownerEmail}{ownerEmailDesc}
-                {limit}{limitDesc}
-                {ignoreGirretNumber}{ignoreGirretNumberDesc}
-                {startDate}: {startDateDesc}
-                {reserveJson}: {reserveJsonDesc}
-                {girretUrl}{girretUrlDesc}
-                """;
+            GerritAccount&XSRF_TOKEN{tokenDesc}
+            {userName}&{passwd}{girretUserDesc}
+            {ownerEmail}{ownerEmailDesc}
+            {limit}{limitDesc}
+            {ignoreGirretNumber}{ignoreGirretNumberDesc}
+            {startDate}: {startDateDesc}
+            {reserveJson}: {reserveJsonDesc}
+            {girretUrl}{girretUrlDesc}
+            """;
         Map<String, String> map = new HashMap<>(32);
         map.put("tokenDesc", I18nUtils.get("smc.tool.girretReview.control.textarea1"));
         map.put("userName", I18nUtils.get("smc.tool.girretReview.label.userName"));
@@ -416,7 +414,7 @@ public class GirretReview extends SmcSample {
         }
         try {
             Duration dur = Duration.between(LocalDateTimeUtil.parse(value, DatePattern.NORM_DATETIME_FORMATTER),
-                    LocalDateTimeUtil.now());
+                LocalDateTimeUtil.now());
             if (dur.toHours() >= 12) {
                 gerritAccountField.setText("");
                 tokenField.setText("");
@@ -552,7 +550,7 @@ public class GirretReview extends SmcSample {
      * girret comments 数据处理
      */
     private void handleComments(String commentsRequestUrl, String resultPath, String resultFileName)
-            throws IOException, InterruptedException {
+        throws IOException, InterruptedException {
         if (changesList.isEmpty()) {
             FxApp.runLater(() -> {
                 notificationBuilder.text("No need changes");
@@ -563,12 +561,12 @@ public class GirretReview extends SmcSample {
         }
         for (int i = 0; i < changesList.size(); i++) {
             String url = StrUtil.format(commentsRequestUrl,
-                    URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
-                    changesList.get(i).get("girretNum"));
+                URLEncoder.encode(changesList.get(i).get("project"), StandardCharsets.UTF_8),
+                changesList.get(i).get("girretNum"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().headers("Content-Type",
                     "application/json", "User-Agent",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50")
-                    .build();
+                .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String result = response.body();
@@ -587,7 +585,7 @@ public class GirretReview extends SmcSample {
                         String commentAuthorUserName = value.getAuthor().getUsername();
                         Map<String, String> comment = new HashMap<>(changesList.get(i));
                         if ("Done".equals(commentMessage)
-                                || comment.get("ownerUserName").equals(commentAuthorUserName)) {
+                            || comment.get("ownerUserName").equals(commentAuthorUserName)) {
                             continue;
                         }
                         comment.put("commentFileName", vo.getKey());
@@ -640,15 +638,15 @@ public class GirretReview extends SmcSample {
         // 保留json结果文件
         if (reserveJsonCheck.isSelected()) {
             FileUtil.writeUtf8String(
-                    JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changesList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-changes.json"));
+                JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(changesList),
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-changes.json"));
             FileUtil.writeUtf8String(
-                    JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(commentsList),
-                    FileUtil.file(resultPath,
-                            LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
-                                    + "-comments.json"));
+                JacksonUtil.getJsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(commentsList),
+                FileUtil.file(resultPath,
+                    LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_PATTERN)
+                        + "-comments.json"));
         }
         StaticLog.info("Generate successfully...");
         FxApp.runLater(() -> {

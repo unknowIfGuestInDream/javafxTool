@@ -27,22 +27,11 @@
 
 package com.tlcsdm.smc.unitDesign;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -54,12 +43,6 @@ import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
-
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
-import cn.hutool.poi.excel.ExcelUtil;
-import cn.hutool.poi.excel.ExcelWriter;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -72,9 +55,24 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.control.action.ActionUtils;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 头文件转换为excel UD
+ * 头文件转换为excel UD.
  *
  * @author unknowIfGuestInDream
  * @date 2023/2/28 23:12
@@ -244,7 +242,7 @@ public class HconvertExcel extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(generalField, supportFileTypeField)
-                .build();
+            .build();
         generate.disabledProperty().bind(emptyValidation);
         FileChooserUtil.setOnDrag(generalField, FileChooserUtil.FileType.FOLDER);
     }
@@ -263,9 +261,9 @@ public class HconvertExcel extends SmcSample {
     @Override
     public Node getControlPanel() {
         String content = """
-                {markFileNames}: {markFileNamesDesc}
-                {supportFileType}: {supportFileTypeDesc}
-                """;
+            {markFileNames}: {markFileNamesDesc}
+            {supportFileType}: {supportFileTypeDesc}
+            """;
 
         Map<String, String> map = new HashMap<>(8);
         map.put("markFileNames", I18nUtils.get("smc.tool.hconvertExcel.label.markFileNames"));
