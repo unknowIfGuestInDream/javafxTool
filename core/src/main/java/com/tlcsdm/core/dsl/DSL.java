@@ -50,6 +50,7 @@ import java.util.List;
  * @since Jan, 17th, 2017
  */
 public class DSL {
+
     private final String setValueDelimiter;
     private final char variableDelimiter;
     private final String bracketDelimiterStart;
@@ -345,12 +346,4 @@ public class DSL {
         return runtime;
     }
 
-    /**
-     * Alert that this is a library
-     *
-     * @param args program launch arguments
-     */
-    public static void main(String[] args) {
-        throw new RuntimeException("Incorrect usage - for information on how to use this correctly visit https://konloch.com/DSLBuilder/");
-    }
 }

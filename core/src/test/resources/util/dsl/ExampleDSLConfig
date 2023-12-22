@@ -1,0 +1,25 @@
+##############################################
+# This is a test example of the DSL script   #
+#                                            #
+# @author Konloch                            #
+# @since Jan, 17th, 2017                     #
+##############################################
+
+#setup variables
+variableExample=The variable gets set here
+variable=Testing %variableExample%
+
+#call on init functions
+functionA(Calling on this function)
+functionB(Parameter Test A, Parameter Test B)
+
+#define subscript exampleA
+exampleA {
+  variable=The variable gets set subscript A
+  functionA(example on this function being in subscript A)
+}
+
+#define subscript exampleB
+exampleB {
+  functionA(example on this function being in subscript B)
+}
