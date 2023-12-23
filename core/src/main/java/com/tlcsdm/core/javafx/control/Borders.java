@@ -23,9 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
+ *
  * Copyright (c) 2013, 2015, ControlsFX
  * All rights reserved.
  * <p>
@@ -63,14 +61,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-import javax.swing.BorderFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * A utility class that allows you to wrap JavaFX {@link Node Nodes} with a border,
- * in a way somewhat analogous to the Swing {@link BorderFactory} (although with
+ * in a way somewhat analogous to the Swing {@link javax.swing.BorderFactory} (although with
  * less options as a lot of what the Swing BorderFactory offers resulted in
  * ugly borders!).
  *
