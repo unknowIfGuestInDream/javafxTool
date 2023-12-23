@@ -31,6 +31,12 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.scene.control.ComboBoxBase;
 
+/**
+ * ComboBoxBase 值为空的BooleanBinding,为空返回true.
+ *
+ * @author unknowIfGuestInDream
+ * @author DreamAwakenFateBroke
+ */
 public class ComboBoxBaseEmptyBinding<T> extends FxBooleanBindingBuilder {
     private final ComboBoxBase<T> combo;
 
