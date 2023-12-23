@@ -56,9 +56,8 @@ public class LicenseDialog {
         FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle("License").setOwner(FxApp.primaryStage)
             .setPrefSize(680, 540).setResizable(true).setBody(vbox)
             .setButtonTypes(FxButtonType.COPY, FxButtonType.CLOSE);
-        dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> {
-            OSUtil.writeToClipboard(area.getText());
-        }).setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
+        dialog.setButtonHandler(FxButtonType.COPY, (actionEvent, stage) -> OSUtil.writeToClipboard(area.getText()))
+            .setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     }
 

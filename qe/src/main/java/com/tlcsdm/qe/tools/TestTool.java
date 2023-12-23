@@ -29,6 +29,7 @@ package com.tlcsdm.qe.tools;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
@@ -231,7 +232,7 @@ public class TestTool extends QeSample {
         return list;
     }
 
-    class CustomPropertyItem implements Item {
+    static class CustomPropertyItem implements Item {
 
         private final String key;
         private final String category;
@@ -275,12 +276,13 @@ public class TestTool extends QeSample {
         }
 
         @Override
-        public Optional<ObservableValue<? extends Object>> getObservableValue() {
+        public Optional<ObservableValue<?>> getObservableValue() {
             return Optional.empty();
         }
 
     }
 
+    @SuppressWarnings("All")
     class VideoConvertWork extends Task<Void> {
 
         @Override
@@ -304,7 +306,7 @@ public class TestTool extends QeSample {
             path.setContent(content);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            StaticLog.error(e);
         }
         return path;
     }

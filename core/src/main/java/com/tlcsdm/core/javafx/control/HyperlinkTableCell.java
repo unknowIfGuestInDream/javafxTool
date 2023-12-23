@@ -44,7 +44,7 @@ import java.util.function.Function;
  */
 public class HyperlinkTableCell<S, T> extends TableCell<S, T> {
 
-    private Hyperlink hyperlink;
+    private final Hyperlink hyperlink;
     Function<S, ?> func;
 
     public HyperlinkTableCell(Function<S, ?> func) {

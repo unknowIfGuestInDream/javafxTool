@@ -29,6 +29,7 @@ package com.tlcsdm.smc.tools.girret;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -38,6 +39,7 @@ import java.io.Serializable;
  */
 public class Comment implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2438636622648638785L;
 
     private String id;

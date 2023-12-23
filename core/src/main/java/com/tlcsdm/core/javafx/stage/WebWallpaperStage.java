@@ -39,8 +39,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -77,12 +76,8 @@ public class WebWallpaperStage extends BaseStage {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         mainStage.initOwner(stage);
         mainStage.initStyle(StageStyle.TRANSPARENT);
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
-            show();
-        });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            close();
-        });
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> show());
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> close());
         URL url = WebWallpaperStage.class.getResource("/com/tlcsdm/core/fxml/stage/webWallpaper.fxml");
         String urlStr = java.net.URLDecoder.decode(String.valueOf(url), StandardCharsets.UTF_8);
         url = new URL(urlStr);

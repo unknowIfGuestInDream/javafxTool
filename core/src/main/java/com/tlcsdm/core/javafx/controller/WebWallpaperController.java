@@ -38,8 +38,7 @@ import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 
 /**
  * 网页壁纸.
@@ -62,9 +61,7 @@ public class WebWallpaperController extends BaseController {
     @FXML
     private void initialize() {
         instance = this;
-        Platform.runLater(() -> {
-            stage = (Stage) rootAnchorPane.getScene().getWindow();
-        });
+        Platform.runLater(() -> stage = (Stage) rootAnchorPane.getScene().getWindow());
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         initWebView();
     }
@@ -80,9 +77,7 @@ public class WebWallpaperController extends BaseController {
     public void setWeb(String path) {
         WebEngine webEngine = webView.getEngine();
         //alert调试
-        webEngine.setOnAlert((WebEvent<String> wEvent) -> {
-            StaticLog.info("JS alert() message: " + wEvent.getData());
-        });
+        webEngine.setOnAlert((WebEvent<String> wEvent) -> StaticLog.info("JS alert() message: " + wEvent.getData()));
         //先跳转到空页面，立即释放部分内存
         webEngine.load(null);
         webEngine.load(path);

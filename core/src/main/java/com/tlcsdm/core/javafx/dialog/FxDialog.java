@@ -55,7 +55,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -235,9 +234,8 @@ public class FxDialog<T> {
 
     private ButtonBar buttonsPanel(Stage stage) {
         ButtonBar buttonBar = new ButtonBar();
-        buttonBar.getButtons().addAll(Stream.of(this.buttonTypes).map((buttonType) -> {
-            return this.createButton(buttonType, stage);
-        }).collect(Collectors.toList()));
+        buttonBar.getButtons().addAll(Stream.of(this.buttonTypes).map((buttonType) ->
+            this.createButton(buttonType, stage)).toList());
         return buttonBar;
     }
 

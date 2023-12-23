@@ -46,7 +46,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class ObserverRegister {
     // 注册表, 消息类型: 观察者方法
-    private ConcurrentMap<Class<?>, CopyOnWriteArraySet<ObserverAction>> registry = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Class<?>, CopyOnWriteArraySet<ObserverAction>> registry = new ConcurrentHashMap<>();
 
     /**
      * 将观察者注册到 注册表中

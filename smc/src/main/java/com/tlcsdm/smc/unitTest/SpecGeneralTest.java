@@ -228,7 +228,7 @@ public class SpecGeneralTest extends SmcSample {
                                     // 给macro值填充空格
                                     if (j2 == startX + 1) {
                                         String s = "#define " + cv;
-                                        if (s.length() < macroLength && StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j)))).length() != 0) {
+                                        if (s.length() < macroLength && !StrUtil.trimEnd(CoreUtil.valueOf(CellUtil.getCellValue(r.getCell(j2 + 1, j)))).isEmpty()) {
                                             cellSubString = CharSequenceUtil.repeat(" ", macroLength - s.length());
                                         }
                                     }
@@ -444,9 +444,8 @@ public class SpecGeneralTest extends SmcSample {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, macroLengthField, startCellField, generalFileCellField, endCellColumnField).build();
-        BooleanBinding generalBinding = Bindings.createBooleanBinding(() -> {
-            return onlyGenerateCheck.isSelected() || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty());
-        }, generalField.textProperty(), onlyGenerateCheck.selectedProperty());
+        BooleanBinding generalBinding = Bindings.createBooleanBinding(() ->
+            onlyGenerateCheck.isSelected() || (!onlyGenerateCheck.isSelected() && generalField.getText().isEmpty()), generalField.textProperty(), onlyGenerateCheck.selectedProperty());
         diff.disabledProperty().bind(emptyValidation.and(generalBinding));
         openOutDir.disabledProperty().bind(outputValidation);
         mergeResultCheck.disableProperty().bindBidirectional(onlyGenerateCheck.selectedProperty());

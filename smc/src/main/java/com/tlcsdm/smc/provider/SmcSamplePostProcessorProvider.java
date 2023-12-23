@@ -50,7 +50,7 @@ import java.util.Set;
 public class SmcSamplePostProcessorProvider implements SamplePostProcessorService {
 
     private static final List<TreeNode<String>> sampleNodeList = new ArrayList<>();
-    private static CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>();
+    private static final CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>();
     private static CheckTreeView<String> sampleTree = null;
     public static String SAMPLES_ROOTID = "parent";
     public static String SAMPLES_DEPTH = "depth";

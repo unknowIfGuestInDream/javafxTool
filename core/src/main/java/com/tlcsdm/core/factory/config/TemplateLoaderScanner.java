@@ -67,7 +67,7 @@ public class TemplateLoaderScanner implements InitializingFactory {
             file.mkdirs();
         }
         list.add(0, new FileTemplateLoader(file));
-        TemplateLoader[] loaders = list.toArray(new TemplateLoader[list.size()]);
+        TemplateLoader[] loaders = list.toArray(new TemplateLoader[0]);
         MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
         Configuration configuration = FreemarkerUtil.init();
         configuration.setTemplateLoader(mtl);

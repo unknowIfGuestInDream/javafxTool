@@ -53,7 +53,7 @@ public final class ThreadPoolTaskExecutor implements InitializingFactory {
     private static int queueSize;
     private static String threadPreName;
     private static RejectedExecutionHandler handler;
-    private static AtomicBoolean hasInitialized = new AtomicBoolean();
+    private static final AtomicBoolean hasInitialized = new AtomicBoolean();
 
     @Override
     public void initialize() throws Exception {

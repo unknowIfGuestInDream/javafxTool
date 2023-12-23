@@ -74,7 +74,7 @@ public abstract sealed class AbstractU2XFamilyScript extends AbstractEcmScript p
         String errorSourceEnName = reader.getCell(errorSourceEnNameCol + rowNum).getStringCellValue();
         String errorSourceJpName = reader.getCell(errorSourceJpNameCol + rowNum).getStringCellValue();
         String errorSourceDesc = "";
-        if (errorSourceDescCol.length() > 0) {
+        if (!errorSourceDescCol.isEmpty()) {
             errorSourceDesc = reader.getCell(errorSourceDescCol + rowNum).getStringCellValue();
         }
         // 特殊处理 24-29添加description信息

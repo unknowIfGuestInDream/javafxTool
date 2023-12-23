@@ -33,7 +33,7 @@ package com.tlcsdm.core.event;
  * @author unknowIfGuestInDream
  */
 public class ApplicationFailedEvent extends ApplicationEvent {
-    private Throwable exception;
+    private final Throwable exception;
 
     public ApplicationFailedEvent(Throwable exception) {
         this.exception = exception;

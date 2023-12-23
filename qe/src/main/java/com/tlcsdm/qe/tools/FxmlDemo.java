@@ -139,7 +139,7 @@ public class FxmlDemo extends QeSample implements Initializable {
     SimpleIntegerProperty systemProperty;
 
     private final HashMap<Integer, Double> daliDimmingCurveMap = new HashMap<>(512);
-    private LinkedList<Integer> discretePointXList = new LinkedList<>();
+    private final LinkedList<Integer> discretePointXList = new LinkedList<>();
 
     @Override
     public boolean isVisible() {

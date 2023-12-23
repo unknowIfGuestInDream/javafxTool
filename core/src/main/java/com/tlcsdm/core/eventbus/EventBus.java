@@ -37,7 +37,7 @@ import java.util.concurrent.Executor;
  */
 public class EventBus {
     private Executor executor;
-    private ObserverRegister register = new ObserverRegister();
+    private final ObserverRegister register = new ObserverRegister();
 
     public EventBus() {
     }
@@ -74,9 +74,7 @@ public class EventBus {
             if (executor == null) {
                 observerAction.execute(event);
             } else {
-                executor.execute(() -> {
-                    observerAction.execute(event);
-                });
+                executor.execute(() -> observerAction.execute(event));
             }
         }
     }

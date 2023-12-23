@@ -55,6 +55,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Objects;
+
 /**
  * 颜色提取器
  *
@@ -124,8 +126,8 @@ public class ScreenColorPickerStage extends Stage {
         });
 
         Scene scene = new Scene(rootPane, screenW, screenH);
-        scene.getStylesheets()
-            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(
+            getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css")).toExternalForm());
         this.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
         // scene.setCursor(new ImageCursor(new

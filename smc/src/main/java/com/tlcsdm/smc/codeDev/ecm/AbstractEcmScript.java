@@ -177,9 +177,8 @@ public abstract class AbstractEcmScript extends SmcSample {
                 .setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"))
                 .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
                 .setButtonTypes(FxButtonType.COPY, FxButtonType.CLOSE);
-            dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> {
-                OSUtil.writeToClipboard(area.getText());
-            }).setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
+            dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> OSUtil.writeToClipboard(area.getText()))
+                .setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
 
@@ -582,7 +581,7 @@ public abstract class AbstractEcmScript extends SmcSample {
             String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
             Map<String, Object> tagMeta = new HashMap<>();
             if ("psedu".equals(tagkey)) {
-                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && !tagValue.trim().isEmpty()));
             }
             tagMeta.put("key", tagkey);
             tagMeta.put("value", tagValue);

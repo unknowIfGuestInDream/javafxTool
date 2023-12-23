@@ -97,7 +97,7 @@ public class InterfaceScanner {
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
         Set<Class<?>> classes = reflections.get(Scanners.SubTypes.of(cls).asClass());
-        return classes.toArray(new Class[classes.size()]);
+        return classes.toArray(new Class[0]);
     }
 
     /**
@@ -121,7 +121,7 @@ public class InterfaceScanner {
                     throw new UncheckedIOException(ioe);
                 }
             });
-        return classes.toArray(new Class[classes.size()]);
+        return classes.toArray(new Class[0]);
     }
 
     private static Class<?> processClassName(final String name) {
@@ -149,7 +149,7 @@ public class InterfaceScanner {
         try {
             clazz = Class.forName(className);
         } catch (Throwable e) {
-
+            StaticLog.error(e);
         }
         return clazz;
     }

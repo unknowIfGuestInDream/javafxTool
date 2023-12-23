@@ -65,12 +65,8 @@ public final class BubbleCursorStage extends BaseStage {
         mainStage = new Stage();
         mainStage.initOwner(getStage());
         mainStage.initStyle(StageStyle.TRANSPARENT);
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
-            show();
-        });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            close();
-        });
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> show());
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> close());
         URL url = BubbleCursorStage.class.getResource("/com/tlcsdm/core/fxml/stage/bubbleCursor.fxml");
         String urlStr = java.net.URLDecoder.decode(String.valueOf(url), StandardCharsets.UTF_8);
         url = new URL(urlStr);

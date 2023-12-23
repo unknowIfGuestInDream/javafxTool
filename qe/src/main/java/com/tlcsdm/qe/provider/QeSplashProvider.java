@@ -102,9 +102,7 @@ public class QeSplashProvider implements SplashScreen {
         ScaleTransition scaleTransition = scaleTransition(1.2, iconPane, 2, 2);
         SequentialTransition animation = new SequentialTransition(fadeTransition, pathTransition, scaleTransition);
         animation.setInterpolator(Interpolator.EASE_IN);
-        animation.setOnFinished(event -> {
-            EventBus.getDefault().post(new SplashAnimFinishedEvent());
-        });
+        animation.setOnFinished(event -> EventBus.getDefault().post(new SplashAnimFinishedEvent()));
         animation.play();
 
         return pane;

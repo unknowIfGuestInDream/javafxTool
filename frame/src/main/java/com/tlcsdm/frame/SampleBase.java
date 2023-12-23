@@ -361,7 +361,7 @@ public abstract non-sealed class SampleBase extends Application implements Sampl
         }
         if (!splitPane.getDividers().isEmpty()) {
             splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
-                Config.set(Keys.ControlDividerPosition, String.format("%.2f", newValue));
+                Config.set(Keys.ControlDividerPosition, String.format("%.2f", (Double) newValue));
             });
         }
         return splitPane;

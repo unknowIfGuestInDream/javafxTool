@@ -48,7 +48,7 @@ class TextStyle {
 
     public static final TextStyle EMPTY = new TextStyle();
 
-    public static final Codec<TextStyle> CODEC = new Codec<TextStyle>() {
+    public static final Codec<TextStyle> CODEC = new Codec<>() {
 
         private final Codec<Optional<String>> OPT_STRING_CODEC =
             Codec.optionalCodec(Codec.STRING_CODEC);
@@ -110,15 +110,12 @@ class TextStyle {
         }
 
         private Optional<Boolean> decodeOptionalBoolean(int i) throws IOException {
-            switch (i) {
-                case 0:
-                    return Optional.empty();
-                case 2:
-                    return Optional.of(false);
-                case 3:
-                    return Optional.of(true);
-            }
-            throw new MalformedInputException(0);
+            return switch (i) {
+                case 0 -> Optional.empty();
+                case 2 -> Optional.of(false);
+                case 3 -> Optional.of(true);
+                default -> throw new MalformedInputException(0);
+            };
         }
 
         private int encodeOptionalUint(Optional<Integer> oi) {
@@ -219,8 +216,7 @@ class TextStyle {
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof TextStyle) {
-            TextStyle that = (TextStyle) other;
+        if (other instanceof TextStyle that) {
             return Objects.equals(this.bold, that.bold) &&
                 Objects.equals(this.italic, that.italic) &&
                 Objects.equals(this.underline, that.underline) &&
@@ -243,7 +239,7 @@ class TextStyle {
         underline.ifPresent(u -> styles.add(u.toString()));
         strikethrough.ifPresent(s -> styles.add(s.toString()));
         fontSize.ifPresent(s -> styles.add(s.toString()));
-        fontFamily.ifPresent(f -> styles.add(f.toString()));
+        fontFamily.ifPresent(styles::add);
         textColor.ifPresent(c -> styles.add(c.toString()));
         backgroundColor.ifPresent(b -> styles.add(b.toString()));
 
@@ -285,13 +281,9 @@ class TextStyle {
             }
         }
 
-        if (fontSize.isPresent()) {
-            sb.append("-fx-font-size: " + fontSize.get() + "pt;");
-        }
+        fontSize.ifPresent(integer -> sb.append("-fx-font-size: " + integer + "pt;"));
 
-        if (fontFamily.isPresent()) {
-            sb.append("-fx-font-family: " + fontFamily.get() + ";");
-        }
+        fontFamily.ifPresent(s -> sb.append("-fx-font-family: " + s + ";"));
 
         if (textColor.isPresent()) {
             Color color = textColor.get();

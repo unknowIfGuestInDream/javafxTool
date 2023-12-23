@@ -127,10 +127,12 @@ public class AudioUtil {
         encodingAttributes.setDuration(duration);
         // 设置音频属性
         AudioAttributes audio = new AudioAttributes();
-        audio.setBitRate(srcMediaInfo.getAudio().getBitRate());
-        audio.setSamplingRate(srcMediaInfo.getAudio().getSamplingRate());
-        audio.setChannels(srcMediaInfo.getAudio().getChannels());
-        audio.setCodec(srcMediaInfo.getAudio().getDecoder().split(" ")[0]);
+        if (srcMediaInfo != null) {
+            audio.setBitRate(srcMediaInfo.getAudio().getBitRate());
+            audio.setSamplingRate(srcMediaInfo.getAudio().getSamplingRate());
+            audio.setChannels(srcMediaInfo.getAudio().getChannels());
+            audio.setCodec(srcMediaInfo.getAudio().getDecoder().split(" ")[0]);
+        }
         encodingAttributes.setInputFormat("wav");
         encodingAttributes.setAudioAttributes(audio);
         //写文件
@@ -238,10 +240,9 @@ public class AudioUtil {
         try (ProcessWrapper ffmpeg = locator.createExecutor()) {
             ffmpeg.addArgument("-i");
             ffmpeg.addArgument(srcPath);
-            int length = audios.length;
-            for (int i = 0; i < length; i++) {
+            for (String audio : audios) {
                 ffmpeg.addArgument("-i");
-                ffmpeg.addArgument(audios[i]);
+                ffmpeg.addArgument(audio);
             }
             ffmpeg.addArgument("-filter_complex");
             ffmpeg.addArgument("amerge");

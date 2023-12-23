@@ -46,8 +46,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -121,12 +120,8 @@ public class SakuraState extends BaseStage {
         mainStage.setScene(scene);
         //关闭自由调整大小
         mainStage.setResizable(false);
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
-            show();
-        });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            close();
-        });
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> show());
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> close());
         //置于图标下层
         OSUtil.setWinIconAfter(title);
 

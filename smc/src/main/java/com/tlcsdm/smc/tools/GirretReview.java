@@ -301,9 +301,7 @@ public class GirretReview extends SmcSample {
         Label startDateLabel = new Label(I18nUtils.get("smc.tool.girretReview.label.startDate") + ": ");
         startDatePicker = new DatePicker();
         Button startDateClearButton = FxButton.clear();
-        startDateClearButton.setOnAction(arg0 -> {
-            startDatePicker.setValue(null);
-        });
+        startDateClearButton.setOnAction(arg0 -> startDatePicker.setValue(null));
         startDatePicker.setEditable(false);
 
         Label reserveJsonLabel = new Label(I18nUtils.get("smc.tool.girretReview.label.reserveJson") + ": ");
