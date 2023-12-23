@@ -93,6 +93,7 @@ public final class U2AEcmScript extends AbstractU2XFamilyScript {
     public void initializeUserDataBindings() {
         super.initializeUserDataBindings();
         userData.remove("tagConfig");
+        userData.put("u2aDownloadChooser", downloadChooser);
     }
 
     public static void main(String[] args) {

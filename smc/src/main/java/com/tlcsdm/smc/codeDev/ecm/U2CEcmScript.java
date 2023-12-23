@@ -82,6 +82,12 @@ public final class U2CEcmScript extends AbstractU2XFamilyScript {
             """);
     }
 
+    @Override
+    public void initializeUserDataBindings() {
+        super.initializeUserDataBindings();
+        userData.put("u2cDownloadChooser", downloadChooser);
+    }
+
     public static void main(String[] args) {
         InterfaceScanner.invoke(InitializingFactory.class, "initialize");
         launch(args);

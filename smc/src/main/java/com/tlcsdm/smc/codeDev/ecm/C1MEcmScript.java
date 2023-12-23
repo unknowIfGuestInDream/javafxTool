@@ -100,6 +100,7 @@ public final class C1MEcmScript extends AbstractEcmScript {
     public void initializeUserDataBindings() {
         super.initializeUserDataBindings();
         userData.remove("errorSourceDesc");
+        userData.put("c1mDownloadChooser", downloadChooser);
     }
 
     @Override
