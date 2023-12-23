@@ -196,9 +196,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     @Override
-    public MenuBar setMenuBar(MenuBar menuBar) {
+    public void setMenuBar(MenuBar menuBar) {
         ActionUtils.updateMenuBar(menuBar, actions);
-        return menuBar;
     }
 
 }
