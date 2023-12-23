@@ -723,7 +723,7 @@ public final class Borders {
     // --- Border implementations
     private static class StrokeBorder implements Border {
         private static final int TITLE_PADDING = 3;
-        private static final double GAP_PADDING = TITLE_PADDING * 2 - 1;
+        private static final double GAP_PADDING = 5.0;
 
         private final String title;
         private final BorderStroke[] borderStrokes;
