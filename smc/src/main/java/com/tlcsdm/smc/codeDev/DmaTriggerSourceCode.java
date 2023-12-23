@@ -46,6 +46,7 @@ import com.tlcsdm.core.javafx.control.NumberTextField;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
@@ -136,6 +137,14 @@ public class DmaTriggerSourceCode extends SmcSample {
             downloadChooser.setInitialFileName(defaultTemplateName);
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
             downloadChooser.getExtensionFilters().add(extFilter);
+            if (downloadChooser.getInitialDirectory() == null) {
+                String path = ConfigureUtil.getConfigureTemplatePath() + File.separator + "smc" + File.separator + "dmaTriggerSourceCode";
+                File dir = new File(path);
+                if (!FileUtil.exist(dir)) {
+                    FileUtil.mkdir(dir);
+                }
+                downloadChooser.setInitialDirectory(dir);
+            }
             File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
             if (file != null) {
                 if (!StrUtil.endWith(file.getName(), ".zip")) {
@@ -162,6 +171,7 @@ public class DmaTriggerSourceCode extends SmcSample {
                     new ClassPathResource(
                         "com/tlcsdm/smc/static/templates/smc/dmaTriggerSourceCode/setting.ftl",
                         getClass().getClassLoader()));
+                downloadChooser.setInitialDirectory(file.getParentFile());
                 OSUtil.openAndSelectedFile(file);
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
@@ -525,6 +535,7 @@ public class DmaTriggerSourceCode extends SmcSample {
         userData.put("macroTemplate", macroTemplateField);
         userData.put("channelNum", channelNumField);
         userData.put("settingComplexCondition", settingComplexConditionField);
+        userData.put("downloadChooser", downloadChooser);
     }
 
     @Override

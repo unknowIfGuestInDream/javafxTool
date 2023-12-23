@@ -132,6 +132,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     FileUtil.del(file);
                 }
                 FileUtil.writeFromStream(templateFile, file);
+                downloadChooser.setInitialDirectory(file.getParentFile());
                 OSUtil.openAndSelectedFile(file);
                 notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
                 notificationBuilder.showInformation();
@@ -468,6 +469,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         userData.put("startRow", startRowField);
         userData.put("endRow", endRowField);
         userData.put("beginWriteRowNum", beginWriteRowNumField);
+        userData.put("downloadChooser", downloadChooser);
     }
 
     @Override
