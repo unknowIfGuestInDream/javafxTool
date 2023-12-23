@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,10 +32,10 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.scene.control.ComboBoxBase;
 
 /**
- * ComboBoxBase 值为空的BooleanBinding
- * 为空返回true
+ * ComboBoxBase 值为空的BooleanBinding,为空返回true.
  *
  * @author unknowIfGuestInDream
+ * @author DreamAwakenFateBroke
  */
 public class ComboBoxBaseEmptyBinding<T> extends FxBooleanBindingBuilder {
     private final ComboBoxBase<T> combo;
@@ -47,6 +47,6 @@ public class ComboBoxBaseEmptyBinding<T> extends FxBooleanBindingBuilder {
     @Override
     public BooleanBinding build() {
         return Bindings.createBooleanBinding(() ->
-            combo.getValue() == null || combo.getValue().toString().length() == 0, combo.valueProperty());
+            combo.getValue() == null || combo.getValue().toString().isEmpty(), combo.valueProperty());
     }
 }

@@ -37,6 +37,7 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Properties TextArea
@@ -49,12 +50,10 @@ public class PropertiesArea extends CodeArea {
     public PropertiesArea() {
         super();
         getStyleClass().add("text-properties-area");
-        getStylesheets()
-            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/properties.css").toExternalForm());
+        getStylesheets().add(Objects.requireNonNull(
+            getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/properties.css")).toExternalForm());
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
-        this.textProperty().addListener((obs, oldText, newText) -> {
-            this.setStyleSpans(0, computeHighlighting(newText));
-        });
+        this.textProperty().addListener((obs, oldText, newText) -> this.setStyleSpans(0, computeHighlighting(newText)));
     }
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {

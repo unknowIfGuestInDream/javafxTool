@@ -44,7 +44,6 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -98,20 +97,16 @@ public class PathWatchToolService {
         Pattern folderPathCsPattern = Pattern.compile(folderPathCsText, Pattern.CASE_INSENSITIVE);
         Pattern folderPathNCsPattern = Pattern.compile(folderPathNCsText, Pattern.CASE_INSENSITIVE);
 
-        FileAlterationObserver observer = new FileAlterationObserver(new File(watchPath), new FileFilter() {
-
-            @Override
-            public boolean accept(File pathname) {
-                Path filepath = pathname.toPath();
-                if (Files.isDirectory(filepath) && (!ifMatchText(filepath.getFileName().toString(), folderPathCsText,
-                    folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern))) {
-                    return false;
-                } else if (Files.isRegularFile(filepath) && (!ifMatchText(filepath.getFileName().toString(),
-                    fileNameContains, fileNameNotContains, fileNameSRegex, fileNameCsPattern, fileNameNCsPattern))) {
-                    return false;
-                } else {
-                    return true;
-                }
+        FileAlterationObserver observer = new FileAlterationObserver(new File(watchPath), pathname -> {
+            Path filepath = pathname.toPath();
+            if (Files.isDirectory(filepath) && (!ifMatchText(filepath.getFileName().toString(), folderPathCsText,
+                folderPathNCsText, folderPathSRegex, folderPathCsPattern, folderPathNCsPattern))) {
+                return false;
+            } else if (Files.isRegularFile(filepath) && (!ifMatchText(filepath.getFileName().toString(),
+                fileNameContains, fileNameNotContains, fileNameSRegex, fileNameCsPattern, fileNameNCsPattern))) {
+                return false;
+            } else {
+                return true;
             }
         });
         observer.addListener(new FileAlterationListenerAdaptor() {
@@ -197,19 +192,19 @@ public class PathWatchToolService {
         String lcsText = csText.toLowerCase();
         String lncsText = ncsText.toLowerCase();
         if (sRegex) {
-            if (csText.length() != 0) {
+            if (!csText.isEmpty()) {
                 Matcher m = csPattern.matcher(fileName);
                 match = m.find();
             }
-            if (match && ncsText.length() != 0) {
+            if (match && !ncsText.isEmpty()) {
                 Matcher m = ncsPattern.matcher(fileName);
                 match = !m.find();
             }
         } else {
-            if (csText.length() != 0) {
+            if (!csText.isEmpty()) {
                 match = lFileName.contains(lcsText);
             }
-            if (match && ncsText.length() != 0) {
+            if (match && !ncsText.isEmpty()) {
                 match = !lFileName.contains(lncsText);
             }
         }

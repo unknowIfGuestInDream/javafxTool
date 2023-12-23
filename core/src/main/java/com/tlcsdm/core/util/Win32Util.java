@@ -30,7 +30,6 @@ package com.tlcsdm.core.util;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinUser;
 
 /**
  * Windows API工具.
@@ -59,15 +58,12 @@ public class Win32Util {
             User32.SMTO_NORMAL, 1000, result);
         //获取到新创建的窗口的句柄
         WinDef.HWND[] workerw = {new WinDef.HWND(Pointer.NULL)};
-        User32.INSTANCE.EnumWindows(new WinUser.WNDENUMPROC() {
-            @Override
-            public boolean callback(WinDef.HWND hwnd, Pointer pointer) {
-                WinDef.HWND h = User32.INSTANCE.FindWindowEx(hwnd, null, "SHELLDLL_DefView", null);
-                if (h != null) {
-                    workerw[0] = User32.INSTANCE.FindWindowEx(null, hwnd, "WorkerW", null);
-                }
-                return true;
+        User32.INSTANCE.EnumWindows((hwnd, pointer) -> {
+            WinDef.HWND h = User32.INSTANCE.FindWindowEx(hwnd, null, "SHELLDLL_DefView", null);
+            if (h != null) {
+                workerw[0] = User32.INSTANCE.FindWindowEx(null, hwnd, "WorkerW", null);
             }
+            return true;
         }, Pointer.NULL);
         //在图标和墙纸之间绘制图形
         //使用标题寻找窗体

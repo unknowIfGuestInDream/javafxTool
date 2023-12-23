@@ -95,9 +95,7 @@ public class FxXmlHelper {
             Element root = document.addElement(ROOT_ELEMENT);
             Element s = root.addElement(projectName);
             Map<String, Object> maps = new LinkedHashMap<>();
-            keys.forEach(key -> {
-                maps.putAll(FxXmlUtil.getValues(key));
-            });
+            keys.forEach(key -> maps.putAll(FxXmlUtil.getValues(key)));
             maps.forEach((k, v) -> {
                 Element entry = s.addElement(ENTRY_ELEMENT);
                 entry.addAttribute(KEY_ATTRIBUTE, k);
@@ -126,9 +124,7 @@ public class FxXmlHelper {
             if (ROOT_ELEMENT.equals(document.getRootElement().getName())) {
                 document.getRootElement().elements().forEach(element -> {
                     if (projectName.equals(element.getName()) || COMMON_ELEMENT.equals(element.getName())) {
-                        element.elements().forEach(e -> {
-                            FxXmlUtil.set(e.attribute(KEY_ATTRIBUTE).getValue(), e.getText());
-                        });
+                        element.elements().forEach(e -> FxXmlUtil.set(e.attribute(KEY_ATTRIBUTE).getValue(), e.getText()));
                     }
                 });
                 return true;

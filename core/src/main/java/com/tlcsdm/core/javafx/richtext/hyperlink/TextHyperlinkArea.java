@@ -37,6 +37,7 @@ import org.fxmisc.richtext.model.TextOps;
 import org.reactfx.util.Either;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -83,8 +84,8 @@ public class TextHyperlinkArea extends GenericStyledArea<Void, Either<String, Hy
         })));
 
         getStyleClass().add("text-hyperlink-area");
-        getStylesheets().add(TextHyperlinkArea.class
-            .getResource("/com/tlcsdm/core/static/javafx/richtext/text-hyperlink-area.css").toExternalForm());
+        getStylesheets().add(Objects.requireNonNull(TextHyperlinkArea.class
+            .getResource("/com/tlcsdm/core/static/javafx/richtext/text-hyperlink-area.css")).toExternalForm());
     }
 
     public void appendWithLink(String displayedText, String link) {

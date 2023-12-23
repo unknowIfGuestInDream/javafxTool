@@ -112,9 +112,7 @@ public abstract class AbstractTreeViewCellFactory implements Callback<TreeView<S
             }
             List<String> sampleList = new ArrayList<>();
             if (sample instanceof EmptySample) {
-                treeCell.getTreeItem().getChildren().forEach(w -> {
-                    walkSample(w, sampleList);
-                });
+                treeCell.getTreeItem().getChildren().forEach(w -> walkSample(w, sampleList));
             } else {
                 sampleList.add(sample.getSampleXmlPrefix());
             }

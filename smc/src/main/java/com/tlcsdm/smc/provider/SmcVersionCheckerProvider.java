@@ -70,13 +70,11 @@ public class SmcVersionCheckerProvider implements VersionCheckerService {
                             .append("\r\n").append(I18nUtils.get("smc.versionCheck.desc.other")).append("\n")
                             .toString();
                         SmcConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("releaseUrl"));
-                        FxApp.runLater(() -> {
-                            FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
-                                .graphic(LayoutHelper.iconView(
-                                    LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
-                                    48.0D))
-                                .text(content).show();
-                        });
+                        FxApp.runLater(() -> FxNotifications.defaultNotify().title(I18nUtils.get("smc.versionCheck.title"))
+                            .graphic(LayoutHelper.iconView(
+                                LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
+                                48.0D))
+                            .text(content).show());
                     }
                     break;
                 }

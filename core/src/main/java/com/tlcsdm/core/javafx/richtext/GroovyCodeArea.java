@@ -34,6 +34,7 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,8 +68,8 @@ public class GroovyCodeArea extends CodeArea {
     public GroovyCodeArea() {
         super();
         getStyleClass().add("text-groovy-area");
-        getStylesheets()
-            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css").toExternalForm());
+        getStylesheets().add(Objects.requireNonNull(
+            getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css")).toExternalForm());
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.textProperty().addListener((obs, oldText, newText) -> {
             int from = 0;

@@ -62,6 +62,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author LeeWyatt
@@ -163,7 +164,8 @@ public class ScreenshotStage extends Stage {
             }
         });
         Scene scene = new Scene(rootPane, screenW, screenH);
-        scene.getStylesheets().add(getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(
+            getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css")).toExternalForm());
         this.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
         //scene.setCursor(new ImageCursor(new javafx.scene.image.Image(getClass().getResource("/images/color-cursor.png").toExternalForm())));
@@ -202,9 +204,7 @@ public class ScreenshotStage extends Stage {
         //退出按钮
         Button exitBtn = new Button("", new Region());
         exitBtn.getStyleClass().addAll("region-btn", "exit-btn");
-        exitBtn.setOnAction(event -> {
-            endScreenshot();
-        });
+        exitBtn.setOnAction(event -> endScreenshot());
 
         //复制按钮
         Button copyImageBtn = new Button("", new Region());

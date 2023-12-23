@@ -239,7 +239,7 @@ public class DmaTriggerSourceCode extends SmcSample {
                 if ("Reserve".equals(factor)) {
                     continue;
                 }
-                if (defaultSelection.length() == 0) {
+                if (defaultSelection.isEmpty()) {
                     defaultSelection = factor;
                 }
                 paramMap.put("factor", factor);

@@ -64,7 +64,6 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -112,25 +111,22 @@ public class HconvertExcel extends SmcSample {
             List<String> supportFileType = StrUtil.splitTrim(supportFileTypeField.getText(), ",");
             String generateFilesPath = generalField.getText();
             // 要生成UD的文件
-            List<File> files = FileUtil.loopFiles(generateFilesPath, new FileFilter() {
-                @Override
-                public boolean accept(File file) {
-                    if (!markFileNames.isEmpty()) {
-                        for (String markFile : markFileNames) {
-                            if (file.isFile() && markFile.equals(file.getName())) {
-                                return true;
-                            }
+            List<File> files = FileUtil.loopFiles(generateFilesPath, file -> {
+                if (!markFileNames.isEmpty()) {
+                    for (String markFile : markFileNames) {
+                        if (file.isFile() && markFile.equals(file.getName())) {
+                            return true;
                         }
                     }
-                    if (markFileNames.isEmpty() && file.isFile() && !ignoreFileNames.contains(file.getName())) {
-                        for (String fileType : supportFileType) {
-                            if (fileType.equals(FileUtil.getSuffix(file))) {
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
                 }
+                if (markFileNames.isEmpty() && file.isFile() && !ignoreFileNames.contains(file.getName())) {
+                    for (String fileType : supportFileType) {
+                        if (fileType.equals(FileUtil.getSuffix(file))) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             });
             StaticLog.info("Generate result...");
             File resultFile = FileUtil.file(resultPath, resultFileName);

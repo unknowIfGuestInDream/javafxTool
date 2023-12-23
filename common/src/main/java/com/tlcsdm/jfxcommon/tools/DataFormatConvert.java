@@ -121,9 +121,7 @@ public class DataFormatConvert extends CommonSample {
         if (DependencyUtil.hasJackson()) {
             datasourceList.add("JSON");
         }
-        cmbDatasource.valueProperty().addListener((observable, oldValue, newValue) -> {
-            dataField.clear();
-        });
+        cmbDatasource.valueProperty().addListener((observable, oldValue, newValue) -> dataField.clear());
         cmbDatasource.getSelectionModel().select(0);
     }
 

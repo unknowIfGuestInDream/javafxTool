@@ -48,16 +48,12 @@ public class MenuHelper {
     }
 
     public static MenuItem menuItem(String text, ImageView icon, Runnable action) {
-        return menuItem(text, () -> {
-            return icon;
-        }, action);
+        return menuItem(text, () -> icon, action);
     }
 
     public static MenuItem menuItem(String text, Supplier<ImageView> iconSupplier, Runnable action) {
         MenuItem menuItem = new MenuItem(text);
-        menuItem.setOnAction((event) -> {
-            action.run();
-        });
+        menuItem.setOnAction((event) -> action.run());
         if (iconSupplier != null) {
             menuItem.setGraphic(iconSupplier.get());
         }

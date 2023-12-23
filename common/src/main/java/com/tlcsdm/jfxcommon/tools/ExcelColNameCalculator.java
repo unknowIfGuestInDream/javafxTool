@@ -71,8 +71,8 @@ public class ExcelColNameCalculator extends CommonSample {
         List<String> colNameList = StrUtil.splitTrim(colNameField.getText(), ",");
         int offset = Integer.parseInt(offsetField.getText());
         StringJoiner sj = new StringJoiner(", ");
-        for (int i = 0; i < colNameList.size(); i++) {
-            int index = ExcelUtil.colNameToIndex(colNameList.get(i));
+        for (String s : colNameList) {
+            int index = ExcelUtil.colNameToIndex(s);
             sj.add(ExcelUtil.indexToColName(index + offset));
         }
         resultField.setText(sj.toString());

@@ -85,7 +85,7 @@ public class QeSamplePostProcessorProvider implements SamplePostProcessorService
     }
 
     private void buildTree(TreeNode<String> n, ObservableList<TreeItem<Sample>> list) {
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return;
         }
         for (TreeItem<Sample> t : list) {

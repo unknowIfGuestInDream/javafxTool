@@ -120,12 +120,8 @@ public class CodeRainState extends BaseStage {
         mainStage.setScene(scene);
         //关闭自由调整大小
         mainStage.setResizable(false);
-        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> {
-            show();
-        });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            close();
-        });
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> show());
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> close());
         OSUtil.setWinIconAfter(title);
 
         lines = screenSize.height / gap;

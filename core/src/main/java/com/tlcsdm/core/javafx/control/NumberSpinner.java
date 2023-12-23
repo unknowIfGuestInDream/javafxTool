@@ -30,8 +30,6 @@ package com.tlcsdm.core.javafx.control;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -48,6 +46,7 @@ import javafx.scene.shape.Path;
 import javax.swing.JSpinner;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  * JavaFX Control that behaves like a {@link JSpinner} known in Swing. The
@@ -92,18 +91,14 @@ public class NumberSpinner extends HBox {
         numberField.setId(NUMBER_FIELD);
 
         // Enable arrow keys for dec/inc
-        numberField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.DOWN) {
-                    decrement();
-                    keyEvent.consume();
-                }
-                if (keyEvent.getCode() == KeyCode.UP) {
-                    increment();
-                    keyEvent.consume();
-                }
+        numberField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.DOWN) {
+                decrement();
+                keyEvent.consume();
+            }
+            if (keyEvent.getCode() == KeyCode.UP) {
+                increment();
+                keyEvent.consume();
             }
         });
 
@@ -139,12 +134,9 @@ public class NumberSpinner extends HBox {
         incrementButton.prefHeightProperty().bind(buttonHeight.add(spacing));
         incrementButton.minHeightProperty().bind(buttonHeight.add(spacing));
         incrementButton.setFocusTraversable(false);
-        incrementButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent ae) {
-                increment();
-                ae.consume();
-            }
+        incrementButton.setOnAction(ae -> {
+            increment();
+            ae.consume();
         });
 
         // Paint arrow path on button using a StackPane
@@ -161,13 +153,9 @@ public class NumberSpinner extends HBox {
         decrementButton.minHeightProperty().bind(buttonHeight);
 
         decrementButton.setFocusTraversable(false);
-        decrementButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent ae) {
-                decrement();
-                ae.consume();
-            }
+        decrementButton.setOnAction(ae -> {
+            decrement();
+            ae.consume();
         });
 
         StackPane decPane = new StackPane();
@@ -211,6 +199,6 @@ public class NumberSpinner extends HBox {
 
     @Override
     public String getUserAgentStylesheet() {
-        return getClass().getResource("number_spinner.css").toExternalForm();
+        return Objects.requireNonNull(getClass().getResource("number_spinner.css")).toExternalForm();
     }
 }

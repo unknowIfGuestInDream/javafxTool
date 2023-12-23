@@ -36,14 +36,12 @@ import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -142,7 +140,7 @@ public class CoreUtil {
      * 不存在注解则排到最后
      */
     public static void sortByOrder(List<Class<?>> list) {
-        Collections.sort(list, (c1, c2) -> {
+        list.sort((c1, c2) -> {
             Integer p1 = AnnotationUtil.getAnnotationValue(c1, Order.class);
             Integer p2 = AnnotationUtil.getAnnotationValue(c2, Order.class);
             if (p1 == null && p2 == null) {
@@ -168,12 +166,8 @@ public class CoreUtil {
             return path;
         }
         File file = new File(path);
-        List<File> list = FileUtil.loopFiles(file.toPath(), 1, new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return "core".equals(pathname.getName());
-            }
-        });
+        List<File> list = FileUtil.loopFiles(file.toPath(), 1,
+            pathname -> "core".equals(pathname.getName()));
         return !list.isEmpty() ? path : file.getParent();
     }
 
@@ -189,7 +183,10 @@ public class CoreUtil {
      */
     public static boolean isStartupFromJar(Class<?> clazz) {
         URL url = clazz.getResource("");
-        return "jar".equals(url.getProtocol());
+        if (url != null) {
+            return "jar".equals(url.getProtocol());
+        }
+        return false;
     }
 
     /**

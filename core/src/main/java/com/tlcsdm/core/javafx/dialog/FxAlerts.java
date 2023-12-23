@@ -104,8 +104,8 @@ public class FxAlerts {
                 }
 
                 alert.showAndWait();
-            } catch (Exception var6) {
-                var6.printStackTrace();
+            } catch (Exception e) {
+                StaticLog.error(e);
             }
 
         });

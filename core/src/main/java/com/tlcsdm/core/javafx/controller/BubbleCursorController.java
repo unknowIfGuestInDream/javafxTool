@@ -122,21 +122,18 @@ public class BubbleCursorController extends BaseController {
         translateTransition.setAutoReverse(false);
         translateTransition.play();
         //动画结束，粒子死亡
-        translateTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //粒子死亡
-                TranslateTransition t = (TranslateTransition) (event.getSource());
-                Circle c = (Circle) t.getNode();
-                //淡入淡出
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), c);
-                //起始透明度为1
-                fadeTransition.setFromValue(1);
-                //终止透明度为0.1
-                fadeTransition.setToValue(0);
-                fadeTransition.play();
-                fadeTransition.setOnFinished(fadeFinishAction);
-            }
+        translateTransition.setOnFinished(event -> {
+            //粒子死亡
+            TranslateTransition t = (TranslateTransition) (event.getSource());
+            Circle c = (Circle) t.getNode();
+            //淡入淡出
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), c);
+            //起始透明度为1
+            fadeTransition.setFromValue(1);
+            //终止透明度为0.1
+            fadeTransition.setToValue(0);
+            fadeTransition.play();
+            fadeTransition.setOnFinished(fadeFinishAction);
         });
         //缩放过度
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), circle);

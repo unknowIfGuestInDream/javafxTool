@@ -82,8 +82,6 @@ public class LogConsoleDialog {
         }
         newStage.initModality(Modality.NONE);
         newStage.show();
-        newStage.setOnCloseRequest(event1 -> {
-            ConsoleLogAppender.textAreaList.remove(textArea);
-        });
+        newStage.setOnCloseRequest(event1 -> ConsoleLogAppender.textAreaList.remove(textArea));
     }
 }

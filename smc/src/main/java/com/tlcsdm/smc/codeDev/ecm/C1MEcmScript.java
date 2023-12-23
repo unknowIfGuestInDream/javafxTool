@@ -142,7 +142,7 @@ public final class C1MEcmScript extends AbstractEcmScript {
             String tagValue = reader.getCell(tagCol + rowNum).getStringCellValue();
             Map<String, Object> tagMeta = new HashMap<>();
             if ("psedu".equals(tagkey)) {
-                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && tagValue.trim().length() > 0));
+                tagValue = String.valueOf(Boolean.valueOf(!"―".equals(tagValue) && !tagValue.trim().isEmpty()));
             }
             tagMeta.put("key", tagkey);
             tagMeta.put("value", tagValue);

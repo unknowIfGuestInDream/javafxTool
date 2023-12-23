@@ -127,7 +127,7 @@ public class OSUtil {
         File file = new File(filePath);
         //已知系统,用命令行打开文件夹,并选中文件
         filePath = "\"" + filePath + "\"";
-        String cmd = "";
+        String cmd;
         if (currentOS == OS.WINDOWS) {
             if (file.exists() && file.isDirectory()) {
                 cmd = "explorer " + filePath;

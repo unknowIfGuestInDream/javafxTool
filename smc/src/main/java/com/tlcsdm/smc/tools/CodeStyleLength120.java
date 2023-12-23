@@ -68,7 +68,6 @@ import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -296,21 +295,18 @@ public class CodeStyleLength120 extends SmcSample {
      * 初始化数据
      */
     private void initData() {
-        List<File> files = FileUtil.loopFiles(generateFilesParentPath, new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
-                    if (fileTypeList.isEmpty()) {
+        List<File> files = FileUtil.loopFiles(generateFilesParentPath, file -> {
+            if (file.isFile() && !ignoreFilesList.contains(file.getName())) {
+                if (fileTypeList.isEmpty()) {
+                    return true;
+                }
+                for (String fileType : fileTypeList) {
+                    if (StrUtil.endWith(file.getName(), "." + fileType)) {
                         return true;
                     }
-                    for (String fileType : fileTypeList) {
-                        if (StrUtil.endWith(file.getName(), "." + fileType)) {
-                            return true;
-                        }
-                    }
                 }
-                return false;
             }
+            return false;
         });
         if (files.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("smc.tool.codeStyleLength120.button.generate.warn.message3"));

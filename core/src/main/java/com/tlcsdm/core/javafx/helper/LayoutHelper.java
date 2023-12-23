@@ -103,17 +103,13 @@ public class LayoutHelper {
 
     public static Button button(String text, Runnable action) {
         Button button = new Button(text);
-        button.setOnAction((event) -> {
-            action.run();
-        });
+        button.setOnAction((event) -> action.run());
         return button;
     }
 
     public static Hyperlink hyperlink(String text, Runnable action) {
         Hyperlink hyperlink = new Hyperlink(text);
-        hyperlink.setOnAction((event) -> {
-            action.run();
-        });
+        hyperlink.setOnAction((event) -> action.run());
         return hyperlink;
     }
 

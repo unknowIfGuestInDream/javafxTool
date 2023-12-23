@@ -326,7 +326,7 @@ public class DiffHandleUtil {
     // 从原文件中获取指定的部分行
     public static List<String> getOrigList(List<String> original1, int start, int end) {
         List<String> list = new ArrayList<>();
-        if (original1.size() >= 1 && start <= end && end < original1.size()) {
+        if (!original1.isEmpty() && start <= end && end < original1.size()) {
             for (; start <= end; start++) {
                 list.add(original1.get(start));
             }

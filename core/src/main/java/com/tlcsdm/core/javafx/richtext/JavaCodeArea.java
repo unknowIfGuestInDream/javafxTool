@@ -42,6 +42,7 @@ import org.reactfx.Subscription;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -86,7 +87,7 @@ public class JavaCodeArea extends CodeArea {
             + BRACE_PATTERN + ")" + "|(?<BRACKET>" + BRACKET_PATTERN + ")" + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
             + "|(?<STRING>" + STRING_PATTERN + ")" + "|(?<COMMENT>" + COMMENT_PATTERN + ")");
 
-    private ExecutorService executor;
+    private final ExecutorService executor;
     // recompute the syntax highlighting for all text, 500 ms after user stops
     // editing area
     // Note that this shows how it can be done but is not recommended for production
@@ -110,13 +111,13 @@ public class JavaCodeArea extends CodeArea {
     */
     // when no longer need syntax highlighting and wish to clean up memory leaks
     // run: `cleanupWhenNoLongerNeedIt.unsubscribe();`
-    private Subscription subScript;
+    private final Subscription subScript;
 
     public JavaCodeArea() {
         super();
         getStyleClass().add("text-java-area");
-        getStylesheets()
-            .add(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css").toExternalForm());
+        getStylesheets().add(Objects.requireNonNull(
+            getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/java-keywords.css")).toExternalForm());
         executor = ThreadPoolTaskExecutor.hasInitialized() ? ThreadPoolTaskExecutor.get()
             : Executors.newSingleThreadExecutor();
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
@@ -153,9 +154,9 @@ public class JavaCodeArea extends CodeArea {
 
     private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
         String text = this.getText();
-        Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
+        Task<StyleSpans<Collection<String>>> task = new Task<>() {
             @Override
-            protected StyleSpans<Collection<String>> call() throws Exception {
+            protected StyleSpans<Collection<String>> call() {
                 return computeHighlighting(text);
             }
         };

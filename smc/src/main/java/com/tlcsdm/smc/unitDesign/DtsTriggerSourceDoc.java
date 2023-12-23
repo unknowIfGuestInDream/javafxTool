@@ -300,12 +300,9 @@ public class DtsTriggerSourceDoc extends SmcSample {
                     excelWriter.flush(file);
                     excelWriter.close();
                     FileUtil.del(tmpFile);
-                    FxApp.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            notificationBuilder.text((I18nUtils.get("smc.tool.button.generate.success")));
-                            notificationBuilder.showInformation();
-                        }
+                    FxApp.runLater(() -> {
+                        notificationBuilder.text((I18nUtils.get("smc.tool.button.generate.success")));
+                        notificationBuilder.showInformation();
                     });
                     bindUserData();
                 } catch (Exception e) {
@@ -386,9 +383,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
         });
 
         Button templateClearButton = FxButton.clear();
-        templateClearButton.setOnAction(arg0 -> {
-            templateField.setText("");
-        });
+        templateClearButton.setOnAction(arg0 -> templateField.setText(""));
 
         Label sheetNameLabel = new Label(I18nUtils.get("smc.tool.dtsTriggerSourceDoc.label.sheetName") + ": ");
         sheetNameField = new TextField();

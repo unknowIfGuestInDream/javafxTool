@@ -69,13 +69,11 @@ public class QeVersionCheckerProvider implements VersionCheckerService {
                             .append("\r\n").append(I18nUtils.get("qe.versionCheck.desc.other")).append("\n")
                             .toString();
                         QeConstant.PROJECT_RELEASE_URL = String.valueOf(map.get("releaseUrl"));
-                        FxApp.runLater(() -> {
-                            FxNotifications.defaultNotify().title(I18nUtils.get("qe.versionCheck.title"))
-                                .graphic(LayoutHelper.iconView(
-                                    LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
-                                    48.0D))
-                                .text(content).show();
-                        });
+                        FxApp.runLater(() -> FxNotifications.defaultNotify().title(I18nUtils.get("qe.versionCheck.title"))
+                            .graphic(LayoutHelper.iconView(
+                                LayoutHelper.class.getResource("/com/tlcsdm/core/static/icon/release.png"),
+                                48.0D))
+                            .text(content).show());
                     }
                     break;
                 }

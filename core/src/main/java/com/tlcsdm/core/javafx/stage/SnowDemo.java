@@ -120,7 +120,7 @@ public class SnowDemo extends Application {
         AnimationTimer animationTimer = new AnimationTimer() {
             int times;
             long lastTime = System.nanoTime();
-            long ONE_SECOND = 1_000_000_000;
+            final long ONE_SECOND = 1_000_000_000;
             int fps;
             double duration;
 

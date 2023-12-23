@@ -29,6 +29,7 @@ package com.tlcsdm.smc.tools.girret;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -38,6 +39,7 @@ import java.io.Serializable;
  */
 public class CommentRange implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5634618213766325512L;
 
     @JsonProperty("start_line")

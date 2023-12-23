@@ -74,7 +74,7 @@ public class MoneyToChineseUtil {
      * @return 对应的汉语大写
      */
     public static String number2CNMonetaryUnit(BigDecimal numberOfMoney) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         // -1, 0, or 1 as the value of this BigDecimal is negative, zero, or
         // positive.
         int signum = numberOfMoney.signum();

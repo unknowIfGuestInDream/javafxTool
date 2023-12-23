@@ -194,9 +194,7 @@ public final class FXSampler extends Application {
             loadingStage.close();
             mainStage.close();
         });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            EventBus.getDefault().post(new ApplicationExitEvent());
-        });
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> EventBus.getDefault().post(new ApplicationExitEvent()));
     }
 
     /**

@@ -39,8 +39,8 @@ import java.util.Objects;
  * @author unknowIfGuestInDream
  */
 public class ObserverAction {
-    private Object target;
-    private Method method;
+    private final Object target;
+    private final Method method;
 
     public ObserverAction(Object target, Method method) {
         this.target = Objects.requireNonNull(target);

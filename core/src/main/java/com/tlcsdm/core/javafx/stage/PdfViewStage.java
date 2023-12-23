@@ -60,7 +60,7 @@ import java.util.function.Supplier;
  */
 public class PdfViewStage extends Stage {
     private FileChooser chooser;
-    private PDFView pdfView;
+    private final PDFView pdfView;
 
     public PdfViewStage() {
         this.initOwner(FxApp.primaryStage);
@@ -90,22 +90,20 @@ public class PdfViewStage extends Stage {
 
         MenuItem printItem = new MenuItem(I18nUtils.get("core.stage.pdfView.menu.file.print"));
         printItem.setAccelerator(KeyCombination.valueOf("SHORTCUT+p"));
-        printItem.setOnAction(evt -> {
-            SwingUtilities.invokeLater(() -> {
-                PDFView.Document pdfDoc = pdfView.getDocument();
-                if (pdfDoc != null) {
-                    PrinterJob job = PrinterJob.getPrinterJob();
-                    job.setPageable(pdfDoc.getPageable());
-                    if (job.printDialog()) {
-                        try {
-                            job.print();
-                        } catch (PrinterException e) {
-                            StaticLog.error(e);
-                        }
+        printItem.setOnAction(evt -> SwingUtilities.invokeLater(() -> {
+            Document pdfDoc = pdfView.getDocument();
+            if (pdfDoc != null) {
+                PrinterJob job = PrinterJob.getPrinterJob();
+                job.setPageable(pdfDoc.getPageable());
+                if (job.printDialog()) {
+                    try {
+                        job.print();
+                    } catch (PrinterException e) {
+                        StaticLog.error(e);
                     }
                 }
-            });
-        });
+            }
+        }));
         printItem.disableProperty().bind(Bindings.isNull(pdfView.documentProperty()));
 
         Menu fileMenu = new Menu(I18nUtils.get("core.stage.pdfView.menu.file"));
