@@ -39,7 +39,8 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;

@@ -46,7 +46,8 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

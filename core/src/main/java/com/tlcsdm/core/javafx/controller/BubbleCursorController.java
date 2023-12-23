@@ -44,7 +44,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
+import java.awt.MouseInfo;
+import java.awt.Point;
 
 /**
  * 鼠标彩色痕迹.

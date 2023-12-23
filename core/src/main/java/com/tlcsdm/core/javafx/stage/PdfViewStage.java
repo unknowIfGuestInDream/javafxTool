@@ -46,7 +46,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
