@@ -115,7 +115,7 @@
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.2</richtextfx.version>
-        <groovy.version>4.0.17</groovy.version>
+        <groovy.version>4.0.16</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.10.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
@@ -925,12 +925,51 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
+                    <doctitle>${project.name} Documentation (Version ${project.version})</doctitle>
+                    <windowtitle>${project.name} Documentation (Version ${project.version})</windowtitle>
                     <show>private</show>
+                    <quiet>true</quiet>
                     <failOnError>false</failOnError>
                     <nohelp>true</nohelp>
-                    <charset>UTF-8</charset>
-                    <encoding>UTF-8</encoding>
-                    <docencoding>UTF-8</docencoding>
+                    <charset>${project.build.sourceEncoding}</charset>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <docencoding>${project.build.sourceEncoding}</docencoding>
+                    <locale>zh_CN</locale>
+                    <detectOfflineLinks>false</detectOfflineLinks>
+                    <useStandardDocletOptions>false</useStandardDocletOptions>
+                    <detectLinks>false</detectLinks>
+                    <javaApiLinks>
+                        <property>
+                            <name>api_${maven.compiler.target}</name>
+                            <value>https://docs.oracle.com/javase/${maven.compiler.target}/docs/api/</value>
+                        </property>
+                    </javaApiLinks>
+                    <links>
+                        <link>https://plus.hutool.cn/apidocs/</link>
+                        <link>https://www.slf4j.org/apidocs/</link>
+                        <link>https://javadoc.io/doc/org.controlsfx/controlsfx/${controlsfx.version}/</link>
+                        <link>
+                            https://www.javadoc.io/static/com.fasterxml.jackson.core/jackson-databind/${jackson.version}/
+                        </link>
+                        <link>https://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/${caffeine.version}/
+                        </link>
+                        <link>https://freemarker.apache.org/docs/api/</link>
+                        <link>https://javadoc.io/doc/org.fxmisc.flowless/flowless/latest/</link>
+                        <link>https://javadoc.io/doc/com.dlsc.formsfx/formsfx-core/${formsfx.version}/</link>
+                        <link>
+                            https://javadoc.io/doc/com.dlsc.preferencesfx/preferencesfx-core/${preferencesfx.version}/
+                        </link>
+                        <link>https://javadoc.io/doc/org.openjfx/javafx-base/${javafx.version}/</link>
+                        <link>https://javadoc.io/doc/org.apache.poi/poi-ooxml/${poi-ooxml.version}/</link>
+                        <link>https://javadoc.io/doc/org.apache.poi/poi/${poi-ooxml.version}/</link>
+                        <link>https://dom4j.github.io/javadoc/${dom4j.version}/</link>
+                        <link>
+                            https://javadoc.io/doc/io.github.java-diff-utils/java-diff-utils/${java-diff-utils.version}/
+                        </link>
+                        <link>https://javadoc.io/static/org.apache.pdfbox/pdfbox/${pdfbox.version}/</link>
+                        <link>https://javadoc.io/doc/org.fxmisc.richtext/richtextfx/${richtextfx.version}/</link>
+                        <link>https://docs.groovy-lang.org/${groovy.version}/html/gapi/</link>
+                    </links>
                     <additionalJOptions>
                         <additionalJOption>-Xdoclint:none</additionalJOption>
                     </additionalJOptions>
