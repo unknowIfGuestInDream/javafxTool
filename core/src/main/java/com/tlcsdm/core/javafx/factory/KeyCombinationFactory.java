@@ -44,21 +44,21 @@ public class KeyCombinationFactory {
     /**
      * 日志控制台.
      */
-    public final static KeyCombination CTRL_SHIFT_L = new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN,
+    public static final KeyCombination CTRL_SHIFT_L = new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN,
         KeyCombination.CONTROL_DOWN);
     /**
      * 设置.
      */
-    public final static KeyCombination SHORTCUT_P = KeyCombination.valueOf("SHORTCUT+p");
+    public static final KeyCombination SHORTCUT_P = KeyCombination.valueOf("SHORTCUT+p");
     /**
      * 屏幕截图.
      */
-    public final static KeyCombination CTRL_SHIFT_S = new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN,
+    public static final KeyCombination CTRL_SHIFT_S = new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN,
         KeyCombination.CONTROL_DOWN);
     /**
      * 颜色提取器.
      */
-    public final static KeyCombination CTRL_SHIFT_C = new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN,
+    public static final KeyCombination CTRL_SHIFT_C = new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN,
         KeyCombination.CONTROL_DOWN);
 
 }
