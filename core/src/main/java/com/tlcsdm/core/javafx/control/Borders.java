@@ -128,49 +128,22 @@ import java.util.List;
  */
 public final class Borders {
 
-    /**************************************************************************
-     *
-     * Static fields
-     *
-     **************************************************************************/
-
     private static final Color DEFAULT_BORDER_COLOR = Color.DARKGRAY;
-
-    /**************************************************************************
-     *
-     * Internal fields
-     *
-     **************************************************************************/
 
     private final Node node;
     private final List<Border> borders;
 
-    /**************************************************************************
-     *
-     * Fluent API entry method(s)
-     *
-     **************************************************************************/
-
+    /**
+     * initialize Borders.
+     */
     public static Borders wrap(Node n) {
         return new Borders(n);
     }
-
-    /**************************************************************************
-     *
-     * Private Constructor
-     *
-     **************************************************************************/
 
     private Borders(Node n) {
         this.node = n;
         this.borders = new ArrayList<>();
     }
-
-    /**************************************************************************
-     *
-     * Fluent API
-     *
-     **************************************************************************/
 
     /**
      * Often times it is useful to have a bit of whitespace around a Node, to
@@ -228,12 +201,6 @@ public final class Borders {
         return bundle;
     }
 
-    /**************************************************************************
-     *
-     * Support classes
-     *
-     **************************************************************************/
-
     /**
      * A fluent API that is only indirectly instantiable via the {@link Borders}
      * fluent API, and which allows for an {@link Borders#emptyBorder() empty border}
@@ -241,7 +208,6 @@ public final class Borders {
      */
     public static class EmptyBorders {
         private final Borders parent;
-
         private double top;
         private double right;
         private double bottom;
@@ -295,12 +261,8 @@ public final class Borders {
         }
 
         private BorderStroke buildStroke() {
-            return new BorderStroke(
-                null,
-                BorderStrokeStyle.NONE,
-                null,
-                new BorderWidths(top, right, bottom, left),
-                Insets.EMPTY);
+            return new BorderStroke(null, BorderStrokeStyle.NONE, null,
+                new BorderWidths(top, right, bottom, left), Insets.EMPTY);
         }
     }
 
@@ -390,7 +352,6 @@ public final class Borders {
             this.outerRightPadding = rightPadding;
             this.outerBottomPadding = bottomPadding;
             this.outerLeftPadding = leftPadding;
-
             return this;
         }
 
@@ -573,7 +534,6 @@ public final class Borders {
             this.outerRightPadding = rightPadding;
             this.outerBottomPadding = bottomPadding;
             this.outerLeftPadding = leftPadding;
-
             return this;
         }
 
@@ -687,12 +647,6 @@ public final class Borders {
         }
     }
 
-    /**************************************************************************
-     *
-     * Support interfaces
-     *
-     **************************************************************************/
-
     /**
      * The public interface used by the {@link Borders} API to wrap nodes with
      * zero or more Border implementations. ControlsFX ships with a few
@@ -705,33 +659,21 @@ public final class Borders {
      * appropriate.
      */
     @FunctionalInterface
-    public static interface Border {
+    public interface Border {
 
         /**
          * Given a {@link Node}, this method should return a Node that contains
          * the original Node and also has wrapped it with an appropriate border.
          */
-        public Node wrap(Node n);
+        Node wrap(Node n);
     }
 
-    /**************************************************************************
-     *
-     * Private support classes
-     *
-     **************************************************************************/
-
-    // --- Border implementations
-    private static class StrokeBorder implements Border {
+    /**
+     * Border implementations.
+     */
+    private record StrokeBorder(String title, BorderStroke... borderStrokes) implements Border {
         private static final int TITLE_PADDING = 3;
         private static final double GAP_PADDING = 5.0;
-
-        private final String title;
-        private final BorderStroke[] borderStrokes;
-
-        public StrokeBorder(String title, BorderStroke... borderStrokes) {
-            this.title = title;
-            this.borderStrokes = borderStrokes;
-        }
 
         @Override
         public Node wrap(final Node n) {
