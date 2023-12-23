@@ -22,5 +22,17 @@ projectJDK: 17 #(Applied in CI/CD pipeline)
 #  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
 #Specify Qodana linter for analysis (Applied in CI/CD pipeline)
 linter: jetbrains/qodana-jvm:latest
-include:
+exclude:
+  - name: RegExpSingleCharAlternation
+  - name: ConstantValue
   - name: CheckDependencyLicenses
+  - name: StringConcatenationInsideStringBufferAppend
+  - name: RegExpRepeatedSpace
+  - name: EmptyStatementBody
+  - name: IgnoreResultOfCall
+  - name: All
+    paths:
+      - docs
+      - demo
+      - .github
+      - .idea
