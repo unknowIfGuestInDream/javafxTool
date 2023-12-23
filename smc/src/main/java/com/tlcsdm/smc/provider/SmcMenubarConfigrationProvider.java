@@ -95,9 +95,11 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action screenshot = FxAction.screenshot();
 
-    private final Action contactSupport = FxAction.contactSupport(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
+    private final Action contactSupport = FxAction.contactSupport(
+        actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_SUPPORT_URL));
 
-    private final Action submitFeedback = FxAction.submitFeedback(actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL));
+    private final Action submitFeedback = FxAction.submitFeedback(
+        actionEvent -> CoreUtil.openWeb(SmcConstant.GITHUB_PROJECT_FEEDBACK_URL));
 
     private final Action openLogDir = FxAction.openLogDir(actionEvent -> JavaFxSystemUtil.openDirectory("logs/smc/"));
 
@@ -113,12 +115,15 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<Dependency> list = dependencyList.stream().filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
+                List<Dependency> list = dependencyList.stream()
+                    .filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
                 DependencyTableView tableView = new DependencyTableView(list);
                 VBox vbox = new VBox();
                 vbox.getChildren().add(tableView);
                 VBox.setVgrow(tableView, Priority.ALWAYS);
-                FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware")).setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
+                FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
+                        I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware")).setOwner(FxApp.primaryStage)
+                    .setPrefSize(800, 600).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
                 dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
                 dialog.show();
             } else if ("license".equals(string)) {
@@ -132,8 +137,10 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         TextHyperlinkArea area = new TextHyperlinkArea(showLink);
         area.setEditable(false);
         area.setStyle("-fx-font-size: 14;-fx-padding: 10 0 0 0;");
-        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.version") + ": " + SmcSample.PROJECT_INFO.getVersion() + "\n");
-        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.date") + ": " + SmcSample.PROJECT_INFO.getDate() + "\n");
+        area.appendText(I18nUtils.get(
+            "smc.menubar.help.about.contentText.version") + ": " + SmcSample.PROJECT_INFO.getVersion() + "\n");
+        area.appendText(
+            I18nUtils.get("smc.menubar.help.about.contentText.date") + ": " + SmcSample.PROJECT_INFO.getDate() + "\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.licenseName") + ": ");
         area.appendWithLink(SmcConstant.PROJECT_LICENSE_NAME, "license");
         area.appendText("\n");
@@ -141,20 +148,25 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         area.appendWithLink(SmcConstant.PROJECT_LICENSE_URL, SmcConstant.PROJECT_LICENSE_URL);
         area.appendText("\n");
         area.appendText("\n");
-        area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.author") + ": " + SmcConstant.PROJECT_AUTHOR + "\n");
+        area.appendText(
+            I18nUtils.get("smc.menubar.help.about.contentText.author") + ": " + SmcConstant.PROJECT_AUTHOR + "\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.projectUrl") + ": ");
-        String displayedUrl = SmcConstant.GITHUB_PROJECT_URL.length() < 51 ? SmcConstant.GITHUB_PROJECT_URL : CoreUtil.getDomainName(SmcConstant.GITHUB_PROJECT_URL);
+        String displayedUrl = SmcConstant.GITHUB_PROJECT_URL.length() < 51 ? SmcConstant.GITHUB_PROJECT_URL : CoreUtil.getDomainName(
+            SmcConstant.GITHUB_PROJECT_URL);
         area.appendWithLink(displayedUrl, SmcConstant.GITHUB_PROJECT_URL);
         area.appendText("\n");
         area.appendText("\n");
         area.appendText(I18nUtils.get("smc.menubar.help.about.contentText.technicalSupport") + ": [");
-        area.appendWithLink(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"), "openSourceSoftware");
+        area.appendWithLink(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"),
+            "openSourceSoftware");
         area.appendText("]\n");
         area.appendText(SmcConstant.PROJECT_COPYRIGHT);
         vbox.getChildren().addAll(imageView, area);
         VBox.setVgrow(area, Priority.ALWAYS);
 
-        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage).setPrefSize(480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
+        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
+                I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
+            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
         dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     });
@@ -166,13 +178,19 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(SmcConstant.PROJECT_RELEASE_URL));
 
     private final ActionGroup languageGroup = new FxLanguageActionGroup((s) -> {
-        if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"), I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
+        if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
+            I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
             FXSampler.getStage().close();
             Platform.runLater(() -> new FXSampler().start(new Stage()));
         }
     }).create();
 
-    private final Collection<Action> actions = List.of(FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit), FxActionGroup.setting(preferences, languageGroup), FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot), FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback, ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
+    private final Collection<Action> actions = List.of(
+        FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
+        FxActionGroup.setting(preferences, languageGroup),
+        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
+        FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
+            ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     @Override
     public void setMenuBar(MenuBar menuBar) {
