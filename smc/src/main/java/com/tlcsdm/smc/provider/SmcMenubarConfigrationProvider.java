@@ -121,8 +121,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
                 VBox vbox = new VBox();
                 vbox.getChildren().add(tableView);
                 VBox.setVgrow(tableView, Priority.ALWAYS);
-                FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
-                        I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware")).setOwner(FxApp.primaryStage)
+                FxDialog<VBox> dialog = new FxDialog<VBox>()
+                    .setTitle(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"))
+                    .setOwner(FxApp.primaryStage)
                     .setPrefSize(800, 600).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
                 dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
                 dialog.show();
@@ -164,8 +165,8 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         vbox.getChildren().addAll(imageView, area);
         VBox.setVgrow(area, Priority.ALWAYS);
 
-        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
-                I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
+        FxDialog<VBox> dialog = new FxDialog<VBox>()
+            .setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
             .setPrefSize(480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
         dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
