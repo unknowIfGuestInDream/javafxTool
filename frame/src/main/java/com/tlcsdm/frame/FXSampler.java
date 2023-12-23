@@ -50,6 +50,7 @@ import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.CoreConstant;
+import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.core.util.InterfaceScanner;
 import com.tlcsdm.frame.cache.SampleCacheFactory;
 import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
@@ -573,6 +574,10 @@ public final class FXSampler extends Application {
             } else {
                 System.setProperty(CoreConstant.JVM_WORKENV, CoreConstant.JVM_WORKENV_PROD);
             }
+        }
+        // 修复vosk在jna 5.10.0中修改了encoding初始化方式之后产生的乱码问题
+        if (DependencyUtil.hasJna() && System.getProperty("jna.encoding") == null) {
+            System.setProperty("jna.encoding", CoreConstant.ENCODING_UTF_8);
         }
     }
 }
