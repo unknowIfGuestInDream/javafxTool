@@ -28,12 +28,18 @@
 package com.tlcsdm.demo;
 
 import com.tlcsdm.frame.service.MenubarConfigration;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 
 public class FXMenubarConfigration implements MenubarConfigration {
 
     @Override
-    public MenuBar setMenuBar(MenuBar menuBar) {
+    public void setMenuBar(MenuBar menuBar) {
         Menu menu1 = new Menu("menu1");
         Menu menu2 = new Menu("menu2");
         Menu menu3 = new Menu("menu3");
@@ -88,8 +94,6 @@ public class FXMenubarConfigration implements MenubarConfigration {
             // 或者直接点
             System.out.println(checkMenuItem1.isSelected());
         });
-
-        return menuBar;
     }
 
 }

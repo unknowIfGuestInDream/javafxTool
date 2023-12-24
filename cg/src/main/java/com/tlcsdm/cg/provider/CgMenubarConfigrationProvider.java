@@ -42,6 +42,7 @@ import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.LicenseDialog;
 import com.tlcsdm.core.javafx.dialog.LogConsoleDialog;
+import com.tlcsdm.core.javafx.factory.KeyCombinationFactory;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
@@ -195,9 +196,11 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     @Override
-    public MenuBar setMenuBar(MenuBar menuBar) {
+    public void setMenuBar(MenuBar menuBar) {
         ActionUtils.updateMenuBar(menuBar, actions);
-        return menuBar;
+        systemSetting.setAccelerator(KeyCombinationFactory.SHORTCUT_P);
+        logConsole.setAccelerator(KeyCombinationFactory.CTRL_SHIFT_L);
+        colorPicker.setAccelerator(KeyCombinationFactory.CTRL_SHIFT_C);
     }
 
 }

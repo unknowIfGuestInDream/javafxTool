@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,42 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.frame.service;
+package com.tlcsdm.core.javafx.factory;
 
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 /**
- * 菜单栏配置(应用模块实现)
+ * 快捷键工厂.
  *
  * @author unknowIfGuestInDream
  */
-public interface MenubarConfigration {
+public class KeyCombinationFactory {
 
-    MenuBar menuBar = new MenuBar();
-
-    void setMenuBar(MenuBar menuBar);
-
-    default MenuBar getMenuBar() {
-        return menuBar;
+    private KeyCombinationFactory() {
     }
 
-    default MenuBar initMenuBar() {
-        setMenuBar(menuBar);
-        return menuBar;
-    }
-
-    default HBox getMenuBox() {
-        MenuBar leftBar = initMenuBar();
-        MenuBar rightBar = new MenuBar();
-        rightBar.getMenus().addAll(new Menu("Help"));
-        Region spacer = new Region();
-        spacer.getStyleClass().add("menu-bar");
-        HBox.setHgrow(spacer, Priority.SOMETIMES);
-        return new HBox(leftBar, spacer);
-    }
+    /**
+     * 日志控制台.
+     */
+    public static final KeyCombination CTRL_SHIFT_L = new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN,
+        KeyCombination.CONTROL_DOWN);
+    /**
+     * 设置.
+     */
+    public static final KeyCombination SHORTCUT_P = KeyCombination.valueOf("SHORTCUT+p");
+    /**
+     * 屏幕截图.
+     */
+    public static final KeyCombination CTRL_SHIFT_S = new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN,
+        KeyCombination.CONTROL_DOWN);
+    /**
+     * 颜色提取器.
+     */
+    public static final KeyCombination CTRL_SHIFT_C = new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN,
+        KeyCombination.CONTROL_DOWN);
 
 }
