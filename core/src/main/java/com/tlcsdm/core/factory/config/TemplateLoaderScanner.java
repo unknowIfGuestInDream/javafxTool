@@ -36,6 +36,7 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
+import freemarker.core.UndefinedOutputFormat;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
@@ -74,6 +75,10 @@ public class TemplateLoaderScanner implements InitializingFactory {
         configuration.setDefaultEncoding(CoreConstant.ENCODING_UTF_8);
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20, soft:250");
+        configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
+        configuration.setDateFormat("yyyy-MM-dd");
+        configuration.setNumberFormat("number");
+        configuration.setOutputFormat(UndefinedOutputFormat.INSTANCE);
     }
 
 }
