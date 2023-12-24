@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.freemarker.template;
 
+import cn.hutool.log.StaticLog;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -125,8 +126,7 @@ public class HexDirective implements TemplateDirectiveModel {
                     data = String.format("%0" + length + "d", Integer.parseInt(s));
                 }
             } catch (NumberFormatException e) {
-                e.printStackTrace();
-                //out.write(cbuf);
+                StaticLog.error(e);
             }
             out.write(data);
         }
