@@ -1,14 +1,14 @@
-<#assign x = 1>
-
-<@repeat count=4>
-  Test ${x}
-  <#assign x++>
+<#assign x = 2>
+foo
+<@repeat count=x>
+    Test ${x}
+    <#assign x++>
 </@repeat>
 
 <@repeat count=3 hr=true>
-  Test
+    Test
 </@repeat>
 
 <@repeat count=3; cnt>
-  ${cnt}. Test
+    ${cnt}. Test
 </@repeat>

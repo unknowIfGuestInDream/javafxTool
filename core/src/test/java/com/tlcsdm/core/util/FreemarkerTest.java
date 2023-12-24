@@ -29,6 +29,7 @@ package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.tlcsdm.core.freemarker.template.HexDirective;
 import com.tlcsdm.core.freemarker.template.LowerDirective;
 import com.tlcsdm.core.freemarker.template.RepeatDirective;
 import com.tlcsdm.core.freemarker.template.UpperDirective;
@@ -146,6 +147,19 @@ public class FreemarkerTest {
         Template template = configuration.getTemplate("repeat.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("repeat", new RepeatDirective());
+        StringWriter stringWriter = new StringWriter();
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    /**
+     * 自定义指令 hex
+     */
+    @Test
+    public void hex() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("hex.ftl");
+        Map<String, Object> map = new HashMap<>();
+        map.put("hextest", new HexDirective());
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);
