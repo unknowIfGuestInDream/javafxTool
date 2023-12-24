@@ -137,6 +137,7 @@
         <tess4j.version>5.9.0</tess4j.version>
         <hikariCP.version>5.1.0</hikariCP.version>
         <h2.version>2.2.224</h2.version>
+        <jcommander.version>1.83</jcommander.version>
     </properties>
 
     <issueManagement>
@@ -870,6 +871,11 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jcommander</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>${jcommander.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
