@@ -86,6 +86,8 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -195,7 +197,8 @@ public final class FXSampler extends Application {
             loadingStage.close();
             mainStage.close();
         });
-        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> EventBus.getDefault().post(new ApplicationExitEvent()));
+        stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
+            event -> EventBus.getDefault().post(new ApplicationExitEvent()));
     }
 
     /**
@@ -328,7 +331,8 @@ public final class FXSampler extends Application {
             changeToWelcomeTab(null);
         }
         // 配置samplesTreeView
-        ServiceLoader<SamplesTreeViewConfiguration> samplesTreeViewConfigurations = ServiceLoader.load(SamplesTreeViewConfiguration.class);
+        ServiceLoader<SamplesTreeViewConfiguration> samplesTreeViewConfigurations = ServiceLoader.load(
+            SamplesTreeViewConfiguration.class);
         for (SamplesTreeViewConfiguration samplesTreeViewConfiguration : samplesTreeViewConfigurations) {
             Callback<TreeView<Sample>, TreeCell<Sample>> cellFactory = samplesTreeViewConfiguration.cellFactory();
             if (cellFactory != null) {
@@ -340,7 +344,8 @@ public final class FXSampler extends Application {
         setUserAgentStylesheet(STYLESHEET_MODENA);
         // put it all together
         Scene scene = new Scene(bp);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
+        scene.getStylesheets().add(
+            Objects.requireNonNull(getClass().getResource("/fxsampler/fxsampler.css")).toExternalForm());
         if (fxsamplerConfiguration != null) {
             String stylesheet = fxsamplerConfiguration.getSceneStylesheet();
             if (stylesheet != null) {
@@ -369,12 +374,23 @@ public final class FXSampler extends Application {
         }
         // 加载上次位置
         StageUtil.loadPrimaryStageBound(stage);
+        // F11全屏
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.F11) {
+                if (!stage.isFullScreen()) {
+                    stage.setFullScreen(true);
+                }
+            }
+        });
+        stage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.ESCAPE));
+        stage.setFullScreenExitHint(I18nUtils.get("frame.stage.fullScreenExitHint"));
         stage.setOnShown(windowEvent -> {
             if (Config.getBoolean(Keys.CheckForUpdatesAtStartup, true)) {
                 // 检查更新
                 StaticLog.debug("Version Checker...");
                 ThreadPoolTaskExecutor.get().execute(() -> {
-                    ServiceLoader<VersionCheckerService> versionCheckerServices = ServiceLoader.load(VersionCheckerService.class);
+                    ServiceLoader<VersionCheckerService> versionCheckerServices = ServiceLoader.load(
+                        VersionCheckerService.class);
                     for (VersionCheckerService versionCheckerService : versionCheckerServices) {
                         versionCheckerService.checkNewVersion();
                     }
@@ -397,7 +413,8 @@ public final class FXSampler extends Application {
     private void initializeSource() {
         // 在调用buildSampleTree(null) 后projects包含了所有Sample数据
         SamplePostProcessorService.Samples.addAll(projects);
-        ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader.load(SamplePostProcessorService.class);
+        ServiceLoader<SamplePostProcessorService> samplePostProcessorServices = ServiceLoader.load(
+            SamplePostProcessorService.class);
         try {
             for (SamplePostProcessorService samplePostProcessor : samplePostProcessorServices) {
                 samplePostProcessor.postProcessBeanFactory();
@@ -455,7 +472,8 @@ public final class FXSampler extends Application {
      */
     public static void confirmExit(Event event) {
         if (Config.getBoolean(Keys.ConfirmExit, true)) {
-            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"), I18nUtils.get("frame.main.confirmExit.message"))) {
+            if (FxAlerts.confirmYesNo(I18nUtils.get("frame.main.confirmExit.title"),
+                I18nUtils.get("frame.main.confirmExit.message"))) {
                 doExit();
             } else if (event != null) {
                 event.consume();
