@@ -953,7 +953,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <docencoding>${project.build.sourceEncoding}</docencoding>
                     <locale>zh_CN</locale>
-                    <detectOfflineLinks>false</detectOfflineLinks>
+                    <detectOfflineLinks>true</detectOfflineLinks>
                     <useStandardDocletOptions>false</useStandardDocletOptions>
                     <detectLinks>false</detectLinks>
                     <javaApiLinks>
