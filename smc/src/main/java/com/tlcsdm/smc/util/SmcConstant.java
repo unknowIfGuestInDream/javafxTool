@@ -76,7 +76,7 @@ public class SmcConstant {
     /**
      * 默认项目版本号
      */
-    public static final String PROJECT_VERSION = "1.0.10";
+    public static final String PROJECT_VERSION = "1.0.11-beta";
     /**
      * 项目构建日期
      */

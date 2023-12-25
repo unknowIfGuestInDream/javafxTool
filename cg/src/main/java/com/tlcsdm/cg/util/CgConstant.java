@@ -71,7 +71,7 @@ public class CgConstant {
     /**
      * 默认项目版本号
      */
-    public static final String PROJECT_VERSION = "1.0.0";
+    public static final String PROJECT_VERSION = "1.0.1-beta";
     /**
      * 项目构建日期
      */
@@ -87,7 +87,8 @@ public class CgConstant {
     /**
      * 当前项目加的依赖
      */
-    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx", "jackson");
+    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx",
+        "jackson");
     /**
      * 发布版本
      * 可由VersionCheckerService实现类修改数据
