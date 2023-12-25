@@ -55,6 +55,7 @@
 
     <properties>
         <javafxTool.version>1.0.0</javafxTool.version>
+        <javafxTool-common.version>1.0.1-beta</javafxTool-common.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -275,7 +276,7 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-common</artifactId>
-                <version>${javafxTool.version}</version>
+                <version>${javafxTool-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>

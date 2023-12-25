@@ -36,7 +36,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>javafxTool-common</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-beta</version>
     <name>javafxTool-common</name>
     <packaging>jar</packaging>
     <description>common组件</description>
