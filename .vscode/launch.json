@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CgSampler",
+      "request": "launch",
+      "mainClass": "com.tlcsdm.cg/com.tlcsdm.cg.CgSampler",
+      "projectName": "javafxTool-cg",
+      "vmArgs": [
+        "-ea", "-DworkEnv=dev"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "CommonSampler",
+      "request": "launch",
+      "mainClass": "com.tlcsdm.jfxcommon/com.tlcsdm.jfxcommon.CommonSampler",
+      "projectName": "javafxTool-common",
+      "vmArgs": [
+        "-ea", "-DworkEnv=dev"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "ControlsFXSampler",
+      "request": "launch",
+      "mainClass": "com.tlcsdm.demo/com.tlcsdm.demo.ControlsFXSampler",
+      "projectName": "javafxTool-demo",
+      "vmArgs": [
+        "-ea", "-DworkEnv=dev"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "QeSampler",
+      "request": "launch",
+      "mainClass": "com.tlcsdm.qe/com.tlcsdm.qe.QeSampler",
+      "projectName": "javafxTool-qe",
+      "vmArgs": [
+        "-ea", "-DworkEnv=dev"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "SmcSampler",
+      "request": "launch",
+      "mainClass": "com.tlcsdm.smc/com.tlcsdm.smc.SmcSampler",
+      "projectName": "javafxTool-smc",
+      "vmArgs": [
+        "-ea", "-DworkEnv=dev"
+      ]
+    }
+  ]
+}

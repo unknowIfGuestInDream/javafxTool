@@ -1,0 +1,22 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "maven.view": "hierarchical",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+    },
+    "java.test.config": {
+        "vmargs": [
+            "-DworkEnv=test"
+        ]
+    },
+    "scm.alwaysShowRepositories": false,
+    "github-actions.workflows.pinned.refresh.enabled": false,
+    "java.saveActions.organizeImports": true,
+    "java.sources.organizeImports.starThreshold": 999,
+    "java.sources.organizeImports.staticStarThreshold": 999,
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.debug.settings.onBuildFailureProceed": true,
+    "maven.executable.options": "-Dmaven.test.skip=true"
+}
