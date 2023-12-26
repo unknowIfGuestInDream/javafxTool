@@ -26,6 +26,8 @@ data/
 !.idea/jarRepositories.xml
 !.idea/artifacts
 !.idea/artifacts/**
+!.idea/fileTemplates
+!.idea/fileTemplates/**
 *.iws
 *.iml
 *.ipr

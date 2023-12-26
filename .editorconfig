@@ -13,7 +13,7 @@ max_line_length = 120
 
 # Matches multiple files with brace expansion notation
 # 4 space indentation
-[*.{java,groovy}]
+[*.{java,groovy,py,cpp}]
 indent_style = space
 indent_size = 4
 
