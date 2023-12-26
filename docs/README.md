@@ -25,7 +25,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | junit                  | 5.10.1     | 单元测试框架                           |
 | tlcsdm-common          | 1.4.5      | 常用工具类封装                          |
 | tlcsdm-asyncTool       | 1.0.1      | 并行工具包                            |
-| jackson                | 2.16.0     | JSON解析库                          |
+| jackson                | 2.16.1     | JSON解析库                          |
 | pdfbox                 | 3.0.1      | 操作PDF文档的库                        |
 | commons-io             | 2.15.1     | IO工具                             |
 | commons-csv            | 1.10.0     | csv工具                            |

@@ -108,7 +108,7 @@ public class DependencyInfo {
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.0", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.1", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
