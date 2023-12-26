@@ -48,7 +48,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.CHANGELOG }}
-          FILTER_REGEX_EXCLUDE: "(.*test/.*|.idea/|.vscode/|.settings)"
+          FILTER_REGEX_EXCLUDE: "(.*test/.*|.idea/|.vscode/|.settings|.*/DependencyInfo.java)"
           VALIDATE_JAVA: true
           VALIDATE_GROOVY: true
           VALIDATE_MARKDOWN: true
