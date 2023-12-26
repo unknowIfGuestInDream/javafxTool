@@ -42,6 +42,10 @@ IDEA:
   - changed-files:
       - any-glob-to-any-file: .idea/**
 
+vscode:
+  - changed-files:
+      - any-glob-to-any-file: .vscode/**
+
 workflow:
   - changed-files:
       - any-glob-to-any-file: .github/**
