@@ -24,6 +24,8 @@ data/
 !.idea/runConfigurations/**
 !.idea/vcs.xml
 !.idea/jarRepositories.xml
+!.idea/artifacts
+!.idea/artifacts/**
 *.iws
 *.iml
 *.ipr
