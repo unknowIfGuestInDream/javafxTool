@@ -11,6 +11,9 @@ data/
 .factorypath
 .project
 .settings
+/.settings/**
+!/.settings/
+!/.settings/*.launch
 .springBeans
 .sts4-cache
 
@@ -26,6 +29,8 @@ data/
 !.idea/jarRepositories.xml
 !.idea/artifacts
 !.idea/artifacts/**
+!.idea/codeStyles
+!.idea/codeStyles/**
 !.idea/fileTemplates
 !.idea/fileTemplates/**
 *.iws
@@ -56,5 +61,5 @@ logs/
 /mvnw
 /mvnw.cmd
 
-/runtime
+runtime/
 .jython_cache
