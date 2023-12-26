@@ -36,3 +36,5 @@ exclude:
       - demo
       - .github
       - .idea
+      - .vscode
+      - .settings
