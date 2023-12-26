@@ -46,6 +46,10 @@ vscode:
   - changed-files:
       - any-glob-to-any-file: .vscode/**
 
+eclipse:
+  - changed-files:
+      - any-glob-to-any-file: .settings/**
+
 workflow:
   - changed-files:
       - any-glob-to-any-file: .github/**
