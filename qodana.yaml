@@ -37,3 +37,4 @@ exclude:
       - .github
       - .idea
       - .vscode
+      - .settings
