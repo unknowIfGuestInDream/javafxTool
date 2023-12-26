@@ -32,7 +32,7 @@ echo "User email: $BUILD_USER_EMAIL"
 echo "Maven: $M2_HOME"
 $M2_HOME/bin/mvn -version
 
-$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true clean install
+$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install
 $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 
 for mod in smc qe cg
@@ -50,7 +50,7 @@ rm -r apidocs
 rm -r license
 done
 
-$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true clean install
+$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install
 $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 for mod in smc qe cg
 do
@@ -67,7 +67,7 @@ rm -r apidocs
 rm -r license
 done
 
-$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true clean install
+$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install
 $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 for mod in smc qe cg
 do
