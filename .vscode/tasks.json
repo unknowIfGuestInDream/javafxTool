@@ -1,0 +1,30 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "java (build)",
+			"paths": [
+				"${workspace}"
+			],
+			"isFullBuild": true,
+			"group": "build",
+			"problemMatcher": [],
+			"label": "java (build): Build Workspace",
+			"detail": "$(tools) Build all the Java projects in workspace."
+		},
+		{
+            "type": "java (buildArtifact)",
+            "targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
+            "elements": [
+                "${compileOutput}",
+                "${dependencies}"
+            ],
+            "problemMatcher": [],
+            "label": "java (buildArtifact): project",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+	]
+}
