@@ -33,6 +33,7 @@ data/
 !.idea/codeStyles/**
 !.idea/fileTemplates
 !.idea/fileTemplates/**
+!.idea/dictionaries
 *.iws
 *.iml
 *.ipr
