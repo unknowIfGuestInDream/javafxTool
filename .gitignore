@@ -13,7 +13,8 @@ data/
 .settings
 /.settings/**
 !/.settings/
-!/.settings/*.launch
+!/.settings/runConfigurations
+!/.settings/runConfigurations/**
 .springBeans
 .sts4-cache
 
