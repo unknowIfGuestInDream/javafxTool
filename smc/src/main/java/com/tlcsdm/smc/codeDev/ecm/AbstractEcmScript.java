@@ -137,51 +137,60 @@ public abstract class AbstractEcmScript extends SmcSample {
         JavaFxSystemUtil.openDirectory(path);
     });
 
-    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"), actionEvent -> {
-        downloadChooser.setInitialFileName(defaultTemplateName);
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
-        downloadChooser.getExtensionFilters().add(extFilter);
-        if (downloadChooser.getInitialDirectory() == null) {
-            String path = ConfigureUtil.getConfigureGroovyPath() + File.separator + "codeDev" + File.separator + "ecm";
-            File dir = new File(path);
-            if (!FileUtil.exist(dir)) {
-                FileUtil.mkdir(dir);
+    private final Action download = FxAction.download(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download"),
+        actionEvent -> {
+            downloadChooser.setInitialFileName(defaultTemplateName);
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("zip", "*.zip");
+            downloadChooser.getExtensionFilters().add(extFilter);
+            if (downloadChooser.getInitialDirectory() == null) {
+                String path = ConfigureUtil.getConfigureGroovyPath() + File.separator + "codeDev" + File.separator + "ecm";
+                File dir = new File(path);
+                if (!FileUtil.exist(dir)) {
+                    FileUtil.mkdir(dir);
+                }
+                downloadChooser.setInitialDirectory(dir);
             }
-            downloadChooser.setInitialDirectory(dir);
-        }
-        File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
-        if (file != null) {
-            if (!StrUtil.endWith(file.getName(), ".zip")) {
-                notificationBuilder.text(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
-                notificationBuilder.showWarning();
-                return;
+            File file = downloadChooser.showSaveDialog(FxApp.primaryStage);
+            if (file != null) {
+                if (!StrUtil.endWith(file.getName(), ".zip")) {
+                    notificationBuilder.text(
+                        I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.download.warn.message"));
+                    notificationBuilder.showWarning();
+                    return;
+                }
+                if (file.exists()) {
+                    FileUtil.del(file);
+                }
+                String ftlPath = "com/tlcsdm/smc/static/templates/";
+                String groovyPath = "com/tlcsdm/smc/static/groovy/";
+                ZipUtil.zip(file, Charset.defaultCharset(),
+                    new ClassPathResource(ftlPath + getFtlPath(), getClass().getClassLoader()),
+                    new ClassPathResource(groovyPath + getGroovyPath(), getClass().getClassLoader()));
+                downloadChooser.setInitialDirectory(file.getParentFile());
+                OSUtil.openAndSelectedFile(file);
+                notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
+                notificationBuilder.showInformation();
             }
-            if (file.exists()) {
-                FileUtil.del(file);
-            }
-            String ftlPath = "com/tlcsdm/smc/static/templates/";
-            String groovyPath = "com/tlcsdm/smc/static/groovy/";
-            ZipUtil.zip(file, Charset.defaultCharset(), new ClassPathResource(ftlPath + getFtlPath(), getClass().getClassLoader()), new ClassPathResource(groovyPath + getGroovyPath(), getClass().getClassLoader()));
-            downloadChooser.setInitialDirectory(file.getParentFile());
-            OSUtil.openAndSelectedFile(file);
-            notificationBuilder.text(I18nUtils.get("smc.tool.button.download.success"));
-            notificationBuilder.showInformation();
-        }
-    });
+        });
 
-    private final Action viewGroovyScript = FxAction.view(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"), actionEvent -> {
-        VBox vbox = new VBox();
-        GroovyCodeArea area = new GroovyCodeArea();
-        area.setEditable(false);
-        area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
-        area.showParagraphAtTop(0);
-        VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
-        vbox.getChildren().addAll(pane);
-        VBox.setVgrow(pane, Priority.ALWAYS);
-        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent")).setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY, FxButtonType.CLOSE);
-        dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> OSUtil.writeToClipboard(area.getText())).setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
-        dialog.show();
-    });
+    private final Action viewGroovyScript = FxAction.view(
+        I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent"), actionEvent -> {
+            VBox vbox = new VBox();
+            GroovyCodeArea area = new GroovyCodeArea();
+            area.setEditable(false);
+            area.appendText(GroovyUtil.getScriptContent(getGroovyPath()));
+            area.showParagraphAtTop(0);
+            VirtualizedScrollPane<GroovyCodeArea> pane = new VirtualizedScrollPane<>(area);
+            vbox.getChildren().addAll(pane);
+            VBox.setVgrow(pane, Priority.ALWAYS);
+            FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
+                    I18nUtils.get("smc.tool.dmaTriggerSourceCode.button.scriptContent")).setOwner(FxApp.primaryStage)
+                .setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.COPY,
+                    FxButtonType.CLOSE);
+            dialog.setButtonHandler(FxButtonType.COPY, (e, s) -> OSUtil.writeToClipboard(area.getText()))
+                .setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
+            dialog.show();
+        });
 
     private final Action generate = FxAction.generate(actionEvent -> {
         dealData();
@@ -356,7 +365,10 @@ public abstract class AbstractEcmScript extends SmcSample {
     public void initializeBindings() {
         super.initializeBindings();
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
-        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField, startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField, errorSourceIdColField, categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField, errorSourceDescColField, errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
+        BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(excelField, outputField, sheetNameField,
+            startRowField, categorySheetNameField, categoryStartRowField, categoryConfigField, errorSourceIdColField,
+            categoryIdColField, errorSourceNumberColField, errorSourceEnNameColField, errorSourceDescColField,
+            errorSourceJpNameColField, functionConfigField, productConfigField, tagConfigField).build();
         generate.disabledProperty().bind(emptyValidation);
         openOutDir.disabledProperty().bind(outputValidation);
         FileChooserUtil.setOnDrag(excelField, FileChooserUtil.FileType.FILE);
@@ -390,9 +402,12 @@ public abstract class AbstractEcmScript extends SmcSample {
      */
     protected void initDefaultValue() {
         startRowField.setNumber(BigDecimal.valueOf(3));
-        categoryConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
-        functionConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
-        productConfigField.setPromptText(I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        categoryConfigField.setPromptText(
+            I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        functionConfigField.setPromptText(
+            I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
+        productConfigField.setPromptText(
+            I18nUtils.get("smc.tool.dmaTriggerSourceCode.textfield.deviceAndStartCol.promptText"));
         categoryStartRowField.setNumber(BigDecimal.valueOf(3));
         categorySheetNameField.setText("Category");
     }
@@ -603,14 +618,16 @@ public abstract class AbstractEcmScript extends SmcSample {
                 for (int j = i + 1; j < list.size(); j++) {
                     String orgName = device + "_" + list.get(i) + ".xml";
                     String comName = device + "_" + list.get(j) + ".xml";
-                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName), FileUtil.file(resultPath, comName));
+                    boolean b = FileUtil.contentEquals(FileUtil.file(resultPath, orgName),
+                        FileUtil.file(resultPath, comName));
                     if (b) {
                         if (!delFileNames.contains(orgName) && !delFileNames.contains(comName)) {
                             String deviceName = device + ".xml";
                             if (FileUtil.file(resultPath, deviceName).exists()) {
                                 deviceName = device + "-" + UUID.fastUUID() + ".xml";
                             }
-                            FileUtil.copyFile(FileUtil.file(resultPath, orgName), FileUtil.file(resultPath, deviceName));
+                            FileUtil.copyFile(FileUtil.file(resultPath, orgName),
+                                FileUtil.file(resultPath, deviceName));
                         }
                         if (!delFileNames.contains(orgName)) {
                             delFileNames.add(orgName);
