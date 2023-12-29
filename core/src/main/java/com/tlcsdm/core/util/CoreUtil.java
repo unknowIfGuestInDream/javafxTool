@@ -214,4 +214,19 @@ public class CoreUtil {
         }
         return host;
     }
+
+    /**
+     * 获取当前workEnv.
+     * 虚拟机参数workEnv为空时，如果当前在jar包启动则时生产环境，否则认为是开发环境
+     */
+    public static String getWorkEnv() {
+        String env = System.getProperty(CoreConstant.JVM_WORKENV);
+        if (env != null) {
+            if (env.equals(CoreConstant.JVM_WORKENV_DEV) || env.equals(CoreConstant.JVM_WORKENV_TEST) || env.equals(
+                CoreConstant.JVM_WORKENV_CI) || env.equals(CoreConstant.JVM_WORKENV_PROD)) {
+                return env;
+            }
+        }
+        return isStartupFromJar(CoreUtil.class) ? CoreConstant.JVM_WORKENV_PROD : CoreConstant.JVM_WORKENV_DEV;
+    }
 }
