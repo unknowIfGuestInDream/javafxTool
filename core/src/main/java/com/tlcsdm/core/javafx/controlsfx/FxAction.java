@@ -36,6 +36,7 @@ import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
+import com.tlcsdm.core.javafx.dialog.WebBrowserDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.PropertiesArea;
 import com.tlcsdm.core.javafx.richtext.XmlEditorArea;
@@ -214,6 +215,15 @@ public class FxAction {
         return create(I18nUtils.get("core.menubar.setting.systemSetting"), actionEvent -> {
             SystemSettingDialog.openSystemSettings(I18nUtils.get("core.menubar.setting.systemSetting"), excludeKeys);
         }, "/com/tlcsdm/core/static/menubar/system.png");
+    }
+
+    /**
+     * 网页浏览器.
+     */
+    public static Action webBrowser(String url) {
+        return create(I18nUtils.get("core.dialog.webBrowser.title"), actionEvent -> {
+            WebBrowserDialog.openWebBrowser(url);
+        }, "/com/tlcsdm/core/static/icon/webBrowser.png");
     }
 
     /**

@@ -25,32 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.stage;
+package com.tlcsdm.core.javafx.dialog;
 
 import com.tlcsdm.core.javafx.FxApp;
-import javafx.beans.property.SimpleStringProperty;
+import com.tlcsdm.core.util.I18nUtils;
 import javafx.concurrent.Worker;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
+ * 浏览器弹窗.
+ *
  * @author unknowIfGuestInDream
  */
-public class WebViewStage extends Stage {
+public class WebBrowserDialog {
 
-    private static final String defaultUrl = "https://javafxtool.tlcsdm.com";
+    private static final String defaultUrl = "https://docs.oracle.com/en/java/javase/17";
     private static final double NaviBarMimDimension = 32.0;
     private static final double PaddingValue = 2.0;
     private static final String buttonStyle = "-fx-font-weight: bold; -fx-font-size: 16px;";
@@ -62,23 +59,10 @@ public class WebViewStage extends Stage {
     private static final String forwardButtonUnicodeSymbol = "\u003E";
     private static final String reloadButtonUnicodeSymbol = "\u27F3";
 
-    public WebViewStage() {
-        new WebViewStage(FxApp.primaryStage, defaultUrl, FxApp.appIcon);
+    private WebBrowserDialog() {
     }
 
-    public WebViewStage(String url) {
-        new WebViewStage(FxApp.primaryStage, url, FxApp.appIcon);
-    }
-
-    public WebViewStage(Stage stage, String url) {
-        new WebViewStage(stage, url, null);
-    }
-
-    public WebViewStage(Stage stage, String url, Image appIcon) {
-        this.initOwner(stage);
-        if (appIcon != null) {
-            this.getIcons().add(appIcon);
-        }
+    public static void openWebBrowser(String url) {
         final String initialURL = url != null ? url : defaultUrl;
 
         final WebView webView = new WebView();
@@ -144,18 +128,8 @@ public class WebViewStage extends Stage {
 
         webEngine.load(initialURL);
 
-        Scene scene = new Scene(root);
-        this.setScene(scene);
-        scene.setFill(Color.TRANSPARENT);
-        this.initStyle(StageStyle.TRANSPARENT);
-
-        SimpleStringProperty titleProp = new SimpleStringProperty(
-            "HelloWebView(" + System.getProperty("java.version") + ") : ");
-        this.titleProperty().bind(titleProp.concat(urlBox.textProperty()));
-    }
-
-    public void showStage() {
-        this.show();
-        this.toFront();
+        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.dialog.webBrowser.title")).setOwner(
+            FxApp.primaryStage).setResizable(true).setBody(root);
+        dialog.show();
     }
 }
