@@ -28,7 +28,7 @@
 package com.tlcsdm.qe.tools;
 
 import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.javafx.control.LineChartWithMarkers;
+import com.tlcsdm.core.javafx.chart.LineChartWithMarkers;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreConstant;

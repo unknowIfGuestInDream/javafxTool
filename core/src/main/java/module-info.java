@@ -68,6 +68,8 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.javafx.stage;
     exports com.tlcsdm.core.javafx.richtext;
     exports com.tlcsdm.core.javafx.richtext.hyperlink;
+    exports com.tlcsdm.core.javafx.factory;
+    exports com.tlcsdm.core.javafx.chart;
     exports com.tlcsdm.core.util;
     exports com.tlcsdm.core.exception;
     exports com.tlcsdm.core.annotation;
@@ -85,7 +87,6 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.dsl.commands;
     exports com.tlcsdm.core.dsl.runtime;
     exports com.tlcsdm.core.dsl.impl;
-    exports com.tlcsdm.core.javafx.factory;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
