@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.control;
+package com.tlcsdm.core.javafx.chart;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.NamedArg;
