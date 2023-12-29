@@ -217,6 +217,7 @@ public class CoreUtil {
 
     /**
      * 获取当前workEnv.
+     * 虚拟机参数workEnv为空时，如果当前在jar包启动则时生产环境，否则认为是开发环境
      */
     public static String getWorkEnv() {
         String env = System.getProperty(CoreConstant.JVM_WORKENV);
@@ -226,6 +227,6 @@ public class CoreUtil {
                 return env;
             }
         }
-        return CoreConstant.JVM_WORKENV_DEV;
+        return isStartupFromJar(CoreUtil.class) ? CoreConstant.JVM_WORKENV_PROD : CoreConstant.JVM_WORKENV_DEV;
     }
 }
