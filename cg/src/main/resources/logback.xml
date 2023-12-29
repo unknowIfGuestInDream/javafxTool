@@ -106,10 +106,20 @@
     <logger name="org.apache.commons.beanutils.FluentPropertyBeanIntrospector" level="error"/>
     <logger name="org.reflections.Reflections" level="warn"/>
 
-    <root>
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="ASYNC_FILE"/>
-        <appender-ref ref="ASYNC_FILTERERS"/>
-        <appender-ref ref="CONSOLELOGAPPENDER"/>
-    </root>
+    <workEnv name="dev,test">
+        <root>
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="CONSOLELOGAPPENDER"/>
+            <appender-ref ref="ASYNC_FILE"/>
+            <appender-ref ref="ASYNC_FILTERERS"/>
+        </root>
+    </workEnv>
+    <workEnv name="prod,ci">
+        <!-- 关闭启动日志 -->
+        <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+        <root>
+            <appender-ref ref="ASYNC_FILE"/>
+            <appender-ref ref="ASYNC_FILTERERS"/>
+        </root>
+    </workEnv>
 </configuration>
