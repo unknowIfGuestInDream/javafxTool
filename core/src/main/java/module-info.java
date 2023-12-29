@@ -1,3 +1,6 @@
+import ch.qos.logback.classic.spi.Configurator;
+import com.tlcsdm.core.logging.logback.CoreConfigurator;
+
 module com.tlcsdm.core {
     requires javafx.graphics;
     requires javafx.fxml;
@@ -7,6 +10,7 @@ module com.tlcsdm.core {
     requires java.desktop;
     requires java.net.http;
     requires java.sql;
+    requires java.xml;
     requires org.apache.commons.lang3;
     requires javafx.controls;
     requires org.apache.commons.configuration2;
@@ -85,5 +89,7 @@ module com.tlcsdm.core {
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
+
+    provides Configurator with CoreConfigurator;
 
 }

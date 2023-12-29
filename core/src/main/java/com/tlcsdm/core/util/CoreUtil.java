@@ -214,4 +214,18 @@ public class CoreUtil {
         }
         return host;
     }
+
+    /**
+     * 获取当前workEnv.
+     */
+    public static String getWorkEnv() {
+        String env = System.getProperty(CoreConstant.JVM_WORKENV);
+        if (env != null) {
+            if (env.equals(CoreConstant.JVM_WORKENV_DEV) || env.equals(CoreConstant.JVM_WORKENV_TEST) || env.equals(
+                CoreConstant.JVM_WORKENV_CI) || env.equals(CoreConstant.JVM_WORKENV_PROD)) {
+                return env;
+            }
+        }
+        return CoreConstant.JVM_WORKENV_DEV;
+    }
 }
