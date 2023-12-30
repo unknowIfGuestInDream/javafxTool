@@ -58,6 +58,10 @@ public class ConfigureUtil {
         return CoreUtil.getRuntimePath() + "/groovy";
     }
 
+    public static String getConfigureH2Path() {
+        return CoreUtil.getRuntimePath() + "/h2";
+    }
+
     public static String getConfigureTemplatePath(String fileName) {
         return getConfigureTemplatePath() + fileName;
     }
