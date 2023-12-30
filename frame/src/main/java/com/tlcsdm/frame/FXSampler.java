@@ -37,6 +37,7 @@ import com.tlcsdm.core.event.ApplicationPreparedEvent;
 import com.tlcsdm.core.event.ApplicationReadyEvent;
 import com.tlcsdm.core.event.ApplicationRestartEvent;
 import com.tlcsdm.core.event.ApplicationStartingEvent;
+import com.tlcsdm.core.event.ConfigRefreshEvent;
 import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.eventbus.Subscribe;
 import com.tlcsdm.core.exception.SampleDefinitionException;
@@ -133,6 +134,8 @@ public final class FXSampler extends Application {
     private boolean animationFinished;
     private boolean supportAnim;
     private boolean hasPrepared;
+    // 彩蛋
+    private final List<EasterEggService> easterEggList = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -432,7 +435,26 @@ public final class FXSampler extends Application {
     private void initializeEasterEggs() {
         ServiceLoader<EasterEggService> easterEggServices = ServiceLoader.load(EasterEggService.class);
         for (EasterEggService easterEggService : easterEggServices) {
-            easterEggService.initializeEasterEgg();
+            easterEggList.add(easterEggService);
+        }
+        executeEasterEggs();
+    }
+
+    private void executeEasterEggs() {
+        if (easterEggList.isEmpty()) {
+            return;
+        }
+        if (Config.getBoolean(Keys.UseEasterEgg, true)) {
+            easterEggList.forEach(EasterEggService::start);
+        } else {
+            easterEggList.forEach(EasterEggService::stop);
+        }
+    }
+
+    @Subscribe
+    public void refreshEasterEggs(ConfigRefreshEvent event) {
+        if (event == null || Keys.UseEasterEgg.getKeyName().equals(event.getKey())) {
+            executeEasterEggs();
         }
     }
 

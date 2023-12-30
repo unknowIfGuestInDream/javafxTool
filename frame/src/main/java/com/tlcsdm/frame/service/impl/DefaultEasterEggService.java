@@ -44,8 +44,7 @@ public class DefaultEasterEggService implements EasterEggService {
 
     private ScheduledFuture<?> runnableFuture;
 
-    @Override
-    public void initializeEasterEgg() {
+    protected void initializeEasterEgg() {
         runnableFuture = ScheduledTaskExecutor.get().scheduleAtFixedRate(() -> {
             LocalDate today = LocalDate.now();
             int mouth = today.getMonthValue();
@@ -80,6 +79,9 @@ public class DefaultEasterEggService implements EasterEggService {
 
     @Override
     public void stop() {
+        if (runnableFuture == null || runnableFuture.isCancelled()) {
+            return;
+        }
         runnableFuture.cancel(false);
     }
 }

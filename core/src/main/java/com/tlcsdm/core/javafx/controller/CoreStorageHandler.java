@@ -28,9 +28,13 @@
 package com.tlcsdm.core.javafx.controller;
 
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.tlcsdm.core.event.ConfigRefreshEvent;
+import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import javafx.collections.ObservableList;
+
+import java.util.Objects;
 
 /**
  * refer to {@link com.dlsc.preferencesfx.util.PreferencesBasedStorageHandler}
@@ -100,7 +104,9 @@ public class CoreStorageHandler implements StorageHandler {
 
     @Override
     public void saveObject(String s, Object o) {
-        Config.set(Keys.fromKeyName(s.substring(s.lastIndexOf(".") + 1)), o);
+        String keyName = s.substring(s.lastIndexOf(".") + 1);
+        Config.set(Objects.requireNonNull(Keys.fromKeyName(keyName)), o);
+        EventBus.getDefault().post(new ConfigRefreshEvent(keyName));
     }
 
     @Override

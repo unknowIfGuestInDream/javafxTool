@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2023 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,50 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.javafx.util;
-
-import org.apache.commons.lang3.StringUtils;
+package com.tlcsdm.core.event;
 
 /**
- * 系统配置属性类
+ * 系统设置刷新.
  *
  * @author unknowIfGuestInDream
  */
-public enum Keys {
-    /**
-     * 系统属性
-     */
-    MainWindowWidth("mainWindowWidth"),
-    MainWindowHeight("mainWindowHeight"),
-    MainWindowTop("mainWindowTop"),
-    MainWindowLeft("mainWindowLeft"),
-    ControlDividerPosition("controlDividerPosition"),
-    Locale("locale"),
-    RememberWindowLocation("rememberWindowLocation"),
-    ConfirmExit("confirmExit"),
-    CheckForUpdatesAtStartup("checkForUpdatesAtStartup"),
-    ScreenshotHideWindow("screenshotHideWindow"),
-    ScreenColorPickerHideWindow("screenColorPickerHideWindow"),
-    Theme("theme"),
-    UseDevMode("useDevMode"),
-    UseEasterEgg("useEasterEgg");
+public class ConfigRefreshEvent {
 
-    private final String keyName;
+    private String key;
 
-    Keys(String keyName) {
-        this.keyName = keyName;
+    public ConfigRefreshEvent() {
     }
 
-    public static Keys fromKeyName(String keyName) {
-        for (Keys type : Keys.values()) {
-            if (StringUtils.isNotEmpty(keyName) && type.getKeyName().equals(keyName)) {
-                return type;
-            }
-        }
-        return null;
+    public ConfigRefreshEvent(String key) {
+        this.key = key;
     }
 
-    public String getKeyName() {
-        return this.keyName;
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

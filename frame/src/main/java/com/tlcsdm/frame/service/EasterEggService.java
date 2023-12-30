@@ -34,8 +34,6 @@ package com.tlcsdm.frame.service;
  */
 public interface EasterEggService {
 
-    void initializeEasterEgg();
-
     void start();
 
     void stop();

@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.javafx.controller;
 
+import com.tlcsdm.core.event.ConfigRefreshEvent;
+import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.view.AbstractSystemSettingView;
@@ -95,5 +97,6 @@ public class SystemSettingController extends AbstractSystemSettingView {
         Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
         Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
         Config.set(Keys.UseDevMode, useDevModeCheckBox.isSelected());
+        EventBus.getDefault().post(new ConfigRefreshEvent());
     }
 }
