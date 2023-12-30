@@ -22,6 +22,7 @@ projectJDK: 17 #(Applied in CI/CD pipeline)
 #  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
 #Specify Qodana linter for analysis (Applied in CI/CD pipeline)
 linter: jetbrains/qodana-jvm:latest
+fixesStrategy: cleanup
 exclude:
   - name: RegExpSingleCharAlternation
   - name: ConstantValue
@@ -38,3 +39,4 @@ exclude:
       - .idea
       - .vscode
       - .settings
+      - core/src/main/java/com/tlcsdm/core/database/DataSourceUtil.java

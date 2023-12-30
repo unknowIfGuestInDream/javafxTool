@@ -93,4 +93,18 @@ public class DependencyUtil {
     public static boolean hasCaffeine() {
         return CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache");
     }
+
+    /**
+     * 因否存在Hikari库.
+     */
+    public static boolean hasHikari() {
+        return CoreUtil.hasClass("com.zaxxer.hikari.HikariDataSource");
+    }
+
+    /**
+     * 因否存在Druid库.
+     */
+    public static boolean hasDruid() {
+        return CoreUtil.hasClass("com.alibaba.druid.VERSION");
+    }
 }

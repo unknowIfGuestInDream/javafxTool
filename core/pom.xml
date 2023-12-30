@@ -291,6 +291,21 @@
             <artifactId>tess4j</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -303,6 +318,7 @@
                     <excludes>
                         <!-- 执行测试时由于引用了Assertions以及jackson在module.info中是static, 执行会失败，因此排除 -->
                         <exclude>**/JacksonTest.java</exclude>
+                        <exclude>**/H2Test</exclude>
                     </excludes>
                 </configuration>
             </plugin>

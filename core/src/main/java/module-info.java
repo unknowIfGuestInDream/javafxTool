@@ -52,6 +52,8 @@ module com.tlcsdm.core {
     requires static com.fasterxml.jackson.dataformat.yaml;
     requires static com.fasterxml.jackson.datatype.jsr310;
     requires static jython.slim;
+    requires static com.zaxxer.hikari;
+    requires static druid;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
@@ -87,6 +89,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.dsl.commands;
     exports com.tlcsdm.core.dsl.runtime;
     exports com.tlcsdm.core.dsl.impl;
+    exports com.tlcsdm.core.database;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
