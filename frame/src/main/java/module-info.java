@@ -1,3 +1,6 @@
+import com.tlcsdm.frame.service.EasterEggService;
+import com.tlcsdm.frame.service.impl.DefaultEasterEggService;
+
 module com.tlcsdm.frame {
 
     requires transitive javafx.controls;
@@ -15,6 +18,7 @@ module com.tlcsdm.frame {
     exports com.tlcsdm.frame;
     exports com.tlcsdm.frame.model;
     exports com.tlcsdm.frame.service;
+    exports com.tlcsdm.frame.service.impl;
     exports com.tlcsdm.frame.event;
     exports com.tlcsdm.frame.cache;
 
@@ -27,4 +31,7 @@ module com.tlcsdm.frame {
     uses com.tlcsdm.frame.service.VersionCheckerService;
     uses com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
     uses com.tlcsdm.frame.service.BannerPrinterService;
+    uses com.tlcsdm.frame.service.EasterEggService;
+
+    provides EasterEggService with DefaultEasterEggService;
 }

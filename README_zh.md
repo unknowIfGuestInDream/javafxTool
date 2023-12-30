@@ -32,6 +32,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 - VersionCheckerService: 版本更新检查
 - SamplesTreeViewConfiguration: 菜单树配置
 - BannerPrinterService: 启动Banner
+- EasterEggService: 彩蛋
 
 ## login
 
@@ -40,8 +41,8 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 # 打包
 
 1. IDEA工件打包\
-配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成\
-打包: 构建 -> 构建工件 -> 构建
+   配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成\
+   打包: 构建 -> 构建工件 -> 构建
 2. 推荐`mvn package`打包
 
 # 联系

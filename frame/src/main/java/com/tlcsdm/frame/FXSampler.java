@@ -63,6 +63,7 @@ import com.tlcsdm.frame.model.SampleTreeViewModel;
 import com.tlcsdm.frame.model.WelcomePage;
 import com.tlcsdm.frame.service.BannerPrinterService;
 import com.tlcsdm.frame.service.CenterPanelService;
+import com.tlcsdm.frame.service.EasterEggService;
 import com.tlcsdm.frame.service.FXSamplerConfiguration;
 import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.frame.service.SamplePostProcessorService;
@@ -159,6 +160,7 @@ public final class FXSampler extends Application {
                 ThreadPoolTaskExecutor.get().execute(() -> {
                     StaticLog.debug("Initialize resources.");
                     initializeSource();
+                    initializeEasterEggs();
                 });
             } catch (Throwable e) {
                 EventBus.getDefault().post(new ApplicationFailedEvent(e));
@@ -421,6 +423,16 @@ public final class FXSampler extends Application {
             }
         } catch (SampleDefinitionException e) {
             StaticLog.error(e);
+        }
+    }
+
+    /**
+     * 初始化彩蛋.
+     */
+    private void initializeEasterEggs() {
+        ServiceLoader<EasterEggService> easterEggServices = ServiceLoader.load(EasterEggService.class);
+        for (EasterEggService easterEggService : easterEggServices) {
+            easterEggService.initializeEasterEgg();
         }
     }
 
