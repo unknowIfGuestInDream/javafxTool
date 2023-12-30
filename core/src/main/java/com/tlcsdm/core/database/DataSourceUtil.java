@@ -63,6 +63,27 @@ public abstract class DataSourceUtil {
     }
 
     /**
+     * 数据库sql执行(表创建等).
+     */
+    public boolean execute(String sql, Object... obj) throws SQLException {
+        Connection conn = dataSource.getConnection();
+        PreparedStatement ps = null;
+        boolean x = false;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < obj.length; i++) {
+                ps.setObject(i + 1, obj[i]);
+            }
+            x = ps.execute();
+        } catch (SQLException e) {
+            StaticLog.error(e);
+        } finally {
+            release(conn, ps);
+        }
+        return x;
+    }
+
+    /**
      * 用于数据库增删改.
      */
     public int executeUpdate(String sql, Object... obj) throws SQLException {
