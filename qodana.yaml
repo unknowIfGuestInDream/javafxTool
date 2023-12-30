@@ -39,3 +39,4 @@ exclude:
       - .idea
       - .vscode
       - .settings
+      - core/src/main/java/com/tlcsdm/core/database/DataSourceUtil.java
