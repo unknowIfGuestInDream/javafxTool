@@ -67,7 +67,7 @@ public class DefaultEasterEggService implements EasterEggService {
                     SakuraState.getInstance().close();
                 });
             }
-        }, 2, 60 * 60 * 6, TimeUnit.SECONDS);
+        }, 1, 60 * 60 * 6, TimeUnit.SECONDS);
     }
 
     @Override

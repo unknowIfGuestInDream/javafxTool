@@ -53,4 +53,6 @@
               text="%core.dialog.systemSetting.check.screenColorPickerHideWindow"/>
     <CheckBox fx:id="useDevModeCheckBox"
               text="%core.dialog.systemSetting.check.useDevMode"/>
+    <CheckBox fx:id="useEasterEggCheckBox"
+              text="%core.dialog.systemSetting.check.useEasterEgg"/>
 </VBox>

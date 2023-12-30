@@ -453,7 +453,7 @@ public final class FXSampler extends Application {
 
     @Subscribe
     public void refreshEasterEggs(ConfigRefreshEvent event) {
-        if (event == null || Keys.UseEasterEgg.getKeyName().equals(event.getKey())) {
+        if (event.getKey() == null || Keys.UseEasterEgg.getKeyName().equals(event.getKey())) {
             executeEasterEggs();
         }
     }
