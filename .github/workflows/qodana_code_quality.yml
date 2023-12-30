@@ -21,7 +21,7 @@ jobs:
         uses: JetBrains/qodana-action@v2023.3
         with:
           pr-mode: true # 仅分析拉取请求中已更改的文件
-          args: --cleanup
+          args: --cleanup # --apply-fixes  pr-mode: false
           push-fixes: pull-request
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
