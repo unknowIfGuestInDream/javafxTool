@@ -29,10 +29,12 @@ package com.tlcsdm.frame.service.impl;
 
 import com.tlcsdm.core.factory.config.ScheduledTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.stage.BubbleCursorStage;
 import com.tlcsdm.core.javafx.stage.SakuraState;
 import com.tlcsdm.core.javafx.stage.SnowState;
 import com.tlcsdm.frame.service.EasterEggService;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +51,7 @@ public class DefaultEasterEggService implements EasterEggService {
             LocalDate today = LocalDate.now();
             int mouth = today.getMonthValue();
             int day = today.getDayOfMonth();
+            DayOfWeek week = today.getDayOfWeek();
             if (mouth == 12 && (day == 24 || day == 25)) {
                 // 平安夜和圣诞节
                 FxApp.runLater(() -> SnowState.getInstance().show());
@@ -61,6 +64,9 @@ public class DefaultEasterEggService implements EasterEggService {
             } else if (mouth == 3 || day == 21) {
                 // 春分の日
                 FxApp.runLater(() -> SakuraState.getInstance().show());
+            } else if (week == DayOfWeek.SATURDAY || week == DayOfWeek.SUNDAY) {
+                // 周末
+                FxApp.runLater(() -> BubbleCursorStage.getInstance().show());
             } else {
                 FxApp.runLater(() -> {
                     SnowState.getInstance().close();
@@ -82,6 +88,10 @@ public class DefaultEasterEggService implements EasterEggService {
         if (runnableFuture == null || runnableFuture.isCancelled()) {
             return;
         }
+        // CodeRainState.getInstance().close();
+        BubbleCursorStage.getInstance().close();
+        SnowState.getInstance().close();
+        SakuraState.getInstance().close();
         runnableFuture.cancel(false);
     }
 }
