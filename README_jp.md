@@ -2,7 +2,8 @@
 
 javafx scaffolding, JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
-frameとloginは基本モジュールで、Java SPI経由でプラグイン可能で、アプリケーションモジュールの統合が容易です。 デモはサンプルモジュールです。
+frameとloginは基本モジュールで、Java SPI経由でプラグイン可能で、アプリケーションモジュールの統合が容易です。
+デモはサンプルモジュールです。
 
 # 構造
 
@@ -32,6 +33,7 @@ frameとloginは基本モジュールで、Java SPI経由でプラグイン可�
 - VersionCheckerService: バージョン更新チェック
 - SamplesTreeViewConfiguration: メニューツリーの構成
 - BannerPrinterService: スタートバナー
+- EasterEggService: イースターエッグ
 
 ## login
 
@@ -40,8 +42,9 @@ frameとloginは基本モジュールで、Java SPI経由でプラグイン可�
 # パッケージ化
 
 1. IDEA アーティファクトのパッケージ化\
-構成：プロジェクト構造 -> アーティファクト -> JARを追加 -> ターゲットJARに展開 -> 独自のマニフェスト・ファイル・パスを選択 -> 完了\
-パッケージング：ビルド -> アーティファクトのビルド -> ビルド
+   構成：プロジェクト構造 -> アーティファクト -> JARを追加 -> ターゲットJARに展開 ->
+   独自のマニフェスト・ファイル・パスを選択 -> 完了\
+   パッケージング：ビルド -> アーティファクトのビルド -> ビルド
 2. 「`mvn package`」を通じてパッケージ化することをお勧めします
 
 # リエゾン

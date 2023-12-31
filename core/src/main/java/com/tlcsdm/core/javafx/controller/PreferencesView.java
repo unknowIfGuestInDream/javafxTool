@@ -58,6 +58,7 @@ public class PreferencesView extends StackPane {
     BooleanProperty screenshotHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty screenColorPickerHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty useDevMode = new SimpleBooleanProperty(false);
+    BooleanProperty useEasterEgg = new SimpleBooleanProperty(true);
 
     // VisibilityProperty
     BooleanProperty supExitShowAlert = new SimpleBooleanProperty(true);
@@ -66,6 +67,7 @@ public class PreferencesView extends StackPane {
     BooleanProperty supScreenshotHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty supScreenColorPickerHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty supUseDevMode = new SimpleBooleanProperty(true);
+    BooleanProperty supUseEasterEgg = new SimpleBooleanProperty(true);
 
     /**
      * 资源初始化.
@@ -93,6 +95,7 @@ public class PreferencesView extends StackPane {
                 case ScreenshotHideWindow -> supScreenshotHideWindow.setValue(false);
                 case ScreenColorPickerHideWindow -> supScreenColorPickerHideWindow.setValue(false);
                 case UseDevMode -> supUseDevMode.setValue(false);
+                case UseEasterEgg -> supUseEasterEgg.setValue(false);
                 default -> {
                     // Do nothing
                 }
@@ -107,7 +110,8 @@ public class PreferencesView extends StackPane {
         return PreferencesFx.of(new CoreStorageHandler(),
                 Category.of("core.preference.general").expand().subCategories(
                     Category.of("core.menubar.setting.systemSetting",
-                        VisibilityProperty.of(supExitShowAlert.or(supSaveStageBound).or(supCheckForUpdatesAtStartup).or(supUseDevMode)),
+                        VisibilityProperty.of(supExitShowAlert.or(supSaveStageBound).or(supCheckForUpdatesAtStartup)
+                            .or(supUseDevMode).or(supUseEasterEgg)),
                         Group.of(Setting.of("core.dialog.systemSetting.check.confirmExit", exitShowAlert,
                                     VisibilityProperty.of(supExitShowAlert)),
                                 Setting.of("core.dialog.systemSetting.check.rememberWindowLocation", saveStageBound,
@@ -115,7 +119,9 @@ public class PreferencesView extends StackPane {
                                 Setting.of("core.dialog.systemSetting.check.checkForUpdatesAtStartup", checkForUpdatesAtStartup,
                                     VisibilityProperty.of(supCheckForUpdatesAtStartup)),
                                 Setting.of("core.dialog.systemSetting.check.useDevMode", useDevMode,
-                                    VisibilityProperty.of(supUseDevMode)))
+                                    VisibilityProperty.of(supUseDevMode)),
+                                Setting.of("core.dialog.systemSetting.check.useEasterEgg", useEasterEgg,
+                                    VisibilityProperty.of(supUseEasterEgg)))
                             .description("core.menubar.setting.systemSetting")),
                     Category.of("core.menubar.tool",
                         VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)),

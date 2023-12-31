@@ -27,6 +27,8 @@
 
 package com.tlcsdm.core.javafx.controller;
 
+import com.tlcsdm.core.event.ConfigRefreshEvent;
+import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.view.AbstractSystemSettingView;
@@ -54,6 +56,7 @@ public class SystemSettingController extends AbstractSystemSettingView {
         screenshotHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenshotHideWindow, true));
         screenColorPickerHideWindowCheckBox.setSelected(Config.getBoolean(Keys.ScreenColorPickerHideWindow, true));
         useDevModeCheckBox.setSelected(Config.getBoolean(Keys.UseDevMode, false));
+        useEasterEggCheckBox.setSelected(Config.getBoolean(Keys.UseEasterEgg, true));
     }
 
     /**
@@ -70,6 +73,7 @@ public class SystemSettingController extends AbstractSystemSettingView {
                 case ScreenshotHideWindow -> disableNode(screenshotHideWindowCheckBox);
                 case ScreenColorPickerHideWindow -> disableNode(screenColorPickerHideWindowCheckBox);
                 case UseDevMode -> disableNode(useDevModeCheckBox);
+                case UseEasterEgg -> disableNode(useEasterEggCheckBox);
                 default -> {
                     // Do nothing
                 }
@@ -95,5 +99,7 @@ public class SystemSettingController extends AbstractSystemSettingView {
         Config.set(Keys.ScreenshotHideWindow, screenshotHideWindowCheckBox.isSelected());
         Config.set(Keys.ScreenColorPickerHideWindow, screenColorPickerHideWindowCheckBox.isSelected());
         Config.set(Keys.UseDevMode, useDevModeCheckBox.isSelected());
+        Config.set(Keys.UseEasterEgg, useEasterEggCheckBox.isSelected());
+        EventBus.getDefault().post(new ConfigRefreshEvent());
     }
 }

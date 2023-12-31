@@ -1,4 +1,5 @@
 # Introduce
+
 [中文文档](./README_zh.md)  [日本語文書](./README_jp.md)\
 Javafx scaffolding, built on JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
 
@@ -28,12 +29,14 @@ modules. demo is the provided example module.
 - FXSamplerProject: Project information, including project name, module, package name, welcome page, etc.
 - MenubarConfigration: Menu bar configuration
 - FXSamplerConfiguration: Project style, title and icon configuration
-- CenterPanelService: Node configuration in the central area, including the interface when clicking and switching components
+- CenterPanelService: Node configuration in the central area, including the interface when clicking and switching
+  components
 - SplashScreen: Splash screen image
 - SamplePostProcessorService: Sample post-processing
 - VersionCheckerService: Version update check
 - SamplesTreeViewConfiguration: Menu tree configuration
 - BannerPrinterService: Start Banner
+- EasterEggService: Easter Egg
 
 ## login
 
@@ -42,9 +45,10 @@ modules. demo is the provided example module.
 # Pack
 
 1. IDEA artifact packaging\
-Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest file
-path -> Done\
-Package: Build -> Build Artifacts -> Build
+   Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest
+   file
+   path -> Done\
+   Package: Build -> Build Artifacts -> Build
 2. It is recommended to package through `mvn package`.
 
 # Connect

@@ -13,6 +13,7 @@
     7. VersionCheckerService: 版本更新检查
     8. SamplesTreeViewConfiguration: 菜单树配置
     9. BannerPrinterService: 启动Banner
+    10. EasterEggService: 彩蛋
 - login
     1. LoginCheck: 登录校验
 
