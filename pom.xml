@@ -37,7 +37,7 @@
     <packaging>pom</packaging>
     <name>javafxTool</name>
     <url>https://javafxtool.tlcsdm.com</url>
-    <inceptionYear>2023</inceptionYear>
+    <inceptionYear>2022</inceptionYear>
     <description>Javafx scaffolding, you can quickly create the required javafx tools by implementing module interfaces
         such as frame, login and core
     </description>
