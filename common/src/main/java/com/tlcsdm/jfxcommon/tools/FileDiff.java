@@ -28,6 +28,7 @@
 package com.tlcsdm.jfxcommon.tools;
 
 import cn.hutool.core.util.StrUtil;
+import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -160,8 +161,8 @@ public class FileDiff extends CommonSample {
         originalField.setMaxWidth(Double.MAX_VALUE);
         originalFileChooser = new FileChooser();
         originalFileChooser.getExtensionFilters().add(extFilter);
-        originalFileChooser.getExtensionFilters()
-            .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+        originalFileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button originalButton = FxButton.choose();
         originalField.setEditable(false);
         originalButton.setOnAction(arg0 -> {
@@ -178,8 +179,8 @@ public class FileDiff extends CommonSample {
         compareField.setMaxWidth(Double.MAX_VALUE);
         compareFileChooser = new FileChooser();
         compareFileChooser.getExtensionFilters().add(extFilter);
-        compareFileChooser.getExtensionFilters()
-            .add(new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
+        compareFileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter(I18nUtils.get("common.fileChooser.extensionFilter.all"), "*"));
         Button compareButton = FxButton.choose();
         compareField.setEditable(false);
         compareButton.setOnAction(arg0 -> {
@@ -208,7 +209,6 @@ public class FileDiff extends CommonSample {
         fileNameField = new TextField();
         fileNameField.setPrefWidth(Double.MAX_VALUE);
 
-        // webView
         webView = new WebView();
         webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         GridPane.setVgrow(webView, Priority.ALWAYS);
@@ -227,7 +227,13 @@ public class FileDiff extends CommonSample {
         grid.add(outputField, 2, 3);
         grid.add(fileNameLabel, 0, 4);
         grid.add(fileNameField, 1, 4, 2, 1);
-        grid.add(webView, 0, 5, 3, 1);
+
+        FxApp.runLater(() -> {
+            webView = new WebView();
+            webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            GridPane.setVgrow(webView, Priority.ALWAYS);
+            grid.add(webView, 0, 5, 3, 1);
+        });
 
         return grid;
     }
