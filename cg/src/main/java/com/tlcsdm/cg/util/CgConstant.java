@@ -27,6 +27,7 @@
 
 package com.tlcsdm.cg.util;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class CgConstant {
     /**
      * 项目版权声明
      */
-    public static final String PROJECT_COPYRIGHT = "Copyright © 2023 unknowIfGuestInDream";
+    public static final String PROJECT_COPYRIGHT = "Copyright © " + LocalDate.now().getYear() + " unknowIfGuestInDream";
     /**
      * 默认项目版本号
      */
@@ -87,7 +88,8 @@ public class CgConstant {
     /**
      * 当前项目加的依赖
      */
-    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx", "jackson");
+    public static final List<String> DEPENDENCY_LIST = List.of("poi", "dom4j", "java-diff-utils", "richtextfx",
+        "jackson");
     /**
      * 发布版本
      * 可由VersionCheckerService实现类修改数据
