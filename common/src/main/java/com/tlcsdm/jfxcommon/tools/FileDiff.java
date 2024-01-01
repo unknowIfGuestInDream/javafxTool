@@ -108,7 +108,7 @@ public class FileDiff extends CommonSample {
         bindUserData();
     });
     private DirectoryChooser outputChooser;
-    private WebView webView;
+    private volatile WebView webView;
     private final Action generate = FxAction.generate(actionEvent -> {
         // 对比 两个文件，获得不同点
         List<String> diffString = DiffHandleUtil.diffString(originalField.getText(), compareField.getText());
@@ -208,10 +208,6 @@ public class FileDiff extends CommonSample {
         Label fileNameLabel = new Label(I18nUtils.get("common.tool.label.fileName") + ": ");
         fileNameField = new TextField();
         fileNameField.setPrefWidth(Double.MAX_VALUE);
-
-        webView = new WebView();
-        webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        GridPane.setVgrow(webView, Priority.ALWAYS);
 
         fileNameField.setText("diff.html");
 
