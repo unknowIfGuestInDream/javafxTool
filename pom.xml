@@ -968,32 +968,6 @@
                             <value>https://docs.oracle.com/javase/${maven.compiler.target}/docs/api/</value>
                         </property>
                     </javaApiLinks>
-                    <links>
-                        <link>https://plus.hutool.cn/apidocs/</link>
-                        <link>https://www.slf4j.org/apidocs/</link>
-                        <link>https://javadoc.io/doc/org.controlsfx/controlsfx/${controlsfx.version}/</link>
-                        <link>
-                            https://www.javadoc.io/static/com.fasterxml.jackson.core/jackson-databind/${jackson.version}/
-                        </link>
-                        <link>https://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/${caffeine.version}/
-                        </link>
-                        <link>https://freemarker.apache.org/docs/api/</link>
-                        <link>https://javadoc.io/doc/org.fxmisc.flowless/flowless/latest/</link>
-                        <link>https://javadoc.io/doc/com.dlsc.formsfx/formsfx-core/${formsfx.version}/</link>
-                        <link>
-                            https://javadoc.io/doc/com.dlsc.preferencesfx/preferencesfx-core/${preferencesfx.version}/
-                        </link>
-                        <link>https://javadoc.io/doc/org.openjfx/javafx-base/${javafx.version}/</link>
-                        <link>https://javadoc.io/doc/org.apache.poi/poi-ooxml/${poi-ooxml.version}/</link>
-                        <link>https://javadoc.io/doc/org.apache.poi/poi/${poi-ooxml.version}/</link>
-                        <link>https://dom4j.github.io/javadoc/${dom4j.version}/</link>
-                        <link>
-                            https://javadoc.io/doc/io.github.java-diff-utils/java-diff-utils/${java-diff-utils.version}/
-                        </link>
-                        <link>https://javadoc.io/static/org.apache.pdfbox/pdfbox/${pdfbox.version}/</link>
-                        <link>https://javadoc.io/doc/org.fxmisc.richtext/richtextfx/${richtextfx.version}/</link>
-                        <link>https://docs.groovy-lang.org/${groovy.version}/html/gapi/</link>
-                    </links>
                     <additionalJOptions>
                         <additionalJOption>-Xdoclint:none</additionalJOption>
                     </additionalJOptions>
@@ -1231,6 +1205,47 @@
                     <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>javadoc-with-links</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <links>
+                                <link>https://plus.hutool.cn/apidocs/</link>
+                                <link>https://www.slf4j.org/apidocs/</link>
+                                <link>https://javadoc.io/doc/org.controlsfx/controlsfx/${controlsfx.version}/</link>
+                                <link>
+                                    https://www.javadoc.io/static/com.fasterxml.jackson.core/jackson-databind/${jackson.version}/
+                                </link>
+                                <link>
+                                    https://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/${caffeine.version}/
+                                </link>
+                                <link>https://freemarker.apache.org/docs/api/</link>
+                                <link>https://javadoc.io/doc/org.fxmisc.flowless/flowless/latest/</link>
+                                <link>https://javadoc.io/doc/com.dlsc.formsfx/formsfx-core/${formsfx.version}/</link>
+                                <link>
+                                    https://javadoc.io/doc/com.dlsc.preferencesfx/preferencesfx-core/${preferencesfx.version}/
+                                </link>
+                                <link>https://javadoc.io/doc/org.openjfx/javafx-base/${javafx.version}/</link>
+                                <link>https://javadoc.io/doc/org.apache.poi/poi-ooxml/${poi-ooxml.version}/</link>
+                                <link>https://javadoc.io/doc/org.apache.poi/poi/${poi-ooxml.version}/</link>
+                                <link>https://dom4j.github.io/javadoc/${dom4j.version}/</link>
+                                <link>
+                                    https://javadoc.io/doc/io.github.java-diff-utils/java-diff-utils/${java-diff-utils.version}/
+                                </link>
+                                <link>https://javadoc.io/static/org.apache.pdfbox/pdfbox/${pdfbox.version}/</link>
+                                <link>https://javadoc.io/doc/org.fxmisc.richtext/richtextfx/${richtextfx.version}/
+                                </link>
+                                <link>https://docs.groovy-lang.org/${groovy.version}/html/gapi/</link>
+                            </links>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
