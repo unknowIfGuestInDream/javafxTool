@@ -29,27 +29,26 @@ jobs:
         run: mvn --file pom.xml clean
       - name: Package mod
         run:  | 
-          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} package
+          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib lib
           cp -r ${{ matrix.mod }}/target/apidocs apidocs
           cp -r ${{ matrix.mod }}/target/license license
-          zip -r ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
-          zip -uj ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*
-          rm javafxTool-${{ matrix.mod }}.jar
-          rm -r lib
-          rm -r apidocs
-          rm -r license
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.mod }}Tool-${{ matrix.buildos }}
-#          path: ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip
           path: |
-            ${{ matrix.mod }}/target/lib
-            ${{ matrix.mod }}/target/apidocs
-            ${{ matrix.mod }}/target/license
+            lib
+            javafxTool-${{ matrix.mod }}.jar
+            apidocs
             docs
-            ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar
-            jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/
+            license
+            jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*
+      - name: Release resource
+        run:  | 
+          rm javafxTool-${{ matrix.mod }}.jar
+          rm -r lib
+          rm -r apidocs
+          rm -r license
             
