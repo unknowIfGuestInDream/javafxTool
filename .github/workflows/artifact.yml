@@ -17,7 +17,7 @@ jobs:
     continue-on-error: false
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK ${{ matrix.Java }}
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -27,7 +27,7 @@ jobs:
         run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
       - name: Clean
         run: mvn --file pom.xml clean
-      - name: Package mod
+      - name: Package ${{ matrix.mod }}Tool-${{ matrix.buildos }}
         run:  | 
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           mkdir aftifact
