@@ -43,7 +43,7 @@ cp -r ${mod}/target/lib lib
 cp -r ${mod}/target/apidocs apidocs
 cp -r ${mod}/target/license license
 zip -r ${mod}Tool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
-zip -uj ${mod}Tool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/window/${mod}/*
+zip -uj ${mod}Tool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/${mod}/*
 rm javafxTool-${mod}.jar
 rm -r lib
 rm -r apidocs
