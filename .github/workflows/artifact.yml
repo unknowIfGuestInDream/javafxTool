@@ -34,8 +34,8 @@ jobs:
           cp -r ${{ matrix.mod }}/target/lib lib
           cp -r ${{ matrix.mod }}/target/apidocs apidocs
           cp -r ${{ matrix.mod }}/target/license license
-          zip -r ${{ matrix.mod }}Tool-${{ matrix.buildos }}_$(date +%Y%m%d).zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
-          zip -uj ${{ matrix.mod }}Tool-${{ matrix.buildos }}_$(date +%Y%m%d).zip jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*
+          zip -r ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
+          zip -uj ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*
           rm javafxTool-${{ matrix.mod }}.jar
           rm -r lib
           rm -r apidocs
@@ -43,5 +43,5 @@ jobs:
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: javafxTool artifact
-          path: /*.zip
+          name: ${{ matrix.mod }}Tool-${{ matrix.buildos }}
+          path: ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip
