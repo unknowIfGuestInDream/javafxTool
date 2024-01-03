@@ -1,0 +1,48 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+name: Java package with Maven
+on:
+  push:
+    branches: [ 'master' ]
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ '17' ]
+        mod: [ 'smc', 'qe', 'cg']
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        experimental: [ false ]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK ${{ matrix.Java }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
+      - name: Install
+        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' clean install
+      - name: Clean
+        run: mvn --file pom.xml clean
+      - name: Package mod
+        run:  | 
+          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests package
+          cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar javafxTool-${{ matrix.mod }}.jar
+          cp -r ${{ matrix.mod }}/target/lib lib
+          cp -r ${{ matrix.mod }}/target/apidocs apidocs
+          cp -r ${{ matrix.mod }}/target/license license
+          zip -r ${{ matrix.mod }}Tool-${{ matrix.os }}_$(date +%Y%m%d).zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
+          rm javafxTool-${{ matrix.mod }}.jar
+          rm -r lib
+          rm -r apidocs
+          rm -r license
+      - name: Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: javafxTool artifact
+          path: /*.zip
