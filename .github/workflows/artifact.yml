@@ -4,6 +4,23 @@ name: Java package with Maven
 on:
   push:
     branches: [ 'master' ]
+    paths-ignore:
+      - '.github/**'
+      - '.idea/**'
+      - '.settings/**'
+      - '.vscode/**'
+      - 'README*.md'
+      - '.gitignore'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.mergify.yml'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTORS.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'qodana.yaml'
+      - 'SECURITY.md'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -11,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mod: [ 'smc', 'qe', 'cg']
+        mod: [ 'smc', 'qe', 'cg' ]
         buildos: [ 'mac', 'linux', 'win' ]
     runs-on: ubuntu-latest
     continue-on-error: false
@@ -24,11 +41,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Install
-        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
+        run: mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
       - name: Clean
         run: mvn --file pom.xml clean
       - name: Package ${{ matrix.mod }}Tool-${{ matrix.buildos }}
-        run:  | 
+        run: |
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           mkdir aftifact
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar aftifact/javafxTool-${{ matrix.mod }}.jar
@@ -43,6 +60,6 @@ jobs:
           path: |
             aftifact
       - name: Release resource
-        run:  | 
+        run: |
           rm -r aftifact
-            
+
