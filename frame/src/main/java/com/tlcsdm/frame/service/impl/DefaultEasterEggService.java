@@ -55,13 +55,13 @@ public class DefaultEasterEggService implements EasterEggService {
             if (mouth == 12 && (day == 24 || day == 25)) {
                 // 平安夜和圣诞节
                 FxApp.runLater(() -> SnowState.getInstance().show());
-            } else if (mouth == 1 || day == 1) {
+            } else if (mouth == 1 && day == 1) {
                 // 元旦
                 FxApp.runLater(() -> SnowState.getInstance().show());
-            } else if (mouth == 4 || day == 5) {
+            } else if (mouth == 4 && day == 5) {
                 // 清明
                 //FxApp.runLater(() -> SnowState.getInstance().show());
-            } else if (mouth == 3 || day == 21) {
+            } else if (mouth == 3 && day == 21) {
                 // 春分の日
                 FxApp.runLater(() -> SakuraState.getInstance().show());
             } else if (week == DayOfWeek.SATURDAY || week == DayOfWeek.SUNDAY) {
@@ -69,6 +69,7 @@ public class DefaultEasterEggService implements EasterEggService {
                 FxApp.runLater(() -> BubbleCursorStage.getInstance().show());
             } else {
                 FxApp.runLater(() -> {
+                    BubbleCursorStage.getInstance().close();
                     SnowState.getInstance().close();
                     SakuraState.getInstance().close();
                 });
