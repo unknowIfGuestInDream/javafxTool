@@ -24,12 +24,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Install
-        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -Djavafx.platform=${{ matrix.buildos }} clean install
+        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
       - name: Clean
         run: mvn --file pom.xml clean
       - name: Package mod
         run:  | 
-          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests package
+          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} package
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib lib
           cp -r ${{ matrix.mod }}/target/apidocs apidocs
