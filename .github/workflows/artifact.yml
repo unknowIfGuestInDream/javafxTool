@@ -13,8 +13,9 @@ jobs:
       matrix:
         java: [ '17' ]
         mod: [ 'smc', 'qe', 'cg']
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         experimental: [ false ]
+        buildos: [ 'mac', 'linux' ]
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     steps:
@@ -26,7 +27,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Install
-        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' clean install
+        run:  mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -Djavafx.platform=${{ matrix.buildos }} clean install
       - name: Clean
         run: mvn --file pom.xml clean
       - name: Package mod
@@ -36,7 +37,8 @@ jobs:
           cp -r ${{ matrix.mod }}/target/lib lib
           cp -r ${{ matrix.mod }}/target/apidocs apidocs
           cp -r ${{ matrix.mod }}/target/license license
-          zip -r ${{ matrix.mod }}Tool-${{ matrix.os }}_$(date +%Y%m%d).zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
+          zip -r ${{ matrix.mod }}Tool-${{ matrix.buildos }}_$(date +%Y%m%d).zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
+          zip -uj ${mod}Tool-${{ matrix.buildos }}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${{ matrix.buildos }}/${mod}/*
           rm javafxTool-${{ matrix.mod }}.jar
           rm -r lib
           rm -r apidocs
