@@ -11,19 +11,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '17' ]
         mod: [ 'smc', 'qe', 'cg']
-        os: [ ubuntu-latest ]
-        experimental: [ false ]
         buildos: [ 'mac', 'linux' ]
-    runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
+    runs-on: ubuntu-latest
+    continue-on-error: false
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK ${{ matrix.Java }}
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
       - name: Install
@@ -38,7 +35,7 @@ jobs:
           cp -r ${{ matrix.mod }}/target/apidocs apidocs
           cp -r ${{ matrix.mod }}/target/license license
           zip -r ${{ matrix.mod }}Tool-${{ matrix.buildos }}_$(date +%Y%m%d).zip docs javafxTool-${{ matrix.mod }}.jar lib apidocs license
-          zip -uj ${mod}Tool-${{ matrix.buildos }}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${{ matrix.buildos }}/${mod}/*
+          zip -uj ${{ matrix.mod }}Tool-${{ matrix.buildos }}_$(date +%Y%m%d).zip jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*
           rm javafxTool-${{ matrix.mod }}.jar
           rm -r lib
           rm -r apidocs
