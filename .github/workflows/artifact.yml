@@ -44,4 +44,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.mod }}Tool-${{ matrix.buildos }}
-          path: ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip
+#          path: ${{ matrix.mod }}Tool-${{ matrix.buildos }}.zip
+          path: |
+            ${{ matrix.mod }}/target/lib
+            ${{ matrix.mod }}/target/apidocs
+            ${{ matrix.mod }}/target/license
+            docs
+            ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar
+            jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/
+            
