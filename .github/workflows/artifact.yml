@@ -35,7 +35,7 @@ jobs:
           cp -r ${{ matrix.mod }}/target/lib aftifact/lib
           cp -r ${{ matrix.mod }}/target/apidocs aftifact/apidocs
           cp -r ${{ matrix.mod }}/target/license aftifact/license
-          cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/` aftifact/ 
+          cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` aftifact
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
