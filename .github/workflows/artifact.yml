@@ -50,6 +50,7 @@ jobs:
           mkdir aftifact
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar aftifact/javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib aftifact/lib
+          cp -r docs aftifact/docs
           cp -r ${{ matrix.mod }}/target/apidocs aftifact/apidocs
           cp -r ${{ matrix.mod }}/target/license aftifact/license
           cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` aftifact
