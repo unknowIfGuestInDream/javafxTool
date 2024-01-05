@@ -80,7 +80,7 @@ public class ColorUtil {
             rgb[2] = Integer.valueOf(hexStr.substring(5, 7), 16);
             return rgb;
         }
-        return null;
+        return new int[]{};
     }
 
     /**
@@ -170,7 +170,7 @@ public class ColorUtil {
         if (temperature > 40000) {
             temperature = 40000;
         }
-        int r, g, b = 0;
+        int r, g, b;
         double temp = temperature / 100.0;
         if (temp <= 66) {
             r = 255;
