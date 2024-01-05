@@ -110,10 +110,10 @@ public class ColorUtil {
      * @return trimX, trimY, trimZ
      */
     public static double[] rgb2Xyz(int red, int green, int blue) {
-        double trimX, trimY, trimZ = 0;
-        trimX = 2.789 * trimZ + 1.7517 * green + 1.1302 * blue;
-        trimY = 1 * trimZ + 4.5907 * green + 0.0601 * blue;
-        trimZ = 0 * trimZ + 0.0565 * green + 5.5943 * blue;
+        double trimX, trimY, trimZ;
+        trimX = 2.789 * red + 1.7517 * green + 1.1302 * blue;
+        trimY = red + 4.5907 * green + 0.0601 * blue;
+        trimZ = 0 + 0.0565 * green + 5.5943 * blue;
         return new double[]{trimX, trimY, trimZ};
     }
 
@@ -138,7 +138,7 @@ public class ColorUtil {
      * @param coorY Y
      * @return CCT (K)
      */
-    public static double coor2Cct(double coorX, double coorY) {
+    public static double coor2Temperature(double coorX, double coorY) {
         double n = (coorX - 0.3320) / (0.1858 - coorY);
         return 437 * n * n * n + 3601 * n * n + 6831 * n + 5517;
     }
@@ -154,7 +154,7 @@ public class ColorUtil {
     public static double rgb2Temperature(int red, int green, int blue) {
         double[] trim = rgb2Xyz(red, green, blue);
         double[] coors = xyz2Coor(trim[0], trim[1], trim[2]);
-        return coor2Cct(coors[0], coors[1]);
+        return coor2Temperature(coors[0], coors[1]);
     }
 
     /**

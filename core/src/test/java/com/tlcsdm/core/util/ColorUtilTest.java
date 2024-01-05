@@ -27,43 +27,65 @@
 
 package com.tlcsdm.core.util;
 
+import javafx.scene.paint.Color;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ColorUtilTest {
 
     @Test
     void rgb2Hex() {
+        Assertions.assertEquals("0xFFFFFFFF", ColorUtil.rgb2Hex(255, 255, 255));
     }
 
     @Test
     void rgbToInt() {
+        Assertions.assertEquals(-8355712, ColorUtil.rgbToInt(128, 128, 128));
     }
 
     @Test
     void hex2RGB() {
+        int[] rgb = ColorUtil.hex2RGB("#FFFFFF");
+        Assertions.assertEquals(255, rgb[0]);
+        Assertions.assertEquals(255, rgb[1]);
+        Assertions.assertEquals(255, rgb[2]);
     }
 
     @Test
     void color2Hex() {
+        Assertions.assertEquals("#0000ff", ColorUtil.color2Hex(Color.BLUE));
     }
 
     @Test
     void rgb2Xyz() {
+        double[] xyz = ColorUtil.rgb2Xyz(128, 0, 0);
+        Assertions.assertEquals(356.992, xyz[0]);
+        Assertions.assertEquals(128.0, xyz[1]);
+        Assertions.assertEquals(0.0, xyz[2]);
     }
 
     @Test
     void xyz2Coor() {
+        double[] coor = ColorUtil.xyz2Coor(356.992, 128.0, 0.0);
+        Assertions.assertEquals(0.7360781208762206, coor[0]);
+        Assertions.assertEquals(0.26392187912377935, coor[1]);
     }
 
     @Test
     void coor2Cct() {
+        Assertions.assertEquals(6051.981743443466, ColorUtil.coor2Temperature(0.7360781208762206, 0.26392187912377935));
     }
 
     @Test
     void rgb2Temperature() {
+        Assertions.assertEquals(5186.987858143659, ColorUtil.rgb2Temperature(255, 247, 238));
     }
 
     @Test
     void temperature2Rgb() {
+        int[] rgb = ColorUtil.temperature2Rgb(6051.981743443466);
+        Assertions.assertEquals(255, rgb[0]);
+        Assertions.assertEquals(247, rgb[1]);
+        Assertions.assertEquals(238, rgb[2]);
     }
 }
