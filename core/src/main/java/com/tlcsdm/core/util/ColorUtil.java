@@ -48,7 +48,7 @@ public class ColorUtil {
      * @return hex
      */
     public static String rgb2Hex(int red, int green, int blue) {
-        return String.format("0xFF%02X%02X%02X", red, green, blue);
+        return String.format("#%02X%02X%02X", red, green, blue);
     }
 
     /**
@@ -101,20 +101,49 @@ public class ColorUtil {
         }
     }
 
+    private static final double[] MATRIX_SRGB2XYZ_D50 = {0.436052025, 0.385081593, 0.143087414, 0.222491598, 0.716886060, 0.060621486, 0.013929122, 0.097097002, 0.714185470};
+
     /**
-     * Convert RGB to tristimulus value.
+     * Convert sRGB to tristimulus value.
      *
      * @param red   R
      * @param green G
      * @param blue  B
-     * @return trimX, trimY, trimZ
+     * @return xyz (*100 %)
      */
     public static double[] rgb2Xyz(int red, int green, int blue) {
-        double trimX, trimY, trimZ;
-        trimX = 2.789 * red + 1.7517 * green + 1.1302 * blue;
-        trimY = red + 4.5907 * green + 0.0601 * blue;
-        trimZ = 0 + 0.0565 * green + 5.5943 * blue;
-        return new double[]{trimX, trimY, trimZ};
+        double[] xyz = new double[3];
+        double[] rgb = new double[]{red / 255.0, green / 255.0, blue / 255.0};
+        // RGB转sRGB的伽马变换公式
+        for (int i = 0; i < 3; i++) {
+            if (rgb[i] > 0.04045) {
+                rgb[i] = Math.pow((rgb[i] + 0.055) / 1.055, 2.4);
+            } else {
+                rgb[i] = rgb[i] / 12.92;
+            }
+        }
+        xyz[0] = rgb[0] * 0.4124 + rgb[1] * 0.3576 + rgb[2] * 0.1805;
+        xyz[1] = rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+        xyz[2] = rgb[0] * 0.0193 + rgb[1] * 0.1192 + rgb[2] * 0.9505;
+        return xyz;
+    }
+
+    /**
+     * Convert RGB to coordinates.
+     *
+     * @param red   R
+     * @param green G
+     * @param blue  B
+     * @return coordinates
+     */
+    public static double[] rgb2Coor(int red, int green, int blue) {
+        double[] coor = new double[3];
+        double[] rgb = new double[]{red / 255.0, green / 255.0, blue / 255.0};
+        double t = rgb[0] * 0.667 + rgb[1] * 1.1323 + rgb[2] * 1.2007;
+        coor[0] = (rgb[0] * 0.49 + rgb[1] * 0.31 + rgb[2] * 0.2) / t;
+        coor[1] = (rgb[0] * 0.177 + rgb[1] * 0.8124 + rgb[2] * 0.0106) / t;
+        coor[2] = (rgb[1] * 0.0099 + rgb[2] * 0.9901) / t;
+        return coor;
     }
 
     /**
@@ -138,7 +167,7 @@ public class ColorUtil {
      * @param coorY Y
      * @return CCT (K)
      */
-    public static double coor2Temperature(double coorX, double coorY) {
+    public static double xyz2Temperature(double coorX, double coorY) {
         double n = (coorX - 0.3320) / (0.1858 - coorY);
         return 437 * n * n * n + 3601 * n * n + 6831 * n + 5517;
     }
@@ -154,7 +183,7 @@ public class ColorUtil {
     public static double rgb2Temperature(int red, int green, int blue) {
         double[] trim = rgb2Xyz(red, green, blue);
         double[] coors = xyz2Coor(trim[0], trim[1], trim[2]);
-        return coor2Temperature(coors[0], coors[1]);
+        return xyz2Temperature(coors[0], coors[1]);
     }
 
     /**
