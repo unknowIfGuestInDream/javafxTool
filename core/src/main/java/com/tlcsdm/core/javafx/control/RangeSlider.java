@@ -220,7 +220,7 @@ public class RangeSlider extends Control {
         return lowValue;
     }
 
-    private DoubleProperty lowValue = new SimpleDoubleProperty(this, "lowValue", 0.0D) {
+    private final DoubleProperty lowValue = new SimpleDoubleProperty(this, "lowValue", 0.0D) {
         @Override
         protected void invalidated() {
             adjustLowValues();
@@ -273,7 +273,7 @@ public class RangeSlider extends Control {
      * changing.
      */
     public final boolean isLowValueChanging() {
-        return lowValueChanging == null ? false : lowValueChanging.get();
+        return lowValueChanging != null && lowValueChanging.get();
     }
 
     // --- high value
@@ -288,7 +288,7 @@ public class RangeSlider extends Control {
         return highValue;
     }
 
-    private DoubleProperty highValue = new SimpleDoubleProperty(this, "highValue", 100D) {
+    private final DoubleProperty highValue = new SimpleDoubleProperty(this, "highValue", 100D) {
         @Override
         protected void invalidated() {
             adjustHighValues();
@@ -586,7 +586,7 @@ public class RangeSlider extends Control {
      * @see #snapToTicksProperty()
      */
     public final boolean isSnapToTicks() {
-        return snapToTicks == null ? false : snapToTicks.get();
+        return snapToTicks != null && snapToTicks.get();
     }
 
     /**
@@ -825,7 +825,7 @@ public class RangeSlider extends Control {
      */
     public final ObjectProperty<Orientation> orientationProperty() {
         if (orientation == null) {
-            orientation = new StyleableObjectProperty<Orientation>(Orientation.HORIZONTAL) {
+            orientation = new StyleableObjectProperty<>(Orientation.HORIZONTAL) {
                 @Override
                 protected void invalidated() {
                     final boolean vertical = (get() == Orientation.VERTICAL);
@@ -867,7 +867,7 @@ public class RangeSlider extends Control {
      * @return whether labels of tick marks are being shown.
      */
     public final boolean isShowTickLabels() {
-        return showTickLabels == null ? false : showTickLabels.get();
+        return showTickLabels != null && showTickLabels.get();
     }
 
     /**
@@ -917,7 +917,7 @@ public class RangeSlider extends Control {
      * @return whether the {@link Skin} implementation should show tick marks.
      */
     public final boolean isShowTickMarks() {
-        return showTickMarks == null ? false : showTickMarks.get();
+        return showTickMarks != null && showTickMarks.get();
     }
 
     /**
@@ -963,13 +963,13 @@ public class RangeSlider extends Control {
     }
 
     private void adjustLowValues() {
-        /**
+        /*
          * We first look if the LowValue is between the min and max.
          */
         if (getLowValue() < getMin() || getLowValue() > getMax()) {
             double value = clamp(getMin(), getLowValue(), getMax());
             setLowValue(value);
-            /**
+            /*
              * If the LowValue seems right, we check if it's not superior to
              * HighValue ONLY if the highValue itself is right. Because it may
              * happen that the highValue has not yet been computed and is
@@ -985,7 +985,7 @@ public class RangeSlider extends Control {
     private double snapValueToTicks(double d) {
         double d1 = d;
         if (isSnapToTicks()) {
-            double d2 = 0.0D;
+            double d2;
             if (getMinorTickCount() != 0) {
                 d2 = getMajorTickUnit() / (double) (Math.max(getMinorTickCount(), 0) + 1);
             } else {
@@ -1017,7 +1017,7 @@ public class RangeSlider extends Control {
 
     private static class StyleableProperties {
         private static final CssMetaData<RangeSlider, Number> BLOCK_INCREMENT =
-            new CssMetaData<RangeSlider, Number>("-fx-block-increment",
+            new CssMetaData<>("-fx-block-increment",
                 SizeConverter.getInstance(), 10.0) {
 
                 @Override
@@ -1033,7 +1033,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Boolean> SHOW_TICK_LABELS =
-            new CssMetaData<RangeSlider, Boolean>("-fx-show-tick-labels",
+            new CssMetaData<>("-fx-show-tick-labels",
                 BooleanConverter.getInstance(), Boolean.FALSE) {
 
                 @Override
@@ -1049,7 +1049,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Boolean> SHOW_TICK_MARKS =
-            new CssMetaData<RangeSlider, Boolean>("-fx-show-tick-marks",
+            new CssMetaData<>("-fx-show-tick-marks",
                 BooleanConverter.getInstance(), Boolean.FALSE) {
 
                 @Override
@@ -1065,7 +1065,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Boolean> SNAP_TO_TICKS =
-            new CssMetaData<RangeSlider, Boolean>("-fx-snap-to-ticks",
+            new CssMetaData<>("-fx-snap-to-ticks",
                 BooleanConverter.getInstance(), Boolean.FALSE) {
 
                 @Override
@@ -1081,7 +1081,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Number> MAJOR_TICK_UNIT =
-            new CssMetaData<RangeSlider, Number>("-fx-major-tick-unit",
+            new CssMetaData<>("-fx-major-tick-unit",
                 SizeConverter.getInstance(), 25.0) {
 
                 @Override
@@ -1097,7 +1097,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Number> MINOR_TICK_COUNT =
-            new CssMetaData<RangeSlider, Number>("-fx-minor-tick-count",
+            new CssMetaData<>("-fx-minor-tick-count",
                 SizeConverter.getInstance(), 3.0) {
 
                 @SuppressWarnings("deprecation")
@@ -1119,7 +1119,7 @@ public class RangeSlider extends Control {
             };
 
         private static final CssMetaData<RangeSlider, Orientation> ORIENTATION =
-            new CssMetaData<RangeSlider, Orientation>("-fx-orientation",
+            new CssMetaData<>("-fx-orientation",
                 new EnumConverter<>(Orientation.class),
                 Orientation.HORIZONTAL) {
 
