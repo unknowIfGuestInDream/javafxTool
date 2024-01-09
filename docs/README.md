@@ -34,7 +34,7 @@ JavaFXTool基于JDK17 + JavaFX17 + controlsfx 11.x.x + maven构建的javafx脚�
 | caffeine               | 3.1.8      | 本地缓存                             |
 | thumbnailator          | 0.4.20     | 图片转码和缩略工具                        |
 | pdfviewfx              | 3.0.0      | PDF视图工具                          |
-| preferencesfx          | 11.16.0    | 为应用程序设置/首选项创建 UI 的框架             |
+| preferencesfx          | 11.17.0    | 为应用程序设置/首选项创建 UI 的框架             |
 | formsfx                | 11.6.0     | 用于轻松创建 JavaFX UI 表单的框架           |
 | yuicompressor          | 2.4.8      | JS/CSS压缩工具                       |
 | sikulixapi             | 2.0.5      | 基于OpenCV图像识别的自动化工具               |
