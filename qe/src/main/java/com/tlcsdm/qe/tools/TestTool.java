@@ -31,6 +31,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.FxTextInput;
+import com.tlcsdm.core.javafx.control.RangeSlider;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
@@ -46,6 +47,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
@@ -100,28 +103,28 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
-//        TooltipUtil.showToast("title", "message");
-//        ProgressStage ps = ProgressStage.of();
-//        ps.show();
-//
-//        ThreadPoolTaskExecutor.get().execute(() -> {
-//            ThreadUtil.safeSleep(5000);
-//            ps.close();
-//        });
+        //        TooltipUtil.showToast("title", "message");
+        //        ProgressStage ps = ProgressStage.of();
+        //        ps.show();
+        //
+        //        ThreadPoolTaskExecutor.get().execute(() -> {
+        //            ThreadUtil.safeSleep(5000);
+        //            ps.close();
+        //        });
 
-//        StaticLog.info("hello log");
-//        StaticLog.error("hello log");
-//        StaticLog.warn("hello log");
+        //        StaticLog.info("hello log");
+        //        StaticLog.error("hello log");
+        //        StaticLog.warn("hello log");
 
-//        GroovyUtil.invokeMethod("test.groovy", "hello");
+        //        GroovyUtil.invokeMethod("test.groovy", "hello");
 
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("args", new String[] { "8000", "E:\\javaWorkSpace\\javafxTool\\docs", "docs" });
-//        GroovyUtil.run("SimpleHttpServer.groovy", map);
+        //        Map<String, Object> map = new HashMap<>();
+        //        map.put("args", new String[] { "8000", "E:\\javaWorkSpace\\javafxTool\\docs", "docs" });
+        //        GroovyUtil.run("SimpleHttpServer.groovy", map);
 
-//        GroovyUtil.simpleHttpServer(8000, CoreUtil.getRootPath() + File.separator + "docs", "docs");
+        //        GroovyUtil.simpleHttpServer(8000, CoreUtil.getRootPath() + File.separator + "docs", "docs");
 
-//        GroovyUtil.run("test.groovy");
+        //        GroovyUtil.run("test.groovy");
     });
 
     private final Collection<? extends Action> actions = List.of(generate);
@@ -138,30 +141,30 @@ public class TestTool extends QeSample {
         grid.setVgap(2);
         grid.setHgap(12);
         grid.setPadding(new Insets(24));
-//
+        //
         ToolBar toolBar = ActionUtils.createToolBar(actions, ActionTextBehavior.SHOW);
         toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         toolBar.setPrefWidth(Double.MAX_VALUE);
-//
-//        // original
-//        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
-//        originalField = new TextField();
-//        originalField.setMaxWidth(Double.MAX_VALUE);
-//
-//        // compare
-//        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
-//        compareField = new TextField();
-//        compareField.setMaxWidth(Double.MAX_VALUE);
-//
-//        // output
-//        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
-//        outputField = new TextField();
-//        outputField.setMaxWidth(Double.MAX_VALUE);
-//
-//        userData.put("original", originalField);
-//        userData.put("compare", compareField);
-//        userData.put("output", outputField);
-//
+        //
+        //        // original
+        //        Label originalLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.original") + ": ");
+        //        originalField = new TextField();
+        //        originalField.setMaxWidth(Double.MAX_VALUE);
+        //
+        //        // compare
+        //        Label compareLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.compare") + ": ");
+        //        compareField = new TextField();
+        //        compareField.setMaxWidth(Double.MAX_VALUE);
+        //
+        //        // output
+        //        Label outputLabel = new Label(I18nUtils.get("smc.tool.fileDiff.label.output") + ": ");
+        //        outputField = new TextField();
+        //        outputField.setMaxWidth(Double.MAX_VALUE);
+        //
+        //        userData.put("original", originalField);
+        //        userData.put("compare", compareField);
+        //        userData.put("output", outputField);
+        //
         TextArea textArea = new TextArea();
         textArea.setFocusTraversable(true);
         ConsoleLogAppender.textAreaList.add(textArea);
@@ -171,13 +174,48 @@ public class TestTool extends QeSample {
         grid.add(toolBar, 0, 0, 2, 1);
         grid.add(propertySheet, 0, 1, 2, 1);
         grid.add(textArea, 0, 2, 2, 1);
-//        grid.add(originalField, 1, 1);
-//        grid.add(compareLabel, 0, 2);
-//        grid.add(compareField, 1, 2);
-//        grid.add(outputLabel, 0, 3);
-//        grid.add(outputField, 1, 3);
+
+        Region horizontalRangeSlider = createHorizontalSlider();
+        grid.add(horizontalRangeSlider, 0, 3, 2, 1);
+        //        grid.add(originalField, 1, 1);
+        //        grid.add(compareLabel, 0, 2);
+        //        grid.add(compareField, 1, 2);
+        //        grid.add(outputLabel, 0, 3);
+        //        grid.add(outputField, 1, 3);
 
         return grid;
+    }
+
+    Region createHorizontalSlider() {
+        final TextField minField = new TextField();
+        minField.setPrefColumnCount(5);
+        final TextField maxField = new TextField();
+        maxField.setPrefColumnCount(5);
+
+        final RangeSlider hSlider = new RangeSlider(0, 100, 10, 90);
+        hSlider.setShowTickMarks(true);
+        hSlider.setShowTickLabels(true);
+        hSlider.setBlockIncrement(10);
+        hSlider.setPrefWidth(200);
+
+        minField.setText("" + hSlider.getLowValue());
+        maxField.setText("" + hSlider.getHighValue());
+
+        minField.setEditable(false);
+        minField.setPromptText("Min");
+
+        maxField.setEditable(false);
+        maxField.setPromptText("Max");
+
+        minField.textProperty().bind(hSlider.lowValueProperty().asString("%.2f"));
+        maxField.textProperty().bind(hSlider.highValueProperty().asString("%.2f"));
+
+        HBox box = new HBox(10);
+        box.getChildren().addAll(minField, hSlider, maxField);
+        box.setPadding(new Insets(20, 0, 0, 20));
+        box.setFillHeight(false);
+
+        return box;
     }
 
     @Override
