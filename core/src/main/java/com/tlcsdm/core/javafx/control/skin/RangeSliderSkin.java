@@ -56,7 +56,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
      * Track if slider is vertical/horizontal and cause re layout
      */
     private NumberAxis tickLine = null;
-    private double trackToTickGap = 2;
+    private final double trackToTickGap = 2;
 
     private boolean showTickMarks;
     private double thumbWidth;
@@ -72,11 +72,14 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     private double rangeStart;
     private ThumbPane lowThumb;
     private ThumbPane highThumb;
-    private StackPane rangeBar; // the bar between the two thumbs, can be dragged
+    // the bar between the two thumbs, can be dragged
+    private StackPane rangeBar;
 
     // temp fields for mouse drag handling
-    private double preDragPos;          // used as a temp value for low and high thumbs
-    private Point2D preDragThumbPoint;  // in skin coordinates
+    // used as a temp value for low and high thumbs
+    private double preDragPos;
+    // in skin coordinates
+    private Point2D preDragThumbPoint;
 
     private FocusedChild currentFocus = LOW_THUMB;
 
@@ -211,11 +214,11 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
 
     private void initFirstThumb() {
         lowThumb = new ThumbPane();
-        lowThumb.getStyleClass().setAll("low-thumb"); //$NON-NLS-1$
+        lowThumb.getStyleClass().setAll("low-thumb");
         lowThumb.setFocusTraversable(true);
         track = new StackPane();
         track.setFocusTraversable(false);
-        track.getStyleClass().setAll("track"); //$NON-NLS-1$
+        track.getStyleClass().setAll("track");
 
         getChildren().clear();
         getChildren().addAll(track, lowThumb);
@@ -245,7 +248,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
                 (getMaxMinusMinNoZero());
         });
 
-        lowThumb.setOnMouseReleased(me -> lowThumbReleased(me));
+        lowThumb.setOnMouseReleased(this::lowThumbReleased);
 
         lowThumb.setOnMouseDragged(me -> {
             Point2D cur = lowThumb.localToParent(me.getX(), me.getY());
@@ -257,7 +260,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
 
     private void initSecondThumb() {
         highThumb = new ThumbPane();
-        highThumb.getStyleClass().setAll("high-thumb"); //$NON-NLS-1$
+        highThumb.getStyleClass().setAll("high-thumb");
         if (!getChildren().contains(highThumb)) {
             getChildren().add(highThumb);
         }
@@ -268,7 +271,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
             preDragThumbPoint = highThumb.localToParent(e.getX(), e.getY());
             preDragPos = (getSkinnable().getHighValue() - getSkinnable().getMin()) / (getMaxMinusMinNoZero());
         });
-        highThumb.setOnMouseReleased(e -> highThumbReleased(e));
+        highThumb.setOnMouseReleased(this::highThumbReleased);
         highThumb.setOnMouseDragged(e -> {
             boolean orientation = getSkinnable().getOrientation() == Orientation.HORIZONTAL;
             double trackLength = orientation ? track.getWidth() : track.getHeight();
@@ -292,7 +295,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
                 return rangeBar.isHover() ? Cursor.HAND : Cursor.DEFAULT;
             }
         });
-        rangeBar.getStyleClass().setAll("range-bar"); //$NON-NLS-1$
+        rangeBar.getStyleClass().setAll("range-bar");
 
         rangeBar.setOnMousePressed(e -> {
             rangeBar.requestFocus();
@@ -385,14 +388,14 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
      * Called when ever either min, max or highValue changes, so highthumb's layoutX, Y is recomputed.
      */
     private void positionHighThumb() {
-        RangeSlider slider = (RangeSlider) getSkinnable();
-        boolean orientation = ((RangeSlider) getSkinnable()).getOrientation() == Orientation.HORIZONTAL;
+        RangeSlider slider = getSkinnable();
+        boolean orientation = getSkinnable().getOrientation() == Orientation.HORIZONTAL;
 
         double thumbWidth = lowThumb.getWidth();
         double thumbHeight = lowThumb.getHeight();
         highThumb.resize(thumbWidth, thumbHeight);
-
-        double pad = 0;//track.impl_getBackgroundFills() == null || track.impl_getBackgroundFills().length <= 0 ? 0.0D : track.impl_getBackgroundFills()[0].getTopLeftCornerRadius();
+        //track.impl_getBackgroundFills() == null || track.impl_getBackgroundFills().length <= 0 ? 0.0D : track.impl_getBackgroundFills()[0].getTopLeftCornerRadius();
+        double pad = 0;
         double trackStart = orientation ? track.getLayoutX() : track.getLayoutY();
         trackStart += pad;
         double trackLength = orientation ? track.getWidth() : track.getHeight();
@@ -417,7 +420,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         thumbHeight = lowThumb.prefHeight(-1);
         lowThumb.resize(thumbWidth, thumbHeight);
         // we are assuming the is common radius's for all corners on the track
-        double trackRadius = track.getBackground() == null ? 0 : track.getBackground().getFills().size() > 0 ?
+        double trackRadius = track.getBackground() == null ? 0 : !track.getBackground().getFills().isEmpty() ?
             track.getBackground().getFills().get(0).getRadii().getTopLeftHorizontalRadius() : 0;
 
         if (isHorizontal()) {
@@ -572,14 +575,16 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     private void highThumbReleased(MouseEvent e) {
         RangeSlider slider = getSkinnable();
         slider.setHighValueChanging(false);
-        if (slider.isSnapToTicks())
+        if (slider.isSnapToTicks()) {
             slider.setHighValue(snapValueToTicks(slider.getHighValue()));
+        }
     }
 
     private void highThumbPressed(MouseEvent e, double position) {
         RangeSlider slider = getSkinnable();
-        if (!slider.isFocused())
+        if (!slider.isFocused()) {
             slider.requestFocus();
+        }
         slider.setHighValueChanging(true);
     }
 
@@ -601,8 +606,9 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         final double newHighValue = clamp(min, highValue + position * (max - min) /
             (slider.getOrientation() == Orientation.HORIZONTAL ? slider.getWidth() : slider.getHeight()), max);
 
-        if (newLowValue <= min || newHighValue >= max)
+        if (newLowValue <= min || newHighValue >= max) {
             return;
+        }
         slider.setLowValueChanging(true);
         slider.setHighValueChanging(true);
         slider.setLowValue(newLowValue);
@@ -646,7 +652,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
                 newPosition = (1 - position) * (rangeSlider.getMax() - rangeSlider.getMin()) + rangeSlider.getMin();
             }
 
-            /**
+            /*
              * If the position is inferior to the current LowValue, this means
              * the user clicked on the track to move the low thumb. If not, then
              * it means the user wanted to move the high thumb.
@@ -669,8 +675,9 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     public void lowThumbPressed(MouseEvent e, double position) {
         // If not already focused, request focus
         final RangeSlider rangeSlider = getSkinnable();
-        if (!rangeSlider.isFocused())
+        if (!rangeSlider.isFocused()) {
             rangeSlider.requestFocus();
+        }
         rangeSlider.setLowValueChanging(true);
     }
 
@@ -713,10 +720,11 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
                 else
                     slider.decrementHighValue();
             } else {
-                if (slider.isSnapToTicks())
+                if (slider.isSnapToTicks()) {
                     slider.adjustLowValue(slider.getLowValue() - computeIncrement());
-                else
+                } else {
                     slider.decrementLowValue();
+                }
             }
         }
     }
@@ -816,7 +824,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         if (value < min) {
             return min;
         } else {
-            return value > max ? max : value;
+            return Math.min(value, max);
         }
     }
 
