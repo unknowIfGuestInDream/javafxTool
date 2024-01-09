@@ -144,7 +144,7 @@ public class DependencyInfo {
                 "https://github.com/coobird/thumbnailator", "MIT License",
                 "https://spdx.org/licenses/MIT.html"),
 
-            new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.16.0", false,
+            new Dependency("com.dlsc.preferencesfx", "preferencesfx", "11.17.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PreferencesFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
