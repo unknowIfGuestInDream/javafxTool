@@ -30,6 +30,10 @@
     src: url('JetBrainsMono-Regular.ttf');
 }
 
+* {
+    -fx-text-background-color: white;
+}
+
 .text-groovy-area,
 .text-java-area {
     -fx-font-family: 'JetBrains Mono';

@@ -46,7 +46,7 @@ public class DependencyInfo {
 
     private static class SingletonInstance {
         private static final List<Dependency> INSTANCE = List.of(
-            new Dependency("org.openjfx", "javafx", "17.0.9", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
+            new Dependency("org.openjfx", "javafx", "21.0.1", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
             new Dependency("org.controlsfx", "controlsfx", "11.2.0", true,
@@ -180,7 +180,7 @@ public class DependencyInfo {
         private final SimpleStringProperty licenseUrl;
 
         public Dependency(String group, String artifact, String version, boolean inUsed, String url, String license,
-                          String licenseUrl) {
+            String licenseUrl) {
             this.group = new SimpleStringProperty(group);
             this.artifact = new SimpleStringProperty(artifact);
             this.version = new SimpleStringProperty(version);

@@ -25,10 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+* {
+    -fx-text-background-color: white;
+}
+
 .propertyKey {
-	-fx-fill: blue;
+    -fx-fill: blue;
 }
 
 .propertyEqu {
-	-fx-fill: crimson;
+    -fx-fill: crimson;
 }
