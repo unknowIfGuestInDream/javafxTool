@@ -54,6 +54,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.PropertySheet.Item;
 import org.controlsfx.control.PropertySheet.Mode;
+import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
@@ -177,6 +178,13 @@ public class TestTool extends QeSample {
 
         Region horizontalRangeSlider = createHorizontalSlider();
         grid.add(horizontalRangeSlider, 0, 3, 2, 1);
+
+        ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
+            "Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");
+        SearchableComboBox<String> searchableStringBox = new SearchableComboBox<>();
+        searchableStringBox.setItems(stringList);
+        searchableStringBox.setMaxWidth(Double.MAX_VALUE);
+        grid.add(searchableStringBox, 0, 4, 2, 1);
         //        grid.add(originalField, 1, 1);
         //        grid.add(compareLabel, 0, 2);
         //        grid.add(compareField, 1, 2);

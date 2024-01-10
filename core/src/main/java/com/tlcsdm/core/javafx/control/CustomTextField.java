@@ -49,11 +49,6 @@ import java.util.Objects;
  * the keyboard caret moves to the right, the text will become visible, but this
  * is because it will all scroll to the left (as is the case in a normal {@link TextField}).
  *
- * <br>
- * <center>
- * <img src="customTextField.png" alt="Screenshot of CustomTextField">
- * </center>
- *
  * @see TextFields
  * @see CustomPasswordField
  */
