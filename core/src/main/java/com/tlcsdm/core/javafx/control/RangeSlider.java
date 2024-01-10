@@ -85,21 +85,6 @@ import java.util.Objects;
  *       so on until the user stops adjusting.
  * </ol>
  *
- * <h3>Screenshots</h3>
- * Because the RangeSlider supports both horizontal and vertical
- * {@link #orientationProperty() orientation}, there are two screenshots below:
- *
- * <table border="0" summary="Screenshot of RangeSlider orientation">
- *   <tr>
- *     <td width="75" valign="center"><strong>Horizontal:</strong></td>
- *     <td><img src="rangeSlider-horizontal.png" alt="Screenshot of a horizontal RangeSlider"></td>
- *   </tr>
- *   <tr>
- *     <td width="75" valign="top"><strong>Vertical:</strong></td>
- *     <td><img src="rangeSlider-vertical.png" alt="Screenshot of a vertical RangeSlider"></td>
- *   </tr>
- * </table>
- *
  * <h3>Code Samples</h3>
  * Instantiating a RangeSlider is simple. The first decision is to decide whether
  * a horizontal or a vertical track is more appropriate. By default RangeSlider
