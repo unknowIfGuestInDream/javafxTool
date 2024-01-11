@@ -50,6 +50,7 @@ import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.I18nUtils;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -388,8 +389,8 @@ public class FxAction {
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openSysConfigDir"))
-                .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox)
-                .setButtonTypes(FxButtonType.CLOSE);
+                .setOwner(FxApp.primaryStage).setPrefSize(800, 600).setResizable(true).setBody(vbox).setButtonTypes(
+                    FxButtonType.CLOSE);
             dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
@@ -427,8 +428,8 @@ public class FxAction {
             vbox.getChildren().addAll(button, pane);
             VBox.setVgrow(pane, Priority.ALWAYS);
             FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(I18nUtils.get("core.menubar.help.openUserData"))
-                .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox)
-                .setButtonTypes(FxButtonType.CLOSE);
+                .setOwner(FxApp.primaryStage).setPrefSize(1000, 800).setResizable(true).setBody(vbox).setButtonTypes(
+                    FxButtonType.CLOSE);
             dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
             dialog.show();
         });
@@ -579,5 +580,31 @@ public class FxAction {
      */
     public static Action choose(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/icon/choose.png");
+    }
+
+    /**
+     * 全屏.
+     */
+    public static Action fullscreen() {
+        Action fc = create("", actionEvent -> {
+            FxApp.primaryStage.setFullScreen(!FxApp.primaryStage.isFullScreen());
+        }, "/com/tlcsdm/core/static/icon/choose.png");
+        fc.textProperty().bind(Bindings.createStringBinding(() -> {
+            if (FxApp.primaryStage.isFullScreen()) {
+                return I18nUtils.get("core.button.exitFullscreen");
+            } else {
+                return I18nUtils.get("core.button.fullscreen");
+            }
+        }, FxApp.primaryStage.fullScreenProperty()));
+        fc.graphicProperty().bind(Bindings.createObjectBinding(() -> {
+            if (FxApp.primaryStage.isFullScreen()) {
+                return LayoutHelper.iconView(
+                    FxAction.class.getResource("/com/tlcsdm/core/static/menubar/fullscreenexit.png"));
+            } else {
+                return LayoutHelper.iconView(
+                    FxAction.class.getResource("/com/tlcsdm/core/static/menubar/fullscreen.png"));
+            }
+        }, FxApp.primaryStage.fullScreenProperty()));
+        return fc;
     }
 }
