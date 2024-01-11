@@ -115,15 +115,14 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         Consumer<String> showLink = (string) -> {
             if ("openSourceSoftware".equals(string)) {
                 List<Dependency> dependencyList = DependencyInfo.getDependencyList();
-                List<Dependency> list = dependencyList.stream()
-                    .filter(d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
+                List<Dependency> list = dependencyList.stream().filter(
+                    d -> d.getInUsed() || SmcConstant.DEPENDENCY_LIST.contains(d.getArtifact())).toList();
                 DependencyTableView tableView = new DependencyTableView(list);
                 VBox vbox = new VBox();
                 vbox.getChildren().add(tableView);
                 VBox.setVgrow(tableView, Priority.ALWAYS);
-                FxDialog<VBox> dialog = new FxDialog<VBox>()
-                    .setTitle(I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware"))
-                    .setOwner(FxApp.primaryStage)
+                FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
+                        I18nUtils.get("smc.menubar.help.about.contentText.openSourceSoftware")).setOwner(FxApp.primaryStage)
                     .setPrefSize(800, 600).setResizable(true).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
                 dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
                 dialog.show();
@@ -165,9 +164,9 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         vbox.getChildren().addAll(imageView, area);
         VBox.setVgrow(area, Priority.ALWAYS);
 
-        FxDialog<VBox> dialog = new FxDialog<VBox>()
-            .setTitle(I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage)
-            .setPrefSize(480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
+        FxDialog<VBox> dialog = new FxDialog<VBox>().setTitle(
+            I18nUtils.get("smc.menubar.help.about.title") + " " + FxApp.title).setOwner(FxApp.primaryStage).setPrefSize(
+            480, 360).setBody(vbox).setButtonTypes(FxButtonType.CLOSE);
         dialog.setButtonHandler(FxButtonType.CLOSE, (e, s) -> s.close());
         dialog.show();
     });
@@ -186,9 +185,11 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
         }
     }).create();
 
+    private final Action fullscreen = FxAction.fullscreen();
+
     private final Collection<Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(preferences, languageGroup),
+        FxActionGroup.setting(preferences, languageGroup), FxActionGroup.view(fullscreen),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));

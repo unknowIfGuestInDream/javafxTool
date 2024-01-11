@@ -80,6 +80,13 @@ public class FxActionGroup {
     }
 
     /**
+     * menubar view
+     */
+    public static ActionGroup view(Action... actions) {
+        return create(I18nUtils.get("core.menubar.view"), "/com/tlcsdm/core/static/menubar/view.png", actions);
+    }
+
+    /**
      * menubar language
      */
     public static ActionGroup language(Action... actions) {
