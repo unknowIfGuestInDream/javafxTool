@@ -147,6 +147,35 @@ public class ColorUtil {
     }
 
     /**
+     * Color coordinates to RGB.
+     *
+     * @param coorX X
+     * @param coorY Y
+     * @return RGB 0~1.0
+     */
+    public static double[] coor2Rgb(double coorX, double coorY) {
+        int[] xyz = new int[3];
+        double[] liner = new double[3];
+        double sum = 0;
+        xyz[0] = (int) (65536 * coorX);
+        xyz[1] = (int) (65536 * coorY);
+        xyz[2] = (65536 - (xyz[0] + xyz[1]));
+        liner[0] = ((xyz[0] * 3318) + (xyz[1] * (-1574)) + (xyz[2] * (-510))) >> 16;
+        liner[1] = ((xyz[0] * (-992)) + (xyz[1] * 1921) + (xyz[2] * 42)) >> 16;
+        liner[2] = ((xyz[0] * 56) + (xyz[1] * (-208)) + (xyz[2] * 1075)) >> 16;
+        for (int i = 0; i < liner.length; i++) {
+            if (liner[i] <= 0.0) {
+                liner[i] = 0.0;
+            }
+            sum += liner[i];
+        }
+        liner[0] /= sum;
+        liner[1] /= sum;
+        liner[2] = (1.0 - (liner[0] + liner[1]));
+        return liner;
+    }
+
+    /**
      * Tristimulus values converted to coordinates.
      *
      * @param trimX X

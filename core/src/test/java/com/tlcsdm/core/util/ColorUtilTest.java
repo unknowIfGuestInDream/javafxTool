@@ -84,6 +84,13 @@ class ColorUtilTest {
     }
 
     @Test
+    void
+    coor2Rgb() {
+        Assertions.assertArrayEquals(new double[]{0.21661409043112514, 0.7602523659305994, 0.023133543638275467},
+            ColorUtil.coor2Rgb(0.34, 0.55));
+    }
+
+    @Test
     void xyz2Coor() {
         Assertions.assertArrayEquals(new double[]{0.1500166223404255, 0.060006648936170214},
             ColorUtil.xyz2Coor(0.1805, 0.0722, 0.9505));
