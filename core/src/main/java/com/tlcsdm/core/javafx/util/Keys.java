@@ -51,7 +51,13 @@ public enum Keys {
     ScreenColorPickerHideWindow("screenColorPickerHideWindow"),
     Theme("theme"),
     UseDevMode("useDevMode"),
-    UseEasterEgg("useEasterEgg");
+    UseEasterEgg("useEasterEgg"),
+    PreferenceSelectedCategory("preference.selectedCategory"),
+    PreferenceDividerPosition("preference.dividerPosition"),
+    PreferenceWindowWidth("preference.windowWidth"),
+    PreferenceWindowHeight("preference.windowHeight"),
+    PreferenceWindowPosX("preference.windowPosX"),
+    PreferenceWindowPosY("preference.windowPosY");
 
     private final String keyName;
 

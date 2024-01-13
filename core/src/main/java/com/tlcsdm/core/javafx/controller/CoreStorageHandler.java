@@ -32,6 +32,7 @@ import com.tlcsdm.core.event.ConfigRefreshEvent;
 import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
+import com.tlcsdm.core.javafx.util.ScreenUtil;
 import javafx.collections.ObservableList;
 
 import java.util.Objects;
@@ -44,62 +45,62 @@ import java.util.Objects;
 public class CoreStorageHandler implements StorageHandler {
     @Override
     public void saveSelectedCategory(String s) {
-
+        Config.set(Keys.PreferenceSelectedCategory, s);
     }
 
     @Override
     public String loadSelectedCategory() {
-        return null;
+        return Config.get(Keys.PreferenceSelectedCategory, null);
     }
 
     @Override
     public void saveDividerPosition(double v) {
-
+        Config.set(Keys.PreferenceDividerPosition, v);
     }
 
     @Override
     public double loadDividerPosition() {
-        return 0;
+        return Config.getDouble(Keys.PreferenceDividerPosition, 0.2);
     }
 
     @Override
     public void saveWindowWidth(double v) {
-
+        Config.set(Keys.PreferenceWindowWidth, v);
     }
 
     @Override
     public double loadWindowWidth() {
-        return 0;
+        return Config.getDouble(Keys.PreferenceWindowWidth, ScreenUtil.getScreenWeight() * 0.6);
     }
 
     @Override
     public void saveWindowHeight(double v) {
-
+        Config.set(Keys.PreferenceWindowHeight, v);
     }
 
     @Override
     public double loadWindowHeight() {
-        return 0;
+        return Config.getDouble(Keys.PreferenceWindowHeight, ScreenUtil.getScreenHeight() * 0.6);
     }
 
     @Override
     public void saveWindowPosX(double v) {
-
+        Config.set(Keys.PreferenceWindowPosX, v);
     }
 
     @Override
     public double loadWindowPosX() {
-        return 0;
+        return Config.getDouble(Keys.PreferenceWindowPosX, ScreenUtil.getScreenHeight() * 0.3);
     }
 
     @Override
     public void saveWindowPosY(double v) {
-
+        Config.set(Keys.PreferenceWindowPosY, v);
     }
 
     @Override
     public double loadWindowPosY() {
-        return 0;
+        return Config.getDouble(Keys.PreferenceWindowPosY, ScreenUtil.getScreenHeight() * 0.2);
     }
 
     @Override
