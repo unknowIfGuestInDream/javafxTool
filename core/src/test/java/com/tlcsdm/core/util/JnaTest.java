@@ -31,6 +31,8 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Platform;
 import com.sun.jna.Structure;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.win32.StdCallLibrary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -70,32 +72,17 @@ public class JnaTest {
 
     @Test
     @EnabledOnOs({OS.WINDOWS})
-    void dllCall() {
-        //IScopeSetting.INSTANCE.Connect("COM3",290000);
-        //NativeLibrary.addSearchPath("RMWCommunicationLibrary", "E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary");
-        // ComCommunication.INSTANCE
-
-//        Native.
-//            load("E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary", ComCommunication.class);
-
-//        Map<String, Object> optionsMap = new HashMap<>();
-//        optionsMap.put(Library.OPTION_STRING_ENCODING, "UTF-16LE");
-//        NativeLibrary instance = NativeLibrary.getInstance(
-//                "C:\\Users\\os_tangliang\\git\\javafxTool\\core\\src\\test\\resources\\jna\\RMWCommunicationLibrary.dll",
-//                optionsMap);
-//        // 动态库的一个函数
-//        // String NationEcTrans(String strUrl, String InData, Pointer OutData);
-//        // 调用函数
-//
-//        String returnCode = instance.getFunction("Connect").invokeString(new Object[] { "3", 30000 }, false);
-//        // 释放动态库连接，也可以不释放，没有太大关系
-//        instance.dispose();
-    }
-
-    public interface ComCommunication extends Library {
-        ComCommunication INSTANCE = Native.
-            load("E:\\testPlace\\jna\\Renesas_Motor_Workbench_Communication_Library_V1_0\\RMW DLL\\RMWCommunicationLibrary", ComCommunication.class);
-
+    void window() {
+        WinDef.HWND hwnd = User32.INSTANCE.FindWindow(null, "vol36-1-09.pdf - Adobe Acrobat Pro DC (64-bit)");
+        if (hwnd == null) {
+            System.out.println("pdf is not running");
+        } else {
+            WinDef.RECT win_rect = new WinDef.RECT();
+            User32.INSTANCE.GetWindowRect(hwnd, win_rect);
+            int win_width = win_rect.right - win_rect.left;
+            int win_height = win_rect.bottom - win_rect.top;
+            User32.INSTANCE.MoveWindow(hwnd, 300, 100, win_width, win_height, true);
+        }
     }
 
     // This is the standard, stable way of mapping, which supports extensive
