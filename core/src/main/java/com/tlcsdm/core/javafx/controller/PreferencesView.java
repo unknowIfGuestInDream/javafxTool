@@ -133,7 +133,7 @@ public class PreferencesView extends StackPane {
                                 Setting.of("core.dialog.systemSetting.check.screenColorPickerHideWindow",
                                     screenColorPickerHideWindow,
                                     VisibilityProperty.of(supScreenColorPickerHideWindow)))
-                            .description("core.menubar.setting.colorPicker")))).i18n(rbs).persistWindowState(false)
+                            .description("core.menubar.setting.colorPicker")))).i18n(rbs).persistWindowState(true)
             .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true).
             instantPersistent(false).dialogTitle(I18nUtils.get("core.button.preferences")).dialogIcon(FxApp.appIcon);
     }
