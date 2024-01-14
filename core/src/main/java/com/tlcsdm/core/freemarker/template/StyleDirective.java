@@ -32,47 +32,58 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
 /**
- * |拼接值.
+ * 格式化.
  *
  * @author unknowIfGuestInDream
  */
 public class StyleDirective implements TemplateDirectiveModel {
+    private static final String PARAM_NAME_TYPE = "type";
+    private static final String TYPE_LINELENGTH120 = "linelength120";
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws
         TemplateException, IOException {
-        // Check if no parameters were given:
-        if (body != null) {
-            // Executes the nested body. Same as <#nested> in FTL, except
-            // that we use our own writer instead of the current output writer.
-            body.render(new StyleWriter(env.getOut()));
+        if (body == null) {
+            return;
         }
+        String type = "";
+        if (params.containsKey(PARAM_NAME_TYPE) && TYPE_LINELENGTH120.equals(params.get(PARAM_NAME_TYPE).toString())) {
+            type = TYPE_LINELENGTH120;
+        }
+        if (type.isEmpty()) {
+            throw new TemplateModelException("This type doesn't allow empty.");
+        }
+        if (TYPE_LINELENGTH120.equals(type)) {
+            body.render(new Line120Writer(env.getOut()));
+        }
+
     }
 
     /**
-     * A {@link Writer} that transforms the character stream to lower case
-     * and forwards it to another {@link Writer}.
+     * 格式化长度最长为120.
      */
-    private static class StyleWriter extends Writer {
+    private static class Line120Writer extends Writer {
+        private final int _lineLength = 120;
 
         private final Writer out;
 
-        StyleWriter(Writer out) {
+        Line120Writer(Writer out) {
             this.out = out;
         }
 
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
-            for (int i = 0; i < len; i++) {
-                transformedCbuf[i] = Character.toLowerCase(cbuf[i + off]);
-            }
-            out.write(transformedCbuf);
+            System.arraycopy(cbuf, off, transformedCbuf, 0, len);
+            String data = String.valueOf(transformedCbuf);
+
+            out.write(data);
         }
 
         public void flush() throws IOException {

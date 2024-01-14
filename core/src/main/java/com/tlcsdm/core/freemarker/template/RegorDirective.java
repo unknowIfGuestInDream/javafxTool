@@ -65,8 +65,7 @@ public class RegorDirective implements TemplateDirectiveModel {
     }
 
     /**
-     * A {@link Writer} that transforms the character stream to lower case
-     * and forwards it to another {@link Writer}.
+     * 分割值.
      */
     private static class RegorWriter extends Writer {
 
@@ -82,9 +81,7 @@ public class RegorDirective implements TemplateDirectiveModel {
 
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
-            for (int i = 0; i < len; i++) {
-                transformedCbuf[i] = cbuf[i + off];
-            }
+            System.arraycopy(cbuf, off, transformedCbuf, 0, len);
             String[] data = String.valueOf(transformedCbuf).split(",");
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < data.length; i++) {

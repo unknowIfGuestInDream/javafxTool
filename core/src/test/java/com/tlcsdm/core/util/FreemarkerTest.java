@@ -190,7 +190,7 @@ public class FreemarkerTest {
         Template template = configuration.getTemplate("style.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("style", new RegorDirective());
-        map.put("list", "dma");
+        map.put("list", "dmaasasqsdfqsfa".repeat(10));
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);
