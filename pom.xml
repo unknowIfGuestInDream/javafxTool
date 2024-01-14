@@ -141,6 +141,8 @@
         <h2.version>2.2.224</h2.version>
         <jcommander.version>1.83</jcommander.version>
         <jssc.version>2.9.6</jssc.version>
+        <rich-text-area.version>1.1.1</rich-text-area.version>
+        <animateFX.version>1.2.4</animateFX.version>
     </properties>
 
     <issueManagement>
@@ -889,6 +891,16 @@
                 <groupId>io.github.java-native</groupId>
                 <artifactId>jssc</artifactId>
                 <version>${jssc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>rich-text-area</artifactId>
+                <version>${rich-text-area.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.typhon0</groupId>
+                <artifactId>AnimateFX</artifactId>
+                <version>${animateFX.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
