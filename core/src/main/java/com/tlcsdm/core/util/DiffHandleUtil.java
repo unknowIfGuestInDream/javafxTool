@@ -80,7 +80,8 @@ public class DiffHandleUtil {
         // 两文件的不同点
         Patch<String> patch = DiffUtils.diff(original, revised);
         // 生成统一的差异格式
-        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original, patch, 0);
+        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original,
+            patch, 0);
         int diffCount = unifiedDiff.size();
         if (diffCount == 0) {
             // 如果两文件没差异则插入如下
@@ -152,6 +153,7 @@ public class DiffHandleUtil {
         // 如果打开html为空白界面，可能cdn加载githubCss失败 ,githubCss 链接可替换为
         // https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css
         String githubCss = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css";
+        //https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css
         // String githubCss =
         // ResourceUtil.getResource("static/public/diff/github.min.css").getPath();
         String diff2htmlCss = "https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css";
