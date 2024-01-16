@@ -1,6 +1,6 @@
 # はじめに
 
-javafx scaffolding, JDK17 + JavaFX17 + controlsfx 11.x.x + Maven
+javafx scaffolding, JDK17 + JavaFX21 + controlsfx 11.x.x + Maven
 
 frameとloginは基本モジュールで、Java SPI経由でプラグイン可能で、アプリケーションモジュールの統合が容易です。
 デモはサンプルモジュールです。
