@@ -41,7 +41,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Prepare
-        run: ./github/jre.sh
+        run: |
+          mkdir aftifact
+          chmod +x ./github/jre.sh
+          ./github/jre.sh
   package:
     strategy:
       fail-fast: false
@@ -59,16 +62,12 @@ jobs:
       - name: Package ${{ matrix.mod }}Tool-${{ matrix.buildos }}
         run: |
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
-          mkdir aftifact
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar aftifact/javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib aftifact/lib
           cp -r docs aftifact/docs
           cp -r ${{ matrix.mod }}/target/apidocs aftifact/apidocs
           cp -r ${{ matrix.mod }}/target/license aftifact/license
           cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` aftifact
-          wget -c '--no-check-certificate' 'https://api.adoptium.net/v3/binary/version/jdk-17.0.9%2B9.1/windows/x64/jre/hotspot/normal/eclipse?project=jdk' --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_windows_hotspot_17.0.9_9.zip
-          wget -c 'https://api.adoptium.net/v3/binary/version/jdk-17.0.9%2B9/linux/x64/jre/hotspot/normal/eclipse?project=jdk' --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_linux_hotspot_17.0.9_9.tar.gz
-          wget -c 'https://api.adoptium.net/v3/binary/version/jdk-17.0.9%2B9/mac/aarch64/jre/hotspot/normal/eclipse?project=jdk' --no-check-certificate -O aftifact/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.9_9.tar.gz
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
