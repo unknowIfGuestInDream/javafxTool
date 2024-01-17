@@ -44,6 +44,12 @@ jobs:
         run: |
           mkdir aftifact
           sh ./jenkins/jre.sh
+      - name: Artifact JRE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Package JRE
+          path: |
+            aftifact
   package:
     strategy:
       fail-fast: false
@@ -54,6 +60,13 @@ jobs:
     needs: prepare
     continue-on-error: false
     steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
       - name: Install
         run: mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
       - name: Clean
