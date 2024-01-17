@@ -43,9 +43,7 @@ jobs:
       - name: Prepare JRE
         run: |
           mkdir aftifact
-          ls
-          chmod +x ./github/jre.sh
-          sh ./github/jre.sh
+          sh ./jenkins/jre.sh
   package:
     strategy:
       fail-fast: false
