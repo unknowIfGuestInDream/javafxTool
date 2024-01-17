@@ -33,6 +33,13 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
       - name: Prepare
         run: ./github/jre.sh
   package:
@@ -42,15 +49,9 @@ jobs:
         mod: [ 'smc', 'qe', 'cg' ]
         buildos: [ 'mac', 'linux', 'win' ]
     runs-on: ubuntu-latest
+    needs: prepare
     continue-on-error: false
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
       - name: Install
         run: mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}' clean install
       - name: Clean
