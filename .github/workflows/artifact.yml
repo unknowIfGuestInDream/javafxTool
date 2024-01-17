@@ -29,6 +29,12 @@ concurrency:
 permissions:
   contents: read
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Prepare
+        run: ./github/jre.sh
   package:
     strategy:
       fail-fast: false
