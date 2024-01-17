@@ -40,11 +40,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Prepare
+      - name: Prepare JRE
         run: |
           mkdir aftifact
+          ls
           chmod +x ./github/jre.sh
-          ./github/jre.sh
+          sh ./github/jre.sh
   package:
     strategy:
       fail-fast: false
