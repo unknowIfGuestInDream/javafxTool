@@ -47,7 +47,7 @@ jobs:
       - name: Artifact JRE
         uses: actions/upload-artifact@v4
         with:
-          name: Package JRE
+          name: JRE
           path: |
             aftifact
   package:
@@ -73,6 +73,7 @@ jobs:
         run: mvn --file pom.xml clean
       - name: Package ${{ matrix.mod }}Tool-${{ matrix.buildos }}
         run: |
+          mkdir aftifact
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar aftifact/javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib aftifact/lib
