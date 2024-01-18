@@ -33,6 +33,7 @@ import com.tlcsdm.core.freemarker.template.HexDirective;
 import com.tlcsdm.core.freemarker.template.LowerDirective;
 import com.tlcsdm.core.freemarker.template.RegorDirective;
 import com.tlcsdm.core.freemarker.template.RepeatDirective;
+import com.tlcsdm.core.freemarker.template.StyleDirective;
 import com.tlcsdm.core.freemarker.template.UpperDirective;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -189,7 +190,7 @@ public class FreemarkerTest {
     public void style() throws IOException, TemplateException {
         Template template = configuration.getTemplate("style.ftl");
         Map<String, Object> map = new HashMap<>();
-        map.put("style", new RegorDirective());
+        map.put("style", new StyleDirective());
         map.put("list", "dmaasasqsdfqsfa".repeat(10));
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
