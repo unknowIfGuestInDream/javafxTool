@@ -1,5 +1,5 @@
 <@style type='linelength120'>
-    xxxxx ${list}
+    xxxxx ${list}${test}
 </@style>
 
 <@style type='linelength120'>

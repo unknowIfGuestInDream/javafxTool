@@ -192,6 +192,7 @@ public class FreemarkerTest {
         Map<String, Object> map = new HashMap<>();
         map.put("style", new StyleDirective());
         map.put("list", "dmaasasqsdfqsfa".repeat(10));
+        map.put("test", "dataaa".repeat(2));
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);
