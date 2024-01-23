@@ -203,7 +203,7 @@
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
+            <artifactId>jna-jpms</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -213,7 +213,7 @@
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
+            <artifactId>jna-platform-jpms</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -311,6 +311,16 @@
             <artifactId>jssc</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core-java11</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -324,7 +334,8 @@
                         <!-- 执行测试时由于引用了Assertions以及jackson在module.info中是static, 执行会失败，因此排除 -->
                         <exclude>**/JacksonTest.java</exclude>
                         <exclude>**/JsscTest.java</exclude>
-                        <exclude>**/H2Test</exclude>
+                        <exclude>**/H2Test.java</exclude>
+                        <exclude>**/OshiTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
