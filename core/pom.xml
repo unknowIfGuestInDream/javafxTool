@@ -203,7 +203,7 @@
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
+            <artifactId>jna-jpms</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -213,7 +213,7 @@
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
+            <artifactId>jna-platform-jpms</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -309,6 +309,11 @@
         <dependency>
             <groupId>io.github.java-native</groupId>
             <artifactId>jssc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core-java11</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
