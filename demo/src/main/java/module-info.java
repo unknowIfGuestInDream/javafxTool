@@ -38,6 +38,12 @@ module com.tlcsdm.demo {
     requires com.tlcsdm.login;
     requires com.tlcsdm.core;
     requires javafx.controls;
+    requires com.gluonhq.richtextarea;
+    requires com.gluonhq.emoji;
+    requires java.logging;
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.lineawesome;
 
     exports com.tlcsdm.demo.samples to javafx.graphics;
     exports com.tlcsdm.demo.samples.actions to com.tlcsdm.frame;
@@ -50,6 +56,8 @@ module com.tlcsdm.demo {
     exports com.tlcsdm.demo.samples.tableview2 to com.tlcsdm.frame;
     exports com.tlcsdm.demo.samples.textfields to com.tlcsdm.frame;
     exports com.tlcsdm.demo.samples.spreadsheet to com.tlcsdm.frame;
+
+    exports com.tlcsdm.demo.internal.richtextarea;
 
     opens com.tlcsdm.demo.samples;
     opens com.tlcsdm.demo.samples.dialogs;

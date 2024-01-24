@@ -59,6 +59,20 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+        <!-- rich-text-area begin-->
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>rich-text-area</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-lineawesome-pack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+        </dependency>
+        <!-- rich-text-area end -->
     </dependencies>
 
     <build>
