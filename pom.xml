@@ -143,6 +143,7 @@
         <jssc.version>2.9.6</jssc.version>
         <rich-text-area.version>1.1.1</rich-text-area.version>
         <animateFX.version>1.2.4</animateFX.version>
+        <oshi.version>6.4.11</oshi.version>
     </properties>
 
     <issueManagement>
@@ -715,18 +716,24 @@
             <!-- vosk start -->
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna</artifactId>
+                <artifactId>jna-jpms</artifactId>
                 <version>${jna.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alphacephei</groupId>
                 <artifactId>vosk</artifactId>
                 <version>${vosk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.java.dev.jna</groupId>
+                        <artifactId>jna</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- vosk end -->
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-platform</artifactId>
+                <artifactId>jna-platform-jpms</artifactId>
                 <version>${jna.version}</version>
             </dependency>
             <!-- Java Audio Video Encoder start -->
@@ -801,6 +808,16 @@
                 <artifactId>pmd-lang-test</artifactId>
                 <version>${pmd.version}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.java.dev.jna</groupId>
+                        <artifactId>jna</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.java.dev.jna</groupId>
+                        <artifactId>jna-platform</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
@@ -866,6 +883,12 @@
                 <groupId>net.sourceforge.tess4j</groupId>
                 <artifactId>tess4j</artifactId>
                 <version>${tess4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.java.dev.jna</groupId>
+                        <artifactId>jna</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.zaxxer</groupId>
@@ -901,6 +924,10 @@
                 <groupId>io.github.typhon0</groupId>
                 <artifactId>AnimateFX</artifactId>
                 <version>${animateFX.version}</version>
+            <dependency>
+                <groupId>com.github.oshi</groupId>
+                <artifactId>oshi-core-java11</artifactId>
+                <version>${oshi.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
