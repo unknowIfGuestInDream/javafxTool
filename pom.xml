@@ -924,6 +924,7 @@
                 <groupId>io.github.typhon0</groupId>
                 <artifactId>AnimateFX</artifactId>
                 <version>${animateFX.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core-java11</artifactId>
