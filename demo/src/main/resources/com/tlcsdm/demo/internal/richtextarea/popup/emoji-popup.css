@@ -32,7 +32,7 @@
 
 /** Top Panel **/
 .emoji-popup > .content > .content-node > .top-box > .emoji-toggle {
-    -fx-padding: 0.8em 0 0.8em 0;
+    -fx-padding: 0.8em 0;
     -fx-min-width: 10px;
     -fx-background-radius: 0;
     -fx-background-color: white;
@@ -112,7 +112,7 @@
 }
 
 .emoji-popup > .content > .content-node > .emoji-panel > .header > .text-field {
-    -fx-padding: 0.50em 0.75em 0.50em 0.75em;
+    -fx-padding: 0.50em 0.75em;
     -fx-background-radius: 2em;
 }
 
@@ -170,7 +170,7 @@
 
 .emoji-popup > .content > .content-node .scroll-bar:horizontal .increment-button,
 .emoji-popup > .content > .content-nodep .scroll-bar:horizontal .decrement-button {
-    -fx-padding: 0 0 10 0;
+    -fx-padding: 0 0 10;
 }
 
 .emoji-popup > .content > .content-node .scroll-bar:horizontal .track,
