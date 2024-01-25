@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.freemarker.template;
 
+import cn.hutool.log.StaticLog;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -57,13 +57,12 @@ public class StyleDirective implements TemplateDirectiveModel {
         if (params.containsKey(PARAM_NAME_TYPE) && TYPE_LINELENGTH120.equals(params.get(PARAM_NAME_TYPE).toString())) {
             type = TYPE_LINELENGTH120;
         }
-        if (type.isEmpty()) {
-            throw new TemplateModelException("This type doesn't allow empty.");
-        }
         if (TYPE_LINELENGTH120.equals(type)) {
             body.render(new Line120Writer(env.getOut()));
+        } else {
+            StaticLog.warn("Unknown style type: " + type);
+            body.render(env.getOut());
         }
-
     }
 
     /**
