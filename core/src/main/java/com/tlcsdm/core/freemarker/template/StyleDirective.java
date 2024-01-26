@@ -72,9 +72,11 @@ public class StyleDirective implements TemplateDirectiveModel {
         private final int _lineLength = 120;
 
         private final Writer out;
+        private final String sysType;
 
         Line120Writer(Writer out) {
             this.out = out;
+            this.sysType = System.lineSeparator();
         }
 
         public void write(char[] cbuf, int off, int len) throws IOException {
