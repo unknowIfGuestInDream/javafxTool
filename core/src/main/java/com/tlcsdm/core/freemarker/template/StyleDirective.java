@@ -37,6 +37,7 @@ import freemarker.template.TemplateModel;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * 格式化.
@@ -69,21 +70,59 @@ public class StyleDirective implements TemplateDirectiveModel {
      * 格式化长度最长为120.
      */
     private static class Line120Writer extends Writer {
-        private final int _lineLength = 120;
-
+        private final int lineLength = 120;
         private final Writer out;
-        private final String sysType;
+        private final String sysType = System.lineSeparator();
+        private final Pattern matchRegex = Pattern.compile("^\\s*[\\w.\\->\\[\\]()*]+\\s*(=|\\|=|&=).+;$");
+        private int strCount = 0;
+        private int spaceStartPlace = 0;
+        private boolean isComment = false;
+        private String tmpData = "";
 
         Line120Writer(Writer out) {
             this.out = out;
-            this.sysType = System.lineSeparator();
         }
 
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
             System.arraycopy(cbuf, off, transformedCbuf, 0, len);
             String data = String.valueOf(transformedCbuf);
+            if (strCount == 0) {
+                spaceStartPlace = 0;
+                for (int i = 0; i < data.length(); i++) {
+                    if ((data.charAt(i) != ' ')) {
+                        spaceStartPlace++;
+                        break;
+                    }
+                }
+                String tmp = data.trim();
+                if (tmp.startsWith("//") || tmp.startsWith("/*") || tmp.startsWith("*")) {
+                    isComment = true;
+                } else {
+                    isComment = false;
+                }
+            }
 
+            if (data.contains("\n")) {
+                // todo
+                if (strCount + data.length() > lineLength) {
+                    String[] strs = data.split("\n");
+                    for (int i = 0; i < strs.length; i++) {
+                        if (i == 0) {
+                            if (strCount + strs[0].length() > lineLength) {
+                                // todo
+                            }
+                            continue;
+                        }
+                        if (strs[i].length() > lineLength) {
+                            // todo
+                        }
+                    }
+                }
+            } else {
+
+            }
+            strCount += data.length();
             out.write(data);
         }
 
