@@ -31,7 +31,9 @@ import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.tlcsdm.core.freemarker.template.HexDirective;
 import com.tlcsdm.core.freemarker.template.LowerDirective;
+import com.tlcsdm.core.freemarker.template.RegorDirective;
 import com.tlcsdm.core.freemarker.template.RepeatDirective;
+import com.tlcsdm.core.freemarker.template.StyleDirective;
 import com.tlcsdm.core.freemarker.template.UpperDirective;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -160,6 +162,38 @@ public class FreemarkerTest {
         Template template = configuration.getTemplate("hex.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("hextest", new HexDirective());
+        StringWriter stringWriter = new StringWriter();
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    /**
+     * 自定义指令 regor
+     */
+    @Test
+    public void regor() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("regor.ftl");
+        Map<String, Object> map = new HashMap<>();
+        map.put("regor", new RegorDirective());
+        map.put("list", "dma");
+        map.put("gogo", "tau");
+        map.put("aaa", "dts");
+        StringWriter stringWriter = new StringWriter();
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    /**
+     * 自定义指令 style
+     */
+    @Test
+    public void style() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("style.ftl");
+        Map<String, Object> map = new HashMap<>();
+        map.put("style", new StyleDirective());
+        map.put("regor", new RegorDirective());
+        map.put("list", "dmaasasqsdfqsfa".repeat(10));
+        map.put("test", "dataaa".repeat(2));
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);

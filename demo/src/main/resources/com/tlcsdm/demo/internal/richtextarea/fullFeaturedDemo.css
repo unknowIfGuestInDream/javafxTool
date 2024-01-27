@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2024 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.color-picker.foreground {
+    -fx-color-label-visible: false;
+    -fx-color-rect-width: 6;
+    -fx-color-rect-height: 6;
+    -fx-graphic: url("HTMLEditor-Text-Color.png");
+}
+
+.color-picker.background {
+    -fx-color-label-visible: false;
+    -fx-color-rect-width: 6;
+    -fx-color-rect-height: 6;
+    -fx-graphic: url("HTMLEditor-Background-Color.png");
+}
+
+.status-bar {
+    -fx-padding: 10;
+}
+
+.rich-text-area {
+    -fx-background-color: whitesmoke;
+    -fx-padding: 20;
+}
+
+.rich-text-area > .paragraph-list-view {
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+
+.rich-text-area:readonly .paragraph-list-view {
+    -fx-background-color: lightblue;
+    /*-fx-border-color: darkgray;*/
+}
+
+.rich-text-area .paragraph-list-view > .content-area > .layers > .text-flow {
+    /*-fx-padding: 10;*/
+}
+
+.emoji-button {
+    -fx-padding: 5.5;
+}
+
+.emoji-button > .icon.emoji-outline {
+    -fx-shape: "m12 18.663a6.817 6.817 0 0 1 -5.491-2.7.75.75 0 1 1 1.207-.89 5.31 5.31 0 0 0 4.284 2.09 5.3 5.3 0 0 0 4.3-2.105.75.75 0 1 1 1.211.884 6.8 6.8 0 0 1 -5.511 2.721zm0-16.163a9.188 9.188 0 0 0 -9.5 9.5 9.188 9.188 0 0 0 9.5 9.5 9.188 9.188 0 0 0 9.5-9.5 9.188 9.188 0 0 0 -9.5-9.5m0-1.5a10.7 10.7 0 0 1 11 11 10.7 10.7 0 0 1 -11 11 10.7 10.7 0 0 1 -11-11 10.7 10.7 0 0 1 11-11zm-3.5 7c-.828 0-1.5.9-1.5 2s.672 2 1.5 2 1.5-.895 1.5-2-.672-2-1.5-2zm7 0c-.828 0-1.5.9-1.5 2s.672 2 1.5 2 1.5-.895 1.5-2-.672-2-1.5-2z";
+    -fx-background-color: black;
+    -fx-min-width: 18px;
+    -fx-pref-width: 18px;
+    -fx-max-width: 18px;
+    -fx-min-height: 18px;
+    -fx-pref-height: 18px;
+    -fx-max-height: 18px;
+}

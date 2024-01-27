@@ -46,12 +46,12 @@ public class CoreConstant {
     /**
      * JavaFX CSS API
      */
-    public static final String JAVAFX_API_CSS_URL = "https://openjfx.io/javadoc/17/javafx.graphics/javafx/scene/doc-files/cssref.html";
+    public static final String JAVAFX_API_CSS_URL = "https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html";
 
     /**
      * JavaFX FXML API
      */
-    public static final String JAVAFX_API_FXML_URL = "https://openjfx.io/javadoc/17/javafx.fxml/javafx/fxml/doc-files/introduction_to_fxml.html";
+    public static final String JAVAFX_API_FXML_URL = "https://openjfx.io/javadoc/21/javafx.fxml/javafx/fxml/doc-files/introduction_to_fxml.html";
     /**
      * JVM配置key.
      */
