@@ -123,10 +123,10 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
 
     @Override
     public HitInfo getIndex(double x, double y) {
-        /**
-         * This resolves https://bitbucket.org/controlsfx/controlsfx/issue/476
-         * when we have a left Node and the click point is badly returned
-         * because we weren't considering the shift induced by the leftPane.
+        /*
+          This resolves https://bitbucket.org/controlsfx/controlsfx/issue/476
+          when we have a left Node and the click point is badly returned
+          because we weren't considering the shift induced by the leftPane.
          */
         final double leftWidth = leftPane == null ? 0.0 : snapSizeX(leftPane.prefWidth(getSkinnable().getHeight()));
         return super.getIndex(x - leftWidth, y);

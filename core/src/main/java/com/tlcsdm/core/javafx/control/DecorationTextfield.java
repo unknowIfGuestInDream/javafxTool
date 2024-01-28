@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.javafx.control;
 
+import com.tlcsdm.core.javafx.control.skin.CustomTextFieldSkin;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
@@ -39,6 +40,8 @@ import javafx.scene.layout.StackPane;
 import java.util.Objects;
 
 /**
+ * Use {@link CustomTextField} and overwrite layoutChildren#rightStartX(double, double, double, double) in {@link CustomTextFieldSkin}
+ *
  * @author unknowIfGuestInDream
  */
 public class DecorationTextfield extends StackPane {
