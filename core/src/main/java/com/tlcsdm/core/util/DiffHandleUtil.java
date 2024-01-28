@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.github.difflib.DiffUtils;
@@ -75,12 +76,13 @@ public class DiffHandleUtil {
      * @param revisedFileName  对比文件名
      */
     public static List<String> diffString(List<String> original, List<String> revised, String originalFileName, String revisedFileName) {
-        originalFileName = originalFileName == null ? "原始文件" : originalFileName;
-        revisedFileName = revisedFileName == null ? "对比文件" : revisedFileName;
+        originalFileName = originalFileName == null ? "Original" : originalFileName;
+        revisedFileName = revisedFileName == null ? "Revised" : revisedFileName;
         // 两文件的不同点
         Patch<String> patch = DiffUtils.diff(original, revised);
         // 生成统一的差异格式
-        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original, patch, 0);
+        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(originalFileName, revisedFileName, original,
+            patch, 0);
         int diffCount = unifiedDiff.size();
         if (diffCount == 0) {
             // 如果两文件没差异则插入如下
@@ -150,33 +152,42 @@ public class DiffHandleUtil {
      */
     public static String getDiffHtml(List<List<String>> diffStringList) {
         // 如果打开html为空白界面，可能cdn加载githubCss失败 ,githubCss 链接可替换为
-        // https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css
-        String githubCss = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css";
-        // String githubCss =
-        // ResourceUtil.getResource("static/public/diff/github.min.css").getPath();
-        String diff2htmlCss = "https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css";
-        String diff2htmlJs = "https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js";
-        Map<String, Object> map = new HashMap<>();
-        map.put("githubCss", githubCss);
-        map.put("diff2htmlCss", diff2htmlCss);
-        map.put("diff2htmlJs", diff2htmlJs);
+        //        String githubCss = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/styles/github.min.css";
+        //https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css
+        //        String diff2htmlCss = "https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css";
+        //        String diff2htmlJs = "https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js";
+        Map<String, Object> map = new HashMap<>(8);
+        map.put("highlightCss", FileUtil.readUtf8String(
+            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/github.min.css").toExternalForm()));
+        map.put("diff2htmlCss", FileUtil.readUtf8String(
+            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html.min.css").toExternalForm()));
+        map.put("diff2htmlJs", FileUtil.readUtf8String(
+            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html-ui.min.js")
+                .toExternalForm()));
         String template = """
             <!DOCTYPE html>
             <html lang="en-us">
-
             <head>
               <meta charset="utf-8" />
               <meta name="google" content="notranslate" />
               <meta name="author" content="liang.tang.cx@gmail.com">
-              <link rel="stylesheet" href="{githubCss}" />
-              <link rel="stylesheet" type="text/css" href="{diff2htmlCss}" />
-              <script type="text/javascript" src="{diff2htmlJs}"></script>
             </head>
+            <style type="text/css">
+            {highlightCss}
+            </style>
+            <style type="text/css">
+            {diff2htmlCss}
+            </style>
+            <script type="text/javascript">
+            {diff2htmlJs}
+            </script>
             <script>
+              const diffString = `
             {diffString}
+              `;
 
               document.addEventListener('DOMContentLoaded', function () {
-            {targetElement}
+                var targetElement = document.getElementById('myDiffElement');
                 var configuration = {
                   drawFileList: true,
                   fileListToggle: true,
@@ -188,18 +199,17 @@ public class DiffHandleUtil {
                   highlight: true,
                   renderNothingWhenEmpty: true,
                 };
-            {diff2htmlUi}
+                var diff2htmlUi = new Diff2HtmlUI(targetElement, diffString, configuration);
+                diff2htmlUi.draw();
+                diff2htmlUi.highlightCode();
               });
             </script>
             <body>
-            {divElement}
+              <div id="myDiffElement"></div>
             </body>
             </html>
             """;
         StringJoiner diffStringJoiner = new StringJoiner("\n");
-        StringJoiner targetElementJoiner = new StringJoiner("\n");
-        StringJoiner divElementJoiner = new StringJoiner("\n");
-        StringJoiner diff2htmlUiJoiner = new StringJoiner("\n");
         for (int i = 0; i < diffStringList.size(); i++) {
             List<String> diffString = diffStringList.get(i);
             StringBuilder builder = new StringBuilder();
@@ -208,30 +218,9 @@ public class DiffHandleUtil {
                 builder.append(StrUtil.replace(line, "$", "\\$"));
                 builder.append("\n");
             }
-            Map<String, Object> joinMap = new HashMap<>();
-            joinMap.put("index", i);
-            joinMap.put("temp", builder.toString());
-            diffStringJoiner.add(StrUtil.format("""
-                  const diffString{index} = `
-                {temp}
-                `;
-                """, joinMap));
-            targetElementJoiner.add(StrUtil.format("""
-                    var targetElement{index} = document.getElementById('myDiffElement{index}');
-                """, joinMap));
-            divElementJoiner.add(StrUtil.format("""
-                  <div id="myDiffElement{index}"></div>
-                """, joinMap));
-            diff2htmlUiJoiner.add(StrUtil.format("""
-                    var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
-                    diff2htmlUi{index}.draw();
-                    diff2htmlUi{index}.highlightCode();
-                """, joinMap));
+            diffStringJoiner.add(builder.toString());
         }
         map.put("diffString", diffStringJoiner.toString());
-        map.put("targetElement", targetElementJoiner.toString());
-        map.put("divElement", divElementJoiner.toString());
-        map.put("diff2htmlUi", diff2htmlUiJoiner.toString());
         return StrUtil.format(template, map);
     }
 
