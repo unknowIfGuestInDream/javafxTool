@@ -175,10 +175,12 @@ public class DiffHandleUtil {
               <script type="text/javascript" src="{diff2htmlJs}"></script>
             </head>
             <script>
+              const diffString = `
             {diffString}
+              `;
 
               document.addEventListener('DOMContentLoaded', function () {
-            {targetElement}
+                var targetElement = document.getElementById('myDiffElement');
                 var configuration = {
                   drawFileList: true,
                   fileListToggle: true,
@@ -190,18 +192,17 @@ public class DiffHandleUtil {
                   highlight: true,
                   renderNothingWhenEmpty: true,
                 };
-            {diff2htmlUi}
+                var diff2htmlUi = new Diff2HtmlUI(targetElement, diffString, configuration);
+                diff2htmlUi.draw();
+                diff2htmlUi.highlightCode();
               });
             </script>
             <body>
-            {divElement}
+              <div id="myDiffElement"></div>
             </body>
             </html>
             """;
         StringJoiner diffStringJoiner = new StringJoiner("\n");
-        StringJoiner targetElementJoiner = new StringJoiner("\n");
-        StringJoiner divElementJoiner = new StringJoiner("\n");
-        StringJoiner diff2htmlUiJoiner = new StringJoiner("\n");
         for (int i = 0; i < diffStringList.size(); i++) {
             List<String> diffString = diffStringList.get(i);
             StringBuilder builder = new StringBuilder();
@@ -210,30 +211,9 @@ public class DiffHandleUtil {
                 builder.append(StrUtil.replace(line, "$", "\\$"));
                 builder.append("\n");
             }
-            Map<String, Object> joinMap = new HashMap<>();
-            joinMap.put("index", i);
-            joinMap.put("temp", builder.toString());
-            diffStringJoiner.add(StrUtil.format("""
-                  const diffString{index} = `
-                {temp}
-                `;
-                """, joinMap));
-            targetElementJoiner.add(StrUtil.format("""
-                    var targetElement{index} = document.getElementById('myDiffElement{index}');
-                """, joinMap));
-            divElementJoiner.add(StrUtil.format("""
-                  <div id="myDiffElement{index}"></div>
-                """, joinMap));
-            diff2htmlUiJoiner.add(StrUtil.format("""
-                    var diff2htmlUi{index} = new Diff2HtmlUI(targetElement{index}, diffString{index}, configuration);
-                    diff2htmlUi{index}.draw();
-                    diff2htmlUi{index}.highlightCode();
-                """, joinMap));
+            diffStringJoiner.add(builder.toString());
         }
         map.put("diffString", diffStringJoiner.toString());
-        map.put("targetElement", targetElementJoiner.toString());
-        map.put("divElement", divElementJoiner.toString());
-        map.put("diff2htmlUi", diff2htmlUiJoiner.toString());
         return StrUtil.format(template, map);
     }
 
