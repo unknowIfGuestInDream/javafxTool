@@ -27,36 +27,19 @@
 
 package com.tlcsdm.core.javafx.control;
 
-import com.tlcsdm.core.javafx.control.skin.CustomTextFieldSkin;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.Bounds;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 
 import java.util.Objects;
 
 /**
- * Use {@link CustomTextField} and overwrite layoutChildren#rightStartX(double, double, double, double) in {@link CustomTextFieldSkin}
- *
  * @author unknowIfGuestInDream
  */
-public class DecorationTextfield extends StackPane {
-
-    private TextField textField;
+public class DecorationTextfield extends CustomTextField {
     private ImageView decoration;
     private Tooltip tooltip;
-    private Pos pos;
-    private double xOffset;
-    private double yOffset;
-    /**
-     * Because {@link #decoration} is unmanaged, we need this listener
-     * to detect when its Parent lays out so that we can lay out {@code decoration}.
-     */
-    private ChangeListener<Boolean> targetNeedsLayoutListener;
 
     private static final Image errorImage = new Image(
         Objects.requireNonNull(DecorationTextfield.class.getResource("/com/tlcsdm/core/static/graphic/error_ov.png"))
@@ -69,95 +52,22 @@ public class DecorationTextfield extends StackPane {
 
     public DecorationTextfield() {
         init();
-        getStyleClass().setAll("decoration-text-field");
-        registerListeners();
-        layoutChildren();
+        getStyleClass().add("decoration-text-field");
     }
 
     private void init() {
-        textField = new TextField();
-        textField.setFocusTraversable(false);
         decoration = new ImageView();
         decoration.setFocusTraversable(false);
         decoration.setFitHeight(16);
         decoration.setPreserveRatio(true);
-        decoration.setManaged(false);
-        decoration.setImage(null);
         decoration.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-        this.pos = Pos.CENTER_RIGHT;
-        this.xOffset = 10;
-        this.yOffset = 0;
-        targetNeedsLayoutListener = (__, ___, ____) -> layoutGraphic();
-        textField.needsLayoutProperty().addListener(targetNeedsLayoutListener);
+        decoration.setCursor(Cursor.HAND);
         tooltip = new Tooltip();
         tooltip.setOpacity(0.9);
         tooltip.setAutoFix(true);
+        setOffsetX(25);
         Tooltip.install(decoration, tooltip);
-        // Make DecorationPane transparent
-        setBackground(null);
-        getChildren().addAll(textField, decoration);
-        layoutChildren();
-    }
-
-    private void registerListeners() {
-        //button.setOnMousePressed(e -> handleControlPropertyChanged("BUTTON_PRESSED"));
-    }
-
-    public TextField getTextField() {
-        return textField;
-    }
-
-    public ImageView getDecoration() {
-        return decoration;
-    }
-
-    private void layoutGraphic() {
-        // Because we made decoration unmanaged, we are responsible for sizing it:
-        this.decoration.autosize();
-        // Now get decoration's layout Bounds and use for its position computations:
-        Bounds decorationNodeLayoutBounds = this.decoration.getLayoutBounds();
-        double decorationNodeWidth = decorationNodeLayoutBounds.getWidth();
-        double decorationNodeHeight = decorationNodeLayoutBounds.getHeight();
-        Bounds targetBounds = textField.getLayoutBounds();
-        double x = targetBounds.getMinX();
-        double y = targetBounds.getMinY();
-        double targetWidth = targetBounds.getWidth();
-        if (targetWidth <= 0.0) {
-            targetWidth = textField.prefWidth(-1.0);
-        }
-
-        double targetHeight = targetBounds.getHeight();
-        if (targetHeight <= 0.0) {
-            targetHeight = textField.prefHeight(-1.0);
-        }
-
-        switch (this.pos.getHpos()) {
-            case CENTER:
-                x += targetWidth / 2.0 - decorationNodeWidth / 2.0;
-                break;
-            case LEFT:
-                x -= decorationNodeWidth / 2.0;
-                break;
-            case RIGHT:
-                x += targetWidth - decorationNodeWidth / 2.0;
-        }
-
-        switch (this.pos.getVpos()) {
-            case CENTER:
-                y += targetHeight / 2.0 - decorationNodeHeight / 2.0;
-                break;
-            case TOP:
-                y -= decorationNodeHeight / 2.0;
-                break;
-            case BOTTOM:
-                y += targetHeight - decorationNodeHeight / 2.0;
-                break;
-            case BASELINE:
-                y += textField.getBaselineOffset() - this.decoration.getBaselineOffset() - decorationNodeHeight / 2.0;
-        }
-
-        this.decoration.setLayoutX(x + this.xOffset);
-        this.decoration.setLayoutY(y + this.yOffset);
+        setRight(decoration);
     }
 
     /**
@@ -167,12 +77,12 @@ public class DecorationTextfield extends StackPane {
         OK, INFO, WARNING, ERROR
     }
 
-    public void setDecoration(Severity severity, String message) {
+    public void setDecoration(DecorationTextfield2.Severity severity, String message) {
         decoration.setImage(getGraphicBySeverity(severity));
         tooltip.setText(message);
     }
 
-    private Image getGraphicBySeverity(Severity severity) {
+    private Image getGraphicBySeverity(DecorationTextfield2.Severity severity) {
         return switch (severity) {
             case ERROR -> errorImage;
             case WARNING -> warningImage;
