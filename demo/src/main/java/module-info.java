@@ -38,6 +38,7 @@ module com.tlcsdm.demo {
     requires com.tlcsdm.login;
     requires com.tlcsdm.core;
     requires javafx.controls;
+    requires javafx.web;
     requires com.gluonhq.richtextarea;
     requires com.gluonhq.emoji;
     requires java.logging;

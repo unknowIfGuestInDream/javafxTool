@@ -52,6 +52,10 @@
             <artifactId>javafxTool-frame</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-login</artifactId>
         </dependency>

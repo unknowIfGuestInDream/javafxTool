@@ -104,6 +104,9 @@ public class SampleScanner {
             } catch (ExceptionInInitializerError e) {
                 StaticLog.error(e);
                 continue;
+            } catch (NoClassDefFoundError e) {
+                StaticLog.warn("Sample: " + sampleClass + " not found " + e.getMessage());
+                continue;
             }
             if (sample == null || !sample.isVisible()) {
                 continue;
