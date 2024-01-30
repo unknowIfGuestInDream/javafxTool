@@ -1,19 +1,46 @@
+/*
+ * Copyright (c) 2024 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 /**************************************************************************
- * 
+ *
  * CustomTextField
- * 
+ *
  **************************************************************************/
 
-.custom-text-field {
+.custom-text-field, .decoration-text-field {
     -fx-text-fill: -fx-text-inner-color;
-    -fx-highlight-fill: derive(-fx-control-inner-background,-20%);
+    -fx-highlight-fill: derive(-fx-control-inner-background, -20%);
     -fx-highlight-text-fill: -fx-text-inner-color;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
     -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
-        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 3, 2;
-    
+
 }
 
 /*
@@ -22,51 +49,48 @@
     -fx-background-insets: 0;
 }
 */
-.custom-text-field:no-side-nodes {
-    -fx-padding: 0.333333em 0.583em; 
+.custom-text-field:no-side-nodes, .decoration-text-field:no-side-nodes {
+    -fx-padding: 0.333333em 0.583em;
 }
 
-.custom-text-field:left-node-visible {
-    -fx-padding: 0.333333em 0.583em 0.333333em 0; 
+.custom-text-field:left-node-visible, .decoration-text-field:left-node-visible {
+    -fx-padding: 0.333333em 0.583em 0.333333em 0;
 }
 
-.custom-text-field:right-node-visible {
+.custom-text-field:right-node-visible, .decoration-text-field:right-node-visible {
     -fx-padding: 0.333333em 0 0.333333em 0.583em;
 }
 
-.custom-text-field:left-node-visible:right-node-visible {
-    -fx-padding: 0.333333em 0; 
+.custom-text-field:left-node-visible:right-node-visible, .decoration-text-field:left-node-visible:right-node-visible {
+    -fx-padding: 0.333333em 0;
 }
 
-.custom-text-field:left-node-visible .left-pane {
+.custom-text-field:left-node-visible .left-pane, .decoration-text-field:left-node-visible .left-pane {
     -fx-padding: 0 3;
 }
 
-.custom-text-field:right-node-visible .right-pane {
-    -fx-padding: 0 3; 
+.custom-text-field:right-node-visible .right-pane, .decoration-text-field:right-node-visible .right-pane {
+    -fx-padding: 0 3;
 }
 
-.custom-text-field:focused, 
-.custom-text-field:text-field-has-focus {
+.custom-text-field:focused,
+.custom-text-field:text-field-has-focus, .decoration-text-field:focused, .decoration-text-field:text-field-has-focus {
     -fx-highlight-fill: -fx-accent;
     -fx-highlight-text-fill: white;
-    -fx-background-color: 
-        -fx-focus-color,
-        -fx-control-inner-background,
-        -fx-faint-focus-color,
-        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-color: -fx-focus-color,
+    -fx-control-inner-background,
+    -fx-faint-focus-color,
+    linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
     -fx-background-insets: -0.2, 1, -1.4, 3;
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
 }
 
 
-
-
 /**************************************************************************
- * 
+ *
  * Clearable Text / Password Field
- * 
+ *
  **************************************************************************/
 
 .clearable-field .clear-button {

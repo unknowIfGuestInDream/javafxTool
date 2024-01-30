@@ -30,9 +30,12 @@ package com.tlcsdm.qe.tools;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.javafx.control.CustomTextField;
+import com.tlcsdm.core.javafx.control.DecorationTextfield;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.RangeSlider;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.core.util.CoreConstant;
@@ -179,12 +182,20 @@ public class TestTool extends QeSample {
         Region horizontalRangeSlider = createHorizontalSlider();
         grid.add(horizontalRangeSlider, 0, 3, 2, 1);
 
+        CustomTextField customTextField1 = new CustomTextField();
+        customTextField1.setRight(
+            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png")));
+        grid.add(customTextField1, 0, 4, 2, 1);
+
+        DecorationTextfield decorationTextfield = new DecorationTextfield();
+        grid.add(decorationTextfield, 0, 5, 2, 1);
+
         ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
             "Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");
         SearchableComboBox<String> searchableStringBox = new SearchableComboBox<>();
         searchableStringBox.setItems(stringList);
         searchableStringBox.setMaxWidth(Double.MAX_VALUE);
-        grid.add(searchableStringBox, 0, 4, 2, 1);
+        grid.add(searchableStringBox, 0, 6, 2, 1);
         //        grid.add(originalField, 1, 1);
         //        grid.add(compareLabel, 0, 2);
         //        grid.add(compareField, 1, 2);

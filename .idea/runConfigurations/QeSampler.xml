@@ -2,6 +2,7 @@
   <configuration default="false" name="QeSampler" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.tlcsdm.qe.QeSampler" />
     <module name="javafxTool-qe" />
+    <option name="VM_PARAMETERS" value="-DworkEnv=test" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.tlcsdm.qe.*" />
