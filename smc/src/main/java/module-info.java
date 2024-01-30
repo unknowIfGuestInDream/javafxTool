@@ -56,6 +56,7 @@ module com.tlcsdm.smc {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
+    requires javafx.web;
     requires com.tlcsdm.core;
     requires com.tlcsdm.frame;
     requires com.tlcsdm.login;
