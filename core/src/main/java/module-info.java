@@ -32,8 +32,8 @@ module com.tlcsdm.core {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.swing;
-    requires javafx.media;
-    requires javafx.web;
+    requires static javafx.media;
+    requires static javafx.web;
     requires java.desktop;
     requires java.net.http;
     requires java.sql;

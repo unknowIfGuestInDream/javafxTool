@@ -4,7 +4,6 @@ import com.tlcsdm.frame.service.impl.DefaultEasterEggService;
 module com.tlcsdm.frame {
 
     requires transitive javafx.controls;
-    requires transitive javafx.web;
     requires javafx.graphics;
     requires javafx.base;
     requires com.tlcsdm.core;

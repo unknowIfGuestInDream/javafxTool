@@ -107,4 +107,11 @@ public class DependencyUtil {
     public static boolean hasDruid() {
         return CoreUtil.hasClass("com.alibaba.druid.VERSION");
     }
+
+    /**
+     * 因否存在javafx-web库.
+     */
+    public static boolean hasJavafxWeb() {
+        return CoreUtil.hasClass("javafx.scene.web.WebView");
+    }
 }

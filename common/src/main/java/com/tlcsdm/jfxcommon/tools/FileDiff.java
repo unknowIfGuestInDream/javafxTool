@@ -310,6 +310,6 @@ public class FileDiff extends CommonSample {
 
     @Override
     public boolean isVisible() {
-        return DependencyUtil.hasDifflib();
+        return DependencyUtil.hasDifflib() && DependencyUtil.hasJavafxWeb();
     }
 }

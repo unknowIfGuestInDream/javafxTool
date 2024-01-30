@@ -48,6 +48,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-frame</artifactId>
         </dependency>
