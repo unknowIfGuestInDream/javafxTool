@@ -65,7 +65,7 @@ public class DecorationTextfield extends CustomTextField {
         tooltip = new Tooltip();
         tooltip.setOpacity(0.9);
         tooltip.setAutoFix(true);
-        setOffsetX(25);
+        // setOffsetX(25);
         Tooltip.install(decoration, tooltip);
         setRight(decoration);
     }
@@ -77,12 +77,12 @@ public class DecorationTextfield extends CustomTextField {
         OK, INFO, WARNING, ERROR
     }
 
-    public void setDecoration(DecorationTextfield2.Severity severity, String message) {
+    public void setDecoration(Severity severity, String message) {
         decoration.setImage(getGraphicBySeverity(severity));
         tooltip.setText(message);
     }
 
-    private Image getGraphicBySeverity(DecorationTextfield2.Severity severity) {
+    private Image getGraphicBySeverity(Severity severity) {
         return switch (severity) {
             case ERROR -> errorImage;
             case WARNING -> warningImage;
