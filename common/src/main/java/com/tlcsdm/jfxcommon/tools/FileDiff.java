@@ -28,7 +28,6 @@
 package com.tlcsdm.jfxcommon.tools;
 
 import cn.hutool.core.util.StrUtil;
-import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.bind.MultiTextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
@@ -52,8 +51,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -63,7 +60,6 @@ import org.controlsfx.control.action.ActionUtils;
 import org.controlsfx.control.action.ActionUtils.ActionTextBehavior;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,10 +72,10 @@ import java.util.Map;
  */
 public class FileDiff extends CommonSample {
 
-    private final Notifications notificationBuilder = FxNotifications.defaultNotify();
-    private TextField originalField;
+    protected final Notifications notificationBuilder = FxNotifications.defaultNotify();
+    protected TextField originalField;
     private FileChooser originalFileChooser;
-    private TextField compareField;
+    protected TextField compareField;
     private FileChooser compareFileChooser;
     private TextField outputField;
     private final Action openOutDir = FxAction.openOutDir(actionEvent -> {
@@ -108,17 +104,21 @@ public class FileDiff extends CommonSample {
         bindUserData();
     });
     private DirectoryChooser outputChooser;
-    private volatile WebView webView;
-    private final Action generate = FxAction.generate(actionEvent -> {
+    protected final Action generate = FxAction.generate(actionEvent -> {
         // 对比 两个文件，获得不同点
         List<String> diffString = DiffHandleUtil.diffString(originalField.getText(), compareField.getText());
         String template = DiffHandleUtil.getDiffHtml(List.of(diffString));
-        webView.getEngine().loadContent(template);
+        generateAction(template);
         notificationBuilder.text(I18nUtils.get("common.tool.fileDiff.button.generate.success"));
         notificationBuilder.showInformation();
         bindUserData();
     });
-    private final Collection<? extends Action> actions = List.of(generate, download, openOutDir);
+
+    protected void generateAction(String template) {
+        // Do nothing
+    }
+
+    protected final List<Action> actions = List.of(generate, download, openOutDir);
 
     public static void main(String[] args) {
         launch(args);
@@ -224,13 +224,6 @@ public class FileDiff extends CommonSample {
         grid.add(fileNameLabel, 0, 4);
         grid.add(fileNameField, 1, 4, 2, 1);
 
-        FxApp.runLater(() -> {
-            webView = new WebView();
-            webView.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            GridPane.setVgrow(webView, Priority.ALWAYS);
-            grid.add(webView, 0, 5, 3, 1);
-        });
-
         return grid;
     }
 
@@ -240,7 +233,7 @@ public class FileDiff extends CommonSample {
         BooleanBinding outputValidation = new TextInputControlEmptyBinding(outputField).build();
         BooleanBinding emptyValidation = new MultiTextInputControlEmptyBinding(originalField, compareField).build();
 
-        generate.disabledProperty().bind(emptyValidation);
+        generate.setDisabled(true);
         download.disabledProperty().bind(emptyValidation.or(outputValidation));
         openOutDir.disabledProperty().bind(outputValidation);
         FileChooserUtil.setOnDrag(originalField, FileChooserUtil.FileType.FILE);
@@ -310,6 +303,6 @@ public class FileDiff extends CommonSample {
 
     @Override
     public boolean isVisible() {
-        return DependencyUtil.hasDifflib() && DependencyUtil.hasJavafxWeb();
+        return DependencyUtil.hasDifflib() && !DependencyUtil.hasJavafxWeb();
     }
 }
