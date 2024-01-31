@@ -42,33 +42,32 @@ public class ColourUtil {
     }
 
     /**
-     * Translate sRGB to XYZ.
+     * Translate liner-RGB to XYZ.
      *
      * @param red   R [0, 255]
      * @param green G [0, 255]
      * @param blue  B [0, 255]
      * @return XYZ [0, 1]
      */
-    public static double[] srgb2Xyz(int red, int green, int blue) {
+    public static double[] linerRgb2Xyz(int red, int green, int blue) {
         double[] xyz = new double[3];
-        double[] srgb = new double[]{red / 255.0, green / 255.0, blue / 255.0};
-        float[] cie = srgb2cie(srgb);
-        xyz[0] = cie[0] * 0.41239 + cie[1] * 0.35758 + cie[2] * 0.18048;
-        xyz[1] = cie[0] * 0.21263 + cie[1] * 0.71516 + cie[2] * 0.07219;
-        xyz[2] = cie[0] * 0.01933 + cie[1] * 0.11919 + cie[2] * 0.95053;
+        double[] rgb = new double[]{red / 255.0, green / 255.0, blue / 255.0};
+        xyz[0] = rgb[0] * 0.41239 + rgb[1] * 0.35758 + rgb[2] * 0.18048;
+        xyz[1] = rgb[0] * 0.21263 + rgb[1] * 0.71516 + rgb[2] * 0.07219;
+        xyz[2] = rgb[0] * 0.01933 + rgb[1] * 0.11919 + rgb[2] * 0.95053;
         return xyz;
     }
 
     /**
-     * Translate sRGB to XY-coordinate.
+     * Translate liner-RGB to XY-coordinate.
      *
      * @param red   R [0, 255]
      * @param green G [0, 255]
      * @param blue  B [0, 255]
      * @return XY-coordinate [0, 1]
      */
-    public static double[] srgb2Coor(int red, int green, int blue) {
-        double[] xyz = srgb2Xyz(red, green, blue);
+    public static double[] linerRgb2Coor(int red, int green, int blue) {
+        double[] xyz = linerRgb2Xyz(red, green, blue);
         double[] xy = new double[2];
         double sum = 0;
         for (int i = 0; i < 3; i++) {
@@ -80,15 +79,15 @@ public class ColourUtil {
     }
 
     /**
-     * Translate sRGB to Tc.
+     * Translate liner-RGB to Tc.
      *
      * @param red   R [0, 255]
      * @param green G [0, 255]
      * @param blue  B [0, 255]
      * @return Tc (K) [1000, 40000]
      */
-    public static double srgb2Tc(int red, int green, int blue) {
-        double[] xy = srgb2Coor(red, green, blue);
+    public static double linerRgb2Tc(int red, int green, int blue) {
+        double[] xy = linerRgb2Coor(red, green, blue);
         return coor2Tc(xy[0], xy[1]);
     }
 
@@ -97,15 +96,15 @@ public class ColourUtil {
      *
      * @param coorX X [0, 1]
      * @param coorY Y [0, 1]
-     * @return liner-sRGB [0, 1]
+     * @return liner-RGB [0, 1]
      */
-    public static float[] coor2LinersRgb(double coorX, double coorY) {
+    public static double[] calculateForLinerRgbFromCoor(double coorX, double coorY) {
         int[] xyz = new int[3];
         double[] liner = new double[3];
         double sum = 0;
-        xyz[0] = (int) (65536 * coorX);
-        xyz[1] = (int) (65536 * coorY);
-        xyz[2] = (65536 - (xyz[0] + xyz[1]));
+        xyz[0] = (int) (coorX * 65534);
+        xyz[1] = (int) (coorY * 65534);
+        xyz[2] = 65536 - xyz[0] - xyz[1];
         liner[0] = ((xyz[0] * 3318) + (xyz[1] * (-1574)) + (xyz[2] * (-510))) >> 16;
         liner[1] = ((xyz[0] * (-992)) + (xyz[1] * 1921) + (xyz[2] * 42)) >> 16;
         liner[2] = ((xyz[0] * 56) + (xyz[1] * (-208)) + (xyz[2] * 1075)) >> 16;
@@ -118,7 +117,37 @@ public class ColourUtil {
         liner[0] /= sum;
         liner[1] /= sum;
         liner[2] = (1.0 - (liner[0] + liner[1]));
-        return cie2sRgb(liner);
+        return liner;
+    }
+
+    /**
+     * Translate liner-sRGB to sRGB.
+     *
+     * @param liner liner-sRGB [0, 1]
+     * @return sRGB [0, 1]
+     */
+    public static float[] linerRgb2sRgb(double[] liner) {
+        float[] lRgb = new float[3];
+        lRgb[0] = (float) liner[0];
+        lRgb[1] = (float) liner[1];
+        lRgb[2] = (float) liner[2];
+        return ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB).toRGB(lRgb);
+    }
+
+    /**
+     * Translate XY to liner-RGB.
+     *
+     * @param coorX X [0, 1]
+     * @param coorY Y [0, 1]
+     * @return liner-RGB [0, 255]
+     */
+    public static int[] coor2LinerRgb(double coorX, double coorY) {
+        int[] rgb = new int[3];
+        double[] liner = calculateForLinerRgbFromCoor(coorX, coorY);
+        for (int i = 0; i < 3; i++) {
+            rgb[i] = (int) (liner[i] * 255);
+        }
+        return rgb;
     }
 
     /**
@@ -126,15 +155,11 @@ public class ColourUtil {
      *
      * @param coorX X [0, 1]
      * @param coorY Y [0, 1]
-     * @return RGB [0, 255]
+     * @return sRGB [0, 1]
      */
-    public static int[] coor2sRgb(double coorX, double coorY) {
-        int[] rgb = new int[3];
-        float[] liner = coor2LinersRgb(coorX, coorY);
-        for (int i = 0; i < 3; i++) {
-            rgb[i] = (int) (liner[i] * 255);
-        }
-        return rgb;
+    public static float[] coor2sRgb(double coorX, double coorY) {
+        double[] liner = calculateForLinerRgbFromCoor(coorX, coorY);
+        return linerRgb2sRgb(liner);
     }
 
     /**
@@ -145,58 +170,33 @@ public class ColourUtil {
      * @return Tc (K) [1000, 40000]
      */
     public static double coor2Tc(double coorX, double coorY) {
-        double n = (coorX - 0.3320) / (0.1858 - coorY);
+        double x = (int) (coorX * 65534) >> 16;
+        double y = (int) (coorY * 65534) >> 16;
+        double n = (x - 0.3320) / (0.1858 - y);
         return ((535 * (n * n * n)) + (3601 * (n * n)) + (6861 * n) + 5517);
+    }
+
+    /**
+     * Translate Tc to liner-RGB.
+     *
+     * @param tc (K) [1000, 40000]
+     * @return liner-RGB [0, 255]
+     */
+    public static int[] tc2LinerRgb(double tc) {
+        double[] xy = tc2Coor(tc);
+        return coor2LinerRgb(xy[0], xy[1]);
     }
 
     /**
      * Translate Tc to sRGB.
      *
      * @param tc (K) [1000, 40000]
-     * @return RGB [0, 255]
+     * @return sRGB [0, 1]
      */
-    public static int[] tc2sRgb(double tc) {
+    public static float[] tc2sRgb(double tc) {
         double[] xy = tc2Coor(tc);
-        return coor2sRgb(xy[0], xy[1]);
-    }
-
-    /**
-     * Translate Tc to liner-sRGB.
-     *
-     * @param tc (K) [1000, 40000]
-     * @return RGB [0, 1]
-     */
-    public static float[] tc2LinersRgb(double tc) {
-        double[] xy = tc2Coor(tc);
-        return coor2LinersRgb(xy[0], xy[1]);
-    }
-
-    /**
-     * Translate CIE RGB to sRGB.
-     *
-     * @param cie CIE RGB
-     * @return sRGB
-     */
-    public static float[] cie2sRgb(double[] cie) {
-        float[] value = new float[3];
-        value[0] = (float) cie[0];
-        value[1] = (float) cie[1];
-        value[2] = (float) cie[2];
-        return ColorSpace.getInstance(ColorSpace.CS_sRGB).fromCIEXYZ(value);
-    }
-
-    /**
-     * Translate sRGB to CIE RGB.
-     *
-     * @param rgb sRGB
-     * @return CIE RGB
-     */
-    public static float[] srgb2cie(double[] rgb) {
-        float[] value = new float[3];
-        value[0] = (float) rgb[0];
-        value[1] = (float) rgb[1];
-        value[2] = (float) rgb[2];
-        return ColorSpace.getInstance(ColorSpace.CS_CIEXYZ).fromRGB(value);
+        double[] liner = calculateForLinerRgbFromCoor(xy[0], xy[1]);
+        return linerRgb2sRgb(liner);
     }
 
     /**

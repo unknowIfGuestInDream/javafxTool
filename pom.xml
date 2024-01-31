@@ -99,6 +99,13 @@
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-csv.version>1.10.0</commons-csv.version>
+        <commons-compress.version>1.25.0</commons-compress.version>
+        <commons-exec.version>1.4.0</commons-exec.version>
+        <commons-text.version>1.11.0</commons-text.version>
+        <commons-email.version>1.6.0</commons-email.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <commons-crypto.version>1.2.0</commons-crypto.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <log4j2.version>2.22.1</log4j2.version>
@@ -297,6 +304,41 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-csv</artifactId>
                 <version>${commons-csv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-exec</artifactId>
+                <version>${commons-exec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${commons-math3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-crypto</artifactId>
+                <version>${commons-crypto.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
