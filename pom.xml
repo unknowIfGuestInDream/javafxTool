@@ -57,10 +57,6 @@
         <javafxTool.version>1.0.0</javafxTool.version>
         <javafxTool-common.version>1.0.0</javafxTool-common.version>
         <javafxTool-login.version>1.0.0</javafxTool-login.version>
-        <javafxTool-cg.version>1.0.0</javafxTool-cg.version>
-        <javafxTool-demo.version>1.0.0</javafxTool-demo.version>
-        <javafxTool-qe.version>1.0.0</javafxTool-qe.version>
-        <javafxTool-smc.version>1.0.10</javafxTool-smc.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
