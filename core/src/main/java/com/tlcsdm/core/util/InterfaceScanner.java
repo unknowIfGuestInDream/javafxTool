@@ -28,10 +28,9 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
-import org.reflections.Reflections;
-import org.reflections.scanners.Scanners;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfoList;
+import io.github.classgraph.ScanResult;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -40,6 +39,7 @@ import java.lang.module.ResolvedModule;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,9 +48,6 @@ import java.util.Set;
  * Interface Scanner
  */
 public class InterfaceScanner {
-
-    public static Reflections reflections = new Reflections(new ConfigurationBuilder().forPackage("com.tlcsdm")
-        .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
 
     /**
      * Gets the list of sample classes to load
@@ -84,8 +81,8 @@ public class InterfaceScanner {
         for (Class<?> i : list) {
             try {
                 i.getDeclaredMethod(name, parameterTypes).invoke(i.getDeclaredConstructor().newInstance());
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
-                     | InstantiationException e) {
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException |
+                     InstantiationException e) {
                 StaticLog.error(e);
             } catch (NoClassDefFoundError e) {
                 // fix freemarker 依赖找不到却进行初始化的问题
@@ -96,7 +93,12 @@ public class InterfaceScanner {
 
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
-        Set<Class<?>> classes = reflections.get(Scanners.SubTypes.of(cls).asClass());
+        Set<Class<?>> classes;
+        try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("com.tlcsdm").scan()) {
+            ClassInfoList controlClasses = scanResult.getClassesImplementing(cls);
+            List<Class<?>> controlClassRefs = controlClasses.loadClasses(true);
+            classes = new HashSet<>(controlClassRefs);
+        }
         return classes.toArray(new Class[0]);
     }
 
@@ -108,19 +110,19 @@ public class InterfaceScanner {
     private Class<?>[] loadFromPathScanning() {
         final Set<Class<?>> classes = new LinkedHashSet<>();
         // scan the module-path
-        ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference)
-            .filter(rm -> !InterfaceScanner.isSystemModule(rm.descriptor().name())).forEach(mref -> {
-                try (ModuleReader reader = mref.open()) {
-                    reader.list().forEach(c -> {
-                        final Class<?> clazz = processClassName(c);
-                        if (clazz != null) {
-                            classes.add(clazz);
-                        }
-                    });
-                } catch (IOException ioe) {
-                    throw new UncheckedIOException(ioe);
-                }
-            });
+        ModuleLayer.boot().configuration().modules().stream().map(ResolvedModule::reference).filter(
+            rm -> !InterfaceScanner.isSystemModule(rm.descriptor().name())).forEach(mref -> {
+            try (ModuleReader reader = mref.open()) {
+                reader.list().forEach(c -> {
+                    final Class<?> clazz = processClassName(c);
+                    if (clazz != null) {
+                        classes.add(clazz);
+                    }
+                });
+            } catch (IOException ioe) {
+                throw new UncheckedIOException(ioe);
+            }
+        });
         return classes.toArray(new Class[0]);
     }
 
@@ -159,13 +161,13 @@ public class InterfaceScanner {
      * modules in layers above the boot layer.
      */
     public static boolean isSystemModule(final String moduleName) {
-        return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith("javafx.")
-            || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith("hutool.")
-            || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith("org.apache.")
-            || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(moduleName)
-            || "org.slf4j".equals(moduleName) || "commons.math3".equals(moduleName)
-            || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(moduleName)
-            || "freemarker".equals(moduleName);
+        return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith(
+            "javafx.") || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith(
+            "hutool.") || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith(
+            "org.apache.") || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(
+            moduleName) || "org.slf4j".equals(moduleName) || "commons.math3".equals(
+            moduleName) || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(
+            moduleName) || "freemarker".equals(moduleName);
     }
 
 }

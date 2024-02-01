@@ -91,8 +91,12 @@ public class DependencyInfo {
                 "https://github.com/java-diff-utils/java-diff-utils", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.reflections", "reflections", "0.10.2", true,
+            new Dependency("org.reflections", "reflections", "0.10.2", false,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
+
+            new Dependency("io.github.classgraph", "classgraph", "4.8.165", true,
+                "https://github.com/classgraph/classgraph", "MIT License",
+                "https://github.com/classgraph/classgraph?tab=MIT-1-ov-file"),
 
             new Dependency("com.google.guava", "guava", "33.0.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
