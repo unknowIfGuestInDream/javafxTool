@@ -56,7 +56,7 @@ module com.tlcsdm.core {
     requires static java.scripting;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
-    requires org.reflections;
+    requires io.github.classgraph;
     requires static org.apache.fontbox;
     requires static org.apache.pdfbox;
     requires org.apache.commons.io;
@@ -67,7 +67,6 @@ module com.tlcsdm.core {
     requires static net.coobird.thumbnailator;
     requires static com.dlsc.pdfviewfx;
     requires static tabula;
-    requires jsr305;
     requires static com.dlsc.preferencesfx;
     requires static yuicompressor;
     requires static jave.core;

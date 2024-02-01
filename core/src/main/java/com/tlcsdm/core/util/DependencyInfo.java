@@ -91,8 +91,12 @@ public class DependencyInfo {
                 "https://github.com/java-diff-utils/java-diff-utils", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.reflections", "reflections", "0.10.2", true,
+            new Dependency("org.reflections", "reflections", "0.10.2", false,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
+
+            new Dependency("io.github.classgraph", "classgraph", "4.8.165", true,
+                "https://github.com/classgraph/classgraph", "MIT License",
+                "https://github.com/classgraph/classgraph?tab=MIT-1-ov-file"),
 
             new Dependency("com.google.guava", "guava", "33.0.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
@@ -166,7 +170,19 @@ public class DependencyInfo {
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.9.0", false, "https://github.com/nguyenq/tess4j",
-                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"));
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.gluonhq", "rich-text-area", "1.1.1", false,
+                "https://github.com/gluonhq/rich-text-area",
+                "GPL-3.0 license", "https://github.com/gluonhq/rich-text-area?tab=GPL-3.0-1-ov-file"),
+
+            new Dependency("io.github.typhon0", "AnimateFX", "1.2.4", false,
+                "https://github.com/Typhon0/AnimateFX",
+                "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.4.11", false,
+                "https://github.com/oshi/oshi",
+                "MIT license", "https://github.com/oshi/oshi?tab=MIT-1-ov-file"));
     }
 
     public static class Dependency {

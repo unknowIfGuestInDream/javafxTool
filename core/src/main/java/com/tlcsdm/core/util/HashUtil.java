@@ -28,9 +28,8 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
+import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -71,8 +70,8 @@ public class HashUtil {
      * @return 散列结果，全小写字母
      * @throws NoSuchAlgorithmException 当未找到指定的散列算法时抛出异常
      */
-    @Nonnull
-    public static String hash(@Nonnull String algorithm, @Nonnull byte[] bytes) throws NoSuchAlgorithmException {
+
+    public static String hash(String algorithm, byte[] bytes) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
         messageDigest.update(bytes);
         return bytesToHex(messageDigest.digest());
@@ -87,11 +86,11 @@ public class HashUtil {
      * @throws IOException              当文件未找到或者输入输出时错误时抛出异常
      * @throws NoSuchAlgorithmException 当未找到指定的散列算法时抛出异常
      */
-    @Nonnull
-    public static String hash(@Nonnull String algorithm, @Nonnull File file) throws IOException, NoSuchAlgorithmException {
+
+    public static String hash(String algorithm, File file) throws IOException, NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-        try (FileInputStream fileInputStream = new FileInputStream(file);
-             DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest)) {
+        try (FileInputStream fileInputStream = new FileInputStream(
+            file); DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest)) {
             byte[] buffer = new byte[131072];
             while (true) {
                 if (digestInputStream.read(buffer) <= 0) {
@@ -108,8 +107,8 @@ public class HashUtil {
      * @param bytes 要转换的字节数组
      * @return 转换后的字符串，全小写字母
      */
-    @Nonnull
-    public static String bytesToHex(@Nonnull byte[] bytes) {
+
+    public static String bytesToHex(byte[] bytes) {
         char[] chars = new char[bytes.length * 2];
         for (int i = 0; i < bytes.length; i++) {
             byte b = bytes[i];
@@ -126,7 +125,7 @@ public class HashUtil {
      * @return 散列结果，全小写字母
      */
     @Nullable
-    public static String md5(@Nonnull String str) {
+    public static String md5(String str) {
         try {
             return hash(HASH_MD5, str.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException e) {
@@ -142,7 +141,7 @@ public class HashUtil {
      * @return 散列结果，全小写字母
      */
     @Nullable
-    public static String md5(@Nonnull File file) {
+    public static String md5(File file) {
         try {
             return hash(HASH_MD5, file);
         } catch (IOException | NoSuchAlgorithmException e) {
@@ -158,7 +157,7 @@ public class HashUtil {
      * @return 散列结果，全小写字母
      */
     @Nullable
-    public static String sha1(@Nonnull String str) {
+    public static String sha1(String str) {
         try {
             return hash(HASH_SHA1, str.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException e) {
@@ -174,7 +173,7 @@ public class HashUtil {
      * @return 散列结果，全小写字母
      */
     @Nullable
-    public static String sha1(@Nonnull File file) {
+    public static String sha1(File file) {
         try {
             return hash(HASH_SHA1, file);
         } catch (IOException | NoSuchAlgorithmException e) {
