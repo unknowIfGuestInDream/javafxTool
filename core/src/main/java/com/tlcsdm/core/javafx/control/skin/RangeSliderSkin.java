@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2024 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 /**
  * Copyright (c) 2013, 2021, ControlsFX
  * All rights reserved.
@@ -91,12 +118,21 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         initRangeBar();
         registerChangeListener(rangeSlider.lowValueProperty(), e -> {
             positionLowThumb();
-            rangeBar.resizeRelocate(rangeStart, rangeBar.getLayoutY(),
-                rangeEnd - rangeStart, rangeBar.getHeight());
+            if (isHorizontal()) {
+                rangeBar.resizeRelocate(rangeStart, rangeBar.getLayoutY(),
+                    rangeEnd - rangeStart, rangeBar.getHeight());
+            } else {
+                rangeBar.resize(rangeBar.getWidth(), rangeEnd - rangeStart);
+            }
         });
         registerChangeListener(rangeSlider.highValueProperty(), e -> {
             positionHighThumb();
-            rangeBar.resize(rangeEnd - rangeStart, rangeBar.getHeight());
+            if (isHorizontal()) {
+                rangeBar.resize(rangeEnd - rangeStart, rangeBar.getHeight());
+            } else {
+                rangeBar.resizeRelocate(rangeBar.getLayoutX(), rangeStart,
+                    rangeBar.getWidth(), rangeEnd - rangeStart);
+            }
         });
         registerChangeListener(rangeSlider.minProperty(), e -> {
             if (showTickMarks && tickLine != null) {
@@ -378,10 +414,11 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
                 (getMaxMinusMinNoZero()))); //  - thumbHeight/2
         lowThumb.setLayoutX(lx);
         lowThumb.setLayoutY(ly);
-        if (horizontal)
+        if (horizontal) {
             rangeStart = lx + thumbWidth;
-        else
+        } else {
             rangeEnd = ly;
+        }
     }
 
     /**
@@ -406,10 +443,11 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
             .getTop() + trackLength) - trackLength * ((slider.getHighValue() - slider.getMin()) / (getMaxMinusMinNoZero()));
         highThumb.setLayoutX(x);
         highThumb.setLayoutY(y);
-        if (orientation)
+        if (orientation) {
             rangeEnd = x;
-        else
-            rangeStart = y + thumbWidth;
+        } else {
+            rangeStart = y + thumbHeight;
+        }
     }
 
     @Override
@@ -666,6 +704,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     }
 
     public void trackRelease(MouseEvent e, double position) {
+        // Do nothing
     }
 
     /**
@@ -699,7 +738,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     public void lowThumbReleased(MouseEvent e) {
         final RangeSlider rangeSlider = getSkinnable();
         rangeSlider.setLowValueChanging(false);
-        // RT-15207 When snapToTicks is true, slider value calculated in drag
+        // When snapToTicks is true, slider value calculated in drag
         // is then snapped to the nearest tick on mouse release.
         if (rangeSlider.isSnapToTicks()) {
             rangeSlider.setLowValue(snapValueToTicks(rangeSlider.getLowValue()));
@@ -738,15 +777,17 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         RangeSlider slider = getSkinnable();
         if (selectedValue != null) {
             if (selectedValue.call(null) == FocusedChild.HIGH_THUMB) {
-                if (slider.isSnapToTicks())
+                if (slider.isSnapToTicks()) {
                     slider.adjustHighValue(slider.getHighValue() + computeIncrement());
-                else
+                } else {
                     slider.incrementHighValue();
+                }
             } else {
-                if (slider.isSnapToTicks())
+                if (slider.isSnapToTicks()) {
                     slider.adjustLowValue(slider.getLowValue() + computeIncrement());
-                else
+                } else {
                     slider.incrementLowValue();
+                }
             }
         }
     }
@@ -754,14 +795,16 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     private double computeIncrement() {
         RangeSlider rangeSlider = getSkinnable();
         double d;
-        if (rangeSlider.getMinorTickCount() != 0)
+        if (rangeSlider.getMinorTickCount() != 0) {
             d = rangeSlider.getMajorTickUnit() / (double) (Math.max(rangeSlider.getMinorTickCount(), 0) + 1);
-        else
+        } else {
             d = rangeSlider.getMajorTickUnit();
-        if (rangeSlider.getBlockIncrement() > 0.0D && rangeSlider.getBlockIncrement() < d)
+        }
+        if (rangeSlider.getBlockIncrement() > 0.0D && rangeSlider.getBlockIncrement() < d) {
             return d;
-        else
+        } else {
             return rangeSlider.getBlockIncrement();
+        }
     }
 
     private void rtl(RangeSlider node, Runnable rtlMethod, Runnable nonRtlMethod) {
@@ -776,10 +819,11 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
         RangeSlider rangeSlider = getSkinnable();
         double d1 = d;
         double d2;
-        if (rangeSlider.getMinorTickCount() != 0)
+        if (rangeSlider.getMinorTickCount() != 0) {
             d2 = rangeSlider.getMajorTickUnit() / (double) (Math.max(rangeSlider.getMinorTickCount(), 0) + 1);
-        else
+        } else {
             d2 = rangeSlider.getMajorTickUnit();
+        }
         int i = (int) ((d1 - rangeSlider.getMin()) / d2);
         double d3 = (double) i * d2 + rangeSlider.getMin();
         double d4 = (double) (i + 1) * d2 + rangeSlider.getMin();
