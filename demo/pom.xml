@@ -36,6 +36,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>javafxTool-demo</artifactId>
+    <version>1.0.0</version>
     <name>javafxTool-demo</name>
     <packaging>jar</packaging>
     <description>javafxTool demo</description>

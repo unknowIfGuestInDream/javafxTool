@@ -55,6 +55,8 @@
 
     <properties>
         <javafxTool.version>1.0.0</javafxTool.version>
+        <javafxTool-common.version>1.0.0</javafxTool-common.version>
+        <javafxTool-login.version>1.0.0</javafxTool-login.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -151,6 +153,7 @@
         <rich-text-area.version>1.1.1</rich-text-area.version>
         <animateFX.version>1.2.4</animateFX.version>
         <oshi.version>6.4.11</oshi.version>
+        <classgraph.version>4.8.165</classgraph.version>
     </properties>
 
     <issueManagement>
@@ -283,12 +286,12 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-login</artifactId>
-                <version>${javafxTool.version}</version>
+                <version>${javafxTool-login.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-common</artifactId>
-                <version>${javafxTool.version}</version>
+                <version>${javafxTool-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -971,6 +974,11 @@
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core-java11</artifactId>
                 <version>${oshi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.classgraph</groupId>
+                <artifactId>classgraph</artifactId>
+                <version>${classgraph.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
