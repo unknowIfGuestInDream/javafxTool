@@ -42,6 +42,10 @@
     <description>javafxTool登录框架</description>
     <url>https://javafxtool.tlcsdm.com</url>
 
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tlcsdm</groupId>
