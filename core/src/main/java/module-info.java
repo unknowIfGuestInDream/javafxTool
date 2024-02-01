@@ -67,7 +67,6 @@ module com.tlcsdm.core {
     requires static net.coobird.thumbnailator;
     requires static com.dlsc.pdfviewfx;
     requires static tabula;
-    requires jsr305;
     requires static com.dlsc.preferencesfx;
     requires static yuicompressor;
     requires static jave.core;

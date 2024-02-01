@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.concurrent;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -63,7 +62,6 @@ public class VerboseScheduledExecutorService implements ScheduledExecutorService
         this.executor.shutdown();
     }
 
-    @Nonnull
     @Override
     public List<Runnable> shutdownNow() {
         return this.executor.shutdownNow();
@@ -80,77 +78,69 @@ public class VerboseScheduledExecutorService implements ScheduledExecutorService
     }
 
     @Override
-    public boolean awaitTermination(long timeout, @Nonnull TimeUnit unit) throws InterruptedException {
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         return this.executor.awaitTermination(timeout, unit);
     }
 
-    @Nonnull
     @Override
-    public <T> Future<T> submit(@Nonnull Callable<T> task) {
+    public <T> Future<T> submit(Callable<T> task) {
         return this.executor.submit(task);
     }
 
-    @Nonnull
     @Override
-    public <T> Future<T> submit(@Nonnull Runnable task, T result) {
+    public <T> Future<T> submit(Runnable task, T result) {
         return this.executor.submit(new VerboseRunnable(task), result);
     }
 
-    @Nonnull
     @Override
-    public Future<?> submit(@Nonnull Runnable task) {
+    public Future<?> submit(Runnable task) {
         return this.executor.submit(new VerboseRunnable(task));
     }
 
-    @Nonnull
     @Override
-    public <T> List<Future<T>> invokeAll(@Nonnull Collection<? extends Callable<T>> tasks) throws InterruptedException {
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
         return this.executor.invokeAll(tasks);
     }
 
-    @Nonnull
     @Override
-    public <T> List<Future<T>> invokeAll(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit) throws InterruptedException {
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws
+        InterruptedException {
         return this.executor.invokeAll(tasks, timeout, unit);
     }
 
-    @Nonnull
     @Override
-    public <T> T invokeAny(@Nonnull Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
         return this.executor.invokeAny(tasks);
     }
 
     @Override
-    public <T> T invokeAny(@Nonnull Collection<? extends Callable<T>> tasks, long timeout, @Nonnull TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws
+        InterruptedException, ExecutionException, TimeoutException {
         return this.executor.invokeAny(tasks, timeout, unit);
     }
 
     @Override
-    public void execute(@Nonnull Runnable command) {
+    public void execute(Runnable command) {
         this.executor.execute(new VerboseRunnable(command));
     }
 
-    @Nonnull
     @Override
-    public ScheduledFuture<?> schedule(@Nonnull Runnable command, long delay, @Nonnull TimeUnit unit) {
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
         return this.executor.schedule(new VerboseRunnable(command), delay, unit);
     }
 
-    @Nonnull
     @Override
-    public <V> ScheduledFuture<V> schedule(@Nonnull Callable<V> callable, long delay, @Nonnull TimeUnit unit) {
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
         return this.executor.schedule(callable, delay, unit);
     }
 
-    @Nonnull
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(@Nonnull Runnable command, long initialDelay, long period, @Nonnull TimeUnit unit) {
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
         return this.executor.scheduleAtFixedRate(new VerboseRunnable(command), initialDelay, period, unit);
     }
 
-    @Nonnull
     @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(@Nonnull Runnable command, long initialDelay, long delay, @Nonnull TimeUnit unit) {
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
         return this.executor.scheduleWithFixedDelay(new VerboseRunnable(command), initialDelay, delay, unit);
     }
 

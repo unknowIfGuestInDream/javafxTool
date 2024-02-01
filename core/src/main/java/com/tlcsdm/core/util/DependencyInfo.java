@@ -170,7 +170,19 @@ public class DependencyInfo {
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.9.0", false, "https://github.com/nguyenq/tess4j",
-                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"));
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.gluonhq", "rich-text-area", "1.1.1", false,
+                "https://github.com/gluonhq/rich-text-area",
+                "GPL-3.0 license", "https://github.com/gluonhq/rich-text-area?tab=GPL-3.0-1-ov-file"),
+
+            new Dependency("io.github.typhon0", "AnimateFX", "1.2.4", false,
+                "https://github.com/Typhon0/AnimateFX",
+                "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.4.11", false,
+                "https://github.com/oshi/oshi",
+                "MIT license", "https://github.com/oshi/oshi?tab=MIT-1-ov-file"));
     }
 
     public static class Dependency {
