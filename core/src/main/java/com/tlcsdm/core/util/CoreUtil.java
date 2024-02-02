@@ -37,6 +37,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
@@ -228,5 +229,26 @@ public class CoreUtil {
             }
         }
         return isStartupFromJar(CoreUtil.class) ? CoreConstant.JVM_WORKENV_PROD : CoreConstant.JVM_WORKENV_DEV;
+    }
+
+    /**
+     * 读取 InputStream 到 String字符串中.
+     */
+    public static String readStream(InputStream in) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while ((len = in.read(buffer)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+            String content = baos.toString();
+            in.close();
+            baos.close();
+            return content;
+        } catch (IOException e) {
+            StaticLog.error(e);
+            return "";
+        }
     }
 }
