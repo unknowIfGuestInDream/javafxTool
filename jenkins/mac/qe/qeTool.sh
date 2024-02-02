@@ -43,8 +43,8 @@ kill -2 $tpid
 else
 echo 'Stop Process Successfully!'
 echo 'start Process...'
-if [ -f "./jre/bin/java" ];then
-  nohup jre/bin/java -jar $APP_NAME > nohup.out &
+if [ -f "./jre/Contents/Home/bin/java" ];then
+  nohup jre/Contents/Home/bin/java -jar $APP_NAME > nohup.out &
 else
   nohup java -jar $APP_NAME > nohup.out &
 fi
