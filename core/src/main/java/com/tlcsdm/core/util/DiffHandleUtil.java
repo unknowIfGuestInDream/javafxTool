@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.util;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.github.difflib.DiffUtils;
@@ -157,13 +156,17 @@ public class DiffHandleUtil {
         //        String diff2htmlCss = "https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css";
         //        String diff2htmlJs = "https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js";
         Map<String, Object> map = new HashMap<>(8);
-        map.put("highlightCss", FileUtil.readUtf8String(
-            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/github.min.css").toExternalForm()));
-        map.put("diff2htmlCss", FileUtil.readUtf8String(
-            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html.min.css").toExternalForm()));
-        map.put("diff2htmlJs", FileUtil.readUtf8String(
-            DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html-ui.min.js")
-                .toExternalForm()));
+        try {
+            map.put("highlightCss", CoreUtil.readStream(
+                DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/github.min.css").openStream()));
+            map.put("diff2htmlCss", CoreUtil.readStream(
+                DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html.min.css").openStream()));
+            map.put("diff2htmlJs", CoreUtil.readStream(
+                DiffHandleUtil.class.getResource("/com/tlcsdm/core/static/diff2html/diff2html-ui.min.js")
+                    .openStream()));
+        } catch (IOException e) {
+            StaticLog.error(e);
+        }
         String template = """
             <!DOCTYPE html>
             <html lang="en-us">
