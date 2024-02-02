@@ -96,7 +96,7 @@ public class DependencyInfo {
 
             new Dependency("io.github.classgraph", "classgraph", "4.8.165", true,
                 "https://github.com/classgraph/classgraph", "MIT License",
-                "https://github.com/classgraph/classgraph?tab=MIT-1-ov-file"),
+                "http://opensource.org/licenses/MIT"),
 
             new Dependency("com.google.guava", "guava", "33.0.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
@@ -121,7 +121,7 @@ public class DependencyInfo {
 
             new Dependency("org.kordamp.bootstrapfx", "bootstrapfx", "0.4.0", false,
                 "https://github.com/kordamp/bootstrapfx", "MIT License",
-                "https://github.com/kordamp/bootstrapfx/blob/master/LICENSE"),
+                "https://spdx.org/licenses/MIT.html"),
 
             new Dependency("org.kordamp.ikonli", "ikonli", "12.3.1", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
@@ -161,10 +161,10 @@ public class DependencyInfo {
                 "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"),
 
             new Dependency("com.sun.xml.bind", "jaxb", "4.0.4", false, "https://github.com/eclipse-ee4j/jaxb-ri",
-                "BSD-3-Clause license", "https://github.com/eclipse-ee4j/jaxb-ri/blob/master/LICENSE.md"),
+                "BSD-3-Clause license", "http://www.eclipse.org/org/documents/edl-v10.php"),
 
             new Dependency("org.python", "jython", "2.7.3", false, "https://github.com/jython/jython",
-                "PSF license", "https://github.com/jython/jython/blob/master/LICENSE.txt"),
+                "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.3/LICENSE.txt"),
 
             new Dependency("net.bytebuddy", "byte-buddy", "1.14.11", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
@@ -174,7 +174,7 @@ public class DependencyInfo {
 
             new Dependency("com.gluonhq", "rich-text-area", "1.1.1", false,
                 "https://github.com/gluonhq/rich-text-area",
-                "GPL-3.0 license", "https://github.com/gluonhq/rich-text-area?tab=GPL-3.0-1-ov-file"),
+                "GPL-3.0 license", "http://www.gnu.org/licenses/gpl-3.0.html"),
 
             new Dependency("io.github.typhon0", "AnimateFX", "1.2.4", false,
                 "https://github.com/Typhon0/AnimateFX",
@@ -182,7 +182,11 @@ public class DependencyInfo {
 
             new Dependency("com.github.oshi", "oshi-core-java11", "6.4.11", false,
                 "https://github.com/oshi/oshi",
-                "MIT license", "https://github.com/oshi/oshi?tab=MIT-1-ov-file"));
+                "MIT license", "https://opensource.org/licenses/MIT"),
+
+            new Dependency("org.checkerframework", "checker-qual", "3.42.0", true,
+                "https://github.com/typetools/checker-framework",
+                "MIT License", "http://opensource.org/licenses/MIT"));
     }
 
     public static class Dependency {
