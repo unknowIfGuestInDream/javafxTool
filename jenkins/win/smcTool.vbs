@@ -1,2 +1,2 @@
 Set shell = Wscript.createobject("wscript.shell")
-a = shell.run ("qeTool.bat",0)
+a = shell.run ("smcTool.bat",0)

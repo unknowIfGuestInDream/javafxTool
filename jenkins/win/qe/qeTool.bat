@@ -1,6 +1,6 @@
 @echo off
 set check_flag=true
-set java_path=.\jre\bin\java.exe
+set java_path=.\jre\bin\javaw.exe
 if exist .\jre\bin\java.exe (
   %java_path% -version
 ) else (
@@ -9,11 +9,11 @@ if "true" == "%check_flag%" (
 )
 if not %errorlevel% == 0 (
   echo Can not run java,check it.
-  echo %errorlevel%  
+  echo %errorlevel%
   pause
   goto END
 )
-set java_path=java
+set java_path=javaw
 )
 :START
 cmd /c start /b %java_path% -jar javafxTool-qe.jar
