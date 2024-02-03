@@ -155,6 +155,7 @@
         <oshi.version>6.4.11</oshi.version>
         <classgraph.version>4.8.165</classgraph.version>
         <checker-qual.version>3.42.0</checker-qual.version>
+        <jfxtras.version>17-r1</jfxtras.version>
     </properties>
 
     <issueManagement>
@@ -991,6 +992,11 @@
                 <groupId>org.checkerframework</groupId>
                 <artifactId>checker-qual</artifactId>
                 <version>${checker-qual.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jfxtras</groupId>
+                <artifactId>jfxtras-controls</artifactId>
+                <version>${jfxtras.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
