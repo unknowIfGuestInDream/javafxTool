@@ -186,7 +186,11 @@ public class DependencyInfo {
 
             new Dependency("org.checkerframework", "checker-qual", "3.42.0", true,
                 "https://github.com/typetools/checker-framework",
-                "MIT License", "http://opensource.org/licenses/MIT"));
+                "MIT License", "http://opensource.org/licenses/MIT"),
+
+            new Dependency("org.jfxtras", "jfxtras", "17-r1", false,
+                "https://jfxtras.org/",
+                "The 3-Clause BSD License", "http://www.opensource.org/licenses/bsd-license.php"));
     }
 
     public static class Dependency {
