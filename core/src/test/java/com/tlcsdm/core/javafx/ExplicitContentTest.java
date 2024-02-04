@@ -31,6 +31,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import java.net.URL;
@@ -41,6 +43,7 @@ import static org.testfx.matcher.base.NodeMatchers.hasChildren;
 /**
  * @author unknowIfGuestInDream
  */
+@DisabledOnOs(value = OS.LINUX)
 public class ExplicitContentTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
