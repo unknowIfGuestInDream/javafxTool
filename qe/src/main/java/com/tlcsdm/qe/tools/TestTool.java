@@ -88,6 +88,7 @@ public class TestTool extends QeSample {
     private TextField originalField;
     private TextField compareField;
     private TextField outputField;
+    private CustomTextField customTextField1;
 
     private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
 
@@ -108,6 +109,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        customTextField1.setOffsetX(17);
         //        TooltipUtil.showToast("title", "message");
         //        ProgressStage ps = ProgressStage.of();
         //        ps.show();
@@ -183,10 +185,10 @@ public class TestTool extends QeSample {
         Region horizontalRangeSlider = createHorizontalSlider();
         grid.add(horizontalRangeSlider, 0, 3, 2, 1);
 
-        CustomTextField customTextField1 = new CustomTextField();
+        customTextField1 = new CustomTextField();
+        customTextField1.setStyle("-fx-custom-offsetX: 25;");
         customTextField1.setRight(
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png")));
-        customTextField1.setStyle("-fx-custom-offsetX: 25;");
         grid.add(customTextField1, 0, 4, 2, 1);
 
         DecorationTextfield decorationTextfield = new DecorationTextfield();
