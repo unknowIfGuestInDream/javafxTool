@@ -34,6 +34,7 @@ import com.tlcsdm.core.javafx.control.CustomTextField;
 import com.tlcsdm.core.javafx.control.DecorationTextfield;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.RangeSlider;
+import com.tlcsdm.core.javafx.control.Severity;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
@@ -185,9 +186,12 @@ public class TestTool extends QeSample {
         CustomTextField customTextField1 = new CustomTextField();
         customTextField1.setRight(
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png")));
+        customTextField1.setStyle("-fx-custom-offsetX: 25;");
         grid.add(customTextField1, 0, 4, 2, 1);
 
         DecorationTextfield decorationTextfield = new DecorationTextfield();
+        decorationTextfield.setDecoration(Severity.ERROR);
+        decorationTextfield.setStyle("-fx-custom-offsetX: 25;");
         grid.add(decorationTextfield, 0, 5, 2, 1);
 
         ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
