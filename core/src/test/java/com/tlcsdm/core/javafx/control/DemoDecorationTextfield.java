@@ -52,6 +52,7 @@ public class DemoDecorationTextfield extends Application {
         Pane pane = new Pane();
         control.setLayoutX(80);
         control.setLayoutY(60);
+        textfield.setPrefWidth(140);
         textfield.setDecoration(Severity.ERROR, "error");
         textfield.setStyle("-jfx-custom-offsetX: 25.0;");
         pane.getChildren().addAll(control, textfield);

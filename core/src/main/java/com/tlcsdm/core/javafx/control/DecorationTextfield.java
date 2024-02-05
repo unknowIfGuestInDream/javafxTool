@@ -31,6 +31,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -80,13 +81,17 @@ public class DecorationTextfield extends CustomTextField {
     private void init() {
         decoration = new ImageView();
         decoration.setFocusTraversable(false);
+        decoration.setFitWidth(16);
         decoration.setFitHeight(16);
         decoration.setPreserveRatio(true);
-        decoration.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);");
+        decoration.getStyleClass().add("decoration");
         tooltip = new Tooltip();
-        tooltip.setOpacity(0.9);
         tooltip.setAutoFix(true);
+        tooltip.setShowDelay(new Duration(200.0D));
+        tooltip.setOpacity(0.9);
         tooltip.setWrapText(true);
+        tooltip.setShowDuration(new Duration(8000.0D));
+        tooltip.getStyleClass().add("decoration-tooltip");
         tooltip.textProperty().addListener(o -> {
             boolean enableTooltip = decoration.getProperties().containsKey("javafx.scene.control.Tooltip");
             if (tooltip.getText() == null || tooltip.getText().isEmpty()) {
@@ -107,6 +112,7 @@ public class DecorationTextfield extends CustomTextField {
     public void setDecoration(Severity severity, String message) {
         tooltip.setText(message);
         decoration.setImage(getGraphicBySeverity(severity));
+        refreshStyle(severity);
     }
 
     public void setDecoration(Severity severity) {
@@ -120,5 +126,24 @@ public class DecorationTextfield extends CustomTextField {
             case INFO -> infoImage;
             default -> null;
         };
+    }
+
+    private void refreshStyle(Severity severity) {
+        switch (severity) {
+            case ERROR:
+                setStyle("-fx-text-inner-color: red;");
+                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: FBEFEF;-fx-text-fill: cc0033;");
+                break;
+            case WARNING:
+                setStyle("-fx-text-inner-color: red;");
+                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: FFFFCC; -fx-text-fill: CC9900;");
+                break;
+            case INFO:
+                setStyle("-fx-text-inner-color: black;");
+                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: FFFFFF;");
+                break;
+            default:
+                setStyle("-fx-text-inner-color: black;");
+        }
     }
 }
