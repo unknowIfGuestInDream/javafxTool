@@ -163,7 +163,7 @@ public class CustomTextField extends TextField {
         right.set(value);
     }
 
-    private StyleableDoubleProperty offsetX;
+    private DoubleProperty offsetX;
 
     public final DoubleProperty offsetXProperty() {
         if (offsetX == null) {
@@ -213,7 +213,7 @@ public class CustomTextField extends TextField {
     private static class StyleableProperties {
         // 按钮显示
         private static final CssMetaData<CustomTextField, Number> REGION_OFFSET_X = new CssMetaData<>(
-            "-fx-custom-offsetX", SizeConverter.getInstance(), 0) {
+            "-jfx-custom-offsetX", SizeConverter.getInstance(), 0) {
 
             @Override
             public boolean isSettable(CustomTextField n) {

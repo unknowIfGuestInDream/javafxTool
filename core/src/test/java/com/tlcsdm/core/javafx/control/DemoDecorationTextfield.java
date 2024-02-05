@@ -53,7 +53,7 @@ public class DemoDecorationTextfield extends Application {
         control.setLayoutX(80);
         control.setLayoutY(60);
         textfield.setDecoration(Severity.ERROR, "error");
-        textfield.setStyle("-fx-region-offsetX: 25");
+        textfield.setStyle("-jfx-custom-offsetX: 25");
         pane.getChildren().addAll(control, textfield);
         pane.setPadding(new Insets(40));
         Scene scene = new Scene(pane);

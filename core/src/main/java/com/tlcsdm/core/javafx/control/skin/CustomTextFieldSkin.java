@@ -55,7 +55,6 @@ package com.tlcsdm.core.javafx.control.skin;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -85,12 +84,9 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
 
         registerChangeListener(leftProperty(), e -> updateChildren());
         registerChangeListener(rightProperty(), e -> updateChildren());
-        offsetXProperty().addListener(offsetXChangeListener);
+        registerChangeListener(offsetXProperty(), e -> getSkinnable().requestLayout());
+        registerChangeListener(offsetYProperty(), e -> getSkinnable().requestLayout());
     }
-
-    private final ChangeListener<Number> offsetXChangeListener = (ob, ov, nv) -> {
-        getSkinnable().requestLayout();
-    };
 
     public abstract ObjectProperty<Node> leftProperty();
 
@@ -212,7 +208,8 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
     public void dispose() {
         unregisterChangeListeners(leftProperty());
         unregisterChangeListeners(rightProperty());
-        offsetXProperty().removeListener(offsetXChangeListener);
+        unregisterChangeListeners(offsetXProperty());
+        unregisterChangeListeners(offsetYProperty());
         getChildren().clear();
         super.dispose();
     }
