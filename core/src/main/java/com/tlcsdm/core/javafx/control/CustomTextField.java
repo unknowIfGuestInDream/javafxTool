@@ -56,7 +56,6 @@ package com.tlcsdm.core.javafx.control;
 import com.tlcsdm.core.javafx.control.skin.CustomTextFieldSkin;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
@@ -176,7 +175,7 @@ public class CustomTextField extends TextField {
 
                 @Override
                 public Object getBean() {
-                    return CustomTextField.this;
+                    return this;
                 }
 
                 @Override
@@ -193,21 +192,40 @@ public class CustomTextField extends TextField {
     }
 
     public final void setOffsetX(double value) {
-        offsetXProperty().set(value);
+        this.offsetXProperty().set(value);
     }
 
-    private final DoubleProperty offsetY = new SimpleDoubleProperty(this, "offsetY");
+    private DoubleProperty offsetY;
 
     public final DoubleProperty offsetYProperty() {
+        if (offsetY == null) {
+            offsetY = new StyleableDoubleProperty(0) {
+
+                @Override
+                public CssMetaData<? extends Styleable, Number> getCssMetaData() {
+                    return CustomTextField.StyleableProperties.REGION_OFFSET_Y;
+                }
+
+                @Override
+                public Object getBean() {
+                    return this;
+                }
+
+                @Override
+                public String getName() {
+                    return "offsetY";
+                }
+            };
+        }
         return offsetY;
     }
 
     public final double getOffsetY() {
-        return offsetY.get();
+        return offsetY == null ? 0 : offsetY.get();
     }
 
     public final void setOffsetY(double value) {
-        offsetY.set(value);
+        this.offsetYProperty().set(value);
     }
 
     private static class StyleableProperties {
@@ -227,13 +245,28 @@ public class CustomTextField extends TextField {
             }
         };
 
+        private static final CssMetaData<CustomTextField, Number> REGION_OFFSET_Y = new CssMetaData<>(
+            "-jfx-custom-offsetY", SizeConverter.getInstance(), 0) {
+
+            @Override
+            public boolean isSettable(CustomTextField n) {
+                return n.offsetY == null || !n.offsetY.isBound();
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public StyleableProperty<Number> getStyleableProperty(CustomTextField n) {
+                return (StyleableProperty<Number>) n.offsetYProperty();
+            }
+        };
+
         // 创建一个CSS样式的表
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
             final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(
                 TextField.getClassCssMetaData());
-            Collections.addAll(styleables, REGION_OFFSET_X);
+            Collections.addAll(styleables, REGION_OFFSET_X, REGION_OFFSET_Y);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }
 
