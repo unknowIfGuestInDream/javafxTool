@@ -90,6 +90,7 @@ public class TestTool extends QeSample {
     private TextField compareField;
     private TextField outputField;
     private CustomTextField customTextField1;
+    private DecorationTextfield decorationTextfield1;
 
     private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
 
@@ -111,6 +112,7 @@ public class TestTool extends QeSample {
 
     private final Action generate = FxAction.generate(actionEvent -> {
         customTextField1.setOffsetX(17);
+        decorationTextfield1.setDecoration(Severity.ERROR, "error");
         //        TooltipUtil.showToast("title", "message");
         //        ProgressStage ps = ProgressStage.of();
         //        ps.show();
@@ -197,9 +199,9 @@ public class TestTool extends QeSample {
         decorationTextfield.setStyle("-fx-custom-offsetX: 25;");
         grid.add(decorationTextfield, 0, 5, 2, 1);
 
-        DecorationTextfield decorationTextfield1 = new DecorationTextfield("DecorationTextfield");
-        decorationTextfield1.setDecoration(Severity.ERROR, "error");
+        decorationTextfield1 = new DecorationTextfield("DecorationTextfield");
         grid.add(decorationTextfield1, 0, 6, 2, 1);
+        decorationTextfield1.setDecoration(Severity.WARNING, "warn");
 
         ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",
             "Abcdd", "Abcde", "Bbbb", "bbbb", "Cccc", "Dddd", "Eeee", "Ffff", "gggg", "hhhh", "3333");

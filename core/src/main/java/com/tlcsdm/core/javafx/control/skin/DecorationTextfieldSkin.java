@@ -87,10 +87,13 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
         registerChangeListener(control.rightProperty(), e -> updateChildren());
         registerChangeListener(control.offsetXProperty(), e -> getSkinnable().requestLayout());
         registerChangeListener(control.offsetYProperty(), e -> getSkinnable().requestLayout());
+        decoration.setImage(getGraphicBySeverity(control.getSeverity()));
+        refreshStyle(control.getSeverity());
         registerChangeListener(control.severityProperty(), e -> {
             decoration.setImage(getGraphicBySeverity(control.getSeverity()));
             refreshStyle(control.getSeverity());
         });
+        tooltip.setText(control.getTooltipMsg());
         registerChangeListener(control.tooltipMsgProperty(), e -> {
             tooltip.setText(control.getTooltipMsg());
         });
