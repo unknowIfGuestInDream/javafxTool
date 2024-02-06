@@ -233,7 +233,7 @@ public class DecorationTextfield extends TextField {
     @Override
     public String getUserAgentStylesheet() {
         return Objects.requireNonNull(
-                CustomTextField.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationtextfield.css"))
+                DecorationTextfield.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationtextfield.css"))
             .toExternalForm();
     }
 
