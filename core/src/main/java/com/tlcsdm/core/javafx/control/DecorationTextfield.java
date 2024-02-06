@@ -27,12 +27,22 @@
 
 package com.tlcsdm.core.javafx.control;
 
-import javafx.scene.Cursor;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+import com.tlcsdm.core.javafx.control.skin.DecorationTextfieldSkin;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.css.CssMetaData;
+import javafx.css.SimpleStyleableDoubleProperty;
+import javafx.css.Styleable;
+import javafx.css.StyleableProperty;
+import javafx.css.StyleablePropertyFactory;
+import javafx.scene.Node;
+import javafx.scene.control.Skin;
+import javafx.scene.control.TextField;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -42,14 +52,14 @@ import java.util.Objects;
  *
  * <p>
  * The image is on the right side by default and is not displayed initially.
- * When {@link DecorationTextfield#setDecoration(Severity, String)} is called
+ * When {@link DecorationTextfield2#setDecoration(Severity, String)} is called
  * and the parameter is {@link Severity#ERROR}, {@link Severity#WARNING} or
  * {@link Severity#INFO}, the image is displayed.
  *
  * <h3>Code Samples</h3>
  * <p>
  * If you want the image to be displayed outside the text box, you can use
- * {@link DecorationTextfield#setOffsetX} to achieve it.
+ * {@link DecorationTextfield2#setOffsetX} to achieve it.
  *
  * <pre>{@code
  * final DecorationTextfield text = new DecorationTextfield();
@@ -57,93 +67,197 @@ import java.util.Objects;
  * }</pre>
  *
  * @author unknowIfGuestInDream
+ * @author unknowIfGuestInDream
  * @see CustomTextField
  * @see javafx.scene.control.TextField
  */
-public class DecorationTextfield extends CustomTextField {
-    private ImageView decoration;
-    private Tooltip tooltip;
+public class DecorationTextfield extends TextField {
 
-    private static final Image errorImage = new Image(
-        Objects.requireNonNull(DecorationTextfield.class.getResource("/com/tlcsdm/core/static/graphic/error_ov.png"))
-            .toExternalForm());
-    private static final Image warningImage = new Image(
-        Objects.requireNonNull(DecorationTextfield.class.getResource("/com/tlcsdm/core/static/graphic/warning_ov.png"))
-            .toExternalForm());
-    private static final Image infoImage = new Image(Objects.requireNonNull(
-        DecorationTextfield.class.getResource("/com/tlcsdm/core/static/graphic/message_info.png")).toExternalForm());
+    private static final StyleablePropertyFactory<DecorationTextfield> FACTORY = new StyleablePropertyFactory<>(
+        TextField.getClassCssMetaData());
+
+    private static final CssMetaData<DecorationTextfield, Number> OFFSET_X = FACTORY
+        .createSizeCssMetaData("-jfx-decoration-offset-x", s -> s.offsetX, 0, false);
+    private static final CssMetaData<DecorationTextfield, Number> OFFSET_Y = FACTORY
+        .createSizeCssMetaData("-jfx-decoration-offset-y", s -> s.offsetY, 0, false);
+
+    private final StyleableProperty<Number> offsetX;
+    private final StyleableProperty<Number> offsetY;
 
     public DecorationTextfield() {
-        init();
+        this("");
+    }
+
+    public DecorationTextfield(String text) {
+        super(text);
         getStyleClass().add("decoration-text-field");
+        this.offsetX = new SimpleStyleableDoubleProperty(OFFSET_X, this, "offsetX");
+        this.offsetY = new SimpleStyleableDoubleProperty(OFFSET_Y, this, "offsetY");
     }
 
-    private void init() {
-        decoration = new ImageView();
-        decoration.setFocusTraversable(false);
-        decoration.setFitWidth(16);
-        decoration.setFitHeight(16);
-        decoration.setPreserveRatio(true);
-        decoration.getStyleClass().add("decoration");
-        tooltip = new Tooltip();
-        tooltip.setAutoFix(true);
-        tooltip.setShowDelay(new Duration(200.0D));
-        tooltip.setOpacity(0.9);
-        tooltip.setWrapText(true);
-        tooltip.setShowDuration(new Duration(8000.0D));
-        tooltip.getStyleClass().add("decoration-tooltip");
-        tooltip.textProperty().addListener(o -> {
-            boolean enableTooltip = decoration.getProperties().containsKey("javafx.scene.control.Tooltip");
-            if (tooltip.getText() == null || tooltip.getText().isEmpty()) {
-                if (enableTooltip) {
-                    Tooltip.uninstall(decoration, tooltip);
-                    decoration.setCursor(Cursor.DEFAULT);
-                }
-            } else {
-                if (!enableTooltip) {
-                    Tooltip.install(decoration, tooltip);
-                    decoration.setCursor(Cursor.HAND);
-                }
-            }
-        });
-        setRight(decoration);
+    private final ObjectProperty<Node> left = new SimpleObjectProperty<>(this, "left");
+
+    /**
+     * @return An ObjectProperty wrapping the {@link Node} that is placed on the
+     * left of the text field.
+     */
+    public final ObjectProperty<Node> leftProperty() {
+        return left;
     }
 
+    /**
+     * @return the {@link Node} that is placed on the left of the text field.
+     */
+    public final Node getLeft() {
+        return left.get();
+    }
+
+    /**
+     * Sets the {@link Node} that is placed on the left of the text field.
+     *
+     * @param value
+     */
+    public final void setLeft(Node value) {
+        left.set(value);
+    }
+
+    private final ObjectProperty<Node> right = new SimpleObjectProperty<>(this, "right");
+
+    /**
+     * Property representing the {@link Node} that is placed on the right of the
+     * text field.
+     *
+     * @return An ObjectProperty.
+     */
+    public final ObjectProperty<Node> rightProperty() {
+        return right;
+    }
+
+    /**
+     * @return The {@link Node} that is placed on the right of the text field.
+     */
+    public final Node getRight() {
+        return right.get();
+    }
+
+    /**
+     * Sets the {@link Node} that is placed on the right of the text field.
+     *
+     * @param value
+     */
+    public final void setRight(Node value) {
+        right.set(value);
+    }
+
+    /**
+     * The x-axis offset of the decoration, default is 0.
+     */
+    public final DoubleProperty offsetXProperty() {
+        return (DoubleProperty) offsetX;
+    }
+
+    public final double getOffsetX() {
+        return offsetX.getValue().doubleValue();
+    }
+
+    public final void setOffsetX(double value) {
+        offsetX.setValue(value);
+    }
+
+    /**
+     * The y-axis offset of the decoration, default is 0.
+     */
+    public final DoubleProperty offsetYProperty() {
+        return (DoubleProperty) offsetY;
+    }
+
+    public final double getOffsetY() {
+        return offsetY.getValue().doubleValue();
+    }
+
+    public final void setOffsetY(double value) {
+        offsetY.setValue(value);
+    }
+
+    private ObjectProperty<Severity> severity;
+
+    /**
+     * Severity of messages.
+     */
+    public final ObjectProperty<Severity> severityProperty() {
+        if (severity == null) {
+            severity = new SimpleObjectProperty<>(this, "severity", Severity.OK);
+        }
+        return severity;
+    }
+
+    public final Severity getSeverity() {
+        return severity == null ? Severity.OK : severityProperty().get();
+    }
+
+    public final void setSeverity(Severity severity) {
+        severityProperty().set(severity);
+    }
+
+    private StringProperty tooltipMsg;
+
+    /**
+     * Tooltip text.
+     */
+    public final StringProperty tooltipMsgProperty() {
+        if (tooltipMsg == null) {
+            tooltipMsg = new SimpleStringProperty(this, "tooltipMsg", "");
+        }
+        return tooltipMsg;
+    }
+
+    public final String getTooltipMsg() {
+        return tooltipMsg == null ? "" : tooltipMsgProperty().get();
+    }
+
+    public final void setTooltipMsg(String message) {
+        tooltipMsgProperty().set(message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new DecorationTextfieldSkin(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getUserAgentStylesheet() {
+        return Objects.requireNonNull(
+                CustomTextField.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationtextfield.css"))
+            .toExternalForm();
+    }
+
+    public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
+        return FACTORY.getCssMetaData();
+    }
+
+    @Override
+    public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+        return FACTORY.getCssMetaData();
+    }
+
+    /**
+     * Set Severity and tip text.
+     */
     public void setDecoration(Severity severity, String message) {
-        tooltip.setText(message);
-        decoration.setImage(getGraphicBySeverity(severity));
-        refreshStyle(severity);
+        setTooltipMsg(message);
+        setSeverity(severity);
     }
 
+    /**
+     * Set Severity without tip.
+     */
     public void setDecoration(Severity severity) {
         setDecoration(severity, null);
-    }
-
-    private Image getGraphicBySeverity(Severity severity) {
-        return switch (severity) {
-            case ERROR -> errorImage;
-            case WARNING -> warningImage;
-            case INFO -> infoImage;
-            default -> null;
-        };
-    }
-
-    private void refreshStyle(Severity severity) {
-        switch (severity) {
-            case ERROR:
-                setStyle("-fx-text-inner-color: red;");
-                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: FBEFEF;-fx-text-fill: cc0033;");
-                break;
-            case WARNING:
-                setStyle("-fx-text-inner-color: red;");
-                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: FFFFCC; -fx-text-fill: CC9900;");
-                break;
-            case INFO:
-                setStyle("-fx-text-inner-color: black;");
-                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: FFFFFF;");
-                break;
-            default:
-                setStyle("-fx-text-inner-color: black;");
-        }
     }
 }
