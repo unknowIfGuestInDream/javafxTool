@@ -39,10 +39,12 @@ import javafx.stage.Stage;
  */
 public class DemoDecorationTextfield extends Application {
     private DecorationTextfield2 control;
+    private DecorationTextfield textfield;
 
     @Override
     public void init() {
         control = new DecorationTextfield2();
+        textfield = new DecorationTextfield();
     }
 
     @Override
@@ -50,7 +52,10 @@ public class DemoDecorationTextfield extends Application {
         Pane pane = new Pane();
         control.setLayoutX(80);
         control.setLayoutY(60);
-        pane.getChildren().add(control);
+        textfield.setPrefWidth(140);
+        textfield.setDecoration(Severity.ERROR, "error");
+        textfield.setStyle("-jfx-custom-offsetX: 25.0;");
+        pane.getChildren().addAll(control, textfield);
         pane.setPadding(new Insets(40));
         Scene scene = new Scene(pane);
         stage.setTitle("DecorationTextfield");

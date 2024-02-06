@@ -34,6 +34,7 @@ import com.tlcsdm.core.javafx.control.CustomTextField;
 import com.tlcsdm.core.javafx.control.DecorationTextfield;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.RangeSlider;
+import com.tlcsdm.core.javafx.control.Severity;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
@@ -87,6 +88,7 @@ public class TestTool extends QeSample {
     private TextField originalField;
     private TextField compareField;
     private TextField outputField;
+    private CustomTextField customTextField1;
 
     private static final Map<String, Object> customDataMap = new LinkedHashMap<>();
 
@@ -107,6 +109,7 @@ public class TestTool extends QeSample {
     private final PropertySheet propertySheet = new PropertySheet();
 
     private final Action generate = FxAction.generate(actionEvent -> {
+        customTextField1.setOffsetX(17);
         //        TooltipUtil.showToast("title", "message");
         //        ProgressStage ps = ProgressStage.of();
         //        ps.show();
@@ -182,12 +185,15 @@ public class TestTool extends QeSample {
         Region horizontalRangeSlider = createHorizontalSlider();
         grid.add(horizontalRangeSlider, 0, 3, 2, 1);
 
-        CustomTextField customTextField1 = new CustomTextField();
+        customTextField1 = new CustomTextField();
+        customTextField1.setStyle("-fx-custom-offsetX: 25;");
         customTextField1.setRight(
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png")));
         grid.add(customTextField1, 0, 4, 2, 1);
 
         DecorationTextfield decorationTextfield = new DecorationTextfield();
+        decorationTextfield.setDecoration(Severity.ERROR);
+        decorationTextfield.setStyle("-fx-custom-offsetX: 25;");
         grid.add(decorationTextfield, 0, 5, 2, 1);
 
         ObservableList<String> stringList = FXCollections.observableArrayList("1111", "2222", "Aaaaa", "Abbbb", "Abccc",

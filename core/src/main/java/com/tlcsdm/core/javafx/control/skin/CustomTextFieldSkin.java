@@ -84,6 +84,8 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
 
         registerChangeListener(leftProperty(), e -> updateChildren());
         registerChangeListener(rightProperty(), e -> updateChildren());
+        registerChangeListener(offsetXProperty(), e -> getSkinnable().requestLayout());
+        registerChangeListener(offsetYProperty(), e -> getSkinnable().requestLayout());
     }
 
     public abstract ObjectProperty<Node> leftProperty();
@@ -200,5 +202,15 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
         final double rightHeight = rightPane == null ? 0.0 : snapSizeX(rightPane.minHeight(-1));
 
         return Math.max(mh, Math.max(leftHeight, rightHeight));
+    }
+
+    @Override
+    public void dispose() {
+        unregisterChangeListeners(leftProperty());
+        unregisterChangeListeners(rightProperty());
+        unregisterChangeListeners(offsetXProperty());
+        unregisterChangeListeners(offsetYProperty());
+        getChildren().clear();
+        super.dispose();
     }
 }
