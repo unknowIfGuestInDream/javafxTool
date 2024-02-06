@@ -38,13 +38,15 @@ import javafx.stage.Stage;
  * Description: 组合组件程序demo
  */
 public class DemoDecorationTextfield extends Application {
-    private DecorationTextfield2 control;
-    private DecorationTextfield textfield;
+    private DecorationTextfield3 control;
+    private DecorationTextfield2 textfield;
+    private DecorationTextfield textfield1;
 
     @Override
     public void init() {
-        control = new DecorationTextfield2();
-        textfield = new DecorationTextfield();
+        control = new DecorationTextfield3();
+        textfield = new DecorationTextfield2();
+        textfield1 = new DecorationTextfield();
     }
 
     @Override
@@ -55,7 +57,12 @@ public class DemoDecorationTextfield extends Application {
         textfield.setPrefWidth(140);
         textfield.setDecoration(Severity.ERROR, "error");
         textfield.setStyle("-jfx-custom-offsetX: 25.0;");
-        pane.getChildren().addAll(control, textfield);
+        textfield1.setStyle("-jfx-decoration-offset-x: 25.0;");
+        textfield1.setDecoration(Severity.ERROR, "error");
+        textfield1.setLayoutX(80);
+        textfield1.setLayoutY(100);
+        textfield1.setText("DecorationTextfield");
+        pane.getChildren().addAll(control, textfield, textfield1);
         pane.setPadding(new Insets(40));
         Scene scene = new Scene(pane);
         stage.setTitle("DecorationTextfield");
