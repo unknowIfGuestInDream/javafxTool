@@ -1,0 +1,15 @@
+name: Know How
+description: Record KnowHow here
+title: "[KnowHow]"
+labels:
+  - knowHow
+assignees: unknowIfGuestInDream
+body:
+  - type: textarea
+    id: knowHow
+    attributes:
+      label: Describe the knowHow
+      description: What's it for
+      placeholder: write your knowHow here
+    validations:
+      required: true
