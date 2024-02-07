@@ -97,7 +97,7 @@
         <hutool.version>5.8.25</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <logback-classic.version>1.4.14</logback-classic.version>
-        <slf4j-api.version>2.0.11</slf4j-api.version>
+        <slf4j-api.version>2.0.12</slf4j-api.version>
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-csv.version>1.10.0</commons-csv.version>
