@@ -27,19 +27,17 @@
 
 package com.tlcsdm.core.javafx.control.skin;
 
-import com.tlcsdm.core.javafx.control.DecorationTextfield;
+import com.tlcsdm.core.javafx.control.DecorationTitlePane;
 import com.tlcsdm.core.javafx.control.Severity;
 import javafx.beans.InvalidationListener;
 import javafx.css.PseudoClass;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.skin.TextFieldSkin;
+import javafx.scene.control.skin.TitledPaneSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.HitInfo;
 import javafx.util.Duration;
 
 import java.util.Objects;
@@ -47,7 +45,7 @@ import java.util.Objects;
 /**
  * @author unknowIfGuestInDream
  */
-public class DecorationTextfieldSkin extends TextFieldSkin {
+public class DecorationTitlePaneSkin extends TitledPaneSkin {
 
     private static final PseudoClass HAS_NO_SIDE_NODE = PseudoClass.getPseudoClass("no-side-nodes");
     private static final PseudoClass HAS_LEFT_NODE = PseudoClass.getPseudoClass("left-node-visible");
@@ -55,14 +53,14 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
 
     private static final Image errorImage = new Image(
         Objects.requireNonNull(
-                DecorationTextfieldSkin.class.getResource("/com/tlcsdm/core/static/graphic/error_ov.png"))
+                DecorationTitlePaneSkin.class.getResource("/com/tlcsdm/core/static/graphic/error_ov.png"))
             .toExternalForm());
     private static final Image warningImage = new Image(
         Objects.requireNonNull(
-                DecorationTextfieldSkin.class.getResource("/com/tlcsdm/core/static/graphic/warning_ov.png"))
+                DecorationTitlePaneSkin.class.getResource("/com/tlcsdm/core/static/graphic/warning_ov.png"))
             .toExternalForm());
     private static final Image infoImage = new Image(Objects.requireNonNull(
-            DecorationTextfieldSkin.class.getResource("/com/tlcsdm/core/static/graphic/message_info.png"))
+            DecorationTitlePaneSkin.class.getResource("/com/tlcsdm/core/static/graphic/message_info.png"))
         .toExternalForm());
 
     private Node left;
@@ -71,17 +69,13 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
     private StackPane rightPane;
     private ImageView decoration;
     private Tooltip tooltip;
-    private DecorationTextfield control;
+    private DecorationTitlePane control;
 
-    public DecorationTextfieldSkin(final DecorationTextfield control) {
+    public DecorationTitlePaneSkin(final DecorationTitlePane control) {
         super(control);
         this.control = control;
         init();
-        updateChildren();
-        registerChangeListener(control.leftProperty(), e -> updateChildren());
-        registerChangeListener(control.rightProperty(), e -> updateChildren());
-        registerChangeListener(control.offsetXProperty(), e -> getSkinnable().requestLayout());
-        registerChangeListener(control.offsetYProperty(), e -> getSkinnable().requestLayout());
+        //updateChildren();
         decoration.setImage(getGraphicBySeverity(control.getSeverity()));
         refreshStyle(control.getSeverity());
         registerChangeListener(control.severityProperty(), e -> {
@@ -109,7 +103,7 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
         tooltip.setShowDuration(new Duration(8000.0D));
         tooltip.getStyleClass().add("decoration-tooltip");
         tooltip.textProperty().addListener(tooltipListener);
-        control.setRight(decoration);
+        // control.setRight(decoration);
     }
 
     private InvalidationListener tooltipListener = o -> {
@@ -127,71 +121,65 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
         }
     };
 
-    private void updateChildren() {
-        Node newLeft = control.leftProperty().get();
-        // Remove leftPane in any case
-        getChildren().remove(leftPane);
-        if (newLeft != null) {
-            leftPane = new StackPane(newLeft);
-            leftPane.setManaged(false);
-            leftPane.setAlignment(Pos.CENTER_LEFT);
-            leftPane.getStyleClass().add("left-pane");
-            getChildren().add(leftPane);
-            left = newLeft;
-        } else {
-            leftPane = null;
-            left = null;
-        }
+    //    private void updateChildren() {
+    //        Node newLeft = control.leftProperty().get();
+    //        // Remove leftPane in any case
+    //        getChildren().remove(leftPane);
+    //        if (newLeft != null) {
+    //            leftPane = new StackPane(newLeft);
+    //            leftPane.setManaged(false);
+    //            leftPane.setAlignment(Pos.CENTER_LEFT);
+    //            leftPane.getStyleClass().add("left-pane");
+    //            getChildren().add(leftPane);
+    //            left = newLeft;
+    //        } else {
+    //            leftPane = null;
+    //            left = null;
+    //        }
+    //
+    //        Node newRight = control.rightProperty().get();
+    //        // Remove rightPane in anycase
+    //        getChildren().remove(rightPane);
+    //        if (newRight != null) {
+    //            rightPane = new StackPane(newRight);
+    //            rightPane.setManaged(false);
+    //            rightPane.setAlignment(Pos.CENTER_RIGHT);
+    //            rightPane.getStyleClass().add("right-pane");
+    //            getChildren().add(rightPane);
+    //            right = newRight;
+    //        } else {
+    //            rightPane = null;
+    //            right = null;
+    //        }
+    //
+    //        control.pseudoClassStateChanged(HAS_LEFT_NODE, left != null);
+    //        control.pseudoClassStateChanged(HAS_RIGHT_NODE, right != null);
+    //        control.pseudoClassStateChanged(HAS_NO_SIDE_NODE, left == null && right == null);
+    //    }
 
-        Node newRight = control.rightProperty().get();
-        // Remove rightPane in anycase
-        getChildren().remove(rightPane);
-        if (newRight != null) {
-            rightPane = new StackPane(newRight);
-            rightPane.setManaged(false);
-            rightPane.setAlignment(Pos.CENTER_RIGHT);
-            rightPane.getStyleClass().add("right-pane");
-            getChildren().add(rightPane);
-            right = newRight;
-        } else {
-            rightPane = null;
-            right = null;
-        }
-
-        control.pseudoClassStateChanged(HAS_LEFT_NODE, left != null);
-        control.pseudoClassStateChanged(HAS_RIGHT_NODE, right != null);
-        control.pseudoClassStateChanged(HAS_NO_SIDE_NODE, left == null && right == null);
-    }
-
-    @Override
-    protected void layoutChildren(double x, double y, double w, double h) {
-        final double fullHeight = h + snappedTopInset() + snappedBottomInset();
-
-        final double leftWidth = leftPane == null ? 0.0 : getSkinnable().snapSizeX(leftPane.prefWidth(fullHeight));
-        final double rightWidth = rightPane == null ? 0.0 : getSkinnable().snapSizeX(rightPane.prefWidth(fullHeight));
-
-        final double textFieldStartX = getSkinnable().snapPositionX(x) + getSkinnable().snapSizeX(leftWidth);
-        final double textFieldWidth = w - getSkinnable().snapSizeX(leftWidth) - getSkinnable().snapSizeX(rightWidth);
-        super.layoutChildren(textFieldStartX, 0, textFieldWidth, fullHeight);
-
-        if (leftPane != null) {
-            final double leftStartX = 0 + control.offsetXProperty().get();
-            final double leftStartY = 0 + control.offsetYProperty().get();
-            leftPane.resizeRelocate(leftStartX, leftStartY, leftWidth, fullHeight);
-        }
-
-        if (rightPane != null) {
-            final double rightStartX = w - rightWidth + snappedLeftInset() + control.offsetXProperty().get();
-            final double rightStartY = 0 + control.offsetYProperty().get();
-            rightPane.resizeRelocate(rightStartX, rightStartY, rightWidth, fullHeight);
-        }
-    }
-
-    @Override
-    public HitInfo getIndex(double x, double y) {
-        final double leftWidth = leftPane == null ? 0.0 : snapSizeX(leftPane.prefWidth(getSkinnable().getHeight()));
-        return super.getIndex(x - leftWidth, y);
-    }
+    //    @Override
+    //    protected void layoutChildren(double x, double y, double w, double h) {
+    //        final double fullHeight = h + snappedTopInset() + snappedBottomInset();
+    //
+    //        final double leftWidth = leftPane == null ? 0.0 : getSkinnable().snapSizeX(leftPane.prefWidth(fullHeight));
+    //        final double rightWidth = rightPane == null ? 0.0 : getSkinnable().snapSizeX(rightPane.prefWidth(fullHeight));
+    //
+    //        final double textFieldStartX = getSkinnable().snapPositionX(x) + getSkinnable().snapSizeX(leftWidth);
+    //        final double textFieldWidth = w - getSkinnable().snapSizeX(leftWidth) - getSkinnable().snapSizeX(rightWidth);
+    //        super.layoutChildren(textFieldStartX, 0, textFieldWidth, fullHeight);
+    //
+    //        if (leftPane != null) {
+    //            final double leftStartX = 0 + control.offsetXProperty().get();
+    //            final double leftStartY = 0 + control.offsetYProperty().get();
+    //            leftPane.resizeRelocate(leftStartX, leftStartY, leftWidth, fullHeight);
+    //        }
+    //
+    //        if (rightPane != null) {
+    //            final double rightStartX = w - rightWidth + snappedLeftInset() + control.offsetXProperty().get();
+    //            final double rightStartY = 0 + control.offsetYProperty().get();
+    //            rightPane.resizeRelocate(rightStartX, rightStartY, rightWidth, fullHeight);
+    //        }
+    //    }
 
     @Override
     protected double computePrefWidth(double h, double topInset, double rightInset, double bottomInset,
@@ -266,10 +254,6 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
         tooltip.textProperty().removeListener(tooltipListener);
         unregisterChangeListeners(control.tooltipMsgProperty());
         unregisterChangeListeners(control.severityProperty());
-        unregisterChangeListeners(control.offsetXProperty());
-        unregisterChangeListeners(control.offsetYProperty());
-        unregisterChangeListeners(control.leftProperty());
-        unregisterChangeListeners(control.rightProperty());
         tooltip = null;
         decoration = null;
         control = null;

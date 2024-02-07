@@ -27,10 +27,94 @@
 
 package com.tlcsdm.core.javafx.control;
 
+import com.tlcsdm.core.javafx.control.skin.DecorationTitlePaneSkin;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
+import javafx.scene.control.Skin;
 import javafx.scene.control.TitledPane;
+
+import java.util.Objects;
 
 /**
  * @author unknowIfGuestInDream
  */
 public class DecorationTitlePane extends TitledPane {
+
+    public DecorationTitlePane() {
+        super();
+        getStyleClass().add("decoration-title-pane");
+    }
+
+    public DecorationTitlePane(String var1, Node var2) {
+        this();
+        this.setText(var1);
+        this.setContent(var2);
+    }
+
+    private ObjectProperty<Severity> severity;
+
+    /**
+     * Severity of messages.
+     */
+    public final ObjectProperty<Severity> severityProperty() {
+        if (severity == null) {
+            severity = new SimpleObjectProperty<>(this, "severity", Severity.OK);
+        }
+        return severity;
+    }
+
+    public final Severity getSeverity() {
+        return severity == null ? Severity.OK : severityProperty().get();
+    }
+
+    public final void setSeverity(Severity severity) {
+        severityProperty().set(severity);
+    }
+
+    private StringProperty tooltipMsg;
+
+    /**
+     * Tooltip text.
+     */
+    public final StringProperty tooltipMsgProperty() {
+        if (tooltipMsg == null) {
+            tooltipMsg = new SimpleStringProperty(this, "tooltipMsg", "");
+        }
+        return tooltipMsg;
+    }
+
+    public final String getTooltipMsg() {
+        return tooltipMsg == null ? "" : tooltipMsgProperty().get();
+    }
+
+    public final void setTooltipMsg(String message) {
+        tooltipMsgProperty().set(message);
+    }
+
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new DecorationTitlePaneSkin(this);
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        return Objects.requireNonNull(
+                DecorationTitlePane.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationtitlepane.css"))
+            .toExternalForm();
+    }
+
+    public void setDecoration(Severity severity, String message) {
+        setTooltipMsg(message);
+        setSeverity(severity);
+    }
+
+    /**
+     * Set Severity without tip.
+     */
+    public void setDecoration(Severity severity) {
+        setDecoration(severity, null);
+    }
 }
