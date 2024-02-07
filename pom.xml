@@ -156,6 +156,7 @@
         <classgraph.version>4.8.165</classgraph.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <jfxtras.version>17-r1</jfxtras.version>
+        <zip4j.version>2.11.5</zip4j.version>
     </properties>
 
     <issueManagement>
@@ -997,6 +998,11 @@
                 <groupId>org.jfxtras</groupId>
                 <artifactId>jfxtras-controls</artifactId>
                 <version>${jfxtras.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.lingala.zip4j</groupId>
+                <artifactId>zip4j</artifactId>
+                <version>${zip4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
