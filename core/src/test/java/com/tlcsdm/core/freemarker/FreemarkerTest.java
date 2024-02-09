@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+package com.tlcsdm.core.freemarker;
 
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
@@ -35,13 +35,13 @@ import com.tlcsdm.core.freemarker.template.RegorDirective;
 import com.tlcsdm.core.freemarker.template.RepeatDirective;
 import com.tlcsdm.core.freemarker.template.StyleDirective;
 import com.tlcsdm.core.freemarker.template.UpperDirective;
+import com.tlcsdm.core.util.CoreConstant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +49,6 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class FreemarkerTest {
     private static Configuration configuration;
 
