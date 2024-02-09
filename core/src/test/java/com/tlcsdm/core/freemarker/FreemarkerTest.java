@@ -29,26 +29,53 @@ package com.tlcsdm.core.freemarker;
 
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.resource.ResourceUtil;
-import com.tlcsdm.core.freemarker.template.HexDirective;
-import com.tlcsdm.core.freemarker.template.LowerDirective;
-import com.tlcsdm.core.freemarker.template.RegorDirective;
-import com.tlcsdm.core.freemarker.template.RepeatDirective;
-import com.tlcsdm.core.freemarker.template.StyleDirective;
-import com.tlcsdm.core.freemarker.template.UpperDirective;
+import com.google.common.collect.ImmutableMap;
+import com.tlcsdm.core.freemarker.directive.HexDirective;
+import com.tlcsdm.core.freemarker.directive.LowerDirective;
+import com.tlcsdm.core.freemarker.directive.RegorDirective;
+import com.tlcsdm.core.freemarker.directive.RepeatDirective;
+import com.tlcsdm.core.freemarker.directive.StyleDirective;
+import com.tlcsdm.core.freemarker.directive.UpperDirective;
+import com.tlcsdm.core.freemarker.format.AppMetaTemplateDateFormatFactory;
+import com.tlcsdm.core.freemarker.format.BaseNTemplateNumberFormatFactory;
+import com.tlcsdm.core.freemarker.format.EpochMillisDivTemplateDateFormatFactory;
+import com.tlcsdm.core.freemarker.format.EpochMillisTemplateDateFormatFactory;
+import com.tlcsdm.core.freemarker.format.HTMLISOTemplateDateFormatFactory;
+import com.tlcsdm.core.freemarker.format.HexTemplateNumberFormatFactory;
+import com.tlcsdm.core.freemarker.format.LocAndTZSensitiveTemplateDateFormatFactory;
+import com.tlcsdm.core.freemarker.format.LocaleSensitiveTemplateNumberFormatFactory;
+import com.tlcsdm.core.freemarker.format.PrintfGTemplateNumberFormatFactory;
+import com.tlcsdm.core.freemarker.format.UnitAwareTemplateNumberFormatFactory;
+import com.tlcsdm.core.freemarker.format.UnitAwareTemplateNumberModel;
+import com.tlcsdm.core.freemarker.method.IndexOfMethod;
 import com.tlcsdm.core.util.CoreConstant;
+import freemarker.cache.ConditionalTemplateConfigurationFactory;
+import freemarker.cache.FileNameGlobMatcher;
+import freemarker.cache.MergingTemplateConfigurationFactory;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.core.AliasTemplateDateFormatFactory;
+import freemarker.core.TemplateConfiguration;
+import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
+import freemarker.template.SimpleDate;
 import freemarker.template.Template;
+import freemarker.template.TemplateDateModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateHashModel;
 import freemarker.template.utility.StringUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class FreemarkerTest {
@@ -253,6 +280,133 @@ public class FreemarkerTest {
         map.put("y", "33");
         template.process(map, stringWriter);
         System.out.println(stringWriter);
+    }
+
+    @Test
+    public void methodModelEx() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("methodModelEx.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("indexOf", new IndexOfMethod());
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void templateConfig() throws IOException, TemplateException {
+        StringTemplateLoader tl = new StringTemplateLoader();
+        tl.putTemplate("(de).ftl", "${.locale}");
+        tl.putTemplate("default.ftl", "${.locale}");
+        tl.putTemplate("(de)-fr.ftl", ("<#ftl locale='fr_FR'>${.locale}"));
+        tl.putTemplate("default-fr.ftl", ("<#ftl locale='fr_FR'>${.locale}"));
+        configuration.setTemplateLoader(tl);
+
+        TemplateConfiguration tcDe = new TemplateConfiguration();
+        tcDe.setLocale(Locale.GERMANY);
+        configuration.setTemplateConfigurations(
+            new ConditionalTemplateConfigurationFactory(new FileNameGlobMatcher("*(de)*"), tcDe));
+
+        Template t1 = configuration.getTemplate("(de).ftl");
+        Assertions.assertEquals(Locale.GERMANY, t1.getLocale());
+        Assertions.assertEquals("de_DE", getTemplateOutput(t1));
+
+        Template t2 = configuration.getTemplate("(de).ftl", Locale.ITALY);
+        Assertions.assertEquals(Locale.GERMANY, t2.getLocale());
+        Assertions.assertEquals("de_DE", getTemplateOutput(t2));
+
+        Template t3 = configuration.getTemplate("default.ftl");
+        Assertions.assertEquals(Locale.getDefault(), t3.getLocale());
+        Assertions.assertEquals(Locale.getDefault().toString(), getTemplateOutput(t3));
+
+        Template t4 = configuration.getTemplate("default.ftl", Locale.ITALY);
+        Assertions.assertEquals(Locale.ITALY, t4.getLocale());
+        Assertions.assertEquals("it_IT", getTemplateOutput(t4));
+    }
+
+    @Test
+    public void mergeTemplateConfig() throws IOException, TemplateException {
+        configuration.setLocale(Locale.US);
+        TemplateConfiguration tcFR = new TemplateConfiguration();
+        tcFR.setLocale(Locale.FRANCE);
+        TemplateConfiguration tcYN = new TemplateConfiguration();
+        tcYN.setBooleanFormat("Y,N");
+        TemplateConfiguration tc00 = new TemplateConfiguration();
+        tc00.setNumberFormat("0.00");
+        configuration.setTemplateConfigurations(new MergingTemplateConfigurationFactory(
+            new ConditionalTemplateConfigurationFactory(new FileNameGlobMatcher("*(fr)*"), tcFR),
+            new ConditionalTemplateConfigurationFactory(new FileNameGlobMatcher("*(yn)*"), tcYN),
+            new ConditionalTemplateConfigurationFactory(new FileNameGlobMatcher("*(00)*"), tc00)));
+
+        String commonFTL = "${.locale} ${true?string} ${1.2}";
+        StringTemplateLoader tl = new StringTemplateLoader();
+        tl.putTemplate("default", commonFTL);
+        tl.putTemplate("(fr)", commonFTL);
+        tl.putTemplate("(yn)(00)", commonFTL);
+        tl.putTemplate("(00)(fr)", commonFTL);
+        configuration.setTemplateLoader(tl);
+
+        Assertions.assertEquals("en_US true 1.2", getTemplateOutput(configuration.getTemplate("default")));
+        Assertions.assertEquals("fr_FR true 1,2", getTemplateOutput(configuration.getTemplate("(fr)")));
+        Assertions.assertEquals("en_US Y 1.20", getTemplateOutput(configuration.getTemplate("(yn)(00)")));
+        Assertions.assertEquals("fr_FR true 1,20", getTemplateOutput(configuration.getTemplate("(00)(fr)")));
+    }
+
+    @Test
+    public void customNumberFormat() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("customNumberFormat.ftl");
+        configuration.setCustomNumberFormats(ImmutableMap.of("hex", HexTemplateNumberFormatFactory.INSTANCE, "loc",
+            LocaleSensitiveTemplateNumberFormatFactory.INSTANCE, "base", BaseNTemplateNumberFormatFactory.INSTANCE,
+            "printfG", PrintfGTemplateNumberFormatFactory.INSTANCE, "ua",
+            UnitAwareTemplateNumberFormatFactory.INSTANCE));
+        // configuration.setNumberFormat("@hex");
+        // configuration.setNumberFormat("@base 8");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("weight", new UnitAwareTemplateNumberModel(1.5, "kg"));
+        map.put("n", 1234567);
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void customDataFormat() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("customDataFormat.ftl");
+        configuration.setCustomDateFormats(
+            ImmutableMap.of("epoch", EpochMillisTemplateDateFormatFactory.INSTANCE, "loc",
+                LocAndTZSensitiveTemplateDateFormatFactory.INSTANCE, "div",
+                EpochMillisDivTemplateDateFormatFactory.INSTANCE, "appMeta", AppMetaTemplateDateFormatFactory.INSTANCE,
+                "htmlIso", HTMLISOTemplateDateFormatFactory.INSTANCE, "fileDate",
+                new AliasTemplateDateFormatFactory("dd/MMM/yy hh:mm a")));
+        // configuration.setDateTimeFormat("@epoch");
+        // configuration.setDateTimeFormat("@div 1000");
+        // configuration.setDateTimeFormat("'@'yyyy");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("d", new Date(123456789));
+        map.put("dt", new SimpleDate(new Date(12345678L), TemplateDateModel.DATETIME));
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Disabled
+    @Test
+    public void beansWrapper() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("beansWrapper.ftl");
+        BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+        TemplateHashModel staticModels = wrapper.getStaticModels();
+        TemplateHashModel fileStatics = (TemplateHashModel) staticModels.get("java.io.File");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("File", fileStatics);
+        map.put("statics", BeansWrapper.getDefaultInstance().getStaticModels());
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    private String getTemplateOutput(Template t) throws TemplateException, IOException {
+        StringWriter sw = new StringWriter();
+        t.process(null, sw);
+        return sw.toString();
     }
 
     public static class TestBean {

@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.freemarker.template;
+package com.tlcsdm.core.freemarker.directive;
 
 import cn.hutool.log.StaticLog;
 import freemarker.core.Environment;

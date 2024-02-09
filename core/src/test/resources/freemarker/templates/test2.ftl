@@ -1,4 +1,5 @@
 <#import 'macro.ftl' as mac>
+<#import 'function.ftl' as func>
 
 <#assign num=18>
 <#if num lt 11><#-- 条件指令 -->
@@ -76,3 +77,10 @@ str=  ${str}
 ${mac.mail}
 <#assign mail="test2.ftl" in mac>
 ${mac.mail}
+
+function
+
+${func.f(1, 2)}
+${func.f(1, 2, 3)}
+${func.fCA(1, 2)}
+${func.fCA(1, 2, 3)}
