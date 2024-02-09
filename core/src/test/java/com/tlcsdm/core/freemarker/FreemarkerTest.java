@@ -84,6 +84,7 @@ public class FreemarkerTest {
     @BeforeAll
     public static void init() {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
+        System.out.println(ResourceUtil.getResource("freemarker/templates").getPath());
         try {
             configuration.setDirectoryForTemplateLoading(
                 new File(ResourceUtil.getResource("freemarker/templates").getPath()));
