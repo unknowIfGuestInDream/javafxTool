@@ -40,12 +40,14 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.utility.StringUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,6 +66,21 @@ public class FreemarkerTest {
         } catch (IORuntimeException | IOException | TemplateException e) {
             e.printStackTrace();
         }
+    }
+
+    private String normalizeNewLines(String s) {
+        return StringUtil.replace(s, "\r\n", "\n").replace('\r', '\n');
+    }
+
+    private Map<String, Object> createCommonTestValuesDataModel() {
+        Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("map", Collections.singletonMap("key", "value"));
+        dataModel.put("list", Collections.singletonList("item"));
+        dataModel.put("s", "text");
+        dataModel.put("n", 1);
+        dataModel.put("b", true);
+        dataModel.put("bean", new TestBean());
+        return dataModel;
     }
 
     /**
@@ -97,9 +114,20 @@ public class FreemarkerTest {
     @Test
     public void upper1() throws IOException, TemplateException {
         configuration.setSharedVariable("upper", new UpperDirective());
+        configuration.setAutoIncludes(Collections.singletonList("head.ftl"));
         Template template = configuration.getTemplate("upper1.ftl");
         StringWriter stringWriter = new StringWriter();
-        template.process(new HashMap(), stringWriter);
+        template.process(new HashMap<>(), stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void autoIncludes() throws IOException, TemplateException {
+        configuration.setSharedVariable("upper", new UpperDirective());
+        configuration.setAutoIncludes(Collections.singletonList("head.ftl"));
+        Template template = configuration.getTemplate("upper1.ftl");
+        StringWriter stringWriter = new StringWriter();
+        template.process(new HashMap<>(), stringWriter);
         System.out.println(stringWriter);
     }
 
@@ -196,6 +224,69 @@ public class FreemarkerTest {
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);
+    }
+
+    @Test
+    public void output() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("output_format.ftl");
+        StringWriter stringWriter = new StringWriter();
+        template.process(new HashMap<>(), stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void format() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("format.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("s", "a'b\"c\u0001");
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void label() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("label.ftl");
+        //configuration.setTagSyntax(Configuration.SQUARE_BRACKET_TAG_SYNTAX);
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        map.put("y", "33");
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    public static class TestBean {
+        private int x;
+        private boolean b;
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public boolean isB() {
+            return b;
+        }
+
+        public void setB(boolean b) {
+            this.b = b;
+        }
+
+        public int intM() {
+            return 1;
+        }
+
+        public int intMP(int x) {
+            return x;
+        }
+
+        public void voidM() {
+
+        }
+
     }
 
 }
