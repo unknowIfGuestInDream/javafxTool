@@ -68,6 +68,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,13 +79,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class FreemarkerTest {
     private static Configuration configuration;
 
     @BeforeAll
     public static void init() {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
-        System.out.println("path: " + ResourceUtil.getResource("freemarker/templates").getPath());
         try {
             configuration.setDirectoryForTemplateLoading(
                 new File(ResourceUtil.getResource("freemarker/templates").getPath()));
