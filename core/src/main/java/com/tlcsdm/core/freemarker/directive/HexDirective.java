@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.freemarker.template;
+package com.tlcsdm.core.freemarker.directive;
 
 import cn.hutool.log.StaticLog;
 import freemarker.core.Environment;
@@ -108,9 +108,7 @@ public class HexDirective implements TemplateDirectiveModel {
 
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
-            for (int i = 0; i < len; i++) {
-                transformedCbuf[i] = cbuf[i + off];
-            }
+            System.arraycopy(cbuf, off, transformedCbuf, 0, len);
             String data = String.valueOf(transformedCbuf);
             try {
                 int i = Integer.parseInt(data);

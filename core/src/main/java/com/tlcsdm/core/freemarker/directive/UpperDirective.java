@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.freemarker.template;
+package com.tlcsdm.core.freemarker.directive;
 
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import freemarker.core.Environment;

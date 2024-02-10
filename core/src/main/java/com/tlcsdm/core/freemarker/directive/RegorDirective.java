@@ -25,28 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.freemarker.template;
+package com.tlcsdm.core.freemarker.directive;
 
 import cn.hutool.log.StaticLog;
 import freemarker.core.Environment;
+import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
- * 格式化.
+ * |拼接值.
  *
  * @author unknowIfGuestInDream
  */
-public class StyleDirective implements TemplateDirectiveModel {
+public class RegorDirective implements TemplateDirectiveModel {
+
     private static final String PARAM_NAME_TYPE = "type";
-    private static final String TYPE_LINELENGTH120 = "linelength120";
+    private static final String TYPE_KEY = "key";
+    private static final String TYPE_VALUE = "value";
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws
@@ -54,76 +57,63 @@ public class StyleDirective implements TemplateDirectiveModel {
         if (body == null) {
             return;
         }
-        String type = "";
-        if (params.containsKey(PARAM_NAME_TYPE) && TYPE_LINELENGTH120.equals(params.get(PARAM_NAME_TYPE).toString())) {
-            type = TYPE_LINELENGTH120;
+        String type = TYPE_VALUE;
+        if (params.containsKey(PARAM_NAME_TYPE) && TYPE_KEY.equals(params.get(PARAM_NAME_TYPE).toString())) {
+            type = TYPE_KEY;
         }
-        if (TYPE_LINELENGTH120.equals(type)) {
-            body.render(new Line120Writer(env.getOut()));
-        } else {
-            StaticLog.warn("Unknown style type: " + type);
-            body.render(env.getOut());
-        }
+        body.render(new RegorWriter(env.getOut(), type, env));
     }
 
     /**
-     * 格式化长度最长为120.
+     * 分割值.
      */
-    private static class Line120Writer extends Writer {
-        private final int lineLength = 120;
-        private final Writer out;
-        private final String sysType = System.lineSeparator();
-        private final Pattern matchRegex = Pattern.compile("^\\s*[\\w.\\->\\[\\]()*]+\\s*(=|\\|=|&=).+;$");
-        private int strCount = 0;
-        private int spaceStartPlace = 0;
-        private boolean isComment = false;
-        private String tmpData = "";
+    private static class RegorWriter extends Writer {
 
-        Line120Writer(Writer out) {
+        private final Writer out;
+        private final String type;
+        private final Environment env;
+
+        RegorWriter(Writer out, String type, Environment env) {
             this.out = out;
+            this.type = type;
+            this.env = env;
         }
 
         public void write(char[] cbuf, int off, int len) throws IOException {
             char[] transformedCbuf = new char[len];
             System.arraycopy(cbuf, off, transformedCbuf, 0, len);
-            String data = String.valueOf(transformedCbuf);
-            if (strCount == 0) {
-                spaceStartPlace = 0;
-                for (int i = 0; i < data.length(); i++) {
-                    if ((data.charAt(i) != ' ')) {
-                        spaceStartPlace++;
-                        break;
+            String[] data = String.valueOf(transformedCbuf).split(",");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < data.length; i++) {
+                String str = data[i].trim();
+                if (str.isEmpty()) {
+                    continue;
+                }
+                if (TYPE_KEY.equals(type)) {
+                    try {
+                        var dt = env.getDataModel().get(str);
+                        if (dt instanceof SimpleScalar d) {
+                            str = d.getAsString();
+                        }
+                    } catch (TemplateModelException e) {
+                        StaticLog.warn(e, "Not support the type of '{}'", str);
+                        continue;
                     }
                 }
-                String tmp = data.trim();
-                if (tmp.startsWith("//") || tmp.startsWith("/*") || tmp.startsWith("*")) {
-                    isComment = true;
-                } else {
-                    isComment = false;
+                if (str.isEmpty()) {
+                    continue;
                 }
-            }
-
-            if (data.contains("\n")) {
-                // todo
-                if (strCount + data.length() > lineLength) {
-                    String[] strs = data.split("\n");
-                    for (int i = 0; i < strs.length; i++) {
-                        if (i == 0) {
-                            if (strCount + strs[0].length() > lineLength) {
-                                // todo
-                            }
-                            continue;
-                        }
-                        if (strs[i].length() > lineLength) {
-                            // todo
-                        }
+                if (!stringBuilder.isEmpty()) {
+                    char lastC = str.charAt(str.length() - 1);
+                    if (lastC == '=' || lastC == '|' || lastC == '&' || lastC == '+' || lastC == '-' || lastC == '*' || lastC == '/') {
+                        stringBuilder.append(" ");
+                    } else {
+                        stringBuilder.append(" | ");
                     }
                 }
-            } else {
-
+                stringBuilder.append(str);
             }
-            strCount += data.length();
-            out.write(data);
+            out.write(stringBuilder.toString());
         }
 
         public void flush() throws IOException {
