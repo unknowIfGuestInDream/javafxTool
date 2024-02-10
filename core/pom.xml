@@ -361,10 +361,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>de.elnarion.maven</groupId>
-                <artifactId>plantuml-generator-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 
