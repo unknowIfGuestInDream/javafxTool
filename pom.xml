@@ -75,7 +75,7 @@
         <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <exec-maven-plugin.version>3.1.1</exec-maven-plugin.version>
-        <plantuml-generator-maven-plugin.version>1.1.2</plantuml-generator-maven-plugin.version>
+        <plantuml-generator-maven-plugin.version>2.4.1</plantuml-generator-maven-plugin.version>
         <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
@@ -1147,29 +1147,6 @@
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven-plugin.version}</version>
             </plugin>
-            <plugin>
-                <groupId>de.elnarion.maven</groupId>
-                <artifactId>plantuml-generator-maven-plugin</artifactId>
-                <version>${plantuml-generator-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-class-diagram</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>generate-test-sources</phase>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/plantuml</outputDirectory>
-                            <outputFilename>classDiagram.puml</outputFilename>
-                            <scanPackages>
-                                <scanPackage>
-                                    com.tlcsdm
-                                </scanPackage>
-                            </scanPackages>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -1316,6 +1293,29 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>${exec-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>de.elnarion.maven</groupId>
+                    <artifactId>plantuml-generator-maven-plugin</artifactId>
+                    <version>${plantuml-generator-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-class-diagram</id>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <phase>generate-test-sources</phase>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/plantuml</outputDirectory>
+                                <outputFilename>classDiagram.puml</outputFilename>
+                                <scanPackages>
+                                    <scanPackage>
+                                        com.tlcsdm
+                                    </scanPackage>
+                                </scanPackages>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
