@@ -359,6 +359,9 @@
                         <exclude>**/H2Test.java</exclude>
                         <exclude>**/OshiTest.java</exclude>
                     </excludes>
+                    <excludesFile>
+                        */core/javafx/*
+                    </excludesFile>
                 </configuration>
             </plugin>
         </plugins>
