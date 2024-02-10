@@ -157,6 +157,7 @@
         <checker-qual.version>3.42.0</checker-qual.version>
         <jfxtras.version>17-r1</jfxtras.version>
         <zip4j.version>2.11.5</zip4j.version>
+        <plantuml.version>1.2024.1</plantuml.version>
     </properties>
 
     <issueManagement>
@@ -1003,6 +1004,11 @@
                 <groupId>net.lingala.zip4j</groupId>
                 <artifactId>zip4j</artifactId>
                 <version>${zip4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.plantuml</groupId>
+                <artifactId>plantuml-mit</artifactId>
+                <version>${plantuml.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

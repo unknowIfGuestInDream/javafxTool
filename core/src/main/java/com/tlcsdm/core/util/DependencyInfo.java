@@ -194,7 +194,11 @@ public class DependencyInfo {
 
             new Dependency("net.lingala.zip4j", "zip4j", "2.11.5", false,
                 "https://github.com/srikanth-lingala/zip4j",
-                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"));
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
+
+            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2024.1", false,
+                "https://plantuml.com/",
+                "MIT License", "https://opensource.org/license/mit/"));
     }
 
     public static class Dependency {
