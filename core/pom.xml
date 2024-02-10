@@ -358,10 +358,8 @@
                         <exclude>**/JsscTest.java</exclude>
                         <exclude>**/H2Test.java</exclude>
                         <exclude>**/OshiTest.java</exclude>
+                        <exclude>**/core/javafx/**</exclude>
                     </excludes>
-                    <excludesFile>
-                        javafx/**
-                    </excludesFile>
                 </configuration>
             </plugin>
         </plugins>
