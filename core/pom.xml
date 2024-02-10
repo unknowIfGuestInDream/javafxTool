@@ -358,8 +358,6 @@
                         <exclude>**/JsscTest.java</exclude>
                         <exclude>**/H2Test.java</exclude>
                         <exclude>**/OshiTest.java</exclude>
-                        <exclude>**/PlantumlTest.java</exclude>
-                        <exclude>**/tlcsdm/core/javafx/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
