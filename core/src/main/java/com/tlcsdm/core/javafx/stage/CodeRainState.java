@@ -29,26 +29,22 @@ package com.tlcsdm.core.javafx.stage;
 
 import com.tlcsdm.core.javafx.factory.SingletonFactory;
 import com.tlcsdm.core.javafx.util.OSUtil;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.OptionalInt;
 import java.util.Random;
 
 /**
@@ -60,30 +56,10 @@ public class CodeRainState extends BaseStage {
 
     private static CodeRainState instance = null;
     private static Stage mainStage;
-
-    private static double FPS = 30.0;
     private final String title = "coderain-desktop";
-    Timeline timeLine;
-    GraphicsContext gc;
-    private Random random = new Random();
-    //行高,列宽
-    private final static int gap = 10;
+    private AnimationTimer timer;
+    public static String color = "#00ff00";
     private Dimension screenSize;
-    //存放雨点顶部的位置信息(marginTop)
-    private int[] posArr;
-    //行数
-    private int lines;
-    //列数
-    private int columns;
-    //文字颜色
-    private static String textColor = "#00ff00";
-
-    //动画事件
-    private final EventHandler<ActionEvent> eventHandler = e -> {
-        // 刷新操作
-        gc.clearRect(0, 0, screenSize.getWidth(), screenSize.getHeight());
-        codeRain(gc);
-    };
 
     /**
      * 调用单例工厂.
@@ -97,10 +73,6 @@ public class CodeRainState extends BaseStage {
 
     public void start() {
         Stage stage = getStage();
-        // 设置风格为 UTILITY
-        // stage.initStyle(StageStyle.DECORATED);
-        // 设置父级透明度为0
-        // stage.setOpacity(0);
         mainStage = new Stage();
         mainStage.setTitle(title);
         mainStage.initOwner(stage);
@@ -108,105 +80,123 @@ public class CodeRainState extends BaseStage {
         mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.setX(0);
         mainStage.setY(0);
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();//获取屏幕
-        //最大化
-        // mainStage.setMaximized(true);
-        AnchorPane root = new AnchorPane();
-        root.setStyle("-fx-fill: null;-fx-background-color: rgba(0,0,0,0)");
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        StackPane root = new StackPane();
         Canvas canvas = new Canvas(screenSize.getWidth(), screenSize.getHeight());
+        // bind the width and height properties when screen is resized.
+        canvas.widthProperty().bind(root.widthProperty());
+        canvas.heightProperty().bind(root.heightProperty());
+
+        init(canvas);
         root.getChildren().add(canvas);
-        Scene scene = new Scene(root);
-        scene.setFill(null);
+        Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         mainStage.setScene(scene);
         //关闭自由调整大小
         mainStage.setResizable(false);
+        mainStage.setAlwaysOnTop(false);
         stage.addEventHandler(WindowEvent.WINDOW_SHOWN, event -> show());
         stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> close());
+        mainStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()) {
+                this.close();
+            }
+        });
         OSUtil.setWinIconAfter(title);
+    }
 
-        lines = screenSize.height / gap;
-        columns = screenSize.width / gap;
-        posArr = new int[columns + 1];
-        random = new Random();
-        for (int i = 0; i < posArr.length; i++) {
-            posArr[i] = random.nextInt(lines);
-        }
+    private void init(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        int fontSize = 25; // font size in pixels
 
-        // 获取画板对象
-        gc = canvas.getGraphicsContext2D();
-        // 创建时间轴
-        timeLine = new Timeline();
-        // 获取时间轴的帧列表
-        ObservableList<KeyFrame> keyFrames = timeLine.getKeyFrames();
-        // 添加关键帧
-        keyFrames.add(new KeyFrame(Duration.millis(1000 / FPS), eventHandler));
-        // 设置时间轴播放次数为无限
-        timeLine.setCycleCount(Timeline.INDEFINITE);
-        // 播放时间轴
-        timeLine.play();
+        // Animate the matrix effect
+        timer = new AnimationTimer() {
+            long lastTimerCall = 0;
+            final long NANOS_PER_MILLI = 1000000; //nanoseconds in a millisecond
+            final long ANIMATION_DELAY = 50 * NANOS_PER_MILLI; // convert 50 ms to ns
+
+            // Capture current dimensions of the Canvas
+            int prevWidth = (int) canvas.getWidth();
+            int prevHeight = (int) canvas.getHeight();
+
+            // Keeps track of each column's y coordinate for next iteration to draw a character.
+            int[] ypos = resize(gc, fontSize);
+
+            // Random generator for characters and symbols
+            final Random random = new Random();
+
+            @Override
+            public void handle(long now) {
+                // elapsed time occurred so let's begin drawing on the canvas.
+                if (now > lastTimerCall + ANIMATION_DELAY) {
+                    lastTimerCall = now;
+
+                    int w = (int) canvas.getWidth();
+                    int h = (int) canvas.getHeight();
+                    // did resize occur?
+                    if (w != prevWidth || h != prevHeight) {
+                        // clear canvas and recalculate ypos array.
+                        ypos = resize(gc, fontSize);
+                        prevWidth = w;
+                        prevHeight = h;
+                    }
+                    // Each frame add a small amount of transparent black to the canvas essentially
+                    // creating a fade effect.
+                    gc.setFill(Color.web("#0001"));
+                    gc.fillRect(0, 0, w, h);
+                    // Set an opaque color for the drawn characters.
+                    gc.setFill(Color.web(color));
+                    gc.setFont(new Font("monospace", fontSize - 5));
+                    // Based on the stored y coordinate allows us to draw the character next (beneath the previous)
+                    for (int i = 0; i < ypos.length; i++) {
+                        // pick a random character (using unicode)
+                        //char ch = (char) random.ints(12353, 12380) // Japanese
+                        //char ch = (char) random.ints(12100, 12200) // Chinese
+                        OptionalInt opt = random.ints(932, 960) // Greek
+                            .findFirst();
+                        char ch = (char) (opt.isPresent() ? opt.getAsInt() : 940);
+                        String text = Character.toString(ch);
+                        // x coordinate to draw from left to right (each column).
+                        double x = i * fontSize;
+                        // y coordinate is based on the value previously stored.
+                        int y = ypos[i];
+                        // draw a character with an opaque color
+                        gc.fillText(text, x, ypos[i]);
+                        // The effect similar to dripping paint from the top (y = 0).
+                        // If the current y is greater than the random length then reset the y position to zero.
+                        if (y > 100 + Math.random() * 10000) {
+                            // (restart the drip process from the top)
+                            ypos[i] = 0;
+                        } else {
+                            // otherwise, in the next iteration draw the character beneath this character (continue to drip).
+                            ypos[i] = y + fontSize;
+                        }
+                    }
+                }
+            }
+        };
     }
 
     /**
-     * @return 随机字符
+     * Fill the entire canvas area with the color black. Returns a resized array of y positions
+     * that keeps track of each column's y coordinate position.
      */
-    private char getChr() {
-        return (char) (random.nextInt(94) + 33);
-    }
-
-    /**
-     * 代码雨
-     */
-    public void codeRain(GraphicsContext gc) {
-        // 保存现场
-        gc.save();
-        //当前列
-        int currentColumn = 0;
-        for (int x = 0; x < screenSize.width; x += 5 * gap) {
-            int endPos = posArr[currentColumn];
-            Color color = Color.valueOf(textColor);
-            gc.setFill(color);
-            gc.setFont(Font.font(null, FontWeight.BOLD, 9));
-            gc.fillText(String.valueOf(getChr()), x, endPos * gap);
-            int cr = 0;
-            int cg = 0;
-            int cb = 0;
-            for (int j = endPos - 15; j < endPos; j++) {
-                //颜色渐变
-                cr += 20;
-                if (cr > (int) (color.getRed() * 255)) {
-                    cr = (int) (color.getRed() * 255);
-                }
-                cg += 20;
-                if (cg > (int) (color.getGreen() * 255)) {
-                    cg = (int) (color.getGreen() * 255);
-                }
-                cb += 20;
-                if (cb > (int) (color.getBlue() * 255)) {
-                    cb = (int) (color.getBlue() * 255);
-                }
-                gc.setFill(Color.rgb(cr, cg, cb));
-                gc.fillText(String.valueOf(getChr()), x, j * gap);
-            }
-            // 每放完一帧，当前列上雨点的位置随机下移1~5行
-            // posArr[currentColumn] += random.nextInt(5);
-            posArr[currentColumn] += 1;
-            // 当雨点位置超过屏幕高度时，重新产生一个随机位置
-            if (posArr[currentColumn] * gap > screenSize.height) {
-                posArr[currentColumn] = random.nextInt(lines);
-                // posArr[currentColumn] = 0;
-            }
-            currentColumn++;
-        }
-        // 恢复现场
-        gc.restore();
+    private int[] resize(GraphicsContext gc, int fontSize) {
+        // clear by filling the background with black.
+        Canvas canvas = gc.getCanvas();
+        gc.setFill(Color.web("#000"));
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        // resize ypos array based on the width of the canvas
+        int cols = (int) Math.floor(canvas.getWidth() / fontSize) + 1;
+        int[] ypos = new int[cols];
+        return ypos;
     }
 
     @Override
     public void close() {
         if (mainStage != null) {
-            mainStage.close();
             //隐藏就停止动画，节省性能
-            timeLine.stop();
+            timer.stop();
+            mainStage.close();
         }
     }
 
@@ -214,9 +204,10 @@ public class CodeRainState extends BaseStage {
     public void show() {
         init();
         if (!mainStage.isShowing()) {
+            timer.start();
             mainStage.show();
-            timeLine.play();
             OSUtil.setWinIconAfter(title);
+
         }
     }
 
@@ -224,43 +215,9 @@ public class CodeRainState extends BaseStage {
     public void init() {
         if (mainStage == null) {
             getInstance().start();
+            OSUtil.setWinIconAfter(title);
+            mainStage.requestFocus();
         }
-    }
-
-    @Override
-    public void setFps(double fps) {
-        FPS = fps;
-        timeLine.getKeyFrames().set(0, new KeyFrame(Duration.millis(1000 / FPS), eventHandler));
-        stopTimer();
-        startTimer();
-    }
-
-    protected void startTimer() {
-        if (timeLine.getStatus() != Animation.Status.RUNNING) {
-            timeLine.play();
-        }
-    }
-
-    protected void stopTimer() {
-        if (timeLine.getStatus() != Animation.Status.STOPPED) {
-            timeLine.stop();
-        }
-    }
-
-    public static String getTextColor() {
-        return textColor;
-    }
-
-    public static void setTextColor(String textColor) {
-        CodeRainState.textColor = textColor;
-    }
-
-    public static double getFPS() {
-        return FPS;
-    }
-
-    public static void setFPS(double FPS) {
-        CodeRainState.FPS = FPS;
     }
 
 }
