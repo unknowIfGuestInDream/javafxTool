@@ -360,7 +360,7 @@
                         <exclude>**/OshiTest.java</exclude>
                     </excludes>
                     <excludesFile>
-                        */core/javafx/*
+                        */javafx/*
                     </excludesFile>
                 </configuration>
             </plugin>
