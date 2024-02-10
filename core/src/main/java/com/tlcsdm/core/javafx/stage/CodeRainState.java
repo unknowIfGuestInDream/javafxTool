@@ -44,6 +44,7 @@ import javafx.stage.WindowEvent;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.OptionalInt;
 import java.util.Random;
 
 /**
@@ -150,8 +151,9 @@ public class CodeRainState extends BaseStage {
                         // pick a random character (using unicode)
                         //char ch = (char) random.ints(12353, 12380) // Japanese
                         //char ch = (char) random.ints(12100, 12200) // Chinese
-                        char ch = (char) random.ints(932, 960) // Greek
-                            .findFirst().getAsInt();
+                        OptionalInt opt = random.ints(932, 960) // Greek
+                            .findFirst();
+                        char ch = (char) (opt.isPresent() ? opt.getAsInt() : 940);
                         String text = Character.toString(ch);
                         // x coordinate to draw from left to right (each column).
                         double x = i * fontSize;
