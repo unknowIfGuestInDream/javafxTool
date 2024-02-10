@@ -31,4 +31,4 @@ jobs:
       - name: Build with Maven
         run: mvn -B install --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
       - name: Test with Maven
-        run: mvn test --file pom.xml -DworkEnv=ci
+        run: mvn clean test --file pom.xml -DworkEnv=ci
