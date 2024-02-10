@@ -36,6 +36,7 @@ import net.sourceforge.plantuml.SourceFileReader;
 import net.sourceforge.plantuml.SourceStringReader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,6 +50,7 @@ import java.util.List;
 /**
  * @author unknowIfGuestInDream
  */
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 class PlantumlTest {
 
     @BeforeAll

@@ -1037,7 +1037,6 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                    <forkCount>3</forkCount>
                 </configuration>
             </plugin>
             <plugin>
