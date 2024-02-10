@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.stage;
 
-import cn.hutool.core.io.resource.ResourceUtil;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.VPos;
@@ -41,6 +40,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -50,8 +50,9 @@ import java.util.Random;
  */
 public class SnowStageDemo extends Application {
 
-    static final Image FLASK_IMG = new Image(ResourceUtil.getResource("javafx/stage/flake.png").toExternalForm(), 5, 5,
-        true, true);
+    static final Image FLASK_IMG = new Image(
+        Objects.requireNonNull(SnowStageDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png"))
+            .toExternalForm(), 5, 5, true, true);
 
     private final ArrayList<Flake> flakes = new ArrayList<>(2000);
     private final int flaskNum = 1600;
@@ -97,7 +98,8 @@ public class SnowStageDemo extends Application {
         textFps.setTextOrigin(VPos.TOP);
         textFps.setFont(Font.font(35));
         root.getChildren().add(textFps);
-        String bgUrl = ResourceUtil.getResource("javafx/stage/snow_bg.jpg").toExternalForm();
+        String bgUrl = Objects.requireNonNull(getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg"))
+            .toExternalForm();
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
         SnowState.getInstance().setStage(primaryStage);
