@@ -94,7 +94,8 @@ public class InterfaceScanner {
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
         Set<Class<?>> classes;
-        try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("com.tlcsdm").scan()) {
+        try (ScanResult scanResult = new ClassGraph().enableClassInfo().rejectClasses("module-info", "package-info")
+            .rejectPackages(rejectPackages()).scan()) {
             ClassInfoList controlClasses = scanResult.getClassesImplementing(cls);
             List<Class<?>> controlClassRefs = controlClasses.loadClasses(true);
             classes = new HashSet<>(controlClassRefs);
@@ -163,11 +164,18 @@ public class InterfaceScanner {
     public static boolean isSystemModule(final String moduleName) {
         return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith(
             "javafx.") || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith(
-            "hutool.") || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith(
+            "cn.hutool.") || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith(
             "org.apache.") || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(
             moduleName) || "org.slf4j".equals(moduleName) || "commons.math3".equals(
             moduleName) || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(
             moduleName) || "freemarker".equals(moduleName);
+    }
+
+    /**
+     * 不希望扫描的包, 加快启动时间.
+     */
+    public static String[] rejectPackages() {
+        return new String[]{"java", "javax", "javafx", "jdk", "oracle", "cn.hutool", "ch.qos.logback", "org.apache", "org.slf4j", "org.controlsfx", "impl.org.controlsfx", "freemarker", "io.github.difflib", "com.fasterxml.jackson", "org.dom4j", "com.github.benmanes.caffeine", "io.github.classgraph", "org.fxmisc.richtext", "org.fxmisc.flowless", "org.fxmisc.undo", "org.reactfx", "net.coobird.thumbnailator", "com.dlsc.pdfviewfx", "technology.tabula", "com.dlsc.preferencesfx", "com.yahoo.platform.yui", "com.sun.jna", "com.ziclix.python", "org.python", "com.zaxxer.hikari", "com.alibaba.druid", "jssc", "oshi", "net.lingala.zip4j", "org.checkerframework", "org.kordamp.ikonli", "com.graphbuilder", "org.jaxen", "org.fxmisc.wellbehaved", "org.openxmlformats", "com.microsoft", "org.etsi", "org.w3"};
     }
 
 }
