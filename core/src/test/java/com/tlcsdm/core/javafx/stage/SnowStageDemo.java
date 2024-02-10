@@ -48,7 +48,7 @@ import java.util.Random;
  *
  * @author unknowIfGuestInDream
  */
-public class SnowDemo extends Application {
+public class SnowStageDemo extends Application {
 
     static final Image FLASK_IMG = new Image(ResourceUtil.getResource("javafx/stage/flake.png").toExternalForm(), 5, 5,
         true, true);
@@ -174,4 +174,5 @@ public class SnowDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

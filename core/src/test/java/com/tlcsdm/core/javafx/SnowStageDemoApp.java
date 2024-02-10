@@ -27,15 +27,14 @@
 
 package com.tlcsdm.core.javafx;
 
-import com.tlcsdm.core.javafx.stage.SnowDemo;
+import com.tlcsdm.core.javafx.stage.SnowStageDemo;
 import javafx.application.Application;
 
 /**
  * @author unknowIfGuestInDream
  */
-public class SnowStageDemoTest {
-
+public class SnowStageDemoApp {
     public static void main(String[] args) {
-        Application.launch(SnowDemo.class, args);
+        Application.launch(SnowStageDemo.class, args);
     }
 }
