@@ -82,6 +82,7 @@ module com.tlcsdm.core {
     requires static jssc;
     requires static com.github.oshi;
     requires static zip4j;
+    requires static net.sourceforge.plantuml;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
