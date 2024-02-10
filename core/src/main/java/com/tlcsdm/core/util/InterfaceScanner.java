@@ -165,10 +165,16 @@ public class InterfaceScanner {
         return moduleName.startsWith("java.") || moduleName.startsWith("javax.") || moduleName.startsWith(
             "javafx.") || moduleName.startsWith("jdk.") || moduleName.startsWith("oracle.") || moduleName.startsWith(
             "cn.hutool.") || moduleName.startsWith("ch.qos.logback.") || moduleName.startsWith(
+            "com.sun.jna.") || moduleName.startsWith(
+            "org.fxmisc.") || moduleName.startsWith("com.fasterxml.jackson.") || moduleName.startsWith(
             "org.apache.") || "commons.beanutils".equals(moduleName) || "io.github.javadiffutils".equals(
             moduleName) || "org.slf4j".equals(moduleName) || "commons.math3".equals(
             moduleName) || "org.controlsfx.controls".equals(moduleName) || "SparseBitSet".equals(
-            moduleName) || "freemarker".equals(moduleName);
+            moduleName) || "freemarker".equals(moduleName) || "reactfx".equals(moduleName) || "yuicompressor".equals(
+            moduleName) || "tabula".equals(moduleName) || "vosk".equals(moduleName) || "jave.core".equals(
+            moduleName) || "jython.slim".equals(moduleName) || "com.zaxxer.hikari".equals(moduleName) || "druid".equals(
+            moduleName) || "jssc".equals(moduleName) || "com.github.oshi".equals(moduleName) || "zip4j".equals(
+            moduleName);
     }
 
     /**
