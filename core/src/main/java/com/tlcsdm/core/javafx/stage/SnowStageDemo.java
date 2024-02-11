@@ -48,9 +48,11 @@ import java.util.Random;
  *
  * @author unknowIfGuestInDream
  */
-public class SnowDemo extends Application {
+public class SnowStageDemo extends Application {
 
-    static final Image FLASK_IMG = new Image(Objects.requireNonNull(SnowDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png")).toExternalForm(), 5, 5, true, true);
+    static final Image FLASK_IMG = new Image(
+        Objects.requireNonNull(SnowStageDemo.class.getResource("/com/tlcsdm/core/static/graphic/flake.png"))
+            .toExternalForm(), 5, 5, true, true);
 
     private final ArrayList<Flake> flakes = new ArrayList<>(2000);
     private final int flaskNum = 1600;
@@ -96,7 +98,8 @@ public class SnowDemo extends Application {
         textFps.setTextOrigin(VPos.TOP);
         textFps.setFont(Font.font(35));
         root.getChildren().add(textFps);
-        String bgUrl = Objects.requireNonNull(getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg")).toExternalForm();
+        String bgUrl = Objects.requireNonNull(getClass().getResource("/com/tlcsdm/core/static/graphic/snow_bg.jpg"))
+            .toExternalForm();
         root.setStyle("-fx-background-image: url('" + bgUrl + "')");
         initSnow();
         SnowState.getInstance().setStage(primaryStage);
@@ -110,9 +113,9 @@ public class SnowDemo extends Application {
         WebWallpaperStage.getInstance().setStage(primaryStage);
         WebWallpaperStage.setWebWallpaperPath("https://www.baidu.com/");
         WebWallpaperStage.getInstance().init();
-//        MediaWallpaperStage.getInstance().setStage(primaryStage);
-//        MediaWallpaperStage.setMediaWallpaperPath("E:\\testPlace\\vosk\\test.mp4");
-//        MediaWallpaperStage.getInstance().init();
+        //        MediaWallpaperStage.getInstance().setStage(primaryStage);
+        //        MediaWallpaperStage.setMediaWallpaperPath("E:\\testPlace\\vosk\\test.mp4");
+        //        MediaWallpaperStage.getInstance().init();
         primaryStage.setScene(new Scene(root, w, h));
         primaryStage.setTitle("Snow");
         primaryStage.show();
@@ -173,4 +176,5 @@ public class SnowDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
