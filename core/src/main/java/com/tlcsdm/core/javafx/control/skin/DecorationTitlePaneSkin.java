@@ -103,7 +103,7 @@ public class DecorationTitlePaneSkin extends TitledPaneSkin {
         tooltip.setShowDuration(new Duration(8000.0D));
         tooltip.getStyleClass().add("decoration-tooltip");
         tooltip.textProperty().addListener(tooltipListener);
-        // control.setRight(decoration);
+        control.setGraphic(decoration);
     }
 
     private InvalidationListener tooltipListener = o -> {
