@@ -254,7 +254,7 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
                 break;
             case INFO:
                 control.setStyle("-fx-text-inner-color: black;");
-                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: FFFFFF;");
+                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: black;");
                 break;
             default:
                 control.setStyle("-fx-text-inner-color: black;");

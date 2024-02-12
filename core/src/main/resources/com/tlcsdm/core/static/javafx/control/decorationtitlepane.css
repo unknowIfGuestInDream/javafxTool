@@ -26,10 +26,11 @@
  */
 
 .decoration-title-pane .decoration {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
 
 .decoration-title-pane .decoration-tooltip {
+    -fx-font-size: 12;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 5);
     -fx-font-weight: bold;
     -fx-padding: 5;

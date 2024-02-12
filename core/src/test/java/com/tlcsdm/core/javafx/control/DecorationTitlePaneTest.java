@@ -47,6 +47,7 @@ public class DecorationTitlePaneTest extends Application {
     @Override
     public void start(final Stage stage) {
         DecorationTitlePane pane = new DecorationTitlePane();
+        pane.setText("Title");
         HBox hBox = new HBox();
         DecorationTextfield control = new DecorationTextfield();
         control.setLayoutX(80);
