@@ -52,12 +52,7 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
     private static final PseudoClass HAS_NO_SIDE_NODE = PseudoClass.getPseudoClass("no-side-nodes");
     private static final PseudoClass HAS_LEFT_NODE = PseudoClass.getPseudoClass("left-node-visible");
     private static final PseudoClass HAS_RIGHT_NODE = PseudoClass.getPseudoClass("right-node-visible");
-    /*
-     * In order to support SceneBuilder, code external to Java and Java FX cannot be
-     * used, so {@code
-     * ModelUtility.getEntry("/resource/warning_ov.png").toExternalForm() } cannot
-     * be used here.
-     */
+
     private static final Image errorImage = new Image(
         Objects.requireNonNull(
                 DecorationTextfieldSkin.class.getResource("/com/tlcsdm/core/static/graphic/error_ov.png"))
@@ -259,7 +254,7 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
                 break;
             case INFO:
                 control.setStyle("-fx-text-inner-color: black;");
-                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: FFFFFF;");
+                tooltip.setStyle("-fx-font-size: 12;-fx-background-color: c4d0ef; -fx-text-fill: black;");
                 break;
             default:
                 control.setStyle("-fx-text-inner-color: black;");
