@@ -162,15 +162,15 @@ public class DecorationComboBoxSkin<T> extends ComboBoxListViewSkin<T> {
         switch (severity) {
             case ERROR:
                 control.setStyle("-fx-text-inner-color: red;");
-                tooltip.setStyle("-fx-background-color: FBEFEF;-fx-text-fill: cc0033;");
+                tooltip.setStyle("-fx-background: FBEFEF;-fx-background-color: FBEFEF;-fx-text-fill: cc0033;");
                 break;
             case WARNING:
                 control.setStyle("-fx-text-inner-color: red;");
-                tooltip.setStyle("-fx-background-color: FFFFCC; -fx-text-fill: CC9900;");
+                tooltip.setStyle("-fx-background: FFFFCC;-fx-background-color: FFFFCC; -fx-text-fill: CC9900;");
                 break;
             case INFO:
                 control.setStyle("-fx-text-inner-color: black;");
-                tooltip.setStyle("-fx-background-color: c4d0ef; -fx-text-fill: black;");
+                tooltip.setStyle("-fx-background: c4d0ef;-fx-background-color: c4d0ef; -fx-text-fill: black;");
                 break;
             default:
                 control.setStyle("-fx-text-inner-color: black;");
