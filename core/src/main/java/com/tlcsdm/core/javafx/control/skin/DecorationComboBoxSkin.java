@@ -142,10 +142,11 @@ public class DecorationComboBoxSkin<T> extends ComboBoxListViewSkin<T> {
     protected void layoutChildren(double x, double y, double w, double h) {
         super.layoutChildren(x, y, w, h);
         final double fullHeight = h + snappedTopInset() + snappedBottomInset();
-        final double rightWidth = getSkinnable().snapSizeX(decoration.prefWidth(fullHeight));
+        final double rightWidth = getSkinnable().snapSizeX(decoration.getFitWidth());
         final double arrowWidth = getSkinnable().snapSizeX(arrowButton.getWidth());
-        final double rightStartX = w - rightWidth + snappedLeftInset() - arrowWidth + control.offsetXProperty().get();
-        final double rightStartY = 0 + control.offsetYProperty().get();
+        final double rightStartX = w + 5 - rightWidth + snappedLeftInset() - arrowWidth + control.offsetXProperty()
+            .get();
+        final double rightStartY = 3 + control.offsetYProperty().get();
         decoration.resizeRelocate(rightStartX, rightStartY, rightWidth, fullHeight);
     }
 
