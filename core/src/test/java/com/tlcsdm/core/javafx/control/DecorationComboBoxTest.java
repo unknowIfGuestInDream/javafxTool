@@ -29,71 +29,60 @@ package com.tlcsdm.core.javafx.control;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
+ * @author Gerrit Grunwald
  * Description: 组合组件程序demo
  */
-public class DemoDecorationTextfield extends Application {
-    private DecorationTextfield3 control;
-    private DecorationTextfield2 textfield;
-    private DecorationTextfield textfield1;
+public class DecorationComboBoxTest extends Application {
 
     @Override
-    public void init() {
-        control = new DecorationTextfield3();
-        textfield = new DecorationTextfield2();
-        textfield1 = new DecorationTextfield();
-    }
+    public void start(Stage stage) throws IOException {
 
-    @Override
-    public void start(final Stage stage) {
-        Pane pane = new Pane();
-        control.setLayoutX(80);
-        control.setLayoutY(60);
-        textfield.setPrefWidth(140);
-        textfield.setDecoration(Severity.ERROR, "error");
-        textfield.setStyle("-jfx-custom-offsetX: 25.0;");
-        textfield1.setStyle("-jfx-decoration-offset-x: 25.0;");
-        textfield1.setDecoration(Severity.ERROR, "error");
-        textfield1.setLayoutX(80);
-        textfield1.setLayoutY(100);
-        textfield1.setText("DecorationTextfield");
+        //List for the ComboBox.
+        ObservableList<String> fontFamilies = FXCollections.observableArrayList(Font.getFamilies());
+
+        DecorationComboBox<String> comboBox = new DecorationComboBox<>();
+        comboBox.setItems(fontFamilies);
+        comboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            System.out.println();
+            System.out.println("DecorationComboBox");
+            System.out.println("oldValue = " + oldValue);
+            System.out.println("newValue = " + newValue);
+        });
 
         Button btnError = new Button("Error");
         btnError.setOnAction(e -> {
-            textfield1.setDecoration(Severity.ERROR, "Error!");
+            comboBox.setDecoration(Severity.ERROR, "Error!");
         });
-        btnError.setLayoutX(20);
-        btnError.setLayoutY(120);
         Button btnWarn = new Button("Warning");
         btnWarn.setOnAction(e -> {
-            textfield1.setDecoration(Severity.WARNING, "Warning!");
+            comboBox.setDecoration(Severity.WARNING, "Warning!");
         });
-        btnWarn.setLayoutX(60);
-        btnWarn.setLayoutY(120);
         Button btnInfo = new Button("Info");
         btnInfo.setOnAction(e -> {
-            textfield1.setDecoration(Severity.INFO, "Info!");
+            comboBox.setDecoration(Severity.INFO, "Info!");
         });
-        btnInfo.setLayoutX(100);
-        btnInfo.setLayoutY(120);
         Button btnOK = new Button("Ok");
         btnOK.setOnAction(e -> {
-            textfield1.setDecoration(Severity.OK);
+            comboBox.setDecoration(Severity.OK);
         });
-        btnOK.setLayoutX(140);
-        btnOK.setLayoutY(120);
-        pane.getChildren().addAll(control, textfield, textfield1, btnError, btnWarn, btnInfo, btnOK);
-        pane.setPadding(new Insets(40));
-        Scene scene = new Scene(pane);
-        stage.setTitle("DecorationTextfield");
+        //Scene and containers.
+        VBox vBox = new VBox(comboBox, btnError, btnWarn, btnInfo, btnOK);
+        Scene scene = new Scene(vBox, 320, 240);
+        stage.setTitle("DecorationComboBox!");
         stage.setScene(scene);
         stage.show();
+
     }
 
     @Override

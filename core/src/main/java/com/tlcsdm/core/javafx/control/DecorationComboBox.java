@@ -27,125 +27,50 @@
 
 package com.tlcsdm.core.javafx.control;
 
-import com.tlcsdm.core.javafx.control.skin.DecorationTextfieldSkin;
+import com.tlcsdm.core.javafx.control.skin.DecorationComboBoxSkin;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.css.CssMetaData;
 import javafx.css.SimpleStyleableDoubleProperty;
 import javafx.css.Styleable;
 import javafx.css.StyleableProperty;
 import javafx.css.StyleablePropertyFactory;
-import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Skin;
-import javafx.scene.control.TextField;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * The DecorationTextfield control is simply a JavaFX {@link javafx.scene.control.TextField} control
- * with support for decoration.It supports the display of error, warning and
- * info images.
- *
- * <p>
- * The image is on the right side by default and is not displayed initially.
- * When {@link DecorationTextfield2#setDecoration(Severity, String)} is called
- * and the parameter is {@link Severity#ERROR}, {@link Severity#WARNING} or
- * {@link Severity#INFO}, the image is displayed.
- *
- * <h3>Code Samples</h3>
- * <p>
- * If you want the image to be displayed outside the text box, you can use
- * {@link DecorationTextfield2#setOffsetX} to achieve it.
- *
- * <pre>{@code
- * final DecorationTextfield text = new DecorationTextfield();
- * text.setOffsetX(25);
- * }</pre>
- *
  * @author unknowIfGuestInDream
- * @see CustomTextField
- * @see javafx.scene.control.TextField
  */
-public class DecorationTextfield extends TextField {
+public class DecorationComboBox<T> extends ComboBox<T> {
 
-    private static final StyleablePropertyFactory<DecorationTextfield> FACTORY = new StyleablePropertyFactory<>(
-        TextField.getClassCssMetaData());
+    private static final StyleablePropertyFactory<DecorationComboBox> FACTORY = new StyleablePropertyFactory<>(
+        ComboBox.getClassCssMetaData());
 
-    private static final CssMetaData<DecorationTextfield, Number> OFFSET_X = FACTORY
+    private static final CssMetaData<DecorationComboBox, Number> OFFSET_X = FACTORY
         .createSizeCssMetaData("-jfx-decoration-offset-x", s -> s.offsetX, 0, false);
-    private static final CssMetaData<DecorationTextfield, Number> OFFSET_Y = FACTORY
+    private static final CssMetaData<DecorationComboBox, Number> OFFSET_Y = FACTORY
         .createSizeCssMetaData("-jfx-decoration-offset-y", s -> s.offsetY, 0, false);
 
     private final StyleableProperty<Number> offsetX;
     private final StyleableProperty<Number> offsetY;
 
-    public DecorationTextfield() {
-        this("");
+    public DecorationComboBox() {
+        this(FXCollections.observableArrayList());
     }
 
-    public DecorationTextfield(String text) {
-        super(text);
-        getStyleClass().add("decoration-text-field");
+    public DecorationComboBox(ObservableList<T> items) {
+        super(items);
+        getStyleClass().add("decoration-combo-box");
         this.offsetX = new SimpleStyleableDoubleProperty(OFFSET_X, this, "offsetX");
         this.offsetY = new SimpleStyleableDoubleProperty(OFFSET_Y, this, "offsetY");
-    }
-
-    private final ObjectProperty<Node> left = new SimpleObjectProperty<>(this, "left");
-
-    /**
-     * @return An ObjectProperty wrapping the {@link Node} that is placed on the
-     * left of the text field.
-     */
-    public final ObjectProperty<Node> leftProperty() {
-        return left;
-    }
-
-    /**
-     * @return the {@link Node} that is placed on the left of the text field.
-     */
-    public final Node getLeft() {
-        return left.get();
-    }
-
-    /**
-     * Sets the {@link Node} that is placed on the left of the text field.
-     *
-     * @param value
-     */
-    public final void setLeft(Node value) {
-        left.set(value);
-    }
-
-    private final ObjectProperty<Node> right = new SimpleObjectProperty<>(this, "right");
-
-    /**
-     * Property representing the {@link Node} that is placed on the right of the
-     * text field.
-     *
-     * @return An ObjectProperty.
-     */
-    public final ObjectProperty<Node> rightProperty() {
-        return right;
-    }
-
-    /**
-     * @return The {@link Node} that is placed on the right of the text field.
-     */
-    public final Node getRight() {
-        return right.get();
-    }
-
-    /**
-     * Sets the {@link Node} that is placed on the right of the text field.
-     *
-     * @param value
-     */
-    public final void setRight(Node value) {
-        right.set(value);
     }
 
     /**
@@ -223,7 +148,7 @@ public class DecorationTextfield extends TextField {
      */
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new DecorationTextfieldSkin(this);
+        return new DecorationComboBoxSkin<>(this);
     }
 
     /**
@@ -232,7 +157,7 @@ public class DecorationTextfield extends TextField {
     @Override
     public String getUserAgentStylesheet() {
         return Objects.requireNonNull(
-                DecorationTextfield.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationtextfield.css"))
+                DecorationComboBox.class.getResource("/com/tlcsdm/core/static/javafx/control/decorationcombobox.css"))
             .toExternalForm();
     }
 
