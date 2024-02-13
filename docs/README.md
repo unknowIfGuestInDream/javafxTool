@@ -14,7 +14,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | poi-ooxml              | 5.2.5      | 用于Microsoft Documents的Java API   |
 | freemarker             | 2.3.32     | 模板引擎库                            |
 | commons-lang3          | 3.14.0     | Java工具类库                         |
-| hutool                 | 5.8.25     | Java工具类库                         |
+| hutool                 | 5.8.26     | Java工具类库                         |
 | logback                | 1.4.14     | Java日志框架                         |
 | commons-configuration2 | 2.9.0      | 用于从各种源读取配置数据                     |
 | classgraph             | 4.8.165    | Java classpath 扫描器和模块扫描器         |
