@@ -112,6 +112,19 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         zoomSlider.valueProperty().bindBidirectional(view.zoomFactorProperty());
         zoomSlider.disableProperty().bind(view.showAllProperty());
 
+        Button zoomIn = new Button();
+        zoomIn.getStyleClass().addAll("tool-bar-button", "zoom-in");
+        zoomIn.setTooltip(new Tooltip("Zoom in"));
+        zoomIn.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-in.png")));
+        zoomIn.setOnAction(evt -> increaseZoomFactor(0.5));
+
+        Button zoomOut = new Button();
+        zoomOut.getStyleClass().addAll("tool-bar-button", "zoom-out");
+        zoomOut.setTooltip(new Tooltip("Zoom out"));
+        zoomOut.setGraphic(
+            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-out.png")));
+        zoomOut.setOnAction(evt -> decreaseZoomFactor(0.5));
+
         Label zoomLabel = new Label("Zoom");
         zoomLabel.disableProperty().bind(view.showAllProperty());
 
@@ -119,16 +132,8 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // toolbar
-        return new ToolBar(
-            showAll,
-            new Separator(Orientation.VERTICAL),
-            zoomLabel,
-            zoomSlider,
-            new Separator(Orientation.VERTICAL),
-            rotateLeft,
-            rotateRight,
-            spacer
-        );
+        return new ToolBar(showAll, new Separator(Orientation.VERTICAL), zoomLabel, zoomSlider, zoomIn, zoomOut,
+            new Separator(Orientation.VERTICAL), rotateLeft, rotateRight, spacer);
     }
 
     class MainAreaScrollPane extends ScrollPane {
@@ -147,14 +152,13 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
             setFitToHeight(true);
             setPannable(true);
 
-            pane = new
-                Pane() {
-                    @Override
-                    protected void layoutChildren() {
-                        wrapper.resizeRelocate((getWidth() - wrapper.prefWidth(-1)) / 2,
-                            (getHeight() - wrapper.prefHeight(-1)) / 2, wrapper.prefWidth(-1), wrapper.prefHeight(-1));
-                    }
-                };
+            pane = new Pane() {
+                @Override
+                protected void layoutChildren() {
+                    wrapper.resizeRelocate((getWidth() - wrapper.prefWidth(-1)) / 2,
+                        (getHeight() - wrapper.prefHeight(-1)) / 2, wrapper.prefWidth(-1), wrapper.prefHeight(-1));
+                }
+            };
 
             wrapper = new StackPane();
             wrapper.getStyleClass().add("image-view-wrapper");
