@@ -120,7 +120,7 @@
         <pdfbox.version>3.0.1</pdfbox.version>
         <pdfviewfx.version>3.0.0</pdfviewfx.version>
         <jackson.version>2.16.1</jackson.version>
-        <testfx.version>4.0.17</testfx.version>
+        <testfx.version>4.0.18</testfx.version>
         <assertj.version>3.25.3</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
