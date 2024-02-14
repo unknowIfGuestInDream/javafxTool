@@ -152,7 +152,7 @@
         <jssc.version>2.9.6</jssc.version>
         <rich-text-area.version>1.1.1</rich-text-area.version>
         <animateFX.version>1.2.4</animateFX.version>
-        <oshi.version>6.4.11</oshi.version>
+        <oshi.version>6.4.12</oshi.version>
         <classgraph.version>4.8.165</classgraph.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <jfxtras.version>17-r1</jfxtras.version>

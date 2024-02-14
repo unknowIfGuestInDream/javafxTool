@@ -116,7 +116,7 @@ public class DependencyInfo {
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.testfx", "testfx", "4.0.17", false, "https://github.com/TestFX/TestFX", "EUPL",
+            new Dependency("org.testfx", "testfx", "4.0.18", false, "https://github.com/TestFX/TestFX", "EUPL",
                 "http://ec.europa.eu/idabc/eupl.html"),
 
             new Dependency("org.kordamp.bootstrapfx", "bootstrapfx", "0.4.0", false,
