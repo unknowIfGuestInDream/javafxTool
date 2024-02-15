@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.control;
 
 import com.tlcsdm.core.javafx.control.skin.ZoomImageViewSkin;
+import javafx.beans.DefaultProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -43,6 +44,7 @@ import java.util.Objects;
 /**
  * @author unknowIfGuestInDream
  */
+@DefaultProperty("image")
 public class ZoomImageView extends Control {
 
     public ZoomImageView() {
