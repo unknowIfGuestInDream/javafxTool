@@ -26,7 +26,7 @@
  */
 
 .resize-pane > .resize-pane-handle {
-    -fx-padding: 0 3 0 3;
+    -fx-padding: 0 3;
 }
 
 .resize-pane:vertical > .resize-pane-handle {
@@ -51,37 +51,37 @@
 }
 
 .resize-pane:bottom.grabber-handle > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 0 24 0 24;
-    -fx-border-color: -fx-box-border, -fx-box-border, -fx-box-border;
+    -fx-padding: 0 24;
+    -fx-border-color: -fx-box-border;
     -fx-border-width: 1 0 0 0, 1 0 0 0, 1 0 0 0;
     -fx-border-insets: 2 0 0 0, 4 1 0 1, 6 2 0 2;
 }
 
 .resize-pane:top.grabber-handle > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 0 24 0 24;
-    -fx-border-color: -fx-box-border, -fx-box-border, -fx-box-border;
+    -fx-padding: 0 24;
+    -fx-border-color: -fx-box-border;
     -fx-border-width: 0 0 1 0, 0 0 1 0, 0 0 1 0;
     -fx-border-insets: 0 0 2 0, 0 1 4 1, 0 2 6 2;
 }
 
 .resize-pane:right.grabber-handle > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 24 0 24 0;
-    -fx-border-color: -fx-box-border, -fx-box-border, -fx-box-border;
+    -fx-padding: 24 0;
+    -fx-border-color: -fx-box-border;
     -fx-border-width: 0 0 0 1, 0 0 0 1, 0 0 0 1;
     -fx-border-insets: 0 0 0 2, 1 0 1 4, 2 0 2 6;
 }
 
 .resize-pane:left.grabber-handle > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 24 0 24 0;
-    -fx-border-color: -fx-box-border, -fx-box-border, -fx-box-border;
+    -fx-padding: 24 0;
+    -fx-border-color: -fx-box-border;
     -fx-border-width: 0 1 0 0, 0 1 0 0, 0 1 0 0;
     -fx-border-insets: 0 2 0 0, 1 4 1 0, 2 6 2 0;
 }
 
 .resize-pane:vertical.grabber-handle.small > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 7 0 7 0;
+    -fx-padding: 7 0;
 }
 
 .resize-pane:horizontal.grabber-handle.small > .resize-pane-handle > .resize-pane-grabber {
-    -fx-padding: 0 7 0 7;
+    -fx-padding: 0 7;
 }
