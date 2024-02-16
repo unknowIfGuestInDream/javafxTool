@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 unknowIfGuestInDream.
+ * Copyright (c) 2023 unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,45 +27,57 @@
 
 package com.tlcsdm.core.util;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
- * Test for common-compress.
+ * Test for CompressUtil.
  *
  * @author unknowIfGuestInDream
  */
-@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
-public class CompressTest {
+class YuiCompressTest {
+
+    private final String jsCode = """
+        /*示例代码*/
+        function echo(stringA,stringB){
+        	var hello="你好";
+        	alert("hello world");
+        }
+        /*示例代码*/
+        """;
+
+    private final String cssCode = """
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('JetBrainsMono-Regular.ttf');
+        }
+        .text-groovy-area,
+        .text-java-area {
+            -fx-font-family: 'JetBrains Mono';
+            -fx-font-smoothing-type: gray;
+            -fx-font-size: 13;
+        }
+        .keyword {
+            -fx-fill: purple;
+            -fx-font-weight: bold;
+        }
+        .paragraph-box:has-caret {
+            -fx-background-color: #f2f9fc;
+        }
+        """;
 
     @Test
-    public void testZipFile_use_file() {
-        String srcPath = "E:\\testPlace\\compress\\aa\\2.png";
-        String targetPath = "E:\\testPlace\\compress\\ecm.zip";
-        CompressUtil.zipFile(srcPath, targetPath);
+    void compressJsWithCode() {
+        Assertions.assertEquals("function echo(c,b){var a=\"你好\";alert(\"hello world\")};",
+            YuiCompressUtil.compressJS(jsCode));
+        Assertions.assertEquals("function echo(stringA,stringB){var hello=\"你好\";alert(\"hello world\")};",
+            YuiCompressUtil.compressJS(jsCode, -1, false, false, false, false));
     }
 
     @Test
-    public void testZipFile_use_dir() {
-        String srcPath = "E:\\testPlace\\compress\\aa\\";
-        String targetPath = "E:\\testPlace\\compress\\ecm.zip";
-        CompressUtil.zipFile(srcPath, targetPath);
-    }
-
-    @Test
-    public void unzip() throws FileNotFoundException {
-        String targetPath = "E:\\testPlace\\compress\\ecm";
-        CompressUtil.unzip(new FileInputStream("E:\\testPlace\\compress\\ecm.zip"), targetPath);
-    }
-
-    @Test
-    public void zipFiles() throws IOException {
-        String targetPath = "E:\\testPlace\\compress\\aa.zip";
-        CompressUtil.zipFiles(new File("E:\\testPlace\\compress\\aa"), new File(targetPath));
+    void compressCssWithCode() {
+        Assertions.assertEquals(
+            "@font-face{font-family:'JetBrains Mono';src:url('JetBrainsMono-Regular.ttf')}.text-groovy-area,.text-java-area{-fx-font-family:'JetBrains Mono';-fx-font-smoothing-type:gray;-fx-font-size:13}.keyword{-fx-fill:purple;-fx-font-weight:bold}.paragraph-box:has-caret{-fx-background-color:#f2f9fc}"
+            , YuiCompressUtil.compressCSS(cssCode));
     }
 }

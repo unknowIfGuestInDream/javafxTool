@@ -363,6 +363,7 @@
                         <exclude>**/JsscTest.java</exclude>
                         <exclude>**/H2Test.java</exclude>
                         <exclude>**/OshiTest.java</exclude>
+                        <exclude>**/CompressTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

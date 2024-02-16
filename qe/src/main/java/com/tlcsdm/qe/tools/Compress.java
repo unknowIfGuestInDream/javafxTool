@@ -36,7 +36,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
-import com.tlcsdm.core.util.CompressUtil;
+import com.tlcsdm.core.util.YuiCompressUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.event.ActionEvent;
@@ -132,7 +132,8 @@ public class Compress extends QeSample implements Initializable {
         map.put("enableMungeDesc", I18nUtils.get("qe.tool.compress.check.enableMunge.description"));
         map.put("enableVerboseDesc", I18nUtils.get("qe.tool.compress.check.enableVerbose.description"));
         map.put("enableOptimizationsDesc", I18nUtils.get("qe.tool.compress.check.enableOptimizations.description"));
-        map.put("enablePreserveAllSemiColonsDesc", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons.description"));
+        map.put("enablePreserveAllSemiColonsDesc",
+            I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons.description"));
         map.put("enableLinebreakposDesc", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos.description"));
         return FxTextInput.textArea(StrUtil.format(content, map));
     }
@@ -193,7 +194,7 @@ public class Compress extends QeSample implements Initializable {
     @FXML
     public void compressJs(ActionEvent actionEvent) {
         int linebreakpos = enableLinebreakpos.isSelected() ? Integer.parseInt(txtLinebreakpos.getText()) : -1;
-        String result = CompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
+        String result = YuiCompressUtil.compressJS(txtJsCode.getText(), linebreakpos, enableMunge.isSelected(),
             enableVerbose.isSelected(), enablePreserveAllSemiColons.isSelected(), !enableOptimizations.isSelected());
         if (result.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.fail"));
@@ -213,7 +214,7 @@ public class Compress extends QeSample implements Initializable {
     @FXML
     public void compressCss(ActionEvent actionEvent) {
         int linebreakpos = enableCssLinebreakpos.isSelected() ? Integer.parseInt(txtCssLinebreakpos.getText()) : -1;
-        String result = CompressUtil.compressCSS(txtCssCode.getText(), linebreakpos);
+        String result = YuiCompressUtil.compressCSS(txtCssCode.getText(), linebreakpos);
         if (result.isEmpty()) {
             notificationBuilder.text(I18nUtils.get("qe.tool.compress.button.compress.fail"));
             notificationBuilder.showInformation();

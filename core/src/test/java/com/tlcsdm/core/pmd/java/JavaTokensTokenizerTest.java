@@ -34,13 +34,12 @@ import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
 import net.sourceforge.pmd.lang.java.ast.JavaParserConstants;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class JavaTokensTokenizerTest {
 
@@ -50,8 +49,8 @@ public class JavaTokensTokenizerTest {
         SourceCode sourceCode = new SourceCode(new SourceCode.StringCodeLoader("public class Foo {}"));
         Tokens tokens = new Tokens();
         tokenizer.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
-        assertEquals("public class Foo {}", sourceCode.getSlice(1, 1));
+        Assertions.assertEquals(6, tokens.size());
+        Assertions.assertEquals("public class Foo {}", sourceCode.getSlice(1, 1));
     }
 
     @Test
@@ -61,11 +60,11 @@ public class JavaTokensTokenizerTest {
             new SourceCode.StringCodeLoader("public class Foo { // class Bar */ \n }"));
         Tokens tokens = new Tokens();
         tokenizer.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
-    @Ignore
+    @Disabled
     /*
       换行符有差异.
      */
@@ -76,7 +75,7 @@ public class JavaTokensTokenizerTest {
         SourceCode sourceCode = new SourceCode(new SourceCode.StringCodeLoader(data));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals("public class Foo {" + PMD.EOL + "public void bar() {}", sourceCode.getSlice(1, 2));
+        Assertions.assertEquals("public class Foo {" + PMD.EOL + "public void bar() {}", sourceCode.getSlice(1, 2));
     }
 
     @Test
@@ -85,7 +84,7 @@ public class JavaTokensTokenizerTest {
         SourceCode sourceCode = new SourceCode(new SourceCode.StringCodeLoader("public class Foo {private int x;}"));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals(9, tokens.size());
+        Assertions.assertEquals(9, tokens.size());
     }
 
     @Test
@@ -95,7 +94,7 @@ public class JavaTokensTokenizerTest {
             new SourceCode.StringCodeLoader("import java.io.File;" + PMD.EOL + "public class Foo {}"));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
@@ -105,7 +104,7 @@ public class JavaTokensTokenizerTest {
             new SourceCode.StringCodeLoader("package foo.bar.baz;" + PMD.EOL + "public class Foo {}"));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
@@ -116,7 +115,7 @@ public class JavaTokensTokenizerTest {
             "package foo.bar.baz;" + PMD.EOL + "@MyAnnotation" + PMD.EOL + "public class Foo {}"));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
@@ -127,7 +126,7 @@ public class JavaTokensTokenizerTest {
             + "/*****" + PMD.EOL + " * ugh" + PMD.EOL + " *****/" + PMD.EOL + "public class Foo {}"));
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
@@ -141,7 +140,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(6, tokens.size());
+        Assertions.assertEquals(6, tokens.size());
     }
 
     @Test
@@ -157,7 +156,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
+        Assertions.assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
     }
 
     @Test
@@ -173,7 +172,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
+        Assertions.assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
     }
 
     @Test
@@ -190,7 +189,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
+        Assertions.assertEquals(2, tokens.size()); // 2 tokens: "}" + EOF
     }
 
     @Test
@@ -206,7 +205,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(10, tokens.size());
+        Assertions.assertEquals(10, tokens.size());
     }
 
     @Test
@@ -222,7 +221,7 @@ public class JavaTokensTokenizerTest {
         Tokens tokens = new Tokens();
         t.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(1, tokens.size());
+        Assertions.assertEquals(1, tokens.size());
     }
 
     @Test
@@ -245,15 +244,15 @@ public class JavaTokensTokenizerTest {
         List<TokenEntry> tokenList = tokens.getTokens();
 
         // Member variable of type Foo
-        assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(7).toString());
+        Assertions.assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(7).toString());
         // Public constructor
-        assertEquals("Foo", tokenList.get(10).toString());
+        Assertions.assertEquals("Foo", tokenList.get(10).toString());
         // Private constructor
-        assertEquals("Foo", tokenList.get(22).toString());
+        Assertions.assertEquals("Foo", tokenList.get(22).toString());
         // Package-private constructor
-        assertEquals("Foo", tokenList.get(38).toString());
+        Assertions.assertEquals("Foo", tokenList.get(38).toString());
         // Inner class constructor
-        assertEquals("Inner", tokenList.get(64).toString());
+        Assertions.assertEquals("Inner", tokenList.get(64).toString());
     }
 
     @Test
@@ -273,10 +272,10 @@ public class JavaTokensTokenizerTest {
         List<TokenEntry> tokenList = tokens.getTokens();
 
         // Enum member
-        assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(4).toString());
-        assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(9).toString());
+        Assertions.assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(4).toString());
+        Assertions.assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(9).toString());
         // Enum constructor
-        assertEquals("Foo", tokenList.get(13).toString());
+        Assertions.assertEquals("Foo", tokenList.get(13).toString());
     }
 
     @Test
@@ -296,7 +295,7 @@ public class JavaTokensTokenizerTest {
         List<TokenEntry> tokenList = tokens.getTokens();
 
         // Class constructor
-        assertEquals("Foo", tokenList.get(4).toString());
-        assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(11).toString());
+        Assertions.assertEquals("Foo", tokenList.get(4).toString());
+        Assertions.assertEquals(String.valueOf(JavaParserConstants.IDENTIFIER), tokenList.get(11).toString());
     }
 }

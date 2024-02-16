@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,138 +28,190 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
-import com.yahoo.platform.yui.compressor.CssCompressor;
-import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
-import org.mozilla.javascript.ErrorReporter;
-import org.mozilla.javascript.EvaluatorException;
+import com.tlcsdm.core.exception.CoreException;
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveOutputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.io.FileUtils;
 
-import java.io.ByteArrayInputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
- * yui compressor工具实现.
- * 用于js/css压缩
+ * common-compress封装.
  *
  * @author unknowIfGuestInDream
  */
-public final class CompressUtil {
+public class CompressUtil {
 
     private CompressUtil() {
-        // Do nothing
-    }
-
-    public static void compressJS(File js, Writer out) {
-        compressJS(js, out, -1, true, false, false, false);
     }
 
     /**
-     * 压缩js到输出流.
+     * 解压zip包至目标目录下，若目录不存在会自动新建；
+     * utf-8编码的zip文件中存在gbk编码的文件和文件夹，解码会有乱码
+     * 文件夹名称存在中文的，新建文件夹会失败，采取跳过的策略
+     * 若存在中文命名的文件会抛出异常，采取跳过的策略
      *
-     * @param js                    js文件
-     * @param out                   输出流
-     * @param linebreakpos          Insert a line break after the specified column number
-     * @param munge                 Whether obfuscate
-     * @param verbose               Display informational messages and warnings
-     * @param preserveAllSemiColons Preserve all semicolons
-     * @param disableOptimizations  Disable all micro optimizations
+     * @param inputStream 输入的文件流
+     * @param destDir     解压的目标地址
      */
-    public static void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                                  boolean disableOptimizations) {
-        try (InputStreamReader in = new InputStreamReader(new FileInputStream(js), StandardCharsets.UTF_8)) {
-            JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
-            compressor.compress(out, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
-        } catch (IOException | EvaluatorException e) {
-            StaticLog.error(e);
-        }
-    }
-
-    public static String compressJS(String code) {
-        return compressJS(code, -1, true, false, false, false);
-    }
-
-    /**
-     * @param code 待压缩的代码.
-     */
-    public static String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                                    boolean disableOptimizations) {
-        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()), StandardCharsets.UTF_8)) {
-            StringWriter writer = new StringWriter();
-            JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
-            compressor.compress(writer, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
-            return writer.toString();
-        } catch (IOException | EvaluatorException e) {
-            StaticLog.error(e);
-        }
-        return "";
-    }
-
-    public static void compressCSS(File css, Writer out) {
-        compressCSS(css, out, -1);
-    }
-
-    /**
-     * @param css          css文件
-     * @param out          输出流
-     * @param linebreakpos Insert a line break after the specified column number
-     */
-    public static void compressCSS(File css, Writer out, int linebreakpos) {
-        try (InputStreamReader in = new InputStreamReader(new FileInputStream(css), StandardCharsets.UTF_8)) {
-            CssCompressor compressor = new CssCompressor(in);
-            compressor.compress(out, linebreakpos);
+    public static void unzip(InputStream inputStream, String destDir) {
+        ArchiveEntry zipEntry;
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(
+            inputStream); ZipArchiveInputStream zipInputStream = new ZipArchiveInputStream(bufferedInputStream)) {
+            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+                File file = new File(destDir, zipEntry.getName());
+                if (zipEntry.isDirectory()) {
+                    boolean mkdirs = file.mkdirs();
+                    if (!mkdirs) {
+                        StaticLog.warn("make dir fails, dir exists Chinese");
+                    }
+                } else {
+                    try (FileOutputStream outPut = FileUtils.openOutputStream(
+                        file); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outPut)) {
+                        IOUtils.copy(zipInputStream, bufferedOutputStream, 8192);
+                    } catch (IOException e) {
+                        StaticLog.warn("file exists Chinese");
+                    }
+                }
+            }
         } catch (IOException e) {
-            StaticLog.error(e);
-        }
-    }
-
-    public static String compressCSS(String code) {
-        return compressCSS(code, -1);
-    }
-
-    /**
-     * @param code 待压缩的代码.
-     */
-    public static String compressCSS(String code, int linebreakpos) {
-        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()), StandardCharsets.UTF_8)) {
-            CssCompressor compressor = new CssCompressor(in);
-            StringWriter writer = new StringWriter();
-            compressor.compress(writer, linebreakpos);
-            return writer.toString();
-        } catch (IOException e) {
-            StaticLog.error(e);
-        }
-        return "";
-    }
-
-    private static final ErrorReporter ERROR_REPORTER = new ErrorReporter() {
-        @Override
-        public void warning(String message, String sourceName, int line, String lineSource, int lineOffset) {
-            if (line < 0) {
-                StaticLog.warn(message);
-            } else {
-                StaticLog.warn(line + ':' + lineOffset + ':' + message);
+            StaticLog.error("have an IOException", e);
+            throw new CoreException("Failed to decompress", e);
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                StaticLog.error("failed to close the input stream");
             }
         }
+    }
 
-        @Override
-        public void error(String message, String sourceName, int line, String lineSource, int lineOffset) {
-            if (line < 0) {
-                StaticLog.error(message);
+    /**
+     * 压缩文件(文件夹)为zip包
+     *
+     * @param sourceFile
+     * @param targetZipFile
+     */
+    public static void zipFiles(File sourceFile, File targetZipFile) throws IOException {
+        try (ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(targetZipFile))) {
+            for (File file : Objects.requireNonNull(sourceFile.listFiles())) {
+                addEntry("", file, outputStream);
+            }
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+    }
+
+    private static void addEntry(String dir, File inFile, ZipOutputStream out) throws IOException {
+        if (inFile.isDirectory()) {
+            File[] files = inFile.listFiles();
+            if (files != null && files.length > 0) {
+                for (File file : files) {
+                    String name = inFile.getName();
+                    if (!"".equals(dir)) {
+                        name = dir + "/" + name;
+                    }
+                    addEntry(name, file, out);
+                }
+            }
+        } else {
+            doZip(inFile, out, dir);
+        }
+
+    }
+
+    private static void doZip(File inFile, ZipOutputStream out, String dir) throws IOException {
+        String entryName;
+        if (!"".equals(dir)) {
+            entryName = dir + "/" + inFile.getName();
+        } else {
+            entryName = inFile.getName();
+        }
+        ZipEntry entry = new ZipEntry(entryName);
+        out.putNextEntry(entry);
+
+        int len;
+        byte[] buffer = new byte[1024];
+        FileInputStream fis = new FileInputStream(inFile);
+        while ((len = fis.read(buffer)) > 0) {
+            out.write(buffer, 0, len);
+            out.flush();
+        }
+        out.closeEntry();
+        fis.close();
+    }
+
+    /**
+     * 支持单文件或多层文件夹的压缩
+     *
+     * @param srcPath
+     * @param targetPath
+     */
+    public static void zipFile(String srcPath, String targetPath) {
+        int length;
+        File file = new File(srcPath);
+        List<File> filesToArchive;
+        if (file.isDirectory()) {
+            filesToArchive = getAllFile(new File(srcPath));
+            length = srcPath.length();
+        } else {
+            filesToArchive = Collections.singletonList(file);
+            length = file.getParent().length() + 1;
+        }
+        try (ArchiveOutputStream<ZipArchiveEntry> o = new ZipArchiveOutputStream(new File(targetPath))) {
+            for (File f : filesToArchive) {
+                ZipArchiveEntry entry = o.createArchiveEntry(f, f.getPath().substring(length));
+                o.putArchiveEntry(entry);
+                if (f.isFile()) {
+                    try (InputStream i = Files.newInputStream(f.toPath())) {
+                        IOUtils.copy(i, o);
+                    }
+                }
+                o.closeArchiveEntry();
+            }
+        } catch (IOException e) {
+            StaticLog.error("zipFile fails", e);
+        }
+    }
+
+    public static List<File> getAllFile(File dirFile) {
+        File[] childrenFiles = dirFile.listFiles();
+        if (Objects.isNull(childrenFiles) || childrenFiles.length == 0) {
+            return Collections.emptyList();
+        }
+        List<File> files = new ArrayList<>();
+        for (File childFile : childrenFiles) {
+            if (childFile.isFile()) {
+                files.add(childFile);
             } else {
-                StaticLog.error(line + ':' + lineOffset + ':' + message);
+                files.add(childFile);
+                List<File> cFiles = getAllFile(childFile);
+                if (cFiles.isEmpty()) {
+                    continue;
+                }
+                files.addAll(cFiles);
             }
         }
-
-        @Override
-        public EvaluatorException runtimeError(String message, String sourceName, int line, String lineSource, int lineOffset) {
-            error(message, sourceName, line, lineSource, lineOffset);
-            return new EvaluatorException(message);
-        }
-    };
+        return files;
+    }
 
 }

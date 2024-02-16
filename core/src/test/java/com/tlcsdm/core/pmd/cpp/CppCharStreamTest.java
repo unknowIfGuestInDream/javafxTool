@@ -28,12 +28,11 @@
 package com.tlcsdm.core.pmd.cpp;
 
 import net.sourceforge.pmd.lang.cpp.CppCharStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringReader;
-
-import static org.junit.Assert.assertEquals;
 
 public class CppCharStreamTest {
 
@@ -57,12 +56,12 @@ public class CppCharStreamTest {
 
     private void assertStream(CppCharStream stream, String token) throws IOException {
         char c = stream.BeginToken();
-        assertEquals(token.charAt(0), c);
+        Assertions.assertEquals(token.charAt(0), c);
         for (int i = 1; i < token.length(); i++) {
             c = stream.readChar();
-            assertEquals(token.charAt(i), c);
+            Assertions.assertEquals(token.charAt(i), c);
         }
-        assertEquals(token, stream.GetImage());
-        assertEquals(token, new String(stream.GetSuffix(token.length())));
+        Assertions.assertEquals(token, stream.GetImage());
+        Assertions.assertEquals(token, new String(stream.GetSuffix(token.length())));
     }
 }

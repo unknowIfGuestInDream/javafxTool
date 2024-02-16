@@ -35,15 +35,13 @@ import net.sourceforge.pmd.cpd.MatchAlgorithm;
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokens;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class MatchAlgorithmTest {
 
@@ -68,7 +66,7 @@ public class MatchAlgorithmTest {
         Tokens tokens = new Tokens();
         TokenEntry.clearImages();
         tokenizer.tokenize(sourceCode, tokens);
-        assertEquals(41, tokens.size());
+        Assertions.assertEquals(41, tokens.size());
         Map<String, SourceCode> codeMap = new HashMap<>();
         codeMap.put("Foo.java", sourceCode);
 
@@ -76,20 +74,20 @@ public class MatchAlgorithmTest {
         matchAlgorithm.findMatches();
         Iterator<Match> matches = matchAlgorithm.matches();
         Match match = matches.next();
-        assertFalse(matches.hasNext());
+        Assertions.assertFalse(matches.hasNext());
 
         Iterator<Mark> marks = match.iterator();
         Mark mark1 = marks.next();
         Mark mark2 = marks.next();
-        assertFalse(marks.hasNext());
+        Assertions.assertFalse(marks.hasNext());
 
-        assertEquals(3, mark1.getBeginLine());
-        assertEquals("Foo.java", mark1.getFilename());
-        assertEquals(LINE_3, mark1.getSourceCodeSlice());
+        Assertions.assertEquals(3, mark1.getBeginLine());
+        Assertions.assertEquals("Foo.java", mark1.getFilename());
+        Assertions.assertEquals(LINE_3, mark1.getSourceCodeSlice());
 
-        assertEquals(4, mark2.getBeginLine());
-        assertEquals("Foo.java", mark2.getFilename());
-        assertEquals(LINE_4, mark2.getSourceCodeSlice());
+        Assertions.assertEquals(4, mark2.getBeginLine());
+        Assertions.assertEquals("Foo.java", mark2.getFilename());
+        Assertions.assertEquals(LINE_4, mark2.getSourceCodeSlice());
     }
 
     @Test
@@ -108,12 +106,12 @@ public class MatchAlgorithmTest {
         matchAlgorithm.findMatches();
         Iterator<Match> matches = matchAlgorithm.matches();
         Match match = matches.next();
-        assertFalse(matches.hasNext());
+        Assertions.assertFalse(matches.hasNext());
 
         Iterator<Mark> marks = match.iterator();
         marks.next();
         marks.next();
         marks.next();
-        assertFalse(marks.hasNext());
+        Assertions.assertFalse(marks.hasNext());
     }
 }
