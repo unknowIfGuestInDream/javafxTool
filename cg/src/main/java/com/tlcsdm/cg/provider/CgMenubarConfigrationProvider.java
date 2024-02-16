@@ -53,12 +53,10 @@ import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
 import com.tlcsdm.frame.FXSampler;
 import com.tlcsdm.frame.service.MenubarConfigration;
-import javafx.application.Platform;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionGroup;
 import org.controlsfx.control.action.ActionUtils;
@@ -183,8 +181,7 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
     private final ActionGroup languageGroup = new FxLanguageActionGroup((s) -> {
         if (FxAlerts.confirmOkCancel(I18nUtils.get("cg.menubar.setting.language.dialog.title"),
             I18nUtils.get("cg.menubar.setting.language.dialog.message"))) {
-            FXSampler.getStage().close();
-            Platform.runLater(() -> new FXSampler().start(new Stage()));
+            FXSampler.restart();
         }
     }).create();
 
