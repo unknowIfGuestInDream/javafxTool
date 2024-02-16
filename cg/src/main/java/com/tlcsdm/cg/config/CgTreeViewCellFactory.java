@@ -55,6 +55,10 @@ public class CgTreeViewCellFactory extends AbstractTreeViewCellFactory {
                     case "Cg", "Common" -> ImageViewHelper.get("folder");
                     case "Tools" -> ImageViewHelper.get("tools");
                     case "Image" -> ImageViewHelper.get("image");
+                    case "Code" -> ImageViewHelper.get("code");
+                    case "Develop" -> ImageViewHelper.get("develop");
+                    case "Game" -> ImageViewHelper.get("game");
+                    case "Tune" -> ImageViewHelper.get("tune");
                     default -> emptySample.getSampleImageIcon();
                 };
             }
