@@ -27,7 +27,7 @@
 
 package com.tlcsdm.qe.config;
 
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptySample;
@@ -52,10 +52,8 @@ public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
             }
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
-                    case "Qe", "Common" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png"));
-                    case "Tools" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/tools.png"));
+                    case "Qe", "Common" -> ImageViewHelper.get("folder");
+                    case "Tools" -> ImageViewHelper.get("tools");
                     default -> emptySample.getSampleImageIcon();
                 };
             }

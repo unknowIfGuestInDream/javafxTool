@@ -27,6 +27,7 @@
 
 package com.tlcsdm.smc.config;
 
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
@@ -52,17 +53,16 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
             }
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
-                    case "Smc", "Common" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/folder.png"));
-                    case "CodeDev" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/code.png"));
-                    case "Tools" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/tools.png"));
-                    case "UnitDesign" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/design.png"));
-                    case "UnitTest" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/test.png"));
+                    case "Smc", "Common" -> ImageViewHelper.get("folder");
+                    case "CodeDev" -> LayoutHelper.iconView(
+                        getClass().getResource("/com/tlcsdm/smc/static/icon/code.png"));
+                    case "Tools" -> ImageViewHelper.get("tools");
+                    case "UnitDesign" -> LayoutHelper.iconView(
+                        getClass().getResource("/com/tlcsdm/smc/static/icon/design.png"));
+                    case "UnitTest" -> LayoutHelper.iconView(
+                        getClass().getResource("/com/tlcsdm/smc/static/icon/test.png"));
                     case "Ecm" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/ecm.png"));
+                    case "Image" -> ImageViewHelper.get("image");
                     default -> emptySample.getSampleImageIcon();
                 };
             }

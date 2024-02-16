@@ -28,7 +28,7 @@
 package com.tlcsdm.cg.config;
 
 import com.tlcsdm.cg.util.CgConstant;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.frame.Sample;
 import com.tlcsdm.frame.model.AbstractTreeViewCellFactory;
 import com.tlcsdm.frame.model.EmptySample;
@@ -52,10 +52,8 @@ public class CgTreeViewCellFactory extends AbstractTreeViewCellFactory {
             }
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
-                    case "Cg", "Common" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/cg/static/icon/folder.png"));
-                    case "Tools" ->
-                        LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/cg/static/icon/tools.png"));
+                    case "Cg", "Common" -> ImageViewHelper.get("folder");
+                    case "Tools" -> ImageViewHelper.get("tools");
                     default -> emptySample.getSampleImageIcon();
                 };
             }
