@@ -64,6 +64,8 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
                     case "Develop" -> ImageViewHelper.get("develop");
                     case "Game" -> ImageViewHelper.get("game");
                     case "Tune" -> ImageViewHelper.get("tune");
+                    case "Auxiliary" -> ImageViewHelper.get("auxiliary");
+                    case "Copilot" -> ImageViewHelper.get("copilot");
                     default -> emptySample.getSampleImageIcon();
                 };
             }

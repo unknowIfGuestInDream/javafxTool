@@ -60,6 +60,8 @@ public class ImageViewHelper {
             case "develop" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/develop.png");
             case "tune" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/tune.png");
             case "game" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/game.png");
+            case "auxiliary" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/auxiliary.png");
+            case "copilot" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/copilot.png");
             default -> throw new IllegalStateException("Unexpected value: " + name);
         };
 
