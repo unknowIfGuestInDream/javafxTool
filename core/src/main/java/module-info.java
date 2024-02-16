@@ -83,6 +83,7 @@ module com.tlcsdm.core {
     requires static com.github.oshi;
     requires static zip4j;
     requires static org.apache.commons.compress;
+    requires static org.apache.commons.imaging;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

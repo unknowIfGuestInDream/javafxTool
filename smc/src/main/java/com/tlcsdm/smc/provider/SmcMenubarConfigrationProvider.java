@@ -51,12 +51,10 @@ import com.tlcsdm.frame.service.MenubarConfigration;
 import com.tlcsdm.smc.SmcSample;
 import com.tlcsdm.smc.util.I18nUtils;
 import com.tlcsdm.smc.util.SmcConstant;
-import javafx.application.Platform;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionGroup;
 import org.controlsfx.control.action.ActionUtils;
@@ -180,8 +178,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
     private final ActionGroup languageGroup = new FxLanguageActionGroup((s) -> {
         if (FxAlerts.confirmOkCancel(I18nUtils.get("smc.menubar.setting.language.dialog.title"),
             I18nUtils.get("smc.menubar.setting.language.dialog.message"))) {
-            FXSampler.getStage().close();
-            Platform.runLater(() -> new FXSampler().start(new Stage()));
+            FXSampler.restart();
         }
     }).create();
 

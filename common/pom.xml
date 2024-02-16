@@ -122,6 +122,14 @@
             <scope>${jfxcommon.scope}</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>

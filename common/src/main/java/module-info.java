@@ -46,12 +46,17 @@ module com.tlcsdm.jfxcommon {
     requires static com.fasterxml.jackson.databind;
     requires static org.apache.commons.csv;
     requires static org.apache.poi.poi;
+    requires static net.coobird.thumbnailator;
+    requires org.apache.commons.codec;
+    requires org.apache.commons.io;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
     exports com.tlcsdm.jfxcommon.tools to javafx.fxml, com.tlcsdm.frame;
+    exports com.tlcsdm.jfxcommon.tools.image to javafx.fxml, com.tlcsdm.frame;
 
     opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
+    opens com.tlcsdm.jfxcommon.tools.image to javafx.fxml, javafx.graphics;
 
     provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
     provides TemplateLoaderService with CommonTemplateLoaderProvider;

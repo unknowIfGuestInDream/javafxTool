@@ -45,7 +45,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.richtext.GroovyCodeArea;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
@@ -666,7 +666,7 @@ public abstract class AbstractEcmScript extends SmcSample {
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/xml.png"));
+        return ImageViewHelper.get("xml");
     }
 
     @Override

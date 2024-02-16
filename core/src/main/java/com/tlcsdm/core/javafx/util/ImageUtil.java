@@ -27,13 +27,22 @@
 
 package com.tlcsdm.core.javafx.util;
 
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.log.StaticLog;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import org.apache.commons.imaging.ImageFormats;
+import org.apache.commons.imaging.Imaging;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -45,6 +54,48 @@ import java.util.concurrent.FutureTask;
 public class ImageUtil {
 
     private ImageUtil() {
+    }
+
+    public static BufferedImage getBufferedImage(String path) {
+        return getBufferedImage(new File(path));
+    }
+
+    public static BufferedImage getBufferedImage(File file) {
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = Imaging.getBufferedImage(file);
+        } catch (Exception var5) {
+            try {
+                bufferedImage = ImageIO.read(file);
+            } catch (IOException e) {
+                StaticLog.error(e);
+            }
+        }
+        return bufferedImage;
+    }
+
+    public static Image getFXImage(String path) {
+        return getFXImage(new File(path));
+    }
+
+    public static Image getFXImage(File file) {
+        Image image;
+        try {
+            image = SwingFXUtils.toFXImage(Imaging.getBufferedImage(file), null);
+        } catch (Exception var3) {
+            image = new Image("file:" + file.getAbsolutePath());
+        }
+        return image;
+    }
+
+    public static Image getFXImage(byte[] bytes) {
+        Image image;
+        try {
+            image = SwingFXUtils.toFXImage(Imaging.getBufferedImage(bytes), null);
+        } catch (Exception var3) {
+            image = new Image(new ByteArrayInputStream(bytes));
+        }
+        return image;
     }
 
     /**
@@ -166,6 +217,23 @@ public class ImageUtil {
             }
         }
         return wImage;
+    }
+
+    public static void writeImage(Image image, File file) {
+        writeImage(SwingFXUtils.fromFXImage(image, null), file);
+    }
+
+    public static void writeImage(BufferedImage bufferedImage, File file) {
+        try {
+            String suf = FileNameUtil.getSuffix(file).toUpperCase();
+            if ("JPG".equals(suf)) {
+                suf = "JPEG";
+            }
+            Imaging.writeImage(bufferedImage, file, ImageFormats.valueOf(suf));
+        } catch (Exception e) {
+            StaticLog.error(e);
+        }
+
     }
 
 }

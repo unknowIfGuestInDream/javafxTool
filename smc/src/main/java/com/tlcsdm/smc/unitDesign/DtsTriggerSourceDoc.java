@@ -48,7 +48,7 @@ import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
@@ -234,13 +234,13 @@ public class DtsTriggerSourceDoc extends SmcSample {
                         int group = 0;
                         for (int j = 0; j < groupNum; j++) {
                             Map<Integer, String> map = triggerFactorList.get(i);
-//                      for (int k = 0; k < 4; k++) {
-//                          if (!map.containsKey(group)) {
-//                              group++;
-//                          } else {
-//                              break;
-//                          }
-//                      }
+                            //                      for (int k = 0; k < 4; k++) {
+                            //                          if (!map.containsKey(group)) {
+                            //                              group++;
+                            //                          } else {
+                            //                              break;
+                            //                          }
+                            //                      }
 
                             int initx = group;
                             String initValue = "";
@@ -263,7 +263,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
                                 excelWriter.writeCellValue("S" + line, "Group " + initx + " : " + initValue);
                                 excelWriter.writeCellValue("T" + line, condition);
                             }
-//                  excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
+                            //                  excelWriter.writeCellValue("C" + (line + j), "Group " + group + " : " + map.get(group));
                             excelWriter.writeCellValue("Q" + (line + j), "Group " + group + " : " + map.get(group));
                             excelWriter.writeCellValue("R" + (line + j), "Group " + group + " : " + map.get(group));
                             excelWriter.writeCellValue("BJ" + (line + j), "DMATRGSEL.DTSSEL" + regnum + ".UINT32 &=");
@@ -534,7 +534,7 @@ public class DtsTriggerSourceDoc extends SmcSample {
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/xlsx.png"));
+        return ImageViewHelper.get("xlsx");
     }
 
     @Override
