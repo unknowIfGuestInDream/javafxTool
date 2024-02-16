@@ -114,4 +114,11 @@ public class DependencyUtil {
     public static boolean hasJavafxWeb() {
         return CoreUtil.hasClass("javafx.scene.web.WebView");
     }
+
+    /**
+     * 因否存在thumbnailator库.
+     */
+    public static boolean hasThumbnailator() {
+        return CoreUtil.hasClass("net.coobird.thumbnailator.Thumbnails");
+    }
 }
