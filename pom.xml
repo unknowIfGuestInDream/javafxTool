@@ -857,6 +857,12 @@
                 <artifactId>pmd-test</artifactId>
                 <version>${pmd.version}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
@@ -871,6 +877,10 @@
                     <exclusion>
                         <groupId>net.java.dev.jna</groupId>
                         <artifactId>jna-platform</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
