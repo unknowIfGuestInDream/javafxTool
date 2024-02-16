@@ -51,15 +51,14 @@ import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.properties.StringMultiProperty;
 import net.sourceforge.pmd.properties.StringProperty;
 import net.sourceforge.pmd.testframework.RuleTst;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author daniels
@@ -68,7 +67,7 @@ public class XPathRuleTest extends RuleTst {
 
     XPathRule rule;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         rule = new XPathRule();
         rule.setLanguage(LanguageRegistry.getLanguage(JavaLanguageModule.NAME));
@@ -81,7 +80,7 @@ public class XPathRuleTest extends RuleTst {
         rule.setMessage("{0}");
         Report report = getReportForTestString(rule, TEST1);
         RuleViolation rv = report.iterator().next();
-        assertEquals("a", rv.getDescription());
+        Assertions.assertEquals("a", rv.getDescription());
     }
 
     @Test
@@ -104,7 +103,7 @@ public class XPathRuleTest extends RuleTst {
         for (; rv.hasNext(); ++i) {
             rv.next();
         }
-        assertEquals(2, i);
+        Assertions.assertEquals(2, i);
     }
 
     @Test
@@ -116,7 +115,7 @@ public class XPathRuleTest extends RuleTst {
         rule.setProperty(varDescriptor, "fiddle");
         Report report = getReportForTestString(rule, TEST2);
         RuleViolation rv = report.iterator().next();
-        assertEquals(3, rv.getBeginLine());
+        Assertions.assertEquals(3, rv.getBeginLine());
     }
 
     /**
@@ -145,7 +144,7 @@ public class XPathRuleTest extends RuleTst {
         xpathRuleQuery.setProperties(new HashMap<PropertyDescriptor<?>, Object>());
         xpathRuleQuery.setVersion(XPathRuleQuery.XPATH_1_0);
         List<Node> nodes = xpathRuleQuery.evaluate(cu, ruleContext);
-        assertEquals(1, nodes.size());
+        Assertions.assertEquals(1, nodes.size());
 
         // XPATH version 1.0 Compatibility
         xpathRuleQuery = new SaxonXPathRuleQuery();
@@ -153,7 +152,7 @@ public class XPathRuleTest extends RuleTst {
         xpathRuleQuery.setProperties(new HashMap<PropertyDescriptor<?>, Object>());
         xpathRuleQuery.setVersion(XPathRuleQuery.XPATH_1_0_COMPATIBILITY);
         nodes = xpathRuleQuery.evaluate(cu, ruleContext);
-        assertEquals(1, nodes.size());
+        Assertions.assertEquals(1, nodes.size());
 
         // XPATH version 2.0
         xpathRuleQuery = new SaxonXPathRuleQuery();
@@ -161,7 +160,7 @@ public class XPathRuleTest extends RuleTst {
         xpathRuleQuery.setProperties(new HashMap<PropertyDescriptor<?>, Object>());
         xpathRuleQuery.setVersion(XPathRuleQuery.XPATH_2_0);
         nodes = xpathRuleQuery.evaluate(cu, ruleContext);
-        assertEquals(1, nodes.size());
+        Assertions.assertEquals(1, nodes.size());
     }
 
     /**
@@ -188,9 +187,9 @@ public class XPathRuleTest extends RuleTst {
         xpathRuleQuery.setProperties(new HashMap<PropertyDescriptor<?>, Object>());
         xpathRuleQuery.setVersion(XPathRuleQuery.XPATH_1_0);
         List<Node> nodes = xpathRuleQuery.evaluate(cu, ruleContext);
-        assertEquals(2, nodes.size());
-        assertEquals(4, nodes.get(0).getBeginLine());
-        assertEquals(5, nodes.get(1).getBeginLine());
+        Assertions.assertEquals(2, nodes.size());
+        Assertions.assertEquals(4, nodes.get(0).getBeginLine());
+        Assertions.assertEquals(5, nodes.get(1).getBeginLine());
 
         // XPATH version 2.0
         xpathRuleQuery = new SaxonXPathRuleQuery();
@@ -198,9 +197,9 @@ public class XPathRuleTest extends RuleTst {
         xpathRuleQuery.setProperties(new HashMap<PropertyDescriptor<?>, Object>());
         xpathRuleQuery.setVersion(XPathRuleQuery.XPATH_2_0);
         nodes = xpathRuleQuery.evaluate(cu, ruleContext);
-        assertEquals(2, nodes.size());
-        assertEquals(4, nodes.get(0).getBeginLine());
-        assertEquals(5, nodes.get(1).getBeginLine());
+        Assertions.assertEquals(2, nodes.size());
+        Assertions.assertEquals(4, nodes.get(0).getBeginLine());
+        Assertions.assertEquals(5, nodes.get(1).getBeginLine());
     }
 
     private static Report getReportForTestString(Rule r, String test) throws PMDException {

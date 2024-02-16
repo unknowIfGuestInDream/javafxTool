@@ -32,12 +32,11 @@ import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
 import net.sourceforge.pmd.lang.LanguageVersionDiscoverer;
 import net.sourceforge.pmd.lang.java.JavaLanguageModule;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-
-import static org.junit.Assert.assertEquals;
 
 public class LanguageVersionDiscovererTest {
 
@@ -45,14 +44,14 @@ public class LanguageVersionDiscovererTest {
      * Test on Java file with default options.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testJavaFileUsingDefaults() {
         LanguageVersionDiscoverer discoverer = new LanguageVersionDiscoverer();
         File javaFile = new File("/path/to/MyClass.java");
 
         LanguageVersion languageVersion = discoverer.getDefaultLanguageVersionForFile(javaFile);
-        assertEquals("LanguageVersion must be Java 10 !",
-            LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("10"), languageVersion);
+        Assertions.assertEquals(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("10"), languageVersion,
+            "LanguageVersion must be Java 10 !");
     }
 
     /**
@@ -65,22 +64,24 @@ public class LanguageVersionDiscovererTest {
         File javaFile = new File("/path/to/MyClass.java");
 
         LanguageVersion languageVersion = discoverer.getDefaultLanguageVersionForFile(javaFile);
-        assertEquals("LanguageVersion must be Java 1.4!",
-            LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("1.4"), languageVersion);
+        Assertions.assertEquals(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("1.4"),
+            languageVersion, "LanguageVersion must be Java 1.4!");
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testLanguageVersionDiscoverer() {
         PMDConfiguration configuration = new PMDConfiguration();
         LanguageVersionDiscoverer languageVersionDiscoverer = configuration.getLanguageVersionDiscoverer();
-        assertEquals("Default Java version", LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("10"),
+        Assertions.assertEquals(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("10"),
             languageVersionDiscoverer
-                .getDefaultLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME)));
+                .getDefaultLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME)),
+            "Default Java version");
         configuration
             .setDefaultLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("1.5"));
-        assertEquals("Modified Java version", LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("1.5"),
+        Assertions.assertEquals(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getVersion("1.5"),
             languageVersionDiscoverer
-                .getDefaultLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME)));
+                .getDefaultLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME)),
+            "Modified Java version");
     }
 }

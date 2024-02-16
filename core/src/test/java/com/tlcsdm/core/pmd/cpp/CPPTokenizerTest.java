@@ -35,23 +35,20 @@ import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Properties;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 public class CPPTokenizerTest {
 
     @Test
     public void testUTFwithBOM() throws IOException {
         Tokens tokens = parse("\ufeffint start()\n{ int ret = 1;\nreturn ret;\n}\n");
-        assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
-        assertEquals(15, tokens.size());
+        Assertions.assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
+        Assertions.assertEquals(15, tokens.size());
     }
 
     @Test
@@ -60,8 +57,8 @@ public class CPPTokenizerTest {
             + "int main()\n" + "{\n" + "    std::string text(\"ąęćśźńó\");\n" + "    std::cout << text;\n"
             + "    return 0;\n" + "}\n";
         Tokens tokens = parse(code);
-        assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
-        assertEquals(24, tokens.size());
+        Assertions.assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
+        Assertions.assertEquals(24, tokens.size());
     }
 
     @Test
@@ -70,14 +67,14 @@ public class CPPTokenizerTest {
             + "int main()\n" + "{\n" + "    std::string text(\"ąęćśźńó\");\n" + "    std::cout << text;\n"
             + "    return 0;\n" + "// CPD-ON\n" + "}\n";
         Tokens tokens = parse(code);
-        assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
-        assertEquals(2, tokens.size()); // "}" + EOF
+        Assertions.assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
+        Assertions.assertEquals(2, tokens.size()); // "}" + EOF
     }
 
     @Test
     public void testMultiLineMacros() throws IOException {
         Tokens tokens = parse(TEST1);
-        assertEquals(7, tokens.size());
+        Assertions.assertEquals(7, tokens.size());
     }
 
     @Test
@@ -99,30 +96,30 @@ public class CPPTokenizerTest {
     public void testTokenizerWithSkipBlocks() throws Exception {
         String test = IOUtils.toString(ResourceUtil.getResourceObj("pmd/cpp/cpp_with_asm.cpp").getStream());
         Tokens tokens = parse(test, true);
-        assertEquals(19, tokens.size());
+        Assertions.assertEquals(19, tokens.size());
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testTokenizerWithSkipBlocksPattern() throws Exception {
         String test = IOUtils.toString(ResourceUtil.getResourceObj("pmd/cpp/cpp_with_asm.cpp").getStream());
         Tokens tokens = parse(test, true, "#if debug|#endif");
-        assertEquals(31, tokens.size());
+        Assertions.assertEquals(31, tokens.size());
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testTokenizerWithoutSkipBlocks() throws Exception {
         String test = IOUtils.toString(ResourceUtil.getResourceObj("pmd/cpp/cpp_with_asm.cpp").getStream());
         Tokens tokens = parse(test, false);
-        assertEquals(37, tokens.size());
+        Assertions.assertEquals(37, tokens.size());
     }
 
     @Test
     // ASM code containing the '@' character
     public void testAsmWithAtSign() throws IOException {
         Tokens tokens = parse(TEST7);
-        assertEquals(22, tokens.size());
+        Assertions.assertEquals(22, tokens.size());
     }
 
     @Test
@@ -131,22 +128,22 @@ public class CPPTokenizerTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testEmptyCharacter() throws IOException {
         Tokens tokens = parse("std::wstring wsMessage( sMessage.length(), L'');" + PMD.EOL);
-        assertEquals(15, tokens.size());
+        Assertions.assertEquals(15, tokens.size());
     }
 
     @Test
     public void testHexCharacter() throws IOException {
         Tokens tokens = parse("if (*pbuf == '\\0x05')" + PMD.EOL);
-        assertEquals(8, tokens.size());
+        Assertions.assertEquals(8, tokens.size());
     }
 
     @Test
     public void testWhiteSpaceEscape() throws IOException {
         Tokens tokens = parse("szPath = m_sdcacheDir + _T(\"\\    oMedia\");" + PMD.EOL);
-        assertEquals(10, tokens.size());
+        Assertions.assertEquals(10, tokens.size());
     }
 
     @Test
@@ -156,8 +153,8 @@ public class CPPTokenizerTest {
             + "    Format=\"[%TimeStamp%] %ThreadId% %QueryIdHigh% %QueryIdLow% %LoggerFile%:%Line% (%Severity%) - %Message%\"\n"
             + "    Filter=\"%Severity% >= WRN\"\n" + ")\";\n";
         Tokens tokens = parse(code);
-        assertTrue(TokenEntry.getEOF() != tokens.getTokens().get(0));
-        assertEquals(9, tokens.size());
+        Assertions.assertNotSame(TokenEntry.getEOF(), tokens.getTokens().get(0));
+        Assertions.assertEquals(9, tokens.size());
     }
 
     private Tokens parse(String snippet) throws IOException {

@@ -35,18 +35,17 @@ import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokens;
 import net.sourceforge.pmd.testframework.AbstractTokenizerTest;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
 
 public class PythonTokenizerTest extends AbstractTokenizerTest {
 
     private static final String FILENAME = "sample-python.py";
 
-    @Before
+    @BeforeEach
     @Override
     public void buildTokenizer() throws IOException {
         this.tokenizer = new PythonTokenizer();
@@ -77,6 +76,6 @@ public class PythonTokenizerTest extends AbstractTokenizerTest {
         Tokens tokens = new Tokens();
         tokenizer.tokenize(sourceCode, tokens);
         TokenEntry.getEOF();
-        assertEquals(3, tokens.size()); // 3 tokens: "import" + "logging" + EOF
+        Assertions.assertEquals(3, tokens.size()); // 3 tokens: "import" + "logging" + EOF
     }
 }

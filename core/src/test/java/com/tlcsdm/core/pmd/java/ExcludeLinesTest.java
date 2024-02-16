@@ -38,18 +38,16 @@ import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.java.JavaLanguageModule;
 import net.sourceforge.pmd.testframework.RuleTst;
 import net.sourceforge.pmd.testframework.TestDescriptor;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ExcludeLinesTest extends RuleTst {
     private Rule rule;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         rule = findRule("java-unusedcode", "UnusedLocalVariable");
     }
@@ -71,8 +69,8 @@ public class ExcludeLinesTest extends RuleTst {
         ctx.setLanguageVersion(LanguageRegistry.getLanguage(JavaLanguageModule.NAME).getDefaultVersion());
         RuleSet rules = new RuleSetFactory().createSingleRuleRuleSet(rule);
         p.getSourceCodeProcessor().processSourceCode(new StringReader(TEST3), new RuleSets(rules), ctx);
-        assertTrue(r.isEmpty());
-        assertEquals(r.getSuppressedRuleViolations().size(), 1);
+        Assertions.assertTrue(r.isEmpty());
+        Assertions.assertEquals(r.getSuppressedRuleViolations().size(), 1);
     }
 
     private static final String TEST1 = "public class Foo {" + PMD.EOL + " void foo() {" + PMD.EOL + "  int x; //NOPMD "

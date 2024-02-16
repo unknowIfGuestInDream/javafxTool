@@ -38,11 +38,10 @@ import net.sourceforge.pmd.lang.java.ast.ASTImportDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.JavaRuleViolation;
 import net.sourceforge.pmd.lang.java.symboltable.ScopeAndDeclarationFinder;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Philip Graf
@@ -58,7 +57,7 @@ public class JavaRuleViolationTest {
         final ASTFormalParameter node = ast.getFirstDescendantOfType(ASTFormalParameter.class);
         final RuleContext context = new RuleContext();
         final JavaRuleViolation violation = new JavaRuleViolation(null, context, node, null);
-        assertEquals("x", violation.getVariableName());
+        Assertions.assertEquals("x", violation.getVariableName());
     }
 
     private ASTCompilationUnit parse(final String code) {
@@ -83,7 +82,7 @@ public class JavaRuleViolationTest {
         ASTMethodDeclaration md = ast.getFirstDescendantOfType(ASTMethodDeclaration.class);
         final RuleContext context = new RuleContext();
         final JavaRuleViolation violation = new JavaRuleViolation(null, context, md, null);
-        assertEquals("bar", violation.getMethodName());
+        Assertions.assertEquals("bar", violation.getMethodName());
     }
 
     /**
@@ -98,8 +97,8 @@ public class JavaRuleViolationTest {
         ASTImportDeclaration importNode = ast.getFirstDescendantOfType(ASTImportDeclaration.class);
 
         JavaRuleViolation violation = new JavaRuleViolation(null, new RuleContext(), importNode, null);
-        assertEquals("pkg", violation.getPackageName());
-        assertEquals("Foo", violation.getClassName());
+        Assertions.assertEquals("pkg", violation.getPackageName());
+        Assertions.assertEquals("Foo", violation.getClassName());
     }
 
     @Test
@@ -108,8 +107,8 @@ public class JavaRuleViolationTest {
         ASTImportDeclaration importNode = ast.getFirstDescendantOfType(ASTImportDeclaration.class);
 
         JavaRuleViolation violation = new JavaRuleViolation(null, new RuleContext(), importNode, null);
-        assertEquals("pkg", violation.getPackageName());
-        assertEquals("FooE", violation.getClassName());
+        Assertions.assertEquals("pkg", violation.getPackageName());
+        Assertions.assertEquals("FooE", violation.getClassName());
     }
 
     @Test
@@ -118,8 +117,8 @@ public class JavaRuleViolationTest {
         ASTImportDeclaration importNode = ast.getFirstDescendantOfType(ASTImportDeclaration.class);
 
         JavaRuleViolation violation = new JavaRuleViolation(null, new RuleContext(), importNode, null);
-        assertEquals("", violation.getPackageName());
-        assertEquals("Foo", violation.getClassName());
+        Assertions.assertEquals("", violation.getPackageName());
+        Assertions.assertEquals("Foo", violation.getClassName());
     }
 
     @Test
@@ -128,7 +127,7 @@ public class JavaRuleViolationTest {
         ASTImportDeclaration importNode = ast.getFirstDescendantOfType(ASTImportDeclaration.class);
 
         JavaRuleViolation violation = new JavaRuleViolation(null, new RuleContext(), importNode, null);
-        assertEquals("pkg", violation.getPackageName());
-        assertEquals("Bar", violation.getClassName());
+        Assertions.assertEquals("pkg", violation.getPackageName());
+        Assertions.assertEquals("Bar", violation.getClassName());
     }
 }

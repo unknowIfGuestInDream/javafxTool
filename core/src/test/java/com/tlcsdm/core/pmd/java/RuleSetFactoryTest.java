@@ -33,9 +33,8 @@ import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 import net.sourceforge.pmd.RuleSetNotFoundException;
 import net.sourceforge.pmd.RuleSetReferenceId;
-import org.junit.Test;
-
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test java's rulesets
@@ -55,6 +54,6 @@ public class RuleSetFactoryTest extends AbstractRuleSetFactoryTest {
         RuleSetFactory ruleSetFactory = new RuleSetFactory();
         RuleSet ruleset = ruleSetFactory.createRuleSet(ref);
         Rule rule = ruleset.getRuleByName("UselessParentheses");
-        assertNull(rule);
+        Assertions.assertNull(rule);
     }
 }

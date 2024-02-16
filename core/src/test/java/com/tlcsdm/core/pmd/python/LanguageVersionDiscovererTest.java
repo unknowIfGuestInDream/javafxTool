@@ -31,11 +31,10 @@ import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
 import net.sourceforge.pmd.lang.LanguageVersionDiscoverer;
 import net.sourceforge.pmd.lang.python.PythonLanguageModule;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-
-import static org.junit.Assert.assertEquals;
 
 public class LanguageVersionDiscovererTest {
 
@@ -48,7 +47,7 @@ public class LanguageVersionDiscovererTest {
         File pythonFile = new File("/path/to/MY_PACKAGE.py");
 
         LanguageVersion languageVersion = discoverer.getDefaultLanguageVersionForFile(pythonFile);
-        assertEquals("LanguageVersion must be Python!",
-            LanguageRegistry.getLanguage(PythonLanguageModule.NAME).getDefaultVersion(), languageVersion);
+        Assertions.assertEquals(LanguageRegistry.getLanguage(PythonLanguageModule.NAME).getDefaultVersion(),
+            languageVersion, "LanguageVersion must be Python!");
     }
 }
