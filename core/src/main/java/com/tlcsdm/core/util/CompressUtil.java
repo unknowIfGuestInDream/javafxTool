@@ -28,6 +28,7 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
+import com.tlcsdm.core.exception.CoreException;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -58,6 +59,9 @@ import java.util.zip.ZipOutputStream;
  */
 public class CompressUtil {
 
+    private CompressUtil() {
+    }
+
     /**
      * 解压zip包至目标目录下，若目录不存在会自动新建；
      * utf-8编码的zip文件中存在gbk编码的文件和文件夹，解码会有乱码
@@ -69,8 +73,8 @@ public class CompressUtil {
      */
     public static void unzip(InputStream inputStream, String destDir) {
         ArchiveEntry zipEntry;
-        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-             ZipArchiveInputStream zipInputStream = new ZipArchiveInputStream(bufferedInputStream)) {
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(
+            inputStream); ZipArchiveInputStream zipInputStream = new ZipArchiveInputStream(bufferedInputStream)) {
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 File file = new File(destDir, zipEntry.getName());
                 if (zipEntry.isDirectory()) {
@@ -79,8 +83,8 @@ public class CompressUtil {
                         StaticLog.warn("make dir fails, dir exists Chinese");
                     }
                 } else {
-                    try (FileOutputStream outPut = FileUtils.openOutputStream(file);
-                         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outPut)) {
+                    try (FileOutputStream outPut = FileUtils.openOutputStream(
+                        file); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outPut)) {
                         IOUtils.copy(zipInputStream, bufferedOutputStream, 8192);
                     } catch (IOException e) {
                         StaticLog.warn("file exists Chinese");
@@ -89,7 +93,7 @@ public class CompressUtil {
             }
         } catch (IOException e) {
             StaticLog.error("have an IOException", e);
-            throw new RuntimeException("Failed to decompress", e);
+            throw new CoreException("Failed to decompress", e);
         } finally {
             try {
                 if (inputStream != null) {
@@ -106,11 +110,10 @@ public class CompressUtil {
      *
      * @param sourceFile
      * @param targetZipFile
-     * @param base
      */
     public static void zipFiles(File sourceFile, File targetZipFile) throws IOException {
         try (ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(targetZipFile))) {
-            for (File file : sourceFile.listFiles()) {
+            for (File file : Objects.requireNonNull(sourceFile.listFiles())) {
                 addEntry("", file, outputStream);
             }
         } catch (Exception e) {
@@ -146,7 +149,7 @@ public class CompressUtil {
         ZipEntry entry = new ZipEntry(entryName);
         out.putNextEntry(entry);
 
-        int len = 0;
+        int len;
         byte[] buffer = new byte[1024];
         FileInputStream fis = new FileInputStream(inFile);
         while ((len = fis.read(buffer)) > 0) {
