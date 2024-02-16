@@ -28,6 +28,7 @@
 package com.tlcsdm.jfxcommon.tools;
 
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
@@ -59,13 +60,15 @@ public class HtmlEscape extends CommonSample {
     private TextArea originalField;
     private TextArea resultField;
 
-    private final Action escape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.escape"), actionEvent -> {
-        resultField.setText(HtmlUtil.escape(originalField.getText()));
-    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
+    private final Action escape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.escape"),
+        actionEvent -> {
+            resultField.setText(HtmlUtil.escape(originalField.getText()));
+        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
 
-    private final Action unescape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.unescape"), actionEvent -> {
-        resultField.setText(HtmlUtil.unescape(originalField.getText()));
-    }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
+    private final Action unescape = FxAction.create(I18nUtils.get("common.tool.htmlEscape.button.unescape"),
+        actionEvent -> {
+            resultField.setText(HtmlUtil.unescape(originalField.getText()));
+        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
 
     private final Action copyResult = FxAction.copyResult(actionEvent -> {
         if (resultField.getText().isEmpty()) {
@@ -126,7 +129,7 @@ public class HtmlEscape extends CommonSample {
 
     @Override
     public ImageView getSampleImageIcon() {
-        return LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/html.png"));
+        return ImageViewHelper.get("html");
     }
 
     @Override

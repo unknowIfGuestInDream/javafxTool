@@ -54,6 +54,7 @@ public class QeTreeViewCellFactory extends AbstractTreeViewCellFactory {
                 return switch (item.getSampleName()) {
                     case "Qe", "Common" -> ImageViewHelper.get("folder");
                     case "Tools" -> ImageViewHelper.get("tools");
+                    case "Image" -> ImageViewHelper.get("image");
                     default -> emptySample.getSampleImageIcon();
                 };
             }

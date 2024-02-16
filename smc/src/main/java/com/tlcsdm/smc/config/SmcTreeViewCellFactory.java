@@ -54,13 +54,11 @@ public class SmcTreeViewCellFactory extends AbstractTreeViewCellFactory {
             if (item instanceof EmptySample emptySample) {
                 return switch (item.getSampleName()) {
                     case "Smc", "Common" -> ImageViewHelper.get("folder");
-                    case "CodeDev" -> LayoutHelper.iconView(
-                        getClass().getResource("/com/tlcsdm/smc/static/icon/code.png"));
+                    case "CodeDev" -> ImageViewHelper.get("code");
                     case "Tools" -> ImageViewHelper.get("tools");
                     case "UnitDesign" -> LayoutHelper.iconView(
                         getClass().getResource("/com/tlcsdm/smc/static/icon/design.png"));
-                    case "UnitTest" -> LayoutHelper.iconView(
-                        getClass().getResource("/com/tlcsdm/smc/static/icon/test.png"));
+                    case "UnitTest" -> ImageViewHelper.get("test");
                     case "Ecm" -> LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/smc/static/icon/ecm.png"));
                     case "Image" -> ImageViewHelper.get("image");
                     default -> emptySample.getSampleImageIcon();

@@ -49,6 +49,13 @@ public class ImageViewHelper {
             case "folder" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/folder.png");
             case "tools" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/tools.png");
             case "image" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/image.png");
+            case "xlsx" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/xlsx.png");
+            case "xml" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/xml.png");
+            case "test" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/test.png");
+            case "html" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/html.png");
+            case "c" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/c.png");
+            case "h" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/h.png");
+            case "code" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/code.png");
             default -> throw new IllegalStateException("Unexpected value: " + name);
         };
 
