@@ -43,7 +43,14 @@ import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * 工具包
@@ -250,5 +257,46 @@ public class CoreUtil {
             StaticLog.error(e);
             return "";
         }
+    }
+
+    /**
+     * list 转换 map.
+     *
+     * @param list
+     * @param keyMapper
+     */
+    public static <T, F> Map<F, T> listToMap(List<T> list, Function<T, F> keyMapper) {
+        return listToMap(list, keyMapper, null, null);
+    }
+
+    /**
+     * list 转换 map.
+     *
+     * @param list
+     * @param keyMapper
+     * @param consumer
+     * @param filter
+     */
+    public static <T, F> Map<F, T> listToMap(List<T> list, Function<T, F> keyMapper, Consumer<T> consumer, Predicate<T> filter) {
+        if (null != consumer) {
+            list.forEach(consumer);
+        }
+        Map<F, T> map;
+        if (null == filter) {
+            map = list.stream().collect(
+                Collectors.toMap(keyMapper, Function.identity(), defaultMegerFunction(), LinkedHashMap::new));
+        } else {
+            map = list.stream().filter(filter).collect(
+                Collectors.toMap(keyMapper, Function.identity(), defaultMegerFunction(), LinkedHashMap::new));
+        }
+
+        return map;
+    }
+
+    /**
+     * @return deafult meger function
+     */
+    public static <T> BinaryOperator<T> defaultMegerFunction() {
+        return (first, second) -> first;
     }
 }

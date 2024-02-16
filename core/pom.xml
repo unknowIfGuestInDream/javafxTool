@@ -343,6 +343,11 @@
             <artifactId>plantuml-mit</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

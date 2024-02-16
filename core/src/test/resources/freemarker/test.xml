@@ -1,0 +1,2011 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) 2024 unknowIfGuestInDream.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~     * Redistributions of source code must retain the above copyright
+  ~ notice, this list of conditions and the following disclaimer.
+  ~     * Redistributions in binary form must reproduce the above copyright
+  ~ notice, this list of conditions and the following disclaimer in the
+  ~ documentation and/or other materials provided with the distribution.
+  ~     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+  ~ names of its contributors may be used to endorse or promote products
+  ~ derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<Setting>
+    <general id="general" version="1.0.0">
+        <programType value="DALI"/>
+        <controlGearMode value="true"/>
+        <controlGearBoard value="RL78G24"/>
+    </general>
+    <section id="daliConfig">
+        <option id="enablePushButtons" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLightSensors" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedModules" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableAbsoluteInputDevices" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="processor" selection="CPU">
+            <item id="CPU"/>
+            <item id="FAA"/>
+        </option>
+        <option id="enableOccupancySensors" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableColourColtrol" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="LogicalUnitNum" selection="textoutputitem">
+            <item id="textoutputitem" input="1" value="1"/>
+        </option>
+    </section>
+    <section id="daliPowerControl">
+        <option id="A1" selection="textoutputitem">
+            <item id="textoutputitem" input="26.81" value="0"/>
+        </option>
+        <option id="adcVref" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+        <option id="A2" selection="textoutputitem">
+            <item id="textoutputitem" input="-24.39" value="2.0"/>
+        </option>
+        <option id="controlCycle" selection="textoutputitem">
+            <item id="textoutputitem" input="0.3" value="0.3"/>
+        </option>
+        <option id="Fz" selection="textoutputitem">
+            <item id="textoutputitem" input="0.05" value="0.05"/>
+        </option>
+        <option id="L1" selection="textoutputitem">
+            <item id="textoutputitem" input="150" value="150"/>
+        </option>
+        <option id="Kp" selection="textoutputitem">
+            <item id="textoutputitem" input="0.1" value="0.1"/>
+        </option>
+        <option id="C1" selection="textoutputitem">
+            <item id="textoutputitem" input="10" value="10"/>
+        </option>
+        <option id="C2" selection="textoutputitem">
+            <item id="textoutputitem" input="10" value="10"/>
+        </option>
+    </section>
+    <section id="daliVariable0">
+        <option id="shortAddress" selection="textoutputitem">
+            <item id="textoutputitem" input="0" value="0"/>
+        </option>
+        <option id="systermFailureLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fadeTime" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="extendFadeTimeBase" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="enableGroup0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene15" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="minLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="scene14" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene13" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="fadeRate" selection="7">
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="scene12" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene11" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene10" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="0 ms" value="0 ms"/>
+        </option>
+        <option id="maxLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableShortAddress" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="powerOnLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="operatingMode" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+        </option>
+        <option id="enableGroup14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressH" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="enableScene1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene9" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene8" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="phm" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="enableScene7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene7" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene6" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene5" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTimeMulti" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+        </option>
+        <option id="enableScene6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene4" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene3" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="randomAddressM" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="scene2" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene1" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene0" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressL" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+    </section>
+    <section id="daliVariable1">
+        <option id="shortAddress" selection="textoutputitem">
+            <item id="textoutputitem" input="0" value="0"/>
+        </option>
+        <option id="systermFailureLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fadeTime" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="extendFadeTimeBase" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="enableGroup0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene15" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="minLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="scene14" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene13" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="fadeRate" selection="7">
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="scene12" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene11" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene10" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="0 ms" value="0 ms"/>
+        </option>
+        <option id="maxLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableShortAddress" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="powerOnLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="operatingMode" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+        </option>
+        <option id="enableGroup14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressH" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="enableScene1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene9" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene8" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="phm" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="enableScene7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene7" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene6" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene5" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTimeMulti" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+        </option>
+        <option id="enableScene6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene4" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene3" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="randomAddressM" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="scene2" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene1" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene0" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressL" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+    </section>
+    <section id="daliVariable2">
+        <option id="shortAddress" selection="textoutputitem">
+            <item id="textoutputitem" input="0" value="0"/>
+        </option>
+        <option id="systermFailureLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fadeTime" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="extendFadeTimeBase" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="enableGroup0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene15" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="minLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="scene14" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene13" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="fadeRate" selection="7">
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+            <item id="5"/>
+            <item id="6"/>
+            <item id="7"/>
+            <item id="8"/>
+            <item id="9"/>
+            <item id="10"/>
+            <item id="11"/>
+            <item id="12"/>
+            <item id="13"/>
+            <item id="14"/>
+            <item id="15"/>
+        </option>
+        <option id="scene12" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene11" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene10" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="0 ms" value="0 ms"/>
+        </option>
+        <option id="maxLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableShortAddress" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="powerOnLevel" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableGroup15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="operatingMode" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+        </option>
+        <option id="enableGroup14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableGroup10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressH" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="enableScene1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene9" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene8" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="phm" selection="textoutputitem">
+            <item id="textoutputitem" input="170" value="170"/>
+        </option>
+        <option id="enableScene7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene7" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene6" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene5" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="extendFadeTimeMulti" selection="0">
+            <item id="0"/>
+            <item id="1"/>
+            <item id="2"/>
+            <item id="3"/>
+            <item id="4"/>
+        </option>
+        <option id="enableScene6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="scene4" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene3" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="randomAddressM" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="scene2" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene1" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="scene0" selection="textoutputitem">
+            <item id="textoutputitem" input="254" value="254"/>
+        </option>
+        <option id="enableScene0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="randomAddressL" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+    </section>
+    <section id="daliMemorybank">
+        <option id="mb1OemGtinByte0" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="enableMemoryBank1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="mb1OemGtinByte3" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemGtinByte4" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemGtinByte1" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemGtinByte2" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0GtinByte3" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0GtinByte4" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0GtinByte1" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0GtinByte2" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0GtinByte0" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0VersionNum102" selection="2">
+            <item id="1"/>
+            <item id="2"/>
+        </option>
+        <option id="mb0VersionNum101" selection="2">
+            <item id="1"/>
+            <item id="2"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte1" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte0" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0FirmwareMinorVersion" selection="textoutputitem">
+            <item id="textoutputitem" input="0" value="0"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte5" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0FirmwareMajorVersion" selection="textoutputitem">
+            <item id="textoutputitem" input="1" value="1"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte4" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte3" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte2" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte3" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte2" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte5" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0HardwareMajorVersion" selection="textoutputitem">
+            <item id="textoutputitem" input="1" value="1"/>
+        </option>
+        <option id="mb0IndentifyNumberByte4" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte1" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte0" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte7" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0IndentifyNumberByte6" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb0HardwareMinorVersion" selection="textoutputitem">
+            <item id="textoutputitem" input="0" value="0"/>
+        </option>
+        <option id="mb0GtinByte5" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemGtinByte5" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte7" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+        <option id="mb1OemIndentifyNumberByte6" selection="textoutputitem">
+            <item id="textoutputitem" input="255" value="255"/>
+        </option>
+    </section>
+    <section id="daliLedModules0">
+        <option id="minFastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+        <option id="lampPhm" selection="textoutputitem">
+            <item id="textoutputitem" input="26" value="26"/>
+        </option>
+        <option id="enableShortCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableThermalShutDown" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedPowerSupplyIntegrated" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableHighCurrentPulseMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableCurrentProtector" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedModuleIntegrated" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleAmMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadDecrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossiblePwmMode" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableQueryDueToOverTemp" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupAc" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadIncrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableControlledOutput" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupDc" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableOpenCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="dimmingCurve" selection="Logarithmic">
+            <item id="Logarithmic"/>
+            <item id="Linear"/>
+        </option>
+        <option id="enableFastFadeTime" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+    </section>
+    <section id="daliLedModules1">
+        <option id="minFastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+        <option id="lampPhm" selection="textoutputitem">
+            <item id="textoutputitem" input="26" value="26"/>
+        </option>
+        <option id="enableShortCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableThermalShutDown" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedPowerSupplyIntegrated" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableHighCurrentPulseMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableCurrentProtector" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedModuleIntegrated" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleAmMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadDecrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossiblePwmMode" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableQueryDueToOverTemp" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupAc" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadIncrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableControlledOutput" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupDc" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableOpenCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="dimmingCurve" selection="Logarithmic">
+            <item id="Logarithmic"/>
+            <item id="Linear"/>
+        </option>
+        <option id="enableFastFadeTime" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+    </section>
+    <section id="daliLedModules2">
+        <option id="minFastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+        <option id="lampPhm" selection="textoutputitem">
+            <item id="textoutputitem" input="26" value="26"/>
+        </option>
+        <option id="enableShortCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableThermalShutDown" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedPowerSupplyIntegrated" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableHighCurrentPulseMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableCurrentProtector" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLedModuleIntegrated" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleAmMode" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadDecrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossiblePwmMode" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableQueryDueToOverTemp" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupAc" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableLoadIncrease" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableControlledOutput" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePossibleSupDc" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableOpenCircuitDetection" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="dimmingCurve" selection="Logarithmic">
+            <item id="Logarithmic"/>
+            <item id="Linear"/>
+        </option>
+        <option id="enableFastFadeTime" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="fastFadeTime" selection="textoutputitem">
+            <item id="textoutputitem" input="5" value="5"/>
+        </option>
+    </section>
+    <section id="daliColourControl">
+        <option id="enableXyScene3" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene2" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene1" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene0" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene7" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene6" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene5" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene4" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene9" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="sysFailureColourType" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableXyScene8" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableRgbwafScene6" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene10" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene14" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="tcScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableRgbwafScene7" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene13" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="tcScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableRgbwafScene8" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene12" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableRgbwafScene9" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene11" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene15" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableRgbwafScene2" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene14" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableRgbwafScene3" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene13" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene4" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafGreenScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableRgbwafScene5" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene15" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafGreenScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableRgbwafScene0" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="rgbwafGreenScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableRgbwafScene1" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafGreenScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="tcScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="colourTypeScene10" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="tcScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="rgbwafGreenScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="tcScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="colourTypeScene12" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="tcScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="tcScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="colourTypeScene11" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="tcScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="powerOnColourType" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableXyPowerOn" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcPowerOnColourValue" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="tcScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="tcScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="tcScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="tcScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="rgbwafRedScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="phWarmest" selection="textoutputitem">
+            <item id="textoutputitem" input="2500" value="2500"/>
+        </option>
+        <option id="rgbwafRedScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafSysFailureBlue" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableScene10" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene11" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene12" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene13" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene14" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene15" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafPowerOnGreen" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableTcPowerOn" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafGreenScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafGreenScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableBlueChannel" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorYScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableTcPhLimit" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafControlType" selection="normalised">
+            <item id="normalised"/>
+        </option>
+        <option id="colourTypeScene2" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="colourTypeScene3" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="colourTypeScene4" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene9" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene5" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="colourTypeScene0" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="colourTypeScene1" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene3" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene4" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene1" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene2" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene6" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene7" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene7" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene8" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableScene5" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene8" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene6" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeScene9" selection="xy">
+            <item id="xy"/>
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+        </option>
+        <option id="enableScene0" selection="uncheck">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXySysFailure" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafSysFailureRed" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableRgbwafPowerOn" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafBlueScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorYScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="rgbwafBlueScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorYScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coolest" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="rgbwafRedScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableXyScene10" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafRedScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafRedScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="coorXScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableXyScene15" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorXScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableXyScene12" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableXyScene11" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorXScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableXyScene14" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorXScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableXyScene13" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="powerOnCoorX" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableRgbwafSysFailure" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="powerOnCoorY" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableTcSysFailure" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafPowerRatio" selection="textoutputitem">
+            <item id="textoutputitem" input="56" value="56"/>
+        </option>
+        <option id="enableGreenChannel" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafPowerOnBlue" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafSysFailureGreen" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableRgbwafScene13" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enablePhLimitReadOnly" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene14" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene15" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene10" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene11" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableRgbwafScene12" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="tcSysFailureColourValue" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="enableTcScene1" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafBlueScene10" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableTcScene0" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafBlueScene11" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene12" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene13" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene14" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="rgbwafBlueScene15" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableTcScene7" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorXScene0" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableTcScene6" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="sysFailureCoorY" selection="textoutputitem">
+            <item id="textoutputitem" input="0.40" value="0.40"/>
+        </option>
+        <option id="coorXScene1" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableTcScene9" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="sysFailureCoorX" selection="textoutputitem">
+            <item id="textoutputitem" input="0.40" value="0.40"/>
+        </option>
+        <option id="coorXScene2" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="enableTcScene8" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="rgbwafPowerOnRed" selection="textoutputitem">
+            <item id="textoutputitem" input="128" value="128"/>
+        </option>
+        <option id="enableTcScene3" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene2" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene5" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="enableTcScene4" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="coorXScene7" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene8" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene9" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene3" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene4" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene5" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="coorXScene6" selection="textoutputitem">
+            <item id="textoutputitem" input="0.35" value="0.35"/>
+        </option>
+        <option id="phCoolest" selection="textoutputitem">
+            <item id="textoutputitem" input="6500" value="6500"/>
+        </option>
+        <option id="warmest" selection="textoutputitem">
+            <item id="textoutputitem" input="2500" value="2500"/>
+        </option>
+        <option id="enableRedChannel" selection="check">
+            <item id="check"/>
+            <item id="uncheck"/>
+        </option>
+        <option id="colourTypeFeature" selection="all">
+            <item id="tc"/>
+            <item id="rgbwaf"/>
+            <item id="all"/>
+        </option>
+    </section>
+</Setting>

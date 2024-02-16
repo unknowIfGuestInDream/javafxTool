@@ -56,6 +56,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.core.AliasTemplateDateFormatFactory;
 import freemarker.core.TemplateConfiguration;
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.dom.NodeModel;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleDate;
 import freemarker.template.Template;
@@ -69,7 +70,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -401,6 +405,17 @@ public class FreemarkerTest {
         Map<String, Object> map = new HashMap<>();
         map.put("File", fileStatics);
         map.put("statics", BeansWrapper.getDefaultInstance().getStaticModels());
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void xml() throws IOException, TemplateException, ParserConfigurationException, SAXException {
+        Template template = configuration.getTemplate("dom.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        InputSource is = new InputSource(ResourceUtil.getResource("freemarker/test.xml").openStream());
+        map.put("root", NodeModel.parse(is));
         template.process(map, stringWriter);
         System.out.println(stringWriter);
     }
