@@ -48,9 +48,9 @@ import java.nio.charset.StandardCharsets;
  *
  * @author unknowIfGuestInDream
  */
-public final class CompressUtil {
+public final class YuiCompressUtil {
 
-    private CompressUtil() {
+    private YuiCompressUtil() {
         // Do nothing
     }
 
@@ -70,7 +70,7 @@ public final class CompressUtil {
      * @param disableOptimizations  Disable all micro optimizations
      */
     public static void compressJS(File js, Writer out, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                                  boolean disableOptimizations) {
+        boolean disableOptimizations) {
         try (InputStreamReader in = new InputStreamReader(new FileInputStream(js), StandardCharsets.UTF_8)) {
             JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
             compressor.compress(out, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
@@ -87,8 +87,9 @@ public final class CompressUtil {
      * @param code 待压缩的代码.
      */
     public static String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
-                                    boolean disableOptimizations) {
-        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()), StandardCharsets.UTF_8)) {
+        boolean disableOptimizations) {
+        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()),
+            StandardCharsets.UTF_8)) {
             StringWriter writer = new StringWriter();
             JavaScriptCompressor compressor = new JavaScriptCompressor(in, ERROR_REPORTER);
             compressor.compress(writer, linebreakpos, munge, verbose, preserveAllSemiColons, disableOptimizations);
@@ -125,7 +126,8 @@ public final class CompressUtil {
      * @param code 待压缩的代码.
      */
     public static String compressCSS(String code, int linebreakpos) {
-        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()), StandardCharsets.UTF_8)) {
+        try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()),
+            StandardCharsets.UTF_8)) {
             CssCompressor compressor = new CssCompressor(in);
             StringWriter writer = new StringWriter();
             compressor.compress(writer, linebreakpos);

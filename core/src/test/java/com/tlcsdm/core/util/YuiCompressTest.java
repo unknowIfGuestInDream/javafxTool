@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author unknowIfGuestInDream
  */
-class CompressTest {
+class YuiCompressTest {
 
     private final String jsCode = """
         /*示例代码*/
@@ -68,13 +68,16 @@ class CompressTest {
 
     @Test
     void compressJsWithCode() {
-        Assertions.assertEquals("function echo(c,b){var a=\"你好\";alert(\"hello world\")};", CompressUtil.compressJS(jsCode));
-        Assertions.assertEquals("function echo(stringA,stringB){var hello=\"你好\";alert(\"hello world\")};", CompressUtil.compressJS(jsCode, -1, false, false, false, false));
+        Assertions.assertEquals("function echo(c,b){var a=\"你好\";alert(\"hello world\")};",
+            YuiCompressUtil.compressJS(jsCode));
+        Assertions.assertEquals("function echo(stringA,stringB){var hello=\"你好\";alert(\"hello world\")};",
+            YuiCompressUtil.compressJS(jsCode, -1, false, false, false, false));
     }
 
     @Test
     void compressCssWithCode() {
-        Assertions.assertEquals("@font-face{font-family:'JetBrains Mono';src:url('JetBrainsMono-Regular.ttf')}.text-groovy-area,.text-java-area{-fx-font-family:'JetBrains Mono';-fx-font-smoothing-type:gray;-fx-font-size:13}.keyword{-fx-fill:purple;-fx-font-weight:bold}.paragraph-box:has-caret{-fx-background-color:#f2f9fc}"
-            , CompressUtil.compressCSS(cssCode));
+        Assertions.assertEquals(
+            "@font-face{font-family:'JetBrains Mono';src:url('JetBrainsMono-Regular.ttf')}.text-groovy-area,.text-java-area{-fx-font-family:'JetBrains Mono';-fx-font-smoothing-type:gray;-fx-font-size:13}.keyword{-fx-fill:purple;-fx-font-weight:bold}.paragraph-box:has-caret{-fx-background-color:#f2f9fc}"
+            , YuiCompressUtil.compressCSS(cssCode));
     }
 }
