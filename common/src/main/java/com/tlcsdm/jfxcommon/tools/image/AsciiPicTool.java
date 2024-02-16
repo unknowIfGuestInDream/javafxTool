@@ -27,7 +27,6 @@
 
 package com.tlcsdm.jfxcommon.tools.image;
 
-import cn.hutool.core.util.StrUtil;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -35,7 +34,6 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FileChooserUtil;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.javafx.util.ImageUtil;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
 import com.tlcsdm.core.util.DependencyUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
@@ -58,10 +56,6 @@ import org.apache.commons.io.FileUtils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -81,13 +75,12 @@ public class AsciiPicTool extends CommonSample {
     @FXML
     public ImageView imageImageView;
     @FXML
-    public Button saveImageButton;
-    @FXML
     public TextArea codeTextArea;
     @FXML
     public TextArea base64TextArea;
 
-    private final String[] imageSizeItems = new String[]{"不压缩", "60*60", "120*120", "256*256", "512*512"};
+    private final String[] imageSizeItems = new String[]{I18nUtils.get(
+        "common.tool.image.asciiPic.imageSizeItems.no"), "60*60", "120*120", "256*256", "512*512"};
 
     @Override
     public String getSampleId() {
@@ -96,7 +89,7 @@ public class AsciiPicTool extends CommonSample {
 
     @Override
     public String getSampleName() {
-        return "AsciiPic";
+        return I18nUtils.get("common.tool.image.asciiPic.sampleName");
     }
 
     @Override
@@ -106,7 +99,7 @@ public class AsciiPicTool extends CommonSample {
 
     @Override
     public String getSampleDescription() {
-        return "图片转码工具";
+        return I18nUtils.get("common.tool.image.asciiPic.sampleDesc");
     }
 
     @Override
@@ -119,10 +112,8 @@ public class AsciiPicTool extends CommonSample {
 
     @Override
     public Node getControlPanel() {
-        String content = """
-            """;
-        Map<String, String> map = new HashMap<>();
-        return FxTextInput.textArea(StrUtil.format(content, map));
+        String content = I18nUtils.get("common.tool.image.asciiPic.controlDesc");
+        return FxTextInput.textArea(content);
     }
 
     @Override
@@ -195,7 +186,7 @@ public class AsciiPicTool extends CommonSample {
         try {
             StringBuilder stringBuffer = new StringBuilder();
             BufferedImage image = ImageUtil.getBufferedImage(path);
-            if (!"不压缩".equals(imageSizeComboBox.getValue())) {
+            if (!I18nUtils.get("common.tool.image.asciiPic.imageSizeItems.no").equals(imageSizeComboBox.getValue())) {
                 String[] size = imageSizeComboBox.getValue().split("\\*");
                 image = Thumbnails.of(image).size(Integer.parseInt(size[0]), Integer.parseInt(size[1]))
                     .asBufferedImage();
@@ -223,20 +214,6 @@ public class AsciiPicTool extends CommonSample {
             String encodeBase64 = Base64.encodeBase64String(FileUtils.readFileToByteArray(new File(path)));
             base64TextArea.setText(encodeBase64);
         } catch (final IOException e) {
-            FxAlerts.exception(e);
-        }
-    }
-
-    @FXML
-    private void saveImageAction(ActionEvent event) {
-        try {
-            String fileName = "x" + new SimpleDateFormat("yyyyMMddHHmm").format(new Date()) + ".jpg";
-            File file = FileChooserUtil.chooseSaveImageFile(fileName);
-            if (file != null) {
-                ImageUtil.writeImage(imageImageView.getImage(), file);
-                TooltipUtil.showToast("保存图片成功,图片在：" + file.getPath());
-            }
-        } catch (Exception e) {
             FxAlerts.exception(e);
         }
     }

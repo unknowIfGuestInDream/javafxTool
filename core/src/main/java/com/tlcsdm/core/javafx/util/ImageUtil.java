@@ -225,8 +225,11 @@ public class ImageUtil {
 
     public static void writeImage(BufferedImage bufferedImage, File file) {
         try {
-            Imaging.writeImage(bufferedImage, file,
-                ImageFormats.valueOf(FileNameUtil.getSuffix(file).toUpperCase()));
+            String suf = FileNameUtil.getSuffix(file).toUpperCase();
+            if ("JPG".equals(suf)) {
+                suf = "JPEG";
+            }
+            Imaging.writeImage(bufferedImage, file, ImageFormats.valueOf(suf));
         } catch (Exception e) {
             StaticLog.error(e);
         }
