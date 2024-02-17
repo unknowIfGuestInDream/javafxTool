@@ -27,7 +27,6 @@
 
 package com.tlcsdm.jfxcommon.tools.image;
 
-import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
@@ -112,8 +111,7 @@ public class AsciiPicTool extends CommonSample {
 
     @Override
     public Node getControlPanel() {
-        String content = I18nUtils.get("common.tool.image.asciiPic.controlDesc");
-        return FxTextInput.textArea(content);
+        return super.getControlPanel();
     }
 
     @Override
