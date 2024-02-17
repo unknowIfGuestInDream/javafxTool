@@ -58,7 +58,10 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 /**
+ * Ascii 图片工具.
+ *
  * @author unknowIfGuestInDream
+ * @since 1.0.1
  */
 public class AsciiPicTool extends CommonSample {
     @FXML
@@ -93,7 +96,7 @@ public class AsciiPicTool extends CommonSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override

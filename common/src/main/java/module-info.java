@@ -49,14 +49,17 @@ module com.tlcsdm.jfxcommon {
     requires static net.coobird.thumbnailator;
     requires org.apache.commons.codec;
     requires org.apache.commons.io;
+    requires org.apache.commons.lang3;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
     exports com.tlcsdm.jfxcommon.tools to javafx.fxml, com.tlcsdm.frame;
     exports com.tlcsdm.jfxcommon.tools.image to javafx.fxml, com.tlcsdm.frame;
+    exports com.tlcsdm.jfxcommon.tools.escape to com.tlcsdm.frame, javafx.fxml;
 
     opens com.tlcsdm.jfxcommon.tools to javafx.graphics;
     opens com.tlcsdm.jfxcommon.tools.image to javafx.fxml, javafx.graphics;
+    opens com.tlcsdm.jfxcommon.tools.escape to javafx.fxml, javafx.graphics;
 
     provides com.tlcsdm.frame.service.FXSamplerProject with com.tlcsdm.jfxcommon.provider.CommonSamplerProjectProvider;
     provides TemplateLoaderService with CommonTemplateLoaderProvider;
