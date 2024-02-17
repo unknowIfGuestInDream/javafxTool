@@ -79,9 +79,9 @@ public class ImageSplit extends CommonSample {
 
     private Notifications notificationBuilder;
     //图片拆分方向
-    private String[] analysisOrientationComboBoxItems = {"水平", "垂直"};
+    private final String[] analysisOrientationComboBoxItems = {"水平", "垂直"};
     //图片拆分块数
-    private Integer[] analysisNumberComboBoxItems = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+    private final Integer[] analysisNumberComboBoxItems = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     @Override
     public String getSampleId() {
