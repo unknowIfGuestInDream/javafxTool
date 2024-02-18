@@ -79,7 +79,9 @@ public class ImageSplit extends CommonSample {
 
     private Notifications notificationBuilder;
     //图片拆分方向
-    private final String[] analysisOrientationComboBoxItems = {"水平", "垂直"};
+    private final String[] analysisOrientationComboBoxItems = {I18nUtils.get(
+        "common.tool.image.imageSplit.combo.orientation.level"), I18nUtils.get(
+        "common.tool.image.imageSplit.combo.orientation.vertical")};
     //图片拆分块数
     private final Integer[] analysisNumberComboBoxItems = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 
@@ -90,7 +92,7 @@ public class ImageSplit extends CommonSample {
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("common.tool.image.asciiPic.sampleName");
+        return I18nUtils.get("common.tool.image.imageSplit.sampleName");
     }
 
     @Override
@@ -100,7 +102,7 @@ public class ImageSplit extends CommonSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("common.tool.image.asciiPic.sampleDesc");
+        return super.getSampleDescription();
     }
 
     @Override
@@ -180,7 +182,7 @@ public class ImageSplit extends CommonSample {
     private void analysisImageButtonAction(ActionEvent event) {
         String imagePathTextFieldString = imagePathTextField.getText();
         if (StringUtils.isBlank(imagePathTextFieldString)) {
-            notificationBuilder.text("图片地址不能为空。");
+            notificationBuilder.text(I18nUtils.get("common.tool.image.imageSplit.message.imagePathText"));
             notificationBuilder.showWarning();
             return;
         }
@@ -195,7 +197,8 @@ public class ImageSplit extends CommonSample {
         for (Integer i = 0; i < analysisNumber; i++) {
             try {
                 ImgToolUtil imgToolTest = new ImgToolUtil(imagePathTextFieldString);
-                if ("水平".equals(analysisOrientation)) {
+                if (I18nUtils.get(
+                    "common.tool.image.imageSplit.combo.orientation.level").equals(analysisOrientation)) {
                     imgToolTest.cut(imgToolTest.width() / analysisNumber * i, 0, imgToolTest.width() / analysisNumber,
                         imgToolTest.height());
                 } else {
@@ -205,7 +208,7 @@ public class ImageSplit extends CommonSample {
                 imgToolTest.save(outputPathTextFieldString + File.separator + imageName + i + "." + imageExtensionName);
 
             } catch (IOException e) {
-                notificationBuilder.text("图片拆分错误：" + e.getMessage());
+                notificationBuilder.text(I18nUtils.get("common.tool.image.imageSplit.message.error"));
                 notificationBuilder.showError();
                 StaticLog.error(e);
             }
