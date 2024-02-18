@@ -487,7 +487,6 @@ public class ImgToolUtil {
     }
 
     private static boolean isUrlPath(String path) {
-        //        return path.startsWith("http:")||path.startsWith("https:");
         return path.indexOf("://") > 0;
     }
 
@@ -518,7 +517,7 @@ public class ImgToolUtil {
     /**
      * 图标绘制位置
      */
-    public static enum Align {
+    public enum Align {
         CENTER, BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT
     }
 
@@ -588,8 +587,7 @@ public class ImgToolUtil {
     }
 
     public static Color getAwtColor(javafx.scene.paint.Color color) {
-        Color colorw = new Color((float) color.getRed(), (float) color.getGreen(), (float) color.getBlue(),
+        return new Color((float) color.getRed(), (float) color.getGreen(), (float) color.getBlue(),
             (float) color.getOpacity());
-        return colorw;
     }
 }
