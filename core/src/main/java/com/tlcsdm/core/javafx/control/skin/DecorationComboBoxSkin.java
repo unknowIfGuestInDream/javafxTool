@@ -24,44 +24,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-/**
- * Copyright (c) 2019, 2021, ControlsFX
- * All rights reserved.
- * <p>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * * Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * * Neither the name of ControlsFX, any associated website, nor the
- * names of its contributors may be used to endorse or promote products
- * derived from this software without specific prior written permission.
- * <p>
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL CONTROLSFX BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package com.tlcsdm.core.javafx.control.skin;
 
 import com.tlcsdm.core.javafx.control.DecorationComboBox;
 import com.tlcsdm.core.javafx.control.Severity;
 import javafx.beans.InvalidationListener;
 import javafx.scene.Cursor;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -144,9 +119,10 @@ public class DecorationComboBoxSkin<T> extends ComboBoxListViewSkin<T> {
         final double fullHeight = h + snappedTopInset() + snappedBottomInset();
         final double rightWidth = getSkinnable().snapSizeX(decoration.getFitWidth());
         final double arrowWidth = getSkinnable().snapSizeX(arrowButton.getWidth());
-        final double rightStartX = w + 5 - rightWidth + snappedLeftInset() - arrowWidth + control.offsetXProperty()
-            .get();
-        final double rightStartY = 3 + control.offsetYProperty().get();
+        final double rightStartX = w - rightWidth + snappedLeftInset() - arrowWidth + arrowButton.snappedLeftInset()
+            + control.offsetXProperty().get();
+        double startY = (control.getHeight() - getSkinnable().snapSizeY(decoration.getFitHeight())) / 2.0;
+        final double rightStartY = startY + control.offsetYProperty().get();
         decoration.resizeRelocate(rightStartX, rightStartY, rightWidth, fullHeight);
     }
 
@@ -160,21 +136,32 @@ public class DecorationComboBoxSkin<T> extends ComboBoxListViewSkin<T> {
     }
 
     private void refreshStyle(Severity severity) {
+        if (control.getButtonCell() == null) {
+            control.setButtonCell(new ListCell<T>() {
+                @Override
+                protected void updateItem(T arg0, boolean arg1) {
+                    if (!arg1) {
+                        super.updateItem(arg0, arg1);
+                        setText(arg0.toString());
+                    }
+                }
+            });
+        }
         switch (severity) {
             case ERROR:
-                control.setStyle("-fx-text-inner-color: red;");
+                control.getButtonCell().setTextFill(Color.RED);
                 tooltip.setStyle("-fx-background: FBEFEF;-fx-background-color: FBEFEF;-fx-text-fill: cc0033;");
                 break;
             case WARNING:
-                control.setStyle("-fx-text-inner-color: red;");
+                control.getButtonCell().setTextFill(Color.RED);
                 tooltip.setStyle("-fx-background: FFFFCC;-fx-background-color: FFFFCC; -fx-text-fill: CC9900;");
                 break;
             case INFO:
-                control.setStyle("-fx-text-inner-color: black;");
+                control.getButtonCell().setTextFill(Color.BLACK);
                 tooltip.setStyle("-fx-background: c4d0ef;-fx-background-color: c4d0ef; -fx-text-fill: black;");
                 break;
             default:
-                control.setStyle("-fx-text-inner-color: black;");
+                control.getButtonCell().setTextFill(Color.BLACK);
         }
     }
 
