@@ -272,8 +272,6 @@ public class DecorationTextfieldSkin extends TextFieldSkin {
         unregisterChangeListeners(control.rightProperty());
         tooltip = null;
         decoration = null;
-        control = null;
-        getChildren().clear();
         super.dispose();
     }
 }

@@ -127,8 +127,6 @@ public class DecorationTitlePaneSkin extends TitledPaneSkin {
         unregisterChangeListeners(control.severityProperty());
         tooltip = null;
         decoration = null;
-        control = null;
-        getChildren().clear();
         super.dispose();
     }
 }
