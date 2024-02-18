@@ -317,7 +317,7 @@ public class ImgToolUtil {
         Graphics2D g = ret.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.rotate(angle, newWidth / 2, newHeight / 2);
+        g.rotate(angle, newWidth / 2.0, newHeight / 2.0);
         int centerX = (int) Math.round((newWidth - width) / 2.0);
         int centerY = (int) Math.round((newHeight - height) / 2.0);
         g.drawImage(image, centerX, centerY, null);
@@ -456,7 +456,7 @@ public class ImgToolUtil {
      * @return
      */
     protected static BufferedImage resizeImp(BufferedImage source, int width, int height, boolean ratioKeep) {
-        BufferedImage target = null;
+        BufferedImage target;
         double sx = (double) width / source.getWidth();
         double sy = (double) height / source.getHeight();
         if (ratioKeep) {

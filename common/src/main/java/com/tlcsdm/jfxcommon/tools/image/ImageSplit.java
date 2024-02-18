@@ -194,7 +194,7 @@ public class ImageSplit extends CommonSample {
         String imageExtensionName = FilenameUtils.getExtension(imagePathTextFieldString);
         Integer analysisNumber = analysisNumberComboBox.getValue();
         String analysisOrientation = analysisOrientationComboBox.getValue();
-        for (Integer i = 0; i < analysisNumber; i++) {
+        for (int i = 0; i < analysisNumber; i++) {
             try {
                 ImgToolUtil imgToolTest = new ImgToolUtil(imagePathTextFieldString);
                 if (I18nUtils.get(
