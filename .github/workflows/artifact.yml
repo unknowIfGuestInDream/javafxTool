@@ -72,14 +72,15 @@ jobs:
         run: mvn --file pom.xml clean
       - name: Package ${{ matrix.mod }}Tool-${{ matrix.buildos }}
         run: |
-          mkdir aftifact
+          result_path=aftifact/${{ matrix.mod }}Tool
+          mkdir -p ${result_path}
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
-          cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar aftifact/javafxTool-${{ matrix.mod }}.jar
-          cp -r ${{ matrix.mod }}/target/lib aftifact/lib
-          cp -r docs aftifact/docs
-          cp -r ${{ matrix.mod }}/target/apidocs aftifact/apidocs
-          cp -r ${{ matrix.mod }}/target/license aftifact/license
-          cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` aftifact
+          cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar ${result_path}/javafxTool-${{ matrix.mod }}.jar
+          cp -r ${{ matrix.mod }}/target/lib ${result_path}/lib
+          cp -r docs ${result_path}/docs
+          cp -r ${{ matrix.mod }}/target/apidocs ${result_path}/apidocs
+          cp -r ${{ matrix.mod }}/target/license ${result_path}/license
+          cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` ${result_path}
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
