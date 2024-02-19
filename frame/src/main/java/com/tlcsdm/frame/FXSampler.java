@@ -74,6 +74,7 @@ import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
 import com.tlcsdm.frame.util.I18nUtils;
 import com.tlcsdm.frame.util.SampleScanner;
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -411,6 +412,7 @@ public final class FXSampler extends Application {
         stopWatch.stop();
         Console.log(String.format("Started Application in %.3f seconds", stopWatch.getTotalTimeSeconds()));
         samplesTreeView.requestFocus();
+        CSSFX.start();
     }
 
     /**
