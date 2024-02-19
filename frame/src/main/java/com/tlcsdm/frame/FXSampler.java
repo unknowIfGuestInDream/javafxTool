@@ -295,7 +295,6 @@ public final class FXSampler extends Application {
         // search box
         final TextField searchBox = TextFields.searchTextField();
         searchBox.setPromptText(I18nUtils.get("frame.searchBox.promptText"));
-        //searchBox.getStyleClass().add("search-box");
         searchBox.textProperty().addListener(o -> buildSampleTree(searchBox.getText()));
         GridPane.setMargin(searchBox, new Insets(5, 0, 0, 0));
         grid.add(searchBox, 0, 1);
