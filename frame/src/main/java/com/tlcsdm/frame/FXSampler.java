@@ -44,6 +44,7 @@ import com.tlcsdm.core.exception.SampleDefinitionException;
 import com.tlcsdm.core.factory.InitializingFactory;
 import com.tlcsdm.core.factory.config.ThreadPoolTaskExecutor;
 import com.tlcsdm.core.javafx.FxApp;
+import com.tlcsdm.core.javafx.control.TextFields;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
@@ -292,9 +293,8 @@ public final class FXSampler extends Application {
 
         // --- left hand side
         // search box
-        final TextField searchBox = new TextField();
+        final TextField searchBox = TextFields.searchTextField();
         searchBox.setPromptText(I18nUtils.get("frame.searchBox.promptText"));
-        searchBox.getStyleClass().add("search-box");
         searchBox.textProperty().addListener(o -> buildSampleTree(searchBox.getText()));
         GridPane.setMargin(searchBox, new Insets(5, 0, 0, 0));
         grid.add(searchBox, 0, 1);
