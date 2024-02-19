@@ -54,6 +54,7 @@
     </modules>
 
     <properties>
+        <project.github.repository>unknowIfGuestInDream/javafxTool</project.github.repository>
         <javafxTool.version>1.0.0</javafxTool.version>
         <javafxTool-common.version>1.0.0</javafxTool-common.version>
         <javafxTool-login.version>1.0.0</javafxTool-login.version>
@@ -159,6 +160,7 @@
         <jfxtras.version>17-r1</jfxtras.version>
         <zip4j.version>2.11.5</zip4j.version>
         <plantuml.version>1.2024.3</plantuml.version>
+        <cssfx.version>11.5.1</cssfx.version>
     </properties>
 
     <issueManagement>
@@ -1025,6 +1027,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-imaging</artifactId>
                 <version>${commons-imaging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.brouillard.oss</groupId>
+                <artifactId>cssfx</artifactId>
+                <version>${cssfx.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

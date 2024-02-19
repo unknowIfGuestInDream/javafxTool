@@ -198,7 +198,11 @@ public class DependencyInfo {
 
             new Dependency("net.sourceforge.plantuml", "plantuml", "1.2024.3", false,
                 "https://plantuml.com/",
-                "MIT License", "https://opensource.org/license/mit/"));
+                "MIT License", "https://opensource.org/license/mit/"),
+
+            new Dependency("fr.brouillard.oss", "cssfx", "11.5.1", true,
+                "https://github.com/mcfoggy/cssfx",
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"));
     }
 
     public static class Dependency {
