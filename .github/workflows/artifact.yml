@@ -74,7 +74,7 @@ jobs:
         run: |
           result_path=aftifact/${{ matrix.mod }}Tool
           mkdir -p ${result_path}
-          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
+          mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Duser.name=${GH_NAME} -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar ${result_path}/javafxTool-${{ matrix.mod }}.jar
           cp -r ${{ matrix.mod }}/target/lib ${result_path}/lib
           cp -r docs ${result_path}/docs
@@ -82,7 +82,7 @@ jobs:
           cp -r ${{ matrix.mod }}/target/license ${result_path}/license
           cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` ${result_path}
         env:
-          user.name: Github Action
+          GH_NAME: Github Action
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
