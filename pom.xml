@@ -1252,7 +1252,6 @@
                         <forceLongFormat>false</forceLongFormat>
                     </gitDescribe>
                     <excludeProperties>
-                        <!-- <excludeProperty>git.commit.*</excludeProperty> -->
                         <excludeProperty>jfx-git.remote.origin.url</excludeProperty>
                     </excludeProperties>
                     <replacementProperties>
