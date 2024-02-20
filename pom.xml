@@ -1445,6 +1445,37 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>clone-git-submodules</id>
+            <build>
+                <plugins>
+                    <!-- https://sumit-jha.medium.com/how-to-make-maven-release-plugin-work-with-git-submodules-917825a253f2 -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>clone git submodule</id>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <executable>git</executable>
+                                    <arguments>
+                                        <argument>submodule</argument>
+                                        <argument>update</argument>
+                                        <argument>--init</argument>
+                                        <argument>--recursive</argument>
+                                    </arguments>
+                                </configuration>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>
