@@ -202,7 +202,11 @@ public class DependencyInfo {
 
             new Dependency("fr.brouillard.oss", "cssfx", "11.5.1", true,
                 "https://github.com/mcfoggy/cssfx",
-                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"));
+                "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
+
+            new Dependency("org.apache.commons", "commons-compress", "1.26.0", false,
+                "https://commons.apache.org/proper/commons-compress/", "Apache License, Version 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     public static class Dependency {
