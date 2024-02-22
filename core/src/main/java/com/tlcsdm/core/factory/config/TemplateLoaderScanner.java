@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 /**
- * 扫描TemplateLoaderService实现类
+ * 扫描TemplateLoaderService实现类.
  * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
  *
  * @author unknowIfGuestInDream
@@ -77,7 +77,8 @@ public class TemplateLoaderScanner implements InitializingFactory {
         configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20, soft:250");
         configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
         configuration.setDateFormat("yyyy-MM-dd");
-        configuration.setNumberFormat("number");
+        configuration.setNumberFormat("computer");
+        configuration.setIncompatibleImprovements(Configuration.VERSION_2_3_31);
         configuration.setOutputFormat(UndefinedOutputFormat.INSTANCE);
     }
 

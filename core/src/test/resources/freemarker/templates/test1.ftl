@@ -15,6 +15,12 @@ Hello ${message}
 Hello ${message}
 Hello ${.globals.message}
 
+Map:
+<#list map as k, v>${k}: ${v}</#list>
+
+Continue:
+<#list map as k, v><#continue>${k}: ${v} </#list>
+
 <#assign users = [{"name":"Joe","hidden":false},
 {"name":"James Bond", "hidden":true},
 {"name":"Julia",      "hidden":false}]>
