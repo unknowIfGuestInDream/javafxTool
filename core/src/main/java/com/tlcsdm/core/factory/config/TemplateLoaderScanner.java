@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 /**
- * 扫描TemplateLoaderService实现类
+ * 扫描TemplateLoaderService实现类.
  * 如果应用模块不实现TemplateLoaderService接口就不提供freemarker模板功能
  *
  * @author unknowIfGuestInDream
