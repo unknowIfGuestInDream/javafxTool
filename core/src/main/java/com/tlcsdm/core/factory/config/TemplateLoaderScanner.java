@@ -77,7 +77,8 @@ public class TemplateLoaderScanner implements InitializingFactory {
         configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20, soft:250");
         configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
         configuration.setDateFormat("yyyy-MM-dd");
-        configuration.setNumberFormat("number");
+        configuration.setNumberFormat("computer");
+        configuration.setIncompatibleImprovements(Configuration.VERSION_2_3_31);
         configuration.setOutputFormat(UndefinedOutputFormat.INSTANCE);
     }
 

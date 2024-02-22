@@ -99,6 +99,7 @@
         <freemarker.version>2.3.32</freemarker.version>
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
+        <xalan.version>2.7.3</xalan.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.26</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
@@ -365,6 +366,11 @@
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
                 <version>${jaxen.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>${xalan.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.dom4j</groupId>

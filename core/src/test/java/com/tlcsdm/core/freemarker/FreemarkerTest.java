@@ -124,6 +124,11 @@ public class FreemarkerTest {
         Template template = configuration.getTemplate("test1.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("message", "freemarker");
+        Map<String, String> m = new HashMap<>();
+        m.put("test", "test1");
+        m.put("dev", "dev1");
+        m.put("prod", "prod1");
+        map.put("map", m);
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
         System.out.println(stringWriter);
@@ -412,6 +417,17 @@ public class FreemarkerTest {
     @Test
     public void xml() throws IOException, TemplateException, ParserConfigurationException, SAXException {
         Template template = configuration.getTemplate("dom.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        InputSource is = new InputSource(ResourceUtil.getResource("freemarker/test.xml").openStream());
+        map.put("root", NodeModel.parse(is));
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    public void xpath() throws IOException, TemplateException, ParserConfigurationException, SAXException {
+        Template template = configuration.getTemplate("xpath.ftl");
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> map = new HashMap<>();
         InputSource is = new InputSource(ResourceUtil.getResource("freemarker/test.xml").openStream());
