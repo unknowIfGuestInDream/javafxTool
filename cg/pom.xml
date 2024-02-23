@@ -95,8 +95,8 @@
             <artifactId>java-diff-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-http</artifactId>
+            <groupId>net.jonathangiles.tools</groupId>
+            <artifactId>teenyhttpd</artifactId>
         </dependency>
     </dependencies>
 

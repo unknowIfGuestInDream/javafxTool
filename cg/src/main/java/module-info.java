@@ -60,7 +60,7 @@ module com.tlcsdm.cg {
     requires com.fasterxml.jackson.databind;
     requires com.tlcsdm.frame;
     requires com.tlcsdm.core;
-    requires jdk.httpserver;
+    requires net.jonathangiles.tools.teenyhttpd;
 
     exports com.tlcsdm.cg;
     exports com.tlcsdm.cg.provider to com.tlcsdm.core, com.tlcsdm.frame;

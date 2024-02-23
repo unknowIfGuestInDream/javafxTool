@@ -220,8 +220,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-http</artifactId>
+            <groupId>net.jonathangiles.tools</groupId>
+            <artifactId>teenyhttpd</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -166,6 +166,7 @@
         <zip4j.version>2.11.5</zip4j.version>
         <plantuml.version>1.2024.3</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
+        <teenyhttpd.version>1.0.5</teenyhttpd.version>
     </properties>
 
     <issueManagement>
@@ -482,6 +483,7 @@
                 <artifactId>hutool-crypto</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <!-- use teenyhttpd instead of hutool-http -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
@@ -1037,6 +1039,11 @@
                 <groupId>fr.brouillard.oss</groupId>
                 <artifactId>cssfx</artifactId>
                 <version>${cssfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.jonathangiles.tools</groupId>
+                <artifactId>teenyhttpd</artifactId>
+                <version>${teenyhttpd.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

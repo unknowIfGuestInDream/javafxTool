@@ -27,8 +27,9 @@
 
 package com.tlcsdm.core.httpserver;
 
-import cn.hutool.http.HttpUtil;
-import cn.hutool.http.server.SimpleServer;
+import net.jonathangiles.tools.teenyhttpd.TeenyHttpd;
+
+import java.io.File;
 
 /**
  * SimpleHttpServer封装.
@@ -37,10 +38,11 @@ import cn.hutool.http.server.SimpleServer;
  */
 public class SimpleHttpServer {
 
-    private final SimpleServer simpleServer;
+    private final TeenyHttpd simpleServer;
 
-    public SimpleHttpServer(int port, String path) {
-        simpleServer = HttpUtil.createServer(port).setRoot(path);
+    public SimpleHttpServer(int port, String path, String rootPath) {
+        simpleServer = new TeenyHttpd(port);
+        simpleServer.addFileRoute(path, new File(rootPath));
     }
 
     /**
@@ -49,4 +51,12 @@ public class SimpleHttpServer {
     public void start() {
         simpleServer.start();
     }
+
+    /**
+     * 关闭http服务.
+     */
+    public void stop() {
+        simpleServer.stop();
+    }
+
 }
