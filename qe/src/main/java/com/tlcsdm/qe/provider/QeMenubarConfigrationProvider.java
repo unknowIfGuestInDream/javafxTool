@@ -173,7 +173,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action helpContent = FxAction.helpContent(actionEvent -> {
         int port = NetUtil.getUsableLocalPort(8000);
-        new SimpleHttpServer(port, CoreUtil.getRootPath() + File.separator + "docs").start();
+        new SimpleHttpServer(port, "/", CoreUtil.getRootPath() + File.separator + "docs").start();
         CoreUtil.openWeb("http://localhost:" + port);
     });
 

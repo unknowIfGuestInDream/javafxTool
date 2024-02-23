@@ -37,7 +37,7 @@ import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.RangeSlider;
 import com.tlcsdm.core.javafx.control.Severity;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
 import com.tlcsdm.core.logging.logback.ConsoleLogAppender;
 import com.tlcsdm.core.util.CoreConstant;
@@ -190,8 +190,7 @@ public class TestTool extends QeSample {
 
         customTextField1 = new CustomTextField();
         customTextField1.setStyle("-fx-custom-offsetX: 25;");
-        customTextField1.setRight(
-            LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/qe/static/icon/folder.png")));
+        customTextField1.setRight(ImageViewHelper.get("folder"));
         grid.add(customTextField1, 0, 4, 2, 1);
 
         DecorationTextfield2 decorationTextfield = new DecorationTextfield2();

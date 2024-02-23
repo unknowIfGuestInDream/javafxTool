@@ -206,7 +206,11 @@ public class DependencyInfo {
 
             new Dependency("org.apache.commons", "commons-compress", "1.26.0", false,
                 "https://commons.apache.org/proper/commons-compress/", "Apache License, Version 2.0",
-                "https://www.apache.org/licenses/LICENSE-2.0"));
+                "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("net.jonathangiles.tools", "teenyhttpd", "1.0.5", false,
+                "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
+                "http://www.opensource.org/licenses/mit-license.php"));
     }
 
     public static class Dependency {

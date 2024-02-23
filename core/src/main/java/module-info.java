@@ -72,7 +72,6 @@ module com.tlcsdm.core {
     requires static com.sun.jna;
     requires static com.sun.jna.platform;
     requires static vosk;
-    requires static cn.hutool.http;
     requires static jakarta.xml.bind;
     requires static com.fasterxml.jackson.dataformat.yaml;
     requires static com.fasterxml.jackson.datatype.jsr310;
@@ -84,6 +83,7 @@ module com.tlcsdm.core {
     requires static zip4j;
     requires static org.apache.commons.compress;
     requires static org.apache.commons.imaging;
+    requires static net.jonathangiles.tools.teenyhttpd;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
