@@ -102,11 +102,23 @@ public class HtmlEscape extends CommonSample {
         resultField = new TextArea();
         resultField.setEditable(false);
 
+        Label tipLabel = new Label(I18nUtils.get("common.tool.htmlEscape.label.tip"));
+        TextArea textArea = new TextArea("");
+        textArea.setEditable(false);
+        textArea.setText("""
+            HTML            See: http://www.w3.org/TR/html4/sgml/entities.html
+
+             <          >            &              "          no-break space       em space      en space          ®             ©             ™
+            &lt;      &gt;      &amp;      &quot;            &nbsp;                &emsp;          &ensp;        &reg;      &copy;     &trade;
+            """);
+
         grid.add(toolBar, 0, 0, 2, 1);
         grid.add(originalLabel, 0, 1, 2, 1);
         grid.add(originalField, 0, 2, 2, 1);
         grid.add(resultLabel, 0, 3, 2, 1);
         grid.add(resultField, 0, 4, 2, 1);
+        grid.add(tipLabel, 0, 5, 2, 1);
+        grid.add(textArea, 0, 6, 2, 1);
 
         return grid;
     }
