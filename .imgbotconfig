@@ -1,16 +1,12 @@
 {
-    "schedule": "weekly", // daily|weekly|monthly
+    "schedule": "weekly",
     "ignoredFiles": [
     	"*.jpg"
     ],
-    "aggressiveCompression": "false", // true|false
-    "compressWiki": "true", // true|false
-    "minKBReduced": 200 // set reduction threshold (default to 10),
-    "prTitle" : "bot: [ImgBot] Optimize images", // set pull request title
-    // set the pull request body, supports any valid github markdown
-    // {optimization_ratio} display a message containing the optimization ratio
-    // {optimization_details} display the table containing the optimization details
+    "aggressiveCompression": "false",
+    "compressWiki": "true",
+    "minKBReduced": 200,
+    "prTitle" : "bot: [ImgBot] Optimize images",
     "prBody" : " Text before optimization ratio {optimization_ratio} Text after optimization ratio 
-                Text before optimization details {optimization_details} Text after optimization details",
-    
+                Text before optimization details {optimization_details} Text after optimization details"
 }
