@@ -1,0 +1,10 @@
+{
+    "schedule": "weekly",
+    "ignoredFiles": [
+    	"*.jpg"
+    ],
+    "aggressiveCompression": "false",
+    "compressWiki": "true",
+    "minKBReduced": 200,
+    "prTitle" : "bot: [ImgBot] Optimize images"
+}

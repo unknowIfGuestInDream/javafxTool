@@ -94,6 +94,7 @@ pull_request_rules:
           @{{author}}
           Wrong PR Title: {{title}}
           Please check [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
+          The title needs to start with (docs|feat|test|style|build|chore|fix|revert|ci|release|bot)
   - name: mergefreeze check comment
     conditions:
       - "status-failure=mergefreeze"
