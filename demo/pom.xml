@@ -51,31 +51,38 @@
         <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-frame</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-login</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <scope>compile</scope>
         </dependency>
         <!-- rich-text-area begin-->
         <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>rich-text-area</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-lineawesome-pack</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
+            <scope>compile</scope>
         </dependency>
         <!-- rich-text-area end -->
     </dependencies>
