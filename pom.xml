@@ -72,6 +72,7 @@
         <maven-help-plugin.version>3.4.0</maven-help-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+        <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <license-maven-plugin.version>2.4.0</license-maven-plugin.version>
         <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
         <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
@@ -1098,6 +1099,11 @@
                             <Build-Git-Commit-Time>${jfx-git.commit.time}</Build-Git-Commit-Time>
                             <!--suppress UnresolvedMavenProperty -->
                             <Build-Git-Commit-Message>${jfx-git.commit.message.short}</Build-Git-Commit-Message>
+                            <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                            <Bundle-DocURL>https://javafxtool.tlcsdm.com</Bundle-DocURL>
+                            <Bundle-License>https://javafxtool.tlcsdm.com/LICENSE.txt</Bundle-License>
+                            <Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
                         </manifestEntries>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -1293,6 +1299,23 @@
                     <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>set-system-properties</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <line.separator xml:space="preserve">&#10;</line.separator>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -1328,6 +1351,19 @@
                                         <goals>
                                             <goal>copy-dependencies</goal>
                                             <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>properties-maven-plugin</artifactId>
+                                        <versionRange>[1.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>set-system-properties</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -1462,6 +1498,11 @@
                             <version>${checkstyle.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <version>${properties-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
