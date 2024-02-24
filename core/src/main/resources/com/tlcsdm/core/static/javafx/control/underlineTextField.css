@@ -49,12 +49,12 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-    -fx-border-color: transparent transparent #616161 transparent;
+    -fx-border-color: transparent transparent #616161;
     -fx-border-width: 1;
     -fx-border-insets: 0 0 1 0;
-    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-style: hidden hidden solid;
     -fx-cursor: text;
-    -fx-padding: 0.166667em 0em 0.333333em 0em;
+    -fx-padding: 0.166667em 0em 0.333333em;
 }
 
 .text-input:focused {
@@ -62,28 +62,28 @@
     -fx-highlight-text-fill: -material-design-color;
     -fx-text-fill: -fx-text-inner-color;
     -fx-background-color: transparent;
-    -fx-border-color: transparent transparent -material-design-color transparent;
+    -fx-border-color: transparent transparent -material-design-color;
     -fx-border-width: 2;
     -fx-border-insets: 0 0 2 -1;
     -fx-prompt-text-fill: transparent;
-    -fx-padding: 2 0 4 0;
+    -fx-padding: 2 0 4;
 }
 
 .text-input:readonly {
     -fx-background-color: transparent;
     -fx-text-fill: derive(-fx-text-base-color, 35%);
     -fx-border-style: segments(2, 3) line-cap butt;
-    -fx-border-color: transparent transparent #616161 transparent;
+    -fx-border-color: transparent transparent #616161;
 }
 
 .text-input:focused:readonly {
     -fx-text-fill: derive(-fx-text-base-color, 35%);
     -fx-border-style: segments(2, 3) line-cap butt;
-    -fx-border-color: transparent transparent -material-design-color transparent;
+    -fx-border-color: transparent transparent -material-design-color;
 }
 
 .text-input:disabled {
     -fx-opacity: 0.46;
     -fx-border-style: segments(2, 3) line-cap butt;
-    -fx-border-color: transparent transparent black transparent;
+    -fx-border-color: transparent transparent black;
 }
