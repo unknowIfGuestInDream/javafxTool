@@ -1,0 +1,120 @@
+/*
+ * Copyright (c) 2024 unknowIfGuestInDream.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.switch {
+    -material-design-color: #3f51b5;
+    -material-design-color-transparent-12: #3f51b51f;
+    -material-design-color-transparent-24: #3f51b53e;
+    -material-design-color-transparent-40: #3f51b566;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 13.0px;
+    -fx-label-padding: 0em 0em 0em 1.1em;
+    -fx-text-fill: -fx-text-background-color;
+}
+
+.switch > *.box {
+    -fx-background-color: #00000066;
+    -fx-pref-height: 20;
+    -fx-pref-width: 40;
+    -fx-background-radius: 1024px;
+    -fx-background-insets: 2.5;
+    -fx-padding: 0;
+}
+
+.switch:selected > *.box {
+    -fx-background-color: -material-design-color-transparent-40;
+}
+
+.switch:disabled > *.box {
+    -fx-background-color: #0000001f;
+}
+
+.switch > *.box > *.mark {
+    -fx-background-color: #fafafa;
+    -fx-padding: 0;
+    -fx-background-insets: 0 10 0 10;
+    -fx-background-radius: 1024px;
+    -fx-translate-x: -8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.5, 0.0, 1);
+}
+
+.switch:hover > *.box > *.mark {
+    /*-fx-background-color : #61616110, white;*/
+    /*-fx-background-insets: -14 -4 -14 -4, 0 10 0 10;*/
+    /*-fx-background-radius: 1024px, 1024px;*/
+    /*-fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);*/
+}
+
+.switch:selected:hover > *.box > *.mark {
+    /*-fx-background-color : -material-design-color-transparent-12, -material-design-color;*/
+    /*-fx-background-insets: -14 -4 -14 -4, 0 10 0 10;*/
+    /*-fx-background-radius: 1024px, 1024px;*/
+    /*-fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);*/
+}
+
+.switch:selected > *.box > *.mark {
+    -fx-background-color: -material-design-color;
+    -fx-background-insets: 0 10 0 10;
+    -fx-background-radius: 1024px;
+    -fx-translate-x: 8px;
+}
+
+.switch:focused > *.box > *.mark {
+    /*-fx-background-color : #6161613e, white;*/
+    /*-fx-background-insets: -14 -4 -14 -4, 0 10 0 10;*/
+    /*-fx-background-radius: 1024px, 1024px;*/
+    /*-fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);*/
+}
+
+.switch:selected:focused > *.box > *.mark {
+    /*-fx-background-color : -material-design-color-transparent-24, -material-design-color;*/
+    /*-fx-background-insets: -14 -4 -14 -4, 0 10 0 10;*/
+    /*-fx-background-radius: 1024px, 1024px;*/
+    /*-fx-effect           : dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4.0, 0.2, 0.0, 1);*/
+}
+
+.switch:indeterminate > *.text {
+    -fx-fill: -required-text-color;
+}
+
+.switch:indeterminate > *.box > *.mark {
+    -fx-background-color: transparent;
+    -fx-border-color: -material-design-color;
+    -fx-border-radius: 1024px;
+    -fx-border-insets: 0 10 0 10;
+    -fx-border-width: 3;
+    -fx-translate-x: 0;
+}
+
+.switch:disabled > *.box > *.mark {
+    -fx-background-color: #bdbdbd;
+}
+
+.switch:disabled {
+    -fx-opacity: 1;
+}
