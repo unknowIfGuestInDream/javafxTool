@@ -46,6 +46,7 @@
         <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-core</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
@@ -56,6 +57,7 @@
         <dependency>
             <groupId>fr.brouillard.oss</groupId>
             <artifactId>cssfx</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
