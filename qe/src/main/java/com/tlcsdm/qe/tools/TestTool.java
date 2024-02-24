@@ -36,6 +36,7 @@ import com.tlcsdm.core.javafx.control.DecorationTextfield2;
 import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.control.RangeSlider;
 import com.tlcsdm.core.javafx.control.Severity;
+import com.tlcsdm.core.javafx.control.Switch;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.util.FxXmlUtil;
@@ -208,6 +209,9 @@ public class TestTool extends QeSample {
         searchableStringBox.setItems(stringList);
         searchableStringBox.setMaxWidth(Double.MAX_VALUE);
         grid.add(searchableStringBox, 0, 7, 2, 1);
+
+        Switch sw = new Switch("switch");
+        grid.add(sw, 0, 8, 2, 1);
         //        grid.add(originalField, 1, 1);
         //        grid.add(compareLabel, 0, 2);
         //        grid.add(compareField, 1, 2);
