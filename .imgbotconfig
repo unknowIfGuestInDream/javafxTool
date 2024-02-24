@@ -6,7 +6,5 @@
     "aggressiveCompression": "false",
     "compressWiki": "true",
     "minKBReduced": 200,
-    "prTitle" : "bot: [ImgBot] Optimize images",
-    "prBody" : " Text before optimization ratio {optimization_ratio} Text after optimization ratio 
-                Text before optimization details {optimization_details} Text after optimization details"
+    "prTitle" : "bot: [ImgBot] Optimize images"
 }
