@@ -64,6 +64,13 @@ public class ImageViewHelper {
             case "copilot" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/copilot.png");
             case "escape" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/escape.png");
             case "search" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/search.png");
+            case "json" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/json.png");
+            case "java" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/java.png");
+            case "groovy" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/groovy.png");
+            case "sql" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/sql.png");
+            case "javascript" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/javascript.png");
+            case "csv" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/csv.png");
+            case "markdown" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/markdown.png");
             default -> throw new IllegalStateException("Unexpected value: " + name);
         };
 
