@@ -32,7 +32,7 @@ cg:
 
 ci:
   - changed-files:
-      - any-glob-to-any-file: jenkins/**
+      - any-glob-to-any-file: [ 'jenkins/**' ,'.mvn/**' ,'.imgbotconfig' ,'.mergify.yml' ,'qodana.yaml' ]
 
 test:
   - changed-files:
