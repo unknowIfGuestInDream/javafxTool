@@ -32,7 +32,6 @@ import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.javafx.util.TooltipUtil;
-import com.tlcsdm.core.util.HtmlUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
 import javafx.geometry.Insets;
@@ -43,6 +42,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.apache.commons.text.StringEscapeUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 
@@ -62,12 +62,12 @@ public class HtmlEscape extends CommonSample {
 
     private final Action escape = FxAction.create(I18nUtils.get("common.tool.escape.button.escape"),
         actionEvent -> {
-            resultField.setText(HtmlUtil.escape(originalField.getText()));
+            resultField.setText(StringEscapeUtils.escapeHtml4(originalField.getText()));
         }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
 
     private final Action unescape = FxAction.create(I18nUtils.get("common.tool.escape.button.unescape"),
         actionEvent -> {
-            resultField.setText(HtmlUtil.unescape(originalField.getText()));
+            resultField.setText(StringEscapeUtils.unescapeHtml4(originalField.getText()));
         }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
 
     private final Action copyResult = FxAction.copyResult(actionEvent -> {

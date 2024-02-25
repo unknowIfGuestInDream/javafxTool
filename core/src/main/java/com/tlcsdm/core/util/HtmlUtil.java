@@ -32,9 +32,11 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
+ * Use org.apache.commons.text.StringEscapeUtils.unescapeHtml4 instead
  * @author unknowIfGuestInDream
  * @date 2023/4/16 10:01
  */
+@Deprecated
 public class HtmlUtil {
 
     public static final String NBSP = "&nbsp;";

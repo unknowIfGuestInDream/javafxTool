@@ -62,12 +62,12 @@ public class CsvEscape extends CommonSample {
 
     private final Action escape = FxAction.create(I18nUtils.get("common.tool.escape.button.escape"),
         actionEvent -> {
-            resultField.setText(StringEscapeUtils.escapeXml11(originalField.getText()));
+            resultField.setText(StringEscapeUtils.escapeCsv(originalField.getText()));
         }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
 
     private final Action unescape = FxAction.create(I18nUtils.get("common.tool.escape.button.unescape"),
         actionEvent -> {
-            resultField.setText(StringEscapeUtils.unescapeXml(originalField.getText()));
+            resultField.setText(StringEscapeUtils.unescapeCsv(originalField.getText()));
         }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
 
     private final Action copyResult = FxAction.copyResult(actionEvent -> {
