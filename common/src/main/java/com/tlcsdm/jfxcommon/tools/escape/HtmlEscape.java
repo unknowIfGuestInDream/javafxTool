@@ -27,27 +27,12 @@
 
 package com.tlcsdm.jfxcommon.tools.escape;
 
-import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.helper.ImageViewHelper;
-import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import com.tlcsdm.core.javafx.util.OSUtil;
-import com.tlcsdm.core.javafx.util.TooltipUtil;
-import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.apache.commons.text.StringEscapeUtils;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * html 转义工具.
@@ -55,30 +40,7 @@ import java.util.List;
  * @author unknowIfGuestInDream
  * @since 1.0.0
  */
-public class HtmlEscape extends CommonSample {
-
-    private TextArea originalField;
-    private TextArea resultField;
-
-    private final Action escape = FxAction.create(I18nUtils.get("common.tool.escape.button.escape"),
-        actionEvent -> {
-            resultField.setText(StringEscapeUtils.escapeHtml4(originalField.getText()));
-        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/encode.png")));
-
-    private final Action unescape = FxAction.create(I18nUtils.get("common.tool.escape.button.unescape"),
-        actionEvent -> {
-            resultField.setText(StringEscapeUtils.unescapeHtml4(originalField.getText()));
-        }, LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/jfxcommon/static/icon/decode.png")));
-
-    private final Action copyResult = FxAction.copyResult(actionEvent -> {
-        if (resultField.getText().isEmpty()) {
-            return;
-        }
-        OSUtil.writeToClipboard(resultField.getText());
-        TooltipUtil.showToast(I18nUtils.get("common.button.copyResult.success"));
-    });
-
-    private final Collection<? extends Action> actions = List.of(escape, unescape, copyResult);
+public class HtmlEscape extends AbstractEscape {
 
     public static void main(String[] args) {
         launch(args);
@@ -86,57 +48,24 @@ public class HtmlEscape extends CommonSample {
 
     @Override
     public Node getPanel(Stage stage) {
-        GridPane grid = new GridPane();
-        grid.setVgap(12);
-        grid.setHgap(12);
-        grid.setPadding(new Insets(12));
-
-        ToolBar toolBar = ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW);
-        toolBar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        toolBar.setPrefWidth(Double.MAX_VALUE);
-
-        Label originalLabel = new Label(I18nUtils.get("common.tool.escape.label.original"));
-        originalField = new TextArea();
-
-        Label resultLabel = new Label(I18nUtils.get("common.tool.escape.label.result"));
-        resultField = new TextArea();
-        resultField.setEditable(false);
-
-        Label tipLabel = new Label(I18nUtils.get("common.tool.escape.label.tip"));
-        TextArea textArea = new TextArea("");
-        textArea.setEditable(false);
-        textArea.setText("""
+        Node node = super.getPanel(stage);
+        tipArea.setText("""
             HTML            See: http://www.w3.org/TR/html4/sgml/entities.html
 
              <          >            &              "          no-break space       em space      en space          ®             ©             ™
             &lt;      &gt;      &amp;      &quot;            &nbsp;                &emsp;          &ensp;        &reg;      &copy;     &trade;
             """);
-
-        grid.add(toolBar, 0, 0, 2, 1);
-        grid.add(originalLabel, 0, 1, 2, 1);
-        grid.add(originalField, 0, 2, 2, 1);
-        grid.add(resultLabel, 0, 3, 2, 1);
-        grid.add(resultField, 0, 4, 2, 1);
-        grid.add(tipLabel, 0, 5, 2, 1);
-        grid.add(textArea, 0, 6, 2, 1);
-
-        return grid;
+        return node;
     }
 
     @Override
-    public void initializeBindings() {
-        super.initializeBindings();
-        copyResult.disabledProperty().bind(resultField.textProperty().isEmpty());
+    protected String escape(String original) {
+        return StringEscapeUtils.escapeHtml4(original);
     }
 
     @Override
-    public String getOrderKey() {
-        return getSampleId();
-    }
-
-    @Override
-    public String getSampleVersion() {
-        return "1.0.1";
+    protected String unescape(String original) {
+        return StringEscapeUtils.unescapeHtml4(original);
     }
 
     @Override
