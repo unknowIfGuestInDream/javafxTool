@@ -28,6 +28,7 @@
 package com.tlcsdm.jfxcommon.code;
 
 import cn.hutool.core.swing.clipboard.ClipboardUtil;
+import com.tlcsdm.core.exception.UnsupportedFeatureException;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.ImageViewHelper;
 import com.tlcsdm.core.javafx.util.Config;
@@ -301,7 +302,7 @@ public class ColorCode extends CommonSample {
             case 5:
                 return new Color(value, p, q, 1);
             default:
-                throw new RuntimeException(
+                throw new UnsupportedFeatureException(
                     "Something went wrong when converting from HSV to RGB. Input was " + hue + ", " + saturation + ", " + value);
         }
     }
