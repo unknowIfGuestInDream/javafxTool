@@ -35,12 +35,12 @@ import javafx.stage.Stage;
 import org.apache.commons.text.StringEscapeUtils;
 
 /**
- * html 转义工具.
+ * csv 转义工具.
  *
  * @author unknowIfGuestInDream
- * @since 1.0.0
+ * @since 1.0.1
  */
-public class HtmlEscape extends AbstractEscape {
+public class CsvEscape extends AbstractEscape {
 
     public static void main(String[] args) {
         launch(args);
@@ -50,42 +50,39 @@ public class HtmlEscape extends AbstractEscape {
     public Node getPanel(Stage stage) {
         Node node = super.getPanel(stage);
         tipArea.setText("""
-            HTML            See: http://www.w3.org/TR/html4/sgml/entities.html
-
-             <          >            &              "          no-break space       em space      en space          ®             ©             ™
-            &lt;      &gt;      &amp;      &quot;            &nbsp;                &emsp;          &ensp;        &reg;      &copy;     &trade;
+            CSV              See: https://zh.wikipedia.org/zh-cn/%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E5%80%BC
             """);
         return node;
     }
 
     @Override
     protected String escape(String original) {
-        return StringEscapeUtils.escapeHtml4(original);
+        return StringEscapeUtils.escapeCsv(original);
     }
 
     @Override
     protected String unescape(String original) {
-        return StringEscapeUtils.unescapeHtml4(original);
+        return StringEscapeUtils.unescapeCsv(original);
     }
 
     @Override
     public ImageView getSampleImageIcon() {
-        return ImageViewHelper.get("html");
+        return ImageViewHelper.get("csv");
     }
 
     @Override
     public String getSampleId() {
-        return "htmlEscape";
+        return "csvEscape";
     }
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("common.tool.htmlEscape.sampleName");
+        return I18nUtils.get("common.tool.csvEscape.sampleName");
     }
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("common.tool.htmlEscape.sampleDesc");
+        return I18nUtils.get("common.tool.csvEscape.sampleDesc");
     }
 
 }

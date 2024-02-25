@@ -35,12 +35,12 @@ import javafx.stage.Stage;
 import org.apache.commons.text.StringEscapeUtils;
 
 /**
- * html 转义工具.
+ * xml 转义工具.
  *
  * @author unknowIfGuestInDream
- * @since 1.0.0
+ * @since 1.0.1
  */
-public class HtmlEscape extends AbstractEscape {
+public class XmlEscape extends AbstractEscape {
 
     public static void main(String[] args) {
         launch(args);
@@ -50,42 +50,42 @@ public class HtmlEscape extends AbstractEscape {
     public Node getPanel(Stage stage) {
         Node node = super.getPanel(stage);
         tipArea.setText("""
-            HTML            See: http://www.w3.org/TR/html4/sgml/entities.html
+            XML              See: http://www.xmlnews.org/docs/xml-basics.html
 
-             <          >            &              "          no-break space       em space      en space          ®             ©             ™
-            &lt;      &gt;      &amp;      &quot;            &nbsp;                &emsp;          &ensp;        &reg;      &copy;     &trade;
+             <          >            &               "               '
+            &lt;      &gt;      &amp;      &quot;      &apos;
             """);
         return node;
     }
 
     @Override
     protected String escape(String original) {
-        return StringEscapeUtils.escapeHtml4(original);
+        return StringEscapeUtils.escapeXml11(original);
     }
 
     @Override
     protected String unescape(String original) {
-        return StringEscapeUtils.unescapeHtml4(original);
+        return StringEscapeUtils.unescapeXml(original);
     }
 
     @Override
     public ImageView getSampleImageIcon() {
-        return ImageViewHelper.get("html");
+        return ImageViewHelper.get("xml");
     }
 
     @Override
     public String getSampleId() {
-        return "htmlEscape";
+        return "xmlEscape";
     }
 
     @Override
     public String getSampleName() {
-        return I18nUtils.get("common.tool.htmlEscape.sampleName");
+        return I18nUtils.get("common.tool.xmlEscape.sampleName");
     }
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("common.tool.htmlEscape.sampleDesc");
+        return I18nUtils.get("common.tool.xmlEscape.sampleDesc");
     }
 
 }
