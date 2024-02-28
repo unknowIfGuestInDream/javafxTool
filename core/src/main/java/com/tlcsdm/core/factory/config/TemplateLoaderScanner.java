@@ -80,6 +80,10 @@ public class TemplateLoaderScanner implements InitializingFactory {
         configuration.setNumberFormat("computer");
         configuration.setIncompatibleImprovements(Configuration.VERSION_2_3_31);
         configuration.setOutputFormat(UndefinedOutputFormat.INSTANCE);
+        configuration.setWrapUncheckedExceptions(true);
+        configuration.setLazyAutoImports(true);
+        configuration.setLazyImports(true);
+        configuration.setLogTemplateExceptions(false);
     }
 
 }
