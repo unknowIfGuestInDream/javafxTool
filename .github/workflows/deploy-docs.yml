@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: true
       - name: Publish to server
-        uses: easingthemes/ssh-deploy@v5.0.2
+        uses: easingthemes/ssh-deploy@v5.0.3
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-avzr --delete"
