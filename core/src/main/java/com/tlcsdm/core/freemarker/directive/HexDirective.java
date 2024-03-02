@@ -121,7 +121,11 @@ public class HexDirective implements TemplateDirectiveModel {
                     s = Integer.toHexString(i);
                 }
                 if (length > s.length()) {
-                    data = String.format("%0" + length + "d", Integer.parseInt(s));
+                    if (target == 16 && length > (s.length() + 2)) {
+                        data = "0x" + "0".repeat(length - s.length() - 2) + s;
+                    } else {
+                        data = "0".repeat(length - s.length()) + s;
+                    }
                 }
             } catch (NumberFormatException e) {
                 StaticLog.error(e);
