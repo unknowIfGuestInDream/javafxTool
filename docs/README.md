@@ -26,7 +26,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | commons-io             | 2.15.1     | IO工具                             |
 | commons-csv            | 1.10.0     | csv工具                            |
 | guava                  | 33.0.0-jre | Google工具                         |
-| groovy                 | 4.0.18     | Groovy                           |
+| groovy                 | 4.0.19     | Groovy                           |
 | caffeine               | 3.1.8      | 本地缓存                             |
 | thumbnailator          | 0.4.20     | 图片转码和缩略工具                        |
 | preferencesfx          | 11.17.0    | 为应用程序设置/首选项创建 UI 的框架             |
