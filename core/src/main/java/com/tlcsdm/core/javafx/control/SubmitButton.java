@@ -74,8 +74,8 @@ public class SubmitButton extends Region {
     private static final double MINIMUM_HEIGHT = 10;
     private static final double MAXIMUM_WIDTH = 1024;
     private static final double MAXIMUM_HEIGHT = 1024;
-    private static double aspectRatio = PREFERRED_HEIGHT / PREFERRED_WIDTH;
-    private boolean keepAspect;
+    private static final double aspectRatio = PREFERRED_HEIGHT / PREFERRED_WIDTH;
+    private final boolean keepAspect;
     private double size;
     private double width;
     private double height;
@@ -88,23 +88,23 @@ public class SubmitButton extends Region {
     private Region iconWrap;
     private SVGPath icon;
     private StackPane pane;
-    private ObjectProperty<Color> color;
-    private ObjectProperty<Color> frameColor;
-    private ObjectProperty<Color> buttonColor;
-    private ObjectProperty<Color> textColor;
-    private ObjectProperty<Color> progressBarColor;
-    private ObjectProperty<Color> iconColor;
-    private DoubleProperty progress;
-    private ObjectProperty<Status> status;
+    private final ObjectProperty<Color> color;
+    private final ObjectProperty<Color> frameColor;
+    private final ObjectProperty<Color> buttonColor;
+    private final ObjectProperty<Color> textColor;
+    private final ObjectProperty<Color> progressBarColor;
+    private final ObjectProperty<Color> iconColor;
+    private final DoubleProperty progress;
+    private final ObjectProperty<Status> status;
     private Color formerColor;
     private Status lastStatus;
-    private Paint backgroundPaint;
-    private Paint borderPaint;
-    private double borderWidth;
-    private Timeline timeline;
+    private final Paint backgroundPaint;
+    private final Paint borderPaint;
+    private final double borderWidth;
+    private final Timeline timeline;
 
-    private final String checkPath = "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z";
-    private final String failPath = "M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z";
+    private static final String checkPath = "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z";
+    private static final String failPath = "M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z";
 
     private final String defColor = "#00ca94";
 
@@ -372,8 +372,8 @@ public class SubmitButton extends Region {
         return status.get();
     }
 
-    private void setStatus(final Status STATUS) {
-        status.set(STATUS);
+    private void setStatus(final Status state) {
+        status.set(state);
     }
 
     public ReadOnlyObjectProperty<Status> statusProperty() {
