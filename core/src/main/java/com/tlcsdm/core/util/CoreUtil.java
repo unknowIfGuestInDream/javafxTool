@@ -31,16 +31,11 @@ import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.annotation.Order;
-import com.tlcsdm.core.exception.CoreException;
 
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -56,8 +51,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * 工具包
@@ -307,41 +300,4 @@ public class CoreUtil {
         return (first, second) -> first;
     }
 
-    private void unzip(String zipPath, String destDirPath) throws IOException, CoreException {
-        byte[] buf = new byte[8192];
-        File destDir = new File(destDirPath);
-        try (InputStream zipIn = new FileInputStream(zipPath); ZipInputStream zis = new ZipInputStream(
-            new BufferedInputStream(zipIn))) {
-            ZipEntry zEntry;
-            while ((zEntry = zis.getNextEntry()) != null) {
-                // if it is empty directory, create it
-                if (zEntry.isDirectory()) {
-                    new File(destDir, zEntry.getName()).mkdirs();
-                    continue;
-                }
-                // if it is a file, extract it
-                String filePath = zEntry.getName();
-                int lastSeparator = filePath.lastIndexOf("/");
-                String fileDir = "";
-                if (lastSeparator >= 0) {
-                    fileDir = filePath.substring(0, lastSeparator);
-                }
-                // create directory for a file
-                new File(destDir, fileDir).mkdirs();
-                // write file
-                String destDirCanonicalPath = destDir.getCanonicalPath();
-                File outFile = new File(destDir, filePath);
-                String outFileCanonicalPath = outFile.getCanonicalPath();
-                if (!outFileCanonicalPath.startsWith(destDirCanonicalPath + File.separator)) {
-                    throw new CoreException("Entry is outside of the target dir: " + filePath);
-                }
-                try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outFile))) {
-                    int n;
-                    while ((n = zis.read(buf)) >= 0) {
-                        outputStream.write(buf, 0, n);
-                    }
-                }
-            }
-        }
-    }
 }
