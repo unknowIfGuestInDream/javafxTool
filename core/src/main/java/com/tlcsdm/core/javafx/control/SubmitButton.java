@@ -103,10 +103,9 @@ public class SubmitButton extends Region {
     private final double borderWidth;
     private final Timeline timeline;
 
-    private static final String checkPath = "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z";
-    private static final String failPath = "M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z";
-
-    private final String defColor = "#00ca94";
+    private static final String SVG_CHECK_PATH = "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z";
+    private static final String SVG_FAIL_PATH = "M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z";
+    private static final String DEF_COLOR = "#00ca94";
 
     public SubmitButton() {
         this("Submit");
@@ -114,7 +113,7 @@ public class SubmitButton extends Region {
 
     public SubmitButton(final String text) {
         keepAspect = true;
-        color = new ObjectPropertyBase<>(Color.web(defColor)) {
+        color = new ObjectPropertyBase<>(Color.web(DEF_COLOR)) {
             @Override
             protected void invalidated() {
                 super.invalidated();
@@ -136,7 +135,7 @@ public class SubmitButton extends Region {
                 return "color";
             }
         };
-        frameColor = new ObjectPropertyBase<>(Color.web(defColor)) {
+        frameColor = new ObjectPropertyBase<>(Color.web(DEF_COLOR)) {
             @Override
             public Object getBean() {
                 return SubmitButton.this;
@@ -158,7 +157,7 @@ public class SubmitButton extends Region {
                 return "buttonColor";
             }
         };
-        textColor = new ObjectPropertyBase<>(Color.web(defColor)) {
+        textColor = new ObjectPropertyBase<>(Color.web(DEF_COLOR)) {
             @Override
             public Object getBean() {
                 return SubmitButton.this;
@@ -226,10 +225,10 @@ public class SubmitButton extends Region {
                     case IN_PROGRESS:
                         break;
                     case SUCCESS:
-                        icon.setContent(checkPath);
+                        icon.setContent(SVG_CHECK_PATH);
                         break;
                     case FAIL:
-                        icon.setContent(failPath);
+                        icon.setContent(SVG_FAIL_PATH);
                         formerColor = getColor();
                         color.set(Color.CRIMSON);
                         animateFromProgressFail();
@@ -307,7 +306,7 @@ public class SubmitButton extends Region {
         progressPane.setMouseTransparent(true);
 
         icon = new SVGPath();
-        icon.setContent(checkPath);
+        icon.setContent(SVG_CHECK_PATH);
         icon.setFill(iconColor.get());
         icon.setOpacity(0);
         iconWrap = new Region();
