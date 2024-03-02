@@ -109,6 +109,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.factory;
     exports com.tlcsdm.core.factory.config;
     exports com.tlcsdm.core.freemarker;
+    exports com.tlcsdm.core.freemarker.code;
     exports com.tlcsdm.core.freemarker.template;
     exports com.tlcsdm.core.freemarker.directive;
     exports com.tlcsdm.core.freemarker.method;
