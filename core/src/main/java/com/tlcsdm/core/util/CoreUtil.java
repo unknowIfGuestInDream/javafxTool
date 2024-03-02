@@ -299,4 +299,5 @@ public class CoreUtil {
     public static <T> BinaryOperator<T> defaultMegerFunction() {
         return (first, second) -> first;
     }
+
 }
