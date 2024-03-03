@@ -78,6 +78,7 @@ public class ImageViewHelper {
             case "encrypt" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/encrypt.png");
             case "decrypt" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/decrypt.png");
             case "convert" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/convert.png");
+            case "url" -> ImageViewHelper.class.getResource("/com/tlcsdm/core/static/icon/url.png");
             default -> throw new IllegalStateException("Unexpected value: " + name);
         };
 
