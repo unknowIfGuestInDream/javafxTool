@@ -94,7 +94,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", false,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.165", true,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.167", true,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
