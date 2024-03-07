@@ -145,7 +145,7 @@
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.5.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
-        <jaxb.version>4.0.4</jaxb.version>
+        <jaxb.version>4.0.5</jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.3</jython.version>
         <violations.version>1.156.8</violations.version>
