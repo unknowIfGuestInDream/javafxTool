@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
@@ -67,7 +68,7 @@ class ProcessBuilderTest {
         br.transferTo(sw);
         System.out.println(sw);
         int exitCode = process.waitFor();
-        System.out.println(exitCode);
+        Assertions.assertEquals(0, exitCode);
     }
 
     @Test
@@ -92,7 +93,11 @@ class ProcessBuilderTest {
         br.transferTo(sw);
         System.out.println(sw);
         int exitCode = process.waitFor();
-        System.out.println(exitCode);
+        if (os.toLowerCase().contains("win")) {
+            Assertions.assertEquals(1, exitCode);
+        } else {
+            Assertions.assertEquals(127, exitCode);
+        }
     }
 
     @Test
@@ -117,12 +122,12 @@ class ProcessBuilderTest {
         br.transferTo(sw);
         System.out.println(sw);
         int exitCode = last.waitFor();
-        System.out.println(exitCode);
+        Assertions.assertEquals(0, exitCode);
     }
 
     @Test
     @DisabledOnOs(OS.WINDOWS)
-    void env() throws IOException {
+    void env() throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         Map<String, String> environment = processBuilder.environment();
         environment.forEach((key, value) -> System.out.println(key + value));
@@ -136,5 +141,7 @@ class ProcessBuilderTest {
         StringWriter sw = new StringWriter();
         br.transferTo(sw);
         System.out.println(sw);
+        int exitCode = process.waitFor();
+        Assertions.assertEquals(0, exitCode);
     }
 }
