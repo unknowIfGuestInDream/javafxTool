@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", false,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.167", true,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.168", true,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -173,7 +173,7 @@ public class DependencyInfo {
             new Dependency("net.bytebuddy", "byte-buddy", "1.14.12", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.9.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.11.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.gluonhq", "rich-text-area", "1.1.1", false,
