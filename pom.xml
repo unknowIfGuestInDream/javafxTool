@@ -1051,6 +1051,11 @@
                 <artifactId>teenyhttpd</artifactId>
                 <version>${teenyhttpd.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.puppycrawl.tools</groupId>
+                <artifactId>checkstyle</artifactId>
+                <version>${checkstyle.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
