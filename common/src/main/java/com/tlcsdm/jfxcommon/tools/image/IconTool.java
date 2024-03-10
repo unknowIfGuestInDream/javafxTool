@@ -76,6 +76,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -348,8 +349,9 @@ public class IconTool extends CommonSample {
             }
             if (iosIconCheckBox.isSelected()) {
                 File appIconAppiconsetPathFile = new File(iconTargetPathFile.getPath() + "/ios/AppIcon.appiconset/");
-                File contentsFile = new File(
-                    IconTool.class.getResource("/com/tlcsdm/jfxcommon/static/data/iosAppIcon/Contents.json").getFile());
+                File contentsFile = new File(Objects.requireNonNull(
+                        IconTool.class.getResource("/com/tlcsdm/jfxcommon/static/data/iosAppIcon/Contents.json"))
+                    .getFile());
                 FileUtils.copyFileToDirectory(contentsFile, appIconAppiconsetPathFile);
                 BufferedImage bufferedImage512 = getBufferedImage(iconFilePathFile, 512, 512);
                 ImageUtil.writeImage(bufferedImage512,
