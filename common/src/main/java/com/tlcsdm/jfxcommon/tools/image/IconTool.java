@@ -384,7 +384,7 @@ public class IconTool extends CommonSample {
                     }
                 });
             }
-            notificationBuilder.text("生成图片成功，请在路径：" + iconTargetPathFile.getPath() + "下查看。");
+            notificationBuilder.text("生成图片成功");
             notificationBuilder.showInformation();
             OSUtil.openAndSelectedFile(iconTargetPathFile.getPath());
         } catch (IOException e) {
