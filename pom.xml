@@ -152,7 +152,7 @@
         <asm.version>9.6</asm.version>
         <pmd.version>6.55.0</pmd.version>
         <bytebuddy.version>1.14.12</bytebuddy.version>
-        <tess4j.version>5.10.0</tess4j.version>
+        <tess4j.version>5.11.0</tess4j.version>
         <hikariCP.version>5.1.0</hikariCP.version>
         <druid.version>1.2.21</druid.version>
         <h2.version>2.2.224</h2.version>
