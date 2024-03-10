@@ -168,7 +168,6 @@
         <plantuml.version>1.2024.3</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
-        <jgit.version>6.9.0.202403050737-r</jgit.version>
     </properties>
 
     <issueManagement>
@@ -1056,11 +1055,6 @@
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
                 <version>${checkstyle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.jgit</groupId>
-                <artifactId>org.eclipse.jgit</artifactId>
-                <version>${jgit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
