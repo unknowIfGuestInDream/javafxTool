@@ -116,7 +116,7 @@ public class DependencyInfo {
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.1", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.16.2", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -208,7 +208,7 @@ public class DependencyInfo {
                 "https://github.com/mcfoggy/cssfx",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("org.apache.commons", "commons-compress", "1.26.0", false,
+            new Dependency("org.apache.commons", "commons-compress", "1.26.1", false,
                 "https://commons.apache.org/proper/commons-compress/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
