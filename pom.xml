@@ -116,6 +116,7 @@
         <commons-math3.version>3.6.1</commons-math3.version>
         <commons-crypto.version>1.2.0</commons-crypto.version>
         <commons-imaging.version>1.0-alpha3</commons-imaging.version>
+        <commons-codec.version>1.16.1</commons-codec.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <log4j2.version>2.23.1</log4j2.version>
@@ -361,6 +362,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-crypto</artifactId>
                 <version>${commons-crypto.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
@@ -1519,6 +1525,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
                     <version>${properties-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
