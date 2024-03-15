@@ -10,7 +10,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 |------------------------|------------|----------------------------------|
 | JDK                    | 17         | JDK                              |
 | JavaFX                 | 21.0.2     | JavaFX                           |
-| controlsfx             | 11.2.0     | javafx UI控件                      |
+| controlsfx             | 11.2.1     | javafx UI控件                      |
 | poi-ooxml              | 5.2.5      | 用于Microsoft Documents的Java API   |
 | freemarker             | 2.3.32     | 模板引擎库                            |
 | commons-lang3          | 3.14.0     | Java工具类库                         |
@@ -25,8 +25,8 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | jackson                | 2.17.0     | JSON解析库                          |
 | commons-io             | 2.15.1     | IO工具                             |
 | commons-csv            | 1.10.0     | csv工具                            |
-| guava                  | 33.0.0-jre | Google工具                         |
-| groovy                 | 4.0.19     | Groovy                           |
+| guava                  | 33.1.0-jre | Google工具                         |
+| groovy                 | 4.0.20     | Groovy                           |
 | caffeine               | 3.1.8      | 本地缓存                             |
 | thumbnailator          | 0.4.20     | 图片转码和缩略工具                        |
 | preferencesfx          | 11.17.0    | 为应用程序设置/首选项创建 UI 的框架             |

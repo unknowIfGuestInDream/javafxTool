@@ -49,7 +49,7 @@ public class DependencyInfo {
             new Dependency("org.openjfx", "javafx", "21.0.2", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
-            new Dependency("org.controlsfx", "controlsfx", "11.2.0", true,
+            new Dependency("org.controlsfx", "controlsfx", "11.2.1", true,
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 
@@ -102,7 +102,7 @@ public class DependencyInfo {
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
-            new Dependency("com.google.guava", "guava", "33.0.0-jre", false, "https://github.com/google/guava",
+            new Dependency("com.google.guava", "guava", "33.1.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
@@ -138,7 +138,7 @@ public class DependencyInfo {
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "4.0.19", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "4.0.20", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
@@ -184,7 +184,7 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core-java11", "6.4.13", false,
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.5.0", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
