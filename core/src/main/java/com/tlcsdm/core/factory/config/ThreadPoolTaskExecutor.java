@@ -46,24 +46,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @Order(1)
 public final class ThreadPoolTaskExecutor implements InitializingFactory {
-    private static int corePoolSize;
-    private static int maximumPoolSize;
-    private static long keepAliveTime;
-    private static TimeUnit unit;
-    private static int queueSize;
-    private static String threadPreName;
-    private static RejectedExecutionHandler handler;
+    private static int corePoolSize = 2;
+    private static int maximumPoolSize = 50;
+    private static long keepAliveTime = 30;
+    private static TimeUnit unit = TimeUnit.SECONDS;
+    private static int queueSize = 200;
+    private static String threadPreName = "sample-%d";
+    private static RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();
     private static final AtomicBoolean hasInitialized = new AtomicBoolean();
 
     @Override
     public void initialize() throws Exception {
-        corePoolSize = 2;
-        maximumPoolSize = 50;
-        keepAliveTime = 30;
-        unit = TimeUnit.SECONDS;
-        queueSize = 200;
-        threadPreName = "sample-%d";
-        handler = new ThreadPoolExecutor.CallerRunsPolicy();
         hasInitialized.set(true);
     }
 

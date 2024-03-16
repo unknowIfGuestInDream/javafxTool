@@ -28,9 +28,10 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.log.StaticLog;
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ClassInfoList;
-import io.github.classgraph.ScanResult;
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -39,7 +40,6 @@ import java.lang.module.ResolvedModule;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +48,9 @@ import java.util.Set;
  * Interface Scanner
  */
 public class InterfaceScanner {
+
+    public static Reflections reflections = new Reflections(new ConfigurationBuilder().forPackage("com.tlcsdm")
+        .filterInputsBy(new FilterBuilder().includePackage("com.tlcsdm")));
 
     /**
      * Gets the list of sample classes to load
@@ -93,13 +96,7 @@ public class InterfaceScanner {
 
     public static Class<?>[] loadFromPathScanning(Class<?> cls) {
         // scan the module-path
-        Set<Class<?>> classes;
-        try (ScanResult scanResult = new ClassGraph().enableClassInfo().rejectClasses("module-info", "package-info")
-            .rejectPackages(rejectPackages()).scan()) {
-            ClassInfoList controlClasses = scanResult.getClassesImplementing(cls);
-            List<Class<?>> controlClassRefs = controlClasses.loadClasses(true);
-            classes = new HashSet<>(controlClassRefs);
-        }
+        Set<Class<?>> classes = reflections.get(Scanners.SubTypes.of(cls).asClass());
         return classes.toArray(new Class[0]);
     }
 
@@ -175,13 +172,6 @@ public class InterfaceScanner {
             moduleName) || "jython.slim".equals(moduleName) || "com.zaxxer.hikari".equals(moduleName) || "druid".equals(
             moduleName) || "jssc".equals(moduleName) || "com.github.oshi".equals(moduleName) || "zip4j".equals(
             moduleName);
-    }
-
-    /**
-     * 不希望扫描的包, 加快启动时间.
-     */
-    public static String[] rejectPackages() {
-        return new String[]{"java", "javax", "javafx", "jdk", "oracle", "cn.hutool", "ch.qos.logback", "org.apache", "org.slf4j", "org.controlsfx", "impl.org.controlsfx", "freemarker", "io.github.difflib", "com.fasterxml.jackson", "org.dom4j", "com.github.benmanes.caffeine", "io.github.classgraph", "org.fxmisc.richtext", "org.fxmisc.flowless", "org.fxmisc.undo", "org.reactfx", "net.coobird.thumbnailator", "com.dlsc.pdfviewfx", "technology.tabula", "com.dlsc.preferencesfx", "com.yahoo.platform.yui", "com.sun.jna", "com.ziclix.python", "org.python", "com.zaxxer.hikari", "com.alibaba.druid", "jssc", "oshi", "net.lingala.zip4j", "org.checkerframework", "org.kordamp.ikonli", "com.graphbuilder", "org.jaxen", "org.fxmisc.wellbehaved", "org.openxmlformats", "com.microsoft", "org.etsi", "org.w3"};
     }
 
 }
