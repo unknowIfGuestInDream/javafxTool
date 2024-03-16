@@ -17,7 +17,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | hutool                 | 5.8.26     | Java工具类库                         |
 | logback                | 1.5.3      | Java日志框架                         |
 | commons-configuration2 | 2.9.0      | 用于从各种源读取配置数据                     |
-| classgraph             | 4.8.168    | Java classpath 扫描器和模块扫描器         |
+| reflections            | 0.10.2     | Java 运行时元数据分析                    |
 | java-diff-utils        | 4.12       | 用于在文本或某种数据之间执行比较/差异操作            |
 | dom4j                  | 2.1.4      | XML 框架                           |
 | richtextfx             | 0.11.2     | JavaFX 的富文本组件                    |

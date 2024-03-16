@@ -55,7 +55,6 @@ module com.tlcsdm.core {
     requires static java.scripting;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
-    requires io.github.classgraph;
     requires static org.apache.fontbox;
     requires static org.apache.pdfbox;
     requires org.apache.commons.io;
@@ -84,6 +83,7 @@ module com.tlcsdm.core {
     requires static org.apache.commons.compress;
     requires static org.apache.commons.imaging;
     requires static net.jonathangiles.tools.teenyhttpd;
+    requires org.reflections;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

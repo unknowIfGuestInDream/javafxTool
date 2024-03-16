@@ -95,10 +95,10 @@ public class DependencyInfo {
                 "https://github.com/java-diff-utils/java-diff-utils", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.reflections", "reflections", "0.10.2", false,
+            new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.168", true,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.168", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
