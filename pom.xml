@@ -1094,11 +1094,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>
-                        -Dfile.encoding=${project.build.sourceEncoding}
-                        --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                    </argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
             <plugin>
