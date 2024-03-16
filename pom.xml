@@ -1113,6 +1113,7 @@
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <testFailureIgnore>true</testFailureIgnore>
+                    <forkCount>1.5C</forkCount>
                 </configuration>
             </plugin>
             <plugin>
