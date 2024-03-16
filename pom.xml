@@ -1109,7 +1109,6 @@
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                     <argLine>-Xmx1024m</argLine>
                     <argLine>-XX:MaxPermSize=256m</argLine>
-                    <argLine>--add-modules javax.servlet.api</argLine>
                     <argLine>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
@@ -1117,13 +1116,6 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <forkCount>1.5C</forkCount>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.servlet</groupId>
-                        <artifactId>javax.servlet-api</artifactId>
-                        <version>${javax.servlet-api.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

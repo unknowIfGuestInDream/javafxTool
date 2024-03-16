@@ -84,6 +84,7 @@ module com.tlcsdm.core {
     requires static org.apache.commons.compress;
     requires static org.apache.commons.imaging;
     requires static net.jonathangiles.tools.teenyhttpd;
+    requires javax.servlet.api;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
