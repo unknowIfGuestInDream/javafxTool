@@ -1109,7 +1109,9 @@
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                     <argLine>-Xmx1024m</argLine>
                     <argLine>-XX:MaxPermSize=256m</argLine>
+                    <argLine>--add-modules javax.servlet.api</argLine>
                     <argLine>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
+                    <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <testFailureIgnore>true</testFailureIgnore>
