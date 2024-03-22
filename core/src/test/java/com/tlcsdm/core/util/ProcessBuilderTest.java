@@ -33,13 +33,17 @@ import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * Test for ProcessBuilder.
@@ -143,5 +147,58 @@ class ProcessBuilderTest {
         System.out.println(sw);
         int exitCode = process.waitFor();
         Assertions.assertEquals(0, exitCode);
+    }
+
+    /**
+     * ProcessBuilder构造传参中有空格很难处理，采用BufferedWriter输入命令的方式来执行
+     * 注意: cmd/sh 没有c参数
+     */
+    @Test
+    void exec() {
+        List<String> command = new ArrayList<>();
+        command.add("java");
+        command.add("-version");
+        Assertions.assertEquals(0, execProcess(command));
+    }
+
+    private int execProcess(List<String> command) {
+        ProcessBuilder pb = null;
+        String chatset = "GBK";
+        List<String> list = new ArrayList<>();
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            list.add("cmd");
+        } else {
+            list.add("sh");
+            chatset = "UTF-8";
+        }
+        pb = new ProcessBuilder(list);
+        pb.redirectErrorStream(true);
+        StringJoiner sj = new StringJoiner(" ");
+        command.forEach(c -> {
+            sj.add(c);
+        });
+        sj.add("\n");
+        Process p = null;
+        int exitCode = 0;
+        try {
+            p = pb.start();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+            bw.write(sj.toString());
+            bw.flush();
+            bw.close();
+            exitCode = p.waitFor();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(), chatset));
+            StringWriter sw = new StringWriter();
+            br.transferTo(sw);
+            System.out.println(sw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            if (p.isAlive()) {
+                p.destroy();
+            }
+        }
+        return exitCode;
     }
 }
