@@ -274,7 +274,7 @@ public class RegexTester extends CommonSample {
             m.appendTail(rsb);
             sb.append("\n\n替换匹配后内容: \n").append(rsb);
         }
-        matchTextArea.setText(sb.length() > 0 ? sb.substring(1) : "");
+        matchTextArea.setText(!sb.isEmpty() ? sb.substring(1) : "");
     }
 
     @FXML
@@ -287,7 +287,8 @@ public class RegexTester extends CommonSample {
 
     @FXML
     private void aboutRegularAction(ActionEvent event) {
-        String url = RegexTester.class.getResource("/com/tlcsdm/jfxcommon/static/data/regexAbout.html")
+        String url = Objects.requireNonNull(
+                RegexTester.class.getResource("/com/tlcsdm/jfxcommon/static/data/regexAbout.html"))
             .toExternalForm();
         WebView browser = new WebView();
         WebEngine webEngine = browser.getEngine();
