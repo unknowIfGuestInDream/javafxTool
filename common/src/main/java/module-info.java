@@ -53,6 +53,7 @@ module com.tlcsdm.jfxcommon {
     requires org.apache.commons.lang3;
     requires org.apache.commons.text;
     requires java.net.http;
+    requires org.apache.commons.configuration2;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
