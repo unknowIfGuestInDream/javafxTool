@@ -65,6 +65,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -182,8 +183,8 @@ public class RegexTester extends CommonSample {
         examplesTableColumn1.setCellValueFactory(new MapValueFactory("column1"));
         PropertiesConfiguration pcfg = new PropertiesConfiguration();
         try {
-            pcfg.read(new InputStreamReader(
-                RegexTester.class.getResource("/com/tlcsdm/jfxcommon/static/data/regexData.properties").openStream()));
+            pcfg.read(new InputStreamReader(Objects.requireNonNull(
+                RegexTester.class.getResource("/com/tlcsdm/jfxcommon/static/data/regexData.properties")).openStream()));
         } catch (ConfigurationException | IOException e) {
             throw new UnExpectedResultException("Not found data.", e);
         }
@@ -237,8 +238,8 @@ public class RegexTester extends CommonSample {
         // 使用循环找出模式匹配的内容替换之,再将内容加到sb里
         // 匹配总数
         int cnt = 0;
-        int start = 0;
-        int end = 0;
+        int start;
+        int end;
         while (result) {
             // 替换匹配
             m.appendReplacement(rsb, replaceText);
