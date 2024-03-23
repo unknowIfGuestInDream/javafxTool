@@ -27,6 +27,7 @@
 
 package com.tlcsdm.jfxcommon.code;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.exception.UnExpectedResultException;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.dialog.FxButtonType;
@@ -254,7 +255,8 @@ public class RegexTester extends CommonSample {
             try {
                 //捕获的子序列
                 str1 = m.group(1);
-            } catch (Exception e) {
+            } catch (IllegalStateException | IndexOutOfBoundsException e) {
+                StaticLog.error(e);
             }
             Map<String, String> map = new HashMap<>();
             map.put("column0", Integer.toString(cnt));
@@ -267,7 +269,7 @@ public class RegexTester extends CommonSample {
         }
         sb.insert(0, "\n匹配总数: " + cnt);
         sb.insert(0, "\t直接匹配判断: " + sourceText.matches(regexText));
-        if (isReplaceCheckBox.isSelected() && replaceText.length() != 0) {
+        if (isReplaceCheckBox.isSelected() && !replaceText.isEmpty()) {
             m.appendTail(rsb);
             sb.append("\n\n替换匹配后内容: \n").append(rsb);
         }
