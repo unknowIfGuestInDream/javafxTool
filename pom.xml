@@ -150,7 +150,7 @@
         <jaxb.version>4.0.5</jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.3</jython.version>
-        <violations.version>1.156.8</violations.version>
+        <violations.version>1.157.0</violations.version>
         <asm.version>9.6</asm.version>
         <pmd.version>6.55.0</pmd.version>
         <bytebuddy.version>1.14.12</bytebuddy.version>
