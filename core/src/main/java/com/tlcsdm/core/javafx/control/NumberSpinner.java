@@ -43,10 +43,11 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-import javax.swing.JSpinner;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Objects;
+
+import javax.swing.JSpinner;
 
 /**
  * JavaFX Control that behaves like a {@link JSpinner} known in Swing. The
