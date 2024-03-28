@@ -27,11 +27,10 @@
 
 package com.tlcsdm.core.logging.logback;
 
-import org.xml.sax.Attributes;
-
 import ch.qos.logback.core.joran.action.BaseModelAction;
 import ch.qos.logback.core.joran.spi.SaxEventInterpretationContext;
 import ch.qos.logback.core.model.Model;
+import org.xml.sax.Attributes;
 
 /**
  * Logback {@link BaseModelAction} for {@code <workEnv>} tags. Allows a section of
