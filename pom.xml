@@ -64,7 +64,7 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>3.2.1</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
@@ -117,7 +117,7 @@
         <commons-crypto.version>1.2.0</commons-crypto.version>
         <commons-imaging.version>1.0-alpha3</commons-imaging.version>
         <commons-codec.version>1.16.1</commons-codec.version>
-        <commons-logging.version>1.3.0</commons-logging.version>
+        <commons-logging.version>1.3.1</commons-logging.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <log4j2.version>2.23.1</log4j2.version>
@@ -150,8 +150,8 @@
         <jaxb.version>4.0.5</jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.3</jython.version>
-        <violations.version>1.156.8</violations.version>
-        <asm.version>9.6</asm.version>
+        <violations.version>1.157.0</violations.version>
+        <asm.version>9.7</asm.version>
         <pmd.version>7.0.0</pmd.version>
         <bytebuddy.version>1.14.12</bytebuddy.version>
         <tess4j.version>5.11.0</tess4j.version>
