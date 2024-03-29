@@ -74,6 +74,7 @@
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <license-maven-plugin.version>2.4.0</license-maven-plugin.version>
+        <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
         <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
         <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
@@ -1345,6 +1346,40 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>net.revelc.code</groupId>
+                <artifactId>impsort-maven-plugin</artifactId>
+                <configuration>
+                    <lineEnding>LF</lineEnding>
+                    <groups>*,java.,javax.,org.junit.</groups>
+                    <staticGroups>*</staticGroups>
+                    <staticAfter>true</staticAfter>
+                    <removeUnused>true</removeUnused>
+                    <compliance>${maven.compiler.source}</compliance>
+                    <joinStaticWithNonStatic>false</joinStaticWithNonStatic>
+                    <!-- store outside of target to speed up formatting when mvn clean is used -->
+                    <cachedir>.cache/impsort-maven-plugin-${impsort-maven-plugin.version}</cachedir>
+                    <excludes>
+                        <exclude>**/module-info.java</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sort-imports</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>impsort-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -1544,6 +1579,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>net.revelc.code</groupId>
+                    <artifactId>impsort-maven-plugin</artifactId>
+                    <version>${impsort-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

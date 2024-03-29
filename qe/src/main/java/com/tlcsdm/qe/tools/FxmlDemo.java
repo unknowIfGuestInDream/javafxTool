@@ -69,9 +69,6 @@ import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -79,6 +76,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * 测试用，测试fxml集成.
