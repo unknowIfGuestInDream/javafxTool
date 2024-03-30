@@ -35,11 +35,12 @@ import javafx.scene.control.TextInputControl;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * @author unknowIfGuestInDream
