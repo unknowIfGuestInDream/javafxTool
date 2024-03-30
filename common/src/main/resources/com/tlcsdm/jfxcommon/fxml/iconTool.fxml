@@ -85,8 +85,8 @@
                                 <ChoiceBox fx:id="iconFormatChoiceBox" prefWidth="73.0"/>
                                 <Label text="图片前缀："/>
                                 <TextField fx:id="iconNameTextField" prefWidth="80.0" promptText="默认为Icon"/>
-                                <CheckBox fx:id="iosIconCheckBox" mnemonicParsing="false" selected="true" text="IOS"/>
-                                <CheckBox fx:id="androidCheckBox" mnemonicParsing="false" selected="true"
+                                <CheckBox fx:id="iosIconCheckBox" mnemonicParsing="false" selected="false" text="IOS"/>
+                                <CheckBox fx:id="androidCheckBox" mnemonicParsing="false" selected="false"
                                           text="Android"/>
                                 <Button fx:id="buildIconButton" mnemonicParsing="false" onAction="#buildIconAction"
                                         text="一键生成"/>
