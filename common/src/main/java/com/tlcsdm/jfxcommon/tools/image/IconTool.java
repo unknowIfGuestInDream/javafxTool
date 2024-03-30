@@ -69,6 +69,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.Notifications;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -77,8 +78,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
 
 /**
  * 图标生成工具.
@@ -153,7 +152,7 @@ public class IconTool extends CommonSample {
         "48*48", "50*50", "57*57", "58*58", "60*60", "64*64", "72*72", "76*76", "80*80", "87*87", "90*90", "96*96",
         "100*100", "108*108", "114*114", "120*120", "128*128", "144*144", "152*152", "155*155", "167*167",
         "180*180", "192*192", "256*256", "512*512"};
-    private final String[] iconFormatStrings = new String[]{"png", "jpg", "gif", "jpeg", "bmp"};
+    private final String[] iconFormatStrings = new String[]{"png", "jpg", "gif", "jpeg", "bmp", "ico", "icns", "xpm"};
     private final Positions[] watermarkPositions = Positions.values();
     private Notifications notificationBuilder;
 
