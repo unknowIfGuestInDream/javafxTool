@@ -40,7 +40,7 @@ class YuiCompressTest {
     private final String jsCode = """
         /*示例代码*/
         function echo(stringA,stringB){
-        	var hello="你好";
+        	var hello="hah";
         	alert("hello world");
         }
         /*示例代码*/
@@ -68,9 +68,9 @@ class YuiCompressTest {
 
     @Test
     void compressJsWithCode() {
-        Assertions.assertEquals("function echo(c,b){var a=\"你好\";alert(\"hello world\")};",
+        Assertions.assertEquals("function echo(c,b){var a=\"hah\";alert(\"hello world\")};",
             YuiCompressUtil.compressJS(jsCode));
-        Assertions.assertEquals("function echo(stringA,stringB){var hello=\"你好\";alert(\"hello world\")};",
+        Assertions.assertEquals("function echo(stringA,stringB){var hello=\"hah\";alert(\"hello world\")};",
             YuiCompressUtil.compressJS(jsCode, -1, false, false, false, false));
     }
 
