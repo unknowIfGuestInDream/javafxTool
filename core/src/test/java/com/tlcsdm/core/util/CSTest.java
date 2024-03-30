@@ -31,18 +31,16 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author unknowIfGuestInDream
@@ -53,7 +51,7 @@ class CSTest {
     void dom4jParse() throws DocumentException {
         SAXReader reader = new SAXReader();
         Document doc = reader.read(ResourceUtil.getResource("util/sample.mtpj").getPath());
-        System.out.println(doc.asXML());
+        //System.out.println(doc.asXML());
     }
 
     @Test
