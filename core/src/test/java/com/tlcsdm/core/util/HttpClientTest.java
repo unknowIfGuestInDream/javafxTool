@@ -108,6 +108,11 @@ class HttpClientTest {
             HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.body());
+
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            .thenApply(HttpResponse::body)
+            .thenAccept(System.out::println)
+            .join();
     }
 
     //HttpURLConnection的 Java HTTP GET 请求
