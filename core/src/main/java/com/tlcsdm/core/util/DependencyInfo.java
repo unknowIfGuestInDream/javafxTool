@@ -214,7 +214,11 @@ public class DependencyInfo {
 
             new Dependency("net.jonathangiles.tools", "teenyhttpd", "1.0.5", false,
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
-                "http://www.opensource.org/licenses/mit-license.php"));
+                "http://www.opensource.org/licenses/mit-license.php"),
+
+            new Dependency("com.cedarsoftware", "java-util", "2.4.8", false,
+                "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     public static class Dependency {
