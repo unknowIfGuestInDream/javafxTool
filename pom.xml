@@ -172,6 +172,7 @@
         <plantuml.version>1.2024.3</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
+        <java-util.version>2.4.8</java-util.version>
     </properties>
 
     <issueManagement>
@@ -1075,6 +1076,11 @@
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
                 <version>${checkstyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cedarsoftware</groupId>
+                <artifactId>java-util</artifactId>
+                <version>${java-util.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
