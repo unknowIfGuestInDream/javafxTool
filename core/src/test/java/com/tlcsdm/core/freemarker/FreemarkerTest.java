@@ -65,9 +65,15 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.utility.StringUtil;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -76,14 +82,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class FreemarkerTest {
@@ -434,6 +432,39 @@ public class FreemarkerTest {
         Map<String, Object> map = new HashMap<>();
         InputSource is = new InputSource(ResourceUtil.getResource("freemarker/test.xml").openStream());
         map.put("root", NodeModel.parse(is));
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    /**
+     * javabean需要有get方法才能获取值.
+     */
+    @Test
+    public void javabean() throws IOException, TemplateException {
+        Template template = configuration.getTemplate("javabean.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        Book book = new Book();
+        book.setId("111");
+        book.setName("Java");
+        book.setPages(30);
+        map.put("book", book);
+
+        Category category = new Category();
+        Book book1 = new Book();
+        book1.setId("222");
+        book1.setName("C++");
+        book1.setPages(20);
+        category.getBooks().add(book);
+        category.getBooks().add(book1);
+
+        Book book2 = new Book();
+        book2.setId("333");
+        book2.setName("Python");
+        book2.setPages(10);
+        category.setName("Language");
+        category.setBook(book2);
+        map.put("category", category);
         template.process(map, stringWriter);
         System.out.println(stringWriter);
     }
