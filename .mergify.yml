@@ -1,28 +1,53 @@
 pull_request_rules:
+  - name: Notify when a PR is removed from the queue
+    description: >-
+      Notify the PR author when its pull request is removed from the merge
+      queue.
+    conditions:
+      - queue-dequeue-reason != none
+      - queue-dequeue-reason != pr-merged
+    actions:
+      comment:
+        message: >
+          Hey @{{author}}, your pull request has been dequeued due to the
+          following reason: {{queue_dequeue_reason}}.
+
+          Sorry about that, but you can requeue the PR by using `@mergifyio
+          requeue` if you think this was a mistake.
+  - name: Add a queue label when PR is queued
+    description: Toggle the queue label when a pull request is (un)queued.
+    conditions:
+      - queue-position > 0
+    actions:
+      label:
+        toggle:
+          - merge-queued
   - name: Automatic welcome on new pr
     conditions:
       - author!=unknowIfGuestInDream
       - author!=dependabot[bot]
-      - "-closed"
+      - '-closed'
     actions:
       comment:
-        message: |
+        message: >
           Thanks for opening this pull request!
-          Please check out the [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md).
+
+          Please check out the [Contributing
+          Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md).
   - name: Assign author
     conditions:
-      - "-closed"
-      - "#assignee=0"
+      - '-closed'
+      - '#assignee=0'
     actions:
       assign:
         users:
-          - "{{author}}"
+          - '{{author}}'
   - name: Assign Reviewer
     conditions:
       - author!=unknowIfGuestInDream
-      - "-draft"
-      - "-closed"
-      - "#review-requested=0"
+      - '-draft'
+      - '-closed'
+      - '#review-requested=0'
     actions:
       request_reviews:
         users:
@@ -85,23 +110,29 @@ pull_request_rules:
           - test
   - name: Title Validator comment
     conditions:
-      - "status-failure=Title Validator"
-      - "-closed"
-      - "-merged"
+      - status-failure=Title Validator
+      - '-closed'
+      - '-merged'
     actions:
       comment:
-        message: |
+        message: >
           @{{author}}
+
           Wrong PR Title: {{title}}
-          Please check [Contributing Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md) for more information.
-          The title needs to start with (docs|feat|test|style|build|chore|fix|revert|ci|release|bot)
+
+          Please check [Contributing
+          Guidelines](https://github.com/unknowIfGuestInDream/javafxTool/blob/master/CONTRIBUTING.md)
+          for more information.
+
+          The title needs to start with
+          (docs|feat|test|style|build|chore|fix|revert|ci|release|bot)
   - name: mergefreeze check comment
     conditions:
-      - "status-failure=mergefreeze"
+      - status-failure=mergefreeze
       - author!=dependabot[bot]
       - author!=imgbot[bot]
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -109,24 +140,27 @@ pull_request_rules:
           The current code is frozen, please wait for the unfreeze to merge.
   - name: GitGuardian check comment
     conditions:
-      - "status-failure=GitGuardian Security Checks"
+      - status-failure=GitGuardian Security Checks
       - author!=dependabot[bot]
       - author!=imgbot[bot]
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
-        message: |
+        message: >
           @{{author}}
-          Your commit has API keys, passwords, certificates, encryption keys and other sensitive data!
+
+          Your commit has API keys, passwords, certificates, encryption keys and
+          other sensitive data!
+
           Please remove this sensitive data.
   - name: Build check comment
     conditions:
-      - "status-failure=build (17)"
+      - status-failure=build (17)
       - author!=dependabot[bot]
       - author!=imgbot[bot]
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -135,11 +169,11 @@ pull_request_rules:
           Please confirm that the compilation is passed before submitting.
   - name: Lint check comment
     conditions:
-      - "status-failure=Lint Code Base"
+      - status-failure=Lint Code Base
       - author!=dependabot[bot]
       - author!=imgbot[bot]
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -148,23 +182,26 @@ pull_request_rules:
           Please modify the code specifications according to the instructions.
   - name: Dependency-review check comment
     conditions:
-      - "status-failure=dependency-review"
+      - status-failure=dependency-review
       - author!=dependabot[bot]
       - author!=imgbot[bot]
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
-        message: |
+        message: >
           @{{author}}
-          Your commit contains known known-vulnerable versions or GPL-3.0 LICENSE packages, which are not allowed.
+
+          Your commit contains known known-vulnerable versions or GPL-3.0
+          LICENSE packages, which are not allowed.
+
           Please update or remove these packages before submitting.
   - name: conflict comment
     conditions:
-      - "-closed"
-      - "-draft"
-      - "-merged"
-      - "conflict"
+      - '-closed'
+      - '-draft'
+      - '-merged'
+      - conflict
     actions:
       comment:
         message: |
@@ -177,10 +214,10 @@ pull_request_rules:
       - status-success=dependency-review
       - status-success=build (17)
       - status-success=GitGuardian Security Checks
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -192,8 +229,8 @@ pull_request_rules:
       - author!=dependabot[bot]
       - author!=imgbot[bot]
       - label=size/XXL
-      - "-closed"
-      - "-merged"
+      - '-closed'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -203,7 +240,7 @@ pull_request_rules:
     conditions:
       - author!=unknowIfGuestInDream
       - author!=dependabot[bot]
-      - "#approved-reviews-by>=1"
+      - '#approved-reviews-by>=1'
       - status-success=Title Validator
       - status-success=dependency-review
       - status-success=build (17)
@@ -211,10 +248,10 @@ pull_request_rules:
       - status-success=mergefreeze
       - status-success=WIP
       - label!=invalid
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -225,46 +262,29 @@ pull_request_rules:
           Thank you @{{author}} for your contributions!
       merge:
         method: squash
-  #  - name: Automatic merge
-  #    conditions:
-  #      - author=unknowIfGuestInDream
-  #      - status-success=Title Validator
-  #      - status-success=dependency-review
-  #      - status-success=build (17)
-  #      - status-success=GitGuardian Security Checks
-  #      - status-success=mergefreeze
-  #      - status-success=WIP
-  #      - label!=invalid
-  #      - "-closed"
-  #      - "-draft"
-  #      - "-conflict"
-  #      - "-merged"
-  #    actions:
-  #      merge:
-  #        method: squash
   - name: Automatic merge dependabot[bot]
     conditions:
       - author=dependabot[bot]
-      - "#approved-reviews-by>=1"
-      - "-status-failure=Title Validator"
+      - '#approved-reviews-by>=1'
+      - '-status-failure=Title Validator'
       - label!=invalid
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       merge:
         method: squash
   - name: Extra dependabot[bot]
     conditions:
       - author=dependabot[bot]
-      - "-status-failure=Title Validator"
+      - '-status-failure=Title Validator'
       - label!=invalid
       - label!=github_actions
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       comment:
         message: |
@@ -275,33 +295,33 @@ pull_request_rules:
   - name: automatic merge for ImgBot pull requests
     conditions:
       - author=imgbot[bot]
-      - "-status-failure=Title Validator"
-      - "#approved-reviews-by>=1"
+      - '-status-failure=Title Validator'
+      - '#approved-reviews-by>=1'
       - label!=invalid
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       merge:
         method: squash
   - name: automatic update for PR marked as “Ready-to-Go“
     conditions:
-      - -conflict # skip PRs with conflicts
-      - -draft # filter-out GH draft PRs
-      - -closed
-      - -merged
+      - '-conflict'
+      - '-draft'
+      - '-closed'
+      - '-merged'
       - label=Ready-to-Go
     actions:
-      update:
+      update: 
   - name: prepare for release
     conditions:
       - author!=unknowIfGuestInDream
       - label=release
-      - "-closed"
-      - "-draft"
-      - "-conflict"
-      - "-merged"
+      - '-closed'
+      - '-draft'
+      - '-conflict'
+      - '-merged'
     actions:
       comment:
         message: |
