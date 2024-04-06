@@ -115,6 +115,34 @@ class HttpClientTest {
             .join();
     }
 
+    @Test
+    void put() throws IOException, InterruptedException {
+        var values = new HashMap<String, String>() {{
+            put("name", "John Doe");
+            put("occupation", "gardener");
+        }};
+
+        var objectMapper = new ObjectMapper();
+        String requestBody = objectMapper
+            .writeValueAsString(values);
+        HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
+            .sslContext(SSLContextBuilder.create().build()).connectTimeout(Duration.ofMillis(3000)).build();
+        HttpRequest request = HttpRequest.newBuilder()
+            .headers("Content-Type", "application/json")
+            .uri(URI.create("http://localhost:3010/put"))
+            .PUT(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
+            .build();
+        HttpResponse<String> response = client.send(request,
+            HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.body());
+
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            .thenApply(HttpResponse::body)
+            .thenAccept(System.out::println)
+            .join();
+    }
+
     //HttpURLConnection的 Java HTTP GET 请求
     @Test
     void connGet() {
