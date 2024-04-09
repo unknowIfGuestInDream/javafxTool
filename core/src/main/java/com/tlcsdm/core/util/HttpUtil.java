@@ -64,6 +64,25 @@ public class HttpUtil {
     }
 
     /**
+     * PUT请求.
+     */
+    public static String doPut(String url, Map<String, String> header, String body) {
+        HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).PUT(bodyPublisher);
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * DELETE请求.
+     */
+    public static String doDelete(String url, Map<String, String> header) {
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).DELETE();
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
      * form表单.
      */
     public static String doPostForm(String url, Map<String, String> header, Map<String, String> pd, Charset charset) {
@@ -93,7 +112,7 @@ public class HttpUtil {
                 builder.setHeader(key, header.get(key));
             }
         }
-        builder.setHeader("Content-Type", "application/json");
+        // The Content-Type is set conditionally in the calling methods
         builder.setHeader("User-Agent",
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50");
     }
