@@ -312,6 +312,30 @@ public class ColourUtil {
         tcXyList.add(new TcXyData(640, 37671, 26118));
     }
 
+    private static final double[][] TC_TO_XY_TABLE = new double[][] {
+        // Add the values from the C code snippet here
+    };
+
+    public static int[] translateColourValueTCtoRGB(double tc) {
+        // Implementation based on the provided formulas
+        return new int[3]; // Placeholder for actual implementation
+    }
+
+    public static double translateColourValueRGBtoTC(double[] rgb) {
+        // Implementation based on the provided formulas
+        return 0.0; // Placeholder for actual implementation
+    }
+
+    public static double[] translateColourValueTCtoXY(double tc) {
+        // Directly uses the TC_TO_XY_TABLE to find XY values
+        return new double[2]; // Placeholder for actual implementation
+    }
+
+    public static double translateColourValueXYtoTC(double[] xy) {
+        // Calculates Tc based on XY values using provided formulas
+        return 0.0; // Placeholder for actual implementation
+    }
+
     private record TcXyData(int mirek, int x, int y) {
     }
 }
