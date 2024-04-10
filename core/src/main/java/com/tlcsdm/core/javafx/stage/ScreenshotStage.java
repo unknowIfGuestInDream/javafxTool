@@ -91,7 +91,7 @@ public class ScreenshotStage extends Stage {
         if (hideMainStage) {
             // 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
             // 可以通过 FxApp.primaryStage.setIconified(true); 来隐藏窗口
-            FxApp.primaryStage.setOpacity(0);
+            OSUtil.minimizeStage(FxApp.primaryStage);
         }
 
         screenScaleX = Screen.getPrimary().getOutputScaleX();
@@ -328,7 +328,7 @@ public class ScreenshotStage extends Stage {
     private void endScreenshot() {
         rootPane.setVisible(false);
         if (hideMainStage) {
-            FxApp.primaryStage.setOpacity(1);
+            // Previously set to visible again, now handled by OSUtil.minimizeStage
         }
         this.hide();
     }
