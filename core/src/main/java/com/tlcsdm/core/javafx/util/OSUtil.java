@@ -34,6 +34,7 @@ import com.tlcsdm.core.util.Win32Util;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -179,6 +180,21 @@ public class OSUtil {
                 return;
             }
             Win32Util.setWinIconTop(title);
+        }
+    }
+
+    /**
+     * Minimizes the given stage based on the operating system.
+     * @param stage The stage to minimize.
+     */
+    public static void minimizeStage(Stage stage) {
+        OS currentOS = getOS();
+        if (currentOS == OS.MAC) {
+            // macOS-specific logic to minimize or hide the stage
+            // Placeholder for macOS-specific logic
+        } else {
+            // Default behavior for other OSes
+            stage.setIconified(true);
         }
     }
 
