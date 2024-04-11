@@ -75,6 +75,7 @@ public class FreemarkerUtil {
                 throw new UnExpectedResultException("Please do not manually call the init method.");
             }
             configuration = new Configuration(Configuration.VERSION_2_3_32);
+            configuration.setSharedVariable("memento", new MementoDirective());
         }
         return configuration;
     }
