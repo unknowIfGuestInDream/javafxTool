@@ -313,7 +313,7 @@ public class ColourUtil {
     }
 
     private static final double[][] TC_TO_XY_TABLE = new double[][] {
-        // Add the values from the C code snippet here
+        {1000, 0.649926, 0.347373}, {2000, 0.382051, 0.383735}, {3000, 0.294976, 0.293084}, {4000, 0.251537, 0.252632}, {5000, 0.226676, 0.238825}, {6000, 0.210096, 0.230874}, {7000, 0.197830, 0.225496}, {8000, 0.188631, 0.221716}, {9000, 0.181464, 0.218934}, {10000, 0.175683, 0.216615}
     };
 
     public static int[] translateColourValueTCtoRGB(double tc) {
