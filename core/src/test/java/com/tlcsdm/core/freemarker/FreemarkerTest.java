@@ -83,6 +83,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import com.tlcsdm.core.Memento;
+import com.tlcsdm.core.freemarker.method.MementoMethod;
+
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class FreemarkerTest {
     private static Configuration configuration;
