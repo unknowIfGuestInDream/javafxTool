@@ -317,8 +317,34 @@ public class ColourUtil {
     };
 
     public static int[] translateColourValueTCtoRGB(double tc) {
-        // Implementation based on the provided formulas
-        return new int[3]; // Placeholder for actual implementation
+        // Placeholder for actual implementation
+        // This is a simplified version of the algorithm and may not cover all cases
+        double temperature = tc / 100.0;
+        double red, green, blue;
+
+        if (temperature <= 66) {
+            red = 255;
+            green = temperature - 2;
+            green = 99.4708025861 * Math.log(green) - 161.1195681661;
+            if (temperature <= 19) {
+                blue = 0;
+            } else {
+                blue = temperature - 10;
+                blue = 138.5177312231 * Math.log(blue) - 305.0447927307;
+            }
+        } else {
+            red = temperature - 60;
+            red = 329.698727446 * Math.pow(red, -0.1332047592);
+            green = temperature - 60;
+            green = 288.1221695283 * Math.pow(green, -0.0755148492);
+            blue = 255;
+        }
+
+        return new int[]{
+            Math.min(Math.max((int)red, 0), 255),
+            Math.min(Math.max((int)green, 0), 255),
+            Math.min(Math.max((int)blue, 0), 255)
+        };
     }
 
     public static double translateColourValueRGBtoTC(double[] rgb) {
