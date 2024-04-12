@@ -38,6 +38,22 @@ import java.util.List;
  */
 public class ColourUtil {
 
+    public static final int DALI209_CHANNEL_NUMBER_XY = 2;
+    public static final int DALI209_CHANNEL_NUMBER_RGBWAF = 5;
+    public static final double LAMP_RGB_XY_XR = 0.640;
+    public static final double LAMP_RGB_XY_XG = 0.300;
+    public static final double LAMP_RGB_XY_XB = 0.150;
+    public static final double LAMP_RGB_XY_YR = 0.330;
+    public static final double LAMP_RGB_XY_YG = 0.600;
+    public static final double LAMP_RGB_XY_YB = 0.060;
+    public static final double LAMP_RGB_XY_ZR = 0.030;
+    public static final double LAMP_RGB_XY_ZG = 0.100;
+    public static final double LAMP_RGB_XY_ZB = 0.790;
+
+    private static final double[][] gs_convert_tc_to_xy_table = {
+        // Add the conversion table data here
+    };
+
     private ColourUtil() {
     }
 
@@ -314,4 +330,47 @@ public class ColourUtil {
 
     private record TcXyData(int mirek, int x, int y) {
     }
+
+    /**
+     * Translate Tc to RGB.
+     */
+    public static int[] R_LAMP_TranslateColourValueTCtoRGB(double tc) {
+        // Implementation goes here
+    }
+
+    /**
+     * Translate RGB to Tc.
+     */
+    public static double R_LAMP_TranslateColourValueRGBtoTC(int red, int green, int blue) {
+        // Implementation goes here
+    }
+
+    /**
+     * Translate Tc to XY.
+     */
+    public static double[] R_LAMP_TranslateColourValueTCtoXY(double tc) {
+        // Implementation goes here
+    }
+
+    /**
+     * Translate XY to Tc.
+     */
+    public static double R_LAMP_TranslateColourValueXYtoTC(double coorX, double coorY) {
+        // Implementation goes here
+    }
+
+    /**
+     * Translate XY to RGB.
+     */
+    public static int[] R_LAMP_TranslateColourValueXYtoRGB(double coorX, double coorY) {
+        // Implementation goes here
+    }
+
+    /**
+     * Translate RGB to XY.
+     */
+    public static double[] R_LAMP_TranslateColourValueRGBtoXY(int red, int green, int blue) {
+        // Implementation goes here
+    }
+
 }
