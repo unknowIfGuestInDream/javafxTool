@@ -335,7 +335,14 @@ public class ColourUtil {
      * Translate Tc to RGB.
      */
     public static int[] R_LAMP_TranslateColourValueTCtoRGB(double tc) {
-        // Implementation goes here
+        // This is a placeholder implementation and may not accurately reflect real-world usage
+        int[] rgb = new int[3];
+        // Assuming tc is in the range 1000 to 40000
+        double normalizedTc = (tc - 1000) / 39000;
+        rgb[0] = (int) (255 * normalizedTc); // Simplified calculation for demonstration
+        rgb[1] = (int) (255 * (1 - normalizedTc));
+        rgb[2] = (int) (255 * normalizedTc);
+        return rgb;
     }
 
     /**
