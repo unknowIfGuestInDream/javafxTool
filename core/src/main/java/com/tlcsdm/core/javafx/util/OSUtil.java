@@ -35,6 +35,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import java.lang.reflect.Method;
 
 import java.io.File;
 import java.io.IOException;
@@ -190,8 +191,16 @@ public class OSUtil {
     public static void minimizeStage(Stage stage) {
         OS currentOS = getOS();
         if (currentOS == OS.MAC) {
-            // macOS-specific logic to minimize or hide the stage
-            // Placeholder for macOS-specific logic
+            // macOS-specific logic to minimize or hide the stage using reflection for compatibility
+            try {
+                Class<?> appClass = Class.forName("com.apple.eawt.Application");
+                Method getApplication = appClass.getMethod("getApplication");
+                Object application = getApplication.invoke(null);
+                Method setDockIconVisible = appClass.getMethod("setDockIconVisible", boolean.class);
+                setDockIconVisible.invoke(application, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // Default behavior for other OSes
             stage.setIconified(true);
