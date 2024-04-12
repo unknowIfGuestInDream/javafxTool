@@ -41,4 +41,10 @@ public interface TemplateLoaderService {
      */
     TemplateLoader getTemplateLoader();
 
+    /**
+     * Registers the MementoMethod with the Freemarker configuration.
+     * @param mementoMethod The MementoMethod to register.
+     */
+    void registerMementoMethod(MementoMethod mementoMethod);
+
 }
