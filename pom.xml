@@ -104,7 +104,7 @@
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.27</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <logback-classic.version>1.5.4</logback-classic.version>
+        <logback-classic.version>1.5.5</logback-classic.version>
         <slf4j-api.version>2.0.12</slf4j-api.version>
         <commons-io.version>2.16.1</commons-io.version>
         <commons-configuration2.version>2.10.1</commons-configuration2.version>
