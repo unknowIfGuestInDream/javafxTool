@@ -36,6 +36,7 @@ import com.tlcsdm.core.freemarker.directive.RegorDirective;
 import com.tlcsdm.core.freemarker.directive.RepeatDirective;
 import com.tlcsdm.core.freemarker.directive.StyleDirective;
 import com.tlcsdm.core.freemarker.directive.UpperDirective;
+import com.tlcsdm.core.freemarker.directive.MementoDirective;
 import com.tlcsdm.core.freemarker.format.AppMetaTemplateDateFormatFactory;
 import com.tlcsdm.core.freemarker.format.BaseNTemplateNumberFormatFactory;
 import com.tlcsdm.core.freemarker.format.EpochMillisDivTemplateDateFormatFactory;
@@ -96,6 +97,7 @@ public class FreemarkerTest {
             configuration.setDefaultEncoding(CoreConstant.ENCODING_UTF_8);
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setSetting(Configuration.CACHE_STORAGE_KEY, "strong:20,soft:250");
+            configuration.setSharedVariable("memento", new MementoDirective());
         } catch (IORuntimeException | IOException | TemplateException e) {
             e.printStackTrace();
         }
