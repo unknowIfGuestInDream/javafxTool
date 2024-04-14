@@ -469,6 +469,19 @@ public class FreemarkerTest {
         System.out.println(stringWriter);
     }
 
+    @Test
+    public void objectWrapper() throws IOException, TemplateException {
+        configuration.setObjectWrapper(new MementoObjectWrapper(configuration.getIncompatibleImprovements()));
+        Template template = configuration.getTemplate("memento.ftl");
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> map = new HashMap<>();
+        InputSource is = new InputSource(ResourceUtil.getResource("freemarker/memento.xml").openStream());
+        Memento memento = MementoService.loadSettingToFile(is.getByteStream());
+        map.put("root", memento);
+        template.process(map, stringWriter);
+        System.out.println(stringWriter);
+    }
+
     private String getTemplateOutput(Template t) throws TemplateException, IOException {
         StringWriter sw = new StringWriter();
         t.process(null, sw);
