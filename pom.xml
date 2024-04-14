@@ -64,7 +64,7 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>3.2.3</maven-gpg-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
@@ -105,7 +105,7 @@
         <hutool.version>5.8.27</hutool.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <logback-classic.version>1.5.5</logback-classic.version>
-        <slf4j-api.version>2.0.12</slf4j-api.version>
+        <slf4j-api.version>2.0.13</slf4j-api.version>
         <commons-io.version>2.16.1</commons-io.version>
         <commons-configuration2.version>2.10.1</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -123,7 +123,7 @@
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <log4j2.version>2.23.1</log4j2.version>
-        <log4j-over-slf4j.version>2.0.12</log4j-over-slf4j.version>
+        <log4j-over-slf4j.version>2.0.13</log4j-over-slf4j.version>
         <guava.version>33.1.0-jre</guava.version>
         <caffeine.version>3.1.8</caffeine.version>
         <java-diff-utils.version>4.12</java-diff-utils.version>
