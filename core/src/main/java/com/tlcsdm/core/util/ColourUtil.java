@@ -30,6 +30,7 @@ package com.tlcsdm.core.util;
 import java.awt.color.ColorSpace;
 import java.util.ArrayList;
 import java.util.List;
+import com.tlcsdm.core.util.ColorValue;
 
 /**
  * Conversion tool for RGB, color temperature and coordinates.
@@ -310,6 +311,36 @@ public class ColourUtil {
         tcXyList.add(new TcXyData(620, 37251, 26303));
         tcXyList.add(new TcXyData(630, 37464, 26212));
         tcXyList.add(new TcXyData(640, 37671, 26118));
+    }
+
+    public static ColorValue translateColourValueTCtoRGB(ColorValue value) {
+        // Implementation of TC to RGB conversion logic using ColorValue
+        return value; // Placeholder return
+    }
+
+    public static ColorValue translateColourValueRGBtoTC(ColorValue value) {
+        // Implementation of RGB to TC conversion logic using ColorValue
+        return value; // Placeholder return
+    }
+
+    public static ColorValue translateColourValueTCtoXY(ColorValue value) {
+        // Implementation of TC to XY conversion logic using ColorValue
+        return value; // Placeholder return
+    }
+
+    public static ColorValue translateColourValueXYtoTC(ColorValue value) {
+        // Implementation of XY to TC conversion logic using ColorValue
+        return value; // Placeholder return
+    }
+
+    public static ColorValue translateColourValueXYtoRGB(ColorValue value) {
+        // Implementation of XY to RGB conversion logic using ColorValue
+        return value; // Placeholder return
+    }
+
+    public static ColorValue translateColourValueRGBtoXY(ColorValue value) {
+        // Implementation of RGB to XY conversion logic using ColorValue
+        return value; // Placeholder return
     }
 
     private record TcXyData(int mirek, int x, int y) {
