@@ -314,8 +314,15 @@ public class ColourUtil {
     }
 
     public static ColorValue translateColourValueTCtoRGB(ColorValue value) {
-        // Implementation of TC to RGB conversion logic using ColorValue
-        return value; // Placeholder return
+        // Convert TC to RGB values
+        int[] rgb = tcToRgb(value.getTc());
+        return new ColorValue(rgb);
+    }
+
+    private static int[] tcToRgb(int tc) {
+        // Placeholder for TC to RGB conversion logic
+        // This method should contain the actual conversion logic
+        return new int[]{0, 0, 0}; // Placeholder return
     }
 
     public static ColorValue translateColourValueRGBtoTC(ColorValue value) {
