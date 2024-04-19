@@ -172,7 +172,7 @@
         <plantuml.version>1.2024.4</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
-        <java-util.version>2.5.0</java-util.version>
+        <java-util.version>2.6.0</java-util.version>
     </properties>
 
     <issueManagement>
