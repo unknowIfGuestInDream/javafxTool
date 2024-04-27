@@ -20,7 +20,7 @@ jobs:
     steps:
     
     - name: Mirror the Github organization repos to Gitee.
-      uses: Yikun/gitee-mirror-action@v1.3
+      uses: Yikun/gitee-mirror-action@v1.4
       with:
         # 必选，需要同步的Github用户（源）
         src: github/unknowIfGuestInDream
