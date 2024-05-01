@@ -3,6 +3,7 @@ Shout out to our top contributors!
 
 - [unknowIfGuestInDream](https://github.com/unknowIfGuestInDream)
 - [DreamAwakenFateBroke](https://github.com/DreamAwakenFateBroke)
+- [sweep-ai[bot]](https://github.com/apps/sweep-ai)
 
 
-_Last updated: Mon, 01 Apr 24 00:46:53 +0000_
+_Last updated: Wed, 01 May 24 00:47:16 +0000_
