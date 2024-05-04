@@ -27,6 +27,7 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
@@ -122,6 +123,38 @@ class CsvTest {
             .print(new File(outPath), StandardCharsets.UTF_8);
         csvPrinter.printRecord("1", "8.3", "70", "10.3");
         csvPrinter.flush();
+    }
+
+    @Test
+    void readCie1931CC() throws IOException {
+        Reader in = new InputStreamReader(ResourceUtil.getResource("util/dali/cie_1931_2deg_xyz_cc.csv").openStream());
+        Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
+        for (CSVRecord record : records) {
+            String field_1 = record.get(0);
+            String field_2 = record.get(1);
+            String field_3 = record.get(2);
+            String field_4 = record.get(3);
+            System.out.println(field_1);
+            System.out.println(field_2);
+            System.out.println(field_3);
+            System.out.println(field_4);
+        }
+    }
+
+    @Test
+    void readCie1931Xyz() throws IOException {
+        Reader in = new InputStreamReader(ResourceUtil.getResource("util/dali/cie_1931_2deg_xyz.csv").openStream());
+        Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
+        for (CSVRecord record : records) {
+            String field_1 = record.get(0);
+            String field_2 = record.get(1);
+            String field_3 = record.get(2);
+            String field_4 = record.get(3);
+            System.out.println(field_1);
+            System.out.println(field_2);
+            System.out.println(field_3);
+            System.out.println(field_4);
+        }
     }
 
     enum Headers {
