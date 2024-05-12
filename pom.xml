@@ -173,6 +173,7 @@
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
         <java-util.version>2.9.0</java-util.version>
+        <eclipse-collections.version>11.1.0</eclipse-collections.version>
     </properties>
 
     <issueManagement>
@@ -1081,6 +1082,16 @@
                 <groupId>com.cedarsoftware</groupId>
                 <artifactId>java-util</artifactId>
                 <version>${java-util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.collections</groupId>
+                <artifactId>eclipse-collections-api</artifactId>
+                <version>${eclipse-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.collections</groupId>
+                <artifactId>eclipse-collections</artifactId>
+                <version>${eclipse-collections.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
