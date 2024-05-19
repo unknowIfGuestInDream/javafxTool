@@ -373,6 +373,11 @@
             <artifactId>eclipse-collections</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>black.ninia</groupId>
+            <artifactId>jep</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
