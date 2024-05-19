@@ -376,7 +376,7 @@
         <dependency>
             <groupId>black.ninia</groupId>
             <artifactId>jep</artifactId>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
