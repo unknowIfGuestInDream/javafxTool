@@ -86,7 +86,7 @@
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <!--  if you update the checkstyle version make sure you update the google_checks.xml inside the repository -->
         <checkstyle.version>10.17.0</checkstyle.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.10.2</junit.version>
