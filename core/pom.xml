@@ -378,6 +378,16 @@
             <artifactId>jep</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-bmp</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-icns</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

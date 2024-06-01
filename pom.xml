@@ -176,6 +176,7 @@
         <java-util.version>2.9.0</java-util.version>
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.0</jep.version>
+        <imageio.version>3.10.1</imageio.version>
     </properties>
 
     <issueManagement>
@@ -1124,6 +1125,16 @@
                 <groupId>black.ninia</groupId>
                 <artifactId>jep</artifactId>
                 <version>${jep.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.twelvemonkeys.imageio</groupId>
+                <artifactId>imageio-bmp</artifactId>
+                <version>${imageio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.twelvemonkeys.imageio</groupId>
+                <artifactId>imageio-icns</artifactId>
+                <version>${imageio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
