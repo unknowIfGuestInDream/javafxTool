@@ -98,7 +98,7 @@
         <lombok.version>1.18.32</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.2.5</poi-ooxml.version>
-        <freemarker.version>2.3.32</freemarker.version>
+        <freemarker.version>2.3.33</freemarker.version>
         <aviator.version>5.4.1</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
