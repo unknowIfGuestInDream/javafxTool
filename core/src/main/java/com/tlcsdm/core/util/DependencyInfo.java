@@ -59,7 +59,7 @@ public class DependencyInfo {
             new Dependency("org.apache.poi", "poi", "5.2.5", false, "https://poi.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.freemarker", "freemarker", "2.3.32", false, "https://freemarker.apache.org/",
+            new Dependency("org.freemarker", "freemarker", "2.3.33", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("ch.qos.logback", "logback", "1.5.6", true, "http://logback.qos.ch",

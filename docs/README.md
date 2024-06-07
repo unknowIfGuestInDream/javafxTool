@@ -12,7 +12,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | JavaFX                 | 21.0.3     | JavaFX                           |
 | controlsfx             | 11.2.1     | javafx UI控件                      |
 | poi-ooxml              | 5.2.5      | 用于Microsoft Documents的Java API   |
-| freemarker             | 2.3.32     | 模板引擎库                            |
+| freemarker             | 2.3.33     | 模板引擎库                            |
 | commons-lang3          | 3.14.0     | Java工具类库                         |
 | hutool                 | 5.8.28     | Java工具类库                         |
 | logback                | 1.5.6      | Java日志框架                         |
