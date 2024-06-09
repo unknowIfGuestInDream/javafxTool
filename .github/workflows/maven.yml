@@ -16,9 +16,10 @@ jobs:
       fail-fast: false
       matrix:
         java: [ '17', '21' ]
-        buildos: [ 'mac', 'linux', 'win' ]
-    runs-on: ubuntu-latest
-    continue-on-error: false
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        experimental: [ false ]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK ${{ matrix.Java }}
@@ -27,7 +28,15 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
           cache: maven
+      - name: Build with Maven in Mac
+        if: runner.os == 'Macos'
+        run: mvn -B package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=mac'
       - name: Build with Maven
-        run: mvn -B package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=${{ matrix.buildos }}'
+        if: runner.os != 'Macos'
+        run: |
+          echo "The operating system on the runner is $env:RUNNER_OS."
+          mvn -B package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
+      #      - name: Build with Maven
+      #        run: mvn -B package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
       - name: Test with Maven
-        run: mvn test --file pom.xml -DworkEnv=ci '-Djavafx.platform=${{ matrix.buildos }}'
+        run: mvn test --file pom.xml -DworkEnv=ci
