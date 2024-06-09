@@ -62,7 +62,6 @@ import com.gluonhq.richtextarea.model.TextDecoration;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -98,7 +97,7 @@ public class HighlightDemo extends Application {
         TextDecoration.builder().presets().fontFamily("Arial").fontWeight(BOLD).fontSize(16).build();
     private static final TextDecoration mono =
         TextDecoration.builder().presets().fontFamily("Monospaced").fontWeight(BOLD)
-            .fontPosture(ITALIC).background(Color.CORNFLOWERBLUE).build();
+            .fontPosture(ITALIC).background("#6495ED").build();
     private static final ParagraphDecoration parPreset =
         ParagraphDecoration.builder().presets().build();
 
