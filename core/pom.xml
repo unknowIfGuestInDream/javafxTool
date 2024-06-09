@@ -388,6 +388,16 @@
             <artifactId>imageio-icns</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-testlib</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
