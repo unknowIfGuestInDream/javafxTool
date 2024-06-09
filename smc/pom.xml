@@ -212,4 +212,99 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>exe</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>l4j-gui</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <headerType>gui</headerType>
+                                    <outfile>target/SmcTool.exe</outfile>
+                                    <downloadUrl>https://adoptium.net/?variant=openjdk17</downloadUrl>
+                                    <jar>target/${project.artifactId}-jar-with-dependencies.jar</jar>
+                                    <errTitle>Launching error</errTitle>
+                                    <icon>config/logo.ico</icon>
+                                    <classPath>
+                                        <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>
+                                        <preCp>anything</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <minVersion>17.0.0</minVersion>
+                                        <requires64Bit>true</requires64Bit>
+                                        <opts>
+                                            <opt>-Dfile.encoding=UTF-8</opt>
+                                            <opt>--add-exports java.base/java.lang=ALL-UNNAMED</opt>
+                                            <opt>--add-exports java.desktop/sun.awt=ALL-UNNAMED</opt>
+                                            <opt>--add-exports java.desktop/sun.java2d=ALL-UNNAMED</opt>
+                                        </opts>
+                                    </jre>
+                                    <versionInfo>
+                                        <fileVersion>${project.version}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <fileDescription>Smart Configuration Tool</fileDescription>
+                                        <copyright>MIT, ${maven.build.timestamp} ${project.organization.name}
+                                        </copyright>
+                                        <productVersion>${project.version}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
+                                        <companyName>${project.organization.name}</companyName>
+                                        <productName>SmcTool</productName>
+                                        <internalName>SmcTool</internalName>
+                                        <originalFilename>SmcTool.exe</originalFilename>
+                                    </versionInfo>
+                                    <!--                            <splash>-->
+                                    <!--                                <file>${basedir}/src/main/installer/images/splash.bmp</file>-->
+                                    <!--                                <waitForWindow>true</waitForWindow>-->
+                                    <!--                                <timeout>60</timeout>-->
+                                    <!--                                <timeoutErr>false</timeoutErr>-->
+                                    <!--                            </splash>-->
+                                    <messages>
+                                        <startupErr>Startup error</startupErr>
+                                        <launcherErr>Launcher Error</launcherErr>
+                                        <jreNotFoundErr>You need to download Java version 17 or higher.</jreNotFoundErr>
+                                        <jreVersionErr>You need to download Java version 17 or higher.</jreVersionErr>
+                                        <instanceAlreadyExistsMsg>Application is already running.
+                                        </instanceAlreadyExistsMsg>
+                                    </messages>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
