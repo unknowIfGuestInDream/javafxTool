@@ -80,7 +80,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-configuration2", "2.10.1", true,
+            new Dependency("org.apache.commons", "commons-configuration2", "2.11.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -144,7 +144,7 @@ public class DependencyInfo {
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
                 "MIT License", "http://www.sikulix.com/disclaimer/#license"),
 
-            new Dependency("com.googlecode.aviator", "aviator", "5.4.1", false,
+            new Dependency("com.googlecode.aviator", "aviator", "5.4.3", false,
                 "https://github.com/killme2008/aviator", "GNU LESSER GENERAL PUBLIC LICENSE",
                 "http://www.gnu.org/licenses/lgpl.html"),
 
@@ -180,7 +180,7 @@ public class DependencyInfo {
                 "https://github.com/gluonhq/rich-text-area",
                 "GPL-3.0 license", "http://www.gnu.org/licenses/gpl-3.0.html"),
 
-            new Dependency("io.github.typhon0", "AnimateFX", "1.2.4", false,
+            new Dependency("io.github.typhon0", "AnimateFX", "1.3.0", false,
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
