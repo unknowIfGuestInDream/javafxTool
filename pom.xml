@@ -178,7 +178,7 @@
         <java-util.version>2.9.0</java-util.version>
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.0</jep.version>
-        <imageio.version>3.10.1</imageio.version>
+        <imageio.version>3.11.0</imageio.version>
         <guice.version>7.0.0</guice.version>
     </properties>
 
