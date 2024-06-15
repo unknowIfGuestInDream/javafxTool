@@ -180,6 +180,7 @@
         <jep.version>4.2.0</jep.version>
         <imageio.version>3.11.0</imageio.version>
         <guice.version>7.0.0</guice.version>
+        <jmh.version>1.37</jmh.version>
     </properties>
 
     <issueManagement>
@@ -1148,6 +1149,16 @@
                 <groupId>com.google.inject.extensions</groupId>
                 <artifactId>guice-testlib</artifactId>
                 <version>${guice.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-core</artifactId>
+                <version>${jmh.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-generator-annprocess</artifactId>
+                <version>${jmh.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
