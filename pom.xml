@@ -81,6 +81,7 @@
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <exec-maven-plugin.version>3.3.0</exec-maven-plugin.version>
         <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <maven-project-info-reports-plugin.version>3.6.0</maven-project-info-reports-plugin.version>
         <git-commit-id-maven-plugin.version>9.0.0</git-commit-id-maven-plugin.version>
         <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
@@ -199,7 +200,7 @@
         </license>
     </licenses>
     <scm>
-        <connection>https://github.com/unknowIfGuestInDream/javafxTool.git</connection>
+        <connection>scm:git:git://github.com/unknowIfGuestInDream/javafxTool.git</connection>
         <url>https://github.com/unknowIfGuestInDream/javafxTool</url>
     </scm>
     <organization>
@@ -1197,6 +1198,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <forceCreation>true</forceCreation>
@@ -1734,6 +1739,11 @@
                     <artifactId>launch4j-maven-plugin</artifactId>
                     <version>${launch4j-maven-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -1896,5 +1906,27 @@
             </build>
         </profile>
     </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependencies</report>
+                            <report>team</report>
+                            <report>mailing-lists</report>
+                            <report>ci-management</report>
+                            <report>issue-management</report>
+                            <report>licenses</report>
+                            <report>scm</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
