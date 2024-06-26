@@ -134,7 +134,7 @@ public class DependencyInfo {
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.2", false,
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.3", false,
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
@@ -173,7 +173,7 @@ public class DependencyInfo {
             new Dependency("net.bytebuddy", "byte-buddy", "1.14.17", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.11.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.12.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.gluonhq", "rich-text-area", "1.1.3", false,
