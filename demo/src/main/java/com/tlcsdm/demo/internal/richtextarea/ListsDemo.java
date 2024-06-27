@@ -60,6 +60,7 @@ import com.gluonhq.richtextarea.model.Document;
 import com.gluonhq.richtextarea.model.ParagraphDecoration;
 import com.gluonhq.richtextarea.model.TextDecoration;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -106,7 +107,7 @@ public class ListsDemo extends Application {
             label.getStyleClass().add("numbered-list-label");
             return label;
         });
-        editor.setDocument(document);
+        editor.getActionFactory().open(document).execute(new ActionEvent());
 
         BorderPane root = new BorderPane(editor);
         Scene scene = new Scene(root, 600, 500);
