@@ -220,26 +220,15 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
+                        <artifactId>maven-shade-plugin</artifactId>
                         <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <archive>
-                                <manifest>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.tlcsdm.smc.SmcSampler</mainClass>
-                                </manifest>
-                            </archive>
+                                </transformer>
+                            </transformers>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>com.akathist.maven.plugins.launch4j</groupId>
@@ -255,7 +244,7 @@
                                     <headerType>gui</headerType>
                                     <outfile>target/SmcTool.exe</outfile>
                                     <downloadUrl>https://adoptium.net/?variant=openjdk17</downloadUrl>
-                                    <jar>target/${project.artifactId}-jar-with-dependencies.jar</jar>
+                                    <jar>target/${project.artifactId}.jar</jar>
                                     <errTitle>Launching error</errTitle>
                                     <icon>config/logo.ico</icon>
                                     <classPath>
