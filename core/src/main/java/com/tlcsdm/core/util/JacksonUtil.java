@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.json.JsonWriteFeature;
@@ -51,6 +52,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.Callable;
 
 /**
  * Jackson 工具类.
@@ -118,7 +120,8 @@ public class JacksonUtil {
      */
     public static <K, V> List<Map<K, V>> json2ListMap(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType mapType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType mapType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType,
+                valueType);
             JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, mapType);
             return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
@@ -136,7 +139,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> json2Set(String jsonData, Class<E> elementType) {
         try {
-            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructCollectionType(Set.class,
+                elementType);
             return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
@@ -154,7 +158,8 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> json2Map(String jsonData, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, keyType,
+                valueType);
             return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
@@ -173,7 +178,8 @@ public class JacksonUtil {
     public static <K, T> Map<K, List<T>> json2MapValueList(String jsonData, Class<K> keyType, Class<T> beanType) {
         try {
             JavaType listType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
-            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class, SimpleType.constructUnsafe(keyType), listType);
+            JavaType javaType = JSONINSTANCE.JSON_MAPPER.getTypeFactory().constructMapType(Map.class,
+                SimpleType.constructUnsafe(keyType), listType);
             return JSONINSTANCE.JSON_MAPPER.readValue(jsonData, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
@@ -214,7 +220,8 @@ public class JacksonUtil {
      */
     public static <E> Set<E> yaml2Set(String data, Class<E> elementType) {
         try {
-            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class, elementType);
+            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructCollectionType(Set.class,
+                elementType);
             return YAMLINSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
@@ -232,12 +239,24 @@ public class JacksonUtil {
      */
     public static <K, V> Map<K, V> yaml2Map(String data, Class<K> keyType, Class<V> valueType) {
         try {
-            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType, valueType);
+            JavaType javaType = YAMLINSTANCE.YAML_MAPPER.getTypeFactory().constructMapType(Map.class, keyType,
+                valueType);
             return YAMLINSTANCE.YAML_MAPPER.readValue(data, javaType);
         } catch (JsonProcessingException e) {
             StaticLog.error(e);
         }
         return null;
+    }
+
+    public static <T> T tryParse(Callable<T> parser, Class<? extends Exception> check) throws JsonParseException {
+        try {
+            return parser.call();
+        } catch (Exception ex) {
+            if (check.isAssignableFrom(ex.getClass())) {
+                throw new JsonParseException(ex.getMessage());
+            }
+            throw new IllegalStateException(ex);
+        }
     }
 
     public static JsonMapper getJsonMapper() {
@@ -342,7 +361,8 @@ public class JacksonUtil {
             // 当地时区
             .defaultLocale(Locale.getDefault())
             // 序列化时忽略值为默认值的属性
-            .defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_DEFAULT, JsonInclude.Include.NON_DEFAULT))
+            .defaultPropertyInclusion(
+                JsonInclude.Value.construct(JsonInclude.Include.NON_DEFAULT, JsonInclude.Include.NON_DEFAULT))
             // 序列化时忽略值为null的属性
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             // 序列化时自定义时间日期格式
