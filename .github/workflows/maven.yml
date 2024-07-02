@@ -36,7 +36,7 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
       - name: Test with Maven in Mac
         if: runner.os == 'Macos'
-        run: mvn test --file pom.xml -DworkEnv=ci '-Djavafx.platform=mac' -Dkotest.framework.classpath.scanning.autoscan.disable=true
+        run: mvn test --file pom.xml -DworkEnv=ci '-Djavafx.platform=mac' '-Dkotest.framework.classpath.scanning.autoscan.disable=true'
       - name: Test with Maven
         if: runner.os != 'Macos'
-        run: mvn test --file pom.xml -DworkEnv=ci -Dkotest.framework.classpath.scanning.autoscan.disable=true
+        run: mvn test --file pom.xml -DworkEnv=ci '-Dkotest.framework.classpath.scanning.autoscan.disable=true'
