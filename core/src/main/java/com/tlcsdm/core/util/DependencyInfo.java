@@ -56,7 +56,7 @@ public class DependencyInfo {
             new Dependency("org.junit.jupiter", "junit", "5.10.3", true, "https://github.com/junit-team/junit5",
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
-            new Dependency("org.apache.poi", "poi", "5.2.5", false, "https://poi.apache.org/",
+            new Dependency("org.apache.poi", "poi", "5.3.0", false, "https://poi.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.freemarker", "freemarker", "2.3.33", false, "https://freemarker.apache.org/",
