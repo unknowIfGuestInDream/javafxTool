@@ -413,6 +413,11 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.jtidy</groupId>
+            <artifactId>jtidy</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -183,6 +183,7 @@
         <imageio.version>3.11.0</imageio.version>
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
+        <jtidy.version>1.0.5</jtidy.version>
     </properties>
 
     <issueManagement>
@@ -1162,6 +1163,11 @@
                 <artifactId>jmh-generator-annprocess</artifactId>
                 <version>${jmh.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.jtidy</groupId>
+                <artifactId>jtidy</artifactId>
+                <version>${jtidy.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -1585,6 +1591,8 @@
                         <transformers>
                             <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
                         </transformers>
                     </configuration>
                 </plugin>
