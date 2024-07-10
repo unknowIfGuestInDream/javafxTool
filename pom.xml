@@ -174,7 +174,7 @@
         <checker-qual.version>3.45.0</checker-qual.version>
         <jfxtras.version>17-r1</jfxtras.version>
         <zip4j.version>2.11.5</zip4j.version>
-        <plantuml.version>1.2024.5</plantuml.version>
+        <plantuml.version>1.2024.6</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
         <java-util.version>2.13.0</java-util.version>
