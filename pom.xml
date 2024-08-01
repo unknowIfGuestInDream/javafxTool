@@ -184,6 +184,7 @@
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
+        <javaluator.version>3.0.4</javaluator.version>
     </properties>
 
     <issueManagement>
@@ -1167,6 +1168,11 @@
                 <groupId>com.github.jtidy</groupId>
                 <artifactId>jtidy</artifactId>
                 <version>${jtidy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fathzer</groupId>
+                <artifactId>javaluator</artifactId>
+                <version>${javaluator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
