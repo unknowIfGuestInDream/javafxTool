@@ -218,6 +218,10 @@ public class DependencyInfo {
 
             new Dependency("com.cedarsoftware", "java-util", "2.13.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.fathzer", "javaluator", "3.0.4", false,
+                "https://javaluator.fathzer.com", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
