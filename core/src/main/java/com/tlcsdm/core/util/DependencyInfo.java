@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.174", false,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.175", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -167,8 +167,8 @@ public class DependencyInfo {
             new Dependency("com.sun.xml.bind", "jaxb", "4.0.5", false, "https://github.com/eclipse-ee4j/jaxb-ri",
                 "BSD-3-Clause license", "http://www.eclipse.org/org/documents/edl-v10.php"),
 
-            new Dependency("org.python", "jython", "2.7.3", false, "https://github.com/jython/jython",
-                "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.3/LICENSE.txt"),
+            new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
+                "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
             new Dependency("net.bytebuddy", "byte-buddy", "1.14.19", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
