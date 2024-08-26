@@ -170,10 +170,10 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.14.19", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.0", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.12.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.gluonhq", "rich-text-area", "1.2.0", false,
