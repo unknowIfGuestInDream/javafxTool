@@ -1262,6 +1262,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
                     <doctitle>${project.name} Documentation (Version ${project.version})</doctitle>
                     <windowtitle>${project.name} Documentation (Version ${project.version})</windowtitle>
                     <show>private</show>
@@ -1289,7 +1290,7 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>aggregate-jar</goal>
                         </goals>
                     </execution>
                 </executions>
