@@ -65,7 +65,7 @@ public class DependencyInfo {
             new Dependency("ch.qos.logback", "logback", "1.5.7", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
-            new Dependency("cn.hutool", "hutool", "5.8.31", true, "https://github.com/dromara/hutool",
+            new Dependency("cn.hutool", "hutool", "5.8.32", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
             new Dependency("org.apache.commons", "commons-lang3", "3.16.0", true,
@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.15.0", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.1", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
