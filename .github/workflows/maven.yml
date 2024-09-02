@@ -28,8 +28,6 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
           cache: maven
-      - name: Install
-        run: mvn --file pom.xml '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' clean install
       - name: Build with Maven in Mac
         if: runner.os == 'Macos'
         run: mvn -B clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=mac'
