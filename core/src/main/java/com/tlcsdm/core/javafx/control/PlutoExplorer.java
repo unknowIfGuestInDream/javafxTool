@@ -46,6 +46,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * <a href="https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a">...</a>
+ */
 public class PlutoExplorer extends Application {
 
     private static final String IMAGE_CREDIT_URL = "http://www.nasa.gov/image-feature/global-mosaic-of-pluto-in-true-color";
