@@ -220,7 +220,7 @@ public class DependencyInfo {
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.fathzer", "javaluator", "3.0.4", false,
+            new Dependency("com.fathzer", "javaluator", "3.0.5", false,
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"));
     }
