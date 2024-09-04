@@ -42,7 +42,7 @@ public class ListImageView extends Control {
     private ListProperty<Photo> items;
 
     public ListImageView() {
-        new ListImageView(FXCollections.observableArrayList());
+        this(FXCollections.observableArrayList());
     }
 
     public ListImageView(ObservableList<Photo> listOfPhotos) {
