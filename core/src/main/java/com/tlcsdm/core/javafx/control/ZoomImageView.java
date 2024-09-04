@@ -80,7 +80,7 @@ public class ZoomImageView extends Control {
     /**
      * Sets the upper bounds for zoom operations. The default value is "4".
      */
-    private final DoubleProperty maxZoomFactor = new SimpleDoubleProperty(this, "maxZoomFactor", 4);
+    private final DoubleProperty maxZoomFactor = new SimpleDoubleProperty(this, "maxZoomFactor", 20);
 
     public final double getMaxZoomFactor() {
         return maxZoomFactor.get();

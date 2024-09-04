@@ -57,11 +57,9 @@ public class ListImageViewSkin extends SkinBase<ListImageView> {
     private ImageView imageView;
     private Pane imageViewPane;
     private Map<String, Image> imageCacheMap;
-    private ListImageView control;
 
     public ListImageViewSkin(ListImageView listImageView) {
         super(listImageView);
-        this.control = listImageView;
 
         listView = new ListView<>();
 
@@ -76,6 +74,7 @@ public class ListImageViewSkin extends SkinBase<ListImageView> {
         borderPane.setCenter(imageViewPane);
         borderPane.setFocusTraversable(false);
         borderPane.setPadding(new Insets(8));
+        borderPane.getLeft().managedProperty().bind(getSkinnable().itemsProperty().sizeProperty().greaterThan(1));
 
         getChildren().add(borderPane);
 
@@ -92,6 +91,9 @@ public class ListImageViewSkin extends SkinBase<ListImageView> {
             });
         imageView.fitWidthProperty().bind(imageViewPane.widthProperty());
         imageView.fitHeightProperty().bind(imageViewPane.heightProperty());
+        if (!getSkinnable().itemsProperty().get().isEmpty()) {
+            listView.getSelectionModel().select(0);
+        }
     }
 
     private static class ImageTextCell extends ListCell<ListImageView.Photo> {
@@ -99,7 +101,6 @@ public class ListImageViewSkin extends SkinBase<ListImageView> {
         private final VBox vbox = new VBox(8.0);
         private final Label label = new Label();
         private final ImageView thumbImageView = new ImageView();
-
 
         {
             thumbImageView.setFitHeight(100.0);
