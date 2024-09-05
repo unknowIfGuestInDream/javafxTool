@@ -89,7 +89,7 @@
         <launch4j-maven-plugin.version>2.5.1</launch4j-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <!--  if you update the checkstyle version make sure you update the google_checks.xml inside the repository -->
-        <checkstyle.version>10.18.0</checkstyle.version>
+        <checkstyle.version>10.18.1</checkstyle.version>
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -107,7 +107,7 @@
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.32</hutool.version>
-        <commons-lang3.version>3.16.0</commons-lang3.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <logback-classic.version>1.5.7</logback-classic.version>
         <slf4j-api.version>2.0.16</slf4j-api.version>
         <commons-io.version>2.16.1</commons-io.version>
@@ -157,7 +157,7 @@
         <jakarta.jaxb.version>4.0.5</jakarta.jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.3</jython.version>
-        <violations.version>1.157.1</violations.version>
+        <violations.version>1.157.3</violations.version>
         <asm.version>9.7</asm.version>
         <pmd.version>7.5.0</pmd.version>
         <bytebuddy.version>1.15.1</bytebuddy.version>
