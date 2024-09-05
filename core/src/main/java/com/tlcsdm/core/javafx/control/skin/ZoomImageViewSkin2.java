@@ -29,10 +29,14 @@ package com.tlcsdm.core.javafx.control.skin;
 
 import com.tlcsdm.core.javafx.control.ZoomImageView;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.Group;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -44,22 +48,21 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
  * @author unknowIfGuestInDream
  */
-public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
+public class ZoomImageViewSkin2 extends SkinBase<ZoomImageView> {
 
     private final MainAreaScrollPane mainArea;
 
-    public ZoomImageViewSkin(ZoomImageView zoomView) {
+    public ZoomImageViewSkin2(ZoomImageView zoomView) {
         super(zoomView);
 
         ToolBar toolBar = createToolBar(zoomView);
@@ -110,7 +113,6 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         zoomIn.getStyleClass().addAll("tool-bar-button", "zoom-in");
         zoomIn.setTooltip(new Tooltip("Zoom in"));
         zoomIn.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-in.png")));
-        zoomIn.disableProperty().bind(showAll.selectedProperty());
         zoomIn.setOnAction(evt -> increaseZoomFactor(0.5));
 
         Button zoomOut = new Button();
@@ -119,7 +121,6 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         zoomOut.setGraphic(
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-out.png")));
         zoomOut.setOnAction(evt -> decreaseZoomFactor(0.5));
-        zoomOut.disableProperty().bind(showAll.selectedProperty());
 
         Label zoomLabel = new Label("Zoom");
         zoomLabel.disableProperty().bind(view.showAllProperty());
@@ -134,34 +135,26 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
 
     class MainAreaScrollPane extends ScrollPane {
 
-        private final StackPane wrapper;
-        private final Pane pane;
-        private final Group group;
         private ImageView imageView;
+        private ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
         public MainAreaScrollPane() {
+            AnchorPane.setLeftAnchor(this, 0.0);
+            AnchorPane.setRightAnchor(this, 0.0);
+            AnchorPane.setTopAnchor(this, 0.0);
+            AnchorPane.setBottomAnchor(this, 0.0);
+
             ZoomImageView zoomView = getSkinnable();
             imageView = new ImageView();
             imageView.imageProperty().bind(zoomView.imageProperty());
             imageView.setPreserveRatio(true);
+            imageView.setViewport(new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight()));
             setFitToWidth(true);
             setFitToHeight(true);
             setPannable(true);
-
-            pane = new Pane() {
-                @Override
-                protected void layoutChildren() {
-                    wrapper.resizeRelocate((getWidth() - wrapper.prefWidth(-1)) / 2,
-                        (getHeight() - wrapper.prefHeight(-1)) / 2, wrapper.prefWidth(-1), wrapper.prefHeight(-1));
-                }
-            };
-
-            wrapper = new StackPane();
-            wrapper.getStyleClass().add("image-view-wrapper");
-            wrapper.setMaxWidth(Region.USE_PREF_SIZE);
-            wrapper.setMaxHeight(Region.USE_PREF_SIZE);
-            wrapper.rotateProperty().bind(zoomView.pageRotationProperty());
-            wrapper.addEventHandler(ScrollEvent.SCROLL, evt -> {
+            this.setContent(imageView);
+            imageView.rotateProperty().bind(zoomView.pageRotationProperty());
+            imageView.addEventHandler(ScrollEvent.ANY, evt -> {
                 if (evt.isShortcutDown()) {
                     if (evt.getDeltaY() > 0) {
                         increaseZoomFactor(0.5);
@@ -171,128 +164,46 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
                     evt.consume();
                 }
             });
-            group = new Group(wrapper);
-            pane.getChildren().addAll(group);
-            viewportBoundsProperty().addListener((observable, oldBounds, newBounds) -> {
-                pane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                pane.setMinWidth(Region.USE_COMPUTED_SIZE);
-                pane.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                pane.setMinHeight(Region.USE_COMPUTED_SIZE);
 
-                if (isPortrait()) {
-                    double prefWidth = newBounds.getWidth() * zoomView.getZoomFactor() - 5;
-                    pane.setPrefWidth(prefWidth);
-                    pane.setMinWidth(prefWidth);
+            imageView.setOnMousePressed(e -> {
 
-                    if (zoomView.isShowAll()) {
-                        // pane.setPrefHeight(newBounds.getHeight() - 5);
-                    } else {
-                        Image image = zoomView.getImage();
-                        if (image != null) {
-                            double scale = newBounds.getWidth() / image.getWidth();
-                            double scaledImageHeight = image.getHeight() * scale;
-                            double prefHeight = scaledImageHeight * zoomView.getZoomFactor();
-                            pane.setPrefHeight(prefHeight);
-                            pane.setMinHeight(prefHeight);
-                        }
-                    }
-                } else {
-                    /*
-                     * Image has been rotated.
-                     */
-                    double prefHeight = newBounds.getHeight() * zoomView.getZoomFactor() - 5;
-                    pane.setPrefHeight(prefHeight);
-                    pane.setMinHeight(prefHeight);
-                    if (zoomView.isShowAll()) {
-                        // pane.setPrefWidth(newBounds.getWidth() - 5);
-                    } else {
-                        Image image = zoomView.getImage();
-                        if (image != null) {
-                            double scale = newBounds.getHeight() / image.getWidth();
-                            double scaledImageHeight = image.getHeight() * scale;
-                            double prefWidth = scaledImageHeight * zoomView.getZoomFactor();
-                            pane.setPrefWidth(prefWidth);
-                            pane.setMinWidth(prefWidth);
-                        }
-                    }
-                }
+                Point2D mousePress = imageViewToImage(imageView, new Point2D(e.getX(), e.getY()));
+                mouseDown.set(mousePress);
             });
 
-            setContent(pane);
+            imageView.setOnMouseDragged(e -> {
+                Point2D dragPoint = imageViewToImage(imageView, new Point2D(e.getX(), e.getY()));
+                shift(imageView, dragPoint.subtract(mouseDown.get()));
+                mouseDown.set(imageViewToImage(imageView, new Point2D(e.getX(), e.getY())));
+            });
+
+
             zoomView.showAllProperty().addListener(it -> {
-                updateScrollbarPolicies();
-                layoutImage();
                 requestLayout();
             });
             zoomView.pageRotationProperty().addListener(it -> {
-                updateScrollbarPolicies();
-                layoutImage();
             });
             zoomView.zoomFactorProperty().addListener(it -> {
-                updateScrollbarPolicies();
-                Bounds bounds = mainArea.getViewportBounds();
-                Bounds newBounds = new BoundingBox(bounds.getMinX() - 1, bounds.getMinY(), bounds.getMinZ(),
-                    bounds.getWidth());
-                mainArea.setViewportBounds(newBounds);
+                imageView.setFitHeight(imageView.getImage().getHeight() * (zoomView.zoomFactorProperty().get()));
+                //updateScrollbarPolicies();
                 requestLayout();
             });
-            updateScrollbarPolicies();
-            layoutImage();
+
+            init();
         }
 
-        protected void layoutImage() {
-            wrapper.getChildren().setAll(imageView);
-            requestLayout();
-            if (getSkinnable().isShowAll()) {
-                getSkinnable().zoomFactorProperty().set(1.0);
-                fitAll(imageView);
-            } else {
-                fitWidth(imageView);
+        private void init() {
+            double width = imageView.getImage().getWidth();
+            double height = imageView.getImage().getHeight();
+            double imageRatio = width / height;
+            double parentRatio = this.getWidth() / this.getHeight();
+
+            if (imageRatio > parentRatio && width > this.getWidth()) {
+                imageView.setFitWidth(this.getWidth());
+            } else if (imageRatio < parentRatio && height > this.getHeight()) {
+                imageView.setFitHeight(this.getHeight());
             }
-        }
 
-        private void fitWidth(ImageView imageView) {
-            if (isPortrait()) {
-                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
-                imageView.fitHeightProperty().unbind();
-            } else {
-                imageView.fitWidthProperty().bind(pane.prefHeightProperty().subtract(8));
-                imageView.fitHeightProperty().unbind();
-            }
-        }
-
-        private void fitAll(ImageView imageView) {
-            if (isPortrait()) {
-                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
-                imageView.fitHeightProperty().bind(pane.prefHeightProperty().subtract(8));
-            } else {
-                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
-                imageView.fitHeightProperty().bind(pane.prefHeightProperty().subtract(8));
-            }
-        }
-
-        private void updateScrollbarPolicies() {
-            if (getSkinnable().isShowAll()) {
-                setVbarPolicy(ScrollBarPolicy.NEVER);
-                setHbarPolicy(ScrollBarPolicy.NEVER);
-            } else {
-                if (getSkinnable().getZoomFactor() > 1) {
-                    setVbarPolicy(ScrollBarPolicy.ALWAYS);
-                    setHbarPolicy(ScrollBarPolicy.ALWAYS);
-                } else {
-                    if (isPortrait()) {
-                        setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-                        setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-                    } else {
-                        setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-                        setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-                    }
-                }
-            }
-        }
-
-        private boolean isPortrait() {
-            return getSkinnable().getPageRotation() % 180 == 0;
         }
     }
 
@@ -305,9 +216,9 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
     private boolean decreaseZoomFactor(double delta) {
         ZoomImageView zoomView = getSkinnable();
         double currentZoomFactor = zoomView.getZoomFactor();
-        if (!zoomView.isShowAll()) {
+        //if (!zoomView.isShowAll()) {
             zoomView.setZoomFactor(Math.max(zoomView.getMinZoomFactor(), currentZoomFactor - delta));
-        }
+        //}
         return currentZoomFactor != zoomView.getZoomFactor();
     }
 
@@ -320,9 +231,46 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
     private boolean increaseZoomFactor(double delta) {
         ZoomImageView zoomView = getSkinnable();
         double currentZoomFactor = zoomView.getZoomFactor();
-        if (!zoomView.isShowAll()) {
+        //if (!zoomView.isShowAll()) {
             zoomView.setZoomFactor(Math.min(zoomView.getMaxZoomFactor(), currentZoomFactor + delta));
-        }
+       // }
         return currentZoomFactor != zoomView.getZoomFactor();
+    }
+
+    // shift the viewport of the imageView by the specified delta, clamping so
+    // the viewport does not move off the actual image:
+    private void shift(ImageView imageView, Point2D delta) {
+        Rectangle2D viewport = imageView.getViewport();
+
+        double width = imageView.getImage().getWidth();
+        double height = imageView.getImage().getHeight();
+
+        double maxX = width - viewport.getWidth();
+        double maxY = height - viewport.getHeight();
+
+        double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
+        double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
+
+        imageView.setViewport(new Rectangle2D(minX, minY, viewport.getWidth(), viewport.getHeight()));
+    }
+
+    private double clamp(double value, double min, double max) {
+
+        if (value < min)
+            return min;
+        if (value > max)
+            return max;
+        return value;
+    }
+
+    // convert mouse coordinates in the imageView to coordinates in the actual image:
+    private Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
+        double xProportion = imageViewCoordinates.getX() / imageView.getBoundsInLocal().getWidth();
+        double yProportion = imageViewCoordinates.getY() / imageView.getBoundsInLocal().getHeight();
+
+        Rectangle2D viewport = imageView.getViewport();
+        return new Point2D(
+            viewport.getMinX() + xProportion * viewport.getWidth(),
+            viewport.getMinY() + yProportion * viewport.getHeight());
     }
 }

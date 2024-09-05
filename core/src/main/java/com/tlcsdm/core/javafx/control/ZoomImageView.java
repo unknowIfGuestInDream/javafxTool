@@ -28,6 +28,7 @@
 package com.tlcsdm.core.javafx.control;
 
 import com.tlcsdm.core.javafx.control.skin.ZoomImageViewSkin;
+import com.tlcsdm.core.javafx.control.skin.ZoomImageViewSkin2;
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -49,7 +50,7 @@ public class ZoomImageView extends Control {
 
     public ZoomImageView() {
         super();
-        getStyleClass().add("zoom-view");
+        getStyleClass().add("zoom-image-view");
         setFocusTraversable(false);
         getStylesheets().add(getUserAgentStylesheet());
     }
@@ -80,7 +81,7 @@ public class ZoomImageView extends Control {
     /**
      * Sets the upper bounds for zoom operations. The default value is "4".
      */
-    private final DoubleProperty maxZoomFactor = new SimpleDoubleProperty(this, "maxZoomFactor", 4);
+    private final DoubleProperty maxZoomFactor = new SimpleDoubleProperty(this, "maxZoomFactor", 20);
 
     public final double getMaxZoomFactor() {
         return maxZoomFactor.get();
