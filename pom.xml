@@ -184,7 +184,7 @@
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
-        <javaluator.version>3.0.4</javaluator.version>
+        <javaluator.version>3.0.5</javaluator.version>
     </properties>
 
     <issueManagement>
