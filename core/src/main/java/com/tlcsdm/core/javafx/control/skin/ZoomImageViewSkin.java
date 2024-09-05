@@ -29,6 +29,8 @@ package com.tlcsdm.core.javafx.control.skin;
 
 import com.tlcsdm.core.javafx.control.ZoomImageView;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -36,7 +38,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SkinBase;
-import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
@@ -105,17 +106,11 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/rotate-right.png")));
         rotateRight.setOnAction(evt -> view.rotateRight());
 
-        // zoom slider
-        Slider zoomSlider = new Slider();
-        zoomSlider.minProperty().bind(view.minZoomFactorProperty());
-        zoomSlider.maxProperty().bind(view.maxZoomFactorProperty());
-        zoomSlider.valueProperty().bindBidirectional(view.zoomFactorProperty());
-        zoomSlider.disableProperty().bind(view.showAllProperty());
-
         Button zoomIn = new Button();
         zoomIn.getStyleClass().addAll("tool-bar-button", "zoom-in");
         zoomIn.setTooltip(new Tooltip("Zoom in"));
         zoomIn.setGraphic(LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-in.png")));
+        zoomIn.disableProperty().bind(showAll.selectedProperty());
         zoomIn.setOnAction(evt -> increaseZoomFactor(0.5));
 
         Button zoomOut = new Button();
@@ -124,6 +119,7 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         zoomOut.setGraphic(
             LayoutHelper.iconView(getClass().getResource("/com/tlcsdm/core/static/graphic/zoom-out.png")));
         zoomOut.setOnAction(evt -> decreaseZoomFactor(0.5));
+        zoomOut.disableProperty().bind(showAll.selectedProperty());
 
         Label zoomLabel = new Label("Zoom");
         zoomLabel.disableProperty().bind(view.showAllProperty());
@@ -132,7 +128,7 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // toolbar
-        return new ToolBar(showAll, new Separator(Orientation.VERTICAL), zoomLabel, zoomSlider, zoomIn, zoomOut,
+        return new ToolBar(showAll, new Separator(Orientation.VERTICAL), zoomLabel, zoomIn, zoomOut,
             new Separator(Orientation.VERTICAL), rotateLeft, rotateRight, spacer);
     }
 
@@ -189,7 +185,7 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
                     pane.setMinWidth(prefWidth);
 
                     if (zoomView.isShowAll()) {
-                        pane.setPrefHeight(newBounds.getHeight() - 5);
+                        // pane.setPrefHeight(newBounds.getHeight() - 5);
                     } else {
                         Image image = zoomView.getImage();
                         if (image != null) {
@@ -208,7 +204,7 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
                     pane.setPrefHeight(prefHeight);
                     pane.setMinHeight(prefHeight);
                     if (zoomView.isShowAll()) {
-                        pane.setPrefWidth(newBounds.getWidth() - 5);
+                        // pane.setPrefWidth(newBounds.getWidth() - 5);
                     } else {
                         Image image = zoomView.getImage();
                         if (image != null) {
@@ -234,6 +230,10 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
             });
             zoomView.zoomFactorProperty().addListener(it -> {
                 updateScrollbarPolicies();
+                Bounds bounds = mainArea.getViewportBounds();
+                Bounds newBounds = new BoundingBox(bounds.getMinX() - 1, bounds.getMinY(), bounds.getMinZ(),
+                    bounds.getWidth());
+                mainArea.setViewportBounds(newBounds);
                 requestLayout();
             });
             updateScrollbarPolicies();
@@ -244,6 +244,7 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
             wrapper.getChildren().setAll(imageView);
             requestLayout();
             if (getSkinnable().isShowAll()) {
+                getSkinnable().zoomFactorProperty().set(1.0);
                 fitAll(imageView);
             } else {
                 fitWidth(imageView);
@@ -252,21 +253,21 @@ public class ZoomImageViewSkin extends SkinBase<ZoomImageView> {
 
         private void fitWidth(ImageView imageView) {
             if (isPortrait()) {
-                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(40));
+                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
                 imageView.fitHeightProperty().unbind();
             } else {
-                imageView.fitWidthProperty().bind(pane.heightProperty().subtract(40));
+                imageView.fitWidthProperty().bind(pane.prefHeightProperty().subtract(8));
                 imageView.fitHeightProperty().unbind();
             }
         }
 
         private void fitAll(ImageView imageView) {
             if (isPortrait()) {
-                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(40));
-                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(40));
+                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
+                imageView.fitHeightProperty().bind(pane.prefHeightProperty().subtract(8));
             } else {
-                imageView.fitWidthProperty().bind(pane.heightProperty().subtract(40));
-                imageView.fitHeightProperty().bind(pane.widthProperty().subtract(40));
+                imageView.fitWidthProperty().bind(pane.prefWidthProperty().subtract(8));
+                imageView.fitHeightProperty().bind(pane.prefHeightProperty().subtract(8));
             }
         }
 

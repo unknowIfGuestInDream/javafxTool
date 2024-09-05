@@ -25,22 +25,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-.zoom-view {
+.zoom-image-view {
 }
 
-.zoom-view .label {
+.zoom-image-view .label {
     -fx-text-fill: -fx-text-background-color;
 }
 
-.zoom-view .scroll-pane {
+.zoom-image-view .scroll-pane {
 }
 
-.zoom-view .scroll-pane .image-view-wrapper {
+.zoom-image-view .scroll-pane .image-view-wrapper {
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .1), 6, 0.2, 0, 0);
 }
 
-.zoom-view .tool-bar .tool-bar-button .ikonli-font-icon {
+.zoom-image-view .tool-bar .tool-bar-button {
     -fx-icon-size: 18px;
     -fx-icon-color: -fx-text-background-color;
 }

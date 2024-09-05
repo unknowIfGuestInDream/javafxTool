@@ -50,7 +50,7 @@ public class ZoomImageView extends Control {
 
     public ZoomImageView() {
         super();
-        getStyleClass().add("zoom-view");
+        getStyleClass().add("zoom-image-view");
         setFocusTraversable(false);
         getStylesheets().add(getUserAgentStylesheet());
     }
@@ -201,7 +201,7 @@ public class ZoomImageView extends Control {
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new ZoomImageViewSkin2(this);
+        return new ZoomImageViewSkin(this);
     }
 
     @Override
