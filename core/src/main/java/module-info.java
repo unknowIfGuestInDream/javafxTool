@@ -74,7 +74,7 @@ module com.tlcsdm.core {
     requires static jakarta.xml.bind;
     requires static com.fasterxml.jackson.dataformat.yaml;
     requires static com.fasterxml.jackson.datatype.jsr310;
-    requires static jython.slim;
+    requires static org.python.jython2;
     requires static com.zaxxer.hikari;
     requires static druid;
     requires static jssc;
