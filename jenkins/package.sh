@@ -40,7 +40,7 @@ do
 $M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
-cp -r ${mod}/target/apidocs apidocs
+cp -r ${mod}/target/reports/apidocs apidocs
 cp -r ${mod}/target/license license
 zip -r ${mod}Tool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
 zip -uj ${mod}Tool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/${mod}/*
@@ -57,7 +57,7 @@ do
 $M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
-cp -r ${mod}/target/apidocs apidocs
+cp -r ${mod}/target/reports/apidocs apidocs
 cp -r ${mod}/target/license license
 zip -r ${mod}Tool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
 zip -uj ${mod}Tool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/${mod}/*
@@ -74,7 +74,7 @@ do
 $M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
-cp -r ${mod}/target/apidocs apidocs
+cp -r ${mod}/target/reports/apidocs apidocs
 cp -r ${mod}/target/license license
 zip -r ${mod}Tool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
 zip -uj ${mod}Tool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/${mod}/*
