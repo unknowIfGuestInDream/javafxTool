@@ -36,6 +36,7 @@ import com.dlsc.preferencesfx.util.VisibilityProperty;
 import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.I18nUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -87,6 +88,9 @@ public class PreferencesView extends StackPane {
     }
 
     private void initVisibilityProperty(Keys... excludeKeys) {
+        if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
+            supUseEasterEgg.setValue(false);
+        }
         for (Keys key : excludeKeys) {
             switch (key) {
                 case ConfirmExit -> supExitShowAlert.setValue(false);

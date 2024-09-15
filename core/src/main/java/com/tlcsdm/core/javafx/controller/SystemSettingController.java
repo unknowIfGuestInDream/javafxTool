@@ -31,6 +31,7 @@ import com.tlcsdm.core.event.ConfigRefreshEvent;
 import com.tlcsdm.core.eventbus.EventBus;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.javafx.view.AbstractSystemSettingView;
 import javafx.scene.Node;
 
@@ -65,6 +66,9 @@ public class SystemSettingController extends AbstractSystemSettingView {
      * @param excludeKeys Keys
      */
     public void disableKeys(Keys... excludeKeys) {
+        if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
+            disableNode(useEasterEggCheckBox);
+        }
         for (Keys key : excludeKeys) {
             switch (key) {
                 case ConfirmExit -> disableNode(exitShowAlertCheckBox);
