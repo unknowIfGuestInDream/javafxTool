@@ -27,7 +27,6 @@
 
 package com.tlcsdm.core.javafx.control;
 
-import com.tlcsdm.core.javafx.control.skin.ZoomImageViewSkin;
 import com.tlcsdm.core.javafx.control.skin.ZoomImageViewSkin2;
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.BooleanProperty;
@@ -201,7 +200,7 @@ public class ZoomImageView extends Control {
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new ZoomImageViewSkin(this);
+        return new ZoomImageViewSkin2(this);
     }
 
     @Override
