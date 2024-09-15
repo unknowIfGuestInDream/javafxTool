@@ -50,6 +50,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
 import com.tlcsdm.core.javafx.util.Keys;
+import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.javafx.util.StageUtil;
 import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.core.util.CoreUtil;
@@ -440,7 +441,9 @@ public final class FXSampler extends Application {
         for (EasterEggService easterEggService : easterEggServices) {
             easterEggList.add(easterEggService);
         }
-        executeEasterEggs();
+        if (!OSUtil.getOS().equals(OSUtil.OS.MAC)) {
+            executeEasterEggs();
+        }
     }
 
     private void executeEasterEggs() {
@@ -456,6 +459,9 @@ public final class FXSampler extends Application {
 
     @Subscribe
     public void refreshEasterEggs(ConfigRefreshEvent event) {
+        if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
+            return;
+        }
         if (event.getKey() == null || Keys.UseEasterEgg.getKeyName().equals(event.getKey())) {
             executeEasterEggs();
         }
