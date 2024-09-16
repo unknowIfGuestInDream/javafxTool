@@ -78,6 +78,7 @@ module com.tlcsdm.core {
     requires static com.zaxxer.hikari;
     requires static druid;
     requires static jssc;
+    requires static com.fazecast.jSerialComm;
     requires static com.github.oshi;
     requires static zip4j;
     requires static org.apache.commons.compress;
