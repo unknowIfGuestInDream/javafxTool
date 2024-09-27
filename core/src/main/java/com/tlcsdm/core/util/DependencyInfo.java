@@ -53,7 +53,7 @@ public class DependencyInfo {
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("org.junit.jupiter", "junit", "5.11.0", true, "https://github.com/junit-team/junit5",
+            new Dependency("org.junit.jupiter", "junit", "5.11.1", true, "https://github.com/junit-team/junit5",
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
             new Dependency("org.apache.poi", "poi", "5.3.0", false, "https://poi.apache.org/",
@@ -76,7 +76,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-email/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-csv", "1.11.0", false,
+            new Dependency("org.apache.commons", "commons-csv", "1.12.0", false,
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -170,13 +170,13 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.15.1", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.2", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.gluonhq", "rich-text-area", "1.2.0", false,
+            new Dependency("com.gluonhq", "rich-text-area", "1.2.1", false,
                 "https://github.com/gluonhq/rich-text-area",
                 "GPL-3.0 license", "http://www.gnu.org/licenses/gpl-3.0.html"),
 
