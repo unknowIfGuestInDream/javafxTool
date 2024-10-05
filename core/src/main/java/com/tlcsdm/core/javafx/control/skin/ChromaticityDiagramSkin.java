@@ -31,7 +31,10 @@ import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.control.ChromaticityDiagram;
 import com.tlcsdm.core.model.CIEData;
 import com.tlcsdm.core.model.CIEData1931;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SkinBase;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,9 +45,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author unknowIfGuestInDream
@@ -69,6 +73,7 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
     private double calculateX = -1, calculateY = -1;
     private String title;
 
+    private ScrollPane scrollPane;
     private ImageView imageView;
     private Image img;
     protected BufferedImage image;
@@ -83,20 +88,69 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
         gridColor = new Color(0.9f, 0.9f, 0.9f);
         rulerColor = Color.LIGHT_GRAY;
 
+        hasCalculate = true;
+        calculateX = 0.3;
+        calculateY = 0.4;
+
+        scrollPane = new ScrollPane();
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPannable(true);
         imageView = new ImageView();
         img = SwingFXUtils.toFXImage(drawData(), null);
         imageView.setImage(img);
-        getChildren().add(imageView);
+        scrollPane.setContent(imageView);
+        getChildren().add(scrollPane);
+
+        imageView.fitWidthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                if (Math.abs(new_val.intValue() - old_val.intValue()) > 20) {
+                    refinePane();
+                }
+            }
+        });
+        imageView.fitHeightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                if (Math.abs(new_val.intValue() - old_val.intValue()) > 20) {
+                    refinePane();
+                }
+            }
+        });
+        scrollPane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                if (Math.abs(new_val.intValue() - old_val.intValue()) > 20) {
+                    refinePane();
+                }
+            }
+        });
+    }
+
+    public void refinePane() {
+        if (scrollPane == null || imageView == null || imageView.getImage() == null) {
+            return;
+        }
+        scrollPane.setVvalue(scrollPane.getVmin());
     }
 
     public BufferedImage drawData() {
         try {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             g = image.createGraphics();
+            Map<RenderingHints.Key, Object> imageHints = new HashMap<>();
+            imageHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            imageHints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            imageHints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            imageHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g.addRenderingHints(imageHints);
             if (bgColor != null) {
                 g.setColor(bgColor);
                 g.fillRect(0, 0, width, height);
-
             }
             if (fontSize <= 0) {
                 fontSize = 20;
@@ -177,8 +231,6 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
     private void outlines() {
         try {
             List<CIEData> data;
-            // TODO cie数据转换sRGB
-            ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_sRGB);
             //CIE1931
             data = CIEData1931.getInstance();
             outline(data, "CIE 1931", 535, textColor);
@@ -308,7 +360,7 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
     }
 
     private void calculate() {
-        if (hasCalculate
+        if (!hasCalculate
             || calculateX < 0 || calculateX > 1
             || calculateY <= 0 || calculateY > 1) {
             return;

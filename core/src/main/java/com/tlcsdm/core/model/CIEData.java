@@ -37,7 +37,8 @@ public class CIEData {
     public double relativeX, relativeY, relativeZ; // y = 1;
     public double[] channels;
 
-    public CIEData() {
+    public CIEData(double x, double y) {
+        setxy(x, y, 1.0);
     }
 
     public CIEData(int waveLength, double X, double Y, double Z) {
@@ -46,6 +47,20 @@ public class CIEData {
         this.Y = Y;
         this.Z = Z;
         setTristimulusValues(X, Y, Z);
+    }
+
+    public final void setxy(double x, double y, double Y) {
+        this.normalizedX = x;
+        this.normalizedY = y;
+        this.normalizedZ = 1 - x - y;
+
+        this.X = x * Y / y;
+        this.Y = Y;
+        this.Z = (1 - x - y) * Y / y;
+
+        this.relativeX = x / y;
+        this.relativeY = 1.0;
+        this.relativeZ = (1 - x - y) / y;
     }
 
     public final void setTristimulusValues(double X, double Y, double Z) {
@@ -103,6 +118,10 @@ public class CIEData {
     public static double[] XYZd50toSRGBd65(double[] xyzD50) {
         double[] xyzD65 = D50toD65(xyzD50);
         return XYZd65toSRGBd65(xyzD65);
+    }
+
+    public static double[] XYZd50toSRGBd65(double X, double Y, double Z) {
+        return XYZd50toSRGBd65(array(X, Y, Z));
     }
 
     public static double[] XYZd65toSRGBd65(double[] xyzd65) {
