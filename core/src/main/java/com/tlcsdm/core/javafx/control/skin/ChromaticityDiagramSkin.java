@@ -181,8 +181,20 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
             return image;
         } catch (Exception e) {
             StaticLog.error(e);
-            return null;
+            return createErrorImage();
         }
+    }
+
+    private BufferedImage createErrorImage() {
+        BufferedImage errorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = errorImage.createGraphics();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, width, height);
+        g.setColor(Color.RED);
+        g.setFont(new Font("SansSerif", Font.BOLD, 20));
+        g.drawString("绘制色度图时发生错误", 50, height / 2);
+        g.dispose();
+        return errorImage;
     }
 
     private void backGround() {
