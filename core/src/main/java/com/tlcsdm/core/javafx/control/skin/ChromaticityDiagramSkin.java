@@ -255,10 +255,7 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
                 wave = d.getWaveLength();
                 x = (int) Math.round(margins + dataW * d.getNormalizedX());
                 y = (int) Math.round(endH - dataH * d.getNormalizedY());
-                srgb = d.getChannels();
-                if (srgb == null) {
-                    srgb = CIEData.sRGB65(d);
-                }
+                srgb = CIEData.sRGB65(d);
                 pColor = new Color((float) srgb[0], (float) srgb[1], (float) srgb[2]);
                 g.setColor(pColor);
                 g.setStroke(stroke1);
@@ -294,7 +291,6 @@ public class ChromaticityDiagramSkin extends SkinBase<ChromaticityDiagram> {
                             g.drawString(wave + "nm", x + 10, y);
                         }
                     }
-                } else {
                 }
             }
 

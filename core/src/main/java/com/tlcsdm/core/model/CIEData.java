@@ -31,11 +31,10 @@ package com.tlcsdm.core.model;
  * @author unknowIfGuestInDream
  */
 public class CIEData {
-    public int waveLength;
-    public double X, Y, Z;
-    public double normalizedX, normalizedY, normalizedZ; // x + y + z = 1
-    public double relativeX, relativeY, relativeZ; // y = 1;
-    public double[] channels;
+    private int waveLength;
+    private double X, Y, Z;
+    private double normalizedX, normalizedY, normalizedZ; // x + y + z = 1
+    private double relativeX, relativeY, relativeZ; // y = 1;
 
     public CIEData(double x, double y) {
         setxy(x, y, 1.0);
@@ -103,11 +102,7 @@ public class CIEData {
     }
 
     private static double[] array(double r, double g, double b) {
-        double[] rgb = new double[3];
-        rgb[0] = r;
-        rgb[1] = g;
-        rgb[2] = b;
-        return rgb;
+        return new double[]{r, g, b};
     }
 
     public static double[] sRGB65(CIEData d) {
@@ -238,10 +233,6 @@ public class CIEData {
 
     public double getNormalizedZ() {
         return normalizedZ;
-    }
-
-    public double[] getChannels() {
-        return channels;
     }
 
     public double getRelativeX() {
