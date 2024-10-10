@@ -62,7 +62,7 @@ public class DependencyInfo {
             new Dependency("org.freemarker", "freemarker", "2.3.33", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.5.8", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.5.9", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.32", true, "https://github.com/dromara/hutool",
@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.15.3", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.4", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
