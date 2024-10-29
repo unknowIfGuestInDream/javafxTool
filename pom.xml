@@ -186,6 +186,7 @@
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
         <javaluator.version>3.0.5</javaluator.version>
+        <javapoet.version>0.5.0</javapoet.version>
     </properties>
 
     <issueManagement>
@@ -1179,6 +1180,11 @@
                 <groupId>com.fathzer</groupId>
                 <artifactId>javaluator</artifactId>
                 <version>${javaluator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.palantir.javapoet</groupId>
+                <artifactId>javapoet</artifactId>
+                <version>${javapoet.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -428,6 +428,11 @@
             <artifactId>javaluator</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.palantir.javapoet</groupId>
+            <artifactId>javapoet</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
