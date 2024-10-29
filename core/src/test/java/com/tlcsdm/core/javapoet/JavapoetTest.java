@@ -27,13 +27,18 @@
 
 package com.tlcsdm.core.javapoet;
 
+import com.palantir.javapoet.ClassName;
 import com.palantir.javapoet.JavaFile;
 import com.palantir.javapoet.MethodSpec;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
 import com.palantir.javapoet.TypeSpec;
 import org.junit.jupiter.api.Test;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
 
 /**
  * <a href="https://github.com/palantir/javapoet">官网实例</a>
@@ -58,15 +63,7 @@ public class JavapoetTest {
             .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
             .build();
 
-        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(main)
-            .build();
-
-        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-            .build();
-
-        javaFile.writeTo(System.out);
+        print(main);
     }
 
     /**
@@ -85,15 +82,7 @@ public class JavapoetTest {
                 + "}\n")
             .build();
 
-        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(main)
-            .build();
-
-        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-            .build();
-
-        javaFile.writeTo(System.out);
+        print(main);
     }
 
     /**
@@ -110,15 +99,7 @@ public class JavapoetTest {
             .endControlFlow()
             .build();
 
-        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(main)
-            .build();
-
-        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-            .build();
-
-        javaFile.writeTo(System.out);
+        print(main);
     }
 
     /**
@@ -137,15 +118,7 @@ public class JavapoetTest {
             .addStatement("return result")
             .build();
 
-        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(main)
-            .build();
-
-        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-            .build();
-
-        javaFile.writeTo(System.out);
+        print(main);
     }
 
     /**
@@ -167,15 +140,7 @@ public class JavapoetTest {
             .endControlFlow()
             .build();
 
-        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-            .addMethod(main)
-            .build();
-
-        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-            .build();
-
-        javaFile.writeTo(System.out);
+        print(main);
     }
 
     /**
@@ -191,6 +156,184 @@ public class JavapoetTest {
             .endControlFlow()
             .build();
 
+        print(main);
+    }
+
+    /**
+     * 对 beginControlFlow（） 和 addStatement 的调用中的字符串连接会分散注意力。
+     * 运算符太多。为了解决这个问题，JavaPoet 提供了一种受 String.format（） 启发但不兼容的语法。
+     * 它接受 $L 在输出中发出 Literal 值。这就像 Formatter 的 %s 一样：
+     * <p>
+     * 文本直接发出到输出代码，无需转义。文本的参数可以是字符串，
+     * 原语和一些 JavaPoet 类型。
+     *
+     * @throws IOException
+     */
+    @Test
+    void literals() throws IOException {
+        MethodSpec main = MethodSpec.methodBuilder("main")
+            .returns(int.class)
+            .addStatement("int result = 0")
+            .beginControlFlow("for (int i = $L; i < $L; i++)", 1, 10)
+            .addStatement("result = result $L i", "*")
+            .endControlFlow()
+            .addStatement("return result")
+            .build();
+        print(main);
+    }
+
+    /**
+     * 当发出包含字符串文字的代码时，我们可以使用 $S 来发出一个字符串，并带有换行引号
+     * 标记和转义。这是一个发出 3 个方法的程序，每个方法都返回自己的名称：
+     *
+     * @throws IOException
+     */
+    @Test
+    void strings1() throws IOException {
+        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addMethod(whatsMyName("slimShady"))
+            .addMethod(whatsMyName("eminem"))
+            .addMethod(whatsMyName("marshallMathers"))
+            .build();
+
+        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
+            .build();
+
+        javaFile.writeTo(System.out);
+    }
+
+    private MethodSpec whatsMyName(String name) {
+        return MethodSpec.methodBuilder(name)
+            .returns(String.class)
+            .addStatement("return $S", name)
+            .build();
+    }
+
+    /**
+     * 我们 Java 程序员喜欢我们的类型：它们使我们的代码更容易理解。JavaPoet 也加入了进来。
+     * 它内置了丰富的类型支持，包括自动生成 import 语句。只需使用 $T 来引用类型：
+     *
+     * @throws IOException
+     */
+    @Test
+    void types() throws IOException {
+        MethodSpec today = MethodSpec.methodBuilder("today")
+            .returns(Date.class)
+            .addStatement("return new $T()", Date.class)
+            .build();
+
+        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addMethod(today)
+            .build();
+
+        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
+            .build();
+
+        javaFile.writeTo(System.out);
+    }
+
+    /**
+     * 我们传递了 Date.class 来引用一个类，该类恰好在我们生成代码时可用。
+     * 情况并非如此。下面是一个类似的示例，但此示例引用了一个尚不存在的类：
+     *
+     * @throws IOException
+     */
+    @Test
+    void types1() throws IOException {
+        ClassName hoverboard = ClassName.get("com.mattel", "Hoverboard");
+
+        MethodSpec today = MethodSpec.methodBuilder("tomorrow")
+            .returns(hoverboard)
+            .addStatement("return new $T()", hoverboard)
+            .build();
+
+        print(today);
+    }
+
+    /**
+     * ClassName 类型非常重要，在使用 JavaPoet 时，您将经常需要它。
+     * 它可以识别任何声明的类。声明类型只是 Java 丰富类型系统的开始：
+     * 我们还有数组、参数化类型、通配符类型和类型变量。JavaPoet 具有用于构建以下每个类的类：
+     *
+     * @throws IOException
+     */
+    @Test
+    void types2() throws IOException {
+        ClassName hoverboard = ClassName.get("com.mattel", "Hoverboard");
+        ClassName list = ClassName.get("java.util", "List");
+        ClassName arrayList = ClassName.get("java.util", "ArrayList");
+        TypeName listOfHoverboards = ParameterizedTypeName.get(list, hoverboard);
+
+        MethodSpec beyond = MethodSpec.methodBuilder("beyond")
+            .returns(listOfHoverboards)
+            .addStatement("$T result = new $T<>()", listOfHoverboards, arrayList)
+            .addStatement("result.add(new $T())", hoverboard)
+            .addStatement("result.add(new $T())", hoverboard)
+            .addStatement("result.add(new $T())", hoverboard)
+            .addStatement("return result")
+            .build();
+
+        print(beyond);
+    }
+
+    /**
+     * JavaPoet 支持 import static。它通过显式收集类型成员名称来实现这一点。
+     * 让我们用一些静态糖来增强前面的例子：
+     *
+     * @throws IOException
+     */
+    @Test
+    void types3() throws IOException {
+        ClassName namedBoards = ClassName.get("com.mattel", "Hoverboard", "Boards");
+        ClassName hoverboard = ClassName.get("com.mattel", "Hoverboard");
+
+        MethodSpec main = MethodSpec.methodBuilder("tomorrow")
+            .returns(hoverboard)
+            .addStatement("return new $T()", hoverboard)
+            .build();
+
+        TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addMethod(main)
+            .build();
+
+        JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
+            .addStaticImport(hoverboard, "createNimbus")
+            .addStaticImport(namedBoards, "*")
+            .addStaticImport(Collections.class, "*")
+            .build();
+        javaFile.writeTo(System.out);
+    }
+
+    /**
+     * 生成的代码通常是自引用的。使用 $N 按名称引用另一个生成的声明。
+     * 这是一个调用另一个方法的方法：
+     *
+     * @throws IOException
+     */
+    @Test
+    void names() throws IOException {
+        MethodSpec hexDigit = MethodSpec.methodBuilder("hexDigit")
+            .addParameter(int.class, "i")
+            .returns(char.class)
+            .addStatement("return (char) (i < 10 ? i + '0' : i - 10 + 'a')")
+            .build();
+
+        MethodSpec byteToHex = MethodSpec.methodBuilder("byteToHex")
+            .addParameter(int.class, "b")
+            .returns(String.class)
+            .addStatement("char[] result = new char[2]")
+            .addStatement("result[0] = $N((b >>> 4) & 0xf)", hexDigit)
+            .addStatement("result[1] = $N(b & 0xf)", hexDigit)
+            .addStatement("return new String(result)")
+            .build();
+
+        print(byteToHex);
+    }
+
+    private void print(MethodSpec main) throws IOException {
         TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
             .addMethod(main)
