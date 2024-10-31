@@ -104,6 +104,45 @@ public class MemoryMappingTest {
         System.out.println(symbols);
     }
 
+    private final String iarSymbolFlag = "*** ENTRY LIST";
+    private final String iarGlobalVarFlag = "Data  Gb";
+
+    @Test
+    public void readIarMap() throws IOException {
+        File file = new File(ResourceUtil.getResource("iar.map").getPath());
+        List<String> content = FileUtils.readLines(file, StandardCharsets.UTF_8);
+        String previousLine = "";
+        for (String line : content) {
+            if (!inSymbol) {
+                if (line.equals(iarSymbolFlag)) {
+                    inSymbol = true;
+                }
+            } else {
+                if (line.contains(iarGlobalVarFlag)) {
+                    String[] data = line.split("\\s+");
+                    int size = 0;
+                    if (!data[2].equals("Data")) {
+                        size = Integer.decode(data[2]);
+                    }
+                    if (!line.startsWith("_") && previousLine.startsWith("_")) {
+                        symbols.add(
+                            new Symbol(previousLine.trim(), data[1].replaceAll("'", ""), size));
+                    } else {
+                        symbols.add(
+                            new Symbol(data[0], data[1].replaceAll("'", ""), size));
+                    }
+                }
+                previousLine = line;
+                if (line.startsWith(endFlag) && !line.equals(iarSymbolFlag)) {
+                    inSymbol = false;
+                    break;
+                }
+            }
+        }
+        content = null;
+        System.out.println(symbols);
+    }
+
     private record Symbol(String name, String address, int size) {
 
     }
