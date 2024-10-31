@@ -118,6 +118,9 @@ public abstract sealed class AbstractU2XFamilyScript extends AbstractEcmScript p
      * errorSource 数据后续处理
      */
     protected void handlerErrorSourceMap(Map<String, Object> errorSource, String product, int optErrortIndex) {
+        if(product.startsWith("RH850U2C2") && errorSource.get("categoryId").equals("OSTM")){
+            return;
+        }
         GroovyUtil.invokeMethod(getGroovyPath(), "handlerErrorSourceMap", errorSource, product, optErrortIndex);
     }
 
