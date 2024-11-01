@@ -50,6 +50,10 @@ modules. demo is the provided example module.
 
 - LoginCheck: Login verification
 
+# Build requirements
+
+The build commands require the installation and setup of Java 17 or higher and Maven version 3.5.4 or higher.
+
 # Pack
 
 1. IDEA artifact packaging\
@@ -58,6 +62,10 @@ modules. demo is the provided example module.
    path -> Done\
    Package: Build -> Build Artifacts -> Build
 2. It is recommended to package through `mvn package`.
+
+# Integration builds
+
+The integrations (nightly) build jobs are hosted on Jenkins instance https://jenkins.tlcsdm.com/job/javafxtool/
 
 # Connect
 
