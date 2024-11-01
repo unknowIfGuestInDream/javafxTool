@@ -38,12 +38,20 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 
 - LoginCheck: 登录校验
 
+# 构建要求
+
+构建命令需要安装和设置 Java 17 或更高版本以及 Maven 版本 3.5.4 或更高版本。
+
 # 打包
 
 1. IDEA工件打包\
    配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成\
    打包: 构建 -> 构建工件 -> 构建
 2. 推荐`mvn package`打包
+
+# 集成构建
+
+集成（夜间）构建作业托管在 Jenkins 实例 https://jenkins.tlcsdm.com/job/javafxtool/
 
 # 联系
 
