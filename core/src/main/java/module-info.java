@@ -37,6 +37,7 @@ module com.tlcsdm.core {
     requires java.net.http;
     requires java.sql;
     requires java.xml;
+    requires static java.compiler;
     requires org.apache.commons.lang3;
     requires javafx.controls;
     requires org.apache.commons.configuration2;
