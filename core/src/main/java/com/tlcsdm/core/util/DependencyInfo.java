@@ -116,7 +116,7 @@ public class DependencyInfo {
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.18.0", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.18.1", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.15.7", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.9", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
