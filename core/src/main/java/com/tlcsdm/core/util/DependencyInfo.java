@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.15.9", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.15.10", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.13.0", false, "https://github.com/nguyenq/tess4j",
@@ -188,7 +188,7 @@ public class DependencyInfo {
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
-            new Dependency("org.checkerframework", "checker-qual", "3.48.1", true,
+            new Dependency("org.checkerframework", "checker-qual", "3.48.2", true,
                 "https://github.com/typetools/checker-framework",
                 "MIT License", "http://opensource.org/licenses/MIT"),
 
