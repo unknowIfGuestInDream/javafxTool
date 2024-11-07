@@ -31,18 +31,15 @@ pipeline {
         timeout(time: 1, unit: "HOURS")
     }
     environment {
-        USER_NAME = 'Jenkins'
+        USER_NAME='Jenkins'
     }
     stages {
         stage('Prepare') {
             steps {
                 deleteDir()
-                retry(3) {
-                    copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
-                }
-                sh 'test -f OpenJDK17* || exit 1'
+                copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
                 archiveArtifacts 'OpenJDK17*'
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 3, unit: 'MINUTES') {
                     git 'git@github.com:unknowIfGuestInDream/javafxTool.git'
                 }
                 sh "$M2_HOME/bin/mvn -version"
@@ -50,11 +47,9 @@ pipeline {
             post {
                 failure {
                     buildDescription '构建 Prepare 失败'
-                    cleanWs()
                 }
                 aborted {
                     buildDescription '构建取消'
-                    cleanWs()
                 }
             }
         }
@@ -65,11 +60,89 @@ pipeline {
             }
         }
 
-        buildComponent('smc', 'win')
+        stage('Build smc-windows') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
+cp -r smc/target/lib lib
+cp -r smc/target/reports/apidocs apidocs
+cp -r smc/target/license license
+zip -r smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -uj smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/smc/*
+rm javafxTool-smc.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
 
-        buildComponent('qe', 'win')
+            post {
+                success {
+                    archiveArtifacts 'smcTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 smc-windows 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
-        buildComponent('cg', 'win')
+        stage('Build qe-windows') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
+cp -r qe/target/lib lib
+cp -r qe/target/reports/apidocs apidocs
+cp -r qe/target/license license
+zip -r qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -uj qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/qe/*
+rm javafxTool-qe.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'qeTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 qe-windows 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
+
+        stage('Build cg-windows') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
+cp -r cg/target/lib lib
+cp -r cg/target/reports/apidocs apidocs
+cp -r cg/target/license license
+zip -r cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -uj cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/cg/*
+rm javafxTool-cg.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'cgTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 cg-windows 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
         stage('Prepare Mac Build') {
             steps {
@@ -77,11 +150,89 @@ pipeline {
             }
         }
 
-        buildComponent('smc', 'mac')
+        stage('Build smc-mac') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
+cp -r smc/target/lib lib
+cp -r smc/target/reports/apidocs apidocs
+cp -r smc/target/license license
+zip -r smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -uj smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/smc/*
+rm javafxTool-smc.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
 
-        buildComponent('qe', 'mac')
+            post {
+                success {
+                    archiveArtifacts 'smcTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 smc-mac 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
-        buildComponent('cg', 'mac')
+        stage('Build qe-mac') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
+cp -r qe/target/lib lib
+cp -r qe/target/reports/apidocs apidocs
+cp -r qe/target/license license
+zip -r qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -uj qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/qe/*
+rm javafxTool-qe.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'qeTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 qe-mac 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
+
+        stage('Build cg-mac') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
+cp -r cg/target/lib lib
+cp -r cg/target/reports/apidocs apidocs
+cp -r cg/target/license license
+zip -r cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -uj cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/cg/*
+rm javafxTool-cg.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'cgTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 cg-mac 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
         stage('Prepare Linux Build') {
             steps {
@@ -89,11 +240,89 @@ pipeline {
             }
         }
 
-        buildComponent('smc', 'linux')
+        stage('Build smc-linux') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
+cp -r smc/target/lib lib
+cp -r smc/target/reports/apidocs apidocs
+cp -r smc/target/license license
+zip -r smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -uj smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/smc/*
+rm javafxTool-smc.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
 
-        buildComponent('qe', 'linux')
+            post {
+                success {
+                    archiveArtifacts 'smcTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 smc-linux 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
-        buildComponent('cg', 'linux')
+        stage('Build qe-linux') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
+cp -r qe/target/lib lib
+cp -r qe/target/reports/apidocs apidocs
+cp -r qe/target/license license
+zip -r qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -uj qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/qe/*
+rm javafxTool-qe.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'qeTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 qe-linux 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
+
+        stage('Build cg-linux') {
+            steps {
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
+cp -r cg/target/lib lib
+cp -r cg/target/reports/apidocs apidocs
+cp -r cg/target/license license
+zip -r cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -uj cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/cg/*
+rm javafxTool-cg.jar
+rm -r lib
+rm -r apidocs
+rm -r license'''
+            }
+
+            post {
+                success {
+                    archiveArtifacts 'cgTool*.zip'
+                }
+                failure {
+                    buildDescription '构建 cg-linux 失败'
+                }
+                aborted {
+                    buildDescription '构建取消'
+                }
+            }
+        }
 
         stage('Clean Workspace') {
             steps {
@@ -101,38 +330,5 @@ pipeline {
             }
         }
 
-    }
-}
-
-def buildComponent(String component, String platform) {
-    stage("Build ${component}-${platform}") {
-        steps {
-            echo "开始构建 ${component} for ${platform}"
-            sh "$M2_HOME/bin/mvn -f ${component}/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=${platform} -Dmaven.test.skip=true package"
-            sh """
-                set -e
-                cp ${component}/target/javafxTool-${component}.jar javafxTool-${component}.jar
-                cp -r ${component}/target/lib lib
-                cp -r ${component}/target/reports/apidocs apidocs
-                cp -r ${component}/target/license license
-                zip -r ${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${component}.jar lib apidocs license
-                zip -uj ${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${platform}/${component}/*
-                rm javafxTool-${component}.jar
-                rm -r lib apidocs license
-                echo "构建制品已生成：${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip"
-                """
-        }
-
-        post {
-            success {
-                archiveArtifacts '${component}Tool*.zip'
-            }
-            failure {
-                buildDescription "构建 ${component}-${platform} 失败"
-            }
-            aborted {
-                buildDescription '构建取消'
-            }
-        }
     }
 }
