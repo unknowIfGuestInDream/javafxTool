@@ -37,7 +37,10 @@ pipeline {
         stage('Prepare') {
             steps {
                 deleteDir()
-                copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
+                retry(3) {
+                    copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
+                }
+                sh 'test -f OpenJDK17* || exit 1'
                 archiveArtifacts 'OpenJDK17*'
                 timeout(time: 10, unit: 'MINUTES') {
                     git 'git@github.com:unknowIfGuestInDream/javafxTool.git'
@@ -47,9 +50,11 @@ pipeline {
             post {
                 failure {
                     buildDescription '构建 Prepare 失败'
+                    cleanWs()
                 }
                 aborted {
                     buildDescription '构建取消'
+                    cleanWs()
                 }
             }
         }
@@ -102,8 +107,10 @@ pipeline {
 def buildComponent(String component, String platform) {
     stage("Build ${component}-${platform}") {
         steps {
+            echo "开始构建 ${component} for ${platform}"
             sh "$M2_HOME/bin/mvn -f ${component}/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=${platform} -Dmaven.test.skip=true package"
             sh """
+                set -e
                 cp ${component}/target/javafxTool-${component}.jar javafxTool-${component}.jar
                 cp -r ${component}/target/lib lib
                 cp -r ${component}/target/reports/apidocs apidocs
@@ -112,6 +119,7 @@ def buildComponent(String component, String platform) {
                 zip -uj ${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${platform}/${component}/*
                 rm javafxTool-${component}.jar
                 rm -r lib apidocs license
+                echo "构建制品已生成：${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip"
                 """
         }
 
