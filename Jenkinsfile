@@ -103,16 +103,16 @@ def buildComponent(String component, String platform) {
     stage("Build ${component}-${platform}") {
         steps {
             sh "$M2_HOME/bin/mvn -f ${component}/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=${platform} -Dmaven.test.skip=true package"
-            sh '''cp ${component}/target/javafxTool-${component}.jar javafxTool-${component}.jar
-cp -r ${component}/target/lib lib
-cp -r ${component}/target/reports/apidocs apidocs
-cp -r ${component}/target/license license
-zip -r ${component}Tool-${platform}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${component}.jar lib apidocs license
-zip -uj ${component}Tool-${platform}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${platform}/${component}/*
-rm javafxTool-${component}.jar
-rm -r lib
-rm -r apidocs
-rm -r license'''
+            sh """
+                cp ${component}/target/javafxTool-${component}.jar javafxTool-${component}.jar
+                cp -r ${component}/target/lib lib
+                cp -r ${component}/target/reports/apidocs apidocs
+                cp -r ${component}/target/license license
+                zip -r ${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${component}.jar lib apidocs license
+                zip -uj ${component}Tool-${platform}_b\${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${platform}/${component}/*
+                rm javafxTool-${component}.jar
+                rm -r lib apidocs license
+                """
         }
 
         post {
@@ -120,7 +120,7 @@ rm -r license'''
                 archiveArtifacts '${component}Tool*.zip'
             }
             failure {
-                buildDescription '构建 ${component}-${platform} 失败'
+                buildDescription "构建 ${component}-${platform} 失败"
             }
             aborted {
                 buildDescription '构建取消'
