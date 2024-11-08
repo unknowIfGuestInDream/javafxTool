@@ -36,20 +36,18 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                deleteDir()
                 copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
                 archiveArtifacts 'OpenJDK17*'
-                timeout(time: 3, unit: 'MINUTES') {
-                    git 'git@github.com:unknowIfGuestInDream/javafxTool.git'
-                }
                 sh "$M2_HOME/bin/mvn -version"
             }
             post {
                 failure {
                     buildDescription '构建 Prepare 失败'
+                    cleanWs()
                 }
                 aborted {
                     buildDescription '构建取消'
+                    cleanWs()
                 }
             }
         }
