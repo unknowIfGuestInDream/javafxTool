@@ -54,7 +54,9 @@ pipeline {
 
         stage('Prepare Windows Build') {
             steps {
-                sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                timeout(time: 10, unit: 'MINUTES') {
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                }
             }
         }
 
@@ -144,7 +146,9 @@ rm -r license'''
 
         stage('Prepare Mac Build') {
             steps {
-                sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                timeout(time: 10, unit: 'MINUTES') {
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                }
             }
         }
 
@@ -234,7 +238,9 @@ rm -r license'''
 
         stage('Prepare Linux Build') {
             steps {
-                sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                timeout(time: 10, unit: 'MINUTES') {
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                }
             }
         }
 
