@@ -37,10 +37,10 @@ pipeline {
         stage('Check change') {
             steps {
                 echo currentBuild.getBuildCauses
-                if ($GIT_PREVIOUS_SUCCESSFUL_COMMIT == $GIT_COMMIT) {
+                if (env.GIT_PREVIOUS_SUCCESSFUL_COMMIT == env.GIT_COMMIT) {
                     echo "no change，skip build"
-                    currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
-                    sleep(1)
+                    currentBuild.result = 'NOT_BUILT'
+                    return
                 }
             }
         }
