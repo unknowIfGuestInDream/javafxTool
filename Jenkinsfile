@@ -34,7 +34,17 @@ pipeline {
         USER_NAME='Jenkins'
     }
     stages {
-        stage('Prepare') {
+        stage('Check change') {
+            steps {
+                if ($GIT_PREVIOUS_SUCCESSFUL_COMMIT == $GIT_COMMIT) {
+                    echo "no change，skip build"
+                    currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
+                    sleep(1)
+                }
+            }
+        }
+
+        stage('Prepare JRE') {
             steps {
                 copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
                 archiveArtifacts 'OpenJDK17*'

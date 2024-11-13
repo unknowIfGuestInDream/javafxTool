@@ -68,3 +68,4 @@ runtime/
 pom.xml.versionsBackup
 .cache/
 *.bak
+.xcodemap/
