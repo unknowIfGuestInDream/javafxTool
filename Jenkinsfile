@@ -36,8 +36,10 @@ pipeline {
     stages {
         stage('Check change') {
             steps {
-                echo currentBuild.getBuildCauses
-                if (env.GIT_PREVIOUS_SUCCESSFUL_COMMIT == env.GIT_COMMIT) {
+                echo "${currentBuild.getBuildCauses()}"
+                echo "Previous successful commit: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+                echo "Current commit: ${GIT_COMMIT}"
+                if (GIT_PREVIOUS_SUCCESSFUL_COMMIT == GIT_COMMIT) {
                     echo "no change，skip build"
                     currentBuild.result = 'NOT_BUILT'
                     return
