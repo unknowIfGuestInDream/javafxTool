@@ -36,13 +36,17 @@ pipeline {
     stages {
         stage('Check change') {
             steps {
-                echo "Previous successful commit: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
                 echo "Current commit: ${GIT_COMMIT}"
                 script {
-                    if (GIT_PREVIOUS_SUCCESSFUL_COMMIT == GIT_COMMIT) {
-                        echo "no change，skip build"
-                        currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
-                        sleep(1)
+                    if (!GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
+                        echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT is not exists."
+                    } else {
+                        echo "Previous successful commit: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+                        if (GIT_PREVIOUS_SUCCESSFUL_COMMIT == GIT_COMMIT) {
+                            echo "no change，skip build"
+                            currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
+                            sleep(1)
+                        }
                     }
                 }
             }
