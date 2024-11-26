@@ -38,6 +38,7 @@ pipeline {
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
                 script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                     if (!GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
                         echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT is not exists."
                     } else {
@@ -47,6 +48,7 @@ pipeline {
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
                         }
+                    }
                     }
                 }
             }
