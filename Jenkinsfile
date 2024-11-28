@@ -13,6 +13,7 @@ pipeline {
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
+                echo "Last commit: ${currentBuild.previousSuccessfulBuild}"
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                     if (!GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
@@ -51,7 +52,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean -T 1C install"
                 }
             }
         }
@@ -143,7 +144,7 @@ rm -r license'''
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean -T 1C install"
                 }
             }
         }
@@ -235,7 +236,7 @@ rm -r license'''
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean -T 1C install"
                 }
             }
         }
