@@ -21,7 +21,7 @@ pipeline {
                     for(action in actions) {
                         if(action.getRemoteUrls().toString().contains(env.GIT_URL)) {
                             prevCommitId = action.getLastBuiltRevision().getSha1String()
-                            return
+                            break
                         }
                     }
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
