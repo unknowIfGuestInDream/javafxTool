@@ -15,17 +15,23 @@ pipeline {
                 echo "Current commit: ${GIT_COMMIT}"
                 script {
                     def prevBuild = currentBuild.previousSuccessfulBuild
-                    catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
-                    if (!prevBuild.buildVariables.GIT_COMMIT) {
-                        echo "prevBuild.buildVariables.GIT_COMMIT is not exists."
-                    } else {
-                        echo "Previous successful commit: ${prevBuild.buildVariables.GIT_COMMIT}"
-                        if (prevBuild.buildVariables.GIT_COMMIT == GIT_COMMIT) {
-                            echo "no change，skip build"
-                            currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
-                            sleep(1)
-                        }
+                    def prevCommitId = ""
+                    prevBuild.rawBuild.getActions().each { action ->
+                       if (action.hasProperty("getRemoteUrls")) {
+                           prevCommitId = action.lastBuiltRevision.getSha1String()
+                       }
                     }
+                    catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
+                        if (prevCommitId == "") {
+                            echo "previousSuccessfulBuild.GIT_COMMIT is not exists."
+                        } else {
+                            echo "Previous successful commit: ${prevCommitId}"
+                            if (prevCommitId == GIT_COMMIT) {
+                                echo "no change，skip build"
+                                currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
+                                sleep(1)
+                            }
+                        }
                     }
                 }
             }
