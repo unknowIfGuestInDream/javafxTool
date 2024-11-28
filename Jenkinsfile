@@ -13,14 +13,14 @@ pipeline {
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
-                echo "Last commit: ${currentBuild.previousSuccessfulBuild}"
                 script {
+                    def prevBuild = currentBuild.previousSuccessfulBuild
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
-                    if (!GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
-                        echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT is not exists."
+                    if (!prevBuild.buildVariables.GIT_COMMIT) {
+                        echo "prevBuild.buildVariables.GIT_COMMIT is not exists."
                     } else {
-                        echo "Previous successful commit: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
-                        if (GIT_PREVIOUS_SUCCESSFUL_COMMIT == GIT_COMMIT) {
+                        echo "Previous successful commit: ${prevBuild.buildVariables.GIT_COMMIT}"
+                        if (prevBuild.buildVariables.GIT_COMMIT == GIT_COMMIT) {
                             echo "no change，skip build"
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
