@@ -17,10 +17,8 @@ pipeline {
                     def prevBuild = currentBuild.previousSuccessfulBuild
                     def prevCommitId = ""
                     prevBuild.rawBuild.getActions().each { action ->
-                       if (action.hasProperty("getRemoteUrls")) {
-                           echo "${action.lastBuiltRevision.getSha1String()}"
-                           prevCommitId = action.lastBuiltRevision.getSha1String()
-                       }
+                        echo "${action.lastBuiltRevision.getSha1String()}"
+                        prevCommitId = action.lastBuiltRevision.getSha1String()
                     }
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                         if (prevCommitId == "") {
