@@ -13,7 +13,7 @@ pipeline {
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
-                echo "Last commit: ${currentBuild.previousSuccessfulBuild}"
+                echo "Last commit: ${currentBuild.previousSuccessfulBuild.buildVariables}"
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                     if (!GIT_PREVIOUS_SUCCESSFUL_COMMIT) {
