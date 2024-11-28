@@ -14,15 +14,13 @@ pipeline {
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
                 script {
-                    def prevBuild = currentBuild.previousSuccessfulBuild
-                    def prevCommitId = ""
-                    prevBuild.rawBuild.getActions().each { action ->
-                        echo "${action.lastBuiltRevision.getSha1String()}"
-                        prevCommitId = action.lastBuiltRevision.getSha1String()
-                    }
+                    def prevCommitId = sh(
+                        script: "git rev-parse HEAD^1",
+                        returnStdout: true
+                    ).trim()
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                         if (prevCommitId == "") {
-                            echo "previousSuccessfulBuild.GIT_COMMIT is not exists."
+                            echo "prevCommitId is not exists."
                         } else {
                             echo "Previous successful commit: ${prevCommitId}"
                             if (prevCommitId == GIT_COMMIT) {
