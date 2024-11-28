@@ -17,7 +17,7 @@ pipeline {
                 script {
                     def prevBuild = currentBuild.previousSuccessfulBuild
                     def prevCommitId = ""
-                    def actions = prevBuild.getActions(hudson.plugins.git.util.BuildData.class)
+                    def actions = prevBuild.rawBuild.getActions(hudson.plugins.git.util.BuildData.class)
                     for(action in actions) {
                         if(action.getRemoteUrls().toString().contains(env.GIT_URL)) {
                             prevCommitId = action.getLastBuiltRevision().getSha1String()
