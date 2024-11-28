@@ -13,11 +13,17 @@ pipeline {
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
+                echo "Current URL: ${env.GIT_URL}"
                 script {
-                    def prevCommitId = sh(
-                        script: "git rev-parse HEAD^1",
-                        returnStdout: true
-                    ).trim()
+                    def prevBuild = currentBuild.previousSuccessfulBuild
+                    def prevCommitId = ""
+                    def actions = prevBuild.getActions(hudson.plugins.git.util.BuildData.class)
+                    for(action in actions) {
+                        if(action.getRemoteUrls().toString().contains(env.GIT_URL)) {
+                            prevCommitId = action.getLastBuiltRevision().getSha1String()
+                            return
+                        }
+                    }
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
                         if (prevCommitId == "") {
                             echo "prevCommitId is not exists."
