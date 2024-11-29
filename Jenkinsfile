@@ -33,6 +33,7 @@ pipeline {
                                 echo "no change，skip build"
                                 currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                                 sleep(1)
+                                return
                             }
                         }
                     }
