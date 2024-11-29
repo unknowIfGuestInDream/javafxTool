@@ -24,17 +24,14 @@ pipeline {
                             break
                         }
                     }
-                    catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED'){
-                        if (prevCommitId == "") {
-                            echo "prevCommitId is not exists."
-                        } else {
-                            echo "Previous successful commit: ${prevCommitId}"
-                            if (prevCommitId == GIT_COMMIT) {
-                                echo "no change，skip build"
-                                currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
-                                sleep(1)
-                                return
-                            }
+                    if (prevCommitId == "") {
+                        echo "prevCommitId is not exists."
+                    } else {
+                        echo "Previous successful commit: ${prevCommitId}"
+                        if (prevCommitId == GIT_COMMIT) {
+                            echo "no change，skip build"
+                            currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
+                            sleep(1)
                         }
                     }
                 }
