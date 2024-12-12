@@ -246,7 +246,7 @@ public class DmaTriggerSourceCode extends SmcSample {
                 Map<String, Object> binding = new HashMap<>();
                 String factor = reader.getCell(group + i).getStringCellValue();
                 triggerSource.add(factor);
-                if ("Reserve".equals(factor)) {
+                if ("Reserve".equals(factor) || "Reserved".equals(factor)) {
                     continue;
                 }
                 if (defaultSelection.isEmpty()) {
