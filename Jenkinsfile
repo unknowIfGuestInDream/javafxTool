@@ -59,14 +59,14 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=win -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' clean -T 1C install"
                 }
             }
         }
 
         stage('Build smc-windows') {
             steps {
-                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
@@ -94,7 +94,7 @@ rm -r license'''
 
         stage('Build qe-windows') {
             steps {
-                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
@@ -122,7 +122,7 @@ rm -r license'''
 
         stage('Build cg-windows') {
             steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
@@ -158,7 +158,7 @@ rm -r license'''
 
         stage('Build smc-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
@@ -186,7 +186,7 @@ rm -r license'''
 
         stage('Build qe-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
@@ -214,7 +214,7 @@ rm -r license'''
 
         stage('Build cg-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
@@ -250,7 +250,7 @@ rm -r license'''
 
         stage('Build smc-linux') {
             steps {
-                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
@@ -278,7 +278,7 @@ rm -r license'''
 
         stage('Build qe-linux') {
             steps {
-                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
@@ -306,7 +306,7 @@ rm -r license'''
 
         stage('Build cg-linux') {
             steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true package"
+                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -Pjavadoc-with-links package"
                 sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
