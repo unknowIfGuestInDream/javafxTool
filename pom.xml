@@ -2021,7 +2021,8 @@
                                                   file="${project.build.directory}/${project.build.finalName}.jar"
                                                   property="md5.checksum"/>
                                         <!--suppress UnresolvedMavenProperty -->
-                                        <echo file="${project.build.directory}/MD5" message="${md5.checksum}"/>
+                                        <echo file="${project.build.directory}/${project.build.finalName}.jar.MD5"
+                                              message="${md5.checksum}"/>
                                     </target>
                                 </configuration>
                             </execution>
