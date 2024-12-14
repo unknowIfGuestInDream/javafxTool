@@ -1540,7 +1540,7 @@
                         <phase>test</phase>
                         <configuration>
                             <target unless="workEnv">
-                                <echo message="You need to set -DworkEnv=ci in CI, otherwise it defaults to dev in the development environment."/>
+                                <echo message="You need to set -DworkEnv=ci in CI, otherwise it defaults to dev in the development environment and when started from a jar the value is prod."/>
                             </target>
                         </configuration>
                         <goals>
