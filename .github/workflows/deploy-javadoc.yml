@@ -1,0 +1,50 @@
+name: Deploy javadoc
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
+      - '.github/workflows/**'
+      - '.idea/**'
+      - '.settings/**'
+      - '.vscode/**'
+      - 'README*.md'
+      - '.gitignore'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.mergify.yml'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTORS.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'qodana.yaml'
+      - 'SECURITY.md'
+      - '.imgbotconfig'
+
+jobs:
+  deployJavadoc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: maven
+      - name: Generate javadoc
+        run: mvn -B --file pom.xml -DskipTests javadoc:aggregate-jar
+      - name: Publish to server
+        uses: easingthemes/ssh-deploy@v5.1.1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-avzr --delete"
+          SOURCE: "target/reports/apidocs/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.JAVADOC_TARGET }}
