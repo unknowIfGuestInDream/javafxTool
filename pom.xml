@@ -73,6 +73,8 @@
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <buildnumber-maven-plugin.version>3.2.1</buildnumber-maven-plugin.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
         <impsort-maven-plugin.version>1.12.0</impsort-maven-plugin.version>
@@ -1403,7 +1405,7 @@
                     <verbose>false</verbose>
                     <skip>false</skip>
                     <prefix>jfx-git</prefix>
-                    <dotGitDirectory>$${project.basedir}/../.git</dotGitDirectory>
+                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <generateGitPropertiesFilename>target/git.properties
                     </generateGitPropertiesFilename>
@@ -1528,6 +1530,24 @@
                     </additionalConfig>
                     <wtpversion>2.0</wtpversion>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>test</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <target unless="workEnv">
+                                <echo message="You need to set -DworkEnv=ci in CI, otherwise it defaults to dev in the development environment."/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
@@ -1712,6 +1732,25 @@
                                 </resources>
                             </configuration>
                         </execution>
+                        <execution>
+                            <id>copy-mf-licence</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/classes/META-INF</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}/../</directory>
+                                        <includes>
+                                            <include>LICENSE</include>
+                                        </includes>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
                 <plugin>
@@ -1790,6 +1829,16 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${maven-project-info-reports-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${buildnumber-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -1946,6 +1995,35 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>md5</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-md5</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <checksum algorithm="md5"
+                                                  file="${project.build.directory}/${project.build.finalName}.jar"
+                                                  property="md5.checksum"/>
+                                        <!--suppress UnresolvedMavenProperty -->
+                                        <echo file="${project.build.directory}/MD5" message="${md5.checksum}"/>
+                                    </target>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
