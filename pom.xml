@@ -1870,37 +1870,64 @@
                             <configuration>
                                 <templateContent>
                                     <![CDATA[
-# CHANGELOG
+# {{repoName}} changelog
+
+Changelog of {{repoName}}.
 
 {{#tags}}
-{{#ifReleaseTag .}}
-## [{{name}}](https://github.com/unknowIfGuestInDream/javafxTool/{{name}}) ({{tagDate .}})
+## {{name}} ({{tagDate .}})
 
-  {{#ifContainsType commits type='feat'}}
+{{#ifContainsBreaking commits}}
+### Breaking changes
+
+{{#commits}}
+{{#ifCommitBreaking .}}
+- {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}}) {{#eachCommitRefs .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitRefs}} {{#eachCommitFixes .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitFixes}}
+{{/ifCommitBreaking}}
+{{/commits}}
+
+{{/ifContainsBreaking}}
+{{#ifContainsType commits type='feat'}}
 ### Features
 
-    {{#commits}}
-      {{#ifCommitType . type='feat'}}
- - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/unknowIfGuestInDream/javafxTool/commit/{{hashFull}}))
-      {{/ifCommitType}}
-    {{/commits}}
-  {{/ifContainsType}}
+{{#commits}}
+{{#ifCommitType . type='feat'}}
+- {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}}) {{#eachCommitRefs .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitRefs}} {{#eachCommitFixes .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitFixes}}
+{{/ifCommitType}}
+{{/commits}}
 
-  {{#ifContainsType commits type='fix'}}
+{{/ifContainsType}}
+{{#ifContainsType commits type='fix'}}
 ### Bug Fixes
 
-    {{#commits}}
-      {{#ifCommitType . type='fix'}}
- - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/unknowIfGuestInDream/javafxTool/commit/{{hashFull}}))
-      {{/ifCommitType}}
-    {{/commits}}
-  {{/ifContainsType}}
+{{#commits}}
+{{#ifCommitType . type='fix'}}
+- {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}}) {{#eachCommitRefs .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitRefs}} {{#eachCommitFixes .}}{{#ifMatches . "^#[0-9]+"}} [{{.}}](https://github.com/{{ownerName}}/{{repoName}}/issues/{{subString . 1}}) {{/ifMatches}}{{/eachCommitFixes}}
+{{/ifCommitType}}
+{{/commits}}
 
-{{/ifReleaseTag}}
+{{/ifContainsType}}
+{{#ifContainsType commits type='^($|(?!fix|feat|breaking|ci|bot))'}}
+### Other changes
+
+{{#commits}}
+{{#ifCommitType . type='^$'}}
+**{{{messageTitle}}}**
+
+{{#messageBodyItems}}
+* {{.}}
+{{/messageBodyItems}}
+
+[{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+{{/ifCommitType}}
+{{/commits}}
+
+{{/ifContainsType}}
 {{/tags}}
 ]]>
                                 </templateContent>
-                                <file>target/CHANGELOG_inline.md</file>
+                                <file>target/CHANGELOG_with-unreleased.md</file>
                             </configuration>
                         </execution>
                     </executions>
