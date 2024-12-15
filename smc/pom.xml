@@ -203,12 +203,25 @@
                 <executions>
                     <execution>
                         <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
+                        <id>smc-cli</id>
                         <configuration>
                             <mainClass>com.tlcsdm.smc/com.tlcsdm.smc.SmcSampler</mainClass>
+                            <options>
+                                <option>-DworkEnv=prod</option>
+                            </options>
+                            <launcher>app</launcher>
+                            <jlinkZipName>app</jlinkZipName>
+                            <jlinkImageName>app</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>se.bjurr.gitchangelog</groupId>
+                <artifactId>git-changelog-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
