@@ -1857,7 +1857,7 @@
                         <dependency>
                             <groupId>org.openjdk.nashorn</groupId>
                             <artifactId>nashorn-core</artifactId>
-                            <version>15.4</version>
+                            <version>15.5</version>
                         </dependency>
                     </dependencies>
                     <executions>
