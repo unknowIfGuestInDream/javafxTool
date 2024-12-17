@@ -21,7 +21,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | java-diff-utils        | 4.15       | 用于在文本或某种数据之间执行比较/差异操作            |
 | dom4j                  | 2.1.4      | XML 框架                           |
 | richtextfx             | 0.11.4     | JavaFX 的富文本组件                    |
-| junit                  | 5.11.3     | 单元测试框架                           |
+| junit                  | 5.11.4     | 单元测试框架                           |
 | jackson                | 2.18.2     | JSON解析库                          |
 | commons-io             | 2.18.0     | IO工具                             |
 | commons-csv            | 1.10.0     | csv工具                            |
