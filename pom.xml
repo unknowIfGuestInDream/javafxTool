@@ -97,7 +97,7 @@
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.11.4</junit.version>
         <javafx.version>21.0.4</javafx.version>
         <javafx.swt.version>21.0.3</javafx.swt.version>
         <controlsfx.version>11.2.1</controlsfx.version>
