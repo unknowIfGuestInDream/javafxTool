@@ -99,7 +99,7 @@ cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
 cp -r smc/target/license license
-zip -r smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -r smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/smc/*
 rm javafxTool-smc.jar
 rm CHANGELOG_with-unreleased.md
@@ -129,7 +129,7 @@ cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
 cp -r qe/target/license license
-zip -r qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -r qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/qe/*
 rm javafxTool-qe.jar
 rm CHANGELOG_with-unreleased.md
@@ -159,7 +159,7 @@ cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
 cp -r cg/target/license license
-zip -r cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -r cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/cg/*
 rm javafxTool-cg.jar
 rm CHANGELOG_with-unreleased.md
@@ -197,7 +197,7 @@ cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
 cp -r smc/target/license license
-zip -r smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -r smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/smc/*
 rm javafxTool-smc.jar
 rm CHANGELOG_with-unreleased.md
@@ -227,7 +227,7 @@ cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
 cp -r qe/target/license license
-zip -r qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -r qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/qe/*
 rm javafxTool-qe.jar
 rm CHANGELOG_with-unreleased.md
@@ -257,7 +257,7 @@ cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
 cp -r cg/target/license license
-zip -r cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -r cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/cg/*
 rm javafxTool-cg.jar
 rm CHANGELOG_with-unreleased.md
@@ -295,7 +295,7 @@ cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r smc/target/lib lib
 cp -r smc/target/reports/apidocs apidocs
 cp -r smc/target/license license
-zip -r smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license
+zip -r smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/smc/*
 rm javafxTool-smc.jar
 rm CHANGELOG_with-unreleased.md
@@ -325,7 +325,7 @@ cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r qe/target/lib lib
 cp -r qe/target/reports/apidocs apidocs
 cp -r qe/target/license license
-zip -r qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license
+zip -r qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/qe/*
 rm javafxTool-qe.jar
 rm CHANGELOG_with-unreleased.md
@@ -355,7 +355,7 @@ cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r cg/target/lib lib
 cp -r cg/target/reports/apidocs apidocs
 cp -r cg/target/license license
-zip -r cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license
+zip -r cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
 zip -uj cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/cg/*
 rm javafxTool-cg.jar
 rm CHANGELOG_with-unreleased.md
