@@ -1281,6 +1281,11 @@
                 <configuration>
                     <doctitle>${project.name} Documentation (Version ${project.version})</doctitle>
                     <windowtitle>${project.name} Documentation (Version ${project.version})</windowtitle>
+                    <!-- Used by javadoc:test-javadoc goal -->
+                    <testDoctitle>Test Documentation for ${project.name} (Version ${project.version})</testDoctitle>
+                    <testWindowtitle>Test Documentation for ${project.name} (Version ${project.version})
+                    </testWindowtitle>
+                    <!-- Used by javadoc:test-javadoc goal -->
                     <show>private</show>
                     <quiet>true</quiet>
                     <failOnError>false</failOnError>
@@ -1301,6 +1306,18 @@
                     <additionalJOptions>
                         <additionalJOption>-Xdoclint:none</additionalJOption>
                     </additionalJOptions>
+                    <tags>
+                        <tag>
+                            <name>todo</name>
+                            <placement>a</placement>
+                            <head>To do something:</head>
+                        </tag>
+                        <tag>
+                            <name>Author</name>
+                            <placement>t</placement>
+                            <head>Author:</head>
+                        </tag>
+                    </tags>
                 </configuration>
                 <executions>
                     <execution>
@@ -2014,7 +2031,7 @@ Changelog of {{repoName}}.
                                     https://javadoc.io/doc/io.github.java-diff-utils/java-diff-utils/${java-diff-utils.version}/
                                 </link>
                                 <link>https://javadoc.io/static/org.apache.pdfbox/pdfbox/${pdfbox.version}/</link>
-                                <link>https://javadoc.io/doc/org.fxmisc.richtext/richtextfx/${richtextfx.version}/
+                                <link>https://javadoc.io/doc/org.fxmisc.richtext/richtextfx/latest/
                                 </link>
                                 <link>https://docs.groovy-lang.org/${groovy.version}/html/gapi/</link>
                             </links>
