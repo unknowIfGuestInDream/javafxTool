@@ -1,0 +1,19 @@
+	public void mainTest() throws IOException {
+
+		final String outputDataImg = "C:\\Users\\Administrator\\Desktop\\PicHiderTest\\8-8-无色-嵌入后.png";
+
+		String[] encodeArgs = new String[]{"encode" //
+				, "--dataFile", "C:\\Users\\Administrator\\Desktop\\PicHiderTest\\data.txt" //
+				, "--coverImage", "C:\\Users\\Administrator\\Desktop\\PicHiderTest\\8-8-无色.png" //
+				, "--stegoImage", outputDataImg //
+				, "--mask", MASK_BINARY_STRING //
+		};
+		PicHider.main(encodeArgs);
+
+		String[] decodeArgs = new String[]{"decode" //
+				, "--stegoImage", outputDataImg //
+				, "--output", "C:\\Users\\Administrator\\Desktop\\PicHiderTest" //
+				, "--mask", MASK_BINARY_STRING //
+		};
+		PicHider.main(decodeArgs);
+	}
