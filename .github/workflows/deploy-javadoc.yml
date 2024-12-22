@@ -20,9 +20,11 @@ on:
       - 'CODE_OF_CONDUCT.md'
       - 'CONTRIBUTING.md'
       - 'qodana.yaml'
+      - 'sweep.yaml'
       - 'SECURITY.md'
       - '.imgbotconfig'
       - 'core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java'
+      - 'docs/**'
 
 jobs:
   deployJavadoc:
