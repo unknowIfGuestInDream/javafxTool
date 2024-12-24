@@ -36,7 +36,7 @@ pipeline {
     stages {
         stage('Check change') {
             when {
-                expression { currentBuild.previousSuccessfulBuild != null }
+                expression { currentBuild.previousSuccessfulBuild != null && !skipCheckGit }
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
