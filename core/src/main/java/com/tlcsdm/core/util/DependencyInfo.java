@@ -59,10 +59,10 @@ public class DependencyInfo {
             new Dependency("org.apache.poi", "poi", "5.3.0", false, "https://poi.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.freemarker", "freemarker", "2.3.33", false, "https://freemarker.apache.org/",
+            new Dependency("org.freemarker", "freemarker", "2.3.34", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.5.14", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.5.15", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.35", true, "https://github.com/dromara/hutool",

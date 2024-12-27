@@ -106,13 +106,13 @@
         <lombok.version>1.18.36</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.3.0</poi-ooxml.version>
-        <freemarker.version>2.3.33</freemarker.version>
+        <freemarker.version>2.3.34</freemarker.version>
         <aviator.version>5.4.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.35</hutool.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
-        <logback-classic.version>1.5.14</logback-classic.version>
+        <logback-classic.version>1.5.15</logback-classic.version>
         <slf4j-api.version>2.0.16</slf4j-api.version>
         <commons-io.version>2.18.0</commons-io.version>
         <commons-configuration2.version>2.11.0</commons-configuration2.version>
@@ -153,7 +153,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.35.100</jface.version>
         <swt.version>3.128.0</swt.version>
-        <jna.version>5.15.0</jna.version>
+        <jna.version>5.16.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.5.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
