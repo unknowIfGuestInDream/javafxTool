@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+print(Object); // function Object() { [native code] }
+print(new Object()); // [object Object]
 
-import java.io.Serializable;
+var Object = java.lang.Object;
+print(Object); // [JavaClass java.lang.Object]
+print(new Object()); // java.lang.Object@...
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
+var JavaObject = Java.type("java.lang.Object");
+print(JavaObject); // [JavaClass java.lang.Object]
+print(new JavaObject()); // java.lang.Object@...
+///
+var IntArray = Java.type("int[]");
+print(IntArray); // [JavaClass [I]
+var intArray = new IntArray(3);
+print(intArray); // [I@78b1cc93
+intArray[0] = 1;
+intArray[1] = 2;
+intArray[2] = 3;
 
-    public Integer getAge() {
-        return age;
-    }
+print(Java.from(intArray)); // 1,2,3
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
-}
+var jsArray = Java.from(intArray);
+jsArray.shift();
+jsArray.push(4);
+print(jsArray); // 2,3,4

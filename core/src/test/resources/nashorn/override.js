@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
-
-import java.io.Serializable;
-
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
-}
+var System = Java.type('java.lang.System');
+System.out.println(10);              // 10
+System.out["println"](11.0);         // 11.0
+System.out["println(double)"](12);   // 12.0

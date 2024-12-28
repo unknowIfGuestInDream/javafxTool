@@ -21,7 +21,8 @@
 *.bat           linguist-language=Shell
 *.vbs           linguist-language=Shell
 frame/src/main/resources/com/tlcsdm/frame/static/css/*        linguist-vendored
-docs/**         linguist-documentation
+core/src/test/resources/nashorn/*.js                          linguist-vendored
+docs/**                                                       linguist-documentation
 
 # Ensure the following are treated as binary.
 # # (binary is a macro for -text -diff)

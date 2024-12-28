@@ -191,6 +191,8 @@
         <jtidy.version>1.0.5</jtidy.version>
         <javaluator.version>3.0.5</javaluator.version>
         <javapoet.version>0.6.0</javapoet.version>
+        <nashorn.version>15.6</nashorn.version>
+        <jruby.version>9.4.9.0</jruby.version>
     </properties>
 
     <issueManagement>
@@ -1191,6 +1193,16 @@
                 <artifactId>javapoet</artifactId>
                 <version>${javapoet.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.openjdk.nashorn</groupId>
+                <artifactId>nashorn-core</artifactId>
+                <version>${nashorn.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jruby</groupId>
+                <artifactId>jruby-core</artifactId>
+                <version>${jruby.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -1874,7 +1886,6 @@
                         <dependency>
                             <groupId>org.openjdk.nashorn</groupId>
                             <artifactId>nashorn-core</artifactId>
-                            <version>15.6</version>
                         </dependency>
                     </dependencies>
                     <executions>

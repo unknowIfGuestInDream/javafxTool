@@ -87,6 +87,7 @@ module com.tlcsdm.core {
     requires static net.jonathangiles.tools.teenyhttpd;
     requires org.reflections;
     requires static org.apache.commons.csv;
+    requires static org.openjdk.nashorn;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;

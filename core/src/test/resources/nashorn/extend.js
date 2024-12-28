@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+var Runnable = Java.type('java.lang.Runnable');
+var Printer = Java.extend(Runnable, {
+  run: function () {
+    print('printed from a separate thread');
+  }
+});
 
-import java.io.Serializable;
+var Thread = Java.type('java.lang.Thread');
+new Thread(new Printer()).start();
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
+new Thread(function () {
+  print('printed from another thread');
+}).start();
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
-}
+// printed from a separate thread
+// printed from another thread
