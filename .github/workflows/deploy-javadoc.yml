@@ -25,6 +25,7 @@ on:
       - '.imgbotconfig'
       - 'core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java'
       - 'docs/**'
+      - '*/src/test/**'
 
 jobs:
   deployJavadoc:
