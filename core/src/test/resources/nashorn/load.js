@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+// load('/location.js');
+load('classpath:nashorn/array.js');
+load('http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js');
+var odds = _.filter([1, 2, 3, 4, 5, 6], function (num) {
+  return num % 2 == 1;
+});
+print(odds);  // 1, 3, 5
 
-import java.io.Serializable;
+var math = {
+  increment: function (num) {
+    return ++num;
+  }
+};
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
+math;
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
-}

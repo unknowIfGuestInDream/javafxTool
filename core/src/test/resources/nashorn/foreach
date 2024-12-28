@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+var list = [1, 2, 3, 4, 5];
+var result = '';
+for each (var i in list) {
+  result+=i+'-';
+}
+print(result);
 
-import java.io.Serializable;
+var ArrayList = Java.type('java.util.ArrayList');
+var list = new ArrayList();
+list.add('a');
+list.add('b');
+list.add('c');
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
+for each (var el in list) {
+  print(el);  // a, b, c
+}
 
-    public Integer getAge() {
-        return age;
-    }
+var map = new java.util.HashMap();
+map.put('foo', 'val1');
+map.put('bar', 'val2');
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+for each (var e in map.keySet()) {
+  print(e);  // foo, bar
+}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
+for each (var e in map.values()) {
+  print(e);  // val1, val2
 }

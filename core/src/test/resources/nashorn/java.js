@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+var MyJavaClass = Java.type('com.tlcsdm.core.util.User');
 
-import java.io.Serializable;
+var result = MyJavaClass.sayHello('Nashorn');
+print(result);
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
+MyJavaClass.fun(127);
+// class java.lang.Integer
 
-    public Integer getAge() {
-        return age;
-    }
+MyJavaClass.fun(49.99);
+// class java.lang.Double
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+MyJavaClass.fun(true);
+// class java.lang.Boolean
 
-    public String getName() {
-        return name;
-    }
+MyJavaClass.fun("Hi!");
+// class java.lang.String
 
-    public void setName(String name) {
-        this.name = name;
-    }
+MyJavaClass.fun(new Number(127));
+// class jdk.nashorn.internal.objects.NativeNumber
 
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
+MyJavaClass.fun(new Date());
+// class jdk.nashorn.internal.objects.NativeDate
 
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
-}
+MyJavaClass.fun(new RegExp());
+// class jdk.nashorn.internal.objects.NativeRegExp
+
+MyJavaClass.fun({foo: 'bar'});
+// class jdk.nashorn.internal.scripts.JO4

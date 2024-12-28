@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream
+ * Copyright (c) 2024 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,41 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util;
+var IntArray = Java.type("int[]");
 
-import java.io.Serializable;
+var array = new IntArray(5);
+array[0] = 5;
+array[1] = 4;
+array[2] = 3;
+array[3] = 2;
+array[4] = 1;
 
-/**
- * 测试用.
- *
- * @author unknowIfGuestInDream
- */
-public class User implements Serializable {
-    private Integer age;
-    private String name;
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String sayHello(String name) {
-        System.out.println("Hello " + name);
-        return "Hi!";
-    }
-
-    public static void fun(Object obj) {
-        System.out.println(obj.getClass());
-    }
+try {
+  array[5] = 23;
+} catch (e) {
+  print(e.message);  // Array index out of range: 5
 }
+
+array[0] = "17";
+print(array[0]);  // 17
+
+array[0] = "wrong type";
+print(array[0]);  // 0
+
+array[0] = "17.3";
+print(array[0]);  // 17
+
+// 数组转换
+// 下面的代码将Java的List转换为JavaScript原生数组：
+var javaList = new java.util.ArrayList();
+javaList.add("1");
+javaList.add("2");
+javaList.add("3");
+var jsArray = Java.from(javaList);
+print(jsArray);                                  // 1, 2, 3
+print(Object.prototype.toString.call(jsArray));  // [object Array]
+
+// 下面的代码执行相反操作：
+var javaArray = Java.to([3, 5, 7, 11], "int[]");
+
+
