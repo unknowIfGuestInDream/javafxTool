@@ -28,8 +28,6 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import se.bjurr.violations.lib.ViolationsApi;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
@@ -37,6 +35,9 @@ import se.bjurr.violations.lib.reports.Parser;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * violations.

@@ -28,10 +28,11 @@
 package com.tlcsdm.core.dsl;
 
 import com.tlcsdm.core.dsl.stringvars.StringVars;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

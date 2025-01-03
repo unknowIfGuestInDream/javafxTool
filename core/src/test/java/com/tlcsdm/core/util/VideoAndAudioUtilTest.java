@@ -28,10 +28,6 @@
 package com.tlcsdm.core.util;
 
 import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import ws.schild.jave.EncoderException;
 import ws.schild.jave.info.MultimediaInfo;
 
@@ -43,6 +39,11 @@ import java.math.RoundingMode;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * VideoUtil and dAudioUtil.

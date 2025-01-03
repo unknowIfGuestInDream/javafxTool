@@ -30,12 +30,13 @@ package com.tlcsdm.smc.tool;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Assert;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

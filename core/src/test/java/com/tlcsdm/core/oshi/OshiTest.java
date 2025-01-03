@@ -27,10 +27,11 @@
 
 package com.tlcsdm.core.oshi;
 
+import oshi.software.os.OSProcess;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import oshi.software.os.OSProcess;
 
 /**
  * @author unknowIfGuestInDream

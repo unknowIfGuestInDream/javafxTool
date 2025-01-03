@@ -30,10 +30,11 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.io.resource.ResourceUtil;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * tess4j测试.
