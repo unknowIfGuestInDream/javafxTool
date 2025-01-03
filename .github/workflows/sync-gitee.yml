@@ -1,4 +1,4 @@
-name: Gitee repos mirror periodic job
+name: Gitee repos mirror
 
 on:
   # 如果需要 PR 触发把 push 前的#去掉
