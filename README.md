@@ -3,6 +3,7 @@
 [![Java package with Maven](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/artifact.yml/badge.svg?branch=master)](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/artifact.yml)
 [![Deploy Docs](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/deploy-docs.yml/badge.svg?branch=master)](https://javafxtool.tlcsdm.com/)
 [![Gitee repos mirror](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/sync-gitee.yml/badge.svg?branch=master)](https://gitee.com/unknowIfGuestInDream/javafxTool)
+[![GitHub repo size](https://img.shields.io/github/repo-size/unknowIfGuestInDream/javafxTool)](https://github.com/unknowIfGuestInDream/javafxTool)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=unknowIfGuestInDream_javafxTool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=unknowIfGuestInDream_javafxTool)
 [![Qodana](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/qodana_code_quality.yml/badge.svg)](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/qodana_code_quality.yml)
 [![Jenkins](https://jenkins.tlcsdm.com/job/javafxtool/badge/icon)](https://jenkins.tlcsdm.com/job/javafxtool)
