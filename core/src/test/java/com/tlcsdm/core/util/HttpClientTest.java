@@ -30,8 +30,6 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.net.SSLContextBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -50,6 +48,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * HttpClient测试.

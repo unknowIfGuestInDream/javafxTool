@@ -31,8 +31,6 @@ import cn.hutool.core.net.SSLContextBuilder;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.tlcsdm.core.exception.UnExpectedResultException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -44,6 +42,9 @@ import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * github api 测试 用于检查更新功能.

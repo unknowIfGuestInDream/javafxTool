@@ -33,12 +33,14 @@ import com.palantir.javapoet.MethodSpec;
 import com.palantir.javapoet.ParameterizedTypeName;
 import com.palantir.javapoet.TypeName;
 import com.palantir.javapoet.TypeSpec;
-import org.junit.jupiter.api.Test;
 
-import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
+
+import javax.lang.model.element.Modifier;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * <a href="https://github.com/palantir/javapoet">官网实例</a>

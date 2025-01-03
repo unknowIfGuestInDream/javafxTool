@@ -29,7 +29,6 @@ package com.tlcsdm.core.freemarker;
 
 import com.tlcsdm.core.exception.CoreException;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -41,6 +40,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

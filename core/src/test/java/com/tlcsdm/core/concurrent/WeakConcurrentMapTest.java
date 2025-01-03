@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.concurrent;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
