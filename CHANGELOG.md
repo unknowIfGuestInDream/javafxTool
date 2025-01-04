@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 08:47:11
+## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 09:28:52
 
 1. FileDiff optimization
 2. Fixed BannerPrinterService loading exception after packaging
