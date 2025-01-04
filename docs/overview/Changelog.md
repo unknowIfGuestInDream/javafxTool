@@ -1,7 +1,271 @@
 # CHANGELOG
 
-## v1.0.10-smc
-[v1.0.10-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.10-smc) - 2023-11-04 04:45:40
+## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 08:47:11
+
+1. FileDiff optimization
+2. Fixed BannerPrinterService loading exception after packaging
+3. Modified groovy and freemarker script loading location
+4. Fixed the problem of too long links in about
+5. Add Keys.UseDevMode, initializeProperties, useDevMode and KeyCombination Config
+6. GirretReview is adapted to girret 3.9
+7. Improve download action
+8. Support FullScreen
+9. Add EasterEggService
+10. Dependency upgrade ( javafx to 21.0.4)
+
+### Feature
+
+- general:
+    - Prepare for smc 1.0.11 (
+      #1910) ([1fb5e25](https://github.com/unknowIfGuestInDream/javafxTool/commit/1fb5e25502f4403792ee1ffb7a60d73084279725)) ([#1910](https://github.com/unknowIfGuestInDream/javafxTool/pull/1910))
+    - Add PicHider (
+      #1886) ([dbdc55c](https://github.com/unknowIfGuestInDream/javafxTool/commit/dbdc55c5872c805416187c09377f382fc2d5a666)) ([#1886](https://github.com/unknowIfGuestInDream/javafxTool/pull/1886))
+    - Improve U2B DMA Read (
+      #1857) ([9d4a886](https://github.com/unknowIfGuestInDream/javafxTool/commit/9d4a886523cb2462a290d7af3401000e9310442f)) ([#1857](https://github.com/unknowIfGuestInDream/javafxTool/pull/1857))
+    - Improve CIEData1931 (
+      #1754) ([c1aa95d](https://github.com/unknowIfGuestInDream/javafxTool/commit/c1aa95d09d791f99868d2cdcf41bd915bd2f1a03)) ([#1754](https://github.com/unknowIfGuestInDream/javafxTool/pull/1754))
+    - Add ChromaticityDiagram (
+      #1748) ([7f30321](https://github.com/unknowIfGuestInDream/javafxTool/commit/7f30321de078b12601d5bc19c59d8e38d40e2dc8)) ([#1748](https://github.com/unknowIfGuestInDream/javafxTool/pull/1748))
+    - Add CS+ .map parse test (
+      #1747) ([b212668](https://github.com/unknowIfGuestInDream/javafxTool/commit/b2126683067c9e0360f82ec12a0dd1dbaa0d8bd3)) ([#1747](https://github.com/unknowIfGuestInDream/javafxTool/pull/1747))
+    - Add jSerialComm (
+      #1713) ([7de0f8e](https://github.com/unknowIfGuestInDream/javafxTool/commit/7de0f8ef2529a1255aef610c558574c3f65f8e12)) ([#1713](https://github.com/unknowIfGuestInDream/javafxTool/pull/1713))
+    - Disable EasterEgg in MAC (
+      #1712) ([75e0eb0](https://github.com/unknowIfGuestInDream/javafxTool/commit/75e0eb0bee6690ad2063e13ac3ae0b2804bd448b)) ([#1712](https://github.com/unknowIfGuestInDream/javafxTool/pull/1712))
+    - Upgrade javadoc (
+      #1701) ([150441c](https://github.com/unknowIfGuestInDream/javafxTool/commit/150441c52485ac93ff4354347f2a4a711925dc42)) ([#1701](https://github.com/unknowIfGuestInDream/javafxTool/pull/1701))
+    - Improve ZoomImageView (
+      #1697) ([3215b85](https://github.com/unknowIfGuestInDream/javafxTool/commit/3215b855f0754f03482f747944347dfc0705915a)) ([#1697](https://github.com/unknowIfGuestInDream/javafxTool/pull/1697))
+    - Add PlutoExplorer for zoom image (
+      #1678) ([a0aee81](https://github.com/unknowIfGuestInDream/javafxTool/commit/a0aee81ea4432dbc51abceacafe413c0498f499a)) ([#1678](https://github.com/unknowIfGuestInDream/javafxTool/pull/1678))
+    - Add ListImageView (
+      #1696) ([434c469](https://github.com/unknowIfGuestInDream/javafxTool/commit/434c469996017dffe183a3f8eb506da910147fbe)) ([#1696](https://github.com/unknowIfGuestInDream/javafxTool/pull/1696))
+    - Add maven-shade-plugin for exe package (
+      #1610) ([9a806b8](https://github.com/unknowIfGuestInDream/javafxTool/commit/9a806b8559ff499a1c4175de756f39770935c51e)) ([#1610](https://github.com/unknowIfGuestInDream/javafxTool/pull/1610))
+    - Improve jackson (
+      #1609) ([d0c56ee](https://github.com/unknowIfGuestInDream/javafxTool/commit/d0c56eeaa0309e7a23c1ee0e3441b34a2e0193cb)) ([#1609](https://github.com/unknowIfGuestInDream/javafxTool/pull/1609))
+    - (
+      #1465) ([d557c4b](https://github.com/unknowIfGuestInDream/javafxTool/commit/d557c4b7853e96aa85ac9da11d8fb039e2784dcf)) ([#1465](https://github.com/unknowIfGuestInDream/javafxTool/pull/1465))
+    - Improve iconTool (
+      #1453) ([7b50777](https://github.com/unknowIfGuestInDream/javafxTool/commit/7b50777fc1f17bc1c28de14ff7607ee6585e15ad)) ([#1453](https://github.com/unknowIfGuestInDream/javafxTool/pull/1453))
+    - Add impsort-maven-plugin (
+      #1448) ([75bf0df](https://github.com/unknowIfGuestInDream/javafxTool/commit/75bf0dfea1d5c6618e3ae5bcf53d387fb16f926e)) ([#1448](https://github.com/unknowIfGuestInDream/javafxTool/pull/1448))
+    - Add RegexTester (
+      #1439) ([e9d5da5](https://github.com/unknowIfGuestInDream/javafxTool/commit/e9d5da5d9d2058f1d81f7f9348f2add250397269)) ([#1439](https://github.com/unknowIfGuestInDream/javafxTool/pull/1439))
+    - Add ScanPortTool (
+      #1394) ([4c02dbd](https://github.com/unknowIfGuestInDream/javafxTool/commit/4c02dbd3fb1fa510b0a9f75bd96205197e905605)) ([#1394](https://github.com/unknowIfGuestInDream/javafxTool/pull/1394))
+    - Add IconTool (
+      #1390) ([16e0f23](https://github.com/unknowIfGuestInDream/javafxTool/commit/16e0f23b4e80c82d27196c85385b0c92725ae4d1)) ([#1390](https://github.com/unknowIfGuestInDream/javafxTool/pull/1390))
+    - Add DecorationCheckBox (
+      #1389) ([b6b9670](https://github.com/unknowIfGuestInDream/javafxTool/commit/b6b96703f5563c3e4954db51ee273b0df8fc1917)) ([#1389](https://github.com/unknowIfGuestInDream/javafxTool/pull/1389))
+    - Add common-email (
+      #1379) ([13b20dc](https://github.com/unknowIfGuestInDream/javafxTool/commit/13b20dc9527521294fdac1d6c7d70b892dc1a96f)) ([#1379](https://github.com/unknowIfGuestInDream/javafxTool/pull/1379))
+    - Add UrlEscape (
+      #1371) ([622a95b](https://github.com/unknowIfGuestInDream/javafxTool/commit/622a95baee9e2825c3c9367f8cf84ac5bd5e500b)) ([#1371](https://github.com/unknowIfGuestInDream/javafxTool/pull/1371))
+    - Add SubmitButton (
+      #1370) ([3f9cb6d](https://github.com/unknowIfGuestInDream/javafxTool/commit/3f9cb6d280f4343a847fa03a9f368432c741e401)) ([#1370](https://github.com/unknowIfGuestInDream/javafxTool/pull/1370))
+    - improve freemarker code (
+      #1368) ([d76c1f3](https://github.com/unknowIfGuestInDream/javafxTool/commit/d76c1f3b76539080c04c611acfd68db7ea7571b0)) ([#1368](https://github.com/unknowIfGuestInDream/javafxTool/pull/1368))
+    - Improve freemarker (
+      #1358) ([54c4f12](https://github.com/unknowIfGuestInDream/javafxTool/commit/54c4f1270aa27bac4eee388c391a6335e7eea64a)) ([#1358](https://github.com/unknowIfGuestInDream/javafxTool/pull/1358))
+    - Add ColorCode (
+      #1356) ([42d9d64](https://github.com/unknowIfGuestInDream/javafxTool/commit/42d9d6485c86ac30249c2245a8b99231bd049b42)) ([#1356](https://github.com/unknowIfGuestInDream/javafxTool/pull/1356))
+    - Improve Escape Tools (
+      #1355) ([f01f4a1](https://github.com/unknowIfGuestInDream/javafxTool/commit/f01f4a15e6567ca3274cc7c5f267632e05bcb8dd)) ([#1355](https://github.com/unknowIfGuestInDream/javafxTool/pull/1355))
+    - Add icons (
+      #1354) ([b5c53b3](https://github.com/unknowIfGuestInDream/javafxTool/commit/b5c53b30a454243542a8caaac0448d1d4f510ba3)) ([#1354](https://github.com/unknowIfGuestInDream/javafxTool/pull/1354))
+    - Add UnderlineTextField (
+      #1353) ([92ac132](https://github.com/unknowIfGuestInDream/javafxTool/commit/92ac132881c74baa4055130f6a3bf9063eedfe46)) ([#1353](https://github.com/unknowIfGuestInDream/javafxTool/pull/1353))
+    - Add properties-maven-plugin (
+      #1352) ([e8191eb](https://github.com/unknowIfGuestInDream/javafxTool/commit/e8191ebbd658d159f58ecc786ef505173113417c)) ([#1352](https://github.com/unknowIfGuestInDream/javafxTool/pull/1352))
+    - Add Switch (
+      #1350) ([88cb11e](https://github.com/unknowIfGuestInDream/javafxTool/commit/88cb11ef67dc305271ce384884962d96d5c25a02)) ([#1350](https://github.com/unknowIfGuestInDream/javafxTool/pull/1350))
+    - Improve HtmlEscape (
+      #1347) ([d3d36cc](https://github.com/unknowIfGuestInDream/javafxTool/commit/d3d36cc9aca5920f98f96997731e5bc41e9d3dd9)) ([#1347](https://github.com/unknowIfGuestInDream/javafxTool/pull/1347))
+    - Use teenyhttpd instead of hutool-http (
+      #1342) ([67db5f9](https://github.com/unknowIfGuestInDream/javafxTool/commit/67db5f9064eb332b141344c7b62a5b1f377b94e4)) ([#1342](https://github.com/unknowIfGuestInDream/javafxTool/pull/1342))
+    - Improve searchTextfield (
+      #1318) ([5642d2a](https://github.com/unknowIfGuestInDream/javafxTool/commit/5642d2a79d5d649ddfd094adbb818c72bddbcee6)) ([#1318](https://github.com/unknowIfGuestInDream/javafxTool/pull/1318))
+    - Add cssfx (
+      #1316) ([b521db1](https://github.com/unknowIfGuestInDream/javafxTool/commit/b521db1b1c617b467f982f25ce8e26708e05bca3)) ([#1316](https://github.com/unknowIfGuestInDream/javafxTool/pull/1316))
+    - Improve DecorationComboBox (
+      #1312) ([f321052](https://github.com/unknowIfGuestInDream/javafxTool/commit/f3210524d4bdae598f338c16c65b5d5815e86e78)) ([#1312](https://github.com/unknowIfGuestInDream/javafxTool/pull/1312))
+    - Improve FreemarkerTest (
+      #1298) ([9f1f511](https://github.com/unknowIfGuestInDream/javafxTool/commit/9f1f511aad8c12b93b6b618fc787f6cb34e73352)) ([#1298](https://github.com/unknowIfGuestInDream/javafxTool/pull/1298))
+    - Add ResizePane (
+      #1297) ([eb9aac4](https://github.com/unknowIfGuestInDream/javafxTool/commit/eb9aac4479c1560f1a8d932fd4431dba6e0ae450)) ([#1297](https://github.com/unknowIfGuestInDream/javafxTool/pull/1297))
+    - Add ZoomImageView (
+      #1295) ([d47f9c0](https://github.com/unknowIfGuestInDream/javafxTool/commit/d47f9c086bf7a18a0e34a2b81aeb95e75a7bcd0b)) ([#1295](https://github.com/unknowIfGuestInDream/javafxTool/pull/1295))
+    - Add DecorationComboBox (
+      #1291) ([1d9889a](https://github.com/unknowIfGuestInDream/javafxTool/commit/1d9889a3506179f07d77a3ef6ae01e0d8c61fb00)) ([#1291](https://github.com/unknowIfGuestInDream/javafxTool/pull/1291))
+    - Improve DecorationTitlePane (
+      #1275) ([b0c5f05](https://github.com/unknowIfGuestInDream/javafxTool/commit/b0c5f056a1a9cfdb59e2066763c4d3398fd98d54)) ([#1275](https://github.com/unknowIfGuestInDream/javafxTool/pull/1275))
+    - Improve CodeRainState (
+      #1289) ([3bab5a1](https://github.com/unknowIfGuestInDream/javafxTool/commit/3bab5a1204ff1f6410df703c29395ede0da6d1df)) ([#1289](https://github.com/unknowIfGuestInDream/javafxTool/pull/1289))
+    - Add plantuml (
+      #1287) ([9612953](https://github.com/unknowIfGuestInDream/javafxTool/commit/961295391abbe40fb7bfa4ea147e3e8603b6420c)) ([#1287](https://github.com/unknowIfGuestInDream/javafxTool/pull/1287))
+    - Improve InterfaceScanner (
+      #1286) ([7a5429c](https://github.com/unknowIfGuestInDream/javafxTool/commit/7a5429c43bff22375d05ae7d4fbc386d32019028)) ([#1286](https://github.com/unknowIfGuestInDream/javafxTool/pull/1286))
+    - Add zip4j (
+      #1274) ([293eda7](https://github.com/unknowIfGuestInDream/javafxTool/commit/293eda7aecfce63ee0f80e3c789f40667ec89901)) ([#1274](https://github.com/unknowIfGuestInDream/javafxTool/pull/1274))
+    - Improve DecorationTextfieldSkin (
+      #1268) ([dd98d0a](https://github.com/unknowIfGuestInDream/javafxTool/commit/dd98d0a18a5a5b9e74ca3bc7d1877d6b55c358bf)) ([#1268](https://github.com/unknowIfGuestInDream/javafxTool/pull/1268))
+    - Improve CustomTextField (
+      #1266) ([56f8717](https://github.com/unknowIfGuestInDream/javafxTool/commit/56f8717e0e5b88c60986172fb74dc14eb6af59f3)) ([#1266](https://github.com/unknowIfGuestInDream/javafxTool/pull/1266))
+    - Improve DecorationTextfieldSkin (
+      #1258) ([aaca54a](https://github.com/unknowIfGuestInDream/javafxTool/commit/aaca54a20431e5b1e393eeb3cdc681b652a8a6a5)) ([#1258](https://github.com/unknowIfGuestInDream/javafxTool/pull/1258))
+    - Improve ScalableContentPane (
+      #1257) ([2549964](https://github.com/unknowIfGuestInDream/javafxTool/commit/2549964cde007a61b6eda6d9c9ae0fe7bcadfe6a)) ([#1257](https://github.com/unknowIfGuestInDream/javafxTool/pull/1257))
+    - Improve Borders (
+      #1256) ([531d002](https://github.com/unknowIfGuestInDream/javafxTool/commit/531d00224b09abd1f4082c881b187c79e86ccc83)) ([#1256](https://github.com/unknowIfGuestInDream/javafxTool/pull/1256))
+    - Add checker-qual (
+      #1245) ([68748b6](https://github.com/unknowIfGuestInDream/javafxTool/commit/68748b63aa31850d1661c94ea108d134aac8f083)) ([#1245](https://github.com/unknowIfGuestInDream/javafxTool/pull/1245))
+    - Use classgraph instead of reflections (
+      #1237) ([22a814a](https://github.com/unknowIfGuestInDream/javafxTool/commit/22a814aecb8969d9d2eaa7d069129e75f968c253)) ([#1237](https://github.com/unknowIfGuestInDream/javafxTool/pull/1237))
+    - Improve RangeSlider (
+      #1236) ([c148ad7](https://github.com/unknowIfGuestInDream/javafxTool/commit/c148ad7eef0282ba2ebab44246d9a690f2581696)) ([#1236](https://github.com/unknowIfGuestInDream/javafxTool/pull/1236))
+    - Improve ColourUtil and DecorationTextfield (
+      #1232) ([c331105](https://github.com/unknowIfGuestInDream/javafxTool/commit/c331105206f9e6927ded72feffb60408b11eff09)) ([#1232](https://github.com/unknowIfGuestInDream/javafxTool/pull/1232))
+    - Add FileDiffWithWeb (
+      #1225) ([5523637](https://github.com/unknowIfGuestInDream/javafxTool/commit/552363759ade1ced356b1fea5f792e87aa94a13f)) ([#1225](https://github.com/unknowIfGuestInDream/javafxTool/pull/1225))
+    - Improve javafx-web scope (
+      #1224) ([fd6795e](https://github.com/unknowIfGuestInDream/javafxTool/commit/fd6795e82d9cf345ac1a3e101b01f248ddd3c562)) ([#1224](https://github.com/unknowIfGuestInDream/javafxTool/pull/1224))
+    - Add DecorationTextfield (
+      #1222) ([7070200](https://github.com/unknowIfGuestInDream/javafxTool/commit/707020000014388adb42f39fc25ca45ff40048de)) ([#1222](https://github.com/unknowIfGuestInDream/javafxTool/pull/1222))
+    - Improve DiffHandleUtil (
+      #1201) ([74e4bd6](https://github.com/unknowIfGuestInDream/javafxTool/commit/74e4bd624da14789c2d9eb1a2fad003d1b04ed89)) ([#1201](https://github.com/unknowIfGuestInDream/javafxTool/pull/1201))
+    - Add RegorDirective (
+      #1198) ([81042c6](https://github.com/unknowIfGuestInDream/javafxTool/commit/81042c68b1a4eb0405c9d03a0a64a6dfcb2e76e5)) ([#1198](https://github.com/unknowIfGuestInDream/javafxTool/pull/1198))
+    - Improve preference (
+      #1197) ([de5ceed](https://github.com/unknowIfGuestInDream/javafxTool/commit/de5ceede2fe7c43936d1545fc4df8c9f0980bef6)) ([#1197](https://github.com/unknowIfGuestInDream/javafxTool/pull/1197))
+    - Add Jssc (
+      #1195) ([608a3dd](https://github.com/unknowIfGuestInDream/javafxTool/commit/608a3dde550052ea5940e22d26e4e2c01a7a6e49)) ([#1195](https://github.com/unknowIfGuestInDream/javafxTool/pull/1195))
+    - Add ColourUtil (
+      #1192) ([5f8136f](https://github.com/unknowIfGuestInDream/javafxTool/commit/5f8136fbc462553a7fe970273840d18c4ef6eb17)) ([#1192](https://github.com/unknowIfGuestInDream/javafxTool/pull/1192))
+    - Add fullscreen menu (
+      #1187) ([377c139](https://github.com/unknowIfGuestInDream/javafxTool/commit/377c1395e907092bcf380bd8a65cd5745dc6ffb9)) ([#1187](https://github.com/unknowIfGuestInDream/javafxTool/pull/1187))
+    - Add coor2Rgb (
+      #1186) ([51659df](https://github.com/unknowIfGuestInDream/javafxTool/commit/51659df88868cd5c3a9c69e107f5ec80c8e24525)) ([#1186](https://github.com/unknowIfGuestInDream/javafxTool/pull/1186))
+    - Add SearchableComboBox (
+      #1183) ([92bfb8c](https://github.com/unknowIfGuestInDream/javafxTool/commit/92bfb8c66039fec9b5d98db744f1c6a78b3ea22c)) ([#1183](https://github.com/unknowIfGuestInDream/javafxTool/pull/1183))
+    - Upgrade jfx to 21.0.1 (
+      #1182) ([8c43bda](https://github.com/unknowIfGuestInDream/javafxTool/commit/8c43bdadeac46d2020e2fd389ddf312454841e51)) ([#1182](https://github.com/unknowIfGuestInDream/javafxTool/pull/1182))
+    - Add RangeSlider (
+      #1177) ([fc89e7f](https://github.com/unknowIfGuestInDream/javafxTool/commit/fc89e7fe15a88a9fca1e64417b9c5c475222fb96)) ([#1177](https://github.com/unknowIfGuestInDream/javafxTool/pull/1177))
+    - Add WeakConcurrent (
+      #1171) ([19aba74](https://github.com/unknowIfGuestInDream/javafxTool/commit/19aba74ebf1ddbe156ac83b918c53b83ec40787a)) ([#1171](https://github.com/unknowIfGuestInDream/javafxTool/pull/1171))
+    - Add ColorUtil (
+      #1168) ([d1de855](https://github.com/unknowIfGuestInDream/javafxTool/commit/d1de85567bbca4045c002f8faa1cb89dd1c7cf93)) ([#1168](https://github.com/unknowIfGuestInDream/javafxTool/pull/1168))
+    - Improve fileDiff (
+      #1142) ([dfa8396](https://github.com/unknowIfGuestInDream/javafxTool/commit/dfa8396d74125dadf46bb7c35af8f5bc0573db1d)) ([#1142](https://github.com/unknowIfGuestInDream/javafxTool/pull/1142))
+    - Add CIE data (
+      #1141) ([2bd40b0](https://github.com/unknowIfGuestInDream/javafxTool/commit/2bd40b0851976f2b4b45a621ec99433dcc32a4c9)) ([#1141](https://github.com/unknowIfGuestInDream/javafxTool/pull/1141))
+    - Add ProcessUtil (
+      #1138) ([d2a26c2](https://github.com/unknowIfGuestInDream/javafxTool/commit/d2a26c2c0345333623f354670979afe366d500d8)) ([#1138](https://github.com/unknowIfGuestInDream/javafxTool/pull/1138))
+    - Add EasterEggService (
+      #1136) ([9a129f8](https://github.com/unknowIfGuestInDream/javafxTool/commit/9a129f8969ca6d7a8dcb076107b1dad68f8d29a2)) ([#1136](https://github.com/unknowIfGuestInDream/javafxTool/pull/1136))
+    - Add DataSourceUtil (
+      #1135) ([8ee86de](https://github.com/unknowIfGuestInDream/javafxTool/commit/8ee86de82be4fb6ece0262e216423a791e873a07)) ([#1135](https://github.com/unknowIfGuestInDream/javafxTool/pull/1135))
+    - Add chart support (
+      #1132) ([e28a91c](https://github.com/unknowIfGuestInDream/javafxTool/commit/e28a91cae69055b8f20d2ebb0a5b6ee7cfd30528)) ([#1132](https://github.com/unknowIfGuestInDream/javafxTool/pull/1132))
+    - Add WebViewStage (
+      #1122) ([00f9f13](https://github.com/unknowIfGuestInDream/javafxTool/commit/00f9f132f5e78b815002c7bd8e0d3dea57468905)) ([#1122](https://github.com/unknowIfGuestInDream/javafxTool/pull/1122))
+    - Modify logback config (
+      #1130) ([49709e7](https://github.com/unknowIfGuestInDream/javafxTool/commit/49709e7c7c91b2da37befc2e9dabc27fc76a2322)) ([#1130](https://github.com/unknowIfGuestInDream/javafxTool/pull/1130))
+    - Improve logback (
+      #1127) ([0fd0b1d](https://github.com/unknowIfGuestInDream/javafxTool/commit/0fd0b1dd6167a98849e1d08f284846db884875c6)) ([#1127](https://github.com/unknowIfGuestInDream/javafxTool/pull/1127))
+    - Improve freemarker (
+      #1107) ([c67bdae](https://github.com/unknowIfGuestInDream/javafxTool/commit/c67bdaea9885dbcf01c9fa3a06757502d843d093)) ([#1107](https://github.com/unknowIfGuestInDream/javafxTool/pull/1107))
+    - Add HexDirective (
+      #1099) ([8591422](https://github.com/unknowIfGuestInDream/javafxTool/commit/85914220a4e3ac199d20e19eeee5516d962a5a20)) ([#1099](https://github.com/unknowIfGuestInDream/javafxTool/pull/1099))
+    - Support h2 (
+      #1090) ([975336f](https://github.com/unknowIfGuestInDream/javafxTool/commit/975336f1c8e1ad3ff8513820507228660ec3e89a)) ([#1090](https://github.com/unknowIfGuestInDream/javafxTool/pull/1090))
+    - Add KeyCombination (
+      #1095) ([3c2fd17](https://github.com/unknowIfGuestInDream/javafxTool/commit/3c2fd17b4049862f072b113a650af6816b7b485d)) ([#1095](https://github.com/unknowIfGuestInDream/javafxTool/pull/1095))
+    - Add IterateINI for DSL (
+      #1085) ([b6d9ddc](https://github.com/unknowIfGuestInDream/javafxTool/commit/b6d9ddc0b8d6cd2448407981a5a8dacd673df0a9)) ([#1085](https://github.com/unknowIfGuestInDream/javafxTool/pull/1085))
+    - Add DSL tool (
+      #1084) ([ecd3a2f](https://github.com/unknowIfGuestInDream/javafxTool/commit/ecd3a2f7504bb1b0634a8f5e9fb878f7ca3b06cf)) ([#1084](https://github.com/unknowIfGuestInDream/javafxTool/pull/1084))
+    - Support useDevMode (
+      #1079) ([8bddcab](https://github.com/unknowIfGuestInDream/javafxTool/commit/8bddcabd7bdcc1b2f9d8e6142d422bda6fe1a9dd)) ([#1079](https://github.com/unknowIfGuestInDream/javafxTool/pull/1079))
+    - Add Keys.UseDevMode and initializeProperties (
+      #1068) ([2c3d652](https://github.com/unknowIfGuestInDream/javafxTool/commit/2c3d652590c3cb40840414b13ccbde05cd7ef608)) ([#1068](https://github.com/unknowIfGuestInDream/javafxTool/pull/1068))
+    - 优化about中链接过长的问题 (
+      #1067) ([39345a9](https://github.com/unknowIfGuestInDream/javafxTool/commit/39345a9747209dc2ad82293ff931021b77b99723)) ([#1067](https://github.com/unknowIfGuestInDream/javafxTool/pull/1067))
+    - Improve get or download result (
+      #1064) ([e182109](https://github.com/unknowIfGuestInDream/javafxTool/commit/e182109b716023af246b2ce73b6c2086675eb700)) ([#1064](https://github.com/unknowIfGuestInDream/javafxTool/pull/1064))
+    - Modify demo Borders (
+      #1055) ([ced56d8](https://github.com/unknowIfGuestInDream/javafxTool/commit/ced56d8e2811ce9806dd9900442ba3964bec9711)) ([#1055](https://github.com/unknowIfGuestInDream/javafxTool/pull/1055))
+    - FileDiff优化，用户指定文件名 (
+      #1053) ([0764bb9](https://github.com/unknowIfGuestInDream/javafxTool/commit/0764bb901b14114fcf00b6a5e9d6ff6d2779c005)) ([#1053](https://github.com/unknowIfGuestInDream/javafxTool/pull/1053))
+    - Support common develop standalone (
+      #1040) ([8aa216e](https://github.com/unknowIfGuestInDream/javafxTool/commit/8aa216ea164e6c3f18d345ed01a31897630846eb)) ([#1040](https://github.com/unknowIfGuestInDream/javafxTool/pull/1040))
+    - Add ScheduledTaskExecutor (
+      #1037) ([83ffda8](https://github.com/unknowIfGuestInDream/javafxTool/commit/83ffda8eeec17833153dd07c682ad6be2ba79812)) ([#1037](https://github.com/unknowIfGuestInDream/javafxTool/pull/1037))
+    - Add SnowApp (
+      #898) ([fa8ac1f](https://github.com/unknowIfGuestInDream/javafxTool/commit/fa8ac1f532903bf8436c429437bd62ec5034fbea)) ([#898](https://github.com/unknowIfGuestInDream/javafxTool/pull/898))
+    - Add testfx (
+      #899) ([4a33ef3](https://github.com/unknowIfGuestInDream/javafxTool/commit/4a33ef30861d862a8391e895661f2d973785e9dc)) ([#899](https://github.com/unknowIfGuestInDream/javafxTool/pull/899))
+    - Add bytebuddy (
+      #948) ([dc3153e](https://github.com/unknowIfGuestInDream/javafxTool/commit/dc3153e968e1db3e22b7c54c53a3e2d854d4db41)) ([#948](https://github.com/unknowIfGuestInDream/javafxTool/pull/948))
+    - Add jython support (
+      #942) ([1c6eed2](https://github.com/unknowIfGuestInDream/javafxTool/commit/1c6eed223e17077930ea0ebe2661470898d1200d)) ([#942](https://github.com/unknowIfGuestInDream/javafxTool/pull/942))
+    - Add banner print (
+      #941) ([959d481](https://github.com/unknowIfGuestInDream/javafxTool/commit/959d481589ef5eb2225f91e60aba415c3c1c45f6)) ([#941](https://github.com/unknowIfGuestInDream/javafxTool/pull/941))
+    - JacksonUtil重构, 支持yaml (
+      #923) ([d4bc0db](https://github.com/unknowIfGuestInDream/javafxTool/commit/d4bc0db005976ec673b677bb0f9b0932cde8a1df)) ([#923](https://github.com/unknowIfGuestInDream/javafxTool/pull/923))
+
+- common:
+    - Add ImageSplit (
+      #1309) ([4ed122c](https://github.com/unknowIfGuestInDream/javafxTool/commit/4ed122ce6864a1408ea36e61b41ca5a7d2fb79ea)) ([#1309](https://github.com/unknowIfGuestInDream/javafxTool/pull/1309))
+    - Improve AsciiPicTool (
+      #1307) ([914bec6](https://github.com/unknowIfGuestInDream/javafxTool/commit/914bec6d964425d3d324dca0aa38abbbc2ad5350)) ([#1307](https://github.com/unknowIfGuestInDream/javafxTool/pull/1307))
+    - Add AsciiPicTool (
+      #1302) ([42e32bc](https://github.com/unknowIfGuestInDream/javafxTool/commit/42e32bcc3b4939ba81406e3f34e4e76c10b84044)) ([#1302](https://github.com/unknowIfGuestInDream/javafxTool/pull/1302))
+
+- core:
+    - Improve TemplateLoaderScanner (
+      #1100) ([e7c7232](https://github.com/unknowIfGuestInDream/javafxTool/commit/e7c723251c83e1a17205a4f627f3a6c6998f3048)) ([#1100](https://github.com/unknowIfGuestInDream/javafxTool/pull/1100))
+    - Add Borders (
+      #1094) ([0f3e0e5](https://github.com/unknowIfGuestInDream/javafxTool/commit/0f3e0e5b852503a0b7d6cb03efec161cac2d4f59)) ([#1094](https://github.com/unknowIfGuestInDream/javafxTool/pull/1094))
+    - Add tess4j (
+      #973) ([3efffa7](https://github.com/unknowIfGuestInDream/javafxTool/commit/3efffa7ba7a435ec081f3c794f6f1f47489046ef)) ([#973](https://github.com/unknowIfGuestInDream/javafxTool/pull/973))
+
+- frame:
+    - Support FullScreen (
+      #1098) ([032ef36](https://github.com/unknowIfGuestInDream/javafxTool/commit/032ef36dc357c84dad7d9b931c450b48d09db080)) ([#1098](https://github.com/unknowIfGuestInDream/javafxTool/pull/1098))
+
+- smc:
+    - Improve download action (
+      #1093) ([4563752](https://github.com/unknowIfGuestInDream/javafxTool/commit/4563752a4642f02b3d3afaba4c382d875dfe9cd8)) ([#1093](https://github.com/unknowIfGuestInDream/javafxTool/pull/1093))
+    - GirretReview适配girret 3.9 (
+      #1075) ([440249f](https://github.com/unknowIfGuestInDream/javafxTool/commit/440249f838ceb5fb502ecf3b4ea76be9e65dec09)) ([#1075](https://github.com/unknowIfGuestInDream/javafxTool/pull/1075))
+    - 修改groovy和freemarker脚本加载位置 (
+      #952) ([35c141c](https://github.com/unknowIfGuestInDream/javafxTool/commit/35c141c7aa92dbf3afabd0139d9b42e701e9fc9c)) ([#952](https://github.com/unknowIfGuestInDream/javafxTool/pull/952))
+
+### Bug Fixes
+
+- general:
+    - 修复升级javadoc的生成路径修改问题 (
+      #1690) ([a1a0eb3](https://github.com/unknowIfGuestInDream/javafxTool/commit/a1a0eb366e7c23320fc38dba5cfb0f0b2e1dd9a3)) ([#1690](https://github.com/unknowIfGuestInDream/javafxTool/pull/1690))
+    - Update pom.xml (
+      #1680) ([e3a566a](https://github.com/unknowIfGuestInDream/javafxTool/commit/e3a566a467dfbc67f1727eeb3a49860c89612101)) ([#1680](https://github.com/unknowIfGuestInDream/javafxTool/pull/1680))
+    - Use reflections instead of classgraph (
+      #1416) ([c22cbfe](https://github.com/unknowIfGuestInDream/javafxTool/commit/c22cbfe0a87a2f135add2dc3305628a623f31ca4)) ([#1416](https://github.com/unknowIfGuestInDream/javafxTool/pull/1416))
+    - Build result error (
+      #1284) ([ca77493](https://github.com/unknowIfGuestInDream/javafxTool/commit/ca7749358a620569389ceaec0d163d0f20466c76)) ([#1284](https://github.com/unknowIfGuestInDream/javafxTool/pull/1284))
+    - Fix getDiffHtml error (
+      #1246) ([2264f40](https://github.com/unknowIfGuestInDream/javafxTool/commit/2264f40d2032566f3d22359730ba67acfb6ea55f)) ([#1246](https://github.com/unknowIfGuestInDream/javafxTool/pull/1246))
+    - 修复日期判断问题 (
+      #1160) ([c0944b1](https://github.com/unknowIfGuestInDream/javafxTool/commit/c0944b16ee09f68b5fa5c2064c500f89d27f9a7b)) ([#1160](https://github.com/unknowIfGuestInDream/javafxTool/pull/1160))
+    - fix DefaultEasterEggService close fail (
+      #1137) ([d83377f](https://github.com/unknowIfGuestInDream/javafxTool/commit/d83377f511091202f286b8248b69225d0b7dd28c)) ([#1137](https://github.com/unknowIfGuestInDream/javafxTool/pull/1137))
+
+- frame:
+    - 修改打包后BannerPrinterService加载异常 (
+      #954) ([7438fb8](https://github.com/unknowIfGuestInDream/javafxTool/commit/7438fb8a8a879ef3748478a345e4cfcfe6f02f9a)) ([#954](https://github.com/unknowIfGuestInDream/javafxTool/pull/954))
+
+## [v1.0.10-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.10-smc) - 2023-11-04 04:45:40
 
 1. Maven packaging configuration modification
 2. Fix the UI is not displayed after the animation splash screen under Mac
@@ -41,9 +305,7 @@
     - 修复mac 下动画闪屏后UI未显示的问题 (
       #833) ([6fd8ade](https://github.com/unknowIfGuestInDream/javafxTool/commit/6fd8adeab02fef481f58e3fe4ea36788c9b92f05))
 
-## v1.0.0-qe
-
-[v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44
+## [v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44
 
 1. First release
 2. JS/CSS compression
@@ -118,8 +380,7 @@
     - PathWatchTool国际化错误修复 (
       #760) ([8f97804](https://github.com/unknowIfGuestInDream/javafxTool/commit/8f97804591a43e336c765c7d418a56e6cb8f116f))
 
-## v1.0.8-smc
-[v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48
+## [v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48
 
 1. GroovyCodeArea stack overflow fixed and style modified
 2. Modify LicenseDialog style
@@ -158,8 +419,7 @@
     - 修复groovyCodeArea处理开头版权信息时堆栈溢出问题 (
       #696) ([9b278dc](https://github.com/unknowIfGuestInDream/javafxTool/commit/9b278dc5ef959995d29145c3f49375db7a32db35))
 
-## v1.0.7-smc
-[v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14
+## [v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14
 
 1. Fixed CoreUtil.getRootPath() result error issue
 2. Fix groovy path scanning error issue
@@ -182,8 +442,7 @@
     - 修复CoreUtil.getRootPath()问题 (
       #686) ([24e5496](https://github.com/unknowIfGuestInDream/javafxTool/commit/24e549697183196f84fa9a3f82dea31eaa49bd9a))
 
-## v1.0.6-smc
-[v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07
+## [v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07
 
 1. Add LicenseDialog
 2. Add groovy support
@@ -217,8 +476,7 @@
     - 修改simpleHttpServer (
       #675) ([11cb60d](https://github.com/unknowIfGuestInDream/javafxTool/commit/11cb60db4b8028dfd3ae994071652d6dd80d5251))
 
-## v1.0.5-smc
-[v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33
+## [v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33
 
 1. Added control Panel setting interface for frame
 2. U2C ECM adds special handling
@@ -256,8 +514,7 @@
     - richtext工具添加 (
       #617) ([e55ae68](https://github.com/unknowIfGuestInDream/javafxTool/commit/e55ae68d31cfbcfe9ac8a1884940f93d1ff182a7))
 
-## v1.0.4-smc
-[v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36
+## [v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36
 
 1. Fix unrecognized problem with common module
 2. JDK replaced by Amazon Corretto with Eclipse Temurin
@@ -280,8 +537,7 @@
     - 修复SpecGeneral功能问题 (
       #600) ([80b9d3b](https://github.com/unknowIfGuestInDream/javafxTool/commit/80b9d3b657f1abce88b4d0da8845a6c6930bd171))
 
-## v1.0.3-smc
-[v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48
+## [v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48
 
 1. Console color log configuration
 2. Ecm script adds U2C module
@@ -323,8 +579,7 @@
     - 修复Dom4jUtil的漏洞 (
       #573) ([0fccf1f](https://github.com/unknowIfGuestInDream/javafxTool/commit/0fccf1f8cf1514692c578e23b36ef9168653cb0d))
 
-## v1.0.2-smc
-[v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55
+## [v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55
 
 1. ECM data file generation function is perfect
 2. Add common module
@@ -396,8 +651,7 @@
     - 新增Html转义组件，修改icon (
       #476) ([65bb8d5](https://github.com/unknowIfGuestInDream/javafxTool/commit/65bb8d5d1e8687e3713a77da384d1f24bb502f60))
 
-## v1.0.1-smc
-[v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
+## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
 
 1. Added Ecm data generation component
 2. Adapt to macOS
@@ -462,8 +716,7 @@
     - 修复smc中文件选择错误 (
       #368) ([581b3e4](https://github.com/unknowIfGuestInDream/javafxTool/commit/581b3e4bee12e40435165b33d40a259e54567210))
 
-## v1.0.0-smc
-[v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45
+## [v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45
 
 1. SmcTool release
 2. Contains UD, CD, UT and other tools of smc
