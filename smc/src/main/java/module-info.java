@@ -36,13 +36,11 @@ import com.tlcsdm.frame.service.SamplePostProcessorService;
 import com.tlcsdm.frame.service.SamplesTreeViewConfiguration;
 import com.tlcsdm.frame.service.SplashScreen;
 import com.tlcsdm.frame.service.VersionCheckerService;
-import com.tlcsdm.login.service.LoginCheck;
 import com.tlcsdm.smc.config.SmcGroovyLoaderProvider;
 import com.tlcsdm.smc.config.SmcTemplateLoaderProvider;
 import com.tlcsdm.smc.provider.SmcBanner;
 import com.tlcsdm.smc.provider.SmcCenterPanelProvider;
 import com.tlcsdm.smc.provider.SmcConfigurationProvider;
-import com.tlcsdm.smc.provider.SmcLoginCheckProvider;
 import com.tlcsdm.smc.provider.SmcMenubarConfigrationProvider;
 import com.tlcsdm.smc.provider.SmcSamplePostProcessorProvider;
 import com.tlcsdm.smc.provider.SmcSampleTreeViewConfiguration;
@@ -59,7 +57,6 @@ module com.tlcsdm.smc {
     requires javafx.web;
     requires com.tlcsdm.core;
     requires com.tlcsdm.frame;
-    requires static com.tlcsdm.login;
     requires org.controlsfx.controls;
     requires cn.hutool.core;
     requires cn.hutool.poi;
@@ -75,7 +72,7 @@ module com.tlcsdm.smc {
     requires com.github.benmanes.caffeine;
 
     exports com.tlcsdm.smc;
-    exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
+    exports com.tlcsdm.smc.provider to com.tlcsdm.core, com.tlcsdm.frame;
     exports com.tlcsdm.smc.tools to com.tlcsdm.frame;
     exports com.tlcsdm.smc.unitTest to com.tlcsdm.frame;
     exports com.tlcsdm.smc.codeDev to com.tlcsdm.frame;
@@ -95,7 +92,6 @@ module com.tlcsdm.smc {
     provides CenterPanelService with SmcCenterPanelProvider;
     provides FXSamplerConfiguration with SmcConfigurationProvider;
     provides SplashScreen with SmcSplashProvider;
-    provides LoginCheck with SmcLoginCheckProvider;
     provides TemplateLoaderService with SmcTemplateLoaderProvider;
     provides GroovyLoaderService with SmcGroovyLoaderProvider;
     provides SamplePostProcessorService with SmcSamplePostProcessorProvider;
