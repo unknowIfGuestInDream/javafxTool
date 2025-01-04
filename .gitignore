@@ -52,7 +52,6 @@ dependency-reduced-pom.xml
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-logs/
 
 ### VS Code ###
 .vscode/**
@@ -63,9 +62,12 @@ logs/
 /mvnw
 /mvnw.cmd
 
+### Application ###
+logs/
 runtime/
 .jython_cache
 pom.xml.versionsBackup
 .cache/
 *.bak
 .xcodemap/
+.okhttpcache
