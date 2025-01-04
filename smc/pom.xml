@@ -55,11 +55,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.tlcsdm</groupId>
-            <artifactId>javafxTool-login</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <scope>compile</scope>
