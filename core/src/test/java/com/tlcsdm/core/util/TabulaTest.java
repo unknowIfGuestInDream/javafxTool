@@ -34,8 +34,6 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import technology.tabula.CommandLineApp;
 import technology.tabula.ObjectExtractor;
 import technology.tabula.Page;
@@ -54,6 +52,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class TabulaTest {

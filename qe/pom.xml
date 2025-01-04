@@ -34,6 +34,7 @@
         <groupId>com.tlcsdm</groupId>
         <artifactId>javafxTool</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>javafxTool-qe</artifactId>
     <version>1.0.0</version>

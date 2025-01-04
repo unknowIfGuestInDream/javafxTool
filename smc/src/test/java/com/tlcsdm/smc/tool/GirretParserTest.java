@@ -33,15 +33,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.smc.tools.girret.Change;
 import com.tlcsdm.smc.tools.girret.Comment;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
-import java.util.List;
-import java.util.Map;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GirretParserTest {

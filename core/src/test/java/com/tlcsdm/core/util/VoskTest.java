@@ -27,11 +27,11 @@
 
 package com.tlcsdm.core.util;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
 import java.io.File;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * Vosk 语音转换测试.

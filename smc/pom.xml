@@ -34,9 +34,10 @@
         <groupId>com.tlcsdm</groupId>
         <artifactId>javafxTool</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>javafxTool-smc</artifactId>
-    <version>1.0.10</version>
+    <version>1.0.11</version>
     <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
@@ -56,7 +57,7 @@
         <dependency>
             <groupId>com.tlcsdm</groupId>
             <artifactId>javafxTool-login</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>

@@ -29,13 +29,14 @@ package com.tlcsdm.core.database;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.tlcsdm.core.javafx.util.ConfigureUtil;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 /**
  * H2 数据库.
