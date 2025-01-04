@@ -27,10 +27,10 @@
 
 package com.tlcsdm.core.util;
 
+import java.util.StringTokenizer;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.StringTokenizer;
 
 /**
  * Test for StringTokenizer.

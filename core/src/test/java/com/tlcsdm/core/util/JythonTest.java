@@ -28,8 +28,6 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.python.core.PyFunction;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
@@ -37,6 +35,9 @@ import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
 import java.io.InputStream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Jython.

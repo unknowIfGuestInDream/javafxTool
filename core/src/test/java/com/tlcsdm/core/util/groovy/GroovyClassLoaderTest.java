@@ -30,11 +30,12 @@ package com.tlcsdm.core.util.groovy;
 import cn.hutool.core.io.resource.ResourceUtil;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * @author unknowIfGuestInDream

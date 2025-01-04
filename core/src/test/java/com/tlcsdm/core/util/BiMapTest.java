@@ -28,10 +28,11 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.map.BiMap;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class BiMapTest {
 

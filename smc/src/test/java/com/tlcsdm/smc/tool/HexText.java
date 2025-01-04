@@ -28,6 +28,7 @@
 package com.tlcsdm.smc.tool;
 
 import cn.hutool.core.util.HexUtil;
+
 import org.junit.jupiter.api.Test;
 
 /**

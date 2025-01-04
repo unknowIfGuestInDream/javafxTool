@@ -151,36 +151,6 @@ rm -r license'''
             }
         }
 
-        stage('Build cg-windows') {
-            steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
-cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r cg/target/lib lib
-cp -r cg/target/reports/apidocs apidocs
-cp -r cg/target/license license
-zip -r cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj cgTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/cg/*
-rm javafxTool-cg.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
-            }
-
-            post {
-                success {
-                    archiveArtifacts 'cgTool*.zip'
-                }
-                failure {
-                    echo '构建 cg-windows 失败'
-                }
-                aborted {
-                    echo '构建取消'
-                }
-            }
-        }
-
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
@@ -249,36 +219,6 @@ rm -r license'''
             }
         }
 
-        stage('Build cg-mac') {
-            steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
-cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r cg/target/lib lib
-cp -r cg/target/reports/apidocs apidocs
-cp -r cg/target/license license
-zip -r cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj cgTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/cg/*
-rm javafxTool-cg.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
-            }
-
-            post {
-                success {
-                    archiveArtifacts 'cgTool*.zip'
-                }
-                failure {
-                    echo '构建 cg-mac 失败'
-                }
-                aborted {
-                    echo '构建取消'
-                }
-            }
-        }
-
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
@@ -340,36 +280,6 @@ rm -r license'''
                 }
                 failure {
                     echo '构建 qe-linux 失败'
-                }
-                aborted {
-                    echo '构建取消'
-                }
-            }
-        }
-
-        stage('Build cg-linux') {
-            steps {
-                sh "$M2_HOME/bin/mvn -f cg/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp cg/target/javafxTool-cg.jar javafxTool-cg.jar
-cp cg/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r cg/target/lib lib
-cp -r cg/target/reports/apidocs apidocs
-cp -r cg/target/license license
-zip -r cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-cg.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj cgTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/cg/*
-rm javafxTool-cg.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
-            }
-
-            post {
-                success {
-                    archiveArtifacts 'cgTool*.zip'
-                }
-                failure {
-                    echo '构建 cg-linux 失败'
                 }
                 aborted {
                     echo '构建取消'
