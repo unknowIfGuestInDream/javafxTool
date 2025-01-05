@@ -86,7 +86,7 @@ pipeline {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean -T 1C install"
-                    sh "mkdir -v jretemp && unzip *windows*17*.zip -d jretemp && mv jretemp/* jretemp/jre"
+                    sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*17*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
         }
