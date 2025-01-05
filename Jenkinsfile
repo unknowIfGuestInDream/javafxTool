@@ -247,16 +247,16 @@ pipeline {
 def packageTool(paramProject, paramOS) {
     sh "export project=$paramProject"
     sh "export os=$paramOS"
-    sh '''cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar
-cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r ${project}/target/lib lib
-cp -r ${project}/target/reports/apidocs apidocs
-cp -r ${project}/target/license license
-zip -r ${project}Tool-${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj ${project}Tool-${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${os}/${project}/*
-zip -r ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md jretemp/jre
-zip -uj ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${os}/${project}/*
-rm -f javafxTool-${project}.jar
+    sh '''cp \${project}/target/javafxTool-\${project}.jar javafxTool-\${project}.jar
+cp \${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
+cp -r \${project}/target/lib lib
+cp -r \${project}/target/reports/apidocs apidocs
+cp -r \${project}/target/license license
+zip -r \${project}Tool-\${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-\${project}.jar lib apidocs license CHANGELOG_with-unreleased.md
+zip -uj \${project}Tool-\${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/\${os}/\${project}/*
+zip -r \${project}Tool-\${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-\${project}.jar lib apidocs license CHANGELOG_with-unreleased.md jretemp/jre
+zip -uj \${project}Tool-\${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/\${os}/\${project}/*
+rm -f javafxTool-\${project}.jar
 rm -f CHANGELOG_with-unreleased.md
 rm -rf lib
 rm -rf apidocs
