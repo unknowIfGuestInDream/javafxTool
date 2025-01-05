@@ -31,7 +31,7 @@ pipeline {
         timeout(time: 1, unit: "HOURS")
     }
     environment {
-        USER_NAME='Jenkins'
+        USER_NAME = 'Jenkins'
     }
     stages {
         stage('Check change') {
@@ -45,8 +45,8 @@ pipeline {
                     def prevBuild = currentBuild.previousSuccessfulBuild
                     def prevCommitId = ""
                     def actions = prevBuild.rawBuild.getActions(hudson.plugins.git.util.BuildData.class)
-                    for(action in actions) {
-                        if(action.getRemoteUrls().toString().contains(env.GIT_URL)) {
+                    for (action in actions) {
+                        if (action.getRemoteUrls().toString().contains(env.GIT_URL)) {
                             prevCommitId = action.getLastBuiltRevision().getSha1String()
                             break
                         }
@@ -68,7 +68,6 @@ pipeline {
         stage('Prepare JRE') {
             steps {
                 copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
-                archiveArtifacts 'OpenJDK17*'
                 sh "$M2_HOME/bin/mvn -version"
             }
             post {
@@ -87,6 +86,7 @@ pipeline {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean -T 1C install"
+                    sh "mkdir jretemp && unzip *windows*17*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
         }
@@ -94,18 +94,9 @@ pipeline {
         stage('Build smc-windows') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
-cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r smc/target/lib lib
-cp -r smc/target/reports/apidocs apidocs
-cp -r smc/target/license license
-zip -r smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj smcTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/smc/*
-rm javafxTool-smc.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('smc', 'win')
+                }
             }
 
             post {
@@ -124,18 +115,9 @@ rm -r license'''
         stage('Build qe-windows') {
             steps {
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
-cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r qe/target/lib lib
-cp -r qe/target/reports/apidocs apidocs
-cp -r qe/target/license license
-zip -r qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj qeTool-win_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/win/qe/*
-rm javafxTool-qe.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('qe', 'win')
+                }
             }
 
             post {
@@ -155,6 +137,7 @@ rm -r license'''
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean -T 1C install"
+                    sh "rm -rf jretemp && mkdir jretemp && tar -xzvf *mac*17*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
         }
@@ -162,18 +145,9 @@ rm -r license'''
         stage('Build smc-mac') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
-cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r smc/target/lib lib
-cp -r smc/target/reports/apidocs apidocs
-cp -r smc/target/license license
-zip -r smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj smcTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/smc/*
-rm javafxTool-smc.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('smc', 'mac')
+                }
             }
 
             post {
@@ -192,18 +166,9 @@ rm -r license'''
         stage('Build qe-mac') {
             steps {
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
-cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r qe/target/lib lib
-cp -r qe/target/reports/apidocs apidocs
-cp -r qe/target/license license
-zip -r qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj qeTool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/qe/*
-rm javafxTool-qe.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('qe', 'mac')
+                }
             }
 
             post {
@@ -223,6 +188,7 @@ rm -r license'''
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean -T 1C install"
+                    sh "rm -rf jretemp && mkdir jretemp && tar -xzvf *linux*17*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
         }
@@ -230,18 +196,9 @@ rm -r license'''
         stage('Build smc-linux') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp smc/target/javafxTool-smc.jar javafxTool-smc.jar
-cp smc/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r smc/target/lib lib
-cp -r smc/target/reports/apidocs apidocs
-cp -r smc/target/license license
-zip -r smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-smc.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj smcTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/smc/*
-rm javafxTool-smc.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('smc', 'linux')
+                }
             }
 
             post {
@@ -260,18 +217,9 @@ rm -r license'''
         stage('Build qe-linux') {
             steps {
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                sh '''cp qe/target/javafxTool-qe.jar javafxTool-qe.jar
-cp qe/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
-cp -r qe/target/lib lib
-cp -r qe/target/reports/apidocs apidocs
-cp -r qe/target/license license
-zip -r qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-qe.jar lib apidocs license CHANGELOG_with-unreleased.md
-zip -uj qeTool-linux_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/linux/qe/*
-rm javafxTool-qe.jar
-rm CHANGELOG_with-unreleased.md
-rm -r lib
-rm -r apidocs
-rm -r license'''
+                script {
+                    packageTool('qe', 'linux')
+                }
             }
 
             post {
@@ -294,4 +242,21 @@ rm -r license'''
         }
 
     }
+}
+
+def packageTool(project, os) {
+    sh '''cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar
+cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
+cp -r ${project}/target/lib lib
+cp -r ${project}/target/reports/apidocs apidocs
+cp -r ${project}/target/license license
+zip -r ${project}Tool-${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md
+zip -uj ${project}Tool-${os}_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${os}/${project}/*
+zip -r ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md jretemp/jre
+zip -uj ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/${os}/${project}/*
+rm -f javafxTool-${project}.jar
+rm -f CHANGELOG_with-unreleased.md
+rm -rf lib
+rm -rf apidocs
+rm -rf license'''
 }
