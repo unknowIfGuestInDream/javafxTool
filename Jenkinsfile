@@ -254,7 +254,7 @@ def packageTool(project, os) {
     sh "zip -quj ${project}Tool-${os}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
     sh "zip -qr ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md"
     sh "zip -quj ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
-    sh "zip -qur ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jretemp/jre"
+    sh "zip -qurj ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jretemp/jre"
     sh "rm -f javafxTool-${project}.jar"
     sh "rm -f CHANGELOG_with-unreleased.md"
     sh "rm -rf lib"
