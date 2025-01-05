@@ -94,7 +94,9 @@ pipeline {
         stage('Build smc-windows') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
-                packageTool('smc', 'win')
+                script {
+                    packageTool('smc', 'win')
+                }
             }
 
             post {
@@ -242,7 +244,9 @@ pipeline {
     }
 }
 
-def packageTool(project, os) {
+def packageTool(paramProject, paramOS) {
+    sh "export project=$paramProject"
+    sh "export os=$paramOS"
     sh '''cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar
 cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md
 cp -r ${project}/target/lib lib
