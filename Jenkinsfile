@@ -93,10 +93,9 @@ pipeline {
 
         stage('Build smc-windows') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'win', "${VERSION}")
+                    packageTool('smc', 'win')
                 }
             }
 
@@ -115,10 +114,9 @@ pipeline {
 
         stage('Build qe-windows') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'win', "${VERSION}")
+                    packageTool('qe', 'win')
                 }
             }
 
@@ -146,10 +144,9 @@ pipeline {
 
         stage('Build smc-mac') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'mac', "${VERSION}")
+                    packageTool('smc', 'mac')
                 }
             }
 
@@ -168,10 +165,9 @@ pipeline {
 
         stage('Build qe-mac') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'mac', "${VERSION}")
+                    packageTool('qe', 'mac')
                 }
             }
 
@@ -199,10 +195,9 @@ pipeline {
 
         stage('Build smc-linux') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'linux', "${VERSION}")
+                    packageTool('smc', 'linux')
                 }
             }
 
@@ -221,10 +216,9 @@ pipeline {
 
         stage('Build qe-linux') {
             steps {
-                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'linux', "${VERSION}")
+                    packageTool('qe', 'linux')
                 }
             }
 
@@ -250,7 +244,8 @@ pipeline {
     }
 }
 
-def packageTool(project, os, version) {
+def packageTool(project, os) {
+    sh "VERSION=$(${M2_HOME}/bin/mvn help:evaluate -f ${project}/pom.xml -Dexpression=project.version -q -DforceStdout)"
     sh "cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar"
     sh "cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md"
     sh "cp -r ${project}/target/lib lib"
