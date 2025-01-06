@@ -245,7 +245,7 @@ pipeline {
 }
 
 def packageTool(project, os) {
-    sh "VERSION=$(${M2_HOME}/bin/mvn help:evaluate -f ${project}/pom.xml -Dexpression=project.version -q -DforceStdout)"
+    sh "VERSION=$(\${M2_HOME}/bin/mvn help:evaluate -f \${project}/pom.xml -Dexpression=project.version -q -DforceStdout)"
     sh "cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar"
     sh "cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md"
     sh "cp -r ${project}/target/lib lib"
