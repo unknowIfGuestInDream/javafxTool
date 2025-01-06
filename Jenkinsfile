@@ -245,17 +245,20 @@ pipeline {
 }
 
 def packageTool(project, os) {
-    sh "VERSION=$(\${M2_HOME}/bin/mvn help:evaluate -f \${project}/pom.xml -Dexpression=project.version -q -DforceStdout)"
+    def siteBuildVersion = sh(
+        script: "${M2_HOME}/bin/mvn -f ${project}/pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout",
+        returnStdout: true
+    ).trim()
     sh "cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar"
     sh "cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md"
     sh "cp -r ${project}/target/lib lib"
     sh "cp -r ${project}/target/reports/apidocs apidocs"
     sh "cp -r ${project}/target/license license"
     sh "cp -r jretemp/jre jre"
-    sh "zip -qr ${project}Tool-${os}_${version}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md"
-    sh "zip -quj ${project}Tool-${os}_${version}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
-    sh "zip -qr ${project}Tool-${os}_${version}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license jre CHANGELOG_with-unreleased.md"
-    sh "zip -quj ${project}Tool-${os}_${version}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
+    sh "zip -qr ${project}Tool-${os}_${siteBuildVersion}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md"
+    sh "zip -quj ${project}Tool-${os}_${siteBuildVersion}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
+    sh "zip -qr ${project}Tool-${os}_${siteBuildVersion}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license jre CHANGELOG_with-unreleased.md"
+    sh "zip -quj ${project}Tool-${os}_${siteBuildVersion}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
     sh "rm -f javafxTool-${project}.jar"
     sh "rm -f CHANGELOG_with-unreleased.md"
     sh "rm -rf lib"
