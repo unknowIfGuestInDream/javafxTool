@@ -93,9 +93,10 @@ pipeline {
 
         stage('Build smc-windows') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'win')
+                    packageTool('smc', 'win', "${VERSION}")
                 }
             }
 
@@ -114,9 +115,10 @@ pipeline {
 
         stage('Build qe-windows') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'win')
+                    packageTool('qe', 'win', "${VERSION}")
                 }
             }
 
@@ -144,9 +146,10 @@ pipeline {
 
         stage('Build smc-mac') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'mac')
+                    packageTool('smc', 'mac', "${VERSION}")
                 }
             }
 
@@ -165,9 +168,10 @@ pipeline {
 
         stage('Build qe-mac') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'mac')
+                    packageTool('qe', 'mac', "${VERSION}")
                 }
             }
 
@@ -195,9 +199,10 @@ pipeline {
 
         stage('Build smc-linux') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f smc/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'linux')
+                    packageTool('smc', 'linux', "${VERSION}")
                 }
             }
 
@@ -216,9 +221,10 @@ pipeline {
 
         stage('Build qe-linux') {
             steps {
+                sh "VERSION=$($M2_HOME/bin/mvn help:evaluate -f qe/pom.xml -Dexpression=project.version -q -DforceStdout)"
                 sh "$M2_HOME/bin/mvn -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'linux')
+                    packageTool('qe', 'linux', "${VERSION}")
                 }
             }
 
@@ -244,17 +250,17 @@ pipeline {
     }
 }
 
-def packageTool(project, os) {
+def packageTool(project, os, version) {
     sh "cp ${project}/target/javafxTool-${project}.jar javafxTool-${project}.jar"
     sh "cp ${project}/target/CHANGELOG_with-unreleased.md CHANGELOG_with-unreleased.md"
     sh "cp -r ${project}/target/lib lib"
     sh "cp -r ${project}/target/reports/apidocs apidocs"
     sh "cp -r ${project}/target/license license"
     sh "cp -r jretemp/jre jre"
-    sh "zip -qr ${project}Tool-${os}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md"
-    sh "zip -quj ${project}Tool-${os}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
-    sh "zip -qr ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license jre CHANGELOG_with-unreleased.md"
-    sh "zip -quj ${project}Tool-${os}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
+    sh "zip -qr ${project}Tool-${os}_${version}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license CHANGELOG_with-unreleased.md"
+    sh "zip -quj ${project}Tool-${os}_${version}_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
+    sh "zip -qr ${project}Tool-${os}_${version}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip docs javafxTool-${project}.jar lib apidocs license jre CHANGELOG_with-unreleased.md"
+    sh "zip -quj ${project}Tool-${os}_${version}_withJRE_b${BUILD_NUMBER}_\$(date +%Y%m%d).zip jenkins/${os}/${project}/*"
     sh "rm -f javafxTool-${project}.jar"
     sh "rm -f CHANGELOG_with-unreleased.md"
     sh "rm -rf lib"

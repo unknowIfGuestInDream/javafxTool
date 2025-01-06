@@ -22,6 +22,7 @@ on:
       - 'qodana.yaml'
       - 'SECURITY.md'
       - '.imgbotconfig'
+      - 'Jenkinsfile'
   workflow_dispatch:
 concurrency:
   # On master/release, we don't want any jobs cancelled so the sha is used to name the group
