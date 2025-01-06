@@ -26,6 +26,7 @@ on:
       - 'core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java'
       - 'docs/**'
       - '*/src/test/**'
+      - 'Jenkinsfile'
 
 jobs:
   deployJavadoc:
