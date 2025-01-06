@@ -141,7 +141,7 @@
         <pdfviewfx.version>3.1.0</pdfviewfx.version>
         <jackson.version>2.18.2</jackson.version>
         <testfx.version>4.0.18</testfx.version>
-        <assertj.version>3.27.1</assertj.version>
+        <assertj.version>3.27.2</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <richtextfx.version>0.11.4</richtextfx.version>
