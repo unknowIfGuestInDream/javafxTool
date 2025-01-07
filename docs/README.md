@@ -15,7 +15,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | freemarker             | 2.3.34     | 模板引擎库                            |
 | commons-lang3          | 3.17.0     | Java工具类库                         |
 | hutool                 | 5.8.35     | Java工具类库                         |
-| logback                | 1.5.15     | Java日志框架                         |
+| logback                | 1.5.16     | Java日志框架                         |
 | commons-configuration2 | 2.11.0     | 用于从各种源读取配置数据                     |
 | reflections            | 0.10.2     | Java 运行时元数据分析                    |
 | java-diff-utils        | 4.15       | 用于在文本或某种数据之间执行比较/差异操作            |
