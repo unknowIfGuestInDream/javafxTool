@@ -101,7 +101,7 @@
         <javafx.version>21.0.4</javafx.version>
         <javafx.swt.version>21.0.3</javafx.swt.version>
         <controlsfx.version>11.2.1</controlsfx.version>
-        <tlcsdm-common.version>1.4.5</tlcsdm-common.version>
+        <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.36</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
