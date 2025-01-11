@@ -151,7 +151,7 @@ public class JnaTest {
         //System.setProperty("jna.encoding", "GBK");
         //动态库初始化
         NativeLibrary INSTANCE = NativeLibrary.getInstance(
-            "E:\\javaWorkSpace\\javafxTool\\core\\src\\test\\resources\\jna\\Dll1.dll");
+            new File(ResourceUtil.getResource("jna/Dll1.dll").getFile()).getAbsolutePath());
         int adres = INSTANCE.getFunction("add").invokeInt(new Object[]{3, 9});
         int subres = INSTANCE.getFunction("substract").invokeInt(new Object[]{30, 10});
         System.out.println("add: " + adres);
