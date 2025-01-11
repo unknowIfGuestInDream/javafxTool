@@ -27,17 +27,20 @@
 
 package com.tlcsdm.core.util;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
 import com.sun.jna.Structure;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.win32.StdCallLibrary;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+
+import java.io.File;
 
 /**
  * JNA 测试.
@@ -128,5 +131,39 @@ public class JnaTest {
             System.out.println("cos(0)=" + cos(0));
             System.out.println("sin(0)=" + sin(0));
         }
+    }
+
+    public interface DLibrary extends Library {
+
+        //此处我的jdk版本为64位,故加载64位的Dll
+        DLibrary INSTANCE = Native.load(new File(ResourceUtil.getResource("jna/Dll1.dll").getFile()).getAbsolutePath(),
+            DLibrary.class);
+
+        //Dll2x64中定义的函数
+        int add(int a, int b);
+
+        int substract(int a, int b);
+    }
+
+    @Test
+    @EnabledOnOs({OS.WINDOWS})
+    void c_dll_test() {
+        //System.setProperty("jna.encoding", "GBK");
+        //动态库初始化
+        NativeLibrary INSTANCE = NativeLibrary.getInstance(
+            "E:\\javaWorkSpace\\javafxTool\\core\\src\\test\\resources\\jna\\Dll1.dll");
+        int adres = INSTANCE.getFunction("add").invokeInt(new Object[]{3, 9});
+        int subres = INSTANCE.getFunction("substract").invokeInt(new Object[]{30, 10});
+        System.out.println("add: " + adres);
+        System.out.println("substract: " + subres);
+        //释放动态库连接，也可以不释放，没有太大关系
+        INSTANCE.close();
+    }
+
+    @Test
+    @EnabledOnOs({OS.WINDOWS})
+    void c_dll_test_without_close() {
+        System.out.println(DLibrary.INSTANCE.add(1, 2));
+        System.out.println(DLibrary.INSTANCE.substract(10, 2));
     }
 }
