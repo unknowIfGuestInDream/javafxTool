@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2025 unknowIfGuestInDream.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~     * Redistributions of source code must retain the above copyright
+  ~ notice, this list of conditions and the following disclaimer.
+  ~     * Redistributions in binary form must reproduce the above copyright
+  ~ notice, this list of conditions and the following disclaimer in the
+  ~ documentation and/or other materials provided with the distribution.
+  ~     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+  ~ names of its contributors may be used to endorse or promote products
+  ~ derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<powerControl name="name" version="1.0.0" requireVersion="1.2.0" boardId="RTK7RLG240P00000BJ">
+    <boardName>RTK7RLG240P00000BJ</boardName>
+    <boardImageURL>board.png</boardImageURL>
+    <boardCircuits>
+        <boardCircuit boardCircuitURL="boardCircuit1.png"
+                      tooltip="LED Back converter circuit for constant current control 1"
+                      jptooltip="LED Back converter circuit for constant current control 1"/>
+        <boardCircuit boardCircuitURL="boardCircuit2.png"
+                      tooltip="LED Back converter circuit for constant current control 2"
+                      jptooltip="LED Back converter circuit for constant current control 2"/>
+    </boardCircuits>
+    <paramUISetting>
+        <sectionId>PI_RL78G24</sectionId>
+        <groups>
+            <group id="common" name="Power Control Evaluation Parameters" jpName="Power Control Evaluation Parameters"/>
+            <group id="simulation" name="Power Control Simulation Parameters"
+                   jpName="Power Control Simulation Parameters"/>
+        </groups>
+        <configuration>
+            <property id="a1" default="65" name="A1" jpName="A1" type="textbox" groupId="simulation"
+                      tooltipImageURL="a1.png"/>
+            <property id="a2" default="33" name="A2" jpName="A2" type="textbox" groupId="simulation"
+                      tooltipImageURL="a2.png"/>
+            <property id="kp" default="33" name="Kp" jpName="Kp" type="textbox" groupId="simulation"
+                      tooltip="Kp tooltip" jptooltip="Kp jp tooltip"/>
+        </configuration>
+    </paramUISetting>
+    <paramCodeSetting>
+        <zipsource>RL78G24.zip</zipsource>
+        <dir incdir="CPU/FAA/APP" output="APP">
+            <condition action="disable" formula="xx == CPU &amp;&amp; xxx == FAA"/>
+        </dir>
+        <dir incdir="doc"/>
+        <file incfile="doc/rl78g24.md" output="rl78g24.md"/>
+        <file incfile="CPU/FAA/APP/comm.c" output="APP/comm.c">
+            <condition action="disable" formula="xx == CPU &amp;&amp; xxx == FAA"/>
+        </file>
+    </paramCodeSetting>
+    <toolchain id="ccrl">
+        <compilerOpt>-o -cpu</compilerOpt>
+        <param>
+            <commandParam fileType="c">
+                <param>-0</param>
+                <param>-l</param>
+            </commandParam>
+            <commandParam fileType="dsp">
+                <param>-0</param>
+                <param>-l</param>
+                <condition action="disable" formula="xxx = PI_MODE"/>
+            </commandParam>
+            <linkParam>
+                <param>-ds</param>
+                <param>-area</param>
+            </linkParam>
+            <linkParam>
+                <param>-ds2</param>
+                <param>-area</param>
+                <condition action="disable" formula="xx = FAA"/>
+            </linkParam>
+        </param>
+    </toolchain>
+    <variableSetting>
+        <tab name="Variable List" jpName="Variable List">
+            <variable name="_g_led1_duty" displayName="_g_led1_duty" description="variable1 desc" bitSize="32"
+                      rwPermission="rw">
+                <condition action="disable" formula="xx == CPU "/>
+            </variable>
+            <variable name="_g_led2_duty" displayName="_g_led2_duty" description="variable2 desc" bitSize="32"
+                      rwPermission="rw">
+                <condition action="disable" formula="xx == CPU"/>
+            </variable>
+        </tab>
+        <tab name="SFR List" jpName="SFR List">
+            <condition action="disable" formula="xx == FAA"/>
+            <variable name="_V_LEDControl_Ch1.[0]" displayName="_V_LEDControl_Ch1._N_LEDControl_TargetAd"
+                      description="[Channel 1] Last A/D result for LED volume" bitSize="32" rwPermission="r">
+                <condition action="disable" formula="xx == FAA"/>
+            </variable>
+        </tab>
+    </variableSetting>
+</powerControl>
