@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2025 unknowIfGuestInDream.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~     * Redistributions of source code must retain the above copyright
+  ~ notice, this list of conditions and the following disclaimer.
+  ~     * Redistributions in binary form must reproduce the above copyright
+  ~ notice, this list of conditions and the following disclaimer in the
+  ~ documentation and/or other materials provided with the distribution.
+  ~     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+  ~ names of its contributors may be used to endorse or promote products
+  ~ derived from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+  ~ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+    <xs:element name="boardInfos" type="boardInfos"/>
+    <xs:element name="powerControl" type="powerControlSettings"/>
+    <xs:complexType name="boardCircuit">
+        <xs:sequence/>
+        <xs:attribute name="boardCircuitURL" type="xs:string" use="required"/>
+        <xs:attribute name="tooltip" type="xs:string"/>
+        <xs:attribute name="jptooltip" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="boardInfo">
+        <xs:sequence>
+            <xs:element name="fullName" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="program" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="processor" type="xs:string"/>
+            <xs:element minOccurs="0" name="requireVersion" type="xs:string"/>
+            <xs:element minOccurs="0" name="device" type="device"/>
+            <xs:element maxOccurs="unbounded" name="compiler" type="compiler"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="family" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="device">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element minOccurs="0" name="lights" type="xs:string"/>
+            <xs:element minOccurs="0" name="clock" type="xs:string"/>
+            <xs:element minOccurs="0" name="sampleVersion" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="compiler">
+        <xs:sequence/>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="boardInfos">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="boardInfo" type="boardInfo"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="condition">
+        <xs:sequence/>
+        <xs:attribute name="action" type="xs:string"/>
+        <xs:attribute name="formula" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="paramCodeSetting">
+        <xs:sequence>
+            <xs:element name="zipsource" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="dir" type="dir"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="file" type="file"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dir">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+        <xs:attribute name="incdir" type="xs:string" use="required"/>
+        <xs:attribute name="output" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="file">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+        <xs:attribute name="incfile" type="xs:string" use="required"/>
+        <xs:attribute name="output" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="paramUISetting">
+        <xs:sequence>
+            <xs:element name="sectionId" type="xs:string"/>
+            <xs:element minOccurs="0" name="groups">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="group" type="group"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="configuration">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded"
+                                    minOccurs="0"
+                                    name="property"
+                                    type="property"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="group">
+        <xs:sequence/>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="jpName" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="property">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+            <xs:element maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="item"
+                        type="propertyItem"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="default" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="jpName" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="conditionalDefault" type="xs:string"/>
+        <xs:attribute name="groupId" type="xs:string"/>
+        <xs:attribute name="tooltipImageURL" type="xs:string"/>
+        <xs:attribute name="tooltip" type="xs:string"/>
+        <xs:attribute name="jptooltip" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="propertyItem">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="jpName" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="powerControlSettings">
+        <xs:sequence>
+            <xs:element name="boardName" type="xs:string"/>
+            <xs:element name="boardImageURL" type="xs:string"/>
+            <xs:element minOccurs="0" name="boardCircuits">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="boardCircuit" type="boardCircuit"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paramUISetting" type="paramUISetting"/>
+            <xs:element name="paramCodeSetting" type="paramCodeSetting"/>
+            <xs:element maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="toolchain"
+                        type="powerControlToolchain"/>
+            <xs:element minOccurs="0"
+                        name="variableSetting"
+                        type="powerControlVariableSetting"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="version" type="xs:string" use="required"/>
+        <xs:attribute name="requireVersion" type="xs:string" use="required"/>
+        <xs:attribute name="boardId" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="powerControlToolchain">
+        <xs:sequence>
+            <xs:element name="compilerOpt" type="xs:string"/>
+            <xs:element minOccurs="0" name="param" type="param"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="param">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="commandParam"
+                        type="commandParam"/>
+            <xs:element maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="linkParam"
+                        type="linkParam"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="commandParam">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="param" type="xs:string"/>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+        <xs:attribute name="fileType" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="linkParam">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="param" type="xs:string"/>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="powerControlVariableSetting">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="tab" type="tab"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tab">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+            <xs:element maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="variable"
+                        type="variable"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="jpName" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="variable">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="condition" type="condition"/>
+        </xs:sequence>
+        <xs:attribute name="address" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="displayName" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="bitSize" type="xs:int"/>
+        <xs:attribute name="rwPermission" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>

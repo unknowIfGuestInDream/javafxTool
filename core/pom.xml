@@ -463,6 +463,15 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <configuration>
+                    <testSources>
+                        <testSource>src/test/java/com/tlcsdm/core/util/jaxb/mdf</testSource>
+                    </testSources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
