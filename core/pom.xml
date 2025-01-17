@@ -468,6 +468,7 @@
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <configuration>
                     <testSources>
+                        <!--                        <testSource>src/test/java/com/tlcsdm/core/util/jaxb/board</testSource>-->
                         <testSource>src/test/java/com/tlcsdm/core/util/jaxb/mdf</testSource>
                     </testSources>
                 </configuration>

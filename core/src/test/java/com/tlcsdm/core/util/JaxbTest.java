@@ -28,10 +28,10 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.tlcsdm.core.util.jaxb.board.BoardInfo;
+import com.tlcsdm.core.util.jaxb.board.BoardInfos;
+import com.tlcsdm.core.util.jaxb.board.Compiler;
 import com.tlcsdm.core.util.jaxb.mdf.BoardCircuit;
-import com.tlcsdm.core.util.jaxb.mdf.BoardInfo;
-import com.tlcsdm.core.util.jaxb.mdf.BoardInfos;
-import com.tlcsdm.core.util.jaxb.mdf.Compiler;
 import com.tlcsdm.core.util.jaxb.mdf.Condition;
 import com.tlcsdm.core.util.jaxb.mdf.Device;
 import com.tlcsdm.core.util.jaxb.mdf.ParamCodeSetting;
