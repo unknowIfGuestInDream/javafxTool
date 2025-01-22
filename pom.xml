@@ -193,7 +193,7 @@
         <javaluator.version>3.0.5</javaluator.version>
         <javapoet.version>0.6.0</javapoet.version>
         <nashorn.version>15.6</nashorn.version>
-        <jruby.version>9.4.9.0</jruby.version>
+        <jruby.version>9.4.10.0</jruby.version>
     </properties>
 
     <issueManagement>
