@@ -105,7 +105,7 @@ public class DependencyInfo {
             new Dependency("com.google.guava", "guava", "33.4.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.1.8", false,
+            new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.2.0", false,
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
