@@ -52,7 +52,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,7 +79,10 @@ public class JaxbTest {
         JAXBContext context = JAXBContext.newInstance(Book.class);
         Marshaller mar = context.createMarshaller();
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        mar.marshal(book, new File("E:\\testPlace\\result\\jaxb\\book.xml"));
+        mar.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.tlcsdm.com/abc.xsd");
+        StringWriter stringWriter = new StringWriter();
+        mar.marshal(book, stringWriter);
+        System.out.println(stringWriter);
     }
 
     /**
