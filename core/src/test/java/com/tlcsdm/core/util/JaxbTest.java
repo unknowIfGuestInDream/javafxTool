@@ -28,6 +28,12 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.tlcsdm.core.util.jaxb.apn.APN;
+import com.tlcsdm.core.util.jaxb.apn.Application;
+import com.tlcsdm.core.util.jaxb.apn.Board;
+import com.tlcsdm.core.util.jaxb.apn.Circuit;
+import com.tlcsdm.core.util.jaxb.apn.Dimming;
+import com.tlcsdm.core.util.jaxb.apn.Power;
 import com.tlcsdm.core.util.jaxb.board.BoardInfo;
 import com.tlcsdm.core.util.jaxb.board.BoardInfos;
 import com.tlcsdm.core.util.jaxb.board.Compiler;
@@ -46,7 +52,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -74,7 +79,10 @@ public class JaxbTest {
         JAXBContext context = JAXBContext.newInstance(Book.class);
         Marshaller mar = context.createMarshaller();
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        mar.marshal(book, new File("E:\\testPlace\\result\\jaxb\\book.xml"));
+        mar.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.tlcsdm.com/abc.xsd");
+        StringWriter stringWriter = new StringWriter();
+        mar.marshal(book, stringWriter);
+        System.out.println(stringWriter);
     }
 
     /**
@@ -349,6 +357,66 @@ public class JaxbTest {
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter stringWriter = new StringWriter();
         mar.marshal(powerControlSettings, stringWriter);
+        System.out.println(stringWriter);
+    }
+
+    @Test
+    void apn() throws JAXBException {
+        Board board = new Board();
+        board.setId("RTK7RLG240P00000BJ");
+        board.setName("RTK7RLG240P00000BJ");
+        board.setJpName("RTK7RLG240P00000BJ");
+        board.setPicture("APN_extend/board.png");
+        com.tlcsdm.core.util.jaxb.apn.Device device = new com.tlcsdm.core.util.jaxb.apn.Device();
+        device.setName("RL78/G24 (R7F101GLG)");
+        device.setLights("3");
+        device.setClock("Internal osc. - 8MHz");
+        device.setSampleVersion("1.00");
+        board.setDevice(device);
+
+        List<Dimming> dimmingList1 = new ArrayList<>();
+        Dimming dimming1 = new Dimming();
+        dimming1.setId("dali");
+        dimming1.setLights(3);
+        dimming1.setProtocol("102+207+209");
+        dimming1.setConfig("APN_extend/config_dali.mdf");
+        Dimming dimming2 = new Dimming();
+        dimming2.setId("dali");
+        dimming2.setLights(3);
+        dimming2.setProtocol("102+207");
+        dimming2.setConfig("APN_extend/config_dali.mdf");
+        dimmingList1.add(dimming2);
+
+        List<Circuit> circuitList = new ArrayList<>();
+        Circuit circuit1 = new Circuit();
+        circuit1.setId("boardId");
+        circuit1.setConfig("APN_extend/config_boardId.mdf");
+        circuit1.setMonitor("APN_extend/monitor_boardId.xml");
+        circuit1.setPicture("APN_extend/boardId.png");
+        circuitList.add(circuit1);
+
+        Power power1 = new Power();
+        power1.setCircuitList(circuitList);
+
+        List<Application> applicationList = new ArrayList<>();
+        Application a1 = new Application();
+        a1.setSrc("102+207+209/CCRL/CPU/Application");
+        a1.setCompiler("CCRL");
+        a1.setType("CPU");
+        a1.setDimmingList(dimmingList1);
+        a1.setPower(power1);
+
+        applicationList.add(a1);
+
+        APN apn = new APN();
+        apn.setBoard(board);
+        apn.setApplicationList(applicationList);
+
+        JAXBContext context = JAXBContext.newInstance(APN.class);
+        Marshaller mar = context.createMarshaller();
+        mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter stringWriter = new StringWriter();
+        mar.marshal(apn, stringWriter);
         System.out.println(stringWriter);
     }
 
