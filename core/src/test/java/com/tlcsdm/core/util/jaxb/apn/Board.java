@@ -25,39 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.board;
+package com.tlcsdm.core.util.jaxb.apn;
 
-import com.tlcsdm.core.util.jaxb.mdf.Device;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.List;
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BoardInfo {
-
-    @XmlAttribute(name = "id", required = true)
+public class Board {
+    @XmlElement(name = "id", required = true)
     protected String id;
-    @XmlAttribute(name = "name", required = true)
+    @XmlElement(name = "name", required = true)
     protected String name;
-    @XmlAttribute(name = "family", required = true)
-    protected String family;
-    @XmlElement(name = "fullName", required = true)
-    protected String fullName;
-    @XmlElement(name = "jpFullName")
-    protected String jpFullName;
-    @XmlElement(name = "program", required = true)
-    protected List<String> programList;
-    @XmlElement(name = "processor", required = true)
-    protected List<String> processorList;
-    @XmlElement(name = "requireVersion")
-    protected String requireVersion;
-    @XmlElement(name = "device")
+    @XmlElement(name = "jpName")
+    protected String jpName;
+    @XmlElement(name = "picture")
+    protected String picture;
+    @XmlElement(name = "description")
     protected Device device;
-    @XmlElement(name = "compiler", required = true)
-    protected List<Compiler> compilerList;
 
     public String getId() {
         return id;
@@ -75,52 +60,20 @@ public class BoardInfo {
         this.name = name;
     }
 
-    public String getJpFullName() {
-        return jpFullName;
+    public String getJpName() {
+        return jpName;
     }
 
-    public void setJpFullName(String jpFullName) {
-        this.jpFullName = jpFullName;
+    public void setJpName(String jpName) {
+        this.jpName = jpName;
     }
 
-    public String getFamily() {
-        return family;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setFamily(String family) {
-        this.family = family;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public List<String> getProgramList() {
-        return programList;
-    }
-
-    public void setProgramList(List<String> programList) {
-        this.programList = programList;
-    }
-
-    public List<String> getProcessorList() {
-        return processorList;
-    }
-
-    public void setProcessorList(List<String> processorList) {
-        this.processorList = processorList;
-    }
-
-    public String getRequireVersion() {
-        return requireVersion;
-    }
-
-    public void setRequireVersion(String requireVersion) {
-        this.requireVersion = requireVersion;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Device getDevice() {
@@ -129,13 +82,5 @@ public class BoardInfo {
 
     public void setDevice(Device device) {
         this.device = device;
-    }
-
-    public List<Compiler> getCompilerList() {
-        return compilerList;
-    }
-
-    public void setCompilerList(List<Compiler> compilerList) {
-        this.compilerList = compilerList;
     }
 }
