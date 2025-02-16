@@ -25,52 +25,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author unknowIfGuestInDream
+ */
+@XmlRootElement(name = "module")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Device {
-    @XmlElement(name = "name")
-    protected String name;
-    @XmlElement(name = "lights")
-    protected String lights;
-    @XmlElement(name = "clock")
-    protected String clock;
-    @XmlElement(name = "sampleVersion")
-    protected String sampleVersion;
+public class CircuitMDF {
+    @XmlElement(name = "formatVersion", required = true)
+    protected String formatVersion = "1.00";
+    @XmlElement(name = "configuration", required = true)
+    CircuitConfiguration configuration;
 
-    public String getName() {
-        return name;
+    public String getFormatVersion() {
+        return formatVersion;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFormatVersion(String formatVersion) {
+        this.formatVersion = formatVersion;
     }
 
-    public String getLights() {
-        return lights;
+    public CircuitConfiguration getConfiguration() {
+        return configuration;
     }
 
-    public void setLights(String lights) {
-        this.lights = lights;
-    }
-
-    public String getClock() {
-        return clock;
-    }
-
-    public void setClock(String clock) {
-        this.clock = clock;
-    }
-
-    public String getSampleVersion() {
-        return sampleVersion;
-    }
-
-    public void setSampleVersion(String sampleVersion) {
-        this.sampleVersion = sampleVersion;
+    public void setConfiguration(CircuitConfiguration configuration) {
+        this.configuration = configuration;
     }
 }

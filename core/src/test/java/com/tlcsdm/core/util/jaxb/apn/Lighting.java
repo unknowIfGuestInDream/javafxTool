@@ -31,61 +31,30 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.List;
-
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Application {
-    @XmlElement(name = "path", required = true)
-    protected String path;
-    // CPU/FAA
-    @XmlElement(name = "type", required = true)
-    protected String type;
-    //CCRL/ICCRL
-    @XmlElement(name = "compiler", required = true)
-    protected String compiler;
-    //Yes/No
-    @XmlElement(name = "power")
-    protected String power;
-    @XmlElement(name = "lighting")
-    protected List<Lighting> lightingList;
+public class Lighting {
+    @XmlElement(name = "id", required = true)
+    protected String id;
+    // 102+207/102+207+209
+    @XmlElement(name = "protocol", required = true)
+    protected String protocol;
 
-    public String getPath() {
-        return path;
+    public String getId() {
+        return id;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getProtocol() {
+        return protocol;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCompiler() {
-        return compiler;
-    }
-
-    public void setCompiler(String compiler) {
-        this.compiler = compiler;
-    }
-
-    public String getPower() {
-        return power;
-    }
-
-    public void setPower(String power) {
-        this.power = power;
-    }
-
-    public List<Lighting> getLighting() {
-        return lightingList;
-    }
-
-    public void setLighting(List<Lighting> lightingList) {
-        this.lightingList = lightingList;
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 }

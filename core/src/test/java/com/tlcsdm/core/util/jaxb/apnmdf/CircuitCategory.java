@@ -25,24 +25,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.List;
-
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Power {
-    @XmlElement(name = "circuit")
-    protected List<Circuit> circuitList;
+public class CircuitCategory {
+    @XmlAttribute(name = "id", required = true)
+    protected String id;
+    @XmlAttribute(name = "display", required = true)
+    protected String display;
+    @XmlElement(name = "description")
+    protected String description;
 
-    public List<Circuit> getCircuitList() {
-        return circuitList;
+    public String getId() {
+        return id;
     }
 
-    public void setCircuitList(List<Circuit> circuitList) {
-        this.circuitList = circuitList;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

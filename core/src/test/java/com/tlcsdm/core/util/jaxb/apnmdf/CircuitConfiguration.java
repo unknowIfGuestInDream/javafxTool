@@ -25,36 +25,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "apn")
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class APN {
-    @XmlElement(name = "board", required = true)
-    protected Board board;
-    @XmlElement(name = "application", required = true)
-    protected List<Application> applicationList;
+public class CircuitConfiguration {
+    @XmlElement(name = "category")
+    protected List<CircuitCategory> categoryList;
+    @XmlElement(name = "property", required = true)
+    protected List<CircuitProperty> propertyList;
 
-    public Board getBoard() {
-        return board;
+    public List<CircuitCategory> getCategoryList() {
+        return categoryList;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
+    public void setCategoryList(List<CircuitCategory> categoryList) {
+        this.categoryList = categoryList;
     }
 
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public List<CircuitProperty> getPropertyList() {
+        return propertyList;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setPropertyList(List<CircuitProperty> propertyList) {
+        this.propertyList = propertyList;
     }
 }

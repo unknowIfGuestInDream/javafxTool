@@ -30,47 +30,21 @@ package com.tlcsdm.core.util.jaxb.apn;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.List;
+
+@XmlRootElement(name = "apninfo")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Circuit {
-    @XmlElement(name = "id", required = true)
-    protected String id;
-    @XmlElement(name = "picture", required = true)
-    protected String picture;
-    @XmlElement(name = "config", required = true)
-    protected String config;
-    @XmlElement(name = "monitor", required = true)
-    protected String monitor;
+public class APNInfo {
+    @XmlElement(name = "application", required = true)
+    protected List<Application> applicationList;
 
-    public String getId() {
-        return id;
+    public List<Application> getApplicationList() {
+        return applicationList;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getConfig() {
-        return config;
-    }
-
-    public void setConfig(String config) {
-        this.config = config;
-    }
-
-    public String getMonitor() {
-        return monitor;
-    }
-
-    public void setMonitor(String monitor) {
-        this.monitor = monitor;
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
     }
 }

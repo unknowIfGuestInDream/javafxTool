@@ -25,24 +25,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Board {
-    @XmlElement(name = "id", required = true)
+public class CircuitOption {
+    @XmlAttribute(name = "id", required = true)
     protected String id;
-    @XmlElement(name = "name", required = true)
-    protected String name;
-    @XmlElement(name = "jpName")
-    protected String jpName;
-    @XmlElement(name = "picture")
-    protected String picture;
-    @XmlElement(name = "description")
-    protected Device device;
+    @XmlAttribute(name = "display")
+    protected String display;
+    @XmlAttribute(name = "value", required = true)
+    protected String value;
 
     public String getId() {
         return id;
@@ -52,35 +51,19 @@ public class Board {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDisplay() {
+        return display;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDisplay(String display) {
+        this.display = display;
     }
 
-    public String getJpName() {
-        return jpName;
+    public String getValue() {
+        return value;
     }
 
-    public void setJpName(String jpName) {
-        this.jpName = jpName;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

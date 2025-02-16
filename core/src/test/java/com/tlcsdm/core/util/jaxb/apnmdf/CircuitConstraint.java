@@ -25,52 +25,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Dimming {
-    @XmlElement(name = "id", required = true)
-    protected String id;
-    @XmlElement(name = "protocol", required = true)
-    protected String protocol;
-    @XmlElement(name = "lights", required = true)
-    protected int lights;
-    @XmlElement(name = "config", required = true)
-    protected String config;
+public class CircuitConstraint {
+    @XmlAttribute(name = "action", required = true)
+    protected String action;
+    @XmlAttribute(name = "display", required = true)
+    protected String display;
 
-    public String getId() {
-        return id;
+    public String getAction() {
+        return action;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public String getProtocol() {
-        return protocol;
+    public String getDisplay() {
+        return display;
     }
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
-    public int getLights() {
-        return lights;
-    }
-
-    public void setLights(int lights) {
-        this.lights = lights;
-    }
-
-    public String getConfig() {
-        return config;
-    }
-
-    public void setConfig(String config) {
-        this.config = config;
+    public void setDisplay(String display) {
+        this.display = display;
     }
 }
