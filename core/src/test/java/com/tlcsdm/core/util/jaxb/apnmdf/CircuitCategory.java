@@ -25,67 +25,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tlcsdm.core.util.jaxb.apn;
+package com.tlcsdm.core.util.jaxb.apnmdf;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.List;
-
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Application {
-    @XmlElement(name = "path", required = true)
-    protected String path;
-    // CPU/FAA
-    @XmlElement(name = "type", required = true)
-    protected String type;
-    //CCRL/ICCRL
-    @XmlElement(name = "compiler", required = true)
-    protected String compiler;
-    //Yes/No
-    @XmlElement(name = "power")
-    protected String power;
-    @XmlElement(name = "lighting")
-    protected List<Lighting> lightingList;
+public class CircuitCategory {
+    @XmlAttribute(name = "id", required = true)
+    protected String id;
+    @XmlAttribute(name = "display", required = true)
+    protected String display;
+    @XmlElement(name = "description")
+    protected String description;
 
-    public String getPath() {
-        return path;
+    public String getId() {
+        return id;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getDisplay() {
+        return display;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDisplay(String display) {
+        this.display = display;
     }
 
-    public String getCompiler() {
-        return compiler;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCompiler(String compiler) {
-        this.compiler = compiler;
-    }
-
-    public String getPower() {
-        return power;
-    }
-
-    public void setPower(String power) {
-        this.power = power;
-    }
-
-    public List<Lighting> getLighting() {
-        return lightingList;
-    }
-
-    public void setLighting(List<Lighting> lightingList) {
-        this.lightingList = lightingList;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
