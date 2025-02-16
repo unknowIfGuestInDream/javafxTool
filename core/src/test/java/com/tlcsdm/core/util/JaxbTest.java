@@ -28,12 +28,9 @@
 package com.tlcsdm.core.util;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import com.tlcsdm.core.util.jaxb.apn.APN;
+import com.tlcsdm.core.util.jaxb.apn.APNInfo;
 import com.tlcsdm.core.util.jaxb.apn.Application;
-import com.tlcsdm.core.util.jaxb.apn.Board;
-import com.tlcsdm.core.util.jaxb.apn.Circuit;
-import com.tlcsdm.core.util.jaxb.apn.Dimming;
-import com.tlcsdm.core.util.jaxb.apn.Power;
+import com.tlcsdm.core.util.jaxb.apn.Lighting;
 import com.tlcsdm.core.util.jaxb.board.BoardInfo;
 import com.tlcsdm.core.util.jaxb.board.BoardInfos;
 import com.tlcsdm.core.util.jaxb.board.Compiler;
@@ -362,57 +359,40 @@ public class JaxbTest {
 
     @Test
     void apn() throws JAXBException {
-        Board board = new Board();
-        board.setId("RTK7RLG240P00000BJ");
-        board.setName("RTK7RLG240P00000BJ");
-        board.setJpName("RTK7RLG240P00000BJ");
-        board.setPicture("APN_extend/board.png");
-        com.tlcsdm.core.util.jaxb.apn.Device device = new com.tlcsdm.core.util.jaxb.apn.Device();
-        device.setName("RL78/G24 (R7F101GLG)");
-        device.setLights("3");
-        device.setClock("Internal osc. - 8MHz");
-        device.setSampleVersion("1.00");
-        board.setDevice(device);
+        List<Lighting> lightingList1 = new ArrayList<>();
+        Lighting l1 = new Lighting();
+        l1.setId("dali");
+        l1.setProtocol("102+207");
+        Lighting l2 = new Lighting();
+        l2.setId("dali");
+        l2.setProtocol("102+207+209");
 
-        List<Dimming> dimmingList1 = new ArrayList<>();
-        Dimming dimming1 = new Dimming();
-        dimming1.setId("dali");
-        dimming1.setLights(3);
-        dimming1.setProtocol("102+207+209");
-        dimming1.setConfig("APN_extend/config_dali.mdf");
-        Dimming dimming2 = new Dimming();
-        dimming2.setId("dali");
-        dimming2.setLights(3);
-        dimming2.setProtocol("102+207");
-        dimming2.setConfig("APN_extend/config_dali.mdf");
-        dimmingList1.add(dimming2);
-
-        List<Circuit> circuitList = new ArrayList<>();
-        Circuit circuit1 = new Circuit();
-        circuit1.setId("boardId");
-        circuit1.setConfig("APN_extend/config_boardId.mdf");
-        circuit1.setMonitor("APN_extend/monitor_boardId.xml");
-        circuit1.setPicture("APN_extend/boardId.png");
-        circuitList.add(circuit1);
-
-        Power power1 = new Power();
-        power1.setCircuitList(circuitList);
+        List<Lighting> lightingList2 = new ArrayList<>();
+        lightingList1.add(l1);
+        lightingList2.add(l2);
 
         List<Application> applicationList = new ArrayList<>();
         Application a1 = new Application();
-        a1.setSrc("102+207+209/CCRL/CPU/Application");
+        a1.setPath("102+207/CCRL/CPU/Application");
         a1.setCompiler("CCRL");
         a1.setType("CPU");
-        a1.setDimmingList(dimmingList1);
-        a1.setPower(power1);
+        a1.setLighting(lightingList1);
+        a1.setPower("Yes");
+
+        Application a2 = new Application();
+        a2.setPath("102+207+209/CCRL/CPU/Application");
+        a2.setCompiler("CCRL");
+        a2.setType("CPU");
+        a2.setLighting(lightingList2);
+        a2.setPower("Yes");
 
         applicationList.add(a1);
+        applicationList.add(a2);
 
-        APN apn = new APN();
-        apn.setBoard(board);
+        APNInfo apn = new APNInfo();
         apn.setApplicationList(applicationList);
 
-        JAXBContext context = JAXBContext.newInstance(APN.class);
+        JAXBContext context = JAXBContext.newInstance(APNInfo.class);
         Marshaller mar = context.createMarshaller();
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter stringWriter = new StringWriter();

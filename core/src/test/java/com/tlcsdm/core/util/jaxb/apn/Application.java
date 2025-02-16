@@ -35,24 +35,26 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
-    @XmlElement(name = "src", required = true)
-    protected String src;
+    @XmlElement(name = "path", required = true)
+    protected String path;
     // CPU/FAA
     @XmlElement(name = "type", required = true)
     protected String type;
+    //CCRL/ICCRL
     @XmlElement(name = "compiler", required = true)
     protected String compiler;
-    @XmlElement(name = "dimming")
-    protected List<Dimming> dimmingList;
+    //Yes/No
     @XmlElement(name = "power")
-    protected Power power;
+    protected String power;
+    @XmlElement(name = "lighting")
+    protected List<Lighting> lighting;
 
-    public String getSrc() {
-        return src;
+    public String getPath() {
+        return path;
     }
 
-    public void setSrc(String src) {
-        this.src = src;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getType() {
@@ -71,19 +73,19 @@ public class Application {
         this.compiler = compiler;
     }
 
-    public List<Dimming> getDimmingList() {
-        return dimmingList;
-    }
-
-    public void setDimmingList(List<Dimming> dimmingList) {
-        this.dimmingList = dimmingList;
-    }
-
-    public Power getPower() {
+    public String getPower() {
         return power;
     }
 
-    public void setPower(Power power) {
+    public void setPower(String power) {
         this.power = power;
+    }
+
+    public List<Lighting> getLighting() {
+        return lighting;
+    }
+
+    public void setLighting(List<Lighting> lighting) {
+        this.lighting = lighting;
     }
 }

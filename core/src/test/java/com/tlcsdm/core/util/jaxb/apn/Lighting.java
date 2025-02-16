@@ -31,18 +31,16 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Board {
+public class Lighting {
     @XmlElement(name = "id", required = true)
     protected String id;
-    @XmlElement(name = "name", required = true)
-    protected String name;
-    @XmlElement(name = "jpName")
-    protected String jpName;
-    @XmlElement(name = "picture")
-    protected String picture;
-    @XmlElement(name = "description")
-    protected Device device;
+    // 102+207/102+207+209
+    @XmlElement(name = "protocol", required = true)
+    protected String protocol;
 
     public String getId() {
         return id;
@@ -52,35 +50,11 @@ public class Board {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProtocol() {
+        return protocol;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getJpName() {
-        return jpName;
-    }
-
-    public void setJpName(String jpName) {
-        this.jpName = jpName;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 }

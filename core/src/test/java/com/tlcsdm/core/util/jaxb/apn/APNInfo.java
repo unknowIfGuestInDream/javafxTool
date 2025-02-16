@@ -30,47 +30,21 @@ package com.tlcsdm.core.util.jaxb.apn;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.List;
+
+@XmlRootElement(name = "apninfo")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Device {
-    @XmlElement(name = "name")
-    protected String name;
-    @XmlElement(name = "lights")
-    protected String lights;
-    @XmlElement(name = "clock")
-    protected String clock;
-    @XmlElement(name = "sampleVersion")
-    protected String sampleVersion;
+public class APNInfo {
+    @XmlElement(name = "application", required = true)
+    protected List<Application> applicationList;
 
-    public String getName() {
-        return name;
+    public List<Application> getApplicationList() {
+        return applicationList;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLights() {
-        return lights;
-    }
-
-    public void setLights(String lights) {
-        this.lights = lights;
-    }
-
-    public String getClock() {
-        return clock;
-    }
-
-    public void setClock(String clock) {
-        this.clock = clock;
-    }
-
-    public String getSampleVersion() {
-        return sampleVersion;
-    }
-
-    public void setSampleVersion(String sampleVersion) {
-        this.sampleVersion = sampleVersion;
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
     }
 }
