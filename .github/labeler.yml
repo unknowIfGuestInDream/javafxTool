@@ -62,6 +62,10 @@ dependencies:
   - changed-files:
       - any-glob-to-any-file: [ 'pom.xml' ,'**/pom.xml' ]
 
+dependency-submission:
+  - changed-files:
+      - any-glob-to-any-file: [ 'pom.xml' ,'**/pom.xml' ]
+
 i18ns:
   - changed-files:
       - any-glob-to-any-file: [ '**/i18n/*.properties' ]
