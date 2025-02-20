@@ -219,10 +219,6 @@
                 <groupId>se.bjurr.gitchangelog</groupId>
                 <artifactId>git-changelog-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>ca.weblite</groupId>
-                <artifactId>jdeploy-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 

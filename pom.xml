@@ -75,7 +75,6 @@
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
         <jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
-        <jdeploy-maven-plugin.version>1.0.8</jdeploy-maven-plugin.version>
         <buildnumber-maven-plugin.version>3.2.1</buildnumber-maven-plugin.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
@@ -1967,20 +1966,6 @@ Changelog of {{repoName}}.
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jaxb2-maven-plugin</artifactId>
                     <version>${jaxb2-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>ca.weblite</groupId>
-                    <artifactId>jdeploy-maven-plugin</artifactId>
-                    <version>${jdeploy-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>jdeploy</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>sync-package-json</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
