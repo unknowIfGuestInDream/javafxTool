@@ -18,15 +18,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
       - name: Build with Maven
         run: mvn --file pom.xml -DskipTests -Duser.name='Github Action' package
       - name: Build App Installer Bundles
         uses: shannah/jdeploy@master
         with:
-          target_repository: 'shannah/jdeploy-javafx-starter-releases'
           github_token: ${{ secrets.GITHUB_TOKEN }}
