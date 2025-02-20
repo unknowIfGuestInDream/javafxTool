@@ -29,8 +29,6 @@ concurrency:
   # On PR branches, we cancel the job if new commits are pushed
   group: ${{ github.ref == 'refs/heads/master' }}
   cancel-in-progress: true
-permissions:
-  contents: read
 jobs:
   prepare:
     runs-on: ubuntu-latest
