@@ -30,40 +30,32 @@ package com.tlcsdm.core.util.jaxb.apn;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "apninfo")
+import java.util.List;
+
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class APNInfo {
+public class Package {
+    @XmlElement(name = "version", required = true)
+    protected String version;
+    @XmlElement(name = "application", required = true)
+    protected List<Application> applicationList;
 
-    @XmlElement(name = "toolchain", required = true)
-    protected Toolchain toolchain;
-    @XmlElement(name = "target", required = true)
-    protected Target target;
-    @XmlElement(name = "package", required = true)
-    protected Package packageInfo;
-
-    public Toolchain getToolchain() {
-        return toolchain;
+    public String getVersion() {
+        return version;
     }
 
-    public void setToolchain(Toolchain toolchain) {
-        this.toolchain = toolchain;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
-    public Target getTarget() {
-        return target;
+    public List<Application> getApplicationList() {
+        return applicationList;
     }
 
-    public void setTarget(Target target) {
-        this.target = target;
-    }
-
-    public Package getPackageInfo() {
-        return packageInfo;
-    }
-
-    public void setPackageInfo(Package packageInfo) {
-        this.packageInfo = packageInfo;
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
     }
 }

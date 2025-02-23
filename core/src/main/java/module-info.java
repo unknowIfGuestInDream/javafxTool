@@ -25,9 +25,8 @@
  */
 
 import ch.qos.logback.classic.spi.Configurator;
-import com.tlcsdm.core.logging.logback.CoreConfigurator;
 
-module com.tlcsdm.core {
+open module com.tlcsdm.core {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.swing;
@@ -72,7 +71,7 @@ module com.tlcsdm.core {
     requires static com.sun.jna;
     requires static com.sun.jna.platform;
     requires static vosk;
-    requires static jakarta.xml.bind;
+    requires jakarta.xml.bind;
     requires static com.fasterxml.jackson.dataformat.yaml;
     requires static com.fasterxml.jackson.datatype.jsr310;
     requires static org.python.jython2;
@@ -89,10 +88,10 @@ module com.tlcsdm.core {
     requires static org.apache.commons.csv;
     requires static org.openjdk.nashorn;
 
-    opens com.tlcsdm.core.javafx.controller to javafx.fxml;
-    opens com.tlcsdm.core.javafx.view to javafx.fxml;
-    opens com.tlcsdm.core.util to org.junit.platform.engine, org.junit.jupiter.api, jakarta.xml.bind;
-    opens com.tlcsdm.core.model;
+    //    opens com.tlcsdm.core.javafx.controller to javafx.fxml;
+    //    opens com.tlcsdm.core.javafx.view to javafx.fxml;
+    //    opens com.tlcsdm.core.util to org.junit.platform.engine, org.junit.jupiter.api, jakarta.xml.bind;
+    //    opens com.tlcsdm.core.model;
 
     exports com.tlcsdm.core.javafx;
     exports com.tlcsdm.core.javafx.control;

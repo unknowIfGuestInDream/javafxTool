@@ -35,26 +35,49 @@ import jakarta.xml.bind.annotation.XmlElement;
  * @author unknowIfGuestInDream
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Lighting {
-    @XmlElement(name = "id", required = true)
-    protected String id;
-    // 102+207/102+207+209
-    @XmlElement(name = "protocol", required = true)
-    protected String protocol;
+public class Toolchain {
+    //Renesas	Renesas toolchain
+    //IAR	IAR toolchain
+    //LLVM	LLVM toolchain
+    //GNU	Arm GNU toolchain
+    @XmlElement(name = "brand", required = true)
+    protected String brand;
+    // Renesas	CCRL 	Renesas CCRL compiler
+    //	        CCRX	Renesas CCRX compiler
+    //	        CCRH	Renesas CCRH compiler
+    // IAR	    ICCRL	IAR Embedded for Renesas RL78
+    //	        ICCRX	IAR Embedded for Renesas RX
+    // LLVM	    LLVMRL78	LLVM Embedded Toolchain for Renesas RL78
+    //	        LLVMRX	LLVM Embedded Toolchain for Renesas RX
+    //	        LLVMARM	LLVM Embedded Toolchain for Arm
+    //	        LLVMRISCV	LLVM for Renesas RISC-V
+    // GNU	    GUNARM	GNU Arm Embedded
+    @XmlElement(name = "product", required = true)
+    protected String product;
+    @XmlElement(name = "version", required = true)
+    protected String version;
 
-    public String getId() {
-        return id;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getProtocol() {
-        return protocol;
+    public String getProduct() {
+        return product;
     }
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

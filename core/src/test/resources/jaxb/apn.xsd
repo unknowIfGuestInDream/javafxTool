@@ -32,24 +32,43 @@
 
     <xs:complexType name="apnInfo">
         <xs:sequence>
+            <xs:element name="toolchain" type="toolchain"/>
+            <xs:element name="target" type="target"/>
+            <xs:element name="package" type="package"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="toolchain">
+        <xs:sequence>
+            <xs:element name="brand" type="xs:string"/>
+            <xs:element name="product" type="xs:string"/>
+            <xs:element name="version" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="target">
+        <xs:sequence>
+            <xs:element name="family" type="xs:string"/>
+            <xs:element name="series" type="xs:string"/>
+            <xs:element name="group" type="xs:string"/>
+            <xs:element name="partnumber" type="xs:string"/>
+            <xs:element name="board" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="package">
+        <xs:sequence>
+            <xs:element name="version" type="xs:string"/>
             <xs:element name="application" type="application" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="application">
         <xs:sequence>
-            <xs:element name="path" type="xs:string"/>
+            <xs:element name="sourcepath" type="xs:string"/>
             <xs:element name="type" type="xs:string"/>
-            <xs:element name="compiler" type="xs:string"/>
-            <xs:element name="power" type="xs:string" minOccurs="0"/>
-            <xs:element name="lighting" type="lighting" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="lighting">
-        <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="protocol" type="xs:string"/>
+            <xs:element name="toolchain" type="xs:string"/>
+            <xs:element name="ide" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

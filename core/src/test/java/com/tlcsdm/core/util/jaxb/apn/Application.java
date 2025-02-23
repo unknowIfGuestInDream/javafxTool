@@ -31,30 +31,37 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.List;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
-    @XmlElement(name = "path", required = true)
-    protected String path;
+    @XmlElement(name = "sourcepath", required = true)
+    protected String sourcepath;
     // CPU/FAA
     @XmlElement(name = "type", required = true)
     protected String type;
-    //CCRL/ICCRL
-    @XmlElement(name = "compiler", required = true)
-    protected String compiler;
-    //Yes/No
-    @XmlElement(name = "power")
-    protected String power;
-    @XmlElement(name = "lighting")
-    protected List<Lighting> lightingList;
+    //CCRL 	Renesas CCRL compiler
+    //CCRX	Renesas CCRX compiler
+    //CCRH	Renesas CCRH compiler
+    //ICCRL	IAR Embedded for Renesas RL78
+    //ICCRX	IAR Embedded for Renesas RX
+    //LLVMRL78	LLVM Embedded Toolchain for Renesas RL78
+    //LLVMRX	LLVM Embedded Toolchain for Renesas RX
+    //LLVMARM	LLVM Embedded Toolchain for Arm
+    //LLVMRISCV	LLVM for Renesas RISC-V
+    //GUNARM	GNU Arm Embedded
+    @XmlElement(name = "toolchain", required = true)
+    protected String toolchain;
+    //CS 	This application was created using CS+.
+    //IAR	This application was created using IAR.
+    //E2	This application was created using e2 studio.
+    @XmlElement(name = "ide", required = true)
+    protected String ide;
 
-    public String getPath() {
-        return path;
+    public String getSourcepath() {
+        return sourcepath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setSourcepath(String sourcepath) {
+        this.sourcepath = sourcepath;
     }
 
     public String getType() {
@@ -65,27 +72,19 @@ public class Application {
         this.type = type;
     }
 
-    public String getCompiler() {
-        return compiler;
+    public String getToolchain() {
+        return toolchain;
     }
 
-    public void setCompiler(String compiler) {
-        this.compiler = compiler;
+    public void setToolchain(String toolchain) {
+        this.toolchain = toolchain;
     }
 
-    public String getPower() {
-        return power;
+    public String getIde() {
+        return ide;
     }
 
-    public void setPower(String power) {
-        this.power = power;
-    }
-
-    public List<Lighting> getLighting() {
-        return lightingList;
-    }
-
-    public void setLighting(List<Lighting> lightingList) {
-        this.lightingList = lightingList;
+    public void setIde(String ide) {
+        this.ide = ide;
     }
 }
