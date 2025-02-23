@@ -27,24 +27,31 @@
   -->
 
 <apninfo>
-    <application>
-        <path>102+207/CCRL/CPU/Application</path>
-        <type>CPU</type>
-        <compiler>CCRL</compiler>
-        <power>Yes</power>
-        <lighting>
-            <id>dali</id>
-            <protocol>102+207</protocol>
-        </lighting>
-    </application>
-    <application>
-        <path>102+207+209/CCRL/CPU/Application</path>
-        <type>CPU</type>
-        <compiler>CCRL</compiler>
-        <power>Yes</power>
-        <lighting>
-            <id>dali</id>
-            <protocol>102+207+209</protocol>
-        </lighting>
-    </application>
+    <toolchain>
+        <brand>Renesas</brand>
+        <product>CCRL</product>
+        <version>1.13.00</version>
+    </toolchain>
+    <target>
+        <family>RL</family>
+        <series>RL78</series>
+        <group>RL78G24</group>
+        <partnumber>R7F101xxxx</partnumber>
+        <board>tv_board</board>
+    </target>
+    <package>
+        <version>1.00</version>
+        <application>
+            <sourcepath>102+207/CCRL/CPU/Application</sourcepath>
+            <type>CPU</type>
+            <toolchain>CCRL</toolchain>
+            <ide>CS</ide>
+        </application>
+        <application>
+            <sourcepath>102+207+209/CCRL/CPU/Application</sourcepath>
+            <type>CPU</type>
+            <toolchain>CCRL</toolchain>
+            <ide>CS</ide>
+        </application>
+    </package>
 </apninfo>

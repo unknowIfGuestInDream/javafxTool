@@ -30,40 +30,60 @@ package com.tlcsdm.core.util.jaxb.apn;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "apninfo")
+/**
+ * @author unknowIfGuestInDream
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class APNInfo {
+public class Target {
+    @XmlElement(name = "family", required = true)
+    protected String family;
+    @XmlElement(name = "series", required = true)
+    protected String series;
+    @XmlElement(name = "group", required = true)
+    protected String group;
+    @XmlElement(name = "partnumber", required = true)
+    protected String partnumber;
+    @XmlElement(name = "board", required = true)
+    protected String board;
 
-    @XmlElement(name = "toolchain", required = true)
-    protected Toolchain toolchain;
-    @XmlElement(name = "target", required = true)
-    protected Target target;
-    @XmlElement(name = "package", required = true)
-    protected Package packageInfo;
-
-    public Toolchain getToolchain() {
-        return toolchain;
+    public String getFamily() {
+        return family;
     }
 
-    public void setToolchain(Toolchain toolchain) {
-        this.toolchain = toolchain;
+    public void setFamily(String family) {
+        this.family = family;
     }
 
-    public Target getTarget() {
-        return target;
+    public String getSeries() {
+        return series;
     }
 
-    public void setTarget(Target target) {
-        this.target = target;
+    public void setSeries(String series) {
+        this.series = series;
     }
 
-    public Package getPackageInfo() {
-        return packageInfo;
+    public String getGroup() {
+        return group;
     }
 
-    public void setPackageInfo(Package packageInfo) {
-        this.packageInfo = packageInfo;
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getPartnumber() {
+        return partnumber;
+    }
+
+    public void setPartnumber(String partnumber) {
+        this.partnumber = partnumber;
+    }
+
+    public String getBoard() {
+        return board;
+    }
+
+    public void setBoard(String board) {
+        this.board = board;
     }
 }

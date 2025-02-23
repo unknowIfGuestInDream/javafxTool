@@ -30,7 +30,9 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.tlcsdm.core.util.jaxb.apn.APNInfo;
 import com.tlcsdm.core.util.jaxb.apn.Application;
-import com.tlcsdm.core.util.jaxb.apn.Lighting;
+import com.tlcsdm.core.util.jaxb.apn.Package;
+import com.tlcsdm.core.util.jaxb.apn.Target;
+import com.tlcsdm.core.util.jaxb.apn.Toolchain;
 import com.tlcsdm.core.util.jaxb.board.BoardInfo;
 import com.tlcsdm.core.util.jaxb.board.BoardInfos;
 import com.tlcsdm.core.util.jaxb.board.Compiler;
@@ -359,38 +361,42 @@ public class JaxbTest {
 
     @Test
     void apn() throws JAXBException {
-        List<Lighting> lightingList1 = new ArrayList<>();
-        Lighting l1 = new Lighting();
-        l1.setId("dali");
-        l1.setProtocol("102+207");
-        Lighting l2 = new Lighting();
-        l2.setId("dali");
-        l2.setProtocol("102+207+209");
-
-        List<Lighting> lightingList2 = new ArrayList<>();
-        lightingList1.add(l1);
-        lightingList2.add(l2);
-
         List<Application> applicationList = new ArrayList<>();
         Application a1 = new Application();
-        a1.setPath("102+207/CCRL/CPU/Application");
-        a1.setCompiler("CCRL");
+        a1.setSourcepath("102+207/CCRL/CPU/Application");
+        a1.setToolchain("CCRL");
         a1.setType("CPU");
-        a1.setLighting(lightingList1);
-        a1.setPower("Yes");
+        a1.setIde("CS");
 
         Application a2 = new Application();
-        a2.setPath("102+207+209/CCRL/CPU/Application");
-        a2.setCompiler("CCRL");
+        a2.setSourcepath("102+207+209/CCRL/CPU/Application");
+        a2.setToolchain("CCRL");
         a2.setType("CPU");
-        a2.setLighting(lightingList2);
-        a2.setPower("Yes");
+        a2.setIde("CS");
 
         applicationList.add(a1);
         applicationList.add(a2);
 
+        Toolchain toolchain = new Toolchain();
+        toolchain.setBrand("Renesas");
+        toolchain.setVersion("1.13.00");
+        toolchain.setProduct("CCRL");
+
+        Target target = new Target();
+        target.setFamily("RL");
+        target.setSeries("RL78");
+        target.setGroup("RL78G24");
+        target.setPartnumber("R7F101xxxx");
+        target.setBoard("tv_board");
+
+        Package pack = new Package();
+        pack.setVersion("1.00");
+        pack.setApplicationList(applicationList);
+
         APNInfo apn = new APNInfo();
-        apn.setApplicationList(applicationList);
+        apn.setToolchain(toolchain);
+        apn.setTarget(target);
+        apn.setPackageInfo(pack);
 
         JAXBContext context = JAXBContext.newInstance(APNInfo.class);
         Marshaller mar = context.createMarshaller();
