@@ -133,6 +133,6 @@ module com.tlcsdm.core {
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
 
-    provides Configurator with CoreConfigurator;
+    provides Configurator with com.tlcsdm.core.logging.logback.CoreConfigurator;
 
 }
