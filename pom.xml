@@ -98,7 +98,7 @@
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <.version>5.11.4</.version>
+        <junit.version>5.11.4</junit.version>
         <javafx.version>21.0.4</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.1</controlsfx.version>
@@ -278,7 +278,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org..jupiter</groupId>
+            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
