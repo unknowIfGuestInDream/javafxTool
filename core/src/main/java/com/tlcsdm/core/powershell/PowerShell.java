@@ -165,14 +165,12 @@ public class PowerShell implements AutoCloseable {
      * @throws PowerShellNotAvailableException if PowerShell is not installed in the system
      */
     public static PowerShell openSession(String customPowerShellExecutablePath) throws PowerShellNotAvailableException {
-        PowerShell powerShell = new PowerShell();
-
-        // Start with default configuration
-        powerShell.configuration(null);
-
-        String powerShellExecutablePath = customPowerShellExecutablePath == null ? (OSDetector.isWindows() ? DEFAULT_WIN_EXECUTABLE : DEFAULT_LINUX_EXECUTABLE) : customPowerShellExecutablePath;
-
-        return powerShell.initalize(powerShellExecutablePath);
+        try (PowerShell powerShell = new PowerShell()) {
+            // Start with default configuration
+            powerShell.configuration(null);
+            String powerShellExecutablePath = customPowerShellExecutablePath == null ? (OSDetector.isWindows() ? DEFAULT_WIN_EXECUTABLE : DEFAULT_LINUX_EXECUTABLE) : customPowerShellExecutablePath;
+            return powerShell.initalize(powerShellExecutablePath);
+        }
     }
 
     // Initializes PowerShell console in which we will enter the commands
