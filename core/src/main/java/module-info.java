@@ -129,6 +129,7 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.dsl.impl;
     exports com.tlcsdm.core.database;
     exports com.tlcsdm.core.oshi;
+    exports com.tlcsdm.core.powershell;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;
