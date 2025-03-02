@@ -29,12 +29,11 @@ package com.tlcsdm.qe.tools;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import net.ifok.image.image4j.codec.ico.ICOEncoder;
+import net.ifok.image.image4j.util.ConvertUtil;
+import net.ifok.image.image4j.util.ImageUtil;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -61,15 +60,20 @@ public class IconCreatorTest {
 
             // 为每个尺寸创建8bit和32bit版本
             for (int[] size : sizes) {
+                BufferedImage pi = ImageUtil.scaleImage(pngImage, size[0], size[1]);
                 if (size[0] != 256) {
-                    // 16bit 深度
-                    BufferedImage image8bit = convertImage(pngImage, size[0], size[1], 8);
+                    // 8bit 深度
+                    BufferedImage image8bit = ConvertUtil.convert8(pi);
                     icoImages.add(image8bit);
                 }
 
                 // 32bit 深度
-                BufferedImage image32bit = convertImage(pngImage, size[0], size[1], 32);
-                icoImages.add(image32bit);
+                if (pi.getType() != BufferedImage.TYPE_INT_ARGB) {
+                    BufferedImage image32bit = ConvertUtil.convert32(pi);
+                    icoImages.add(image32bit);
+                } else {
+                    icoImages.add(pi);
+                }
             }
 
             // 将图像保存为 ICO 文件
@@ -79,57 +83,6 @@ public class IconCreatorTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    // 核心转换方法
-    private static BufferedImage convertImage(BufferedImage original, int width, int height, int bitDepth) {
-        // 1. 缩放图像到目标尺寸
-        BufferedImage scaledImage = scaleImage(original, width, height);
-
-        // 2. 转换颜色深度
-        if (bitDepth == 8) {
-            return convertTo8Bit(scaledImage);
-        } else if (bitDepth == 32) {
-            return convertTo32Bit(scaledImage);
-        } else {
-            throw new IllegalArgumentException("不支持的位深度: " + bitDepth);
-        }
-    }
-
-    // 高质量缩放
-    private static BufferedImage scaleImage(BufferedImage original, int width, int height) {
-        BufferedImage scaled = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = scaled.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g.drawImage(original.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
-        g.dispose();
-        return scaled;
-    }
-
-    // 转换为8位索引颜色（简单方法，颜色可能失真）
-    private static BufferedImage convertTo8Bit(BufferedImage image) {
-        BufferedImage indexed = new BufferedImage(
-            image.getWidth(),
-            image.getHeight(),
-            BufferedImage.TYPE_BYTE_INDEXED
-        );
-        Graphics2D g = indexed.createGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return indexed;
-    }
-
-    // 转换为32位ARGB
-    private static BufferedImage convertTo32Bit(BufferedImage image) {
-        BufferedImage argb = new BufferedImage(
-            image.getWidth(),
-            image.getHeight(),
-            BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D g = argb.createGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return argb;
     }
 
 }
