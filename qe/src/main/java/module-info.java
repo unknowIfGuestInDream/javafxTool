@@ -67,6 +67,8 @@ module com.tlcsdm.qe {
     requires com.fasterxml.jackson.databind;
     requires net.jonathangiles.tools.teenyhttpd;
     requires org.apache.commons.io;
+    requires org.apache.commons.imaging;
+    requires image4j;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
