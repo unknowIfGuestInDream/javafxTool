@@ -41,3 +41,4 @@ exclude:
       - .settings
       - core/src/main/java/com/tlcsdm/core/database/DataSourceUtil.java
       - jenkins
+      - core/src/main/java/com/tlcsdm/core/powershell
