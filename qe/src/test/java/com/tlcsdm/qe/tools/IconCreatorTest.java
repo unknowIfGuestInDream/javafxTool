@@ -48,7 +48,7 @@ import java.util.List;
 public class IconCreatorTest {
 
     @Test
-    void textICO() {
+    void testICO() {
         File pngFile = new File(ResourceUtil.getResource("iconCreator/logo.png").getPath());
 
         try {
@@ -111,6 +111,42 @@ public class IconCreatorTest {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
             return Imaging.getBufferedImage(bis);
         }
+    }
+
+    @Test
+    void testICNS() throws IOException {
+        File pngFile = new File(ResourceUtil.getResource("iconCreator/logo.png").getPath());
+        File outputIcoFile = new File(pngFile.getParentFile(), "output.icns");
+        BufferedImage pngImage = ImageIO.read(pngFile);
+
+        ImageIO.write(pngImage, "ICNS", outputIcoFile);
+
+        //        BufferedImage bmpImage = new BufferedImage(
+        //            pngImage.getWidth(),
+        //            pngImage.getHeight(),
+        //            BufferedImage.TYPE_INT_RGB
+        //        );
+        //        // 3. 绘制到新图像，用指定颜色填充透明区域
+        //        Graphics2D graphics = bmpImage.createGraphics();
+        //        // graphics.setColor(Color.WHITE);  // 设置背景色（此处为白色）
+        //        graphics.fillRect(0, 0, bmpImage.getWidth(), bmpImage.getHeight());
+        //        graphics.drawImage(pngImage, 0, 0, null);
+        //        graphics.dispose();
+        //
+        //        // 2. 创建输出文件
+        //        byte[] bs = Imaging.writeImageToBytes(bmpImage, ImageFormats.BMP);
+        //        BufferedImage bsImage = convert(bs);
+        //
+        //        Imaging.writeImage(bsImage, outputIcoFile, ImageFormats.ICNS);
+    }
+
+    @Test
+    void testXPM() throws IOException {
+        File pngFile = new File(ResourceUtil.getResource("iconCreator/logo.png").getPath());
+        File outputIcoFile = new File(pngFile.getParentFile(), "output.xpm");
+        BufferedImage pngImage = ImageIO.read(pngFile);
+
+        Imaging.writeImage(pngImage, outputIcoFile, ImageFormats.XPM);
     }
 
 }
