@@ -230,7 +230,11 @@ public class DependencyInfo {
 
             new Dependency("com.fathzer", "javaluator", "3.0.5", false,
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
-                "https://www.apache.org/licenses/LICENSE-2.0"));
+                "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.github.gino0631", "icns-core", "1.2", false,
+                "https://github.com/gino0631/icns", "GNU LGPL",
+                "https://opensource.org/license/lgpl-3-0"));
     }
 
     public static class Dependency {

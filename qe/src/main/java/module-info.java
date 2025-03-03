@@ -69,7 +69,7 @@ module com.tlcsdm.qe {
     requires org.apache.commons.io;
     requires org.apache.commons.imaging;
     requires image4j;
-    requires com.twelvemonkeys.imageio.icns;
+    requires icns.core;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;

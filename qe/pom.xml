@@ -139,8 +139,8 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-icns</artifactId>
+            <groupId>com.github.gino0631</groupId>
+            <artifactId>icns-core</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
