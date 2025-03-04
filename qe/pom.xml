@@ -129,6 +129,21 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.ifok.image</groupId>
+            <artifactId>image4j</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gino0631</groupId>
+            <artifactId>icns-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
             <scope>test</scope>

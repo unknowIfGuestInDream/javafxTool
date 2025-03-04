@@ -212,6 +212,14 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-compress/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
+            new Dependency("org.apache.commons", "commons-imaging", "1.0.0-alpha5", false,
+                "https://commons.apache.org/proper/commons-imaging/", "Apache License, Version 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("net.ifok.image", "image4j", "0.7.2", false,
+                "https://image4j.sourceforge.net/", "GNU LGPL",
+                "https://opensource.org/license/lgpl-3-0"),
+
             new Dependency("net.jonathangiles.tools", "teenyhttpd", "1.0.5", false,
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
@@ -222,7 +230,11 @@ public class DependencyInfo {
 
             new Dependency("com.fathzer", "javaluator", "3.0.5", false,
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
-                "https://www.apache.org/licenses/LICENSE-2.0"));
+                "https://www.apache.org/licenses/LICENSE-2.0"),
+
+            new Dependency("com.github.gino0631", "icns-core", "1.2", false,
+                "https://github.com/gino0631/icns", "GNU LGPL",
+                "https://opensource.org/license/lgpl-3-0"));
     }
 
     public static class Dependency {

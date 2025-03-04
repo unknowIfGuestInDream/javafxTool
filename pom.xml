@@ -117,7 +117,7 @@
         <slf4j-api.version>2.0.17</slf4j-api.version>
         <commons-io.version>2.18.0</commons-io.version>
         <commons-configuration2.version>2.11.0</commons-configuration2.version>
-        <commons-beanutils.version>1.10.1</commons-beanutils.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-csv.version>1.13.0</commons-csv.version>
         <commons-compress.version>1.27.1</commons-compress.version>
         <commons-exec.version>1.4.0</commons-exec.version>
@@ -127,6 +127,7 @@
         <commons-math3.version>3.6.1</commons-math3.version>
         <commons-crypto.version>1.2.0</commons-crypto.version>
         <commons-imaging.version>1.0.0-alpha5</commons-imaging.version>
+        <image4j.version>0.7.2</image4j.version>
         <commons-codec.version>1.18.0</commons-codec.version>
         <commons-logging.version>1.3.5</commons-logging.version>
         <reflections.version>0.10.2</reflections.version>
@@ -187,6 +188,7 @@
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.2</jep.version>
         <imageio.version>3.12.0</imageio.version>
+        <icns.version>1.2</icns.version>
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
@@ -1122,6 +1124,11 @@
                 <version>${commons-imaging.version}</version>
             </dependency>
             <dependency>
+                <groupId>net.ifok.image</groupId>
+                <artifactId>image4j</artifactId>
+                <version>${image4j.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>fr.brouillard.oss</groupId>
                 <artifactId>cssfx</artifactId>
                 <version>${cssfx.version}</version>
@@ -1165,6 +1172,11 @@
                 <groupId>com.twelvemonkeys.imageio</groupId>
                 <artifactId>imageio-icns</artifactId>
                 <version>${imageio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.gino0631</groupId>
+                <artifactId>icns-core</artifactId>
+                <version>${icns.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.inject</groupId>
