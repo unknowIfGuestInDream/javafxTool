@@ -56,7 +56,7 @@
     <properties>
         <project.github.repository>unknowIfGuestInDream/javafxTool</project.github.repository>
         <javafxTool.version>1.0.0</javafxTool.version>
-        <javafxTool-common.version>1.0.0</javafxTool-common.version>
+        <javafxTool-common.version>1.0.1</javafxTool-common.version>
         <javafxTool-login.version>1.0.0</javafxTool-login.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <maven.compiler.source>17</maven.compiler.source>

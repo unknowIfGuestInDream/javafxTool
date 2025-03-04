@@ -42,7 +42,7 @@ public abstract class CommonSample extends SampleBase {
 
     @Override
     public String getProjectVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
 }
