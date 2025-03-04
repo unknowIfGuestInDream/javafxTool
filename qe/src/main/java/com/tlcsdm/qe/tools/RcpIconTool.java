@@ -35,6 +35,7 @@ import com.github.gino0631.icns.IcnsIcons;
 import com.github.gino0631.icns.IcnsType;
 import com.tlcsdm.core.javafx.bind.TextInputControlEmptyBinding;
 import com.tlcsdm.core.javafx.control.FxButton;
+import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -77,7 +78,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RcpIconTool extends QeSample {
 
@@ -136,7 +139,7 @@ public class RcpIconTool extends QeSample {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
@@ -249,35 +252,31 @@ public class RcpIconTool extends QeSample {
         userData.put("xpmCheck", xpmCheck);
     }
 
-    //    @Override
-    //    public Node getControlPanel() {
-    //        String content = """
-    //            {generateButton}:
-    //            {generateDesc}
-    //            {Required} {checkDirLabel}, {checkFileTypeLabel}, {ignoreFileLabel}
-    //
-    //            {Note}
-    //            {checkFileTypeLabel} {emptyDesc} {promptTextList}
-    //            {ignoreFileLabel} {emptyDesc} {promptTextList}
-    //            """;
-    //        Map<String, String> map = new HashMap<>();
-    //        map.put("generateButton", generate.getText());
-    //        map.put("generateDesc", I18nUtils.get("smc.tool.codeStyleLength120.control.textarea1"));
-    //        map.put("Required", I18nUtils.get("smc.tool.control.required"));
-    //        map.put("checkDirLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkDir"));
-    //        map.put("checkFileTypeLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.checkFileType"));
-    //        map.put("ignoreFileLabel", I18nUtils.get("smc.tool.codeStyleLength120.label.ignoreFile"));
-    //        map.put("Note", I18nUtils.get("smc.tool.control.note"));
-    //        map.put("emptyDesc", I18nUtils.get("smc.tool.textfield.empty.desc"));
-    //        map.put("promptTextList", I18nUtils.get("smc.tool.textfield.promptText.list"));
-    //        return FxTextInput.textArea(StrUtil.format(content, map));
-    //    }
+    @Override
+    public Node getControlPanel() {
+        String content = """
+            ICO:
+            {icoDesc}
+
+            ICNS:
+            {icnsDesc}
+
+            XPM:
+            {xpmDesc}
+            """;
+        Map<String, String> map = new HashMap<>();
+        map.put("icoDesc", I18nUtils.get("qe.tool.rcpIconTool.check.ico.description"));
+        map.put("icnsDesc", I18nUtils.get("qe.tool.rcpIconTool.check.icns.description"));
+        map.put("xpmDesc", I18nUtils.get("qe.tool.rcpIconTool.check.xpm.description"));
+        return FxTextInput.textArea(StrUtil.format(content, map));
+    }
 
     public void createICO(File file) {
         File pngFile = new File(pngFileField.getText());
+        BufferedImage pngImage = null;
         try {
             // 加载PNG文件
-            BufferedImage pngImage = ImageIO.read(pngFile);
+            pngImage = ImageIO.read(pngFile);
 
             BufferedImage bmpImage = new BufferedImage(
                 pngImage.getWidth(),
@@ -324,8 +323,15 @@ public class RcpIconTool extends QeSample {
             File outputIcoFile = new File(file, fileName + ".ico");
             ICOEncoder.write(icoImages, outputIcoFile);
             StaticLog.debug("The ico file has been successfully generated");
+
+            icoImages.forEach(i -> i.getGraphics().dispose());
+            bsImage.getGraphics().dispose();
+            pngImage.getGraphics().dispose();
         } catch (IOException e) {
             StaticLog.error(e);
+            if (pngImage != null) {
+                pngImage.getGraphics().dispose();
+            }
         }
     }
 
@@ -338,8 +344,9 @@ public class RcpIconTool extends QeSample {
     public void createICNS(File file) {
         File pngFile = new File(pngFileField.getText());
         File outputIcoFile = new File(file, fileName + ".icns");
+        BufferedImage pngImage = null;
         try (IcnsBuilder builder = IcnsBuilder.getInstance()) {
-            BufferedImage pngImage = ImageIO.read(pngFile);
+            pngImage = ImageIO.read(pngFile);
             builder.add(IcnsType.ICNS_16x16_JPEG_PNG_IMAGE, getImageAsStream(pngImage, 16, 16));
             builder.add(IcnsType.ICNS_32x32_JPEG_PNG_IMAGE, getImageAsStream(pngImage, 32, 32));
             builder.add(IcnsType.ICNS_128x128_JPEG_PNG_IMAGE, getImageAsStream(pngImage, 128, 128));
@@ -351,8 +358,12 @@ public class RcpIconTool extends QeSample {
                 builtIcons.writeTo(os);
             }
             StaticLog.debug("The icns file has been successfully generated");
+            pngImage.getGraphics().dispose();
         } catch (IOException e) {
             StaticLog.error(e);
+            if (pngImage != null) {
+                pngImage.getGraphics().dispose();
+            }
         }
     }
 
@@ -367,14 +378,18 @@ public class RcpIconTool extends QeSample {
     public void createXPM(File file) {
         File pngFile = new File(pngFileField.getText());
         File outputIcoFile = new File(file, fileName + ".xpm");
-
+        BufferedImage pngImage = null;
         try {
-            BufferedImage pngImage = ImageIO.read(pngFile);
+            pngImage = ImageIO.read(pngFile);
             BufferedImage pi = ImageUtil.scaleImage(pngImage, 512, 512);
             Imaging.writeImage(pi, outputIcoFile, ImageFormats.XPM);
             StaticLog.debug("The xpm file has been successfully generated");
+            pngImage.getGraphics().dispose();
         } catch (IOException e) {
             StaticLog.error(e);
+            if (pngImage != null) {
+                pngImage.getGraphics().dispose();
+            }
         }
     }
 }
