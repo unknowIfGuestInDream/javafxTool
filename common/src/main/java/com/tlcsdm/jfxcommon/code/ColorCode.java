@@ -129,6 +129,11 @@ public class ColorCode extends CommonSample {
         return ImageViewHelper.get("rgb");
     }
 
+    @Override
+    public boolean hasControlPanel() {
+        return false;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -106,6 +106,11 @@ public class ImageSplit extends CommonSample {
     }
 
     @Override
+    public boolean hasControlPanel() {
+        return false;
+    }
+
+    @Override
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             ImageSplit.class.getResource("/com/tlcsdm/jfxcommon/fxml/imageSplit.fxml"),

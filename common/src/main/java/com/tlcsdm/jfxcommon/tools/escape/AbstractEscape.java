@@ -122,6 +122,11 @@ public abstract class AbstractEscape extends CommonSample {
         return "1.0.1";
     }
 
+    @Override
+    public boolean hasControlPanel() {
+        return false;
+    }
+
     protected abstract String escape(String original);
 
     protected abstract String unescape(String original);
