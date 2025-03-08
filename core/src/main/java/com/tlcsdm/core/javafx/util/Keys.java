@@ -57,7 +57,8 @@ public enum Keys {
     PreferenceWindowWidth("preference.windowWidth"),
     PreferenceWindowHeight("preference.windowHeight"),
     PreferenceWindowPosX("preference.windowPosX"),
-    PreferenceWindowPosY("preference.windowPosY");
+    PreferenceWindowPosY("preference.windowPosY"),
+    SkipBootAnimation("skipBootAnimation");
 
     private final String keyName;
 

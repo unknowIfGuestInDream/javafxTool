@@ -28,6 +28,8 @@
 package com.tlcsdm.qe.provider;
 
 import com.tlcsdm.core.eventbus.EventBus;
+import com.tlcsdm.core.javafx.util.Config;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.frame.event.SplashAnimFinishedEvent;
 import com.tlcsdm.frame.service.SplashScreen;
 import javafx.animation.FadeTransition;
@@ -103,6 +105,9 @@ public class QeSplashProvider implements SplashScreen {
         SequentialTransition animation = new SequentialTransition(fadeTransition, pathTransition, scaleTransition);
         animation.setInterpolator(Interpolator.EASE_IN);
         animation.setOnFinished(event -> EventBus.getDefault().post(new SplashAnimFinishedEvent()));
+        if (Config.getBoolean(Keys.SkipBootAnimation, true)) {
+            animation.setRate(10);
+        }
         animation.play();
 
         return pane;

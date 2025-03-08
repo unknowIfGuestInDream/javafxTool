@@ -59,4 +59,6 @@ public abstract class AbstractSystemSettingView implements Initializable {
     public CheckBox useDevModeCheckBox;
     @FXML
     public CheckBox useEasterEggCheckBox;
+    @FXML
+    public CheckBox useSkipBootAnimation;
 }

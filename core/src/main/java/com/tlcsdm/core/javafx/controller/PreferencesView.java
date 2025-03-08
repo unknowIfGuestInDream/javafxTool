@@ -60,6 +60,7 @@ public class PreferencesView extends StackPane {
     BooleanProperty screenColorPickerHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty useDevMode = new SimpleBooleanProperty(false);
     BooleanProperty useEasterEgg = new SimpleBooleanProperty(true);
+    BooleanProperty skipBootAnimation = new SimpleBooleanProperty(false);
 
     // VisibilityProperty
     BooleanProperty supExitShowAlert = new SimpleBooleanProperty(true);
@@ -69,6 +70,7 @@ public class PreferencesView extends StackPane {
     BooleanProperty supScreenColorPickerHideWindow = new SimpleBooleanProperty(true);
     BooleanProperty supUseDevMode = new SimpleBooleanProperty(true);
     BooleanProperty supUseEasterEgg = new SimpleBooleanProperty(true);
+    BooleanProperty supSkipBootAnimation = new SimpleBooleanProperty(true);
 
     /**
      * 资源初始化.
@@ -91,6 +93,7 @@ public class PreferencesView extends StackPane {
         if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
             supUseEasterEgg.setValue(false);
         }
+
         for (Keys key : excludeKeys) {
             switch (key) {
                 case ConfirmExit -> supExitShowAlert.setValue(false);
@@ -100,6 +103,7 @@ public class PreferencesView extends StackPane {
                 case ScreenColorPickerHideWindow -> supScreenColorPickerHideWindow.setValue(false);
                 case UseDevMode -> supUseDevMode.setValue(false);
                 case UseEasterEgg -> supUseEasterEgg.setValue(false);
+                case SkipBootAnimation -> supSkipBootAnimation.setValue(false);
                 default -> {
                     // Do nothing
                 }
@@ -125,7 +129,9 @@ public class PreferencesView extends StackPane {
                                 Setting.of("core.dialog.systemSetting.check.useDevMode", useDevMode,
                                     VisibilityProperty.of(supUseDevMode)),
                                 Setting.of("core.dialog.systemSetting.check.useEasterEgg", useEasterEgg,
-                                    VisibilityProperty.of(supUseEasterEgg)))
+                                    VisibilityProperty.of(supUseEasterEgg)),
+                                Setting.of("core.dialog.systemSetting.check.skipBootAnimation", skipBootAnimation,
+                                    VisibilityProperty.of(supSkipBootAnimation)))
                             .description("core.menubar.setting.systemSetting")),
                     Category.of("core.menubar.tool",
                         VisibilityProperty.of(supScreenshotHideWindow.or(supScreenColorPickerHideWindow)),

@@ -55,4 +55,6 @@
               text="%core.dialog.systemSetting.check.useDevMode"/>
     <CheckBox fx:id="useEasterEggCheckBox"
               text="%core.dialog.systemSetting.check.useEasterEgg"/>
+    <CheckBox fx:id="useSkipBootAnimation"
+              text="%core.dialog.systemSetting.check.skipBootAnimation"/>
 </VBox>
