@@ -42,6 +42,7 @@ import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.richtext.hyperlink.TextHyperlinkArea;
 import com.tlcsdm.core.javafx.util.FxXmlHelper;
 import com.tlcsdm.core.javafx.util.JavaFxSystemUtil;
+import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.util.CoreUtil;
 import com.tlcsdm.core.util.DependencyInfo;
 import com.tlcsdm.core.util.DependencyInfo.Dependency;
@@ -85,7 +86,7 @@ public class SmcMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
-    private final Action preferences = FxAction.preferences();
+    private final Action preferences = FxAction.preferences(Keys.SkipBootAnimation);
 
     private final Action pathWatch = FxAction.pathWatch();
 

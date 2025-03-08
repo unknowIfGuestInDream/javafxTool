@@ -87,7 +87,7 @@ public class CgMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action exit = FxAction.exit(actionEvent -> FXSampler.doExit());
 
-    private final Action systemSetting = FxAction.systemSetting(Keys.ScreenshotHideWindow);
+    private final Action systemSetting = FxAction.systemSetting(Keys.ScreenshotHideWindow, Keys.SkipBootAnimation);
 
     private final Action pathWatch = FxAction.pathWatch();
 
