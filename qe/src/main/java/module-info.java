@@ -71,6 +71,7 @@ module com.tlcsdm.qe {
     requires image4j;
     requires icns.core;
     requires com.dlsc.preferencesfx;
+    requires com.fazecast.jSerialComm;
 
     exports com.tlcsdm.qe;
     exports com.tlcsdm.qe.provider to com.tlcsdm.core, com.tlcsdm.frame, com.tlcsdm.login;
