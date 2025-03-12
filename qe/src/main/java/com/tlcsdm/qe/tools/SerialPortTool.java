@@ -46,10 +46,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -69,7 +72,7 @@ import java.util.stream.Collectors;
 public class SerialPortTool extends QeSample implements Initializable {
 
     @FXML
-    private ComboBox<String> serPort;
+    private ComboBox<SerialPort> serPort;
     @FXML
     private ComboBox<String> serPortSpeed;
     @FXML
@@ -110,10 +113,10 @@ public class SerialPortTool extends QeSample implements Initializable {
     private Button sendBtn;
 
     private Timer t;
-    /**
-     * 串口对象
-     */
-    private SerialPort serialPort;
+    //    /**
+    //     * 串口对象
+    //     */
+    //    private SerialPort serialPort;
 
     @Override
     public Node getPanel(Stage stage) {
@@ -242,6 +245,7 @@ public class SerialPortTool extends QeSample implements Initializable {
     // https://github.com/yiaoBang/SerialPortToolFX/blob/master/src/main/java/com/yiaoBang/serialPortToolFX/view/SerialPortView.java
 
     public void initializeUI() {
+
         //        // 初始化常用波特率列表
         //        baudRateComboBox.getItems().addAll("9600", "4800", "2400", "1200");
         //        // 设置波特率默认值
@@ -262,50 +266,50 @@ public class SerialPortTool extends QeSample implements Initializable {
         //        if (!serialPortNameChoiceBox.getItems().isEmpty()) {
         //            serialPortNameChoiceBox.setValue(serialPortNameChoiceBox.getItems().get(0));
         //        }
+        serPort.setCellFactory(cellFactory);
+        serPort.setButtonCell(cellFactory.call(null));
+        SerialPort[] ports = SerialPort.getCommPorts();
+        if (ports.length != 0) {
+            for (SerialPort s : ports) {
+                serPort.getItems().add(s);
+            }
+            serPort.getSelectionModel().select(0);
+        }
 
-        //串口号
-        //        String[] ports = SerialPortList.getPortNames();
-        //        if (ports.length != 0) {
-        //            for (String s : ports) {
-        //                serPort.getItems().add(s);
-        //            }
-        //            serPort.setValue(ports[0]);
-        //        }
-        //        //串口波特率
-        //        String[] speeds = new String[]{
-        //            "100", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "56000", "57600", "115200", "128000", "256000"
-        //        };
-        //        for (String s : speeds) {
-        //            serPortSpeed.getItems().add(s);
-        //        }
-        //        serPortSpeed.setValue("9600");
-        //
-        //        //串口检验位设置
-        //        String[] checks = new String[]{
-        //            "NONE", "ODD", "EVEN", "MARK", "SPACE"
-        //        };
-        //        for (String s : checks) {
-        //            serPortCheckBit.getItems().add(s);
-        //        }
-        //        serPortCheckBit.setValue("NONE");
-        //
-        //        //数据位设置
-        //        String[] databits = new String[]{
-        //            "5", "6", "7", "8"
-        //        };
-        //        for (String s : databits) {
-        //            serPortDataBit.getItems().add(s);
-        //        }
-        //        serPortDataBit.setValue("8");
-        //
-        //        //停止位设置
-        //        String[] stopbits = new String[]{
-        //            "1", "2"
-        //        };
-        //        for (String s : stopbits) {
-        //            serPortStopBit.getItems().add(s);
-        //        }
-        //        serPortStopBit.setValue("1");
+        String[] speeds = new String[]{
+            "100", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "56000", "57600", "115200", "128000", "256000"
+        };
+        for (String s : speeds) {
+            serPortSpeed.getItems().add(s);
+        }
+        serPortSpeed.setValue("9600");
+
+        //串口检验位设置
+        String[] checks = new String[]{
+            "NONE", "ODD", "EVEN", "MARK", "SPACE"
+        };
+        for (String s : checks) {
+            serPortCheckBit.getItems().add(s);
+        }
+        serPortCheckBit.setValue("NONE");
+
+        //数据位设置
+        String[] databits = new String[]{
+            "5", "6", "7", "8"
+        };
+        for (String s : databits) {
+            serPortDataBit.getItems().add(s);
+        }
+        serPortDataBit.setValue("8");
+
+        //停止位设置
+        String[] stopbits = new String[]{
+            "1", "2"
+        };
+        for (String s : stopbits) {
+            serPortStopBit.getItems().add(s);
+        }
+        serPortStopBit.setValue("1");
         //
         //        serPortOpenBtn.setOnAction((ActionEvent event) -> {
         //
@@ -429,6 +433,18 @@ public class SerialPortTool extends QeSample implements Initializable {
         //            }
         //        });
     }
+
+    Callback<ListView<SerialPort>, ListCell<SerialPort>> cellFactory = listView -> new ListCell<SerialPort>() {
+        @Override
+        protected void updateItem(SerialPort decorator, boolean empty) {
+            super.updateItem(decorator, empty);
+            if (empty) {
+                setText("");
+            } else {
+                setText(decorator.getSystemPortName());
+            }
+        }
+    };
 
     @Override
     public void initializeBindings() {

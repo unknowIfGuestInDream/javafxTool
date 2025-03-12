@@ -32,6 +32,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -39,18 +40,18 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.tlcsdm.qe.tools.SerialPortTool">
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="525.0" minWidth="641.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tlcsdm.qe.tools.SerialPortTool">
     <content>
         <BorderPane prefHeight="505.0" prefWidth="621.0">
             <left>
-                <VBox prefHeight="516.0" prefWidth="137.0" style="-fx-padding: 5px">
+                <VBox style="-fx-padding: 5px">
                     <children>
                         <Label text="串口设置"/>
                         <GridPane style="-fx-padding: 5px;-fx-border-color: darkgrey">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0"/>
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -138,8 +139,7 @@
                 </VBox>
             </left>
             <bottom>
-                <GridPane style="-fx-padding: 5px;-fx-border-color: darkgrey;-fx-padding: 5px"
-                          BorderPane.alignment="CENTER">
+                <GridPane style="-fx-padding: 5px; -fx-padding: 5px;" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -148,34 +148,38 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                     </columnConstraints>
                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="发送统计："/>
-                        <Label fx:id="sendCount" text="0" GridPane.columnIndex="1"/>
-                        <Label text="接收统计" GridPane.columnIndex="2"/>
-                        <Label fx:id="recvCount" text="0" GridPane.columnIndex="3"/>
-                        <Button fx:id="CountReset" mnemonicParsing="false" text="重置统计" GridPane.columnIndex="4"/>
+                        <Label text="发送统计：" GridPane.rowIndex="1"/>
+                        <Label fx:id="sendCount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="接收统计" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <Label fx:id="recvCount" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <Button fx:id="CountReset" mnemonicParsing="false" text="重置统计" GridPane.columnIndex="4"
+                                GridPane.rowIndex="1"/>
+                        <Separator GridPane.columnSpan="5" GridPane.hgrow="ALWAYS"/>
                     </children>
                 </GridPane>
             </bottom>
             <center>
-                <VBox prefHeight="453.0" prefWidth="468.0" style="-fx-padding: 5px" BorderPane.alignment="CENTER">
+                <VBox style="-fx-padding: 5px" BorderPane.alignment="CENTER">
                     <children>
                         <Label text="接收区"/>
                         <TextArea fx:id="recvTextAear" editable="false" prefHeight="320.0" prefWidth="200.0"/>
                         <Label text="发送区"/>
                         <GridPane>
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0"/>
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <TextArea fx:id="sendTextAear" prefHeight="63.0" prefWidth="401.0"/>
-                                <Button fx:id="sendBtn" maxWidth="70" mnemonicParsing="false" prefHeight="100"
+                                <TextArea fx:id="sendTextAear"/>
+                                <Button fx:id="sendBtn" mnemonicParsing="false" prefHeight="140.0" prefWidth="60.0"
                                         text="发送" GridPane.columnIndex="1"/>
                             </children>
                         </GridPane>
