@@ -38,6 +38,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -113,10 +114,6 @@ public class SerialPortTool extends QeSample implements Initializable {
     private Button sendBtn;
 
     private Timer t;
-    //    /**
-    //     * 串口对象
-    //     */
-    //    private SerialPort serialPort;
 
     @Override
     public Node getPanel(Stage stage) {
@@ -310,46 +307,33 @@ public class SerialPortTool extends QeSample implements Initializable {
             serPortStopBit.getItems().add(s);
         }
         serPortStopBit.setValue("1");
-        //
-        //        serPortOpenBtn.setOnAction((ActionEvent event) -> {
-        //
-        //            if (serialPort != null && serialPort.isOpened())
-        //                try {
-        //                    serialPort.closePort();
-        //                    serPortOpenBtn.setText("打开");
-        //                    serPort.setDisable(false);
-        //                    serPortSpeed.setDisable(false);
-        //                    serPortCheckBit.setDisable(false);
-        //                    serPortDataBit.setDisable(false);
-        //                    serPortStopBit.setDisable(false);
-        //                    return;
-        //                } catch (SerialPortException e) {
-        //                    new AlertBox().display("关闭串口错误", e.getMessage());
-        //                }
-        //            serialPort = new SerialPort((String) serPort.getValue());
-        //            try {
-        //                serialPort.openPort();
-        //                serialPort.setParams(
-        //                    new Integer((String) serPortSpeed.getValue()),
-        //                    new Integer((String) serPortDataBit.getValue()),
-        //                    new Integer((String) serPortStopBit.getValue()),
-        //                    serPortSpeed.getValue().equals("NONE") ? 0 : serPortSpeed.getValue().equals("ODD") ? 1 :
-        //                        serPortSpeed.getValue().equals("EVEN") ? 2 : serPortSpeed.getValue().equals("SPACE") ? 3 : 0);
-        //                serialPort.purgePort(SerialPort.PURGE_RXCLEAR);
-        //                serialPort.purgePort(SerialPort.PURGE_TXCLEAR);
-        //                serialPort.setEventsMask(SerialPort.MASK_RXCHAR);
-        //                UsartRXEven();
-        //                serPortOpenBtn.setText("关闭");
-        //                serPort.setDisable(true);
-        //                serPortSpeed.setDisable(true);
-        //                serPortCheckBit.setDisable(true);
-        //                serPortDataBit.setDisable(true);
-        //                serPortStopBit.setDisable(true);
-        //
-        //            } catch (SerialPortException e) {
-        //                //new AlertBox().display("打开串口错误", e.getMessage());
-        //            }
-        //        });
+
+        serPortOpenBtn.setOnAction((ActionEvent event) -> {
+            SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
+            if (serialPort != null && serialPort.isOpen()) {
+                serialPort.closePort();
+                serPortOpenBtn.setText("打开");
+                serPort.setDisable(false);
+                serPortSpeed.setDisable(false);
+                serPortCheckBit.setDisable(false);
+                serPortDataBit.setDisable(false);
+                serPortStopBit.setDisable(false);
+            } else {
+                serialPort.openPort();
+                serialPort.setComPortParameters(Integer.parseInt(serPortSpeed.getValue()),
+                    Integer.parseInt(serPortDataBit.getValue()), Integer.parseInt(serPortStopBit.getValue()),
+                    serPortCheckBit.getValue().equals("NONE") ? 0 : serPortCheckBit.getValue().equals("ODD") ? 1 :
+                        serPortCheckBit.getValue().equals("EVEN") ? 2 : serPortCheckBit.getValue().equals(
+                            "SPACE") ? 3 : 0);
+                //UsartRXEven();
+                serPortOpenBtn.setText("关闭");
+                serPort.setDisable(true);
+                serPortSpeed.setDisable(true);
+                serPortCheckBit.setDisable(true);
+                serPortDataBit.setDisable(true);
+                serPortStopBit.setDisable(true);
+            }
+        });
         //
         //        sendBtn.setOnAction(event -> {
         //            if (null == serialPort || (!serialPort.isOpened())) {
