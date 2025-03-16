@@ -534,7 +534,7 @@ public class SerialPortTool extends QeSample implements Initializable {
      * @return 读取到的数据
      */
     private byte[] readFromPort(SerialPort serialPort) {
-        byte[] resultData = null;
+        byte[] resultData = new byte[0];
         try {
             if (!serialPort.isOpen()) {
                 return new byte[0];
@@ -572,8 +572,8 @@ public class SerialPortTool extends QeSample implements Initializable {
     }
 
     private byte[] hexStringToBytes(String hexString) throws Exception {
-        if (hexString == null || hexString.equals("")) {
-            return null;
+        if (hexString == null || hexString.trim().isEmpty()) {
+            return new byte[0];
         }
         hexString = hexString.replace(" ", "");
         if (hexString.length() % 2 != 0) {
