@@ -153,7 +153,7 @@
         <tabula.version>1.0.5</tabula.version>
         <preferencesfx.version>11.17.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
-        <jface.version>3.35.100</jface.version>
+        <jface.version>3.36.0</jface.version>
         <swt.version>3.129.0</swt.version>
         <jna.version>5.16.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
