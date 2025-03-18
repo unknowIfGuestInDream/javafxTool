@@ -320,11 +320,16 @@ public class SerialPortTool extends QeSample implements Initializable {
                 serPortStopBit.setDisable(false);
             } else {
                 serialPort.openPort();
+                //SerialPort.ONE_STOP_BIT
+                //SerialPort.NO_PARITY
                 serialPort.setComPortParameters(Integer.parseInt(serPortSpeed.getValue()),
                     Integer.parseInt(serPortDataBit.getValue()), Integer.parseInt(serPortStopBit.getValue()),
                     serPortCheckBit.getValue().equals("NONE") ? 0 : serPortCheckBit.getValue().equals("ODD") ? 1 :
                         serPortCheckBit.getValue().equals("EVEN") ? 2 : serPortCheckBit.getValue().equals(
                             "SPACE") ? 3 : 0);
+                serialPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
+                serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING,
+                    1000, 1000);
                 //UsartRXEven();
                 serPortOpenBtn.setText("关闭");
                 serPort.setDisable(true);
