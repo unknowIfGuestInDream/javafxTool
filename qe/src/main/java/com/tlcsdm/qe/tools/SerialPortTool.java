@@ -310,7 +310,10 @@ public class SerialPortTool extends QeSample implements Initializable {
 
         serPortOpenBtn.setOnAction((ActionEvent event) -> {
             SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
-            if (serialPort != null && serialPort.isOpen()) {
+            if (serialPort == null) {
+                return;
+            }
+            if (serialPort.isOpen()) {
                 serialPort.closePort();
                 serPortOpenBtn.setText("打开");
                 serPort.setDisable(false);
@@ -560,7 +563,7 @@ public class SerialPortTool extends QeSample implements Initializable {
         return resultData;
     }
 
-    private final class serialPortDataListener implements SerialPortDataListener {
+    private final static class serialPortDataListener implements SerialPortDataListener {
         @Override
         public int getListeningEvents() {
             return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
