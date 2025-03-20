@@ -101,7 +101,7 @@
         <junit.version>5.12.1</junit.version>
         <javafx.version>21.0.4</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
-        <controlsfx.version>11.2.1</controlsfx.version>
+        <controlsfx.version>11.2.2</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.36</lombok.version>
