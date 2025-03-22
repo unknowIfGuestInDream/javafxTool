@@ -149,6 +149,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
             <scope>test</scope>
