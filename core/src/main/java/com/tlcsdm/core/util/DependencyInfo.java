@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.17.2", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.17.4", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.15.0", false, "https://github.com/nguyenq/tess4j",
@@ -184,7 +184,7 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core-java11", "6.7.1", false,
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.8.0", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "3.2.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "3.3.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
