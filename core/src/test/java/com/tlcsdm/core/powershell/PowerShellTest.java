@@ -246,12 +246,12 @@ public class PowerShellTest {
     public void testFunctionalExample() {
         System.out.println("testFunctionalExample");
         if (OSDetector.isWindows()) {
-            PowerShell.openSession()
-                .executeCommandAndChain("Get-Process",
+            PowerShell powerShell = PowerShell.openSession();
+            powerShell.executeCommandAndChain("Get-Process",
                     (res -> System.out.println("List Processes:" + res.getCommandOutput())))
                 .executeCommandAndChain("Get-WmiObject Win32_BIOS",
-                    (res -> System.out.println("BIOS information:" + res.getCommandOutput())))
-                .close();
+                    (res -> System.out.println("BIOS information:" + res.getCommandOutput())));
+            powerShell.close();
         }
     }
 
