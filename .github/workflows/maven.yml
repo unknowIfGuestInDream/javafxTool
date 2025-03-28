@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: read
+  checks: write
+  id-token: write
 
 jobs:
   build:
@@ -46,3 +48,4 @@ jobs:
         with:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
           detailed_summary: true
+          token: ${{ secrets.CHANGELOG }}
