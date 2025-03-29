@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.concurrent;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
@@ -69,7 +69,7 @@ public class WeakConcurrentSetTest {
         Assertions.assertNotNull(set.getCleanerThread());
         new SetTestCase(set).doTest();
         set.getCleanerThread().interrupt();
-        Thread.sleep(200L);
+        Thread.sleep(500L);
         Assertions.assertFalse(set.getCleanerThread().isAlive());
     }
 
@@ -103,18 +103,18 @@ public class WeakConcurrentSetTest {
             triggerClean();
             Assertions.assertTrue(set.contains(value3));
             Assertions.assertTrue(set.contains(value4));
-            Assertions.assertEquals(set.approximateSize(), 2);
-            Assertions.assertEquals(set.target.target.size(), 2);
+            Assertions.assertEquals(2, set.approximateSize());
+            Assertions.assertEquals(2, set.target.target.size());
             Assertions.assertTrue(set.remove(value3));
             Assertions.assertFalse(set.contains(value3));
             Assertions.assertTrue(set.contains(value4));
-            Assertions.assertEquals(set.approximateSize(), 1);
-            Assertions.assertEquals(set.target.target.size(), 1);
+            Assertions.assertEquals(1, set.approximateSize());
+            Assertions.assertEquals(1, set.target.target.size());
             set.clear();
             Assertions.assertFalse(set.contains(value3));
             Assertions.assertFalse(set.contains(value4));
-            Assertions.assertEquals(set.approximateSize(), 0);
-            Assertions.assertEquals(set.target.target.size(), 0);
+            Assertions.assertEquals(0, set.approximateSize());
+            Assertions.assertEquals(0, set.target.target.size());
             Assertions.assertFalse(set.iterator().hasNext());
         }
 

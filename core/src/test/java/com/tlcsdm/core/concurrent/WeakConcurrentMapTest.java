@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.concurrent;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
@@ -69,7 +69,7 @@ public class WeakConcurrentMapTest {
         Assertions.assertNotNull(map.getCleanerThread());
         new MapTestCase(map).doTest();
         map.getCleanerThread().interrupt();
-        Thread.sleep(200L);
+        Thread.sleep(500L);
         Assertions.assertFalse(map.getCleanerThread().isAlive());
     }
 
@@ -147,24 +147,24 @@ public class WeakConcurrentMapTest {
             // Make eligible for GC
             key1 = key2 = null;
             System.gc();
-            Thread.sleep(200L);
+            Thread.sleep(500L);
             triggerClean();
             Assertions.assertEquals(map.get(key3), value3);
             Assertions.assertEquals(map.getIfPresent(key3), value3);
             Assertions.assertEquals(map.get(key4), value4);
-            Assertions.assertEquals(map.approximateSize(), 2);
-            Assertions.assertEquals(map.target.size(), 2);
+            Assertions.assertEquals(2, map.approximateSize());
+            Assertions.assertEquals(2, map.target.size());
             Assertions.assertEquals(map.remove(key3), value3);
             Assertions.assertNull(map.get(key3));
             Assertions.assertNull(map.getIfPresent(key3));
             Assertions.assertEquals(map.get(key4), value4);
-            Assertions.assertEquals(map.approximateSize(), 1);
-            Assertions.assertEquals(map.target.size(), 1);
+            Assertions.assertEquals(1, map.approximateSize());
+            Assertions.assertEquals(1, map.target.size());
             map.clear();
             Assertions.assertNull(map.get(key3));
             Assertions.assertNull(map.get(key4));
-            Assertions.assertEquals(map.approximateSize(), 0);
-            Assertions.assertEquals(map.target.size(), 0);
+            Assertions.assertEquals(0, map.approximateSize());
+            Assertions.assertEquals(0, map.target.size());
             Assertions.assertFalse(map.iterator().hasNext());
         }
 

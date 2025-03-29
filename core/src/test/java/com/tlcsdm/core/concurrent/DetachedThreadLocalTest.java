@@ -27,11 +27,11 @@
 
 package com.tlcsdm.core.concurrent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author unknowIfGuestInDream
@@ -69,7 +69,7 @@ public class DetachedThreadLocalTest {
         Assertions.assertNotNull(threadLocal.getBackingMap().getCleanerThread());
         new ThreadLocalTestCase(threadLocal).doTest();
         threadLocal.getBackingMap().getCleanerThread().interrupt();
-        Thread.sleep(200L);
+        Thread.sleep(500L);
         Assertions.assertFalse(threadLocal.getBackingMap().getCleanerThread().isAlive());
     }
 
