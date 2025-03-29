@@ -333,7 +333,7 @@ public class SerialPortTool extends QeSample implements Initializable {
                 serialPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
                 serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING,
                     1000, 1000);
-                //UsartRXEven();
+
                 serPortOpenBtn.setText("关闭");
                 serPort.setDisable(true);
                 serPortSpeed.setDisable(true);
