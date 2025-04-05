@@ -72,18 +72,24 @@ import java.util.stream.Collectors;
  */
 public class SerialPortTool extends QeSample implements Initializable {
 
+    //串口名称选择器
     @FXML
     private ComboBox<SerialPort> serPort;
+    //波特率选择器
     @FXML
     private ComboBox<String> serPortSpeed;
+    //检验位选择器
     @FXML
     private ComboBox<String> serPortCheckBit;
+    //数据位选择器
     @FXML
     private ComboBox<String> serPortDataBit;
+    //停止位选择器
     @FXML
     private ComboBox<String> serPortStopBit;
     @FXML
     private Button serPortOpenBtn;
+    //16进制接收显示开关
     @FXML
     private CheckBox recvShowHex;
     @FXML
@@ -333,7 +339,7 @@ public class SerialPortTool extends QeSample implements Initializable {
                 serialPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
                 serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING,
                     1000, 1000);
-                //UsartRXEven();
+
                 serPortOpenBtn.setText("关闭");
                 serPort.setDisable(true);
                 serPortSpeed.setDisable(true);
@@ -342,9 +348,10 @@ public class SerialPortTool extends QeSample implements Initializable {
                 serPortStopBit.setDisable(true);
             }
         });
-        //
+
         //        sendBtn.setOnAction(event -> {
-        //            if (null == serialPort || (!serialPort.isOpened())) {
+        //            SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
+        //            if (null == serialPort || (!serialPort.isOpen())) {
         //                // new AlertBox().display("错误", "请先打开串口");
         //                return;
         //            }
