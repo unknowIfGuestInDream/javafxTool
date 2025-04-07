@@ -107,7 +107,7 @@
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.38</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
-        <poi-ooxml.version>5.4.0</poi-ooxml.version>
+        <poi-ooxml.version>5.4.1</poi-ooxml.version>
         <freemarker.version>2.3.34</freemarker.version>
         <aviator.version>5.4.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
