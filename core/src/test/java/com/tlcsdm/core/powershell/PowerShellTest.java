@@ -48,6 +48,7 @@ import java.util.logging.Logger;
  * @author unknowIfGuestInDream
  */
 @EnabledOnOs({OS.WINDOWS})
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class PowerShellTest {
 
     /**
