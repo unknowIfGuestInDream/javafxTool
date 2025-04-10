@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +49,7 @@ import java.util.logging.Logger;
  * @author unknowIfGuestInDream
  */
 @EnabledOnOs({OS.WINDOWS})
+@DisabledIfSystemProperty(named = "workEnv", matches = "ci")
 public class PowerShellTest {
 
     /**
