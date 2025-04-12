@@ -1,0 +1,37 @@
+name: 'Languagetool check'
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'README.md'
+      - 'README_jp.md'
+      - 'README_zh.md'
+      - '**/i18n/*.properties'
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language_configs:
+          - language: 'en'
+            name: "English style"
+            patterns: 'README.md **/i18n/messages_en.properties'
+          - language: 'zh-CN'
+            name: "Chinese style"
+            patterns: 'README_zh.md **/i18n/messages_zh.properties'
+          - language: 'ja-JP'
+            name: "Japanese style"
+            patterns: 'README_jp.md **/i18n/messages_jp.properties'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check ${{ matrix.language_configs.name }}
+        uses: reviewdog/action-languagetool@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: info
+          language: ${{ matrix.language_configs.language }}
+          patterns: ${{ matrix.language_configs.patterns }}
