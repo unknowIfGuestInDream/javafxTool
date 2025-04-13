@@ -27,17 +27,16 @@
 
 package com.tlcsdm.qe.tools;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
-import com.tlcsdm.core.javafx.control.FxTextInput;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,11 +56,8 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Timer;
 import java.util.stream.Collectors;
 
 /**
@@ -87,19 +83,26 @@ public class SerialPortTool extends QeSample implements Initializable {
     //停止位选择器
     @FXML
     private ComboBox<String> serPortStopBit;
+    //流控选择器
+    @FXML
+    private ComboBox<String> serFlowControl;
     @FXML
     private Button serPortOpenBtn;
     //16进制接收显示开关
     @FXML
     private CheckBox recvShowHex;
+    //显示时间
     @FXML
     private CheckBox recvShowTime;
+    //暂停接收
     @FXML
     private CheckBox recvStopShow;
     @FXML
     private Button recvClear;
+    //16进制发送开关
     @FXML
     private CheckBox sendHex;
+    //定时发送开关
     @FXML
     private CheckBox sendCycle;
     @FXML
@@ -119,7 +122,8 @@ public class SerialPortTool extends QeSample implements Initializable {
     @FXML
     private Button sendBtn;
 
-    private Timer t;
+    private final Timeline circularSending = new Timeline();
+    private volatile long waitTime = 1000;
 
     @Override
     public Node getPanel(Stage stage) {
@@ -159,39 +163,17 @@ public class SerialPortTool extends QeSample implements Initializable {
     }
 
     @Override
+    public boolean hasControlPanel() {
+        return false;
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeUserDataBindings();
         initializeBindings();
         initializeUserData();
 
         initializeUI();
-    }
-
-    @Override
-    public Node getControlPanel() {
-        String content = """
-            {note}
-            {enableMunge}: {enableMungeDesc}
-            {enableVerbose}: {enableVerboseDesc}
-            {enableOptimizations}: {enableOptimizationsDesc}
-            {enablePreserveAllSemiColons}: {enablePreserveAllSemiColonsDesc}
-            {enableLinebreakpos}: {enableLinebreakposDesc}
-            """;
-
-        Map<String, String> map = new HashMap<>(32);
-        map.put("note", I18nUtils.get("qe.tool.compress.description.note"));
-        map.put("enableMunge", I18nUtils.get("qe.tool.compress.check.enableMunge"));
-        map.put("enableVerbose", I18nUtils.get("qe.tool.compress.check.enableVerbose"));
-        map.put("enableOptimizations", I18nUtils.get("qe.tool.compress.check.enableOptimizations"));
-        map.put("enablePreserveAllSemiColons", I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons"));
-        map.put("enableLinebreakpos", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos"));
-        map.put("enableMungeDesc", I18nUtils.get("qe.tool.compress.check.enableMunge.description"));
-        map.put("enableVerboseDesc", I18nUtils.get("qe.tool.compress.check.enableVerbose.description"));
-        map.put("enableOptimizationsDesc", I18nUtils.get("qe.tool.compress.check.enableOptimizations.description"));
-        map.put("enablePreserveAllSemiColonsDesc",
-            I18nUtils.get("qe.tool.compress.check.enablePreserveAllSemiColons.description"));
-        map.put("enableLinebreakposDesc", I18nUtils.get("qe.tool.compress.check.enableLinebreakpos.description"));
-        return FxTextInput.textArea(StrUtil.format(content, map));
     }
 
     /**
@@ -248,6 +230,12 @@ public class SerialPortTool extends QeSample implements Initializable {
     // https://github.com/yiaoBang/SerialPortToolFX/blob/master/src/main/java/com/yiaoBang/serialPortToolFX/view/SerialPortView.java
 
     public void initializeUI() {
+        //无限循环发送
+        circularSending.setCycleCount(Timeline.INDEFINITE);
+
+        //        recvCount
+        //        sendNumber.textProperty().bind(viewModel.getSEND_LONG_PROPERTY().asString());
+        //        receiveNumber.textProperty().bind(viewModel.getRECEIVE_LONG_PROPERTY().asString());
 
         //        // 初始化常用波特率列表
         //        baudRateComboBox.getItems().addAll("9600", "4800", "2400", "1200");
@@ -314,6 +302,28 @@ public class SerialPortTool extends QeSample implements Initializable {
         }
         serPortStopBit.setValue("1");
 
+        //流控
+        //        String[] flowControl = new String[]{
+        //            "100", "300", "600", "1200"
+        //        };
+        //        for (String s : speeds) {
+        //            serPortSpeed.getItems().add(s);
+        //        }
+        //        serPortSpeed.setValue("9600");
+        //serFlowControl.getItems().addAll(SerialPort.FLOW_CONTROL_DISABLED);
+
+        //循环发送的等待时间(ms)
+        sendCycleRap.textProperty().addListener((o, oldValue, newValue) -> {
+            try {
+                waitTime = Integer.parseInt(newValue);
+                if (waitTime < 1) {
+                    waitTime = 1;
+                }
+            } catch (NumberFormatException e) {
+                sendCycleRap.setText(oldValue);
+            }
+        });
+
         serPortOpenBtn.setOnAction((ActionEvent event) -> {
             SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
             if (serialPort == null) {
@@ -328,6 +338,8 @@ public class SerialPortTool extends QeSample implements Initializable {
                 serPortDataBit.setDisable(false);
                 serPortStopBit.setDisable(false);
             } else {
+                serialPortDataListener listener = new serialPortDataListener();
+                serialPort.addDataListener(listener);
                 serialPort.openPort();
                 //SerialPort.ONE_STOP_BIT
                 //SerialPort.NO_PARITY
@@ -349,48 +361,51 @@ public class SerialPortTool extends QeSample implements Initializable {
             }
         });
 
-        //        sendBtn.setOnAction(event -> {
-        //            SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
-        //            if (null == serialPort || (!serialPort.isOpen())) {
-        //                // new AlertBox().display("错误", "请先打开串口");
-        //                return;
-        //            }
-        //            try {
-        //                if (sendHex.isSelected()) {
-        //                    serialPort.writeBytes(hexStringToBytes(sendTextAear.getText()));
-        //                    sendCount.setText(String.valueOf(
-        //                        (Integer.parseInt(sendCount.getText()) + hexStringToBytes(sendTextAear.getText()).length)));
-        //                } else {
-        //                    serialPort.writeBytes(sendTextAear.getText().getBytes());
-        //                    sendCount.setText(String.valueOf(
-        //                        (Integer.parseInt(sendCount.getText()) + sendTextAear.getText().getBytes().length)));
-        //                }
-        //
-        //            } catch (Exception e) {
-        //                //new AlertBox().display("发送数据错误", e.getMessage());
-        //            }
-        //        });
-        //
-        //        recvClear.setOnAction(event -> {
-        //            recvTextAear.setText("");
-        //        });
-        //        sendHex.setOnAction(event -> {
-        //            if (!sendHex.isSelected())
-        //                try {
-        //                    sendTextAear.setText(new String(hexStringToBytes(sendTextAear.getText())));
-        //                } catch (Exception e) {
-        //                    //new AlertBox().display("非法16进制字符", e.getMessage());
-        //                }
-        //            else
-        //                sendTextAear.setText(bytesToHexString(sendTextAear.getText().getBytes()));
-        //        });
-        //        sendClear.setOnAction(event -> {
-        //            sendTextAear.setText("");
-        //        });
-        //        CountReset.setOnAction(event -> {
-        //            sendCount.setText("0");
-        //            recvCount.setText("0");
-        //        });
+        sendBtn.setOnAction(event -> {
+            SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
+            if (null == serialPort || (!serialPort.isOpen())) {
+                // new AlertBox().display("错误", "请先打开串口");
+                return;
+            }
+            try {
+                if (sendHex.isSelected()) {
+                    byte[] bytes = hexStringToBytes(sendTextAear.getText());
+                    serialPort.writeBytes(bytes, bytes.length);
+                    sendCount.setText(String.valueOf(
+                        (Integer.parseInt(sendCount.getText()) + hexStringToBytes(sendTextAear.getText()).length)));
+                } else {
+                    byte[] bytes = sendTextAear.getText().getBytes();
+                    serialPort.writeBytes(bytes, bytes.length);
+                    sendCount.setText(String.valueOf(
+                        (Integer.parseInt(sendCount.getText()) + sendTextAear.getText().getBytes().length)));
+                }
+
+            } catch (Exception e) {
+                //new AlertBox().display("发送数据错误", e.getMessage());
+            }
+        });
+
+        recvClear.setOnAction(event -> {
+            recvTextAear.setText("");
+        });
+        sendHex.setOnAction(event -> {
+            if (!sendHex.isSelected())
+                try {
+                    sendTextAear.setText(new String(hexStringToBytes(sendTextAear.getText())));
+                } catch (Exception e) {
+                    //new AlertBox().display("非法16进制字符", e.getMessage());
+                }
+            else {
+                sendTextAear.setText(bytesToHexString(sendTextAear.getText().getBytes()));
+            }
+        });
+        sendClear.setOnAction(event -> {
+            sendTextAear.setText("");
+        });
+        CountReset.setOnAction(event -> {
+            sendCount.setText("0");
+            recvCount.setText("0");
+        });
         //        sendCycle.setOnAction(event -> {
         //            if (null == serialPort || (!serialPort.isOpened())) {
         //                //new AlertBox().display("错误", "请先打开串口");
@@ -469,6 +484,17 @@ public class SerialPortTool extends QeSample implements Initializable {
         //        userData.put("txtCssLinebreakpos", txtCssLinebreakpos);
     }
 
+    @Override
+    public void dispose() {
+        SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
+        if (serialPort == null) {
+            return;
+        }
+        if (serialPort.isOpen()) {
+            serialPort.closePort();
+        }
+    }
+
     /**
      * 获得当前计算机所有的串口的名称列表
      *
@@ -519,30 +545,6 @@ public class SerialPortTool extends QeSample implements Initializable {
     }
 
     /**
-     * 关闭串口
-     *
-     * @param serialPort 待关闭的串口对象
-     */
-    private void closePort(SerialPort serialPort) {
-        if (serialPort != null && serialPort.isOpen()) {
-            serialPort.closePort();
-        }
-    }
-
-    /**
-     * 往串口发送数据
-     *
-     * @param serialPort 串口对象
-     * @param content    待发送数据
-     */
-    private void sendToPort(SerialPort serialPort, byte[] content) {
-        if (!serialPort.isOpen()) {
-            return;
-        }
-        serialPort.writeBytes(content, content.length);
-    }
-
-    /**
      * 从串口读取数据
      *
      * @param serialPort 当前已建立连接的SerialPort对象
@@ -580,8 +582,9 @@ public class SerialPortTool extends QeSample implements Initializable {
         public void serialEvent(SerialPortEvent event) {
             byte[] newData = event.getReceivedData();
             System.out.println("Received data of size: " + newData.length);
-            for (int i = 0; i < newData.length; ++i)
+            for (int i = 0; i < newData.length; ++i) {
                 System.out.print((char) newData[i]);
+            }
             System.out.println("\n");
         }
     }
