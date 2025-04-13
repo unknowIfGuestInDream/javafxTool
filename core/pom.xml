@@ -444,6 +444,11 @@
             <artifactId>jruby-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.nayuki</groupId>
+            <artifactId>qrcodegen</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
