@@ -164,7 +164,7 @@
         <jakarta.jaxb.version>4.0.5</jakarta.jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.4</jython.version>
-        <violations.version>1.158.0</violations.version>
+        <violations.version>1.157.3</violations.version>
         <asm.version>9.8</asm.version>
         <pmd.version>7.12.0</pmd.version>
         <bytebuddy.version>1.17.5</bytebuddy.version>
@@ -197,6 +197,7 @@
         <javapoet.version>0.7.0</javapoet.version>
         <nashorn.version>15.6</nashorn.version>
         <jruby.version>9.4.12.0</jruby.version>
+        <qrcodegen.version>1.8.0</qrcodegen.version>
     </properties>
 
     <issueManagement>
@@ -1227,6 +1228,11 @@
                 <groupId>org.jruby</groupId>
                 <artifactId>jruby-core</artifactId>
                 <version>${jruby.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.nayuki</groupId>
+                <artifactId>qrcodegen</artifactId>
+                <version>${qrcodegen.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
