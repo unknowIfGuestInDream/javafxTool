@@ -28,10 +28,10 @@
 #
 
 # see https://api.adoptium.net/q/swagger-ui/#/Binary/getBinaryByVersion
-winApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.13%2B11/windows/x64/jre/hotspot/normal/eclipse?project=jdk'
-macApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.13%2B11/mac/aarch64/jre/hotspot/normal/eclipse?project=jdk'
-linuxApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.13%2B11/linux/x64/jre/hotspot/normal/eclipse?project=jdk'
-wget -c ${winApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_windows_hotspot_17.0.13_11.zip
-wget -c ${linuxApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_linux_hotspot_17.0.13_11.tar.gz
-wget -c ${macApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.13_11.tar.gz
+winApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.14%2b7/windows/x64/jre/hotspot/normal/eclipse?project=jdk'
+macApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.14%2b7/mac/aarch64/jre/hotspot/normal/eclipse?project=jdk'
+linuxApi='https://api.adoptium.net/v3/binary/version/jdk-17.0.14%2b7/linux/x64/jre/hotspot/normal/eclipse?project=jdk'
+wget -c ${winApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_windows_hotspot_17.0.14_7.zip
+wget -c ${linuxApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_x64_linux_hotspot_17.0.14_7.tar.gz
+wget -c ${macApi} --no-check-certificate -O aftifact/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.14_7.tar.gz
 
