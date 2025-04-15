@@ -9,6 +9,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=unknowIfGuestInDream_javafxTool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=unknowIfGuestInDream_javafxTool)
 [![Qodana](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/qodana_code_quality.yml/badge.svg)](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/qodana_code_quality.yml)
 [![Jenkins](https://jenkins.tlcsdm.com/job/javafxtool/badge/icon)](https://jenkins.tlcsdm.com/job/javafxtool)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/unknowIfGuestInDream/javafxTool/badge)](https://scorecard.dev/viewer/?uri=github.com/unknowIfGuestInDream/javafxTool)
 
 # Introduce
 
