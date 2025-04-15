@@ -102,7 +102,7 @@ public class DependencyInfo {
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
-            new Dependency("com.google.guava", "guava", "33.4.7-jre", false, "https://github.com/google/guava",
+            new Dependency("com.google.guava", "guava", "33.4.8-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.2.0", false,

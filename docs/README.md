@@ -24,7 +24,7 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | junit                  | 5.12.2     | 单元测试框架                           |
 | jackson                | 2.18.3     | JSON解析库                          |
 | commons-io             | 2.19.0     | IO工具                             |
-| guava                  | 33.4.7-jre | Google工具                         |
+| guava                  | 33.4.8-jre | Google工具                         |
 | groovy                 | 4.0.26     | Groovy                           |
 | caffeine               | 3.2.0      | 本地缓存                             |
 | thumbnailator          | 0.4.20     | 图片转码和缩略工具                        |
