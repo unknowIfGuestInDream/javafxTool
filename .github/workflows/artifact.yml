@@ -34,6 +34,11 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -63,6 +68,11 @@ jobs:
     needs: prepare
     continue-on-error: false
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4

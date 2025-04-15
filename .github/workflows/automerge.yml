@@ -17,10 +17,21 @@ on:
     types:
       - completed
   status: { }
+permissions:
+  contents: read
+
 jobs:
   automerge:
+    permissions:
+      contents: write  # for pascalgn/automerge-action to merge PR
+      pull-requests: write  # for pascalgn/automerge-action to remove PR labels
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: Merge pull requests
         uses: pascalgn/automerge-action@v0.16.4
         env:
