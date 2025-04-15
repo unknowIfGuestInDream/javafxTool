@@ -8,6 +8,9 @@ on:
 concurrency:
   group: lock
 
+permissions:
+  contents: read
+
 jobs:
   lock:
     runs-on: ubuntu-latest
