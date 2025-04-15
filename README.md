@@ -1,4 +1,4 @@
-[![MIT](https://badgen.net/github/license/unknowIfGuestInDream/javafxTool)](https://github.com/unknowIfGuestInDream/javafxTool?tab=MIT-1-ov-file#readme)
+[![MIT](https://img.shields.io/github/license/unknowIfGuestInDream/javafxTool)](https://github.com/unknowIfGuestInDream/javafxTool?tab=MIT-1-ov-file#readme)
 [![Java CI with Maven](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/maven.yml/badge.svg)](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/maven.yml)
 [![Java package with Maven](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/artifact.yml/badge.svg?branch=master)](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/artifact.yml)
 [![Deploy Docs](https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/deploy-docs.yml/badge.svg?branch=master)](https://javafxtool.tlcsdm.com/)
