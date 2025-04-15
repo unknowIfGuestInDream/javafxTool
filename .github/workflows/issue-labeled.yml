@@ -5,6 +5,9 @@ on:
     types:
       - labeled
 
+permissions:
+  contents: read
+
 jobs:
   issue-invalid:
     name: close invalid issue
