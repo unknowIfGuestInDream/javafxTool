@@ -139,7 +139,7 @@
         <caffeine.version>3.2.0</caffeine.version>
         <java-diff-utils.version>4.15</java-diff-utils.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <jexl.version>3.4.0</jexl.version>
+        <jexl.version>3.5.0</jexl.version>
         <pdfbox.version>3.0.4</pdfbox.version>
         <pdfviewfx.version>3.1.0</pdfviewfx.version>
         <jackson.version>2.18.3</jackson.version>
