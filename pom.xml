@@ -196,7 +196,7 @@
         <javaluator.version>3.0.5</javaluator.version>
         <javapoet.version>0.7.0</javapoet.version>
         <nashorn.version>15.6</nashorn.version>
-        <jruby.version>10.0.0.0</jruby.version>
+        <jruby.version>9.4.12.0</jruby.version>
         <qrcodegen.version>1.8.0</qrcodegen.version>
     </properties>
 
