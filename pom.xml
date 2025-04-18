@@ -2012,7 +2012,12 @@ Changelog of {{repoName}}.
 {{/tags}}
 ]]>
                                 </templateContent>
-                                <file>target/CHANGELOG_with-unreleased.md</file>
+                                <noIssueName>Other changes</noIssueName>
+                                <gitHubEnabled>true</gitHubEnabled>
+                                <gitHubApi>https://api.github.com/repos/unknowIfGuestInDream/javafxTool</gitHubApi>
+                                <timeZone>GMT+08:00</timeZone>
+                                <dateFormat>YYYY-MM-dd HH:mm:ss</dateFormat>
+                                <file>target/CHANGELOG.md</file>
                             </configuration>
                         </execution>
                     </executions>

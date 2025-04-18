@@ -90,8 +90,8 @@ jobs:
           mkdir -p ${result_path}
           mvn --file ${{ matrix.mod }}/pom.xml -DskipTests -Duser.name='Github Action' -Djavafx.platform=${{ matrix.buildos }} -Pjavadoc-with-links package
           cp ${{ matrix.mod }}/target/javafxTool-${{ matrix.mod }}.jar ${result_path}/javafxTool-${{ matrix.mod }}.jar
-          if [ -f "${{ matrix.mod }}/target/CHANGELOG_with-unreleased.md" ]; then
-              cp ${{ matrix.mod }}/target/CHANGELOG_with-unreleased.md ${result_path}/CHANGELOG_with-unreleased.md
+          if [ -f "${{ matrix.mod }}/target/CHANGELOG.md" ]; then
+              cp ${{ matrix.mod }}/target/CHANGELOG.md ${result_path}/CHANGELOG.md
           fi
           cp -r ${{ matrix.mod }}/target/lib ${result_path}/lib
           cp -r docs ${result_path}/docs
