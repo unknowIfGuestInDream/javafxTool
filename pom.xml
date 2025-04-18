@@ -1992,23 +1992,6 @@ Changelog of {{repoName}}.
 {{/commits}}
 
 {{/ifContainsType}}
-{{#ifContainsType commits type='^($|(?!fix|feat|breaking|ci|bot))'}}
-### Other changes
-
-{{#commits}}
-{{#ifCommitType . type='^$'}}
-**{{{messageTitle}}}**
-
-{{#messageBodyItems}}
-* {{.}}
-{{/messageBodyItems}}
-
-[{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
-
-{{/ifCommitType}}
-{{/commits}}
-
-{{/ifContainsType}}
 {{/tags}}
 ]]>
                                 </templateContent>
