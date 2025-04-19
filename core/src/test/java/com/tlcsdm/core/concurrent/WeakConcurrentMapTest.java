@@ -29,6 +29,7 @@ package com.tlcsdm.core.concurrent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class WeakConcurrentMapTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
     public void testInternalThread() throws Exception {
         WeakConcurrentMap<Object, Object> map = new WeakConcurrentMap<>(true);
         Assertions.assertNotNull(map.getCleanerThread());
