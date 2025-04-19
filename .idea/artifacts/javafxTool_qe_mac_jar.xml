@@ -2,10 +2,10 @@
     <artifact type="jar" name="javafxTool-qe-mac:jar">
         <output-path>$PROJECT_DIR$/out/artifacts/javafxTool_qe_mac_jar</output-path>
         <root id="archive" name="javafxTool-qe.jar">
-            <element id="module-output" name="javafxTool-qe" />
-            <element id="module-output" name="javafxTool-frame" />
-            <element id="module-output" name="javafxTool-core" />
             <element id="module-output" name="javafxTool-common" />
+            <element id="module-output" name="javafxTool-core" />
+            <element id="module-output" name="javafxTool-frame" />
+            <element id="module-output" name="javafxTool-qe" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.18/logback-classic-1.5.18.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.18/logback-core-1.5.18.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.37/hutool-core-5.8.37.jar" path-in-jar="/" />
@@ -17,6 +17,7 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.18.3/jackson-annotations-2.18.3.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.18.3/jackson-core-2.18.3.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.18.3/jackson-databind-2.18.3.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fazecast/jSerialComm/2.11.0/jSerialComm-2.11.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/gino0631/clove-io/0.2/clove-io-0.2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/gino0631/icns-core/1.2/icns-core-1.2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar" path-in-jar="/" />
@@ -66,7 +67,7 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4-mac.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4-mac.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-smacg/21.0.4/javafx-swing-21.0.4.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-swing/21.0.4/javafx-swing-21.0.4.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-swing/21.0.4/javafx-swing-21.0.4-mac.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/reactfx/reactfx/2.0-M5/reactfx-2.0-M5.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/reflections/reflections/0.10.2/reflections-0.10.2.jar" path-in-jar="/" />
