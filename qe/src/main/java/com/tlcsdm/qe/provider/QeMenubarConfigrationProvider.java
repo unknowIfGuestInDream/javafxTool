@@ -106,6 +106,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action openUserData = FxAction.openUserData();
 
+    private final Action openPropertiesDialog = FxAction.openPropertiesDialog();
+
     private final Action api = FxAction.api();
     private final Action css = FxAction.cssApi();
     private final Action fxml = FxAction.fxmlApi();
@@ -190,7 +192,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, languageGroup),
         FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
-        FxActionGroup.help(openSysConfig, openLogDir, openUserData, ACTION_SEPARATOR, contactSupport, submitFeedback,
+        FxActionGroup.help(openSysConfig, openLogDir, openUserData, openPropertiesDialog, ACTION_SEPARATOR,
+            contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
 
     @Override
