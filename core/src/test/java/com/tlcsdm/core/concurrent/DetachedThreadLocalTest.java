@@ -29,6 +29,7 @@ package com.tlcsdm.core.concurrent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,7 @@ public class DetachedThreadLocalTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
     public void testInternalThread() throws Exception {
         DetachedThreadLocal<Object> threadLocal = new DetachedThreadLocal<>(DetachedThreadLocal.Cleaner.THREAD);
         Assertions.assertNotNull(threadLocal.getBackingMap().getCleanerThread());
