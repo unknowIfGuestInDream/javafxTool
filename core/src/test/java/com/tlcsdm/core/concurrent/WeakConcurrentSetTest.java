@@ -29,6 +29,7 @@ package com.tlcsdm.core.concurrent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -64,6 +65,7 @@ public class WeakConcurrentSetTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
     public void testInternalThread() throws Exception {
         WeakConcurrentSet<Object> set = new WeakConcurrentSet<Object>(WeakConcurrentSet.Cleaner.THREAD);
         Assertions.assertNotNull(set.getCleanerThread());

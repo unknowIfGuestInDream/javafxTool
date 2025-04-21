@@ -146,7 +146,7 @@
         <testfx.version>4.0.18</testfx.version>
         <assertj.version>3.27.3</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
-        <ikonli.version>12.3.1</ikonli.version>
+        <ikonli.version>12.4.0</ikonli.version>
         <richtextfx.version>0.11.5</richtextfx.version>
         <groovy.version>4.0.26</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
