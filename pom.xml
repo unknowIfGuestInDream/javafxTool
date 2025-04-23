@@ -100,7 +100,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.12.2</junit.version>
-        <javafx.version>21.0.4</javafx.version>
+        <javafx.version>21.0.7</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.2</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
