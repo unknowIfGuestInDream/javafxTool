@@ -33,6 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import net.jcip.annotations.NotThreadSafe;
+
 /**
  * <p>
  * A thread-safe map with weak keys. Entries are based on a key's system hash code and keys are considered
@@ -43,6 +45,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author unknowIfGuestInDream
  */
+@NotThreadSafe
 public class WeakConcurrentMap<K, V> extends AbstractWeakConcurrentMap<K, V, WeakConcurrentMap.LookupKey<K>> {
 
     /**

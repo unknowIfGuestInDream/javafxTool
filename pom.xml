@@ -100,6 +100,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.12.2</junit.version>
+        <jcip-annotations.version>1.0</jcip-annotations.version>
         <javafx.version>21.0.7</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.2</controlsfx.version>
@@ -297,6 +298,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>${jcip-annotations.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -1260,11 +1267,16 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <parallel>all</parallel>
+                    <threadCount>10</threadCount>
+                    <threadCountSuites>2</threadCountSuites>
+                    <threadCountClasses>3</threadCountClasses>
+                    <threadCountMethods>5</threadCountMethods>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                    <argLine>-Xms512m -Xmx1600m</argLine>
                     <argLine>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
-                    <forkCount>1.5C</forkCount>
+                    <forkCount>1C</forkCount>
                     <reuseForks>false</reuseForks>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
