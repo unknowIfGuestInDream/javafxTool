@@ -185,6 +185,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.stephenc.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.fxmisc.richtext</groupId>
             <artifactId>richtextfx</artifactId>
             <scope>provided</scope>
@@ -448,6 +453,12 @@
             <groupId>io.nayuki</groupId>
             <artifactId>qrcodegen</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stephenc.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>1.0-1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
