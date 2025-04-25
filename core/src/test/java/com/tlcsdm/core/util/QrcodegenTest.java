@@ -31,10 +31,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import io.nayuki.qrcodegen.QrCode;
 import io.nayuki.qrcodegen.QrSegment;
 import io.nayuki.qrcodegen.QrSegmentAdvanced;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +40,11 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

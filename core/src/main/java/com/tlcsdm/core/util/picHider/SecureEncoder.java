@@ -27,10 +27,11 @@
 
 package com.tlcsdm.core.util.picHider;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * 加密工具类.

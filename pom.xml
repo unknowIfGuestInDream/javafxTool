@@ -300,12 +300,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.stephenc.jcip</groupId>
-            <artifactId>jcip-annotations</artifactId>
-            <version>${jcip-annotations.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -316,6 +310,11 @@
                 <version>${junit.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.stephenc.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+                <version>${jcip-annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
@@ -1769,6 +1768,7 @@
                             <configuration>
                                 <outputDirectory>${project.build.directory}/license</outputDirectory>
                                 <thirdPartyFilename>NOTICE</thirdPartyFilename>
+                                <excludedArtifacts>jcip-annotations</excludedArtifacts>
                                 <force>true</force>
                                 <licenseMerges>
                                     <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
