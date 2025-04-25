@@ -85,7 +85,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
                     sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*17*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -136,7 +136,7 @@ pipeline {
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzvf *mac*17*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -187,7 +187,7 @@ pipeline {
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzvf *linux*17*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
