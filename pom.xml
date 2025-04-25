@@ -100,7 +100,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.12.2</junit.version>
-        <jcip-annotations.version>1.0</jcip-annotations.version>
+        <jcip-annotations.version>1.0-1</jcip-annotations.version>
         <javafx.version>21.0.7</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.2</controlsfx.version>
@@ -301,7 +301,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.jcip</groupId>
+            <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
             <version>${jcip-annotations.version}</version>
             <scope>test</scope>
