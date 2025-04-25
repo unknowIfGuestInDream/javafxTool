@@ -29,13 +29,14 @@ package com.tlcsdm.core.util.picHider;
 
 import cn.hutool.log.StaticLog;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
 
 /**
  * 提取（从隐写图像中恢复出原来被隐藏的文件或信息）.

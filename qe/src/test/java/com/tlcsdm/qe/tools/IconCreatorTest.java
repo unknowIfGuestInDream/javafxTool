@@ -36,9 +36,7 @@ import net.ifok.image.image4j.util.ConvertUtil;
 import net.ifok.image.image4j.util.ImageUtil;
 import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.Imaging;
-import org.junit.jupiter.api.Test;
 
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -49,6 +47,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import org.junit.jupiter.api.Test;
 
 public class IconCreatorTest {
 

@@ -30,10 +30,11 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.tlcsdm.core.util.picHider.Decoder;
 import com.tlcsdm.core.util.picHider.Encoder;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
+
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

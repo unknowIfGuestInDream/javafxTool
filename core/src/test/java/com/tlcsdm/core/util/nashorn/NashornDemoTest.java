@@ -28,7 +28,9 @@
 package com.tlcsdm.core.util.nashorn;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.script.Compilable;
 import javax.script.CompiledScript;
@@ -37,8 +39,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

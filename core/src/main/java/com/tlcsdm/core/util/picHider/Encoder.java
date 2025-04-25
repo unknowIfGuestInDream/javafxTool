@@ -29,11 +29,12 @@ package com.tlcsdm.core.util.picHider;
 
 import cn.hutool.log.StaticLog;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * 嵌入（将一个文件或信息隐藏到一张图片）.
