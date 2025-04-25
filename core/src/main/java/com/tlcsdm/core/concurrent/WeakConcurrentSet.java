@@ -31,6 +31,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
+import net.jcip.annotations.NotThreadSafe;
+
 /**
  * <p>
  * A thread-safe set with weak values. Entries are based on a key's system hash code and keys are considered equal only by reference equality.
@@ -40,6 +42,7 @@ import java.util.Map;
  *
  * @author unknowIfGuestInDream
  */
+@NotThreadSafe
 public class WeakConcurrentSet<V> implements Runnable, Iterable<V> {
 
     final WeakConcurrentMap<V, Boolean> target;
