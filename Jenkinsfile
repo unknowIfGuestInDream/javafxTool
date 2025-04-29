@@ -60,9 +60,7 @@ pipeline {
                             echo "no change，skip build"
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
-                        } else {
-                            cleanWs()
-                        }    
+                        }   
                     }
                 }
             }
@@ -237,6 +235,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Clean Workspace') {
+             steps {
+                 sh "ls|grep -E  "smcTool*.zip"|xargs rm  "
+                  sh "ls|grep -E  "qeTool*.zip"|xargs rm  "
+             }
+         }
 
     }
 }
