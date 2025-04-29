@@ -33,7 +33,8 @@ pipeline {
     environment {
         USER_NAME = 'Jenkins'
     }
-    stages {
+    
+    stages {        
         stage('Check change') {
             when {
                 expression { currentBuild.previousSuccessfulBuild != null }
@@ -59,7 +60,9 @@ pipeline {
                             echo "no change，skip build"
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
-                        }
+                        } else {
+                            cleanWs()
+                        }    
                     }
                 }
             }
@@ -232,12 +235,6 @@ pipeline {
                 aborted {
                     echo '构建取消'
                 }
-            }
-        }
-
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()
             }
         }
 
