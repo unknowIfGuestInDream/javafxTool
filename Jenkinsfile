@@ -91,6 +91,9 @@ pipeline {
             }
         }
 
+        stage('Parallel Windows Build') {
+            parallel {
+
         stage('Build smc-windows') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
@@ -133,6 +136,9 @@ pipeline {
             }
         }
 
+        }
+        }
+
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
@@ -142,6 +148,8 @@ pipeline {
             }
         }
 
+        stage('Parallel Mac Build') {
+            parallel {
         stage('Build smc-mac') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
@@ -184,6 +192,9 @@ pipeline {
             }
         }
 
+        }
+        }
+
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
@@ -193,6 +204,8 @@ pipeline {
             }
         }
 
+        stage('Parallel Linux Build') {
+            parallel {
         stage('Build smc-linux') {
             steps {
                 sh "$M2_HOME/bin/mvn -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
@@ -233,6 +246,9 @@ pipeline {
                     echo '构建取消'
                 }
             }
+        }
+
+        }
         }
 
         stage('Clean Workspace') {
