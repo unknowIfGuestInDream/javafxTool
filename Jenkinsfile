@@ -238,8 +238,10 @@ pipeline {
 
         stage('Clean Workspace') {
              steps {
-                 sh "ls|grep -E  "smcTool*.zip"|xargs rm  "
-                  sh "ls|grep -E  "qeTool*.zip"|xargs rm  "
+                 script {
+                     sh "ls|grep -E  "smcTool*.zip"|xargs rm"
+                     sh "ls|grep -E  "qeTool*.zip"|xargs rm" 
+                 }
              }
          }
 
