@@ -60,6 +60,7 @@ pipeline {
                             echo "no change，skip build"
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
+                            cleanWs()
                         }   
                     }
                 }
@@ -241,6 +242,9 @@ pipeline {
                  script {
                      sh "rm smcTool*.zip"
                      sh "rm qeTool*.zip" 
+                     sh "rm *linux*17*.tar.gc" 
+                     sh "rm *mac*17*.tar.gc"
+                     sh "rm *windows*17*.zip"
                  }
              }
          }
