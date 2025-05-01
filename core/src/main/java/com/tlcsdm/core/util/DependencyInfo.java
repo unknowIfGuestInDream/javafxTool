@@ -109,7 +109,7 @@ public class DependencyInfo {
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.4", false, "https://pdfbox.apache.org/",
+            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.5", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("technology.tabula", "tabula", "1.0.5", false,
