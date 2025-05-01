@@ -80,7 +80,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-configuration2", "2.11.0", true,
+            new Dependency("org.apache.commons", "commons-configuration2", "2.12.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
