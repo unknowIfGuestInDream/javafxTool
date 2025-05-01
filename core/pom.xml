@@ -69,6 +69,12 @@
             <artifactId>commons-beanutils</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!--   require by  commons-beanutils  -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
