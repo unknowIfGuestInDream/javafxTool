@@ -40,6 +40,7 @@ module com.tlcsdm.core {
     requires org.apache.commons.lang3;
     requires javafx.controls;
     requires org.apache.commons.configuration2;
+    requires org.apache.commons.beanutils;
     requires org.controlsfx.controls;
     requires cn.hutool.log;
     requires cn.hutool.core;
