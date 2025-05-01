@@ -2131,8 +2131,8 @@ Changelog of {{repoName}}.
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>validate</id>
-                                <phase>verify</phase>
+                                <id>checkstyle-validation</id>
+                                <phase>validate</phase>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
