@@ -36,6 +36,7 @@ module com.tlcsdm.core {
     requires java.net.http;
     requires java.sql;
     requires java.xml;
+    requires java.management;
     requires static java.compiler;
     requires org.apache.commons.lang3;
     requires javafx.controls;
@@ -88,7 +89,6 @@ module com.tlcsdm.core {
     requires org.reflections;
     requires static org.apache.commons.csv;
     requires static org.openjdk.nashorn;
-    requires java.management;
 
     opens com.tlcsdm.core.javafx.controller to javafx.fxml;
     opens com.tlcsdm.core.javafx.view to javafx.fxml;
