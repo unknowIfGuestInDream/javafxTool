@@ -43,8 +43,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Flow;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
@@ -247,84 +245,6 @@ public class DeepSeekChatClient {
             throw new DeepSeekApiException("Failed to serialize request or deserialize response", e);
         } catch (Exception e) {
             throw new DeepSeekApiException("HTTP request failed", e);
-        }
-    }
-
-    private void streamChatCompletion(ChatCompletionRequest request, Flow.Subscriber<String> subscriber)
-        throws DeepSeekApiException {
-        try {
-            String requestBody = objectMapper.writeValueAsString(request);
-
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/chat/completions"))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-
-            // 使用AtomicReference来安全地管理Subscription
-            AtomicReference<Flow.Subscription> subscriptionRef = new AtomicReference<>();
-            //CompletableFuture<HttpResponse<String>> resp =
-            httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
-                .thenAccept(response -> {
-                    if (response.statusCode() >= 200 && response.statusCode() < 300) {
-                        // 创建安全的Subscriber包装器
-                        Flow.Subscriber<String> safeSubscriber = new Flow.Subscriber<>() {
-                            @Override
-                            public void onSubscribe(Flow.Subscription subscription) {
-                                subscriptionRef.set(subscription);
-                                subscriber.onSubscribe(subscription);
-                                subscription.request(1); // 请求第一个数据项
-                            }
-
-                            @Override
-                            public void onNext(String line) {
-                                try {
-                                    if (line.startsWith("data: ") && !line.equals("data: [DONE]")) {
-                                        String data = line.substring(6);
-                                        ChatCompletionStreamResponse chunk = objectMapper.readValue(data,
-                                            ChatCompletionStreamResponse.class);
-                                        if (chunk.getChoices() != null && !chunk.getChoices().isEmpty()) {
-                                            String content = chunk.getChoices().get(0).getDelta().getContent();
-                                            if (content != null) {
-                                                subscriber.onNext(content);
-                                            }
-                                        }
-                                    }
-                                    // 请求下一个数据项
-                                    Flow.Subscription sub = subscriptionRef.get();
-                                    if (sub != null) {
-                                        sub.request(1);
-                                    }
-                                } catch (JsonProcessingException e) {
-                                    onError(e);
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable throwable) {
-                                subscriber.onError(throwable);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                subscriber.onComplete();
-                            }
-                        };
-                        // 处理响应流
-                        response.body().forEach(safeSubscriber::onNext);
-                        safeSubscriber.onComplete();
-                    } else {
-                        subscriber.onError(new DeepSeekApiException(
-                            "API request failed with status code: " + response.statusCode()));
-                    }
-                })
-                .exceptionally(e -> {
-                    subscriber.onError(e);
-                    return null;
-                });
-        } catch (JsonProcessingException e) {
-            throw new DeepSeekApiException("Failed to serialize request", e);
         }
     }
 }

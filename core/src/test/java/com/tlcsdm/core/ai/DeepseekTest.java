@@ -30,11 +30,19 @@ package com.tlcsdm.core.ai;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tlcsdm.core.ai.deepseek.DeepSeekApiException;
 import com.tlcsdm.core.ai.deepseek.DeepSeekChatClient;
+import com.tlcsdm.core.util.JacksonUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -149,5 +157,70 @@ class DeepseekTest {
             System.err.println("对话失败: " + e.getMessage());
             return null;
         }).join();
+    }
+
+    /**
+     * 查询账户余额.
+     */
+    @Test
+    void queryUsage() throws Exception {
+        String endpoint = "/user/balance";
+        JsonNode response = makeApiRequest(endpoint, "GET", null);
+
+        System.out.println("\n账户余额信息:");
+        System.out.println("当前账户是否有余额可供 API 调用: " + response.path("is_available").asBoolean());
+        response.path("balance_infos").valueStream().forEach(e -> {
+            System.out.println("货币: " + e.path("currency").asText());
+            System.out.println("总的可用余额: " + e.path("total_balance").asText());
+            System.out.println("未过期的赠金余额: " + e.path("granted_balance").asText());
+            System.out.println("充值余额: " + e.path("topped_up_balance").asText());
+        });
+    }
+
+    /**
+     * 列出可用模型.
+     */
+    @Test
+    void listModels() throws Exception {
+        String endpoint = "/models";
+        JsonNode response = makeApiRequest(endpoint, "GET", null);
+
+        System.out.println("\n可用模型列表:");
+        JsonNode models = response.path("data");
+        for (JsonNode model : models) {
+            System.out.println("\n模型ID: " + model.path("id").asText());
+            System.out.println("组织: " + model.path("owned_by").asText());
+        }
+    }
+
+    /**
+     * 通用的API请求方法.
+     */
+    private static JsonNode makeApiRequest(String endpoint, String method, String requestBody) throws Exception {
+        HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.deepseek.com/v1" + endpoint))
+            .header("Content-Type", "application/json")
+            .header("Authorization", "Bearer " + token);
+
+        if ("GET".equalsIgnoreCase(method)) {
+            requestBuilder.GET();
+        } else if ("POST".equalsIgnoreCase(method)) {
+            requestBuilder.POST(HttpRequest.BodyPublishers.ofString(requestBody));
+        } else {
+            throw new IllegalArgumentException("不支持的HTTP方法: " + method);
+        }
+
+        HttpRequest request = requestBuilder.build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new RuntimeException("API请求失败: " + response.statusCode() + " - " + response.body());
+        }
+        ObjectMapper objectMapper = JacksonUtil.getJsonMapper();
+        return objectMapper.readTree(response.body());
     }
 }
