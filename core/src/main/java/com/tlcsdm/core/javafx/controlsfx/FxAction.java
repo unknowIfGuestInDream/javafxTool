@@ -408,7 +408,7 @@ public class FxAction {
      * 查看系统属性.
      */
     public static Action openPropertiesDialog() {
-        return openPropertiesDialog(I18nUtils.get("core.menubar.help.openSysConfigDir"), actionEvent -> {
+        return openPropertiesDialog(I18nUtils.get("core.menubar.help.openPropDir"), actionEvent -> {
             PropertiesDialog.openPropertiesDialog();
         });
     }
@@ -417,7 +417,7 @@ public class FxAction {
      * 查看系统属性.
      */
     public static Action openPropertiesDialog(String text, Consumer<ActionEvent> eventHandler) {
-        return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/sysConfig.png");
+        return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/properties.png");
     }
 
     /**

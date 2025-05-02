@@ -26,13 +26,14 @@
  */
 
 * {
-    -fx-text-background-color: gray;
+    -fx-text-background-color: white;
 }
 
-.propertyKey {
-    -fx-fill: blue;
+.infoKey {
+    -fx-fill: black;
+    -fx-font-weight: bold;
 }
 
-.propertyEqu {
-    -fx-fill: crimson;
+.infoEqu {
+    -fx-fill: #323338;
 }
