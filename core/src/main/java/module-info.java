@@ -36,10 +36,12 @@ module com.tlcsdm.core {
     requires java.net.http;
     requires java.sql;
     requires java.xml;
+    requires java.management;
     requires static java.compiler;
     requires org.apache.commons.lang3;
     requires javafx.controls;
     requires org.apache.commons.configuration2;
+    requires org.apache.commons.beanutils;
     requires org.controlsfx.controls;
     requires cn.hutool.log;
     requires cn.hutool.core;
@@ -48,6 +50,8 @@ module com.tlcsdm.core {
     requires static com.fasterxml.jackson.core;
     requires static com.fasterxml.jackson.databind;
     requires static com.fasterxml.jackson.annotation;
+    requires static com.fasterxml.jackson.dataformat.yaml;
+    requires static com.fasterxml.jackson.datatype.jsr310;
     requires static org.dom4j;
     requires static org.apache.commons.jexl3;
     requires static org.apache.groovy;
@@ -72,8 +76,6 @@ module com.tlcsdm.core {
     requires static com.sun.jna.platform;
     requires static vosk;
     requires static jakarta.xml.bind;
-    requires static com.fasterxml.jackson.dataformat.yaml;
-    requires static com.fasterxml.jackson.datatype.jsr310;
     requires static org.python.jython2;
     requires static com.zaxxer.hikari;
     requires static druid;
@@ -130,6 +132,8 @@ module com.tlcsdm.core {
     exports com.tlcsdm.core.database;
     exports com.tlcsdm.core.oshi;
     exports com.tlcsdm.core.powershell;
+    exports com.tlcsdm.core.watermark;
+    exports com.tlcsdm.core.ai.deepseek;
 
     uses com.tlcsdm.core.freemarker.TemplateLoaderService;
     uses com.tlcsdm.core.groovy.GroovyLoaderService;

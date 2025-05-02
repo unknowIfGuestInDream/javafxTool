@@ -95,12 +95,13 @@
         <cyclonedx-maven-plugin.version>2.9.1</cyclonedx-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <!--  if you update the checkstyle version make sure you update the google_checks.xml inside the repository -->
-        <checkstyle.version>10.23.0</checkstyle.version>
+        <checkstyle.version>10.23.1</checkstyle.version>
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.12.2</junit.version>
-        <javafx.version>21.0.4</javafx.version>
+        <jcip-annotations.version>1.0-1</jcip-annotations.version>
+        <javafx.version>21.0.7</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.2</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
@@ -117,14 +118,15 @@
         <logback-classic.version>1.5.18</logback-classic.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
         <commons-io.version>2.19.0</commons-io.version>
-        <commons-configuration2.version>2.11.0</commons-configuration2.version>
-        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <commons-configuration2.version>2.12.0</commons-configuration2.version>
+        <commons-beanutils.version>1.10.1</commons-beanutils.version>
         <commons-csv.version>1.14.0</commons-csv.version>
         <commons-compress.version>1.27.1</commons-compress.version>
         <commons-exec.version>1.4.0</commons-exec.version>
         <commons-text.version>1.13.1</commons-text.version>
         <commons-email.version>1.6.0</commons-email.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
         <commons-math3.version>3.6.1</commons-math3.version>
         <commons-crypto.version>1.2.0</commons-crypto.version>
         <commons-imaging.version>1.0.0-alpha5</commons-imaging.version>
@@ -142,7 +144,7 @@
         <jexl.version>3.5.0</jexl.version>
         <pdfbox.version>3.0.4</pdfbox.version>
         <pdfviewfx.version>3.1.0</pdfviewfx.version>
-        <jackson.version>2.18.3</jackson.version>
+        <jackson.version>2.19.0</jackson.version>
         <testfx.version>4.0.18</testfx.version>
         <assertj.version>3.27.3</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
@@ -150,7 +152,7 @@
         <richtextfx.version>0.11.5</richtextfx.version>
         <groovy.version>4.0.26</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
-        <gson.version>2.13.0</gson.version>
+        <gson.version>2.13.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
         <preferencesfx.version>11.17.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
@@ -166,7 +168,7 @@
         <jython.version>2.7.4</jython.version>
         <violations.version>1.157.3</violations.version>
         <asm.version>9.8</asm.version>
-        <pmd.version>7.12.0</pmd.version>
+        <pmd.version>7.13.0</pmd.version>
         <bytebuddy.version>1.17.5</bytebuddy.version>
         <tess4j.version>5.15.0</tess4j.version>
         <hikariCP.version>6.3.0</hikariCP.version>
@@ -185,7 +187,7 @@
         <plantuml.version>1.2025.2</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
-        <java-util.version>3.3.0</java-util.version>
+        <java-util.version>3.3.1</java-util.version>
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.2</jep.version>
         <imageio.version>3.12.0</imageio.version>
@@ -311,6 +313,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>com.github.stephenc.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+                <version>${jcip-annotations.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-web</artifactId>
                 <version>${javafx.version}</version>
@@ -384,6 +391,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-email</artifactId>
                 <version>${commons-email.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -1260,11 +1272,16 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <parallel>all</parallel>
+                    <threadCount>10</threadCount>
+                    <threadCountSuites>2</threadCountSuites>
+                    <threadCountClasses>3</threadCountClasses>
+                    <threadCountMethods>5</threadCountMethods>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                    <argLine>-Xms512m -Xmx1600m</argLine>
                     <argLine>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
                     <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
-                    <forkCount>1.5C</forkCount>
+                    <forkCount>1C</forkCount>
                     <reuseForks>false</reuseForks>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
@@ -1757,6 +1774,7 @@
                             <configuration>
                                 <outputDirectory>${project.build.directory}/license</outputDirectory>
                                 <thirdPartyFilename>NOTICE</thirdPartyFilename>
+                                <excludedArtifacts>jcip-annotations</excludedArtifacts>
                                 <force>true</force>
                                 <licenseMerges>
                                     <licenseMerge>Apache 2.0|The Apache Software License, Version 2.0
@@ -2113,8 +2131,8 @@ Changelog of {{repoName}}.
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>validate</id>
-                                <phase>verify</phase>
+                                <id>checkstyle-validation</id>
+                                <phase>validate</phase>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>

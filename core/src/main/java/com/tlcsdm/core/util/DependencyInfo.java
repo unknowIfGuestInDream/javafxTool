@@ -46,7 +46,7 @@ public class DependencyInfo {
 
     private static class SingletonInstance {
         private static final List<Dependency> INSTANCE = List.of(
-            new Dependency("org.openjfx", "javafx", "21.0.4", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
+            new Dependency("org.openjfx", "javafx", "21.0.7", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
             new Dependency("org.controlsfx", "controlsfx", "11.2.2", true,
@@ -80,7 +80,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-configuration2", "2.11.0", true,
+            new Dependency("org.apache.commons", "commons-configuration2", "2.12.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -116,7 +116,7 @@ public class DependencyInfo {
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.18.3", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.19.0", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -127,10 +127,10 @@ public class DependencyInfo {
                 "https://github.com/kordamp/bootstrapfx", "MIT License",
                 "https://spdx.org/licenses/MIT.html"),
 
-            new Dependency("org.kordamp.ikonli", "ikonli", "12.3.1", false, "https://github.com/kordamp/ikonli",
+            new Dependency("org.kordamp.ikonli", "ikonli", "12.4.0", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
 
-            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.1.0", false,
+            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.1.1", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "3.3.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "3.3.1", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 

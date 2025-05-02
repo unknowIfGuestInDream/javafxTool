@@ -60,7 +60,7 @@ public class PropertiesArea extends CodeArea {
         List<String> list = StrUtil.split(text, "\n");
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
         for (String str : list) {
-            List<String> l = CharSequenceUtil.split(str, "=");
+            List<String> l = CharSequenceUtil.split(str, '=', 2);
             if (l.size() != 2) {
                 continue;
             }
