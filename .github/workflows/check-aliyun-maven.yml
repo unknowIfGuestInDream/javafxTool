@@ -87,39 +87,51 @@ jobs:
                 // Maven 依赖解析
                 // 1. 读取并解析整个pom.xml
                 const pomContent = fs.readFileSync('pom.xml', 'utf-8');
-                let pom = {};
-                let properties = {};
-                let allDependencies = [];
 
                 // 使用xml2js解析pom.xml
-                const parser = new xml2js.Parser();
+                const parser = new xml2js.Parser({ explicitArray: false });
                 const result = await parser.parseStringPromise(pomContent);
 
                 // 提取properties
-                if (result.project.properties && result.project.properties[0]) {
-                    for (const [key, value] of Object.entries(result.project.properties[0])) {
-                        if (Array.isArray(value)) {
-                            properties[key] = value[0];
-                        }
+                const properties = result.project?.properties || {};
+
+                // 递归提取依赖的函数
+                const allDependencies = [];
+                const extractDeps = (deps, scope) => {
+                  if (!deps?.dependency) return;
+                  const depList = Array.isArray(deps.dependency) ? deps.dependency : [deps.dependency];
+
+                  depList.forEach(dep => {
+                    if (!dep.groupId || !dep.artifactId) return;
+                    // 处理版本号（可能是直接值或属性引用）
+                    let version = dep.version || '';
+                    let fromProperty = '';
+
+                    if (version.startsWith('${') && version.endsWith('}')) {
+                        const propName = version.slice(2, -1);
+                        version = properties[propName] || version;
+                        fromProperty = propName;
                     }
+
+                    allDependencies.push({
+                        group: dep.groupId,
+                        artifact: dep.artifactId,
+                        version: version,
+                        scope: scope || dep.scope || 'compile',
+                        fromProperty: fromProperty || undefined,
+                        isManaged: scope === 'management'
+                    });
+                  });
+                };
+
+                // 1. 提取dependencyManagement中的依赖
+                if (result.project?.dependencyManagement?.dependencies) {
+                    extractDeps(result.project.dependencyManagement.dependencies, 'management');
                 }
 
-                // 提取所有依赖
-                if (result.project.dependencies && result.project.dependencies[0]) {
-                    allDependencies = result.project.dependencies[0].dependency.map(dep => ({
-                        groupId: dep.groupId[0],
-                        artifactId: dep.artifactId[0],
-                        version: dep.version ? dep.version[0] : null
-                    }));
-                }
-                if (result.project.dependencyManagement && result.project.dependencyManagement[0] && result.project.dependencyManagement[0].dependencies[0]) {
-                    result.project.dependencyManagement[0].dependencies[0].dependency.foreach(dep => ({
-                        allDependencies.push({
-                            groupId: dep.groupId[0],
-                            artifactId: dep.artifactId[0],
-                            version: dep.version ? dep.version[0] : null
-                        });
-                    }));
+                // 2. 提取普通dependencies
+                if (result.project?.dependencies) {
+                    extractDeps(result.project.dependencies);
                 }
                 console.log("=====allDependencies=====");
                 console.log(allDependencies);
