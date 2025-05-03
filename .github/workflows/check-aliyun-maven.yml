@@ -114,7 +114,7 @@ jobs:
                 }
                 if (result.project.dependencyManagement && result.project.dependencyManagement[0] && result.project.dependencyManagement[0].dependencies[0]) {
                     result.project.dependencyManagement[0].dependencies[0].dependency.foreach(dep => ({
-                        dependencies.push({
+                        allDependencies.push({
                             groupId: dep.groupId[0],
                             artifactId: dep.artifactId[0],
                             version: dep.version ? dep.version[0] : null
