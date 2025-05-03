@@ -153,9 +153,6 @@ jobs:
                 if (result.project?.dependencies) {
                     extractDeps(result.project.dependencies);
                 }
-                console.log("=====allDependencies=====");
-                console.log(allDependencies);
-
               }
 
               core.setOutput('dependencies', JSON.stringify(dependencies));
