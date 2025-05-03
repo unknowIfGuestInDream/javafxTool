@@ -4,6 +4,12 @@ on:
   pull_request_target:
     types: [ opened, synchronize ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # 每天UTC时间午夜（北京时间早上8点）
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   check-dependencies:
