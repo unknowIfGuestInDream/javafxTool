@@ -183,6 +183,7 @@ jobs:
               for (const dep of dependencies) {
                 const artifactPath = dep.group.replace(/\./g, '/') + '/' + dep.artifact + '/' + dep.version;
                 const pomUrl = `${aliMavenUrl}/${artifactPath}/${dep.artifact}-${dep.version}.pom`;
+                console.log(pomUrl);
 
                 try {
                   execSync(`curl -I -s -o /dev/null -w "%{http_code}" ${pomUrl} | grep 200`);
@@ -195,11 +196,11 @@ jobs:
               if (results.length > 0) {
                 const commentBody = `### 阿里云 Maven 依赖检查结果\n\n${results.join('\n')}`;
 
-                const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-                await octokit.rest.issues.createComment({
+                const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
+                await octokit.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  issue_number: ${{ github.event.pull_request.number }},
+                  issue_number: context.issue.number,
                   body: commentBody
                 });
 
