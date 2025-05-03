@@ -80,29 +80,64 @@ jobs:
                 let inDependency = false;
                 let isNewDep = false;
 
+                // 1. 先解析属性变更
+                const propertyChanges = {};
+                const propertyRegex = /([+-])\s*<([^>]+)\.version>\s*([^<]+)<\/[^>]+\.version>/;
+
                 for (const line of diffLines) {
-                  if (line.startsWith('+ <dependency>')) {
-                    inDependency = true;
-                    isNewDep = true;
-                    currentDep = {};
-                  } else if (line.startsWith('+ </dependency>') && isNewDep) {
-                    inDependency = false;
-                    if (currentDep.groupId && currentDep.artifactId && currentDep.version) {
+                    const propMatch = line.match(propertyRegex);
+                    if (propMatch && propMatch[1] === '+') {
+                        const propName = propMatch[2];
+                        const propValue = propMatch[3].trim();
+                        propertyChanges[propName] = propValue;
+                    }
+                }
+
+                // 2. 解析依赖变更
+                for (const line of diffLines) {
+                    if (line.startsWith('+ <dependency>')) {
+                      inDependency = true;
+                      isNewDep = true;
+                      currentDep = {};
+                    } else if (line.startsWith('+ </dependency>') && isNewDep) {
+                      inDependency = false;
+                      if (currentDep.groupId && currentDep.artifactId) {
+                        // 处理版本号（可能是直接值或属性引用）
+                        let version = currentDep.version;
+                        if (version && version.startsWith('${') && version.endsWith('}')) {
+                          const propName = version.slice(2, -1);
+                          version = propertyChanges[propName] || version;
+                        }
+
+                        if (version) {
+                          dependencies.push({
+                            group: currentDep.groupId,
+                            artifact: currentDep.artifactId,
+                            version: version
+                          });
+                        }
+                      }
+                    } else if (inDependency && isNewDep) {
+                      if (line.startsWith('+ <groupId>')) {
+                          currentDep.groupId = line.replace(/^\+ <groupId>|<\/groupId>$/g, '').trim();
+                      } else if (line.startsWith('+ <artifactId>')) {
+                          currentDep.artifactId = line.replace(/^\+ <artifactId>|<\/artifactId>$/g, '').trim();
+                      } else if (line.startsWith('+ <version>')) {
+                          currentDep.version = line.replace(/^\+ <version>|<\/version>$/g, '').trim();
+                      }
+                    }
+                }
+
+                // 3. 检查是否有属性变更但未在依赖中体现的情况
+                for (const [propName, propValue] of Object.entries(propertyChanges)) {
+                      // 这里可以添加逻辑来关联属性变更和实际依赖
+                      // 例如，如果知道属性名和依赖的对应关系
+                      // 目前只是简单地将属性变更也作为依赖返回
                       dependencies.push({
-                        group: currentDep.groupId,
-                        artifact: currentDep.artifactId,
-                        version: currentDep.version
-                      });
-                    }
-                  } else if (inDependency && isNewDep) {
-                    if (line.startsWith('+ <groupId>')) {
-                      currentDep.groupId = line.replace(/^\+ <groupId>|<\/groupId>$/g, '').trim();
-                    } else if (line.startsWith('+ <artifactId>')) {
-                      currentDep.artifactId = line.replace(/^\+ <artifactId>|<\/artifactId>$/g, '').trim();
-                    } else if (line.startsWith('+ <version>')) {
-                      currentDep.version = line.replace(/^\+ <version>|<\/version>$/g, '').trim();
-                    }
-                  }
+                      group: 'property',
+                      artifact: propName,
+                      version: propValue
+                    });
                 }
               }
 
