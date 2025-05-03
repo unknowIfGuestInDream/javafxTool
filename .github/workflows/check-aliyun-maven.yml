@@ -112,6 +112,15 @@ jobs:
                         version: dep.version ? dep.version[0] : null
                     }));
                 }
+                if (result.project.dependencyManagement && result.project.dependencyManagement[0] && && result.project.dependencyManagement[0].dependencies[0]) {
+                    result.project.dependencyManagement[0].dependencies[0].dependency.foreach(dep => ({
+                        dependencies.push({
+                            groupId: dep.groupId[0],
+                            artifactId: dep.artifactId[0],
+                            version: dep.version ? dep.version[0] : null
+                        });
+                    }));
+                }
                 console.log("=====allDependencies=====");
                 console.log(allDependencies);
 
