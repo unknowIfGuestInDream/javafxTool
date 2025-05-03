@@ -51,7 +51,6 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const core1 = require('@actions/core');
             try {
               const buildType = '${{ steps.get-changes.outputs.build_type }}';
               const changes = '${{ steps.get-changes.outputs.changes }}';
@@ -107,10 +106,11 @@ jobs:
                 }
               }
 
-              core1.setOutput('dependencies', JSON.stringify(dependencies));
+              core.setOutput('dependencies', JSON.stringify(dependencies));
+              echo JSON.stringify(dependencies)
               return dependencies.length;
             } catch (error) {
-              core1.setFailed(`Failed to parse dependencies: ${error}`);
+              core.setFailed(`Failed to parse dependencies: ${error}`);
             }
 
       - name: Check Aliyun Maven availability
@@ -120,7 +120,6 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
-            const core2 = require('@actions/core');
             const { context, getOctokit } = require('@actions/github');
 
             try {
@@ -151,12 +150,12 @@ jobs:
                   body: commentBody
                 });
 
-                core2.setOutput('result', commentBody);
+                core.setOutput('result', commentBody);
               }
 
               return 'Dependency check completed';
             } catch (error) {
-              core2.setFailed(`Action failed with error: ${error}`);
+              core.setFailed(`Action failed with error: ${error}`);
             }
 
       - name: Output result
