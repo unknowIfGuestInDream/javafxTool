@@ -100,7 +100,7 @@ jobs:
                 // 找出变更的属性
                 const propertyRegex = /^([+-])\s*<([^>]+\.version)>\s*([^<]+)\s*<\/[^>]+>$/;
                 for (const line of diffLines) {
-                    const match = line.match(propertyChangeRegex);
+                    const match = line.match(propertyRegex);
                     if (match && match[1] === '+') {
                       const propName = match[2]; // 获取属性名
                       const propValue = match[3].trim(); // 获取新值
