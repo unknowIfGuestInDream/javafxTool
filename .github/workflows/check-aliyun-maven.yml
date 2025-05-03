@@ -92,11 +92,28 @@ jobs:
                 const parser = new xml2js.Parser({ explicitArray: false });
                 const result = await parser.parseStringPromise(pomContent);
 
+                // 2. 分析变更
+                const diffLines = changes.split('\n');
+                const changedProperties = {};
                 // 提取properties
                 const properties = result.project?.properties || {};
+                // 找出变更的属性
+                const propertyRegex = /^([+-])\s*<([^>]+\.version)>\s*([^<]+)\s*<\/[^>]+>$/;
+                for (const line of diffLines) {
+                    const match = line.match(propertyChangeRegex);
+                    if (match && match[1] === '+') {
+                      const propName = match[2]; // 获取属性名
+                      const propValue = match[3].trim(); // 获取新值
+                      changedProperties[propName] = propValue;
+                    }
+                }
+                // 3. 合并变更后的属性
+                const effectiveProperties = { ...properties, ...changedProperties };
+
+                console.log("=====changedProperties=====");
+                console.log(changedProperties);
 
                 // 递归提取依赖的函数
-                const allDependencies = [];
                 const extractDeps = (deps, scope) => {
                   if (!deps?.dependency) return;
                   const depList = Array.isArray(deps.dependency) ? deps.dependency : [deps.dependency];
@@ -109,18 +126,21 @@ jobs:
 
                     if (version.startsWith('${') && version.endsWith('}')) {
                         const propName = version.slice(2, -1);
-                        version = properties[propName] || version;
+                        version = effectiveProperties[propName] || version;
                         fromProperty = propName;
                     }
 
-                    allDependencies.push({
-                        group: dep.groupId,
-                        artifact: dep.artifactId,
-                        version: version,
-                        scope: scope || dep.scope || 'compile',
-                        fromProperty: fromProperty || undefined,
-                        isManaged: scope === 'management'
-                    });
+                    // 只有当属性有变更或版本直接变更时才包含
+                    if (fromProperty in changedProperties || !version.startsWith('${')) {
+                        dependencies.push({
+                            group: dep.groupId,
+                            artifact: dep.artifactId,
+                            version: version,
+                            scope: scope || dep.scope || 'compile',
+                            fromProperty: fromProperty || undefined,
+                            isManaged: scope === 'management'
+                        });
+                    }
                   });
                 };
 
@@ -135,68 +155,6 @@ jobs:
                 }
                 console.log("=====allDependencies=====");
                 console.log(allDependencies);
-
-                // 2. 分析变更
-                const diffLines = changes.split('\n');
-                const changedProperties = {};
-
-                // 找出变更的属性
-                const propertyRegex = /([+-])\s*<([^>]+)>\s*([^<]+)<\/[^>]+>/;
-                for (const line of diffLines) {
-                    const propMatch = line.match(propertyRegex);
-                    if (propMatch && propMatch[1] === '+') {
-                        const propName = propMatch[2];
-                        const propValue = propMatch[3].trim();
-                        changedProperties[propName] = propValue;
-                    }
-                }
-                console.log("=====changedProperties=====");
-                console.log(changedProperties);
-
-                // 3. 关联属性变更与依赖
-                for (const dep of allDependencies) {
-                    if (dep.version && dep.version.startsWith('${') && dep.version.endsWith('}')) {
-                        const propName = dep.version.slice(2, -1);
-                        if (changedProperties[propName]) {
-                            dependencies.push({
-                                group: dep.groupId,
-                                artifact: dep.artifactId,
-                                version: changedProperties[propName],
-                                fromProperty: propName
-                            });
-                        }
-                    }
-                }
-
-                // 4. 也检查直接的依赖变更
-                let currentDep = null;
-                let inDependency = false;
-                let isNewDep = false;
-
-                for (const line of diffLines) {
-                    if (line.startsWith('+ <dependency>')) {
-                        inDependency = true;
-                        isNewDep = true;
-                        currentDep = {};
-                    } else if (line.startsWith('+ </dependency>') && isNewDep) {
-                        inDependency = false;
-                        if (currentDep.groupId && currentDep.artifactId && currentDep.version) {
-                            dependencies.push({
-                                group: currentDep.groupId,
-                                artifact: currentDep.artifactId,
-                                version: currentDep.version
-                            });
-                        }
-                    } else if (inDependency && isNewDep) {
-                        if (line.startsWith('+ <groupId>')) {
-                            currentDep.groupId = line.replace(/^\+ <groupId>|<\/groupId>$/g, '').trim();
-                        } else if (line.startsWith('+ <artifactId>')) {
-                            currentDep.artifactId = line.replace(/^\+ <artifactId>|<\/artifactId>$/g, '').trim();
-                        } else if (line.startsWith('+ <version>')) {
-                            currentDep.version = line.replace(/^\+ <version>|<\/version>$/g, '').trim();
-                        }
-                    }
-                }
 
               }
 
