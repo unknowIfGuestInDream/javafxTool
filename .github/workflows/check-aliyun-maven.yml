@@ -180,13 +180,16 @@ jobs:
               const results = [];
 
               for (const dep of dependencies) {
+                if (dep.artifact.startsWith("javafxTool-")) {
+                    continue;
+                }
                 const artifactPath = dep.group.replace(/\./g, '/') + '/' + dep.artifact + '/' + dep.version;
                 const pomUrl = `${aliMavenUrl}/${artifactPath}/${dep.artifact}-${dep.version}.pom`;
                 console.log(pomUrl);
 
                 try {
                   execSync(`curl -I -s -o /dev/null -w "%{http_code}" ${pomUrl} | grep 200`);
-                  results.push(`✅ ${dep.group}:${dep.artifact}:${dep.version} - 可用`);
+                  // results.push(`✅ ${dep.group}:${dep.artifact}:${dep.version} - 可用`);
                 } catch (e) {
                   results.push(`❌ ${dep.group}:${dep.artifact}:${dep.version} - 不可用`);
                 }
