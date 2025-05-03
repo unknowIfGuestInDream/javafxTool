@@ -121,7 +121,7 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
-            const { core } = require('@actions/core');
+            const core = require('@actions/core');
             const { context, getOctokit } = require('@actions/github');
 
             try {
