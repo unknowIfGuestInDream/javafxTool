@@ -170,6 +170,7 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
+            const { getOctokit } = require('@actions/github');
 
             try {
               const dependencies = JSON.parse('${{ steps.parse-deps.outputs.dependencies }}');
