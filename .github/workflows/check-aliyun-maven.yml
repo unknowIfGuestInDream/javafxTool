@@ -169,9 +169,8 @@ jobs:
         if: steps.parse-deps.outputs.dependencies != '[]'
         id: check-aliyun
         uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { execSync } = require('child_process');
 
@@ -195,9 +194,7 @@ jobs:
 
               if (results.length > 0) {
                 const commentBody = `### 阿里云 Maven 依赖检查结果\n\n${results.join('\n')}`;
-
-                const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
-                await octokit.issues.createComment({
+                github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
