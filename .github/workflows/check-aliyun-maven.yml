@@ -107,7 +107,7 @@ jobs:
               }
 
               core.setOutput('dependencies', JSON.stringify(dependencies));
-              echo JSON.stringify(dependencies)
+              echo dependencies
               return dependencies.length;
             } catch (error) {
               core.setFailed(`Failed to parse dependencies: ${error}`);
