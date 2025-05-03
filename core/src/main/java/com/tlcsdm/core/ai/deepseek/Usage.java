@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream.
+ * Copyright (c) 2025 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,14 +25,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-* {
-    -fx-text-background-color: gray;
-}
+package com.tlcsdm.core.ai.deepseek;
 
-.propertyKey {
-    -fx-fill: blue;
-}
+/**
+ * @author unknowIfGuestInDream
+ */
+public class Usage {
+    private int promptTokens;
+    private int completionTokens;
+    private int totalTokens;
 
-.propertyEqu {
-    -fx-fill: crimson;
+    public int getPromptTokens() {
+        return promptTokens;
+    }
+
+    public void setPromptTokens(int promptTokens) {
+        this.promptTokens = promptTokens;
+    }
+
+    public int getCompletionTokens() {
+        return completionTokens;
+    }
+
+    public void setCompletionTokens(int completionTokens) {
+        this.completionTokens = completionTokens;
+    }
+
+    public int getTotalTokens() {
+        return totalTokens;
+    }
+
+    public void setTotalTokens(int totalTokens) {
+        this.totalTokens = totalTokens;
+    }
 }

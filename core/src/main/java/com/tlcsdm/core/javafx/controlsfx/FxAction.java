@@ -35,6 +35,7 @@ import com.tlcsdm.core.javafx.dialog.ExceptionDialog;
 import com.tlcsdm.core.javafx.dialog.FxButtonType;
 import com.tlcsdm.core.javafx.dialog.FxDialog;
 import com.tlcsdm.core.javafx.dialog.PathWatchToolDialog;
+import com.tlcsdm.core.javafx.dialog.PropertiesDialog;
 import com.tlcsdm.core.javafx.dialog.SystemSettingDialog;
 import com.tlcsdm.core.javafx.dialog.WebBrowserDialog;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
@@ -401,6 +402,22 @@ public class FxAction {
      */
     public static Action openSysConfig(String text, Consumer<ActionEvent> eventHandler) {
         return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/sysConfig.png");
+    }
+
+    /**
+     * 查看系统属性.
+     */
+    public static Action openPropertiesDialog() {
+        return openPropertiesDialog(I18nUtils.get("core.menubar.help.openPropDir"), actionEvent -> {
+            PropertiesDialog.openPropertiesDialog();
+        });
+    }
+
+    /**
+     * 查看系统属性.
+     */
+    public static Action openPropertiesDialog(String text, Consumer<ActionEvent> eventHandler) {
+        return create(text, eventHandler, "/com/tlcsdm/core/static/menubar/properties.png");
     }
 
     /**

@@ -245,6 +245,7 @@ pipeline {
                      sh "rm *linux*17*.tar.gz" 
                      sh "rm *mac*17*.tar.gz"
                      sh "rm *windows*17*.zip"
+                     sh "rm -rf jretemp"
                  }
              }
          }

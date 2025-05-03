@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream.
+ * Copyright (c) 2025 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,14 +25,38 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-* {
-    -fx-text-background-color: gray;
-}
+package com.tlcsdm.core.ai.deepseek;
 
-.propertyKey {
-    -fx-fill: blue;
-}
+/**
+ * @author unknowIfGuestInDream
+ */
+public class ChatCompletionChoice {
 
-.propertyEqu {
-    -fx-fill: crimson;
+    private int index;
+    private ChatMessage message;
+    private String finishReason;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public ChatMessage getMessage() {
+        return message;
+    }
+
+    public void setMessage(ChatMessage message) {
+        this.message = message;
+    }
+
+    public String getFinishReason() {
+        return finishReason;
+    }
+
+    public void setFinishReason(String finishReason) {
+        this.finishReason = finishReason;
+    }
 }

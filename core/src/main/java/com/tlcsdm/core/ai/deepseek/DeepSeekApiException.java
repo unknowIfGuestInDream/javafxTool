@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream.
+ * Copyright (c) 2025 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,14 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-* {
-    -fx-text-background-color: gray;
-}
+package com.tlcsdm.core.ai.deepseek;
 
-.propertyKey {
-    -fx-fill: blue;
-}
+/**
+ * @author unknowIfGuestInDream
+ */
+public class DeepSeekApiException extends Exception {
+    public DeepSeekApiException(String message) {
+        super(message);
+    }
 
-.propertyEqu {
-    -fx-fill: crimson;
+    public DeepSeekApiException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

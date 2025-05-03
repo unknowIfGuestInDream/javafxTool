@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 unknowIfGuestInDream.
+ * Copyright (c) 2025 unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,14 +25,58 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-* {
-    -fx-text-background-color: gray;
-}
+package com.tlcsdm.core.ai.deepseek;
 
-.propertyKey {
-    -fx-fill: blue;
-}
+import java.util.List;
 
-.propertyEqu {
-    -fx-fill: crimson;
+/**
+ * @author unknowIfGuestInDream
+ */
+public class ChatCompletionStreamResponse {
+
+    private String id;
+    private String object;
+    private long created;
+    private String model;
+    private List<ChatCompletionStreamChoice> choices;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public long getCreated() {
+        return created;
+    }
+
+    public void setCreated(long created) {
+        this.created = created;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public List<ChatCompletionStreamChoice> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(List<ChatCompletionStreamChoice> choices) {
+        this.choices = choices;
+    }
 }

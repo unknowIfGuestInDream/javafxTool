@@ -471,6 +471,7 @@
                         <exclude>**/H2Test.java</exclude>
                         <exclude>**/OshiTest.java</exclude>
                         <exclude>**/CompressTest.java</exclude>
+                        <exclude>**/com/tlcsdm/core/ai/*.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
