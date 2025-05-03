@@ -156,8 +156,8 @@ jobs:
               }
 
               core.setOutput('dependencies', JSON.stringify(dependencies));
-              console.log("=====dependencies=====");
-              console.log(dependencies);
+              console.log("=====dependencies.length=====");
+              console.log(dependencies.length);
               return dependencies.length;
             } catch (error) {
               core.setFailed(`Failed to parse dependencies: ${error}`);
@@ -170,7 +170,6 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
-            const { context, getOctokit } = require('@actions/github');
 
             try {
               const dependencies = JSON.parse('${{ steps.parse-deps.outputs.dependencies }}');
