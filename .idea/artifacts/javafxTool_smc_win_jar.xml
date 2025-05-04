@@ -44,7 +44,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml/5.4.1/poi-ooxml-5.4.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi/5.4.1/poi-5.4.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/xmlbeans/xmlbeans/5.2.1/xmlbeans-5.2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.49.2/checker-qual-3.49.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.49.3/checker-qual-3.49.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/11.2.2/controlsfx-11.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.1.4/dom4j-2.1.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar" path-in-jar="/" />
