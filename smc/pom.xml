@@ -349,7 +349,7 @@
                         </dependencies>
                         <executions>
                             <execution>
-                                <id>generate-zip-md5</id>
+                                <id>generate-zip-sha256</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>run</goal>
