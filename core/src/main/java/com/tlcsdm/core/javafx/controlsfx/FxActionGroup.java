@@ -87,6 +87,14 @@ public class FxActionGroup {
     }
 
     /**
+     * menubar jdkTool
+     */
+    public static ActionGroup jdkTool(Action... actions) {
+        return create(I18nUtils.get("core.menubar.setting.jdkTool"), "/com/tlcsdm/core/static/icon/java.png",
+            actions);
+    }
+
+    /**
      * menubar language
      */
     public static ActionGroup language(Action... actions) {
