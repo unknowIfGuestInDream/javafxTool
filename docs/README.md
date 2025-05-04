@@ -31,4 +31,4 @@ JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11.x.x + maven构建的javafx脚�
 | preferencesfx          | 11.17.0    | 为应用程序设置/首选项创建 UI 的框架             |
 | yuicompressor          | 2.4.8      | JS/CSS压缩工具                       |
 | tess4j                 | 5.11.0     | Tesseract OCR API的 Java JNA 封装程序 |
-| checker-qual           | 3.49.2     | Java 的可插拔类型检查                    |
+| checker-qual           | 3.49.3     | Java 的可插拔类型检查                    |

@@ -44,10 +44,12 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 
 # 打包
 
-1. IDEA工件打包\
+1. IDEA工件打聚合包\
    配置: 项目结构 -> 工件 -> 新增JAR -> 提取到目标JAR -> 选择自己的清单文件路径 -> 完成\
    打包: 构建 -> 构建工件 -> 构建
-2. 推荐`mvn package`打包
+2. 推荐`mvn package`打包, 依赖在lib文件夹下
+3. 对于smc和qe工程，通过指定Profile=zip还可以生成zip产物 (javafx.platform=win/mac/linux)
+   `mvn -Djavafx.platform=win -Dmaven.test.skip=true -Pzip package`
 
 # 集成构建
 

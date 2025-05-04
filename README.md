@@ -60,12 +60,14 @@ The build commands require the installation and setup of Java 17 or higher and M
 
 # Pack
 
-1. IDEA artifact packaging\
+1. IDEA artifact aggregation packaging\
    Configuration: Project Structure -> Artifacts -> Add New JAR -> Extract to Target JAR -> Choose your own manifest
    file
    path -> Done\
    Package: Build -> Build Artifacts -> Build
-2. It is recommended to package through `mvn package`.
+2. It is recommended to package with `mvn package`, and the dependencies are in the lib folder
+3. For smc and qe projects, you can also generate zip products by specifying Profile=zip (javafx.platform=win/mac/linux)
+   `mvn -Djavafx.platform=win -Dmaven.test.skip=true -Pzip package`
 
 # Integration builds
 
