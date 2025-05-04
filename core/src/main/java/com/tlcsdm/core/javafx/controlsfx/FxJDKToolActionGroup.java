@@ -61,92 +61,43 @@ public class FxJDKToolActionGroup {
         jvisualvmRelativePath = "bin" + File.separator + (isWin ? "jvisualvm.exe" : "jvisualvm");
         jshellRelativePath = "bin" + File.separator + (isWin ? "jshell.exe" : "jshell");
 
-        jmc = new Action("jmc", e -> {
-            File file = new File(javaHome, jmcRelativePath);
-            if (file.exists()) {
-                runProgram(file.getAbsolutePath());
-            } else {
-                file = new File(javaHomeEnv, jmcRelativePath);
-                if (!file.exists()) {
-                    StaticLog.warn("Not found jmc.");
-                    return;
-                }
+        jmc = createToolAction("jmc", jmcRelativePath, "/com/tlcsdm/core/static/icon/jmc.png");
+        jconsole = createToolAction("jConsole", jconsoleRelativePath, "/com/tlcsdm/core/static/icon/java.png");
+        jvisualvm = createToolAction("jvisualvm", jvisualvmRelativePath, "/com/tlcsdm/core/static/icon/jvisualvm.png");
+        jshell = createToolAction("jshell", jshellRelativePath, "/com/tlcsdm/core/static/icon/jshell.png");
+    }
+
+    private Action createToolAction(String name, String relativePath, String iconPath) {
+        Action action = new Action(name, e -> {
+            File file = findToolExecutable(name, relativePath);
+            if (file != null) {
                 runProgram(file.getAbsolutePath());
             }
         });
-        jmc.setGraphic(
-            LayoutHelper.iconView(FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jmc.png")));
+        action.setGraphic(LayoutHelper.iconView(FxJDKToolActionGroup.class.getResource(iconPath)));
 
-        jconsole = new Action("jConsole", e -> {
-            File file = new File(javaHome, jconsoleRelativePath);
-            if (file.exists()) {
-                runProgram(file.getAbsolutePath());
-            } else {
-                file = new File(javaHomeEnv, jconsoleRelativePath);
-                if (!file.exists()) {
-                    StaticLog.warn("Not found jconsole.");
-                    return;
-                }
-                runProgram(file.getAbsolutePath());
-            }
-        });
-        jconsole.setGraphic(
-            LayoutHelper.iconView(FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/java.png")));
+        // 检查工具是否存在
+        boolean toolExists = findToolExecutable(name, relativePath) != null;
+        if (!toolExists) {
+            action.setDisabled(true);
+        }
 
-        jvisualvm = new Action("jvisualvm", e -> {
-            File file = new File(javaHome, jvisualvmRelativePath);
-            if (file.exists()) {
-                runProgram(file.getAbsolutePath());
-            } else {
-                file = new File(javaHomeEnv, jvisualvmRelativePath);
-                if (!file.exists()) {
-                    StaticLog.warn("Not found jvisualvm.");
-                    return;
-                }
-                runProgram(file.getAbsolutePath());
-            }
-        });
-        jvisualvm.setGraphic(
-            LayoutHelper.iconView(
-                FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jvisualvm.png")));
+        return action;
+    }
 
-        jshell = new Action("jshell", e -> {
-            File file = new File(javaHome, jshellRelativePath);
-            if (file.exists()) {
-                runProgram(file.getAbsolutePath());
-            } else {
-                file = new File(javaHomeEnv, jshellRelativePath);
-                if (!file.exists()) {
-                    StaticLog.warn("Not found jshell.");
-                    return;
-                }
-                runProgram(file.getAbsolutePath());
-            }
-        });
-        jshell.setGraphic(
-            LayoutHelper.iconView(
-                FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jshell.png")));
+    private File findToolExecutable(String toolName, String relativePath) {
+        File file = new File(javaHome, relativePath);
+        if (file.exists()) {
+            return file;
+        }
 
-        File file1 = new File(javaHome, jmcRelativePath);
-        File file2 = new File(javaHomeEnv, jmcRelativePath);
-        if (!file1.exists() && !file2.exists()) {
-            jmc.setDisabled(true);
+        file = new File(javaHomeEnv, relativePath);
+        if (file.exists()) {
+            return file;
         }
-        file1 = new File(javaHome, jconsoleRelativePath);
-        file2 = new File(javaHomeEnv, jconsoleRelativePath);
-        if (!file1.exists() && !file2.exists()) {
-            jconsole.setDisabled(true);
-        }
-        file1 = new File(javaHome, jvisualvmRelativePath);
-        file2 = new File(javaHomeEnv, jvisualvmRelativePath);
-        if (!file1.exists() && !file2.exists()) {
-            jvisualvm.setDisabled(true);
-        }
-        file1 = new File(javaHome, jshellRelativePath);
-        file2 = new File(javaHomeEnv, jshellRelativePath);
-        if (!file1.exists() && !file2.exists()) {
-            jshell.setDisabled(true);
-        }
+
+        StaticLog.warn("Not found " + toolName + ".");
+        return null;
     }
 
     private void runProgram(String filePath) {
