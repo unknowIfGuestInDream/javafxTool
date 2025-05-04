@@ -33,6 +33,7 @@ import com.tlcsdm.core.javafx.FxApp;
 import com.tlcsdm.core.javafx.control.DependencyTableView;
 import com.tlcsdm.core.javafx.controlsfx.FxAction;
 import com.tlcsdm.core.javafx.controlsfx.FxActionGroup;
+import com.tlcsdm.core.javafx.controlsfx.FxJDKToolActionGroup;
 import com.tlcsdm.core.javafx.controlsfx.FxLanguageActionGroup;
 import com.tlcsdm.core.javafx.dialog.FxAlerts;
 import com.tlcsdm.core.javafx.dialog.FxButtonType;
@@ -181,6 +182,8 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
 
     private final Action release = FxAction.release(actionEvent -> CoreUtil.openWeb(QeConstant.PROJECT_RELEASE_URL));
 
+    private final ActionGroup jdkToolGroup = new FxJDKToolActionGroup().create();
+
     private final ActionGroup languageGroup = new FxLanguageActionGroup((s) -> {
         if (FxAlerts.confirmOkCancel(I18nUtils.get("qe.menubar.setting.language.dialog.title"),
             I18nUtils.get("qe.menubar.setting.language.dialog.message"))) {
@@ -191,7 +194,7 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
         FxActionGroup.setting(systemSetting, languageGroup),
-        FxActionGroup.tool(logConsole, pathWatch, colorPicker, screenshot),
+        FxActionGroup.tool(jdkToolGroup, ACTION_SEPARATOR, logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, openPropertiesDialog, ACTION_SEPARATOR,
             contactSupport, submitFeedback,
             ACTION_SEPARATOR, api, css, fxml, ACTION_SEPARATOR, helpContent, release, about));
