@@ -309,5 +309,66 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>zip</id>
+            <properties>
+                <!-- win/mac/linux -->
+                <javafx.platform>win</javafx.platform>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <finalName>smcTool-${javafx.platform}</finalName>
+                            <descriptors>
+                                <descriptor>config/zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <groupId>commons-codec</groupId>
+                                <artifactId>commons-codec</artifactId>
+                                <version>${commons-codec.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>generate-zip-md5</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <checksum algorithm="SHA-256"
+                                                  file="${project.build.directory}/smcTool-${javafx.platform}.zip"
+                                                  property="file.sha256"/>
+                                        <!--suppress UnresolvedMavenProperty -->
+                                        <echo file="${project.build.directory}/smcTool-${javafx.platform}.zip.sha256"
+                                              message="${file.sha256}"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>

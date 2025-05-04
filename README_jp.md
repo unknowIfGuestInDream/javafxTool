@@ -45,11 +45,13 @@ frameとloginは基本モジュールで、Java SPI経由でプラグイン可�
 
 # パッケージ化
 
-1. IDEA アーティファクトのパッケージ化\
+1. IDEAアーティファクト集約パッケージ\
    構成：プロジェクト構造 -> アーティファクト -> JARを追加 -> ターゲットJARに展開 ->
    独自のマニフェスト・ファイル・パスを選択 -> 完了\
    パッケージング：ビルド -> アーティファクトのビルド -> ビルド
-2. 「`mvn package`」を通じてパッケージ化することをお勧めします
+2. `mvn package`でパッケージ化することが推奨され、依存関係はlibフォルダにあります。
+3. smc および qe プロジェクトでは、Profile=zip (javafx.platform=win/mac/linux) を指定して zip 製品を生成することもできます。
+   `mvn -Djavafx.platform=win -Dmaven.test.skip=true -Pzip package`
 
 # インテグレーションのビルド
 
