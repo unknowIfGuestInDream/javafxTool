@@ -55,14 +55,6 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/reports</directory>
-            <useDefaultExcludes>true</useDefaultExcludes>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>apidocs/*</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>../</directory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <outputDirectory>/</outputDirectory>
