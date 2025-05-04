@@ -46,17 +46,20 @@ public class FxJDKToolActionGroup {
     Action jmc;
     Action jconsole;
     Action jvisualvm;
+    Action jshell;
     private static final String javaHome = System.getProperty("java.home");
     private static final String javaHomeEnv = System.getenv("JAVA_HOME");
     private final String jmcRelativePath;
     private final String jconsoleRelativePath;
     private final String jvisualvmRelativePath;
+    private final String jshellRelativePath;
 
     public FxJDKToolActionGroup() {
         boolean isWin = OSUtil.getOS().equals(OSUtil.OS.WINDOWS);
         jmcRelativePath = "bin" + File.separator + (isWin ? "jmc.exe" : "jmc");
         jconsoleRelativePath = "bin" + File.separator + (isWin ? "jconsole.exe" : "jconsole");
         jvisualvmRelativePath = "bin" + File.separator + (isWin ? "jvisualvm.exe" : "jvisualvm");
+        jshellRelativePath = "bin" + File.separator + (isWin ? "jshell.exe" : "jshell");
 
         jmc = new Action("jmc", e -> {
             File file = new File(javaHome, jmcRelativePath);
@@ -73,6 +76,7 @@ public class FxJDKToolActionGroup {
         });
         jmc.setGraphic(
             LayoutHelper.iconView(FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jmc.png")));
+
         jconsole = new Action("jConsole", e -> {
             File file = new File(javaHome, jconsoleRelativePath);
             if (file.exists()) {
@@ -88,6 +92,7 @@ public class FxJDKToolActionGroup {
         });
         jconsole.setGraphic(
             LayoutHelper.iconView(FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/java.png")));
+
         jvisualvm = new Action("jvisualvm", e -> {
             File file = new File(javaHome, jvisualvmRelativePath);
             if (file.exists()) {
@@ -105,6 +110,23 @@ public class FxJDKToolActionGroup {
             LayoutHelper.iconView(
                 FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jvisualvm.png")));
 
+        jshell = new Action("jshell", e -> {
+            File file = new File(javaHome, jshellRelativePath);
+            if (file.exists()) {
+                runProgram(file.getAbsolutePath());
+            } else {
+                file = new File(javaHomeEnv, jshellRelativePath);
+                if (!file.exists()) {
+                    StaticLog.warn("Not found jshell.");
+                    return;
+                }
+                runProgram(file.getAbsolutePath());
+            }
+        });
+        jshell.setGraphic(
+            LayoutHelper.iconView(
+                FxJDKToolActionGroup.class.getResource("/com/tlcsdm/core/static/icon/jshell.png")));
+
         File file1 = new File(javaHome, jmcRelativePath);
         File file2 = new File(javaHomeEnv, jmcRelativePath);
         if (!file1.exists() && !file2.exists()) {
@@ -120,18 +142,23 @@ public class FxJDKToolActionGroup {
         if (!file1.exists() && !file2.exists()) {
             jvisualvm.setDisabled(true);
         }
+        file1 = new File(javaHome, jshellRelativePath);
+        file2 = new File(javaHomeEnv, jshellRelativePath);
+        if (!file1.exists() && !file2.exists()) {
+            jshell.setDisabled(true);
+        }
     }
 
     private void runProgram(String filePath) {
-        ProcessBuilder processBuilder = new ProcessBuilder(filePath);
+        ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "start", filePath);
         try {
-            processBuilder.start();
+            builder.start();
         } catch (IOException ex) {
             new ExceptionDialog(ex).show();
         }
     }
 
     public ActionGroup create() {
-        return FxActionGroup.jdkTool(jmc, jconsole, jvisualvm);
+        return FxActionGroup.jdkTool(jmc, jconsole, jvisualvm, jshell);
     }
 }
