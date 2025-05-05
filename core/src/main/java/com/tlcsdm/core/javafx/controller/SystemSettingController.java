@@ -69,6 +69,8 @@ public class SystemSettingController extends AbstractSystemSettingView {
     public void disableKeys(Keys... excludeKeys) {
         if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
             disableNode(useEasterEggCheckBox);
+            disableNode(screenshotHideWindowCheckBox);
+            disableNode(screenColorPickerHideWindowCheckBox);
         }
         for (Keys key : excludeKeys) {
             switch (key) {
