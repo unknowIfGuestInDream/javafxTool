@@ -101,7 +101,12 @@ public class FxJDKToolActionGroup {
     }
 
     private void runProgram(String filePath) {
-        ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "start", filePath);
+        ProcessBuilder builder;
+        if (OSUtil.getOS().equals(OSUtil.OS.WINDOWS)) {
+            builder = new ProcessBuilder("cmd", "/c", "start", filePath);
+        } else {
+            builder = new ProcessBuilder("sh", "-c", filePath);
+        }
         try {
             builder.start();
         } catch (IOException ex) {
