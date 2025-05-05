@@ -238,3 +238,9 @@ jobs:
       - name: Output result
         if: steps.parse-deps.outputs.dependencies != '[]'
         run: echo "${{ steps.check-aliyun.outputs.result }}"
+  uncheck-dependencies:
+    if: !contains(github.event.pull_request.user.login, 'dependabot')
+    runs-on: ubuntu-latest
+    steps:
+      - name: uncheck-dependencies
+        run: echo "Only check dependencies from dependabot."
