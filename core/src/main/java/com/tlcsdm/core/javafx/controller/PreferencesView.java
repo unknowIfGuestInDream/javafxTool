@@ -92,6 +92,8 @@ public class PreferencesView extends StackPane {
     private void initVisibilityProperty(Keys... excludeKeys) {
         if (OSUtil.getOS().equals(OSUtil.OS.MAC)) {
             supUseEasterEgg.setValue(false);
+            supScreenshotHideWindow.setValue(false);
+            supScreenColorPickerHideWindow.setValue(false);
         }
 
         for (Keys key : excludeKeys) {
