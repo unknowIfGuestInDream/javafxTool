@@ -33,6 +33,7 @@ import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.Keys;
 import com.tlcsdm.core.javafx.util.OSUtil;
 import com.tlcsdm.core.util.I18nUtils;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -81,6 +82,7 @@ public class ScreenshotStage extends Stage {
     private final Robot robot;
     private Label sizeLabel;
     private final Label tipsLabel;
+    private volatile boolean isClosing = false;
 
     /**
      * 如果设置TRANSPARENT样式时 {@code stage.initStyle(StageStyle.TRANSPARENT);}
@@ -168,7 +170,6 @@ public class ScreenshotStage extends Stage {
             getClass().getResource("/com/tlcsdm/core/static/javafx/stage/screenshot-stage.css")).toExternalForm());
         this.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
-        //scene.setCursor(new ImageCursor(new javafx.scene.image.Image(getClass().getResource("/images/color-cursor.png").toExternalForm())));
         this.initStyle(StageStyle.TRANSPARENT);
         rootPane.setVisible(false);
 
@@ -210,7 +211,8 @@ public class ScreenshotStage extends Stage {
         Button copyImageBtn = new Button("", new Region());
         copyImageBtn.getStyleClass().addAll("region-btn", "copy-btn");
         copyImageBtn.setOnAction(event -> {
-            if (snapshotView.hasSelection() && snapshotView.getSelection().getWidth() > 1 && snapshotView.getSelection().getHeight() > 1) {
+            if (snapshotView.hasSelection() && snapshotView.getSelection().getWidth() > 1 && snapshotView.getSelection()
+                .getHeight() > 1) {
                 copyScreenshot();
             }
         });
@@ -218,7 +220,8 @@ public class ScreenshotStage extends Stage {
         Button saveBtn = new Button("", new Region());
         saveBtn.getStyleClass().addAll("region-btn", "save-btn");
         saveBtn.setOnAction(event -> {
-            if (snapshotView.hasSelection() && snapshotView.getSelection().getWidth() > 1 && snapshotView.getSelection().getHeight() > 1) {
+            if (snapshotView.hasSelection() && snapshotView.getSelection().getWidth() > 1 && snapshotView.getSelection()
+                .getHeight() > 1) {
                 saveScreenshot();
             }
         });
@@ -245,7 +248,8 @@ public class ScreenshotStage extends Stage {
         FileChooser fileChooser = new FileChooser();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         fileChooser.setInitialFileName("screenshot_" + dtf.format(LocalDateTime.now()));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.jpg", "*.png", "*.bmp", "gif", "*.webp"));
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image File", "*.jpg", "*.png", "*.bmp", "gif", "*.webp"));
         File outFile = fileChooser.showSaveDialog(this);
         if (outFile == null) {
             isSaving = false;
@@ -253,7 +257,8 @@ public class ScreenshotStage extends Stage {
             return;
         }
 
-        BufferedImage bufferedImage = getScreenBufImg().getSubimage((int) (selection.getMinX() * screenScaleX), (int) (selection.getMinY() * screenScaleY),
+        BufferedImage bufferedImage = getScreenBufImg().getSubimage((int) (selection.getMinX() * screenScaleX),
+            (int) (selection.getMinY() * screenScaleY),
             (int) (selection.getWidth() * screenScaleX), (int) (selection.getHeight() * screenScaleY));
         boolean flag = false;
         String[] supportedFormats = {".png", ".jpg", ".bmp", "gif", ".webp"};
@@ -269,7 +274,8 @@ public class ScreenshotStage extends Stage {
             File realExportDir;
             int x = 0;
             do {
-                realExportDir = new File(outFile.getParent() + File.separator + outFile.getName() + (x == 0 ? "" : "(" + x + ")") + "." + "jpg");
+                realExportDir = new File(
+                    outFile.getParent() + File.separator + outFile.getName() + (x == 0 ? "" : "(" + x + ")") + "." + "jpg");
                 x++;
             } while (realExportDir.exists());
             outFile = realExportDir;
@@ -326,11 +332,19 @@ public class ScreenshotStage extends Stage {
      * 结束截屏
      */
     private void endScreenshot() {
+        if (isClosing) {
+            return;
+        }
+        isClosing = true;
         rootPane.setVisible(false);
         if (hideMainStage) {
-            FxApp.primaryStage.setOpacity(1);
+            Platform.runLater(() -> {
+                FxApp.primaryStage.setOpacity(1);
+                FxApp.primaryStage.toFront();
+            });
         }
         this.hide();
+        isClosing = false;
     }
 
     public void showStage() {
