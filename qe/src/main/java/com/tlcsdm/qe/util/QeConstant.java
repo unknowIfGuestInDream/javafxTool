@@ -96,7 +96,7 @@ public class QeConstant {
      */
     public static final List<String> DEPENDENCY_LIST = List.of("poi", "freemarker", "dom4j", "java-diff-utils",
         "richtextfx", "thumbnailator", "jackson", "yuicompressor", "teenyhttpd", "image4j", "commons-imaging",
-        "icns-core", "preferencesfx");
+        "icns-core", "preferencesfx", "jSerialComm");
 
     private QeConstant() {
     }
