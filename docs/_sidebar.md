@@ -9,10 +9,8 @@
     - [注意事项](develop/Note.md)
     - [打包](develop/Package.md)
 
-- Examples
+- Programs
     - Smc
         - [介绍](smc/Into.md)
     - Qe
         - [介绍](qe/Into.md)
-    - Cg
-        - [介绍](cg/Into.md)
