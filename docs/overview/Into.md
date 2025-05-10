@@ -32,3 +32,14 @@ javafx脚手架，基于JDK17 + JavaFX21 + controlsfx 11 + Maven开发。
     - config: 项目配置
     - provider: SPI接口实现
     - util: 工具包
+- jenkins: 打包和工作流构建时需要的文件
+
+## Workflow Build
+
+每次提交在Github action中会进行构建，可以在这里获取最新的构建包
+
+1. Open the workflow page
+   https://github.com/unknowIfGuestInDream/javafxTool/actions/workflows/artifact.yml
+
+2. Click on the latest commit
+3. Choose the latest build
