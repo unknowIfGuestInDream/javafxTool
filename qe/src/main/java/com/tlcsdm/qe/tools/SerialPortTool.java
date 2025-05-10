@@ -34,6 +34,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import com.tlcsdm.qe.util.I18nUtils;
 import javafx.animation.Timeline;
@@ -165,6 +166,12 @@ public class SerialPortTool extends QeSample implements Initializable {
     @Override
     public boolean hasControlPanel() {
         return false;
+    }
+
+    @Override
+    public boolean isVisible() {
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_DEV.equals(value) || CoreConstant.JVM_WORKENV_TEST.equals(value);
     }
 
     @Override
