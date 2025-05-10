@@ -4,7 +4,6 @@
     - [发布日志](overview/Changelog.md)
 
 - Develop
-    - [功能介绍](develop/Into.md)
     - [SPI接口](develop/Interface.md)
     - [注意事项](develop/Note.md)
     - [打包](develop/Package.md)

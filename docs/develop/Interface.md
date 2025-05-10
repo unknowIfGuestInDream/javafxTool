@@ -16,9 +16,3 @@
     10. EasterEggService: 彩蛋
 - login
     1. LoginCheck: 登录校验
-
-## 版本更新
-
-## freemarker
-
-## groovy
