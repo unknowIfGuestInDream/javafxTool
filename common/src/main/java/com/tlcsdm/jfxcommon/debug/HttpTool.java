@@ -155,6 +155,11 @@ public class HttpTool extends CommonSample {
         return false;
     }
 
+    @Override
+    public boolean isVisible() {
+        return DependencyUtil.hasRichTextFX();
+    }
+
     @FXML
     public void initialize() {
         initializeOption();
@@ -183,12 +188,6 @@ public class HttpTool extends CommonSample {
     }
 
     private void initializeUI() {
-        //        JsonCodeArea area = new JsonCodeArea();
-        //        area.setEditable(false);
-        //        area.appendText(
-        //            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
-        //VirtualizedScrollPane<JsonCodeArea> pane = new VirtualizedScrollPane<>();
-
         paramsDataIsStringCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
