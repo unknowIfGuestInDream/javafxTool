@@ -1,5 +1,10 @@
 ## 依赖更新
 
-## 发布版本
+!> Javafx 升级
 
-## main直接调用
+CoreConstant.JAVAFX_API_URL
+
+## 发布新版本
+
+**升级版本号**\
+

@@ -1,6 +1,6 @@
 # javafxTool
 
-javafx脚手架，基于JDK17 + JavaFX21 + controlsfx 11.x.x + Maven开发。
+javafx脚手架，基于JDK17 + JavaFX21 + controlsfx 11 + Maven开发。
 
 ## Goals Overview
 
