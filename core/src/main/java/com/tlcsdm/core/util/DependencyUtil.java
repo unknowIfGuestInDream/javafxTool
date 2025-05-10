@@ -39,86 +39,93 @@ public class DependencyUtil {
     }
 
     /**
-     * 因否存在JNA库.
+     * 是否存在JNA库.
      */
     public static boolean hasJna() {
         return CoreUtil.hasClass("com.sun.jna.platform.win32.User32") && CoreUtil.hasClass("com.sun.jna.Native");
     }
 
     /**
-     * 因否存在Groovy库.
+     * 是否存在Groovy库.
      */
     public static boolean hasGroovy() {
         return CoreUtil.hasClass("groovy.util.GroovyScriptEngine");
     }
 
     /**
-     * 因否存在Freemarker库.
+     * 是否存在Freemarker库.
      */
     public static boolean hasFreemarker() {
         return CoreUtil.hasClass("freemarker.cache.TemplateLoader");
     }
 
     /**
-     * 因否存在commons-csv库.
+     * 是否存在commons-csv库.
      */
     public static boolean hasCommonsCsv() {
         return CoreUtil.hasClass("org.apache.commons.csv.CSVParser");
     }
 
     /**
-     * 因否存在poi库.
+     * 是否存在poi库.
      */
     public static boolean hasPoi() {
         return CoreUtil.hasClass("org.apache.poi.Version");
     }
 
     /**
-     * 因否存在Jackson库.
+     * 是否存在Jackson库.
      */
     public static boolean hasJackson() {
         return CoreUtil.hasClass("com.fasterxml.jackson.databind.ObjectMapper");
     }
 
     /**
-     * 因否存在java-diff-utils库.
+     * 是否存在java-diff-utils库.
      */
     public static boolean hasDifflib() {
         return CoreUtil.hasClass("com.github.difflib.DiffUtils");
     }
 
     /**
-     * 因否存在caffeine库.
+     * 是否存在caffeine库.
      */
     public static boolean hasCaffeine() {
         return CoreUtil.hasClass("com.github.benmanes.caffeine.cache.Cache");
     }
 
     /**
-     * 因否存在Hikari库.
+     * 是否存在Hikari库.
      */
     public static boolean hasHikari() {
         return CoreUtil.hasClass("com.zaxxer.hikari.HikariDataSource");
     }
 
     /**
-     * 因否存在Druid库.
+     * 是否存在Druid库.
      */
     public static boolean hasDruid() {
         return CoreUtil.hasClass("com.alibaba.druid.VERSION");
     }
 
     /**
-     * 因否存在javafx-web库.
+     * 是否存在javafx-web库.
      */
     public static boolean hasJavafxWeb() {
         return CoreUtil.hasClass("javafx.scene.web.WebView");
     }
 
     /**
-     * 因否存在thumbnailator库.
+     * 是否存在thumbnailator库.
      */
     public static boolean hasThumbnailator() {
         return CoreUtil.hasClass("net.coobird.thumbnailator.Thumbnails");
+    }
+
+    /**
+     * 是否存在richtextfx库.
+     */
+    public static boolean hasRichTextFX() {
+        return CoreUtil.hasClass("org.fxmisc.richtext.CodeArea");
     }
 }

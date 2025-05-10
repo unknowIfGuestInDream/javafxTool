@@ -68,4 +68,8 @@ public class InformationArea extends CodeArea {
         return spansBuilder.create();
     }
 
+    public void setText(String text) {
+        replaceText(0, getLength(), text);
+    }
+
 }

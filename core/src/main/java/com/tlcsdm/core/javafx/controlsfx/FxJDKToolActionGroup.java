@@ -96,7 +96,7 @@ public class FxJDKToolActionGroup {
             return file;
         }
 
-        StaticLog.warn("Not found " + toolName + ".");
+        StaticLog.debug("Not found " + toolName + ".");
         return null;
     }
 
