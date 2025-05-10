@@ -4,15 +4,12 @@
     - [发布日志](overview/Changelog.md)
 
 - Develop
-    - [功能介绍](develop/Into.md)
     - [SPI接口](develop/Interface.md)
     - [注意事项](develop/Note.md)
     - [打包](develop/Package.md)
 
-- Examples
+- Programs
     - Smc
         - [介绍](smc/Into.md)
     - Qe
         - [介绍](qe/Into.md)
-    - Cg
-        - [介绍](cg/Into.md)
