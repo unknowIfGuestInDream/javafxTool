@@ -105,7 +105,7 @@ public class QeSplashProvider implements SplashScreen {
         SequentialTransition animation = new SequentialTransition(fadeTransition, pathTransition, scaleTransition);
         animation.setInterpolator(Interpolator.EASE_IN);
         animation.setOnFinished(event -> EventBus.getDefault().post(new SplashAnimFinishedEvent()));
-        if (Config.getBoolean(Keys.SkipBootAnimation, true)) {
+        if (Config.getBoolean(Keys.SkipBootAnimation, false)) {
             animation.setRate(10);
         }
         animation.play();
