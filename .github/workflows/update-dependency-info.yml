@@ -1,0 +1,68 @@
+name: Update DependencyInfo
+
+on:
+  push:
+    branches:
+      - dependabot/** # 监听 Dependabot 创建的分支
+  pull_request:
+    branches:
+      - dependabot/** # 针对 Dependabot 的 PR
+
+jobs:
+  update-dependency-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Update DependencyInfo.java
+        id: update-dependency-info
+        run: |
+          # 找到Dependabot更新的pom.xml文件
+               UPDATED_DEP=$(git diff HEAD~1 HEAD --name-only | grep 'pom.xml')
+               if [ -z "$UPDATED_DEP" ]; then
+               echo "No pom.xml file updated. Exiting."
+               exit 0
+               fi
+
+          # 从<properties>中提取依赖名和版本号
+               for dep in $UPDATED_DEP; do
+               DEP_PROPERTIES=$(xmllint --xpath "//project/properties/*" $dep 2>/dev/null)
+               if [ -z "$DEP_PROPERTIES" ]; then
+               echo "No properties found in $dep. Exiting."
+               exit 0
+               fi
+
+          # 遍历<properties>中的每个依赖并更新DependencyInfo.java
+               echo "$DEP_PROPERTIES" | while read -r line; do
+               DEP_NAME=$(echo $line | sed -n 's/<\([^>]*\)>.*/\1/p')
+               DEP_VERSION=$(echo $line | sed -n 's/.*>\([^<]*\)<.*/\1/p')
+
+          # 替换DependencyInfo.java中的版本号
+               sed -i "s/\($DEP_NAME\s*=\s*\"[^\"]*\)/\1$DEP_VERSION/" core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java
+               done
+               done
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java
+          git commit -m "docs: Update DependencyInfo.java with latest dependency versions"
+          git push origin HEAD
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Update DependencyInfo.java
+          title: "docs: Update DependencyInfo.java"
+          body: |
+            This PR updates `DependencyInfo.java` with the latest dependency versions updated by Dependabot.
+          branch: update-dependency-info
