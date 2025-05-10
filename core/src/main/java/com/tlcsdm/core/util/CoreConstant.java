@@ -41,7 +41,7 @@ public class CoreConstant {
     /**
      * JavaFX API
      */
-    public static final String JAVAFX_API_URL = "https://openjfx.io/javadoc/17";
+    public static final String JAVAFX_API_URL = "https://openjfx.io/javadoc/21";
 
     /**
      * JavaFX CSS API
