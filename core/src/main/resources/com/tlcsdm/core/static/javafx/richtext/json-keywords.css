@@ -26,11 +26,13 @@
  */
 
 .text-json-area .key {
-    -fx-fill: #d19a66; /* Key 高亮颜色 */
+    -fx-fill: #962f93; /* Key 高亮颜色 */
+    -fx-font-weight: bold;
 }
 
 .text-json-area .value {
-    -fx-fill: #98c379; /* Value 高亮颜色 */
+    -fx-fill: #68d4d8; /* Value 高亮颜色 */
+    -fx-font-weight: bold;
 }
 
 .text-json-area .brace, .text-json-area .bracket {

@@ -92,4 +92,8 @@ public class JsonCodeArea extends CodeArea {
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
         return spansBuilder.create();
     }
+
+    public void setText(String text) {
+        replaceText(0, getLength(), text);
+    }
 }

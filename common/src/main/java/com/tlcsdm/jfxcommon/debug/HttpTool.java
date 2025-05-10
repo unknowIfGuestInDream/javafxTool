@@ -30,6 +30,8 @@ package com.tlcsdm.jfxcommon.debug;
 import cn.hutool.log.StaticLog;
 import com.tlcsdm.core.javafx.dialog.FxNotifications;
 import com.tlcsdm.core.javafx.helper.ImageViewHelper;
+import com.tlcsdm.core.javafx.richtext.InformationArea;
+import com.tlcsdm.core.javafx.richtext.JsonCodeArea;
 import com.tlcsdm.core.javafx.util.Config;
 import com.tlcsdm.core.javafx.util.FxmlUtil;
 import com.tlcsdm.core.util.CoreUtil;
@@ -86,7 +88,11 @@ public class HttpTool extends CommonSample {
     @FXML
     private CheckBox paramsDataCheckBox, paramsDataIsStringCheckBox, paramsHeaderCheckBox, paramsCookieCheckBox;
     @FXML
-    private TextArea paramsDataTextArea, ResponseBodyTextArea, ResponseHeaderTextArea;
+    private TextArea paramsDataTextArea;
+    @FXML
+    private JsonCodeArea ResponseBodyTextArea;
+    @FXML
+    private InformationArea ResponseHeaderTextArea;
     @FXML
     private TableView<Map<String, String>> paramsDataTableView;
     @FXML
@@ -99,14 +105,12 @@ public class HttpTool extends CommonSample {
     private TableView<Map<String, String>> paramsCookieTableView;
     @FXML
     private TableColumn<Map<String, String>, String> paramsCookieNameTableColumn, paramsCookieValueTableColumn, paramsCookieRemarkTableColumn;
-    @FXML
-    private ImageView ResponseImgImageView;
 
     private final Notifications notificationBuilder = FxNotifications.defaultNotify();
-    private String[] methodStrings = new String[]{"GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"};
-    private ObservableList<Map<String, String>> paramsDatatableData = FXCollections.observableArrayList();
-    private ObservableList<Map<String, String>> paramsHeadertableData = FXCollections.observableArrayList();
-    private ObservableList<Map<String, String>> paramsCookietableData = FXCollections.observableArrayList();
+    private final String[] methodStrings = new String[]{"GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"};
+    private final ObservableList<Map<String, String>> paramsDatatableData = FXCollections.observableArrayList();
+    private final ObservableList<Map<String, String>> paramsHeadertableData = FXCollections.observableArrayList();
+    private final ObservableList<Map<String, String>> paramsCookietableData = FXCollections.observableArrayList();
 
     @Override
     public String getSampleId() {
@@ -183,7 +187,7 @@ public class HttpTool extends CommonSample {
         //        area.setEditable(false);
         //        area.appendText(
         //            FileUtil.readUtf8String(FileUtil.file(ConfigureUtil.getConfigurePath(Config.CONFIG_FILE_NAME))));
-        //        VirtualizedScrollPane<JsonCodeArea> pane = new VirtualizedScrollPane<>();
+        //VirtualizedScrollPane<JsonCodeArea> pane = new VirtualizedScrollPane<>();
 
         paramsDataIsStringCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -253,7 +257,6 @@ public class HttpTool extends CommonSample {
         String methodString = methodChoiceBox.getValue();
 
         HttpResponse<String> response = null;
-
         if ("GET".equals(methodString)) {
             StringBuffer paramsDataBuffer = new StringBuffer();
             if (!paramsMap.isEmpty()) {
@@ -309,9 +312,16 @@ public class HttpTool extends CommonSample {
             String value = String.join(", ", values);
             headerStringBuffer.append(name).append(":").append(value).append("\n");
         });
+        if (!headerStringBuffer.isEmpty()) {
+            headerStringBuffer.deleteCharAt(0);
+        }
 
         ResponseHeaderTextArea.setText(headerStringBuffer.toString());
-        ResponseBodyTextArea.setText(response.body());
+        String res = response.body();
+        if (DependencyUtil.hasJackson()) {
+            res = JacksonUtil.formatJson(res);
+        }
+        ResponseBodyTextArea.setText(res);
     }
 
     @FXML
