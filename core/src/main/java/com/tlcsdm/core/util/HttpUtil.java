@@ -29,7 +29,7 @@ package com.tlcsdm.core.util;
 
 import cn.hutool.core.net.SSLContextBuilder;
 import cn.hutool.log.StaticLog;
-import com.tlcsdm.core.exception.CoreException;
+import com.tlcsdm.core.javafx.util.OSUtil;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -47,7 +47,7 @@ public class HttpUtil {
     /**
      * get请求.
      */
-    public static String doGet(String url, Map<String, String> header) {
+    public static HttpResponse<String> doGet(String url, Map<String, String> header) {
         var builder = HttpRequest.newBuilder().uri(URI.create(url)).GET();
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
@@ -56,7 +56,7 @@ public class HttpUtil {
     /**
      * post请求.
      */
-    public static String doPost(String url, Map<String, String> header, String body) {
+    public static HttpResponse<String> doPost(String url, Map<String, String> header, String body) {
         HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
         var builder = HttpRequest.newBuilder().uri(URI.create(url)).POST(bodyPublisher);
         buildHeader(header, builder);
@@ -64,9 +64,47 @@ public class HttpUtil {
     }
 
     /**
+     * PUT请求.
+     */
+    public static HttpResponse<String> doPut(String url, Map<String, String> header, String body) {
+        HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).PUT(bodyPublisher);
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * DELETE请求.
+     */
+    public static HttpResponse<String> doDelete(String url, Map<String, String> header) {
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).DELETE();
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * PATCH请求.
+     */
+    public static HttpResponse<String> doPatch(String url, Map<String, String> header, String body) {
+        HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).method("PATCH", bodyPublisher);
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * HEAD请求.
+     */
+    public static HttpResponse<String> doHead(String url, Map<String, String> header) {
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).method("HEAD", HttpRequest.BodyPublishers.noBody());
+        buildHeader(header, builder);
+        return execute(builder, StandardCharsets.UTF_8);
+    }
+
+    /**
      * form表单.
      */
-    public static String doPostForm(String url, Map<String, String> header, Map<String, String> pd, Charset charset) {
+    public static HttpResponse<String> doPostForm(String url, Map<String, String> header, Map<String, String> pd, Charset charset) {
         if (charset == null) {
             charset = StandardCharsets.UTF_8;
         }
@@ -93,23 +131,23 @@ public class HttpUtil {
                 builder.setHeader(key, header.get(key));
             }
         }
-        builder.setHeader("Content-Type", "application/json");
-        builder.setHeader("User-Agent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50");
+        String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50";
+        switch (OSUtil.getOS()) {
+            case MAC:
+                userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36";
+                break;
+            case LINUX:
+                userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36";
+                break;
+        }
+        builder.setHeader("User-Agent", userAgent);
     }
 
-    private static String execute(HttpRequest.Builder builder, Charset charset) {
+    private static HttpResponse<String> execute(HttpRequest.Builder builder, Charset charset) {
         var request = builder.build();
         try {
             var client = HttpClient.newBuilder().sslContext(SSLContextBuilder.create().build()).build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(charset));
-            String result;
-            if (response.statusCode() == 200) {
-                result = response.body();
-            } else {
-                throw new CoreException("The request failed");
-            }
-            return result;
+            return client.send(request, HttpResponse.BodyHandlers.ofString(charset));
         } catch (Exception e) {
             StaticLog.error(e);
         }

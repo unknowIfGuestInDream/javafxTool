@@ -338,7 +338,7 @@ public class ScanPortTool extends CommonSample {
         }
     }
 
-    public void setTableColumnMapValueFactory(TableColumn tableColumn, String name, boolean isEdit,
+    private void setTableColumnMapValueFactory(TableColumn tableColumn, String name, boolean isEdit,
         Runnable onEditCommitHandle) {
         tableColumn.setCellValueFactory(new MapValueFactory(name));
         tableColumn.setCellFactory(TextFieldTableCell.<Map<String, String>>forTableColumn());

@@ -53,6 +53,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Jackson 工具类.
@@ -185,6 +187,34 @@ public class JacksonUtil {
             StaticLog.error(e);
         }
         return null;
+    }
+
+    /**
+     * 格式化JSON字符串
+     *
+     * @param json 原始JSON字符串
+     * @return 格式化后的JSON字符串
+     */
+    public static String formatJson(String json) {
+        try {
+            Object jsonObject = JSONINSTANCE.JSON_MAPPER.readValue(json, Object.class);
+            return JSONINSTANCE.JSON_MAPPER.writeValueAsString(jsonObject);
+        } catch (Exception e) {
+            // 如果格式化失败，返回原始字符串
+            return json;
+        }
+    }
+
+    /**
+     * 压缩JSON字符串（去除不必要的空格）
+     *
+     * @param json 原始JSON字符串
+     * @return 压缩后的JSON字符串
+     */
+    public static String compactJson(String json) {
+        Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+        Matcher m = p.matcher(json);
+        return m.replaceAll("");
     }
 
     /**
