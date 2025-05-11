@@ -160,7 +160,7 @@ public class SerialPortTool extends QeSample implements Initializable {
 
     @Override
     public String getSampleVersion() {
-        return "1.0.1";
+        return "1.0.1-Beta";
     }
 
     @Override
