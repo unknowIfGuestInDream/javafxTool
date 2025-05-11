@@ -81,7 +81,7 @@ public class QeConstant {
     /**
      * 项目构建日期
      */
-    public static final String PROJECT_BUILD_DAY = "2023-10-02";
+    public static final String PROJECT_BUILD_DAY = "2025-05-11";
     /**
      * 检查更新所用的api
      */
@@ -96,7 +96,7 @@ public class QeConstant {
      */
     public static final List<String> DEPENDENCY_LIST = List.of("poi", "freemarker", "dom4j", "java-diff-utils",
         "richtextfx", "thumbnailator", "jackson", "yuicompressor", "teenyhttpd", "image4j", "commons-imaging",
-        "icns-core", "preferencesfx");
+        "icns-core", "preferencesfx", "jSerialComm");
 
     private QeConstant() {
     }
