@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## [v1.0.1-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-qe) - 2025-05-11 12:37:47
+
+1. Add Keys.SkipBootAnimation config
+2. Add HttpTool
+3. Add RCP Icon Creator
+4. Upgrade common tool
+5. Dependency upgrade ( javafx to 21.0.7)
+
+### Feature
+
+- qe:
+    - Improve SerialPortTool (
+      #2138) ([a6739e1](https://github.com/unknowIfGuestInDream/javafxTool/commit/a6739e122b5046c46d648c30233add111dd5a248)) ([#2138](https://github.com/unknowIfGuestInDream/javafxTool/pull/2138))
+    - Add SerialPortTool (
+      #2021) ([80ff615](https://github.com/unknowIfGuestInDream/javafxTool/commit/80ff615bee6a44eb9b52be6f5b6c300af9da8bd8)) ([#2021](https://github.com/unknowIfGuestInDream/javafxTool/pull/2021))
+
+- common:
+    - Add HttpTool (
+      #2142) ([58342e1](https://github.com/unknowIfGuestInDream/javafxTool/commit/58342e1a448b0047d8e602da5a2393a478bba0a3)) ([#2142](https://github.com/unknowIfGuestInDream/javafxTool/pull/2142))
+    - Hidden some ControlPanel (
+      #2012) ([da797a2](https://github.com/unknowIfGuestInDream/javafxTool/commit/da797a2d78ea1f20dd76fe89c14dd6ebd49c38bb)) ([#2012](https://github.com/unknowIfGuestInDream/javafxTool/pull/2012))
+
+- core:
+    - 支持JDK Tool ActionGroup (
+      #2130) ([de11091](https://github.com/unknowIfGuestInDream/javafxTool/commit/de11091b6ceb5db5d06887908217ab11a907a62f)) ([#2130](https://github.com/unknowIfGuestInDream/javafxTool/pull/2130))
+    - Add PropertiesDialog (
+      #2097) ([4e53757](https://github.com/unknowIfGuestInDream/javafxTool/commit/4e537570b3ca7a5f6eaf3be4ccd0dcf9c7b58aed)) ([#2097](https://github.com/unknowIfGuestInDream/javafxTool/pull/2097))
+    - Add deepseek support (
+      #2123) ([34d8d0c](https://github.com/unknowIfGuestInDream/javafxTool/commit/34d8d0c06844280f7e18dde2cf178f448266b160)) ([#2123](https://github.com/unknowIfGuestInDream/javafxTool/pull/2123))
+    - Add watermark 实现 (
+      #2122) ([350d513](https://github.com/unknowIfGuestInDream/javafxTool/commit/350d513a6a8c4f3d68781e5db4bd3a68680df33c)) ([#2122](https://github.com/unknowIfGuestInDream/javafxTool/pull/2122))
+    - Add SkipBootAnimation Config (
+      #2020) ([94807e4](https://github.com/unknowIfGuestInDream/javafxTool/commit/94807e4161e1f2415a969be345144ae8c8df3627)) ([#2020](https://github.com/unknowIfGuestInDream/javafxTool/pull/2020))
+
+- general:
+    - Add
+      cyclonedx-maven-plugin ([f3f6d61](https://github.com/unknowIfGuestInDream/javafxTool/commit/f3f6d61bd44d9182ba51061c2af3a0c030d63eaf))
+    - Add powerShell support (
+      #1998) ([b653cd6](https://github.com/unknowIfGuestInDream/javafxTool/commit/b653cd6a60db2105bc4ac771b1c6edbfd68cb311)) ([#1998](https://github.com/unknowIfGuestInDream/javafxTool/pull/1998))
+    - Add JAXB test case (
+      #1930) ([18257c2](https://github.com/unknowIfGuestInDream/javafxTool/commit/18257c22af827ab84a986b92eeebe1f947babe70)) ([#1930](https://github.com/unknowIfGuestInDream/javafxTool/pull/1930))
+    - Prepare for smc
+      1.0.11 ([555379a](https://github.com/unknowIfGuestInDream/javafxTool/commit/555379a6ebb502e48fa15e239966a651ae6f89eb))
+    - Prepare for smc
+      1.0.11 ([aea286d](https://github.com/unknowIfGuestInDream/javafxTool/commit/aea286dcd26c4e0ff207f5011b09f841ea7d69e7))
+    - Prepare for smc
+      1.0.11 ([fcba1a7](https://github.com/unknowIfGuestInDream/javafxTool/commit/fcba1a77ebf40a1b917d3ea61ddbecb7351a3464))
+    - Prepare for smc
+      1.0.11 ([75348d0](https://github.com/unknowIfGuestInDream/javafxTool/commit/75348d0c1e71311af0d71c7ba28f4e1052c8c4db))
+
+### Bug Fixes
+
+- qe:
+    - 修复SkipBootAnimation 初始值异常 (
+      #2139) ([e0759dd](https://github.com/unknowIfGuestInDream/javafxTool/commit/e0759ddf8cbe5f318de2a13d4579e45ac5baecbe)) ([#2139](https://github.com/unknowIfGuestInDream/javafxTool/pull/2139))
+
+- general:
+    - Fix stage hidden action In Mac Arm (
+      #2133) ([e504a59](https://github.com/unknowIfGuestInDream/javafxTool/commit/e504a59998ec787bc1aa1d5540d7708d8b06d331)) ([#2133](https://github.com/unknowIfGuestInDream/javafxTool/pull/2133))
+    - Fix FxJDKTool run error in Mac (
+      #2132) ([707afeb](https://github.com/unknowIfGuestInDream/javafxTool/commit/707afebe552586948c97d0631d1e8aca307aaf26)) ([#2132](https://github.com/unknowIfGuestInDream/javafxTool/pull/2132))
+
+- core:
+    - beanutils升级后兼容问题 (
+      #2116) ([c2e9178](https://github.com/unknowIfGuestInDream/javafxTool/commit/c2e91782c3835a487f2b0678da9681f0c1ce4619)) ([#2116](https://github.com/unknowIfGuestInDream/javafxTool/pull/2116))
+
 ## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 08:47:11
 
 1. FileDiff optimization
@@ -1072,3 +1138,4 @@
     修复编译错误 ([171bf33](https://github.com/unknowIfGuestInDream/javafxTool/commit/171bf3386ff6c706f89b42018c8fdbbe95ee84eb))
     - 修复静态文件路径 (
       #6) ([311abf3](https://github.com/unknowIfGuestInDream/javafxTool/commit/311abf33a80aca54367f3a60358719becbaf96c4))
+
