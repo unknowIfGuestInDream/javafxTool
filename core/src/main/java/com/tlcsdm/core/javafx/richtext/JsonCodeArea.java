@@ -34,6 +34,7 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,7 +67,8 @@ public class JsonCodeArea extends CodeArea {
         super();
         getStyleClass().add("text-json-area");
         getStylesheets().add(
-            getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/json-keywords.css").toExternalForm());
+            Objects.requireNonNull(getClass().getResource("/com/tlcsdm/core/static/javafx/richtext/json-keywords.css"))
+                .toExternalForm());
         this.setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.textProperty().addListener((obs, oldText, newText) -> {
             this.setStyleSpans(0, computeHighlighting(newText));
