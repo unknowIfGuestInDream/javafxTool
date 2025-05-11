@@ -41,8 +41,6 @@ import com.tlcsdm.core.util.JacksonUtil;
 import com.tlcsdm.jfxcommon.CommonSample;
 import com.tlcsdm.jfxcommon.code.ColorCode;
 import com.tlcsdm.jfxcommon.util.I18nUtils;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -121,7 +119,7 @@ public class HttpTool extends CommonSample {
 
     @Override
     public String getSampleName() {
-        return "Http调试工具";
+        return I18nUtils.get("common.tool.debug.httpTool.sampleName");
     }
 
     @Override
@@ -131,7 +129,7 @@ public class HttpTool extends CommonSample {
 
     @Override
     public String getSampleDescription() {
-        return I18nUtils.get("common.tool.debug.scanPortTool.sampleDesc");
+        return I18nUtils.get("common.tool.debug.httpTool.sampleDesc");
     }
 
     @Override
@@ -184,40 +182,38 @@ public class HttpTool extends CommonSample {
         setTableColumnMapValueFactory(paramsCookieNameTableColumn, "name");
         setTableColumnMapValueFactory(paramsCookieValueTableColumn, "value");
         setTableColumnMapValueFactory(paramsCookieRemarkTableColumn, "remark");
+
         paramsDataTableView.setItems(paramsDatatableData);
         paramsHeaderTableView.setItems(paramsHeadertableData);
         paramsCookieTableView.setItems(paramsCookietableData);
     }
 
     private void initializeUI() {
-        paramsDataIsStringCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    paramsDataTextArea.setVisible(true);
-                    paramsDataTableView.setVisible(false);
-                } else {
-                    paramsDataTextArea.setVisible(false);
-                    paramsDataTableView.setVisible(true);
-                }
+        paramsDataIsStringCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                paramsDataTextArea.setVisible(true);
+                paramsDataTableView.setVisible(false);
+            } else {
+                paramsDataTextArea.setVisible(false);
+                paramsDataTableView.setVisible(true);
             }
         });
         setTableViewOnMouseClicked(paramsDataTableView, paramsDatatableData);
         setTableViewOnMouseClicked(paramsHeaderTableView, paramsHeadertableData);
         setTableViewOnMouseClicked(paramsCookieTableView, paramsCookietableData);
         if (DependencyUtil.hasJackson()) {
-            MenuItem compressJsonMenuItem = new MenuItem("压缩JSON");
+            MenuItem compressJsonMenuItem = new MenuItem(I18nUtils.get("common.tool.debug.httpTool.menu.compressJson"));
             compressJsonMenuItem.setOnAction(event -> {
                 ResponseBodyTextArea.setText(JacksonUtil.compactJson(ResponseBodyTextArea.getText()));
             });
-            MenuItem formatJsonMenuItem = new MenuItem("格式化JSON");
+            MenuItem formatJsonMenuItem = new MenuItem(I18nUtils.get("common.tool.debug.httpTool.menu.formatJson"));
             formatJsonMenuItem.setOnAction(event -> {
                 try {
                     String prettyJsonString = JacksonUtil.formatJson(ResponseBodyTextArea.getText());
                     ResponseBodyTextArea.setText("null".equals(prettyJsonString) ? "" : prettyJsonString);
                 } catch (Exception e) {
-                    StaticLog.debug("格式化错误:" + e.getMessage());
-                    notificationBuilder.text("格式化错误:" + e.getMessage());
+                    StaticLog.debug(I18nUtils.get("common.tool.debug.httpTool.error.format") + e.getMessage());
+                    notificationBuilder.text(I18nUtils.get("common.tool.debug.httpTool.error.format") + e.getMessage());
                     notificationBuilder.showError();
                 }
             });
@@ -229,7 +225,7 @@ public class HttpTool extends CommonSample {
     private void sendAction(ActionEvent event) {
         String url = urlTextField.getText().trim();
         if (StringUtils.isEmpty(url)) {
-            notificationBuilder.text("请输入网站！！！");
+            notificationBuilder.text(I18nUtils.get("common.tool.debug.httpTool.error.emptyUrl"));
             notificationBuilder.showWarning();
             return;
         }
@@ -306,7 +302,7 @@ public class HttpTool extends CommonSample {
         }
 
         if (response == null || response.statusCode() != 200) {
-            notificationBuilder.text("请求失败");
+            notificationBuilder.text(I18nUtils.get("common.tool.debug.httpTool.error.request"));
             notificationBuilder.showError();
             return;
         }
@@ -353,6 +349,7 @@ public class HttpTool extends CommonSample {
         CoreUtil.openWeb(url);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private void setTableColumnMapValueFactory(TableColumn tableColumn, String name) {
         tableColumn.setCellValueFactory(new MapValueFactory(name));
         tableColumn.setCellFactory(TextFieldTableCell.<Map<String, String>>forTableColumn());
@@ -365,17 +362,17 @@ public class HttpTool extends CommonSample {
         ObservableList<Map<String, String>> paramsDatatableData) {
         paramsDataTableView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY && !paramsDatatableData.isEmpty()) {
-                MenuItem menu_Copy = new MenuItem("复制选中行");
+                MenuItem menu_Copy = new MenuItem(I18nUtils.get("common.tool.debug.httpTool.menu.copyRow"));
                 menu_Copy.setOnAction(event1 -> {
                     Map<String, String> tableBean = paramsDataTableView.getSelectionModel().getSelectedItem();
                     Map<String, String> tableBean2 = new HashMap<>(tableBean);
                     paramsDatatableData.add(paramsDataTableView.getSelectionModel().getSelectedIndex(), tableBean2);
                 });
-                MenuItem menu_Remove = new MenuItem("删除选中行");
+                MenuItem menu_Remove = new MenuItem(I18nUtils.get("common.tool.debug.httpTool.menu.deleteRow"));
                 menu_Remove.setOnAction(event1 -> {
                     paramsDatatableData.remove(paramsDataTableView.getSelectionModel().getSelectedIndex());
                 });
-                MenuItem menu_RemoveAll = new MenuItem("删除所有");
+                MenuItem menu_RemoveAll = new MenuItem(I18nUtils.get("common.tool.debug.httpTool.menu.deleteAll"));
                 menu_RemoveAll.setOnAction(event1 -> {
                     paramsDatatableData.clear();
                 });
