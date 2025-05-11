@@ -66,8 +66,10 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.Notifications;
 
+import java.net.URLEncoder;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -264,7 +266,11 @@ public class HttpTool extends CommonSample {
                 } else {
                     paramsDataBuffer.append("?");
                 }
-                paramsMap.forEach((key, value) -> paramsDataBuffer.append(key).append("=").append(value).append("&"));
+                paramsMap.forEach((key, value) -> {
+                    paramsDataBuffer.append(
+                        URLEncoder.encode(key, StandardCharsets.UTF_8)).append("=").append(URLEncoder.encode(value,
+                        StandardCharsets.UTF_8)).append("&");
+                });
                 paramsDataBuffer.deleteCharAt(paramsDataBuffer.length() - 1);
             }
             url += paramsDataBuffer.toString();

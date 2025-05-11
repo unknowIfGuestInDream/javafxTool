@@ -212,7 +212,7 @@ public class JacksonUtil {
      * @return 压缩后的JSON字符串
      */
     public static String compactJson(String json) {
-        Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+        Pattern p = Pattern.compile("[\t\n\r ]+");
         Matcher m = p.matcher(json);
         return m.replaceAll("");
     }
