@@ -312,8 +312,16 @@ under the License.
 
 ![](../../images/overview/env/eclipse_import.png)
 
+### 运行配置
+
+已定义一些运行配置在 [.settings/runConfigurations](https://github.com/unknowIfGuestInDream/javafxTool/tree/master/.settings/runConfigurations ':target=_blank')
+
 ## IDEA
 
 ### maven配置
 
 ![](../../images/overview/env/idea_maven_setting.png)
+
+### 运行配置
+
+已定义一些运行配置在 [.idea/runConfigurations](https://github.com/unknowIfGuestInDream/javafxTool/tree/master/.idea/runConfigurations ':target=_blank')

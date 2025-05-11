@@ -1,1 +1,1 @@
-> smcTool: 用于帮助开发Smart Configruation的工具
+> smcTool: 用于帮助开发Smart Configuration的工具

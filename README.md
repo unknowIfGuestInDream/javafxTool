@@ -13,7 +13,7 @@
 # Introduce
 
 [中文文档](./README_zh.md)  [日本語文書](./README_jp.md)\
-Javafx scaffolding, built on JDK17 + JavaFX21 + controlsfx 11.x.x + Maven
+Javafx scaffolding, built on JDK17 + JavaFX 21 + controlsfx 11 + Maven
 
 Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application
 modules. demo is the provided example module.

@@ -2,7 +2,7 @@
 
 ## 简介
 
-JavaFXTool基于JDK17 + JavaFX21 + controlsfx 11 + maven构建的javafx脚手架。
+JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手架。
 
 ## JavaFXTool中使用的开源软件
 

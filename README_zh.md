@@ -1,6 +1,6 @@
 # 介绍
 
-javafx脚手架，JDK17 + JavaFX21 + controlsfx 11.x.x + Maven
+javafx脚手架，JDK17 + JavaFX 21 + controlsfx 11 + Maven
 
 frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成 demo是提供的示例模块
 
