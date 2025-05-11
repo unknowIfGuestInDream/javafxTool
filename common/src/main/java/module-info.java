@@ -54,7 +54,7 @@ module com.tlcsdm.jfxcommon {
     requires org.apache.commons.text;
     requires java.net.http;
     requires org.apache.commons.configuration2;
-    requires org.fxmisc.flowless;
+    requires static org.fxmisc.flowless;
 
     exports com.tlcsdm.jfxcommon;
     exports com.tlcsdm.jfxcommon.provider to com.tlcsdm.frame;
