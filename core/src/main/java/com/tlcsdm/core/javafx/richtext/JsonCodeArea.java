@@ -47,7 +47,7 @@ public class JsonCodeArea extends CodeArea {
     //匹配 JSON 的 key
     private static final String KEY_PATTERN = "\"(\\w+)\"(?=\\s*:)";
     //匹配 JSON 的 value（支持字符串、数字、布尔值和 null）
-    private static final String VALUE_PATTERN = ":\\s*(\"(?:\\\\.|[^\\\\\"])*\"|\\d+|true|false|null)";
+    private static final String VALUE_PATTERN = ":\\s*(\".*?\"|\\d+|true|false|null)";
     //匹配 JSON 的结构符号（如大括号、中括号、逗号等）
     private static final String BRACE_PATTERN = "\\{|\\}";
     private static final String BRACKET_PATTERN = "\\[|\\]";

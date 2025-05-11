@@ -40,5 +40,5 @@
 }
 
 .text-json-area .comma, .text-json-area .colon {
-    -fx-fill: #56b6c2; /* 逗号和冒号高亮颜色 */
+    -fx-fill: black; /* 逗号和冒号高亮颜色 */
 }
