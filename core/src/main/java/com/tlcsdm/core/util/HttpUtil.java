@@ -37,6 +37,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -48,7 +49,7 @@ public class HttpUtil {
      * get请求.
      */
     public static HttpResponse<String> doGet(String url, Map<String, String> header) {
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).GET();
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).GET();
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
@@ -58,7 +59,7 @@ public class HttpUtil {
      */
     public static HttpResponse<String> doPost(String url, Map<String, String> header, String body) {
         HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).POST(bodyPublisher);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).POST(bodyPublisher);
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
@@ -68,7 +69,7 @@ public class HttpUtil {
      */
     public static HttpResponse<String> doPut(String url, Map<String, String> header, String body) {
         HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).PUT(bodyPublisher);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).PUT(bodyPublisher);
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
@@ -77,7 +78,7 @@ public class HttpUtil {
      * DELETE请求.
      */
     public static HttpResponse<String> doDelete(String url, Map<String, String> header) {
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).DELETE();
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).DELETE();
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
@@ -87,7 +88,8 @@ public class HttpUtil {
      */
     public static HttpResponse<String> doPatch(String url, Map<String, String> header, String body) {
         HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8);
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).method("PATCH", bodyPublisher);
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).method("PATCH",
+            bodyPublisher);
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
@@ -96,7 +98,8 @@ public class HttpUtil {
      * HEAD请求.
      */
     public static HttpResponse<String> doHead(String url, Map<String, String> header) {
-        var builder = HttpRequest.newBuilder().uri(URI.create(url)).method("HEAD", HttpRequest.BodyPublishers.noBody());
+        var builder = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofSeconds(10)).method("HEAD",
+            HttpRequest.BodyPublishers.noBody());
         buildHeader(header, builder);
         return execute(builder, StandardCharsets.UTF_8);
     }
