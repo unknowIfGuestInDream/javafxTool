@@ -51,6 +51,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -186,6 +187,10 @@ public class HttpTool extends CommonSample {
         paramsDataTableView.setItems(paramsDatatableData);
         paramsHeaderTableView.setItems(paramsHeadertableData);
         paramsCookieTableView.setItems(paramsCookietableData);
+
+        paramsDataTableView.setPlaceholder(new Label(I18nUtils.get("common.tool.debug.httpTool.table.noData")));
+        paramsHeaderTableView.setPlaceholder(new Label(I18nUtils.get("common.tool.debug.httpTool.table.noData")));
+        paramsCookieTableView.setPlaceholder(new Label(I18nUtils.get("common.tool.debug.httpTool.table.noData")));
     }
 
     private void initializeUI() {
