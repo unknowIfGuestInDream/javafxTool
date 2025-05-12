@@ -250,7 +250,7 @@
                         <artifactId>maven-assembly-plugin</artifactId>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>qeTool-${javafx.platform}</finalName>
+                            <finalName>qeTool-${javafx.platform}-${project.version}</finalName>
                             <descriptors>
                                 <descriptor>config/zip.xml</descriptor>
                             </descriptors>
@@ -285,10 +285,10 @@
                                 <configuration>
                                     <target>
                                         <checksum algorithm="SHA-256"
-                                                  file="${project.build.directory}/qeTool-${javafx.platform}.zip"
+                                                  file="${project.build.directory}/qeTool-${javafx.platform}-${project.version}.zip"
                                                   property="file.sha256"/>
                                         <!--suppress UnresolvedMavenProperty -->
-                                        <echo file="${project.build.directory}/qeTool-${javafx.platform}.zip.sha256"
+                                        <echo file="${project.build.directory}/qeTool-${javafx.platform}-${project.version}.zip.sha256"
                                               message="${file.sha256}"/>
                                     </target>
                                 </configuration>
