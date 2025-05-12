@@ -42,7 +42,7 @@
             <includes>
                 <include>${project.build.finalName}.jar</include>
                 <include>lib/*</include>
-                <include>license/*</include>
+                <include>license/**</include>
                 <include>CHANGELOG.md</include>
             </includes>
         </fileSet>
@@ -51,7 +51,7 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <outputDirectory>/</outputDirectory>
             <includes>
-                <include>apidocs/*</include>
+                <include>apidocs/**</include>
             </includes>
         </fileSet>
         <fileSet>
@@ -59,7 +59,7 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <outputDirectory>/</outputDirectory>
             <includes>
-                <include>docs/*</include>
+                <include>docs/**</include>
             </includes>
         </fileSet>
         <fileSet>
