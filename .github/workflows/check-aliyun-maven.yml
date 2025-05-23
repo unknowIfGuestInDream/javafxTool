@@ -226,7 +226,7 @@ jobs:
                   comment.body.startsWith('### 阿里云 Maven 依赖检查结果')
                 );
 
-                const commentBody = `### 阿里云 Maven 依赖检查结果\n\n${errresults.join('\n')}\n\n<details><summary>点击查看可用的依赖</summary><p>${results.join('\n')}\n\n</p></details>`;
+                const commentBody = `### 阿里云 Maven 依赖检查结果\n\n${errresults.join('\n')}\n\n<details><summary>点击查看可用的依赖</summary>${results.join('<br>\n')}<br></details>`;
                 if (botComment) {
                   // 更新现有评论
                   await github.rest.issues.updateComment({
