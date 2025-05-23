@@ -176,7 +176,7 @@ public class DependencyInfo {
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.15.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.gluonhq", "rich-text-area", "1.2.1", false,
+            new Dependency("com.gluonhq", "rich-text-area", "1.2.2", false,
                 "https://github.com/gluonhq/rich-text-area",
                 "GPL-3.0 license", "http://www.gnu.org/licenses/gpl-3.0.html"),
 
