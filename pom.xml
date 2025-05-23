@@ -95,7 +95,7 @@
         <cyclonedx-maven-plugin.version>2.9.1</cyclonedx-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <!--  if you update the checkstyle version make sure you update the google_checks.xml inside the repository -->
-        <checkstyle.version>10.23.1</checkstyle.version>
+        <checkstyle.version>10.24.0</checkstyle.version>
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
