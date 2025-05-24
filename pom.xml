@@ -200,6 +200,7 @@
         <nashorn.version>15.6</nashorn.version>
         <jruby.version>9.4.12.1</jruby.version>
         <qrcodegen.version>1.8.0</qrcodegen.version>
+        <sqlite.version>3.49.1.0</sqlite.version>
     </properties>
 
     <issueManagement>
@@ -1245,6 +1246,11 @@
                 <groupId>io.nayuki</groupId>
                 <artifactId>qrcodegen</artifactId>
                 <version>${qrcodegen.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>${sqlite.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
