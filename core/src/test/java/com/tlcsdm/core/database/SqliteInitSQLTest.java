@@ -96,8 +96,8 @@ public class SqliteInitSQLTest {
                     // 检查是否以分号结束（完整SQL语句）
                     if (line.trim().endsWith(";")) {
                         String sql = sb.toString();
-                        stmt.execute(sql);
                         sb = new StringBuilder();
+                        stmt.execute(sql);
                     }
                 }
             }
