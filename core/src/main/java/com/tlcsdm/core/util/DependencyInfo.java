@@ -53,7 +53,7 @@ public class DependencyInfo {
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("org.junit.jupiter", "junit", "5.12.2", true, "https://github.com/junit-team/junit5",
+            new Dependency("org.junit.jupiter", "junit", "5.13.0", true, "https://github.com/junit-team/junit5",
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
             new Dependency("org.apache.poi", "poi", "5.4.1", false, "https://poi.apache.org/",
@@ -138,7 +138,7 @@ public class DependencyInfo {
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "4.0.26", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "4.0.27", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "3.3.1", false,
+            new Dependency("com.cedarsoftware", "java-util", "", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
