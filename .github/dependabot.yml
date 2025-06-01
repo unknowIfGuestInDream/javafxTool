@@ -10,18 +10,12 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-    reviewers:
-      - "unknowIfGuestInDream"
-      - "DreamAwakenFateBroke"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "friday"
       timezone: "Asia/Shanghai"
-    reviewers:
-      - "unknowIfGuestInDream"
-      - "DreamAwakenFateBroke"
     labels:
       - "workflow"
       - "github_actions"

@@ -74,11 +74,7 @@ public class SqliteInitSQLTest {
     @AfterAll
     static void cleanup() throws SQLException {
         if (conn != null) {
-            try {
-                conn.rollback(); // 回滚任何未提交的更改
-            } finally {
-                conn.close();
-            }
+            conn.close();
         }
     }
 
@@ -97,7 +93,9 @@ public class SqliteInitSQLTest {
                     if (line.trim().endsWith(";")) {
                         String sql = sb.toString();
                         sb = new StringBuilder();
-                        stmt.execute(sql);
+                        if (!sql.trim().isEmpty()) {
+                            stmt.execute(sql);
+                        }
                     }
                 }
             }
