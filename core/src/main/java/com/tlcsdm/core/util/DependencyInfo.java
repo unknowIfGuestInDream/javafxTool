@@ -184,11 +184,11 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core-java11", "6.8.1", false,
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.8.2", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
-            new Dependency("org.checkerframework", "checker-qual", "3.49.3", true,
+            new Dependency("org.checkerframework", "checker-qual", "3.49.4", true,
                 "https://github.com/typetools/checker-framework",
                 "MIT License", "http://opensource.org/licenses/MIT"),
 
@@ -200,7 +200,7 @@ public class DependencyInfo {
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.2", false,
+            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.3", false,
                 "https://plantuml.com/",
                 "MIT License", "https://opensource.org/license/mit/"),
 
