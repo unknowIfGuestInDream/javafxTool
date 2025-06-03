@@ -58,6 +58,8 @@ public class SqliteInitSQLTest {
         conn = DriverManager.getConnection("jdbc:sqlite::memory:");
         // 执行初始化脚本
         initializeInMemoryDatabase(conn);
+        // 禁用自动提交以确保连接保持活跃
+        conn.setAutoCommit(false);
     }
 
     @Test
@@ -90,8 +92,10 @@ public class SqliteInitSQLTest {
                     // 检查是否以分号结束（完整SQL语句）
                     if (line.trim().endsWith(";")) {
                         String sql = sb.toString();
-                        stmt.execute(sql);
                         sb = new StringBuilder();
+                        if (!sql.trim().isEmpty()) {
+                            stmt.execute(sql);
+                        }
                     }
                 }
             }

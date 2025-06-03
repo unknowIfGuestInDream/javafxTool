@@ -83,7 +83,7 @@
         <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
         <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
         <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
-        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.5.1</exec-maven-plugin.version>
         <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
         <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
         <git-commit-id-maven-plugin.version>9.0.2</git-commit-id-maven-plugin.version>
@@ -99,7 +99,7 @@
         <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>5.12.2</junit.version>
+        <junit.version>5.13.0</junit.version>
         <jcip-annotations.version>1.0-1</jcip-annotations.version>
         <javafx.version>21.0.7</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
@@ -150,7 +150,7 @@
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.4.0</ikonli.version>
         <richtextfx.version>0.11.5</richtextfx.version>
-        <groovy.version>4.0.26</groovy.version>
+        <groovy.version>4.0.27</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.13.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
@@ -168,11 +168,11 @@
         <jython.version>2.7.4</jython.version>
         <violations.version>1.157.3</violations.version>
         <asm.version>9.8</asm.version>
-        <pmd.version>7.13.0</pmd.version>
+        <pmd.version>7.14.0</pmd.version>
         <bytebuddy.version>1.17.5</bytebuddy.version>
         <tess4j.version>5.15.0</tess4j.version>
         <hikariCP.version>6.3.0</hikariCP.version>
-        <druid.version>1.2.24</druid.version>
+        <druid.version>1.2.25</druid.version>
         <h2.version>2.3.232</h2.version>
         <jcommander.version>2.0</jcommander.version>
         <jssc.version>2.10.0</jssc.version>
@@ -187,7 +187,7 @@
         <plantuml.version>1.2025.2</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
-        <java-util.version>3.3.1</java-util.version>
+        <java-util.version>3.3.2</java-util.version>
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.2</jep.version>
         <imageio.version>3.12.0</imageio.version>
