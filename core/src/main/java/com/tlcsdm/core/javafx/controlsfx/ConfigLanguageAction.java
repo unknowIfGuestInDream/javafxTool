@@ -51,16 +51,22 @@ public class ConfigLanguageAction extends Action {
                     return;
                 }
                 Config.set(Keys.Locale, Locale.SIMPLIFIED_CHINESE);
+                Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
+                Config.defaultLocale = Locale.getDefault();
             } else if (LanguageType.ENGLISH.equals(language)) {
                 if (Config.defaultLocale == Locale.ENGLISH) {
                     return;
                 }
                 Config.set(Keys.Locale, Locale.ENGLISH);
+                Locale.setDefault(Locale.ENGLISH);
+                Config.defaultLocale = Locale.getDefault();
             } else if (LanguageType.JAPANESE.equals(language)) {
                 if (Config.defaultLocale == Locale.JAPANESE) {
                     return;
                 }
                 Config.set(Keys.Locale, Locale.JAPANESE);
+                Locale.setDefault(Locale.JAPANESE);
+                Config.defaultLocale = Locale.getDefault();
             }
             consumer.accept(null);
         });
