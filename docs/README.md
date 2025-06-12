@@ -27,7 +27,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | java-diff-utils        | 4.15         | 用于在文本或某种数据之间执行比较/差异操作            |
 | jackson                | 2.19.0       | JSON解析库                          |
 | jSerialComm            | 2.11.0       | 串口通信库                            |
-| junit                  | 5.13.0       | 单元测试框架                           |
+| junit                  | 5.13.1       | 单元测试框架                           |
 | logback                | 1.5.18       | Java日志框架                         |
 | poi-ooxml              | 5.4.1        | 用于Microsoft Documents的Java API   |
 | preferencesfx          | 11.17.0      | 为应用程序设置/首选项创建 UI 的框架             |
