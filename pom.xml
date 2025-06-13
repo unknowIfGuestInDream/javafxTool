@@ -101,7 +101,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.13.1</junit.version>
         <jcip-annotations.version>1.0-1</jcip-annotations.version>
-        <javafx.version>21.0.7</javafx.version>
+        <javafx.version>25-ea+20</javafx.version>
         <javafx.swt.version>21.0.4</javafx.swt.version>
         <controlsfx.version>11.2.2</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
