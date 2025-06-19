@@ -187,7 +187,7 @@
         <plantuml.version>1.2025.3</plantuml.version>
         <cssfx.version>11.5.1</cssfx.version>
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
-        <java-util.version>3.3.2</java-util.version>
+        <java-util.version>3.3.3</java-util.version>
         <eclipse-collections.version>11.1.0</eclipse-collections.version>
         <jep.version>4.2.2</jep.version>
         <imageio.version>3.12.0</imageio.version>
