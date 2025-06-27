@@ -1,4 +1,4 @@
-name: Check Aliyun Maven Dependencies and Plugins
+name: Check Aliyun Maven Dependencies
 
 on:
   pull_request_target:
@@ -72,7 +72,7 @@ jobs:
           cat changes.diff >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Parse dependencies and plugins
+      - name: Parse dependencies
         if: steps.check-author.outputs.is_dependabot == 'true'
         id: parse-deps
         uses: actions/github-script@v7
@@ -83,144 +83,107 @@ jobs:
             try {
               const buildType = '${{ steps.get-changes.outputs.build_type }}';
               const changes = '${{ steps.get-changes.outputs.changes }}';
-              const allComponents = []; // Changed to allComponents to include both deps and plugins
+              const dependencies = [];
 
               if (buildType === 'gradle') {
                 // Gradle 依赖解析
-                // Note: This script currently only handles added dependencies (lines starting with '+')
-                // For a more robust solution, you might need to compare the entire build.gradle
-                // before and after the PR to identify actual changes.
                 const regex = /([+-])\s*(implementation|api|compile|testImplementation|runtimeOnly)\s*['"]([^'"]+)['"]/g;
                 let match;
 
                 while ((match = regex.exec(changes)) !== null) {
-                  if (match[1] === '+') { // Only consider added dependencies for simplicity
+                  if (match[1] === '+') {
                     const depParts = match[3].split(':');
                     if (depParts.length === 3) {
-                      allComponents.push({
+                      dependencies.push({
                         group: depParts[0],
                         artifact: depParts[1],
-                        version: depParts[2],
-                        type: 'dependency' // Mark as dependency
+                        version: depParts[2]
                       });
                     }
                   }
                 }
               } else if (buildType === 'maven') {
-                // Maven 依赖和插件解析
+                // Maven 依赖解析
+                // 1. 读取并解析整个pom.xml
                 const pomContent = fs.readFileSync('pom.xml', 'utf-8');
+
+                // 使用xml2js解析pom.xml
                 const parser = new xml2js.Parser({ explicitArray: false });
                 const result = await parser.parseStringPromise(pomContent);
 
+                // 2. 分析变更
                 const diffLines = changes.split('\n');
                 const changedProperties = {};
-
-                // Extract properties
+                // 提取properties
                 const properties = result.project?.properties || {};
-
-                // Identify changed properties from the diff
-                const propertyRegex = /^([+-])\s*<([^>]+)>\s*([^<]+)\s*<\/[^>]+>$/; // Updated regex to be more general for properties
+                // 找出变更的属性
+                const propertyRegex = /^([+-])\s*<([^>]+\.version)>\s*([^<]+)\s*<\/[^>]+>$/;
                 for (const line of diffLines) {
                     const match = line.match(propertyRegex);
                     if (match && match[1] === '+') {
-                        const propName = match[2];
-                        const propValue = match[3].trim();
-                        changedProperties[propName] = propValue;
+                      const propName = match[2]; // 获取属性名
+                      const propValue = match[3].trim(); // 获取新值
+                      changedProperties[propName] = propValue;
                     }
                 }
+                // 3. 合并变更后的属性
                 const effectiveProperties = { ...properties, ...changedProperties };
 
                 console.log("=====changedProperties=====");
                 console.log(changedProperties);
 
-                // Helper function to resolve versions from properties
-                const resolveVersion = (version, effectiveProps) => {
-                    if (version && version.startsWith('${') && version.endsWith('}')) {
-                        const propName = version.slice(2, -1);
-                        return effectiveProps[propName] || version; // Return resolved version or original if not found
-                    }
-                    return version;
-                };
-
-                // Recursive function to extract dependencies
-                const extractDeps = (depsContainer, scope) => {
-                  if (!depsContainer?.dependency) return;
-                  const depList = Array.isArray(depsContainer.dependency) ? depsContainer.dependency : [depsContainer.dependency];
+                // 递归提取依赖的函数
+                const extractDeps = (deps, scope) => {
+                  if (!deps?.dependency) return;
+                  const depList = Array.isArray(deps.dependency) ? deps.dependency : [deps.dependency];
 
                   depList.forEach(dep => {
                     if (!dep.groupId || !dep.artifactId) return;
+                    // 处理版本号（可能是直接值或属性引用）
+                    let version = dep.version || '';
+                    let fromProperty = '';
 
-                    let version = resolveVersion(dep.version, effectiveProperties);
+                    if (version.startsWith('${') && version.endsWith('}')) {
+                        const propName = version.slice(2, -1);
+                        version = effectiveProperties[propName] || version;
+                        fromProperty = propName;
+                    }
 
-                    // Only include if the version was directly changed or its property changed
-                    if (changedProperties[dep.version?.slice(2,-1)] || (!dep.version || !dep.version.startsWith('${'))) {
-                        allComponents.push({
+                    // 只有当属性有变更或版本直接变更时才包含
+                    if (fromProperty in changedProperties || !version.startsWith('${')) {
+                        dependencies.push({
                             group: dep.groupId,
                             artifact: dep.artifactId,
                             version: version,
                             scope: scope || dep.scope || 'compile',
-                            type: 'dependency', // Mark as dependency
+                            fromProperty: fromProperty || undefined,
                             isManaged: scope === 'management'
                         });
                     }
                   });
                 };
 
-                // Recursive function to extract plugins
-                const extractPlugins = (pluginsContainer, scope) => {
-                    if (!pluginsContainer?.plugin) return;
-                    const pluginList = Array.isArray(pluginsContainer.plugin) ? pluginsContainer.plugin : [pluginsContainer.plugin];
-
-                    pluginList.forEach(plugin => {
-                        if (!plugin.groupId || !plugin.artifactId) return;
-
-                        let version = resolveVersion(plugin.version, effectiveProperties);
-
-                        // Only include if the version was directly changed or its property changed
-                        if (changedProperties[plugin.version?.slice(2,-1)] || (!plugin.version || !plugin.version.startsWith('${'))) {
-                            allComponents.push({
-                                group: plugin.groupId,
-                                artifact: plugin.artifactId,
-                                version: version,
-                                type: 'plugin', // Mark as plugin
-                                isManaged: scope === 'pluginManagement'
-                            });
-                        }
-                    });
-                };
-
-                // 1. Extract dependencies from dependencyManagement
+                // 1. 提取dependencyManagement中的依赖
                 if (result.project?.dependencyManagement?.dependencies) {
                     extractDeps(result.project.dependencyManagement.dependencies, 'management');
                 }
 
-                // 2. Extract regular dependencies
+                // 2. 提取普通dependencies
                 if (result.project?.dependencies) {
                     extractDeps(result.project.dependencies);
                 }
-
-                // 3. Extract plugins from pluginManagement
-                if (result.project?.build?.pluginManagement?.plugins) {
-                    extractPlugins(result.project.build.pluginManagement.plugins, 'pluginManagement');
-                }
-
-                // 4. Extract regular plugins
-                if (result.project?.build?.plugins) {
-                    extractPlugins(result.project.build.plugins);
-                }
-
               }
 
-              core.setOutput('components', JSON.stringify(allComponents)); // Output as 'components'
-              console.log("=====allComponents.length=====");
-              console.log(allComponents.length);
-              return allComponents.length;
+              core.setOutput('dependencies', JSON.stringify(dependencies));
+              console.log("=====dependencies.length=====");
+              console.log(dependencies.length);
+              return dependencies.length;
             } catch (error) {
-              core.setFailed(`Failed to parse dependencies and plugins: ${error}`);
+              core.setFailed(`Failed to parse dependencies: ${error}`);
             }
 
       - name: Check Aliyun Maven availability
-        if: steps.check-author.outputs.is_dependabot == 'true' && steps.parse-deps.outputs.components != '[]'
+        if: steps.check-author.outputs.is_dependabot == 'true' && steps.parse-deps.outputs.dependencies != '[]'
         id: check-aliyun
         uses: actions/github-script@v7
         with:
@@ -229,47 +192,43 @@ jobs:
             const { execSync } = require('child_process');
 
             try {
-              const components = JSON.parse('${{ steps.parse-deps.outputs.components }}'); // Get 'components'
+              const dependencies = JSON.parse('${{ steps.parse-deps.outputs.dependencies }}');
               const aliMavenUrl = 'https://maven.aliyun.com/repository/public';
               const results = [];
               const errresults = [];
 
-              for (const comp of components) {
-                // Skip specific artifacts if needed (e.g., javafxTool- which might not be in public repos)
-                if (comp.artifact.startsWith("javafxTool-")) {
-                  continue;
+              for (const dep of dependencies) {
+                if (dep.artifact.startsWith("javafxTool-")) {
+                    continue;
                 }
-
-                const artifactPath = comp.group.replace(/\./g, '/') + '/' + comp.artifact + '/' + comp.version;
-                const pomUrl = `${aliMavenUrl}/${artifactPath}/${comp.artifact}-${comp.version}.pom`;
-                console.log(`Checking: ${pomUrl}`);
+                const artifactPath = dep.group.replace(/\./g, '/') + '/' + dep.artifact + '/' + dep.version;
+                const pomUrl = `${aliMavenUrl}/${artifactPath}/${dep.artifact}-${dep.version}.pom`;
+                console.log(pomUrl);
 
                 try {
-                  // Use a timeout for curl to prevent hanging
-                  execSync(`curl -m 10 -I -s -o /dev/null -w "%{http_code}" ${pomUrl} | grep 200`);
-                  results.push(`✅ [${comp.type === 'plugin' ? '插件' : '依赖'}] ${comp.group}:${comp.artifact}:${comp.version} - 可用`);
+                  execSync(`curl -I -s -o /dev/null -w "%{http_code}" ${pomUrl} | grep 200`);
+                  results.push(`✅ ${dep.group}:${dep.artifact}:${dep.version} - 可用`);
                 } catch (e) {
-                  errresults.push(`❌ [${comp.type === 'plugin' ? '插件' : '依赖'}] ${comp.group}:${comp.artifact}:${comp.version} - 不可用`);
+                  errresults.push(`❌ ${dep.group}:${dep.artifact}:${dep.version} - 不可用`);
                 }
               }
 
-              if (results.length > 0 || errresults.length > 0) { // Ensure comment is made even if all are available
-                const { data: comments } = await github.rest.issues.listComments({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: context.issue.number,
+                if (results.length > 0) {
+                  const { data: comments } = await github.rest.issues.listComments({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: context.issue.number,
                 });
 
-                // Find our previously posted comment (by specific identifier)
+                // 查找我们之前发布的评论（通过特定标识）
                 const botComment = comments.find(comment =>
                   comment.user.login === 'github-actions[bot]' &&
-                  comment.body.startsWith('### 阿里云 Maven 组件检查结果') // Updated comment identifier
+                  comment.body.startsWith('### 阿里云 Maven 依赖检查结果')
                 );
 
-                const commentBody = `### 阿里云 Maven 组件检查结果\n\n${errresults.join('\n')}\n\n<details><summary>点击查看可用的组件</summary>${results.join('<br>\n')}<br></details>`;
-
+                const commentBody = `### 阿里云 Maven 依赖检查结果\n\n${errresults.join('\n')}\n\n<details><summary>点击查看可用的依赖</summary>${results.join('<br>\n')}<br></details>`;
                 if (botComment) {
-                  // Update existing comment
+                  // 更新现有评论
                   await github.rest.issues.updateComment({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
@@ -277,7 +236,7 @@ jobs:
                       body: commentBody
                   });
                 } else {
-                  // Create new comment
+                  // 创建新评论
                   github.rest.issues.createComment({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
@@ -287,15 +246,14 @@ jobs:
                 }
 
                 core.setOutput('result', commentBody);
-              } else {
-                  core.setOutput('result', 'No new dependencies or plugins found to check.');
               }
-              return 'Component check completed';
+
+              return 'Dependency check completed';
             } catch (error) {
               core.setFailed(`Action failed with error: ${error}`);
             }
 
       - name: Output result
-        if: steps.check-author.outputs.is_dependabot == 'true' && steps.parse-deps.outputs.components != '[]'
+        if: steps.check-author.outputs.is_dependabot == 'true' && steps.parse-deps.outputs.dependencies != '[]'
         run: echo "${{ steps.check-aliyun.outputs.result }}"
 
