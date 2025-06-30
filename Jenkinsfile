@@ -69,7 +69,7 @@ pipeline {
 
         stage('Prepare JRE') {
             steps {
-                copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'JRE', selector: lastSuccessful()
+                copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'env/JRE', selector: lastSuccessful()
                 sh "$M2_HOME/bin/mvn -version"
             }
             post {
