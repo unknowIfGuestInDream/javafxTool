@@ -140,7 +140,7 @@
         <guava.version>33.4.8-jre</guava.version>
         <caffeine.version>3.2.1</caffeine.version>
         <java-diff-utils.version>4.15</java-diff-utils.version>
-        <dom4j.version>2.1.4</dom4j.version>
+        <dom4j.version>2.2.0</dom4j.version>
         <jexl.version>3.5.0</jexl.version>
         <pdfbox.version>3.0.5</pdfbox.version>
         <pdfviewfx.version>3.1.1</pdfviewfx.version>
