@@ -18,7 +18,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | commons-lang3          | 3.17.0       | Java工具类库                         |
 | commons-configuration2 | 2.12.0       | 用于从各种源读取配置数据                     |
 | cssfx                  | 11.5.1       | css 实时重载工具                       |
-| dom4j                  | 2.1.4        | XML 框架                           |
+| dom4j                  | 2.2.0        | XML 框架                           |
 | freemarker             | 2.3.34       | 模板引擎库                            |
 | groovy                 | 4.0.27       | Groovy                           |
 | hutool                 | 5.8.39       | Java工具类库                         |
