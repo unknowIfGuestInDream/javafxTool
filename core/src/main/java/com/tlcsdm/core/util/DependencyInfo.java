@@ -232,7 +232,7 @@ public class DependencyInfo {
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.fazecast", "jSerialComm", "2.11.0", false,
+            new Dependency("com.fazecast", "jSerialComm", "2.11.2", false,
                 "https://fazecast.github.io/jSerialComm", "GNU LGPL",
                 "https://www.gnu.org/licenses/lgpl-3.0.html"),
 
