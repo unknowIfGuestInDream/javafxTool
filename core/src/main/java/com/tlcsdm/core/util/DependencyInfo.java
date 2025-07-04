@@ -88,7 +88,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.dom4j", "dom4j", "2.1.4", false, "http://dom4j.github.io/", "Plexus",
+            new Dependency("org.dom4j", "dom4j", "2.2.0", false, "http://dom4j.github.io/", "Plexus",
                 "https://github.com/dom4j/dom4j/blob/master/LICENSE"),
 
             new Dependency("io.github.java-diff-utils", "java-diff-utils", "4.15", false,
