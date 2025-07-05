@@ -37,6 +37,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,6 +45,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -128,9 +130,11 @@ class CSCcrlParseTest {
             // 加载 XML 文档
             DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(project);
-
+            XPathFactory xpathfactory = XPathFactory.newInstance();
+            // 关闭限制 #2229
+            xpathfactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
             // 执行 XPath 查询
-            XPath xpath = XPathFactory.newInstance().newXPath();
+            XPath xpath = xpathfactory.newXPath();
             NodeList nodeList = (NodeList) xpath.evaluate(xpathExpr, document, XPathConstants.NODESET);
 
             // 构造标签->值映射
@@ -151,7 +155,8 @@ class CSCcrlParseTest {
                     System.out.println(tag + " 未找到");
                 }
             }
-        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException |
+                 XPathFactoryConfigurationException e) {
             throw new RuntimeException(e);
         }
     }
