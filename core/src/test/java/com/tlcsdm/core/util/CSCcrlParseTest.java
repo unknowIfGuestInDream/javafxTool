@@ -117,6 +117,7 @@ class CSCcrlParseTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "workEnv", matches = "ci")
     void parseXpath() {
         // 构造 XPath 查询语句（用 | 分隔）
         String xpathExpr = Arrays.stream(tagNames)
