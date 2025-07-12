@@ -58,7 +58,7 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/2.0.17/log4j-over-slf4j-2.0.17.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/jonathangiles/tools/teenyhttpd/1.0.5/teenyhttpd-1.0.5.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.39/hutool-log-5.8.39.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/java-diff-utils/java-diff-utils/4.15/java-diff-utils-4.15.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/java-diff-utils/java-diff-utils/4.16/java-diff-utils-4.16.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21.0.7/javafx-fxml-21.0.7.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.18/logback-classic-1.5.18.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21.0.7/javafx-controls-21.0.7-mac.jar" path-in-jar="/" />

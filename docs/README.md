@@ -24,7 +24,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | hutool                 | 5.8.39       | Java工具类库                         |
 | icns                   | 1.2          | 处理 Apple Icon Image 格式图标的 Java 库 |
 | image4j                | 0.7.2        | 处理 BMP 和 ICO 图像格式的 Java 库        |
-| java-diff-utils        | 4.15         | 用于在文本或某种数据之间执行比较/差异操作            |
+| java-diff-utils        | 4.16         | 用于在文本或某种数据之间执行比较/差异操作            |
 | jackson                | 2.19.1       | JSON解析库                          |
 | jSerialComm            | 2.11.2       | 串口通信库                            |
 | junit                  | 5.13.3       | 单元测试框架                           |

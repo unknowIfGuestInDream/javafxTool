@@ -139,7 +139,7 @@
         <log4j-over-slf4j.version>2.0.17</log4j-over-slf4j.version>
         <guava.version>33.4.8-jre</guava.version>
         <caffeine.version>3.2.1</caffeine.version>
-        <java-diff-utils.version>4.15</java-diff-utils.version>
+        <java-diff-utils.version>4.16</java-diff-utils.version>
         <dom4j.version>2.2.0</dom4j.version>
         <jexl.version>3.5.0</jexl.version>
         <pdfbox.version>3.0.5</pdfbox.version>
