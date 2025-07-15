@@ -11,7 +11,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | JDK                    | 17           | Adoptium JDK                     |
 | JavaFX                 | 21.0.7       | JavaFX                           |
 | controlsfx             | 11.2.2       | javafx UI控件                      |
-| caffeine               | 3.2.1        | 本地缓存                             |
+| caffeine               | 3.2.2        | 本地缓存                             |
 | checker-qual           | 3.49.4       | Java 的可插拔类型检查                    |
 | commons-imaging        | 1.0.0-alpha6 | 图像处理库                            |
 | commons-io             | 2.19.0       | IO工具                             |
