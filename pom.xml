@@ -150,7 +150,7 @@
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.4.0</ikonli.version>
         <richtextfx.version>0.11.5</richtextfx.version>
-        <groovy.version>4.0.27</groovy.version>
+        <groovy.version>4.0.28</groovy.version>
         <thumbnailator.version>0.4.20</thumbnailator.version>
         <gson.version>2.13.1</gson.version>
         <tabula.version>1.0.5</tabula.version>
@@ -171,7 +171,7 @@
         <pmd.version>7.15.0</pmd.version>
         <bytebuddy.version>1.17.6</bytebuddy.version>
         <tess4j.version>5.16.0</tess4j.version>
-        <hikariCP.version>6.3.1</hikariCP.version>
+        <hikariCP.version>6.3.0</hikariCP.version>
         <druid.version>1.2.27</druid.version>
         <h2.version>2.3.232</h2.version>
         <jcommander.version>2.0</jcommander.version>
