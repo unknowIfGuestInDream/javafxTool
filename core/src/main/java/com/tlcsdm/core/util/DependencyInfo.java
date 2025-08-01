@@ -208,7 +208,7 @@ public class DependencyInfo {
                 "https://github.com/mcfoggy/cssfx",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("org.apache.commons", "commons-compress", "1.27.1", false,
+            new Dependency("org.apache.commons", "commons-compress", "1.28.0", false,
                 "https://commons.apache.org/proper/commons-compress/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 

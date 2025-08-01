@@ -73,7 +73,7 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/fxmisc/richtext/richtextfx/0.11.5/richtextfx-0.11.5.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/yahoo/platform/yui/yuicompressor/2.4.8/yuicompressor-2.4.8.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/gino0631/icns-core/1.2/icns-core-1.2.jar" path-in-jar="/" />
         </root>
     </artifact>
