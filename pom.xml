@@ -171,7 +171,7 @@
         <pmd.version>7.16.0</pmd.version>
         <bytebuddy.version>1.17.6</bytebuddy.version>
         <tess4j.version>5.16.0</tess4j.version>
-        <hikariCP.version>7.0.0</hikariCP.version>
+        <hikariCP.version>7.0.1</hikariCP.version>
         <druid.version>1.2.27</druid.version>
         <h2.version>2.3.232</h2.version>
         <jcommander.version>2.0</jcommander.version>
