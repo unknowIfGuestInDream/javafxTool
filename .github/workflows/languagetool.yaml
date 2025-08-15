@@ -31,7 +31,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check ${{ matrix.language_configs.name }}
         uses: reviewdog/action-languagetool@v1
         with:
