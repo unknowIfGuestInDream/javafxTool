@@ -30,6 +30,7 @@ package com.tlcsdm.core.util;
 import cn.hutool.core.io.resource.ResourceUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,8 +53,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * 解析mtpj构建ccrl命令
@@ -87,22 +86,21 @@ class CSCcrlParseTest {
             //Code generation changing
             "COptionDblSize-0", "COptionSignedChar-0", "COptionSignedBitfield-0", "COptionSwitch-0", "COptionVolatile-0",
             "COptionMergeString-0", "COptionPack-0", "COptionStuffBSS-0", "COptionStuffData-0", "COptionStuffConst-0",
-            "COptionStackProtector-0", "COptionStackProtectorValue-0", "COptionControlFlowIntegrity-0", "COptionInsertNopWithLabel-0",
             //Extensions
             "COptionLargeVariable-0",
             //Compiler transition support
             "COptionConvertCc-0", "COptionUnalignedPointerForCA78K0R-0",
             //rlink
             //Input control
-            "LinkOptionDefine-0", "LinkOptionInput-0", "LinkOptionBinary-0", "LinkOptionEntry-0", "LinkOptionEntryPoint-0", "LibOptionAllowDuplicateModuleName-0",
+            "LinkOptionDefine-0", "LinkOptionInput-0", "LinkOptionLibrary-0", "LinkOptionBinary-0", "LinkOptionEntry-0",
+            "LinkOptionEntryPoint-0", "LibOptionAllowDuplicateModuleName-0",
             //Output control
-            "HexOptionForm-0", "LinkOptionDebug-0", "LinkOptionRom-0", "HexOptionSpace-0", "HexOptionSpaceValue-0", "LinkOptionMessage-0",
-            "LinkOptionVect-0", "LinkOptionVectN-0",
+            "HexOptionForm-0", "LinkOptionDebug-0", "LinkOptionRom-0", "LinkOptionMessage-0", "LinkOptionVect-0", "LinkOptionVectN-0",
             //List output
             "LinkOptionShowVector-0", "LinkOptionShowStruct-0", "LinkOptionShowRelocationAttribute-0", "LinkOptionShowCFI-0",
             "LinkOptionShowSymbol-0", "LinkOptionShowReference-0", "LinkOptionShowXreference-0", "LinkOptionShowTotalSize-0",
             //Optimization
-            "COptionGoptimize-0", "LinkOptionOptimize-0", "LinkOptionOptimizeSymbolDelete-0", "LinkOptionOptimizeBranch-0",
+            "LinkOptionOptimize-0", "LinkOptionOptimizeSymbolDelete-0", "LinkOptionOptimizeBranch-0",
             "LinkOptionSectionForbid-0", "LinkOptionAbsoluteForbid-0", "LinkOptionSymbolForbid-0",
             //Section specification
             "LinkOptionStart-0", "LinkOptionFSymbol-0", "LinkOptionUserOptByte-0", "LinkOptionUserOptByteValue-0", "LinkOptionOcdbg-0",
@@ -114,7 +112,7 @@ class CSCcrlParseTest {
             //dspasm
             "DSPAsmOptionOutputAsm-0", "DSPAsmOptionOutputVerilog-0", "DSPAsmOptionTextmacro-0", "DSPAsmOptionDefine-0",
             "DSPAsmOptionAllowTextMacroRedefine-0", "DSPAsmOptionCore-0", "DSPAsmOptionCodeSectionStart-0", "DSPAsmOptionDataSectionStart-0",
-            "DSPAsmOptionNoDebugInfo-0", "DSPAsmOptionLabel-0", "DSPAsmOptionMacroIdentifyExact-0"
+            "DSPAsmOptionLabel-0", "DSPAsmOptionMacroIdentifyExact-0"
         };
     }
 
