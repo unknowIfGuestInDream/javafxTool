@@ -38,6 +38,8 @@ pipeline {
         stage('Check change') {
             when {
                 expression { currentBuild.previousSuccessfulBuild != null }
+                // 不是用户手动点击触发的构建
+                expression { currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause) == null }
             }
             steps {
                 echo "Current commit: ${GIT_COMMIT}"
