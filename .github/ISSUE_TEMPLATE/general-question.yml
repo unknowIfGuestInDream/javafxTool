@@ -1,6 +1,6 @@
 name: General question
 description: Ask a question here
-title: "[Question]"
+title: "[Question] "
 labels:
   - question
 assignees: unknowIfGuestInDream
