@@ -8,10 +8,10 @@
       <element id="module-output" name="javafxTool-common" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.18/logback-classic-1.5.18.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.18/logback-core-1.5.18.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.39/hutool-core-5.8.39.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-crypto/5.8.39/hutool-crypto-5.8.39.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.39/hutool-log-5.8.39.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-poi/5.8.39/hutool-poi-5.8.39.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.40/hutool-core-5.8.40.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-crypto/5.8.40/hutool-crypto-5.8.40.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.40/hutool-log-5.8.40.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-poi/5.8.40/hutool-poi-5.8.40.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.19.2/jackson-annotations-2.19.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.19.2/jackson-core-2.19.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.19.2/jackson-databind-2.19.2.jar" path-in-jar="/" />

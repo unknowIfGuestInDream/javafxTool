@@ -65,7 +65,7 @@ public class DependencyInfo {
             new Dependency("ch.qos.logback", "logback", "1.5.18", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
-            new Dependency("cn.hutool", "hutool", "5.8.39", true, "https://github.com/dromara/hutool",
+            new Dependency("cn.hutool", "hutool", "5.8.40", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
             new Dependency("org.apache.commons", "commons-lang3", "3.18.0", true,
