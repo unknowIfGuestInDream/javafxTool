@@ -130,7 +130,7 @@ public class DependencyInfo {
             new Dependency("org.kordamp.ikonli", "ikonli", "12.4.0", false, "https://github.com/kordamp/ikonli",
                 "Apache-2.0", "https://spdx.org/licenses/Apache-2.0.html"),
 
-            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.2.1", false,
+            new Dependency("com.dlsc.pdfviewfx", "pdfviewfx", "3.3.0", false,
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
