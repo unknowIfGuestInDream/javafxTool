@@ -188,7 +188,7 @@ public class DependencyInfo {
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
-            new Dependency("org.checkerframework", "checker-qual", "3.49.4", true,
+            new Dependency("org.checkerframework", "checker-qual", "3.50.0", true,
                 "https://github.com/typetools/checker-framework",
                 "MIT License", "http://opensource.org/licenses/MIT"),
 
