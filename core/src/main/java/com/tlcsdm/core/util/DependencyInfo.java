@@ -134,7 +134,7 @@ public class DependencyInfo {
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.5", false,
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.6", false,
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 

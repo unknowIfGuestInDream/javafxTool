@@ -32,7 +32,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | poi-ooxml              | 5.4.1        | 用于Microsoft Documents的Java API   |
 | preferencesfx          | 11.17.0      | 为应用程序设置/首选项创建 UI 的框架             |
 | reflections            | 0.10.2       | Java 运行时元数据分析                    |
-| richtextfx             | 0.11.5       | JavaFX 的富文本组件                    |
+| richtextfx             | 0.11.6       | JavaFX 的富文本组件                    |
 | teenyHttpd             | 1.0.5        | 轻量的HTTP 服务器                      |
 | thumbnailator          | 0.4.20       | 图片转码和缩略工具                        |
 | yuicompressor          | 2.4.8        | JS/CSS压缩工具                       |
