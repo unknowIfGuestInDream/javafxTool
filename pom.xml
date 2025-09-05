@@ -106,7 +106,7 @@
         <controlsfx.version>11.2.2</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.40</lombok.version>
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.4.1</poi-ooxml.version>
         <freemarker.version>2.3.34</freemarker.version>
