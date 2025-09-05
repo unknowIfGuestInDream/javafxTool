@@ -75,7 +75,7 @@ jobs:
       - name: Parse dependencies
         if: steps.check-author.outputs.is_dependabot == 'true'
         id: parse-deps
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -185,7 +185,7 @@ jobs:
       - name: Check Aliyun Maven availability
         if: steps.check-author.outputs.is_dependabot == 'true' && steps.parse-deps.outputs.dependencies != '[]'
         id: check-aliyun
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
