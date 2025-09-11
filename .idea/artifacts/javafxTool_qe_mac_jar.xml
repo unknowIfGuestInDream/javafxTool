@@ -44,7 +44,7 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/gino0631/clove-io/0.2/clove-io-0.2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml-lite/5.4.1/poi-ooxml-lite-5.4.1.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/fxmisc/undo/undofx/2.1.1/undofx-2.1.1.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.50.0/checker-qual-3.50.0.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.51.0/checker-qual-3.51.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/rhino/js/1.7R2/js-1.7R2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/ifok/image/image4j/0.7.2/image4j-0.7.2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fazecast/jSerialComm/2.11.2/jSerialComm-2.11.2.jar" path-in-jar="/" />
