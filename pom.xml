@@ -137,7 +137,7 @@
         <javassist.version>3.30.2-GA</javassist.version>
         <log4j2.version>2.25.1</log4j2.version>
         <log4j-over-slf4j.version>2.0.17</log4j-over-slf4j.version>
-        <guava.version>33.4.8-jre</guava.version>
+        <guava.version>33.5.0-jre</guava.version>
         <caffeine.version>3.2.2</caffeine.version>
         <java-diff-utils.version>4.16</java-diff-utils.version>
         <dom4j.version>2.2.0</dom4j.version>
