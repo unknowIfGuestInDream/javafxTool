@@ -184,7 +184,7 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core-java11", "6.8.3", false,
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.9.0", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
