@@ -163,7 +163,7 @@
         <java2.version>3.5.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
         <jaxb.version>4.0.5</jaxb.version>
-        <jakarta.jaxb.version>4.0.5</jakarta.jaxb.version>
+        <jakarta.jaxb.version>4.0.6</jakarta.jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.4</jython.version>
         <violations.version>1.159.1</violations.version>
