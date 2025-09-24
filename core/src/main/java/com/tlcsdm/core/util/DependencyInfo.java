@@ -164,7 +164,7 @@ public class DependencyInfo {
                 "https://github.com/yui/yuicompressor", "BSD License",
                 "https://github.com/yui/yuicompressor/blob/master/LICENSE.TXT"),
 
-            new Dependency("com.sun.xml.bind", "jaxb", "4.0.5", false, "https://github.com/eclipse-ee4j/jaxb-ri",
+            new Dependency("com.sun.xml.bind", "jaxb", "4.0.6", false, "https://github.com/eclipse-ee4j/jaxb-ri",
                 "BSD-3-Clause license", "http://www.eclipse.org/org/documents/edl-v10.php"),
 
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
