@@ -15,7 +15,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | checker-qual           | 3.51.0       | Java 的可插拔类型检查                    |
 | commons-imaging        | 1.0.0-alpha6 | 图像处理库                            |
 | commons-io             | 2.20.0       | IO工具                             |
-| commons-lang3          | 3.18.0       | Java工具类库                         |
+| commons-lang3          | 3.19.0       | Java工具类库                         |
 | commons-configuration2 | 2.12.0       | 用于从各种源读取配置数据                     |
 | cssfx                  | 11.5.1       | css 实时重载工具                       |
 | dom4j                  | 2.2.0        | XML 框架                           |
