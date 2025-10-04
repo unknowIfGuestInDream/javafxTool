@@ -6,8 +6,8 @@
       <element id="module-output" name="javafxTool-frame" />
       <element id="module-output" name="javafxTool-core" />
       <element id="module-output" name="javafxTool-common" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.18/logback-classic-1.5.18.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.18/logback-core-1.5.18.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.19/logback-classic-1.5.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.19/logback-core-1.5.19.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.40/hutool-core-5.8.40.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-crypto/5.8.40/hutool-crypto-5.8.40.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.40/hutool-log-5.8.40.jar" path-in-jar="/" />
