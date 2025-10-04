@@ -148,7 +148,7 @@ public class DependencyInfo {
                 "https://github.com/killme2008/aviator", "GNU LESSER GENERAL PUBLIC LICENSE",
                 "http://www.gnu.org/licenses/lgpl.html"),
 
-            new Dependency("net.coobird", "thumbnailator", "0.4.20", false,
+            new Dependency("net.coobird", "thumbnailator", "0.4.21", false,
                 "https://github.com/coobird/thumbnailator", "MIT License",
                 "https://spdx.org/licenses/MIT.html"),
 

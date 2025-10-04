@@ -34,5 +34,5 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | reflections            | 0.10.2       | Java 运行时元数据分析                    |
 | richtextfx             | 0.11.6       | JavaFX 的富文本组件                    |
 | teenyHttpd             | 1.0.5        | 轻量的HTTP 服务器                      |
-| thumbnailator          | 0.4.20       | 图片转码和缩略工具                        |
+| thumbnailator          | 0.4.21       | 图片转码和缩略工具                        |
 | yuicompressor          | 2.4.8        | JS/CSS压缩工具                       |
