@@ -71,7 +71,7 @@ pipeline {
 
         stage('Prepare JRE') {
             steps {
-                sh 'rm -f *linux*17*.zip *mac*17*.zip *windows*17*.zip || true'
+                sh 'rm -f *linux*17*.tar.gz *mac*17*.tar.gz *windows*17*.zip || true'
                 copyArtifacts filter: '*linux*17*,*mac*17*,*windows*17*', fingerprintArtifacts: true, projectName: 'env/JRE', selector: lastSuccessful()
                 sh "$M2_HOME/bin/mvn -version"
             }
