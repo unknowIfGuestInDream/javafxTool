@@ -4,7 +4,7 @@ Shout out to our top contributors!
 - [unknowIfGuestInDream](https://github.com/unknowIfGuestInDream)
 - [DreamAwakenFateBroke](https://github.com/DreamAwakenFateBroke)
 - [step-security-bot](https://github.com/step-security-bot)
-- [sweep-ai[bot]](https://github.com/apps/sweep-ai)
+- [sweep-ai-deprecated[bot]](https://github.com/apps/sweep-ai-deprecated)
 
 
-_Last updated: Wed, 01 Oct 25 01:08:45 +0000_
+_Last updated: Mon, 01 Dec 25 01:51:50 +0000_
