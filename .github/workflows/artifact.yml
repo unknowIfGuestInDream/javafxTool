@@ -54,7 +54,7 @@ jobs:
           mkdir aftifact
           sh ./jenkins/jre.sh
       - name: Artifact JRE
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: JRE
           path: |
@@ -100,7 +100,7 @@ jobs:
           cp -r ${{ matrix.mod }}/target/license ${result_path}/license
           cp -r `ls -A jenkins/${{ matrix.buildos }}/${{ matrix.mod }}/*` ${result_path}
       - name: Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.mod }}Tool-${{ matrix.buildos }}
           path: |
