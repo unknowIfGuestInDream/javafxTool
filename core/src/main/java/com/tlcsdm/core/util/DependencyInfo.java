@@ -200,7 +200,7 @@ public class DependencyInfo {
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.7", false,
+            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.10", false,
                 "https://plantuml.com/",
                 "MIT License", "https://opensource.org/license/mit/"),
 
