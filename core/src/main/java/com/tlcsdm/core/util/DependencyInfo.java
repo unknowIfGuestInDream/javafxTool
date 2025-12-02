@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.17.7", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.18.2", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.16.0", false, "https://github.com/nguyenq/tess4j",
@@ -200,7 +200,7 @@ public class DependencyInfo {
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.7", false,
+            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2025.10", false,
                 "https://plantuml.com/",
                 "MIT License", "https://opensource.org/license/mit/"),
 
