@@ -18,5 +18,5 @@
     "java.sources.organizeImports.staticStarThreshold": 999,
     "java.dependency.packagePresentation": "hierarchical",
     "java.debug.settings.onBuildFailureProceed": true,
-    "maven.executable.options": "-Dmaven.test.skip=true"
+    "maven.executable.options": "-DskipTests"
 }

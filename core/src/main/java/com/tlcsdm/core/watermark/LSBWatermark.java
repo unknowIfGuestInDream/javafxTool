@@ -27,12 +27,13 @@
 
 package com.tlcsdm.core.watermark;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
+
+import javax.imageio.ImageIO;
 
 /**
  * 基于LSB（最低有效位）的暗水印实现.

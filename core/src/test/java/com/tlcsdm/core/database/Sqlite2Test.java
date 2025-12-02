@@ -28,15 +28,16 @@
 package com.tlcsdm.core.database;
 
 import com.tlcsdm.core.database.sqlite.UserDao;
+
+import java.nio.file.Path;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import java.nio.file.Path;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * @author unknowIfGuestInDream

@@ -27,9 +27,6 @@
 
 package com.tlcsdm.core.oshi;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.ComputerSystem;
 import oshi.hardware.Display;
@@ -48,6 +45,10 @@ import oshi.util.FormatUtil;
 import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

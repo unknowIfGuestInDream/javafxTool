@@ -30,12 +30,13 @@ package com.tlcsdm.core.watermark;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.log.StaticLog;
 import org.apache.commons.io.FilenameUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * @author unknowIfGuestInDream

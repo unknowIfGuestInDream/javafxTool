@@ -35,8 +35,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tlcsdm.core.ai.deepseek.DeepSeekApiException;
 import com.tlcsdm.core.ai.deepseek.DeepSeekChatClient;
 import com.tlcsdm.core.util.JacksonUtil;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -44,6 +42,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
