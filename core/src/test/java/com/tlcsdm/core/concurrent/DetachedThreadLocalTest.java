@@ -27,12 +27,12 @@
 
 package com.tlcsdm.core.concurrent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author unknowIfGuestInDream

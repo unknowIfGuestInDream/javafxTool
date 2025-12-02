@@ -28,8 +28,6 @@
 package com.tlcsdm.core.database;
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -38,6 +36,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream

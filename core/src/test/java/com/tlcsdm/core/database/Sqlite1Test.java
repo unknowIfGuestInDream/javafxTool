@@ -29,15 +29,16 @@ package com.tlcsdm.core.database;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.tlcsdm.core.database.sqlite.UserDao;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author unknowIfGuestInDream
