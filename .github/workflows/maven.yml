@@ -32,10 +32,10 @@ jobs:
           cache: maven
       - name: Build with Maven in Mac
         if: runner.os == 'Macos'
-        run: mvn -B clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=mac'
+        run: mvn -B -U clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=mac'
       - name: Build with Maven
         if: runner.os != 'Macos'
-        run: mvn -B clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
+        run: mvn -B -U clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
       - name: Test with Maven in Mac
         if: runner.os == 'Macos'
         run: mvn test --file pom.xml -DworkEnv=ci '-Djavafx.platform=mac' '-Dkotest.framework.classpath.scanning.autoscan.disable=true'

@@ -493,6 +493,9 @@ public class SerialPortTool extends QeSample implements Initializable {
 
     @Override
     public void dispose() {
+        if (serPort == null) {
+            return;
+        }
         SerialPort serialPort = serPort.getSelectionModel().getSelectedItem();
         if (serialPort == null) {
             return;

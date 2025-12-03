@@ -1271,6 +1271,9 @@
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
                     <maxmem>256m</maxmem>
+                    <compilerArgs>
+                        <arg>--add-modules=ALL-SYSTEM</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -1283,10 +1286,15 @@
                     <threadCountSuites>2</threadCountSuites>
                     <threadCountClasses>3</threadCountClasses>
                     <threadCountMethods>5</threadCountMethods>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                    <argLine>-Xms512m -Xmx1600m</argLine>
-                    <argLine>--add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
-                    <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
+                    <argLine>
+                        -Xms512m -Xmx1600m
+                        --add-modules=ALL-SYSTEM
+                        --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED
+                        --add-opens javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED
+                        -Dfile.encoding=${project.build.sourceEncoding}
+                    </argLine>
                     <forkCount>1C</forkCount>
                     <reuseForks>false</reuseForks>
                     <testFailureIgnore>true</testFailureIgnore>
