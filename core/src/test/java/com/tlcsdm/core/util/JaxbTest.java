@@ -47,18 +47,43 @@ import com.tlcsdm.core.util.jaxb.mdf.PowerControlVariableSetting;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
+import javax.xml.crypto.dsig.CanonicalizationMethod;
+import javax.xml.crypto.dsig.DigestMethod;
+import javax.xml.crypto.dsig.Reference;
+import javax.xml.crypto.dsig.SignatureMethod;
+import javax.xml.crypto.dsig.SignedInfo;
+import javax.xml.crypto.dsig.Transform;
+import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
+import javax.xml.crypto.dsig.dom.DOMSignContext;
+import javax.xml.crypto.dsig.dom.DOMValidateContext;
+import javax.xml.crypto.dsig.keyinfo.KeyInfo;
+import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
+import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
+import javax.xml.crypto.dsig.spec.TransformParameterSpec;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 /**
  * @author unknowIfGuestInDream
@@ -405,6 +430,100 @@ public class JaxbTest {
         StringWriter stringWriter = new StringWriter();
         mar.marshal(apn, stringWriter);
         System.out.println(stringWriter);
+    }
+
+    @Test
+    void testXmlSignatureWithBook() throws Exception {
+
+        // 固定日期，确保测试稳定
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date fixedDate = sdf.parse("2025-12-04 12:00:00");
+
+        // 1. 构造 Book
+        Book book = new Book();
+        book.setId(1L);
+        book.setName("XML Signature Test");
+        book.setAuthor("Hidden"); // 被 @XmlTransient，不会输出
+        book.setDate(fixedDate);
+
+        // 2. JAXB 序列化为 XML Document
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().newDocument();
+
+        JAXBContext context = JAXBContext.newInstance(Book.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(book, doc);
+
+        // --- 断言输出 XML 正常 ---
+        String originalXml = docToString(doc);
+        Assertions.assertTrue(originalXml.contains("<date>2025-12-04 12:00:00</date>"));
+        Assertions.assertFalse(originalXml.contains("<author>")); // @XmlTransient 生效
+
+        // 3. 生成 RSA 密钥
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+        kpg.initialize(2048);
+        KeyPair keyPair = kpg.generateKeyPair();
+
+        // 4. XML SignatureFactory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        // enveloped 签名：排除 Signature 节点自身
+        Reference ref = fac.newReference(
+            "",
+            fac.newDigestMethod(DigestMethod.SHA256, null),
+            Collections.singletonList(
+                fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null)
+                                     ),
+            null,
+            null
+                                        );
+
+        SignedInfo signedInfo = fac.newSignedInfo(
+            fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+            fac.newSignatureMethod(SignatureMethod.RSA_SHA256, null),
+            Collections.singletonList(ref)
+                                                 );
+
+        // 可选 KeyInfo
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyInfo keyInfo = kif.newKeyInfo(
+            Collections.singletonList(kif.newKeyName("JUnit Test Key"))
+                                        );
+
+        // 5. 使用私钥签名
+        DOMSignContext dsc = new DOMSignContext(keyPair.getPrivate(), doc.getDocumentElement());
+        XMLSignature signature = fac.newXMLSignature(signedInfo, keyInfo);
+        signature.sign(dsc);
+
+        // 6. 签名后的 XML
+        String signedXml = docToString(doc);
+        System.out.println("---- 签名后的 XML ----");
+        System.out.println(signedXml);
+
+        Assertions.assertTrue(signedXml.contains("<Signature")); // 有签名节点
+
+        // 7. 验证签名
+        NodeList nl = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        Assertions.assertEquals(1, nl.getLength(), "应当存在一个 Signature 节点");
+
+        DOMValidateContext valContext = new DOMValidateContext(keyPair.getPublic(), nl.item(0));
+        XMLSignature sig = fac.unmarshalXMLSignature(valContext);
+
+        boolean isValid = sig.validate(valContext);
+
+        Assertions.assertTrue(isValid, "XML Signature 验证失败");
+    }
+
+    // 辅助方法：Document → 字符串
+    private static String docToString(Document doc) throws Exception {
+        Transformer tf = TransformerFactory.newInstance().newTransformer();
+        tf.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        StringWriter sw = new StringWriter();
+        tf.transform(new DOMSource(doc), new StreamResult(sw));
+        return sw.toString();
     }
 
 }
