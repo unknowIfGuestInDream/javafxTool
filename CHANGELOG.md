@@ -1,6 +1,28 @@
 # CHANGELOG
 
-## [v1.0.1-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-qe) - 2025-05-11 12:37:47
+## [v1.0.12-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.12-smc) - 2025-12-06 10:26:06+00:00
+
+1. Add Keys.SkipBootAnimation config
+2. Upgrade common tool
+3. Dependency upgrade
+
+### Feature
+
+- core:
+  - Add IndustrialHashMap ([2647f2c](https://github.com/unknowIfGuestInDream/javafxTool/commit/2647f2c2f3caa5d3568b0b23067c296a8c7b7915))
+
+- general:
+  - Improve language action ([10c73c0](https://github.com/unknowIfGuestInDream/javafxTool/commit/10c73c06a4a8fcbe738909b9b7b81cffed0fb1cd))
+
+### Bug Fixes
+
+- qe:
+  - Fix serialPort dispose error (#2370) ([5286d2f](https://github.com/unknowIfGuestInDream/javafxTool/commit/5286d2f4d8e1fa1ee8b74c463c158c0abd0ed90f)) ([#2370](https://github.com/unknowIfGuestInDream/javafxTool/pull/2370))
+
+- common:
+  - 修改TableView无数据时的显示文本 (#2146) ([41350e3](https://github.com/unknowIfGuestInDream/javafxTool/commit/41350e3acf8f5bb973029c332b557019ac0b6e91)) ([#2146](https://github.com/unknowIfGuestInDream/javafxTool/pull/2146))
+
+## [v1.0.1-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-qe) - 2025-05-11 12:37:47+00:00
 
 1. Add Keys.SkipBootAnimation config
 2. Add HttpTool
@@ -11,7 +33,7 @@
 ### Feature
 
 - qe:
-  - Improve SerialPortTool (#2138) ([a6739e1](https://github.com/unknowIfGuestInDream/javafxTool/commit/a6739e122b5046c46d648c30233add111dd5a248)) ([#2138](https://github.com/unknowIfGuestInDream/javafxTool/pull/2138))
+  - Improve SerialPortTool (#2138) ([a6739e1](https://github.com/unknowIfGuestInDream/javafxTool/commit/a6739e122b5046c46d648c30233add111dd5a248))
   - Add SerialPortTool (#2021) ([80ff615](https://github.com/unknowIfGuestInDream/javafxTool/commit/80ff615bee6a44eb9b52be6f5b6c300af9da8bd8)) ([#2021](https://github.com/unknowIfGuestInDream/javafxTool/pull/2021))
 
 - common:
@@ -37,16 +59,16 @@
 ### Bug Fixes
 
 - qe:
-  - 修复SkipBootAnimation 初始值异常 (#2139) ([e0759dd](https://github.com/unknowIfGuestInDream/javafxTool/commit/e0759ddf8cbe5f318de2a13d4579e45ac5baecbe)) ([#2139](https://github.com/unknowIfGuestInDream/javafxTool/pull/2139))
+  - 修复SkipBootAnimation 初始值异常 (#2139) ([e0759dd](https://github.com/unknowIfGuestInDream/javafxTool/commit/e0759ddf8cbe5f318de2a13d4579e45ac5baecbe))
 
 - general:
-  - Fix stage hidden action In Mac Arm (#2133) ([e504a59](https://github.com/unknowIfGuestInDream/javafxTool/commit/e504a59998ec787bc1aa1d5540d7708d8b06d331)) ([#2133](https://github.com/unknowIfGuestInDream/javafxTool/pull/2133))
-  - Fix FxJDKTool run error in Mac (#2132) ([707afeb](https://github.com/unknowIfGuestInDream/javafxTool/commit/707afebe552586948c97d0631d1e8aca307aaf26)) ([#2132](https://github.com/unknowIfGuestInDream/javafxTool/pull/2132))
+  - Fix stage hidden action In Mac Arm (#2133) ([e504a59](https://github.com/unknowIfGuestInDream/javafxTool/commit/e504a59998ec787bc1aa1d5540d7708d8b06d331))
+  - Fix FxJDKTool run error in Mac (#2132) ([707afeb](https://github.com/unknowIfGuestInDream/javafxTool/commit/707afebe552586948c97d0631d1e8aca307aaf26))
 
 - core:
   - beanutils升级后兼容问题 (#2116) ([c2e9178](https://github.com/unknowIfGuestInDream/javafxTool/commit/c2e91782c3835a487f2b0678da9681f0c1ce4619)) ([#2116](https://github.com/unknowIfGuestInDream/javafxTool/pull/2116))
 
-## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 08:47:11
+## [v1.0.11-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.11-smc) - 2025-01-04 09:28:52+00:00
 
 1. FileDiff optimization
 2. Fixed BannerPrinterService loading exception after packaging
@@ -69,7 +91,7 @@
   - Add ChromaticityDiagram (#1748) ([7f30321](https://github.com/unknowIfGuestInDream/javafxTool/commit/7f30321de078b12601d5bc19c59d8e38d40e2dc8)) ([#1748](https://github.com/unknowIfGuestInDream/javafxTool/pull/1748))
   - Add CS+ .map parse test (#1747) ([b212668](https://github.com/unknowIfGuestInDream/javafxTool/commit/b2126683067c9e0360f82ec12a0dd1dbaa0d8bd3)) ([#1747](https://github.com/unknowIfGuestInDream/javafxTool/pull/1747))
   - Add jSerialComm (#1713) ([7de0f8e](https://github.com/unknowIfGuestInDream/javafxTool/commit/7de0f8ef2529a1255aef610c558574c3f65f8e12)) ([#1713](https://github.com/unknowIfGuestInDream/javafxTool/pull/1713))
-  - Disable EasterEgg in MAC (#1712) ([75e0eb0](https://github.com/unknowIfGuestInDream/javafxTool/commit/75e0eb0bee6690ad2063e13ac3ae0b2804bd448b)) ([#1712](https://github.com/unknowIfGuestInDream/javafxTool/pull/1712))
+  - Disable EasterEgg in MAC (#1712) ([75e0eb0](https://github.com/unknowIfGuestInDream/javafxTool/commit/75e0eb0bee6690ad2063e13ac3ae0b2804bd448b))
   - Upgrade javadoc (#1701) ([150441c](https://github.com/unknowIfGuestInDream/javafxTool/commit/150441c52485ac93ff4354347f2a4a711925dc42)) ([#1701](https://github.com/unknowIfGuestInDream/javafxTool/pull/1701))
   - Improve ZoomImageView (#1697) ([3215b85](https://github.com/unknowIfGuestInDream/javafxTool/commit/3215b855f0754f03482f747944347dfc0705915a)) ([#1697](https://github.com/unknowIfGuestInDream/javafxTool/pull/1697))
   - Add PlutoExplorer for zoom image (#1678) ([a0aee81](https://github.com/unknowIfGuestInDream/javafxTool/commit/a0aee81ea4432dbc51abceacafe413c0498f499a)) ([#1678](https://github.com/unknowIfGuestInDream/javafxTool/pull/1678))
@@ -143,7 +165,7 @@
   - Improve logback (#1127) ([0fd0b1d](https://github.com/unknowIfGuestInDream/javafxTool/commit/0fd0b1dd6167a98849e1d08f284846db884875c6)) ([#1127](https://github.com/unknowIfGuestInDream/javafxTool/pull/1127))
   - Improve freemarker (#1107) ([c67bdae](https://github.com/unknowIfGuestInDream/javafxTool/commit/c67bdaea9885dbcf01c9fa3a06757502d843d093)) ([#1107](https://github.com/unknowIfGuestInDream/javafxTool/pull/1107))
   - Add HexDirective (#1099) ([8591422](https://github.com/unknowIfGuestInDream/javafxTool/commit/85914220a4e3ac199d20e19eeee5516d962a5a20)) ([#1099](https://github.com/unknowIfGuestInDream/javafxTool/pull/1099))
-  - Support h2 (#1090) ([975336f](https://github.com/unknowIfGuestInDream/javafxTool/commit/975336f1c8e1ad3ff8513820507228660ec3e89a)) ([#1090](https://github.com/unknowIfGuestInDream/javafxTool/pull/1090))
+  - Support h2 (#1090) ([975336f](https://github.com/unknowIfGuestInDream/javafxTool/commit/975336f1c8e1ad3ff8513820507228660ec3e89a))
   - Add KeyCombination (#1095) ([3c2fd17](https://github.com/unknowIfGuestInDream/javafxTool/commit/3c2fd17b4049862f072b113a650af6816b7b485d)) ([#1095](https://github.com/unknowIfGuestInDream/javafxTool/pull/1095))
   - Add IterateINI for DSL (#1085) ([b6d9ddc](https://github.com/unknowIfGuestInDream/javafxTool/commit/b6d9ddc0b8d6cd2448407981a5a8dacd673df0a9)) ([#1085](https://github.com/unknowIfGuestInDream/javafxTool/pull/1085))
   - Add DSL tool (#1084) ([ecd3a2f](https://github.com/unknowIfGuestInDream/javafxTool/commit/ecd3a2f7504bb1b0634a8f5e9fb878f7ca3b06cf)) ([#1084](https://github.com/unknowIfGuestInDream/javafxTool/pull/1084))
@@ -194,7 +216,7 @@
 - frame:
   - 修改打包后BannerPrinterService加载异常 (#954) ([7438fb8](https://github.com/unknowIfGuestInDream/javafxTool/commit/7438fb8a8a879ef3748478a345e4cfcfe6f02f9a)) ([#954](https://github.com/unknowIfGuestInDream/javafxTool/pull/954))
 
-## [v1.0.10-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.10-smc) - 2023-11-04 04:45:40
+## [v1.0.10-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.10-smc) - 2023-11-04 04:45:40+00:00
 
 1. Maven packaging configuration modification
 2. Fix the UI is not displayed after the animation splash screen under Mac
@@ -226,7 +248,7 @@
 - general:
   - 修复mac 下动画闪屏后UI未显示的问题 (#833) ([6fd8ade](https://github.com/unknowIfGuestInDream/javafxTool/commit/6fd8adeab02fef481f58e3fe4ea36788c9b92f05))
 
-## [v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44
+## [v1.0.0-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-qe) - 2023-10-02 02:34:44+00:00
 
 1. First release
 2. JS/CSS compression
@@ -276,7 +298,7 @@
   - 修复导入设置取消时的异常重启 (#777) ([28a2acc](https://github.com/unknowIfGuestInDream/javafxTool/commit/28a2acccedeba5becdd7f4dd7fb53ac02cfe4937))
   - PathWatchTool国际化错误修复 (#760) ([8f97804](https://github.com/unknowIfGuestInDream/javafxTool/commit/8f97804591a43e336c765c7d418a56e6cb8f116f))
 
-## [v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48
+## [v1.0.8-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.8-smc) - 2023-09-10 06:28:48+00:00
 
 1. GroovyCodeArea stack overflow fixed and style modified
 2. Modify LicenseDialog style
@@ -306,7 +328,7 @@
   - 修复LicenseDialog样式问题 (#701) ([6daa0f7](https://github.com/unknowIfGuestInDream/javafxTool/commit/6daa0f7e022b655443a1f1e9668037487c1d11b0))
   - 修复groovyCodeArea处理开头版权信息时堆栈溢出问题 (#696) ([9b278dc](https://github.com/unknowIfGuestInDream/javafxTool/commit/9b278dc5ef959995d29145c3f49375db7a32db35))
 
-## [v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14
+## [v1.0.7-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.7-smc) - 2023-09-03 09:39:14+00:00
 
 1. Fixed CoreUtil.getRootPath() result error issue
 2. Fix groovy path scanning error issue
@@ -325,7 +347,7 @@
   - 修复groovy路径扫描错误的问题 (#687) ([9f07055](https://github.com/unknowIfGuestInDream/javafxTool/commit/9f07055069ece8dc30ed3434a930709f5d8c9089))
   - 修复CoreUtil.getRootPath()问题 (#686) ([24e5496](https://github.com/unknowIfGuestInDream/javafxTool/commit/24e549697183196f84fa9a3f82dea31eaa49bd9a))
 
-## [v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07
+## [v1.0.6-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.6-smc) - 2023-08-29 13:28:07+00:00
 
 1. Add LicenseDialog
 2. Add groovy support
@@ -351,7 +373,7 @@
 - core:
   - 修改simpleHttpServer (#675) ([11cb60d](https://github.com/unknowIfGuestInDream/javafxTool/commit/11cb60db4b8028dfd3ae994071652d6dd80d5251))
 
-## [v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33
+## [v1.0.5-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.5-smc) - 2023-08-06 07:59:33+00:00
 
 1. Added control Panel setting interface for frame
 2. U2C ECM adds special handling
@@ -382,7 +404,7 @@
 - core:
   - richtext工具添加 (#617) ([e55ae68](https://github.com/unknowIfGuestInDream/javafxTool/commit/e55ae68d31cfbcfe9ac8a1884940f93d1ff182a7))
 
-## [v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36
+## [v1.0.4-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.4-smc) - 2023-07-23 01:32:36+00:00
 
 1. Fix unrecognized problem with common module
 2. JDK replaced by Amazon Corretto with Eclipse Temurin
@@ -402,7 +424,7 @@
 - smc:
   - 修复SpecGeneral功能问题 (#600) ([80b9d3b](https://github.com/unknowIfGuestInDream/javafxTool/commit/80b9d3b657f1abce88b4d0da8845a6c6930bd171))
 
-## [v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48
+## [v1.0.3-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.3-smc) - 2023-07-11 12:38:48+00:00
 
 1. Console color log configuration
 2. Ecm script adds U2C module
@@ -435,7 +457,7 @@
 - core:
   - 修复Dom4jUtil的漏洞 (#573) ([0fccf1f](https://github.com/unknowIfGuestInDream/javafxTool/commit/0fccf1f8cf1514692c578e23b36ef9168653cb0d))
 
-## [v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55
+## [v1.0.2-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-smc) - 2023-05-04 08:50:55+00:00
 
 1. ECM data file generation function is perfect
 2. Add common module
@@ -481,7 +503,7 @@
   - 完善HtmlEscape组件 (#484) ([e6c8556](https://github.com/unknowIfGuestInDream/javafxTool/commit/e6c85560aaeb6641b665a61ef96f78f40b5e784d))
   - 新增Html转义组件，修改icon (#476) ([65bb8d5](https://github.com/unknowIfGuestInDream/javafxTool/commit/65bb8d5d1e8687e3713a77da384d1f24bb502f60))
 
-## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56
+## [v1.0.1-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.1-smc) - 2023-04-02 12:59:56+00:00
 
 1. Added Ecm data generation component
 2. Adapt to macOS
@@ -524,7 +546,7 @@
   - dmaTriggerSourceCode模板完善 (#380) ([985a906](https://github.com/unknowIfGuestInDream/javafxTool/commit/985a90607be596c974f234a8a0b1bb0c05a96833))
   - 修复smc中文件选择错误 (#368) ([581b3e4](https://github.com/unknowIfGuestInDream/javafxTool/commit/581b3e4bee12e40435165b33d40a259e54567210))
 
-## [v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45
+## [v1.0.0-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.0-smc) - 2023-03-19 13:19:45+00:00
 
 1. SmcTool release
 2. Contains UD, CD, UT and other tools of smc
