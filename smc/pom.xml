@@ -37,7 +37,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>javafxTool-smc</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
     <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
