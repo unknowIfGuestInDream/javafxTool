@@ -25,6 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+def BuildBadge = addEmbeddableBadgeConfiguration(id: "build", subject: "Build")
+
 pipeline {
     agent any
     options {
@@ -56,10 +58,12 @@ pipeline {
                     }
                     if (prevCommitId == "") {
                         echo "prevCommitId is not exists."
+                        BuildBadge.setStatus('running')
                     } else {
                         echo "Previous successful commit: ${prevCommitId}"
                         if (prevCommitId == GIT_COMMIT) {
                             echo "no change，skip build"
+                            BuildBadge.setStatus('passing')
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
                             cleanWs()
@@ -78,6 +82,9 @@ pipeline {
             post {
                 failure {
                     echo '构建 Prepare 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                     cleanWs()
                 }
                 aborted {
@@ -110,6 +117,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 smc-windows 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -131,6 +141,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 qe-windows 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -161,6 +174,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 smc-mac 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -182,6 +198,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 qe-mac 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -212,6 +231,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 smc-linux 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -233,6 +255,9 @@ pipeline {
                 }
                 failure {
                     echo '构建 qe-linux 失败'
+                    script {
+                         BuildBadge.setStatus('failing')
+                    }
                 }
                 aborted {
                     echo '构建取消'
@@ -243,6 +268,7 @@ pipeline {
         stage('Clean Workspace') {
              steps {
                  script {
+                     BuildBadge.setStatus('passing')
                      sh "rm smcTool*.zip"
                      sh "rm qeTool*.zip" 
                      sh "rm *linux*17*.tar.gz" 
