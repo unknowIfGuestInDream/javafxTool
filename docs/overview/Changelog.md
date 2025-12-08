@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [v1.0.2-qe](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.2-qe) - 2025-12-08 05:08:30+00:00
+
+1. Dependency upgrade
+
+### Feature
+
+- qe:
+  - Add mdf parse (#2381) ([1e973dd](https://github.com/unknowIfGuestInDream/javafxTool/commit/1e973dd3111757b3d5f4207cab19f27097464b9b)) ([#2381](https://github.com/unknowIfGuestInDream/javafxTool/pull/2381))
+
 ## [v1.0.12-smc](https://github.com/unknowIfGuestInDream/javafxTool/releases/tag/v1.0.12-smc) - 2025-12-06 10:26:06+00:00
 
 1. Add Keys.SkipBootAnimation config
