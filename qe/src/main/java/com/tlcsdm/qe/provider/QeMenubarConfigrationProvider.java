@@ -191,9 +191,11 @@ public class QeMenubarConfigrationProvider implements MenubarConfigration {
         }
     }).create();
 
+    private final Action fullscreen = FxAction.fullscreen();
+
     private final Collection<? extends Action> actions = List.of(
         FxActionGroup.file(export, induct, ACTION_SEPARATOR, restart, exit),
-        FxActionGroup.setting(systemSetting, languageGroup),
+        FxActionGroup.setting(systemSetting, languageGroup), FxActionGroup.view(fullscreen),
         FxActionGroup.tool(jdkToolGroup, ACTION_SEPARATOR, logConsole, pathWatch, colorPicker, screenshot),
         FxActionGroup.help(openSysConfig, openLogDir, openUserData, openPropertiesDialog, ACTION_SEPARATOR,
             contactSupport, submitFeedback,
