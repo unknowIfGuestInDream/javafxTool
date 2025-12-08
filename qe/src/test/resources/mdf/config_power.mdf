@@ -70,15 +70,15 @@
 Set the AC voltage frequency [Hz].</description>
             <constraint display="Value must be a number">testDecimalNumber('${PFC_COMMON_AC_FREQ}')</constraint>
         </property>
-        <property id="PFC_COMMON_SYNCHRONOUS_RECTIFICATION" display="Synchronous Rectification" default="unckeck" type="checkbox" category="CATEGORY_HARDWARE_COMMON" generate="true">
+        <property id="PFC_COMMON_SYNCHRONOUS_RECTIFICATION" display="Synchronous Rectification" default="uncheck" type="checkbox" category="CATEGORY_HARDWARE_COMMON" generate="true">
             <description>Synchronous Rectification
 Switch LLC Synchronous/Asynchronous rectification circuit.
 If set to 0,  LLC Synchronous rectification circuit is off.
 If set to 1, LLC Synchronous rectification circuit is on.</description>
-            <option id="unckeck" display="unckeck" value="0" />
+            <option id="uncheck" display="uncheck" value="0" />
             <option id="check" display="check" value="1" />
         </property>
-          
+
         <property id="PFC_M_L_T100_1" display="Inductor L1 (μH)" default="180" type="textbox" category="CATEGORY_PFC_M" generate="true">
             <description>Inductor L1 (μH) (T100)
 Set the PFC M transformer primary inductance L1 [μH].</description>
@@ -89,7 +89,7 @@ Set the PFC M transformer primary inductance L1 [μH].</description>
 Set the PFC M transformer secondary inductance L2 [μH].</description>
             <constraint display="Value must be a number">testDecimalNumber('${PFC_M_L_T100_2}')</constraint>
         </property>
-          
+
         <property id="PFC_M_MOSFET_RON" display="Ron (Ω)" default="0.281" type="textbox" category="CATEGORY_PFC_M_MOSFET" generate="true">
             <description>Ron (Ω)
 Set the PFC M MOSFET Ron [Ohm].</description>
@@ -125,7 +125,7 @@ Set the PFC M MOSFET Coss [pF].</description>
 Set the PFC M MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${PFC_M_MOSFET_CRSS}')</constraint>
         </property>
-          
+
         <property id="PFC_S_L_T101_1" display="Inductor L1 (μH)" default="180" type="textbox" category="CATEGORY_PFC_S" generate="true">
             <description>Inductor L1 (μH) (T101)
 Set the PFC S transformer primary inductance L1 [μH].</description>
@@ -136,7 +136,7 @@ Set the PFC S transformer primary inductance L1 [μH].</description>
 Set the PFC S transformer secondary inductance L2 [μH].</description>
             <constraint display="Value must be a number">testDecimalNumber('${PFC_S_L_T101_2}')</constraint>
         </property>
-  
+
         <property id="PFC_S_MOSFET_RON" display="Ron (Ω)" default="0.281" type="textbox" category="CATEGORY_PFC_S_MOSFET" generate="true">
             <description>Ron (Ω)
 Set the PFC S MOSFET Ron [Ohm].</description>
@@ -172,7 +172,7 @@ Set the PFC S MOSFET Coss [pF].</description>
 Set the PFC S MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${PFC_S_MOSFET_CRSS}')</constraint>
         </property>
-          
+
         <property id="LLC1_L_T200_1" display="Inductor L1 (μH)" default="525" type="textbox" category="CATEGORY_HARDWARE_LLC1" generate="true">
             <description>Inductor L1 (μH) (T200)
 Set the LLC1 transformer primary inductance L1 [μH].</description>
@@ -198,7 +198,7 @@ Set the LLC1 Load Resistance [μH].</description>
 Set the LLC1 Resonant Capacitor Capacitance [μF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC1_C_229_230}')</constraint>
         </property>
-          
+
         <property id="LLC1_HIGH_MOSFET_RON" display="Ron (Ω)" default="0.237" type="textbox" category="CATEGORY_LLC1_MOSFET_HIGH" generate="true">
             <description>Ron (Ω)
 Set the LLC1 high side MOSFET Ron [Ohm].</description>
@@ -234,7 +234,7 @@ Set the LLC1 high side MOSFET Coss [pF].</description>
 Set the LLC1 high side MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC1_HIGH_MOSFET_CRSS}')</constraint>
         </property>
-          
+
         <property id="LLC1_LOW_MOSFET_RON" display="Ron (Ω)" default="0.237" type="textbox" category="CATEGORY_LLC1_MOSFET_LOW" generate="true">
             <description>Ron (Ω)
 Set the LLC1 low side MOSFET Ron [Ohm].</description>
@@ -270,7 +270,7 @@ Set the LLC1 low side MOSFET Coss [pF].</description>
 Set the LLC1 low side MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC1_LOW_MOSFET_CRSS}')</constraint>
         </property>
-              
+
         <property id="LLC2_L_T201_1" display="Inductor L1 (μH)" default="425" type="textbox" category="CATEGORY_HARDWARE_LLC2" generate="true">
             <description>Inductor L1 (μH) (T201)
 Set the LLC2 transformer primary inductance L1 [μH].</description>
@@ -296,7 +296,7 @@ Set the LLC2 Load Resistance [μH].</description>
 Set the LLC2 Resonant Capacitor Capacitance [μF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC2_C_253_254}')</constraint>
         </property>
-          
+
         <property id="LLC2_HIGH_MOSFET_RON" display="Ron (Ω)" default="0.237" type="textbox" category="CATEGORY_LLC2_MOSFET_HIGH" generate="true">
             <description>Ron (Ω)
 Set the LLC2 high side MOSFET Ron [Ohm].</description>
@@ -332,7 +332,7 @@ Set the LLC2 high side MOSFET Coss [pF].</description>
 Set the LLC2 high side MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC2_HIGH_MOSFET_CRSS}')</constraint>
         </property>
-          
+
         <property id="LLC2_LOW_MOSFET_RON" display="Ron (Ω)" default="0.237" type="textbox" category="CATEGORY_LLC2_MOSFET_LOW" generate="true">
             <description>Ron (Ω)
 Set the LLC2 low side MOSFET Ron [Ohm].</description>
@@ -368,7 +368,7 @@ Set the LLC2 low side MOSFET Coss [pF].</description>
 Set the LLC2 low side MOSFET Crss [pF].</description>
             <constraint display="Value must be a number">testDecimalNumber('${LLC2_LOW_MOSFET_CRSS}')</constraint>
         </property>
-		
+
         <property id="PFC_CS_LIMIT_FOR_DAC" display="DAC value for PFC OCP detection" default="122" type="textbox" category="CATEGORY_SOFTWARE_CPU_PFC" generate="true">
             <description>Macro definition: PFC_CS_LIMIT_FOR_DAC
 Set the DAC value for PFC OCP detection.
@@ -432,7 +432,7 @@ PFC_PI_PARAM_A2 = (π * 2 * 400 * 10^(-6) - 1) * 0.25 * 65536 = -16343</descript
             <constraint display="Value must be an integer">testInteger('${PFC_PI_PARAM_A2}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'cpu')</constraint>
         </property>
-		
+
 		<property id="LLC1_CS_LIMIT_FOR_DAC" display="DAC value for LLC1 OCP detection" default="860" type="textbox" category="CATEGORY_SOFTWARE_CPU_LLC1" generate="true">
             <description>Macro definition: LLC1_CS_LIMIT_FOR_DAC
 Set the DAC value for LLC1 OCP detection.
@@ -446,7 +446,7 @@ LLC1_CS_LIMIT_FOR_DAC = (4.2V / 5V) * 1024 = 860</description>
 		<property id="LLC1_ADC_TARGET" display="LLC1 output voltage target" default="8" type="textbox" category="CATEGORY_SOFTWARE_CPU_LLC1" generate="true">
             <description>Macro definition: LLC1_ADC_TARGET
 Since the A/D value is acquired 8 times during the LLC1 feedback period (200us), the sum of the 8 judgments is the LLC1_ADC_TARGET, which ranges from 0 to 8.
-In the circuit, when the output voltage of LLC1 is 13V, the LLC1_ADC_TARGET becomes 4. 
+In the circuit, when the output voltage of LLC1 is 13V, the LLC1_ADC_TARGET becomes 4.
 Also, when the output voltage rises above 13V, the LLC1_ADC_TARGET decreases, and when the output voltage falls, the LLC1_ADC_TARGET increases.</description>
             <constraint display="Value must be an integer">testInteger('${LLC1_ADC_TARGET}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'cpu')</constraint>
@@ -475,7 +475,7 @@ LLC1_PI_PARAM_A2 = (π * 1500 * 200 * 10^(-6) - 1) * 0.015625 * 65536 = -59</des
             <constraint display="Value must be an integer">testInteger('${LLC1_PI_PARAM_A2}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'cpu')</constraint>
         </property>
-		
+
 		<property id="LLC2_CS_LIMIT_FOR_DAC" display="DAC value for LLC2 OCP detection" default="184" type="textbox" category="CATEGORY_SOFTWARE_CPU_LLC2" generate="true">
             <description>Macro definition: LLC2_CS_LIMIT_FOR_DAC
 Set the DAC value for LLC2 OCP detection.
@@ -489,7 +489,7 @@ LLC2_CS_LIMIT_FOR_DAC = (3.6V / 5V) * 256 = 184</description>
 		<property id="LLC2_ADC_TARGET" display="LLC2 output voltage target" default="8" type="textbox" category="CATEGORY_SOFTWARE_CPU_LLC2" generate="true">
             <description>Macro definition: LLC2_ADC_TARGET
 Since the A/D value is acquired 8 times during the LLC2 feedback period (200us), the sum of the 8 judgments is the LLC2_ADC_TARGET, which ranges from 0 to 8.
-In the circuit, when the output voltage of LLC2 is 13V, the LLC2_ADC_TARGET becomes 4. 
+In the circuit, when the output voltage of LLC2 is 13V, the LLC2_ADC_TARGET becomes 4.
 Also, when the output voltage rises above 13V, the LLC2_ADC_TARGET decreases, and when the output voltage falls, the LLC2_ADC_TARGET increases.</description>
             <constraint display="Value must be an integer">testInteger('${LLC2_ADC_TARGET}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'cpu')</constraint>
@@ -518,7 +518,7 @@ LLC2_PI_PARAM_A2 = (π * 1250 * 200 * 10^(-6) - 1) * 0.059375 * 65536 = -835</de
             <constraint display="Value must be an integer">testInteger('${LLC2_PI_PARAM_A2}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'cpu')</constraint>
         </property>
-		
+
 		<property id="_N_DPConv_PFC_TARGET_VALUE" display="PFC output voltage target" default="2735" type="textbox" category="CATEGORY_SOFTWARE_FAA_PFC" generate="true">
             <description>Macro definition: _N_DPConv_PFC_TARGET_VALUE
 Set the target A/D value of PFC_V_FB pin.
@@ -552,14 +552,14 @@ _N_DPConv_PFC_DOVP_THRESHOLD = 6.5 * 400 + 207.5 = 2808</description>
             <constraint display="Value must be an integer">testInteger('${_N_DPConv_PFC_DOVP_THRESHOLD}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'faa')</constraint>
         </property>
-		
+
 		<property id="_N_DPConv_PFC_IVALUE_CORRECT" display="PFC output voltage target correction" default="58" type="textbox" category="CATEGORY_SOFTWARE_FAA_PFC" generate="true">
             <description>Macro definition: _N_DPConv_PFC_IVALUE_CORRECT
 The correction value of A/D value in PFC Output Voltage Target.</description>
             <constraint display="Value must be an integer">testInteger('${_N_DPConv_PFC_IVALUE_CORRECT}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'faa')</constraint>
         </property>
-		
+
 		<property id="QE_Config_FAA_PFC_A1" display="PFC feedback parameter A1 (only for simulation)" default="16425" type="textbox" category="CATEGORY_SOFTWARE_FAA_PFC" generate="false">
             <description>Set the coefficients A1 of the PI control.
 A1 = (π * fz * T + 1) * Kp
@@ -580,7 +580,7 @@ A2 = (π * 2 * 400 * 10^(-6) - 1) * 0.25 * 65536 = -16343</description>
             <constraint display="Value must be an integer">testInteger('${QE_Config_FAA_PFC_A2}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'faa')</constraint>
         </property>
-		
+
 		<property id="_N_DPConv_LLC1_A1_PARAM" display="LLC1 feedback parameter A1" default="1989" type="textbox" category="CATEGORY_SOFTWARE_FAA_LLC1" generate="true">
             <description>Macro definition: _N_DPConv_LLC1_A1_PARAM
 Set the coefficients A1 of the PI control.
@@ -603,7 +603,7 @@ _N_DPConv_LLC1_A2_PARAM = (π * 1500 * 200 * 10^(-6) - 1) * 0.0156 * 65536 = -59
             <constraint display="Value must be an integer">testInteger('${_N_DPConv_LLC1_A2_PARAM}')</constraint>
 			<constraint action="disable" >('${getCommonAction(codeType)}' == 'faa')</constraint>
         </property>
-		
+
 		<property id="_N_DPConv_LLC2_A1_PARAM" display="LLC2 feedback parameter A1" default="6947" type="textbox" category="CATEGORY_SOFTWARE_FAA_LLC2" generate="true">
             <description>Macro definition: _N_DPConv_LLC2_A1_PARAM
 Set the coefficients A1 of the PI control.
