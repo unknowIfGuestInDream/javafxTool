@@ -28,6 +28,7 @@
 package com.tlcsdm.qe.tools;
 
 import com.tlcsdm.core.javafx.helper.LayoutHelper;
+import com.tlcsdm.core.util.CoreConstant;
 import com.tlcsdm.qe.QeSample;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -39,6 +40,13 @@ import javafx.stage.Stage;
  * @author unknowIfGuestInDream
  */
 public class APNMdfParse extends QeSample {
+
+    @Override
+    public boolean isVisible() {
+        String value = System.getProperty(CoreConstant.JVM_WORKENV);
+        return CoreConstant.JVM_WORKENV_TEST.equals(value);
+    }
+
     @Override
     public String getSampleId() {
         return "apnMdfParse";
