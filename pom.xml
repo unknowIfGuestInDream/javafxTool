@@ -200,7 +200,7 @@
         <nashorn.version>15.7</nashorn.version>
         <jruby.version>9.4.14.0</jruby.version>
         <qrcodegen.version>1.8.0</qrcodegen.version>
-        <sqlite.version>3.50.3.0</sqlite.version>
+        <sqlite.version>3.51.1.0</sqlite.version>
     </properties>
 
     <issueManagement>
