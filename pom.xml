@@ -150,7 +150,7 @@
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <ikonli.version>12.4.0</ikonli.version>
         <richtextfx.version>0.11.6</richtextfx.version>
-        <groovy.version>5.0.2</groovy.version>
+        <groovy.version>5.0.3</groovy.version>
         <thumbnailator.version>0.4.21</thumbnailator.version>
         <gson.version>2.13.2</gson.version>
         <tabula.version>1.0.5</tabula.version>
