@@ -142,7 +142,7 @@
         <java-diff-utils.version>4.16</java-diff-utils.version>
         <dom4j.version>2.2.0</dom4j.version>
         <jexl.version>3.5.0</jexl.version>
-        <pdfbox.version>3.0.5</pdfbox.version>
+        <pdfbox.version>3.0.6</pdfbox.version>
         <pdfviewfx.version>3.2.1</pdfviewfx.version>
         <jackson.version>2.20.1</jackson.version>
         <testfx.version>4.0.18</testfx.version>
