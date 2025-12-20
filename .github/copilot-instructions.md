@@ -32,7 +32,7 @@ When implementing new features, be aware of these key SPI interfaces:
 
 **frame module:**
 - `FXSamplerProject`: Define project information (name, modules, package, welcome page)
-- `MenubarConfigration`: Configure menu bar
+- `MenubarConfiguration`: Configure menu bar
 - `FXSamplerConfiguration`: Set project style, title, and icon
 - `CenterPanelService`: Configure central area nodes
 - `SplashScreen`: Define splash screen image
