@@ -59,8 +59,8 @@
         <javafxTool-common.version>1.0.1</javafxTool-common.version>
         <javafxTool-login.version>1.0.0</javafxTool-login.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
@@ -143,7 +143,7 @@
         <dom4j.version>2.2.0</dom4j.version>
         <jexl.version>3.6.1</jexl.version>
         <pdfbox.version>3.0.6</pdfbox.version>
-        <pdfviewfx.version>3.2.1</pdfviewfx.version>
+        <pdfviewfx.version>3.4.1</pdfviewfx.version>
         <jackson.version>2.20.1</jackson.version>
         <testfx.version>4.0.18</testfx.version>
         <assertj.version>3.27.6</assertj.version>
