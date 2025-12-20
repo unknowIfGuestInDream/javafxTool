@@ -63,7 +63,7 @@ All Java source files must include the BSD 3-Clause license header:
 
 ```java
 /*
- * Copyright (c) YEAR unknowIfGuestInDream
+ * Copyright (c) {YEAR} unknowIfGuestInDream
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,6 +71,8 @@ All Java source files must include the BSD 3-Clause license header:
  * ...
  */
 ```
+
+Replace `{YEAR}` with the current year or year range (e.g., `2023`, `2019, 2023`).
 
 ### Naming Conventions
 
@@ -211,7 +213,8 @@ Closes #123
 
 - Avoid adding new dependencies unless absolutely necessary
 - Check Dependabot alerts for security issues
-- Use Maven dependency management from parent POM
+- Use Maven dependency management from the root project POM (javafxTool/pom.xml)
+- When adding dependencies to a module, check if version is already managed in root `<dependencyManagement>` section
 - Document any new dependencies in commit messages
 
 ## CI/CD
