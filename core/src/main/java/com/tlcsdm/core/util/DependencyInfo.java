@@ -53,7 +53,7 @@ public class DependencyInfo {
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("org.junit.jupiter", "junit", "6.0.0", true, "https://github.com/junit-team/junit5",
+            new Dependency("org.junit.jupiter", "junit", "6.0.1", true, "https://github.com/junit-team/junit5",
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
             new Dependency("org.apache.poi", "poi", "5.4.1", false, "https://poi.apache.org/",
@@ -65,7 +65,7 @@ public class DependencyInfo {
             new Dependency("ch.qos.logback", "logback", "1.5.19", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
-            new Dependency("cn.hutool", "hutool", "5.8.40", true, "https://github.com/dromara/hutool",
+            new Dependency("cn.hutool", "hutool", "5.8.42", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
             new Dependency("org.apache.commons", "commons-lang3", "3.19.0", true,
@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.181", false,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.184", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -109,7 +109,7 @@ public class DependencyInfo {
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.5", false, "https://pdfbox.apache.org/",
+            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.6", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("technology.tabula", "tabula", "1.0.5", false,
@@ -138,7 +138,7 @@ public class DependencyInfo {
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "5.0.2", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "5.0.3", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
