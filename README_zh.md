@@ -1,6 +1,6 @@
 # 介绍
 
-javafx脚手架，JDK17 + JavaFX 21 + controlsfx 11 + Maven
+javafx脚手架，JDK21 + JavaFX 21 + controlsfx 11 + Maven
 
 frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模块集成 demo是提供的示例模块
 
@@ -40,7 +40,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 
 # 构建要求
 
-构建命令需要安装和设置 Java 17 或更高版本以及 Maven 版本 3.5.4 或更高版本。
+构建命令需要安装和设置 Java 21 或更高版本以及 Maven 版本 3.5.4 或更高版本。
 
 # 打包
 

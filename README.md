@@ -13,7 +13,7 @@
 # Introduce
 
 [中文文档](./README_zh.md)  [日本語文書](./README_jp.md)\
-Javafx scaffolding, built on JDK17 + JavaFX 21 + controlsfx 11 + Maven
+Javafx scaffolding, built on JDK21 + JavaFX 21 + controlsfx 11 + Maven
 
 Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application
 modules. demo is the provided example module.
@@ -56,7 +56,7 @@ modules. demo is the provided example module.
 
 # Build requirements
 
-The build commands require the installation and setup of Java 17 or higher and Maven version 3.5.4 or higher.
+The build commands require the installation and setup of Java 21 or higher and Maven version 3.5.4 or higher.
 
 # Pack
 
