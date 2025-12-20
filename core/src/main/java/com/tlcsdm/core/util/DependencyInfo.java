@@ -49,26 +49,26 @@ public class DependencyInfo {
             new Dependency("org.openjfx", "javafx", "21.0.7", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
-            new Dependency("org.controlsfx", "controlsfx", "11.2.2", true,
+            new Dependency("org.controlsfx", "controlsfx", "11.2.3", true,
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("org.junit.jupiter", "junit", "6.0.0", true, "https://github.com/junit-team/junit5",
+            new Dependency("org.junit.jupiter", "junit", "6.0.1", true, "https://github.com/junit-team/junit5",
                 "Eclipse Public License - v 2.0", "https://www.eclipse.org/legal/epl-v20.html"),
 
-            new Dependency("org.apache.poi", "poi", "5.4.1", false, "https://poi.apache.org/",
+            new Dependency("org.apache.poi", "poi", "5.5.1", false, "https://poi.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("org.freemarker", "freemarker", "2.3.34", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.5.19", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.5.22", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
-            new Dependency("cn.hutool", "hutool", "5.8.40", true, "https://github.com/dromara/hutool",
+            new Dependency("cn.hutool", "hutool", "5.8.42", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
-            new Dependency("org.apache.commons", "commons-lang3", "3.19.0", true,
+            new Dependency("org.apache.commons", "commons-lang3", "3.20.0", true,
                 "https://commons.apache.org/proper/commons-lang/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -80,11 +80,11 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-configuration2", "2.12.0", true,
+            new Dependency("org.apache.commons", "commons-configuration2", "2.13.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("commons-io", "commons-io", "2.20.0", true,
+            new Dependency("commons-io", "commons-io", "2.21.0", true,
                 "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "4.8.181", false,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.184", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -109,7 +109,7 @@ public class DependencyInfo {
                 "https://github.com/ben-manes/caffeine", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.5", false, "https://pdfbox.apache.org/",
+            new Dependency("org.apache.pdfbox", "pdfbox", "3.0.6", false, "https://pdfbox.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("technology.tabula", "tabula", "1.0.5", false,
@@ -134,11 +134,11 @@ public class DependencyInfo {
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.6", false,
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.7", false,
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "5.0.2", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "5.0.3", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
@@ -173,10 +173,10 @@ public class DependencyInfo {
             new Dependency("net.bytebuddy", "byte-buddy", "1.18.2", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.16.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.17.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.gluonhq", "rich-text-area", "1.2.2", false,
+            new Dependency("com.gluonhq", "rich-text-area", "1.2.4", false,
                 "https://github.com/gluonhq/rich-text-area",
                 "GPL-3.0 license", "http://www.gnu.org/licenses/gpl-3.0.html"),
 
@@ -184,7 +184,7 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core-java11", "6.9.0", false,
+            new Dependency("com.github.oshi", "oshi-core-java11", "6.9.1", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "4.1.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "4.70.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -232,7 +232,7 @@ public class DependencyInfo {
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.fazecast", "jSerialComm", "2.11.2", false,
+            new Dependency("com.fazecast", "jSerialComm", "2.11.4", false,
                 "https://fazecast.github.io/jSerialComm", "GNU LGPL",
                 "https://www.gnu.org/licenses/lgpl-3.0.html"),
 
