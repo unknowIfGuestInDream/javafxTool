@@ -10,12 +10,12 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 |------------------------|--------------|----------------------------------|
 | JDK                    | 17           | Adoptium JDK                     |
 | JavaFX                 | 21.0.7       | JavaFX                           |
-| controlsfx             | 11.2.2       | javafx UI控件                      |
+| controlsfx             | 11.2.3       | javafx UI控件                      |
 | caffeine               | 3.2.3        | 本地缓存                             |
 | checker-qual           | 3.51.0       | Java 的可插拔类型检查                    |
 | commons-imaging        | 1.0.0-alpha6 | 图像处理库                            |
-| commons-io             | 2.20.0       | IO工具                             |
-| commons-lang3          | 3.19.0       | Java工具类库                         |
+| commons-io             | 2.21.0       | IO工具                             |
+| commons-lang3          | 3.20.0       | Java工具类库                         |
 | commons-configuration2 | 2.12.0       | 用于从各种源读取配置数据                     |
 | cssfx                  | 11.5.1       | css 实时重载工具                       |
 | dom4j                  | 2.2.0        | XML 框架                           |
@@ -28,7 +28,7 @@ JavaFXTool基于JDK17 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | jackson                | 2.20.1       | JSON解析库                          |
 | jSerialComm            | 2.11.2       | 串口通信库                            |
 | junit                  | 6.0.1        | 单元测试框架                           |
-| logback                | 1.5.19       | Java日志框架                         |
+| logback                | 1.5.22       | Java日志框架                         |
 | poi-ooxml              | 5.5.1        | 用于Microsoft Documents的Java API   |
 | preferencesfx          | 11.17.0      | 为应用程序设置/首选项创建 UI 的框架             |
 | reflections            | 0.10.2       | Java 运行时元数据分析                    |
