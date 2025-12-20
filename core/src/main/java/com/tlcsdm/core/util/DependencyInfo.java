@@ -80,7 +80,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-csv/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.apache.commons", "commons-configuration2", "2.12.0", true,
+            new Dependency("org.apache.commons", "commons-configuration2", "2.13.0", true,
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -134,7 +134,7 @@ public class DependencyInfo {
                 "https://github.com/dlsc-software-consulting-gmbh/PDFViewFX", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.6", false,
+            new Dependency("org.fxmisc.richtext", "richtextfx", "0.11.7", false,
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
@@ -173,7 +173,7 @@ public class DependencyInfo {
             new Dependency("net.bytebuddy", "byte-buddy", "1.18.2", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.16.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.17.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.gluonhq", "rich-text-area", "1.2.4", false,
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "4.1.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "4.70.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -232,7 +232,7 @@ public class DependencyInfo {
                 "https://javaluator.fathzer.com", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.fazecast", "jSerialComm", "2.11.2", false,
+            new Dependency("com.fazecast", "jSerialComm", "2.11.4", false,
                 "https://fazecast.github.io/jSerialComm", "GNU LGPL",
                 "https://www.gnu.org/licenses/lgpl-3.0.html"),
 
