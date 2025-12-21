@@ -37,7 +37,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>javafxTool-smc</artifactId>
-    <version>1.0.12</version>
+    <version>1.1.0</version>
     <name>javafxTool-smc</name>
     <packaging>jar</packaging>
     <description>smc开发工具组件</description>
@@ -257,7 +257,7 @@
                                 <configuration>
                                     <headerType>gui</headerType>
                                     <outfile>target/SmcTool.exe</outfile>
-                                    <downloadUrl>https://adoptium.net/?variant=openjdk17</downloadUrl>
+                                    <downloadUrl>https://adoptium.net/?variant=openjdk21</downloadUrl>
                                     <jar>target/${project.artifactId}.jar</jar>
                                     <errTitle>Launching error</errTitle>
                                     <icon>config/logo.ico</icon>

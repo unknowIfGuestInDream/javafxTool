@@ -71,3 +71,7 @@ pom.xml.versionsBackup
 *.bak
 .xcodemap/
 .okhttpcache
+
+### Temporary JDK installations ###
+jdk-*/
+OpenJDK*.tar.gz

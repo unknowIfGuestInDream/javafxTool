@@ -3,7 +3,7 @@ Main-Class: com.tlcsdm.cg.CgSampler
 Implementation-Version: 1.0.0
 Built-By: unknowIfGuestInDream
 Build-Os: Windows 11
-Build-Jdk-Spec: 17
-Build-Jdk: Eclipse Temurin 17.0.9
-Created-By: IntelliJ IDEA 2023.3.1
-Build-Day: 2023-10-02
+Build-Jdk-Spec: 21
+Build-Jdk: Eclipse Temurin 21.0.7
+Created-By: IntelliJ IDEA 2024.3.2.2
+Build-Day: 2025-12-21
