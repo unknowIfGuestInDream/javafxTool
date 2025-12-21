@@ -122,7 +122,7 @@ pull_request_rules:
           Please remove this sensitive data.
   - name: Build check comment
     conditions:
-      - "status-failure=build (17)"
+      - "status-failure=build (21)"
       - author!=dependabot[bot]
       - author!=imgbot[bot]
       - "-closed"
@@ -175,7 +175,7 @@ pull_request_rules:
     conditions:
       - status-success=Title Validator
       - status-success=dependency-review
-      - status-success=build (17)
+      - status-success=build (21)
       - status-success=GitGuardian Security Checks
       - "-closed"
       - "-draft"
@@ -206,7 +206,7 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - status-success=Title Validator
       - status-success=dependency-review
-      - status-success=build (17)
+      - status-success=build (21)
       - status-success=GitGuardian Security Checks
       - status-success=mergefreeze
       - status-success=WIP
@@ -230,7 +230,7 @@ pull_request_rules:
   #      - author=unknowIfGuestInDream
   #      - status-success=Title Validator
   #      - status-success=dependency-review
-  #      - status-success=build (17)
+  #      - status-success=build (21)
   #      - status-success=GitGuardian Security Checks
   #      - status-success=mergefreeze
   #      - status-success=WIP
