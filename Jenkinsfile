@@ -33,8 +33,11 @@ pipeline {
     environment {
         USER_NAME = 'Jenkins'
     }
-    
-    stages {        
+    tools {
+        jdk "jdk21"
+    }
+
+    stages {
         stage('Check change') {
             when {
                 expression { currentBuild.previousSuccessfulBuild != null }
@@ -63,7 +66,7 @@ pipeline {
                             currentBuild.getRawBuild().getExecutor().interrupt(Result.NOT_BUILT)
                             sleep(1)
                             cleanWs()
-                        }   
+                        }
                     }
                 }
             }
@@ -73,6 +76,7 @@ pipeline {
             steps {
                 sh 'rm -f *linux*21*.tar.gz *mac*21*.tar.gz *windows*21*.zip || true'
                 copyArtifacts filter: '*linux*21*,*mac*21*,*windows*21*', fingerprintArtifacts: true, projectName: 'env/JRE', selector: lastSuccessful()
+                sh 'java -version'
                 sh "$M2_HOME/bin/mvn -version"
             }
             post {
@@ -244,8 +248,8 @@ pipeline {
              steps {
                  script {
                      sh "rm smcTool*.zip"
-                     sh "rm qeTool*.zip" 
-                     sh "rm *linux*21*.tar.gz" 
+                     sh "rm qeTool*.zip"
+                     sh "rm *linux*21*.tar.gz"
                      sh "rm *mac*21*.tar.gz"
                      sh "rm *windows*21*.zip"
                      sh "rm -rf jretemp"
