@@ -3,10 +3,10 @@
 ## Project Overview
 
 javafxTool is a JavaFX scaffolding framework built on:
-- **JDK 17+** (required for building)
+- **JDK 21+** (required for building)
 - **JavaFX 21**
 - **ControlsFX 11**
-- **Maven 3.5.4+**
+- **Maven 3.6.0+**
 
 The project provides a modular architecture where application modules can be integrated through Java SPI (Service Provider Interface).
 
@@ -63,16 +63,36 @@ All Java source files must include the BSD 3-Clause license header:
 
 ```java
 /*
- * Copyright (c) {YEAR} unknowIfGuestInDream
+ * Copyright (c) {YEAR} unknowIfGuestInDream.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * ...
+ *     * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *     * Neither the name of unknowIfGuestInDream, any associated website, nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL UNKNOWIFGUESTINDREAM BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 ```
 
 Replace `{YEAR}` with the current year or year range (e.g., `2023`, `2019, 2023`).
+
+**Note:** For template usage in IDEs, you can use `$today.year` to automatically insert the current year.
 
 ### Naming Conventions
 
@@ -215,6 +235,9 @@ Closes #123
 - Check Dependabot alerts for security issues
 - Use Maven dependency management from the root project POM (javafxTool/pom.xml)
 - When adding dependencies to a module, check if version is already managed in root `<dependencyManagement>` section
+- When updating Maven dependencies, you must also update:
+  - `.idea/artifacts/` directory: Update IDEA artifact configuration files
+  - `core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java`: Update the dependency information records
 - Document any new dependencies in commit messages
 
 ## CI/CD
@@ -234,7 +257,8 @@ Closes #123
 ## Additional Notes
 
 - Project inception: 2022
-- License: BSD 3-Clause (see LICENSE file)
-- Minimum Java version: JDK 17
+- License: MIT (see LICENSE file)
+- Minimum Java version: JDK 21
+- Minimum Maven version: 3.6.0
 - The framework is designed to be pluggable - new modules integrate via SPI
 - Use `.editorconfig` settings for consistent formatting across IDEs
