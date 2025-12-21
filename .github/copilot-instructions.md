@@ -94,6 +94,8 @@ Replace `{YEAR}` with the current year or year range (e.g., `2023`, `2019, 2023`
 
 **Note:** For template usage in IDEs, you can use `$today.year` to automatically insert the current year.
 
+**Important:** While the project is licensed under MIT (see LICENSE file), source files use the BSD 3-Clause header format shown above. This is the established convention for this codebase.
+
 ### Naming Conventions
 
 - Classes: PascalCase (e.g., `LoginFrame`, `FXSamplerProject`)
