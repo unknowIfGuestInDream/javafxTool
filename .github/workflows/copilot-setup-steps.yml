@@ -17,7 +17,7 @@ on:
 jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     permissions: write-all
 
     steps:
@@ -42,4 +42,4 @@ jobs:
       - name: Install dependencies
         run: mvn -B clean install -DskipTests -Dmaven.javadoc.skip=true
         env:
-          MAVEN_OPTS: "-Xms512m -Xmx1600m"
+          MAVEN_OPTS: "-Xms128m -Xmx1024m"
