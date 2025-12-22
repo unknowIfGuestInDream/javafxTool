@@ -18,8 +18,7 @@ jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      contents: read
+    permissions: write-all
 
     steps:
       - name: Checkout code
@@ -31,6 +30,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
+
+      - name: Set up Maven 3.9.0+
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.9'
+
+      - name: Verify Maven version
+        run: mvn --version
 
       - name: Install dependencies
         run: mvn -B clean install -DskipTests -Dmaven.javadoc.skip=true
