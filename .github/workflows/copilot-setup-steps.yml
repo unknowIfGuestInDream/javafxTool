@@ -33,9 +33,6 @@ jobs:
           cache: 'maven'
 
       - name: Install dependencies
-        run: mvn -B -U clean install -DskipTests -Dmaven.javadoc.skip=true
+        run: mvn -B clean install -DskipTests -Dmaven.javadoc.skip=true
         env:
           MAVEN_OPTS: "-Xms512m -Xmx1600m"
-
-      - name: Verify build
-        run: mvn -B verify -DskipTests -Dmaven.javadoc.skip=true
