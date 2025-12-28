@@ -190,7 +190,7 @@
         <java-util.version>4.70.0</java-util.version>
         <eclipse-collections.version>13.0.0</eclipse-collections.version>
         <jep.version>4.2.2</jep.version>
-        <imageio.version>3.12.0</imageio.version>
+        <imageio.version>3.13.0</imageio.version>
         <icns.version>1.2</icns.version>
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
