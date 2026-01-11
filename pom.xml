@@ -196,7 +196,7 @@
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
         <javaluator.version>3.0.6</javaluator.version>
-        <javapoet.version>0.9.0</javapoet.version>
+        <javapoet.version>0.10.0</javapoet.version>
         <nashorn.version>15.7</nashorn.version>
         <jruby.version>9.4.14.0</jruby.version>
         <qrcodegen.version>1.8.0</qrcodegen.version>
