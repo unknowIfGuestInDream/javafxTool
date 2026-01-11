@@ -113,7 +113,7 @@
         <aviator.version>5.4.3</aviator.version>
         <jaxen.version>2.0.0</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
-        <hutool.version>5.8.42</hutool.version>
+        <hutool.version>5.8.43</hutool.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <logback-classic.version>1.5.22</logback-classic.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
