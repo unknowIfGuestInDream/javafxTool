@@ -62,7 +62,7 @@ public class DependencyInfo {
             new Dependency("org.freemarker", "freemarker", "2.3.34", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.5.22", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.5.25", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.42", true, "https://github.com/dromara/hutool",
@@ -84,7 +84,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("commons-io", "commons-io", "2.21.0", true,
+            new Dependency("commons-io", "2.21.0", "2.21.0", true,
                 "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -188,7 +188,7 @@ public class DependencyInfo {
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
-            new Dependency("org.checkerframework", "checker-qual", "3.51.0", true,
+            new Dependency("org.checkerframework", "checker-qual", "3.52.1", true,
                 "https://github.com/typetools/checker-framework",
                 "MIT License", "http://opensource.org/licenses/MIT"),
 
