@@ -1,22 +1,37 @@
 name: Update DependencyInfo
 
 on:
-  push:
-    branches:
-      - dependabot/** # 监听 Dependabot 创建的分支
-  pull_request:
-    branches:
-      - dependabot/** # 针对 Dependabot 的 PR
+  pull_request_target:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   update-dependency-info:
+    # Only run for Dependabot PRs - this is a security check to ensure we're not
+    # executing untrusted code from arbitrary PRs
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      # Security: We use pull_request_target which runs in the context of the base branch,
+      # but we need to checkout the PR branch to get the updated pom.xml.
+      # This is safe because we only run for dependabot[bot] and we only read pom.xml files
+      # without executing any code from the PR.
+      - name: Checkout PR branch
         uses: actions/checkout@v6
         with:
-          fetch-depth: 2  # 确保可以访问前一个提交
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 2
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -24,60 +39,247 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Update DependencyInfo.java
-        id: update-dependency-info
+      - name: Update dependency versions
+        id: update-versions
         run: |
-          # 找到Dependabot更新的pom.xml文件
-          # 检查是否有前一个提交
-          if git rev-parse HEAD~1 >/dev/null 2>&1; then
-            UPDATED_DEP=$(git diff HEAD~1 HEAD --name-only | grep 'pom.xml' || true)
-          else
-            # 如果是初始提交，只检查当前提交中的pom.xml文件
-            UPDATED_DEP=$(git show --name-only --pretty=format: HEAD | grep 'pom.xml' || true)
-          fi
+          set -e
           
-          if [ -z "$UPDATED_DEP" ]; then
+          # Check if pom.xml has been changed
+          UPDATED_POM=$(git diff HEAD~1 HEAD --name-only | grep 'pom.xml' || true)
+          
+          if [ -z "$UPDATED_POM" ]; then
             echo "No pom.xml file updated. Exiting."
+            echo "changed=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-
-          # 从<properties>中提取依赖名和版本号
-          for dep in $UPDATED_DEP; do
-            DEP_PROPERTIES=$(xmllint --xpath "//project/properties/*" $dep 2>/dev/null || true)
-            if [ -z "$DEP_PROPERTIES" ]; then
-              echo "No properties found in $dep. Skipping."
+          
+          echo "Updated pom.xml files: $UPDATED_POM"
+          
+          # Define dependency mappings (pom.xml property name -> DependencyInfo.java artifact name -> docs/README.md display name)
+          # Format: "pom_property:artifact_name:readme_name"
+          declare -A DEP_MAPPINGS
+          DEP_MAPPINGS=(
+            ["javafx.version"]="javafx:JavaFX"
+            ["controlsfx.version"]="controlsfx:controlsfx"
+            ["junit.version"]="junit:junit"
+            ["poi-ooxml.version"]="poi:poi-ooxml"
+            ["freemarker.version"]="freemarker:freemarker"
+            ["logback-classic.version"]="logback:logback"
+            ["hutool.version"]="hutool:hutool"
+            ["commons-lang3.version"]="commons-lang3:commons-lang3"
+            ["commons-email.version"]="commons-email:commons-email"
+            ["commons-csv.version"]="commons-csv:commons-csv"
+            ["commons-configuration2.version"]="commons-configuration2:commons-configuration2"
+            ["commons-io.version"]="commons-io:commons-io"
+            ["dom4j.version"]="dom4j:dom4j"
+            ["java-diff-utils.version"]="java-diff-utils:java-diff-utils"
+            ["reflections.version"]="reflections:reflections"
+            ["classgraph.version"]="classgraph:classgraph"
+            ["guava.version"]="guava:guava"
+            ["caffeine.version"]="caffeine:caffeine"
+            ["pdfbox.version"]="pdfbox:pdfbox"
+            ["tabula.version"]="tabula:tabula"
+            ["jackson.version"]="jackson:jackson"
+            ["testfx.version"]="testfx:testfx"
+            ["bootstrapfx.version"]="bootstrapfx:bootstrapfx"
+            ["ikonli.version"]="ikonli:ikonli"
+            ["pdfviewfx.version"]="pdfviewfx:pdfviewfx"
+            ["richtextfx.version"]="richtextfx:richtextfx"
+            ["groovy.version"]="groovy:groovy"
+            ["sikulixapi.version"]="sikulixapi:sikulixapi"
+            ["aviator.version"]="aviator:aviator"
+            ["thumbnailator.version"]="thumbnailator:thumbnailator"
+            ["preferencesfx.version"]="preferencesfx:preferencesfx"
+            ["formsfx.version"]="formsfx:formsfx"
+            ["yuicompressor.version"]="yuicompressor:yuicompressor"
+            ["jaxb.version"]="jaxb:jaxb"
+            ["jython.version"]="jython:jython"
+            ["bytebuddy.version"]="byte-buddy:byte-buddy"
+            ["tess4j.version"]="tess4j:tess4j"
+            ["rich-text-area.version"]="rich-text-area:rich-text-area"
+            ["animateFX.version"]="AnimateFX:AnimateFX"
+            ["oshi.version"]="oshi-core-java11:oshi-core-java11"
+            ["checker-qual.version"]="checker-qual:checker-qual"
+            ["jfxtras.version"]="jfxtras:jfxtras"
+            ["zip4j.version"]="zip4j:zip4j"
+            ["plantuml.version"]="plantuml:plantuml"
+            ["cssfx.version"]="cssfx:cssfx"
+            ["commons-compress.version"]="commons-compress:commons-compress"
+            ["commons-imaging.version"]="commons-imaging:commons-imaging"
+            ["image4j.version"]="image4j:image4j"
+            ["teenyhttpd.version"]="teenyhttpd:teenyHttpd"
+            ["java-util.version"]="java-util:java-util"
+            ["javaluator.version"]="javaluator:javaluator"
+            ["jSerialComm.version"]="jSerialComm:jSerialComm"
+            ["icns.version"]="icns-core:icns"
+          )
+          
+          CHANGES_MADE=false
+          
+          # Extract changed dependency versions from pom.xml
+          for pom_file in $UPDATED_POM; do
+            if [ ! -f "$pom_file" ]; then
               continue
             fi
-
-            # 遍历<properties>中的每个依赖并更新DependencyInfo.java
-            echo "$DEP_PROPERTIES" | while read -r line; do
-              DEP_NAME=$(echo $line | sed -n 's/<\([^>]*\)>.*/\1/p')
-              DEP_VERSION=$(echo $line | sed -n 's/.*>\([^<]*\)<.*/\1/p')
-
-              # 替换DependencyInfo.java中的版本号
-              sed -i "s/\($DEP_NAME\s*=\s*\"\)[^\"]*/\1$DEP_VERSION/" core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java
+            
+            echo "Processing $pom_file..."
+            
+            # Get properties from the pom.xml
+            for prop_name in "${!DEP_MAPPINGS[@]}"; do
+              # Extract new version number
+              NEW_VERSION=$(grep -oP "(?<=<${prop_name}>)[^<]+" "$pom_file" 2>/dev/null || true)
+              
+              if [ -n "$NEW_VERSION" ]; then
+                MAPPING="${DEP_MAPPINGS[$prop_name]}"
+                ARTIFACT_NAME=$(echo "$MAPPING" | cut -d: -f1)
+                README_NAME=$(echo "$MAPPING" | cut -d: -f2)
+                
+                echo "Found $prop_name = $NEW_VERSION (artifact: $ARTIFACT_NAME)"
+                
+                # 1. Update DependencyInfo.java
+                DEPENDENCY_INFO_FILE="core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java"
+                if [ -f "$DEPENDENCY_INFO_FILE" ]; then
+                  # Match lines containing the artifact name and update version number
+                  sed -i -E "s/(\"${ARTIFACT_NAME}\",\s*\")[^\"]+(\",)/\1${NEW_VERSION}\2/g" "$DEPENDENCY_INFO_FILE"
+                fi
+                
+                # 2. Update docs/README.md
+                README_FILE="docs/README.md"
+                if [ -f "$README_FILE" ]; then
+                  # Update version number in markdown table
+                  # Format: | tech_name | version | description |
+                  sed -i -E "s/(\|\s*${README_NAME}\s*\|\s*)[^\|]+(\s*\|)/\1${NEW_VERSION}\2/gi" "$README_FILE"
+                fi
+                
+                # 3. Update .idea/artifacts/*.xml files
+                for artifact_xml in .idea/artifacts/*.xml; do
+                  if [ -f "$artifact_xml" ]; then
+                    # Replace version numbers based on dependency type
+                    case "$prop_name" in
+                      "javafx.version")
+                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "controlsfx.version")
+                        sed -i -E "s|(org/controlsfx/controlsfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "logback-classic.version")
+                        sed -i -E "s|(ch/qos/logback/logback-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "hutool.version")
+                        sed -i -E "s|(cn/hutool/hutool-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "commons-io.version")
+                        sed -i -E "s|(commons-io/commons-io/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "commons-lang3.version")
+                        sed -i -E "s|(org/apache/commons/commons-lang3/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "commons-configuration2.version")
+                        sed -i -E "s|(org/apache/commons/commons-configuration2/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "commons-compress.version")
+                        sed -i -E "s|(org/apache/commons/commons-compress/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "commons-imaging.version")
+                        sed -i -E "s|(org/apache/commons/commons-imaging/)[0-9a-zA-Z\.\-]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "jackson.version")
+                        sed -i -E "s|(com/fasterxml/jackson/core/jackson-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "caffeine.version")
+                        sed -i -E "s|(com/github/ben-manes/caffeine/caffeine/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "java-diff-utils.version")
+                        sed -i -E "s|(io/github/java-diff-utils/java-diff-utils/)[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "dom4j.version")
+                        sed -i -E "s|(org/dom4j/dom4j/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "freemarker.version")
+                        sed -i -E "s|(org/freemarker/freemarker/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "groovy.version")
+                        sed -i -E "s|(org/apache/groovy/groovy[^/]*/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "richtextfx.version")
+                        sed -i -E "s|(org/fxmisc/richtext/richtextfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "ikonli.version")
+                        sed -i -E "s|(org/kordamp/ikonli/ikonli-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "thumbnailator.version")
+                        sed -i -E "s|(net/coobird/thumbnailator/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "poi-ooxml.version")
+                        sed -i -E "s|(org/apache/poi/poi[^/]*/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "reflections.version")
+                        sed -i -E "s|(org/reflections/reflections/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "cssfx.version")
+                        sed -i -E "s|(fr/brouillard/oss/cssfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "preferencesfx.version")
+                        sed -i -E "s|(com/dlsc/preferencesfx/preferencesfx-core/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "formsfx.version")
+                        sed -i -E "s|(com/dlsc/formsfx/formsfx-core/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "teenyhttpd.version")
+                        sed -i -E "s|(net/jonathangiles/tools/teenyhttpd/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "checker-qual.version")
+                        sed -i -E "s|(org/checkerframework/checker-qual/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "yuicompressor.version")
+                        sed -i -E "s|(com/yahoo/platform/yui/yuicompressor/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "jSerialComm.version")
+                        sed -i -E "s|(com/fazecast/jSerialComm/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "icns.version")
+                        sed -i -E "s|(com/github/gino0631/icns-core/)[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                      "image4j.version")
+                        sed -i -E "s|(net/ifok/image/image4j/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        ;;
+                    esac
+                  fi
+                done
+                
+                CHANGES_MADE=true
+              fi
             done
           done
+          
+          if [ "$CHANGES_MADE" = true ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit and Push changes
+        if: steps.update-versions.outputs.changed == 'true'
         run: |
-          # 检查是否有文件需要提交
-          if git diff --quiet --exit-code core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java; then
-            echo "No changes to DependencyInfo.java"
+          # Check if there are actual changes
+          if git diff --quiet; then
+            echo "No actual changes detected."
             exit 0
           fi
           
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java
-          git commit -m "docs: Update DependencyInfo.java with latest dependency versions"
-          git push origin HEAD
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          commit-message: Update DependencyInfo.java
-          title: "docs: Update DependencyInfo.java"
-          body: |
-            This PR updates `DependencyInfo.java` with the latest dependency versions updated by Dependabot.
-          branch: update-dependency-info
+          
+          # Add all potentially modified files
+          git add core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java || true
+          git add docs/README.md || true
+          git add .idea/artifacts/*.xml || true
+          
+          # Check if any files were staged
+          if git diff --cached --quiet; then
+            echo "No files staged for commit."
+            exit 0
+          fi
+          
+          git commit -m "docs: Update dependency versions in DependencyInfo.java, README.md and IDEA artifacts"
+          git push
