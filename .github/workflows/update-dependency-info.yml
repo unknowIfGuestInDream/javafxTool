@@ -30,7 +30,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-          fetch-depth: 2
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Java
@@ -44,11 +44,17 @@ jobs:
         run: |
           set -e
           
-          # Check if pom.xml has been changed
-          UPDATED_POM=$(git diff HEAD~1 HEAD --name-only | grep 'pom.xml' || true)
+          # Get the base branch (usually master)
+          BASE_REF="${{ github.event.pull_request.base.sha }}"
+          HEAD_REF="${{ github.event.pull_request.head.sha }}"
+          
+          echo "Comparing changes between base ($BASE_REF) and head ($HEAD_REF)"
+          
+          # Check if pom.xml has been changed in this PR
+          UPDATED_POM=$(git diff --name-only "$BASE_REF" "$HEAD_REF" | grep 'pom.xml' || true)
           
           if [ -z "$UPDATED_POM" ]; then
-            echo "No pom.xml file updated. Exiting."
+            echo "No pom.xml file updated in this PR. Exiting."
             echo "changed=false" >> $GITHUB_OUTPUT
             exit 0
           fi
