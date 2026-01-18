@@ -84,7 +84,7 @@ public class DependencyInfo {
                 "https://commons.apache.org/proper/commons-configuration/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("commons-io", "commons-io", "2.21.0", true,
+            new Dependency("commons-io", "2.21.0", "2.21.0", true,
                 "https://commons.apache.org/proper/commons-io/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -173,7 +173,7 @@ public class DependencyInfo {
             new Dependency("net.bytebuddy", "byte-buddy", "1.18.2", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("net.sourceforge.tess4j", "tess4j", "5.17.0", false, "https://github.com/nguyenq/tess4j",
+            new Dependency("net.sourceforge.tess4j", "tess4j", "5.18.0", false, "https://github.com/nguyenq/tess4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.gluonhq", "rich-text-area", "1.2.4", false,
@@ -188,7 +188,7 @@ public class DependencyInfo {
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
-            new Dependency("org.checkerframework", "checker-qual", "3.51.0", true,
+            new Dependency("org.checkerframework", "checker-qual", "3.52.1", true,
                 "https://github.com/typetools/checker-framework",
                 "MIT License", "http://opensource.org/licenses/MIT"),
 
