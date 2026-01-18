@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   update-dependency-info:
-    # 只对 Dependabot 的 PR 运行
+    # Only run for Dependabot PRs - this is a security check to ensure we're not
+    # executing untrusted code from arbitrary PRs
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
 
@@ -20,6 +21,10 @@ jobs:
         with:
           egress-policy: audit
 
+      # Security: We use pull_request_target which runs in the context of the base branch,
+      # but we need to checkout the PR branch to get the updated pom.xml.
+      # This is safe because we only run for dependabot[bot] and we only read pom.xml files
+      # without executing any code from the PR.
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
@@ -39,7 +44,7 @@ jobs:
         run: |
           set -e
           
-          # 检查pom.xml是否有变更
+          # Check if pom.xml has been changed
           UPDATED_POM=$(git diff HEAD~1 HEAD --name-only | grep 'pom.xml' || true)
           
           if [ -z "$UPDATED_POM" ]; then
@@ -50,8 +55,8 @@ jobs:
           
           echo "Updated pom.xml files: $UPDATED_POM"
           
-          # 定义依赖映射关系 (pom.xml中的属性名 -> DependencyInfo.java中的artifact名 -> docs/README.md中的显示名)
-          # 格式: "pom属性名:artifact名:readme显示名"
+          # Define dependency mappings (pom.xml property name -> DependencyInfo.java artifact name -> docs/README.md display name)
+          # Format: "pom_property:artifact_name:readme_name"
           declare -A DEP_MAPPINGS
           DEP_MAPPINGS=(
             ["javafx.version"]="javafx:JavaFX"
@@ -111,7 +116,7 @@ jobs:
           
           CHANGES_MADE=false
           
-          # 从pom.xml中提取变更的依赖版本
+          # Extract changed dependency versions from pom.xml
           for pom_file in $UPDATED_POM; do
             if [ ! -f "$pom_file" ]; then
               continue
@@ -119,9 +124,9 @@ jobs:
             
             echo "Processing $pom_file..."
             
-            # 获取当前pom.xml的properties
+            # Get properties from the pom.xml
             for prop_name in "${!DEP_MAPPINGS[@]}"; do
-              # 提取新版本号
+              # Extract new version number
               NEW_VERSION=$(grep -oP "(?<=<${prop_name}>)[^<]+" "$pom_file" 2>/dev/null || true)
               
               if [ -n "$NEW_VERSION" ]; then
@@ -131,25 +136,25 @@ jobs:
                 
                 echo "Found $prop_name = $NEW_VERSION (artifact: $ARTIFACT_NAME)"
                 
-                # 1. 更新 DependencyInfo.java
+                # 1. Update DependencyInfo.java
                 DEPENDENCY_INFO_FILE="core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java"
                 if [ -f "$DEPENDENCY_INFO_FILE" ]; then
-                  # 匹配包含artifact名的行并更新版本号
+                  # Match lines containing the artifact name and update version number
                   sed -i -E "s/(\"${ARTIFACT_NAME}\",\s*\")[^\"]+(\",)/\1${NEW_VERSION}\2/g" "$DEPENDENCY_INFO_FILE"
                 fi
                 
-                # 2. 更新 docs/README.md
+                # 2. Update docs/README.md
                 README_FILE="docs/README.md"
                 if [ -f "$README_FILE" ]; then
-                  # 更新markdown表格中的版本号
-                  # 格式: | 技术名 | 版本号 | 说明 |
+                  # Update version number in markdown table
+                  # Format: | tech_name | version | description |
                   sed -i -E "s/(\|\s*${README_NAME}\s*\|\s*)[^\|]+(\s*\|)/\1${NEW_VERSION}\2/gi" "$README_FILE"
                 fi
                 
-                # 3. 更新 .idea/artifacts/*.xml 文件
+                # 3. Update .idea/artifacts/*.xml files
                 for artifact_xml in .idea/artifacts/*.xml; do
                   if [ -f "$artifact_xml" ]; then
-                    # 根据不同的依赖类型进行版本号替换
+                    # Replace version numbers based on dependency type
                     case "$prop_name" in
                       "javafx.version")
                         sed -i -E "s|(org/openjfx/javafx-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
@@ -256,7 +261,7 @@ jobs:
       - name: Commit and Push changes
         if: steps.update-versions.outputs.changed == 'true'
         run: |
-          # 检查是否有实际变更
+          # Check if there are actual changes
           if git diff --quiet; then
             echo "No actual changes detected."
             exit 0
@@ -265,18 +270,16 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 添加所有可能被修改的文件
+          # Add all potentially modified files
           git add core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java || true
           git add docs/README.md || true
           git add .idea/artifacts/*.xml || true
           
-          # 检查是否有文件被暂存
+          # Check if any files were staged
           if git diff --cached --quiet; then
             echo "No files staged for commit."
             exit 0
           fi
           
-          git commit -m "docs: Update dependency versions in DependencyInfo.java, README.md and IDEA artifacts
-
-          Updated by GitHub Actions in response to Dependabot dependency update."
+          git commit -m "docs: Update dependency versions in DependencyInfo.java, README.md and IDEA artifacts"
           git push
