@@ -168,10 +168,8 @@ jobs:
                     case "$prop_name" in
                       "javafx.version")
                         # Pattern: javafx-base/21.0.7/javafx-base-21.0.7.jar or javafx-base-21.0.7-mac-aarch64.jar
-                        # First, update simple jar names (without platform classifier)
-                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
-                        # Then, update platform-specific jar names (with classifier like -mac-aarch64)
-                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(-[^/]+\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
+                        # Uses optional group for platform classifier to handle both cases in one command
+                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(-[^/]*)?(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4\5|g" "$artifact_xml"
                         ;;
                       "controlsfx.version")
                         sed -i -E "s|(org/controlsfx/controlsfx/)([0-9]+\.[0-9]+\.[0-9]+)(/controlsfx-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
