@@ -146,7 +146,9 @@ jobs:
                 DEPENDENCY_INFO_FILE="core/src/main/java/com/tlcsdm/core/util/DependencyInfo.java"
                 if [ -f "$DEPENDENCY_INFO_FILE" ]; then
                   # Match lines containing the artifact name and update version number
-                  sed -i -E "s/(\"${ARTIFACT_NAME}\",\s*\")[^\"]+(\",)/\1${NEW_VERSION}\2/g" "$DEPENDENCY_INFO_FILE"
+                  # Pattern matches: "artifact", "version", to ensure we only update the version field
+                  # This handles cases where groupId == artifactId (e.g., commons-io)
+                  sed -i -E "s/(\"${ARTIFACT_NAME}\", \")[^\"]+(\", (true|false),)/\1${NEW_VERSION}\2/g" "$DEPENDENCY_INFO_FILE"
                 fi
                 
                 # 2. Update docs/README.md
@@ -154,100 +156,112 @@ jobs:
                 if [ -f "$README_FILE" ]; then
                   # Update version number in markdown table
                   # Format: | tech_name | version | description |
-                  sed -i -E "s/(\|\s*${README_NAME}\s*\|\s*)[^\|]+(\s*\|)/\1${NEW_VERSION}\2/gi" "$README_FILE"
+                  # Use a pattern that replaces only the version while preserving column spacing
+                  sed -i -E "s/(\|\s*${README_NAME}\s*\| )[^ |]+( +\|)/\1${NEW_VERSION}\2/gi" "$README_FILE"
                 fi
                 
                 # 3. Update .idea/artifacts/*.xml files
+                # Version patterns: VER3=[0-9]+\.[0-9]+\.[0-9]+ VER2=[0-9]+\.[0-9]+ VERA=[0-9a-zA-Z.\-]+
+                # Each case updates both the directory path version AND the jar filename version
                 for artifact_xml in .idea/artifacts/*.xml; do
                   if [ -f "$artifact_xml" ]; then
-                    # Replace version numbers based on dependency type
                     case "$prop_name" in
                       "javafx.version")
-                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # Pattern: javafx-base/21.0.7/javafx-base-21.0.7.jar or javafx-base-21.0.7-mac-aarch64.jar
+                        # First, update simple jar names (without platform classifier)
+                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
+                        # Then, update platform-specific jar names (with classifier like -mac-aarch64)
+                        sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(-[^/]+\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "controlsfx.version")
-                        sed -i -E "s|(org/controlsfx/controlsfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/controlsfx/controlsfx/)([0-9]+\.[0-9]+\.[0-9]+)(/controlsfx-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "logback-classic.version")
-                        sed -i -E "s|(ch/qos/logback/logback-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # Pattern: logback-classic/1.5.22/logback-classic-1.5.22.jar or logback-core/...
+                        sed -i -E "s|(ch/qos/logback/logback-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/logback-[^/]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "hutool.version")
-                        sed -i -E "s|(cn/hutool/hutool-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(cn/hutool/hutool-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/hutool-[^/]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "commons-io.version")
-                        sed -i -E "s|(commons-io/commons-io/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(commons-io/commons-io/)([0-9]+\.[0-9]+\.[0-9]+)(/commons-io-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "commons-lang3.version")
-                        sed -i -E "s|(org/apache/commons/commons-lang3/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/apache/commons/commons-lang3/)([0-9]+\.[0-9]+\.[0-9]+)(/commons-lang3-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "commons-configuration2.version")
-                        sed -i -E "s|(org/apache/commons/commons-configuration2/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/apache/commons/commons-configuration2/)([0-9]+\.[0-9]+\.[0-9]+)(/commons-configuration2-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "commons-compress.version")
-                        sed -i -E "s|(org/apache/commons/commons-compress/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/apache/commons/commons-compress/)([0-9]+\.[0-9]+\.[0-9]+)(/commons-compress-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "commons-imaging.version")
-                        sed -i -E "s|(org/apache/commons/commons-imaging/)[0-9a-zA-Z\.\-]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # Version can contain alpha suffix like 1.0.0-alpha6
+                        sed -i -E "s|(org/apache/commons/commons-imaging/)([0-9a-zA-Z.\-]+)(/commons-imaging-)[0-9a-zA-Z.\-]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "jackson.version")
-                        sed -i -E "s|(com/fasterxml/jackson/core/jackson-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/fasterxml/jackson/core/jackson-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/jackson-[^/]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "caffeine.version")
-                        sed -i -E "s|(com/github/ben-manes/caffeine/caffeine/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/github/ben-manes/caffeine/caffeine/)([0-9]+\.[0-9]+\.[0-9]+)(/caffeine-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "java-diff-utils.version")
-                        sed -i -E "s|(io/github/java-diff-utils/java-diff-utils/)[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # Version is 2-part like 4.16
+                        sed -i -E "s|(io/github/java-diff-utils/java-diff-utils/)([0-9]+\.[0-9]+)(/java-diff-utils-)[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "dom4j.version")
-                        sed -i -E "s|(org/dom4j/dom4j/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/dom4j/dom4j/)([0-9]+\.[0-9]+\.[0-9]+)(/dom4j-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "freemarker.version")
-                        sed -i -E "s|(org/freemarker/freemarker/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/freemarker/freemarker/)([0-9]+\.[0-9]+\.[0-9]+)(/freemarker-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "groovy.version")
-                        sed -i -E "s|(org/apache/groovy/groovy[^/]*/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # groovy has multiple artifacts like groovy, groovy-json, etc.
+                        sed -i -E "s|(org/apache/groovy/groovy[^/]*/)([0-9]+\.[0-9]+\.[0-9]+)(/groovy[^/]*-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "richtextfx.version")
-                        sed -i -E "s|(org/fxmisc/richtext/richtextfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/fxmisc/richtext/richtextfx/)([0-9]+\.[0-9]+\.[0-9]+)(/richtextfx-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "ikonli.version")
-                        sed -i -E "s|(org/kordamp/ikonli/ikonli-[^/]+/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/kordamp/ikonli/ikonli-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/ikonli-[^/]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "thumbnailator.version")
-                        sed -i -E "s|(net/coobird/thumbnailator/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(net/coobird/thumbnailator/)([0-9]+\.[0-9]+\.[0-9]+)(/thumbnailator-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "poi-ooxml.version")
-                        sed -i -E "s|(org/apache/poi/poi[^/]*/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # poi has multiple artifacts: poi, poi-ooxml, poi-ooxml-lite
+                        sed -i -E "s|(org/apache/poi/poi[^/]*/)([0-9]+\.[0-9]+\.[0-9]+)(/poi[^/]*-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "reflections.version")
-                        sed -i -E "s|(org/reflections/reflections/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/reflections/reflections/)([0-9]+\.[0-9]+\.[0-9]+)(/reflections-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "cssfx.version")
-                        sed -i -E "s|(fr/brouillard/oss/cssfx/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(fr/brouillard/oss/cssfx/)([0-9]+\.[0-9]+\.[0-9]+)(/cssfx-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "preferencesfx.version")
-                        sed -i -E "s|(com/dlsc/preferencesfx/preferencesfx-core/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/dlsc/preferencesfx/preferencesfx-core/)([0-9]+\.[0-9]+\.[0-9]+)(/preferencesfx-core-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "formsfx.version")
-                        sed -i -E "s|(com/dlsc/formsfx/formsfx-core/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/dlsc/formsfx/formsfx-core/)([0-9]+\.[0-9]+\.[0-9]+)(/formsfx-core-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "teenyhttpd.version")
-                        sed -i -E "s|(net/jonathangiles/tools/teenyhttpd/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(net/jonathangiles/tools/teenyhttpd/)([0-9]+\.[0-9]+\.[0-9]+)(/teenyhttpd-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "checker-qual.version")
-                        sed -i -E "s|(org/checkerframework/checker-qual/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(org/checkerframework/checker-qual/)([0-9]+\.[0-9]+\.[0-9]+)(/checker-qual-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "yuicompressor.version")
-                        sed -i -E "s|(com/yahoo/platform/yui/yuicompressor/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/yahoo/platform/yui/yuicompressor/)([0-9]+\.[0-9]+\.[0-9]+)(/yuicompressor-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "jSerialComm.version")
-                        sed -i -E "s|(com/fazecast/jSerialComm/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(com/fazecast/jSerialComm/)([0-9]+\.[0-9]+\.[0-9]+)(/jSerialComm-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "icns.version")
-                        sed -i -E "s|(com/github/gino0631/icns-core/)[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        # Version is 2-part like 1.2
+                        sed -i -E "s|(com/github/gino0631/icns-core/)([0-9]+\.[0-9]+)(/icns-core-)[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "image4j.version")
-                        sed -i -E "s|(net/ifok/image/image4j/)[0-9]+\.[0-9]+\.[0-9]+|\1${NEW_VERSION}|g" "$artifact_xml"
+                        sed -i -E "s|(net/ifok/image/image4j/)([0-9]+\.[0-9]+\.[0-9]+)(/image4j-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                     esac
                   fi
