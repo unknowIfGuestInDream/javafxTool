@@ -9,12 +9,12 @@
             <element id="module-output" name="javafxTool-frame" />
             <element id="module-output" name="javafxTool-core" />
             <element id="module-output" name="javafxTool-common" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.22/logback-classic-1.5.22.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.22/logback-core-1.5.22.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.42/hutool-core-5.8.42.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-crypto/5.8.42/hutool-crypto-5.8.42.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.42/hutool-log-5.8.42.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-poi/5.8.42/hutool-poi-5.8.42.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.5.25/logback-classic-1.5.25.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.5.25/logback-core-1.5.25.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-core/5.8.43/hutool-core-5.8.43.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-crypto/5.8.43/hutool-crypto-5.8.43.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.43/hutool-log-5.8.43.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-poi/5.8.43/hutool-poi-5.8.43.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/dlsc/formsfx/formsfx-core/11.6.0/formsfx-core-11.6.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/dlsc/preferencesfx/preferencesfx-core/11.17.0/preferencesfx-core-11.17.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.20/jackson-annotations-2.20.jar" path-in-jar="/" />
@@ -45,13 +45,13 @@
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-text/1.15.0/commons-text-1.15.0.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.25.2/log4j-api-2.25.2.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.25.2/log4j-core-2.25.2.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.25.3/log4j-api-2.25.3.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.25.3/log4j-core-2.25.3.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml-lite/5.5.1/poi-ooxml-lite-5.5.1.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml/5.5.1/poi-ooxml-5.5.1.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/poi/poi/5.5.1/poi-5.5.1.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/xmlbeans/xmlbeans/5.3.0/xmlbeans-5.3.0.jar" path-in-jar="/" />
-            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.52.1/checker-qual-3.52.1.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.53.0/checker-qual-3.53.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/11.2.3/controlsfx-11.2.3.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.2.0/dom4j-2.2.0.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar" path-in-jar="/" />

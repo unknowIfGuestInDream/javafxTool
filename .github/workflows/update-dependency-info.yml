@@ -175,7 +175,7 @@ jobs:
                         sed -i -E "s|(org/controlsfx/controlsfx/)([0-9]+\.[0-9]+\.[0-9]+)(/controlsfx-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "logback-classic.version")
-                        # Pattern: logback-classic/1.5.22/logback-classic-1.5.22.jar or logback-core/...
+                        # Pattern: logback-classic/1.5.25/logback-classic-1.5.25.jar or logback-core/...
                         sed -i -E "s|(ch/qos/logback/logback-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/logback-[^/]+-)[0-9]+\.[0-9]+\.[0-9]+(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4|g" "$artifact_xml"
                         ;;
                       "hutool.version")
