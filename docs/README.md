@@ -9,7 +9,7 @@ JavaFXTool基于JDK21 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | 技术                     | 版本           | 说明                               |
 |------------------------|--------------|----------------------------------|
 | JDK                    | 21           | Adoptium JDK                     |
-| JavaFX                 | 21.0.7       | JavaFX                           |
+| JavaFX                 | 21.0.9       | JavaFX                           |
 | controlsfx             | 11.2.3       | javafx UI控件                      |
 | caffeine               | 3.2.3        | 本地缓存                             |
 | checker-qual           | 3.53.0       | Java 的可插拔类型检查                    |

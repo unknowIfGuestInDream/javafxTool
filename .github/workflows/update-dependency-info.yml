@@ -167,7 +167,7 @@ jobs:
                   if [ -f "$artifact_xml" ]; then
                     case "$prop_name" in
                       "javafx.version")
-                        # Pattern: javafx-base/21.0.7/javafx-base-21.0.7.jar or javafx-base-21.0.7-mac-aarch64.jar
+                        # Pattern: javafx-base/21.0.9/javafx-base-21.0.9.jar or javafx-base-21.0.9-mac-aarch64.jar
                         # Uses optional group for platform classifier to handle both cases in one command
                         sed -i -E "s|(org/openjfx/javafx-[^/]+/)([0-9]+\.[0-9]+\.[0-9]+)(/javafx-[^-]+-)[0-9]+\.[0-9]+\.[0-9]+(-[^/]*)?(\.jar)|\1${NEW_VERSION}\3${NEW_VERSION}\4\5|g" "$artifact_xml"
                         ;;
