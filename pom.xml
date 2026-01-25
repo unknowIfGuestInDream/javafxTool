@@ -75,7 +75,7 @@
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
         <jaxb2-maven-plugin.version>4.0.0</jaxb2-maven-plugin.version>
-        <buildnumber-maven-plugin.version>3.2.1</buildnumber-maven-plugin.version>
+        <buildnumber-maven-plugin.version>3.3.0</buildnumber-maven-plugin.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <license-maven-plugin.version>2.7.1</license-maven-plugin.version>
         <impsort-maven-plugin.version>1.13.0</impsort-maven-plugin.version>
