@@ -90,7 +90,7 @@
         <versions-maven-plugin.version>2.20.1</versions-maven-plugin.version>
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
         <launch4j-maven-plugin.version>2.7.0</launch4j-maven-plugin.version>
-        <xml-maven-plugin.version>1.2.0</xml-maven-plugin.version>
+        <xml-maven-plugin.version>1.2.1</xml-maven-plugin.version>
         <git-changelog-maven-plugin.version>2.2.11</git-changelog-maven-plugin.version>
         <cyclonedx-maven-plugin.version>2.9.1</cyclonedx-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
