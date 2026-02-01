@@ -105,6 +105,7 @@ jobs:
           name: ${{ matrix.mod }}Tool-${{ matrix.buildos }}
           path: |
             aftifact
+          retention-days: 7
       - name: Release resource
         run: |
           rm -r aftifact

@@ -116,7 +116,7 @@ public class DependencyInfo {
                 "https://github.com/tabulapdf/tabula-java", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.fasterxml.jackson.core", "jackson", "2.20.1", false,
+            new Dependency("com.fasterxml.jackson.core", "jackson", "2.21.0", false,
                 "https://github.com/FasterXML/jackson", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
@@ -138,7 +138,7 @@ public class DependencyInfo {
                 "https://github.com/FXMisc/RichTextFX", "The BSD 2-Clause License",
                 "http://opensource.org/licenses/BSD-2-Clause"),
 
-            new Dependency("org.apache.groovy", "groovy", "5.0.3", false, "https://groovy-lang.org",
+            new Dependency("org.apache.groovy", "groovy", "5.0.4", false, "https://groovy-lang.org",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "4.83.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "4.85.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
