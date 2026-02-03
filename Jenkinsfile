@@ -29,9 +29,6 @@ pipeline {
     agent any
     options {
         timeout(time: 1, unit: "HOURS")
-        timestamps()
-        buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '10'))
-        disableConcurrentBuilds()
     }
     environment {
         USER_NAME = 'Jenkins'
@@ -78,9 +75,7 @@ pipeline {
         stage('Prepare JRE') {
             steps {
                 sh 'rm -f *linux*21*.tar.gz *mac*21*.tar.gz *windows*21*.zip || true'
-                retry(3) {
-                    copyArtifacts filter: '*linux*21*,*mac*21*,*windows*21*', fingerprintArtifacts: true, projectName: 'env/JRE', selector: lastSuccessful()
-                }
+                copyArtifacts filter: '*linux*21*,*mac*21*,*windows*21*', fingerprintArtifacts: true, projectName: 'env/JRE', selector: lastSuccessful()
                 sh 'java -version'
                 sh "$M2_HOME/bin/mvn -version"
             }
