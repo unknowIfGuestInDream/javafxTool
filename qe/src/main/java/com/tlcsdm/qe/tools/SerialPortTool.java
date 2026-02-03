@@ -130,7 +130,7 @@ public class SerialPortTool extends QeSample implements Initializable {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             getClass().getResource("/com/tlcsdm/qe/fxml/serialPortTool.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

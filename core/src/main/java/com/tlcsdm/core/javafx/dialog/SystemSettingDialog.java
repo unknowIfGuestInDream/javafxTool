@@ -54,7 +54,7 @@ public class SystemSettingDialog {
      */
     public static void openSystemSettings(String title, Keys... excludeKeys) {
         FxDialog<SystemSettingController> dialog = new FxDialog<SystemSettingController>()
-            .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
+            .setResourceBundle(ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale)).setTitle(title)
             .setBodyFxml(SystemSettingDialog.class.getResource("/com/tlcsdm/core/fxml/SystemSetting.fxml"))
             .setOwner(FxApp.primaryStage).setButtonTypes(ButtonType.OK, ButtonType.CANCEL);
 

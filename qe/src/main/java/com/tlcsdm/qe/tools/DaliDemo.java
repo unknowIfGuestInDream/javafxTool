@@ -85,7 +85,7 @@ public class DaliDemo extends QeSample {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             DaliDemo.class.getResource("/com/tlcsdm/qe/fxml/daliConfig.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

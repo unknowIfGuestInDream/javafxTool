@@ -151,7 +151,7 @@ public class FxmlDemo extends QeSample implements Initializable {
     @Override
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(getClass().getResource("/com/tlcsdm/qe/fxml/light.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

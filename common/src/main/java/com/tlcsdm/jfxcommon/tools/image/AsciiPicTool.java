@@ -108,7 +108,7 @@ public class AsciiPicTool extends CommonSample {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             AsciiPicTool.class.getResource("/com/tlcsdm/jfxcommon/fxml/asciiPicTool.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 
