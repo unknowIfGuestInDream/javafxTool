@@ -46,6 +46,15 @@ public class I18nUtils {
     }
 
     /**
+     * Returns the base name of the resource bundle.
+     *
+     * @return the base name for the resource bundle
+     */
+    public static String getBasename() {
+        return BASENAME;
+    }
+
+    /**
      * gets the string with the given key from the resource bundle for the current
      * locale and uses it as first argument to MessageFormat.format, passing in the
      * optional args and returning the result.
