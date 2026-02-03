@@ -107,7 +107,7 @@ public class Compress extends QeSample implements Initializable {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             Compress.class.getResource("/com/tlcsdm/qe/fxml/compress.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

@@ -50,8 +50,8 @@ public class SampleScanner {
     private static final Map<String, FXSamplerProject> PACKAGE_TO_PROJECT_MAP = new HashMap<>();
 
     static {
-        System.out.println("Initialising FXSampler sample scanner...");
-        System.out.println("\tDiscovering projects...");
+        StaticLog.info("Initialising FXSampler sample scanner...");
+        StaticLog.info("Discovering projects...");
         // find all projects on the classpath that expose a FXSamplerProject
         // service. These guys are our friends....
         ServiceLoader<FXSamplerProject> loader = ServiceLoader.load(FXSamplerProject.class);
@@ -59,12 +59,11 @@ public class SampleScanner {
             final String projectName = project.getProjectName();
             final String basePackage = project.getSampleBasePackage();
             PACKAGE_TO_PROJECT_MAP.put(basePackage, project);
-            System.out
-                .println("\t\tFound project '" + projectName + "', with sample base package '" + basePackage + "'");
+            StaticLog.info("Found project '{}', with sample base package '{}'", projectName, basePackage);
         }
 
         if (PACKAGE_TO_PROJECT_MAP.isEmpty()) {
-            System.out.println("\tError: Did not find any projects!");
+            StaticLog.error("Did not find any projects!");
         }
     }
 
@@ -100,12 +99,14 @@ public class SampleScanner {
                 sample = (Sample) sampleClass.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                      | InvocationTargetException e) {
+                StaticLog.error("Failed to instantiate sample class: {}", sampleClass.getName());
                 StaticLog.error(e);
             } catch (ExceptionInInitializerError e) {
+                StaticLog.error("Error during static initialization of sample class: {}", sampleClass.getName());
                 StaticLog.error(e);
                 continue;
             } catch (NoClassDefFoundError e) {
-                StaticLog.warn("Sample: " + sampleClass + " not found " + e.getMessage());
+                StaticLog.warn("Sample class not found: {} - {}", sampleClass.getName(), e.getMessage());
                 continue;
             }
             if (sample == null || !sample.isVisible()) {

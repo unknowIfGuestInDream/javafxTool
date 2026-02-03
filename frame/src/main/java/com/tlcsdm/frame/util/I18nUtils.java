@@ -40,7 +40,19 @@ public class I18nUtils {
     /**
      * 资源包默认路径
      */
-    public static String BASENAME = "com.tlcsdm.frame.i18n.messages";
+    private static final String BASENAME = "com.tlcsdm.frame.i18n.messages";
+
+    private I18nUtils() {
+    }
+
+    /**
+     * Returns the base name of the resource bundle.
+     *
+     * @return the base name for the resource bundle
+     */
+    public static String getBasename() {
+        return BASENAME;
+    }
 
     /**
      * gets the string with the given key from the resource bundle for the current

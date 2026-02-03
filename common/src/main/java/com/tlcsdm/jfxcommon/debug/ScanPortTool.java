@@ -156,7 +156,7 @@ public class ScanPortTool extends CommonSample {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             ColorCode.class.getResource("/com/tlcsdm/jfxcommon/fxml/scanPortTool.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

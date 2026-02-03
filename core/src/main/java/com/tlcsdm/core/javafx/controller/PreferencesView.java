@@ -115,7 +115,7 @@ public class PreferencesView extends StackPane {
 
     private PreferencesFx createPreferences() {
         // i18n
-        ResourceBundle rb = ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale);
+        ResourceBundle rb = ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale);
         ResourceBundleService rbs = new ResourceBundleService(rb);
         return PreferencesFx.of(new CoreStorageHandler(),
                 Category.of("core.preference.general").expand().subCategories(

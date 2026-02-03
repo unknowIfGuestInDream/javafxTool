@@ -114,7 +114,7 @@ public class ImageSplit extends CommonSample {
     public Node getPanel(Stage stage) {
         FXMLLoader fxmlLoader = FxmlUtil.loadFxmlFromResource(
             ImageSplit.class.getResource("/com/tlcsdm/jfxcommon/fxml/imageSplit.fxml"),
-            ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale));
+            ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale));
         return fxmlLoader.getRoot();
     }
 

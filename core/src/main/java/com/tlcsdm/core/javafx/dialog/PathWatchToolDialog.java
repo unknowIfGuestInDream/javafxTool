@@ -46,7 +46,7 @@ public class PathWatchToolDialog {
 
     public static void openPathWatchTool(String title) {
         FxDialog<PathWatchToolController> dialog = new FxDialog<PathWatchToolController>()
-            .setResourceBundle(ResourceBundle.getBundle(I18nUtils.BASENAME, Config.defaultLocale)).setTitle(title)
+            .setResourceBundle(ResourceBundle.getBundle(I18nUtils.getBasename(), Config.defaultLocale)).setTitle(title)
             .setBodyFxml(PathWatchToolDialog.class.getResource("/com/tlcsdm/core/fxml/PathWatchTool.fxml"))
             .setModal(false).setResizable(true).setButtonTypes(FxButtonType.CLOSE);
         dialog.show();
