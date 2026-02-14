@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright (c) 2024 unknowIfGuestInDream.
+# Copyright (c) 2026 unknowIfGuestInDream.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,10 +28,10 @@
 #
 
 # see https://api.adoptium.net/q/swagger-ui/#/Binary/getBinaryByVersion
-winApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.9%2B10/windows/x64/jre/hotspot/normal/eclipse?project=jdk'
-macApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.9%2B10/mac/aarch64/jre/hotspot/normal/eclipse?project=jdk'
-linuxApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.9%2B10/linux/x64/jre/hotspot/normal/eclipse?project=jdk'
-wget -c ${winApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_x64_windows_hotspot_21.0.9_10.zip
-wget -c ${linuxApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_x64_linux_hotspot_21.0.9_10.tar.gz
-wget -c ${macApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.9_10.tar.gz
+winApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.10%2B7/windows/x64/jre/hotspot/normal/eclipse?project=jdk'
+macApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.10%2B7/mac/aarch64/jre/hotspot/normal/eclipse?project=jdk'
+linuxApi='https://api.adoptium.net/v3/binary/version/jdk-21.0.10%2B7/linux/x64/jre/hotspot/normal/eclipse?project=jdk'
+wget -c ${winApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_x64_windows_hotspot_21.0.10_7.zip
+wget -c ${linuxApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_x64_linux_hotspot_21.0.10_7.tar.gz
+wget -c ${macApi} --no-check-certificate -O aftifact/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.10_7.tar.gz
 
