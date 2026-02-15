@@ -196,7 +196,7 @@ public class DependencyInfo {
                 "https://jfxtras.org/",
                 "The 3-Clause BSD License", "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("net.lingala.zip4j", "zip4j", "2.11.5", false,
+            new Dependency("net.lingala.zip4j", "zip4j", "2.11.6", false,
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
