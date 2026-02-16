@@ -62,7 +62,7 @@ public class DependencyInfo {
             new Dependency("org.freemarker", "freemarker", "2.3.34", false, "https://freemarker.apache.org/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("ch.qos.logback", "logback", "1.5.28", true, "http://logback.qos.ch",
+            new Dependency("ch.qos.logback", "logback", "1.5.31", true, "http://logback.qos.ch",
                 "GNU Lesser General Public License", "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
 
             new Dependency("cn.hutool", "hutool", "5.8.43", true, "https://github.com/dromara/hutool",
@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.18.4", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.18.5", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.18.0", false, "https://github.com/nguyenq/tess4j",
@@ -196,7 +196,7 @@ public class DependencyInfo {
                 "https://jfxtras.org/",
                 "The 3-Clause BSD License", "http://www.opensource.org/licenses/bsd-license.php"),
 
-            new Dependency("net.lingala.zip4j", "zip4j", "2.11.5", false,
+            new Dependency("net.lingala.zip4j", "zip4j", "2.11.6", false,
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
@@ -224,7 +224,7 @@ public class DependencyInfo {
                 "https://github.com/JonathanGiles/TeenyHttpd", "MIT License",
                 "http://www.opensource.org/licenses/mit-license.php"),
 
-            new Dependency("com.cedarsoftware", "java-util", "4.92.0", false,
+            new Dependency("com.cedarsoftware", "java-util", "4.94.0", false,
                 "https://github.com/jdereg/java-util", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
