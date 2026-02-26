@@ -31,14 +31,16 @@
 JDK_VERSION="jdk-21.0.10%2B7"
 JLINK_MODULES="java.se,jdk.unsupported,jdk.zipfs,jdk.management,jdk.crypto.ec,jdk.localedata,jdk.charsets"
 
+mkdir -p aftifact
+
 # Download JDKs for jlink custom runtime creation
 winApi="https://api.adoptium.net/v3/binary/version/${JDK_VERSION}/windows/x64/jdk/hotspot/normal/eclipse?project=jdk"
 macApi="https://api.adoptium.net/v3/binary/version/${JDK_VERSION}/mac/aarch64/jdk/hotspot/normal/eclipse?project=jdk"
 linuxApi="https://api.adoptium.net/v3/binary/version/${JDK_VERSION}/linux/x64/jdk/hotspot/normal/eclipse?project=jdk"
 
-wget -c ${winApi} --no-check-certificate -O jdk-win.zip
-wget -c ${linuxApi} --no-check-certificate -O jdk-linux.tar.gz
-wget -c ${macApi} --no-check-certificate -O jdk-mac.tar.gz
+wget -c ${winApi} --no-check-certificate -O jdk-win.zip || { echo "Failed to download Windows JDK" >&2; exit 1; }
+wget -c ${linuxApi} --no-check-certificate -O jdk-linux.tar.gz || { echo "Failed to download Linux JDK" >&2; exit 1; }
+wget -c ${macApi} --no-check-certificate -O jdk-mac.tar.gz || { echo "Failed to download Mac JDK" >&2; exit 1; }
 
 # Extract JDKs
 mkdir -p jdk-win jdk-linux jdk-mac
@@ -51,6 +53,11 @@ LINUX_JMODS=$(find jdk-linux -name "jmods" -type d | head -1)
 LINUX_JLINK=$(find jdk-linux -name "jlink" -type f | head -1)
 WIN_JMODS=$(find jdk-win -name "jmods" -type d | head -1)
 MAC_JMODS=$(find jdk-mac -name "jmods" -type d | head -1)
+
+if [ -z "${LINUX_JLINK}" ] || [ -z "${LINUX_JMODS}" ] || [ -z "${WIN_JMODS}" ] || [ -z "${MAC_JMODS}" ]; then
+  echo "Failed to locate jlink or jmods directories" >&2
+  exit 1
+fi
 
 # Create custom minimal runtime using jlink instead of shipping the full JRE
 # Linux JRE
@@ -98,8 +105,8 @@ fi
 
 # Wrap in Mac directory structure (Contents/Home) for compatibility with Mac launch scripts
 mkdir -p jre-mac/Contents/Home
-mv jre-mac-temp/* jre-mac/Contents/Home/
-rmdir jre-mac-temp
+cp -r jre-mac-temp/. jre-mac/Contents/Home/
+rm -rf jre-mac-temp
 tar -czf aftifact/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.10_7.tar.gz jre-mac
 
 # Clean up
