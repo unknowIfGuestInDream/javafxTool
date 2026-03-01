@@ -144,7 +144,7 @@
         <jexl.version>3.6.2</jexl.version>
         <pdfbox.version>3.0.6</pdfbox.version>
         <pdfviewfx.version>3.3.3</pdfviewfx.version>
-        <jackson.version>2.21.0</jackson.version>
+        <jackson.version>2.21.1</jackson.version>
         <testfx.version>4.0.18</testfx.version>
         <assertj.version>3.27.7</assertj.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
