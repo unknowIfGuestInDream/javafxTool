@@ -166,7 +166,7 @@
         <jakarta.jaxb.version>4.0.6</jakarta.jaxb.version>
         <formsfx.version>11.6.0</formsfx.version>
         <jython.version>2.7.4</jython.version>
-        <violations.version>1.160.3</violations.version>
+        <violations.version>1.160.4</violations.version>
         <asm.version>9.9.1</asm.version>
         <pmd.version>7.21.0</pmd.version>
         <bytebuddy.version>1.18.5</bytebuddy.version>
