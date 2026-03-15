@@ -21,7 +21,7 @@ JavaFXTool基于JDK21 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | dom4j                  | 2.2.0        | XML 框架                           |
 | freemarker             | 2.3.34       | 模板引擎库                            |
 | groovy                 | 5.0.4        | Groovy                           |
-| hutool                 | 5.8.43       | Java工具类库                         |
+| hutool                 | 5.8.44       | Java工具类库                         |
 | icns                   | 1.2          | 处理 Apple Icon Image 格式图标的 Java 库 |
 | image4j                | 0.7.2        | 处理 BMP 和 ICO 图像格式的 Java 库        |
 | java-diff-utils        | 4.16         | 用于在文本或某种数据之间执行比较/差异操作            |
