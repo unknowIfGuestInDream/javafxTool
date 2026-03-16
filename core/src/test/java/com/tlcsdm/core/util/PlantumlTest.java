@@ -60,7 +60,7 @@ class PlantumlTest {
     @Test
     void test1() throws IOException {
         File source = new File(ResourceUtil.getResource("plantuml/smc.puml").getFile());
-        SourceFileReader reader = new SourceFileReader(source);
+        SourceFileReader reader = new SourceFileReader(false, source);
         List<GeneratedImage> list = reader.getGeneratedImages();
         // Generated files
         File png = list.get(0).getPngFile();
@@ -70,7 +70,7 @@ class PlantumlTest {
     void test2() throws IOException {
         File source = new File(ResourceUtil.getResource("plantuml/core.puml").getFile());
         FileFormatOption fileFormatOption = new FileFormatOption(FileFormat.PNG);
-        SourceFileReader reader = new SourceFileReader(source, source.getAbsoluteFile().getParentFile(),
+        SourceFileReader reader = new SourceFileReader(false, source, source.getAbsoluteFile().getParentFile(),
             fileFormatOption);
         List<GeneratedImage> list = reader.getGeneratedImages();
     }
