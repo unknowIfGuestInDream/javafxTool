@@ -172,7 +172,7 @@
         <bytebuddy.version>1.18.7</bytebuddy.version>
         <tess4j.version>5.18.0</tess4j.version>
         <hikariCP.version>7.0.2</hikariCP.version>
-        <druid.version>1.2.27</druid.version>
+        <druid.version>1.2.28</druid.version>
         <h2.version>2.4.240</h2.version>
         <jcommander.version>3.0</jcommander.version>
         <jssc.version>2.10.2</jssc.version>
