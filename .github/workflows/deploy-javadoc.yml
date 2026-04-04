@@ -50,7 +50,7 @@ jobs:
       - name: Generate javadoc
         run: mvn -B --file pom.xml -DskipTests javadoc:aggregate-jar
       - name: Publish to server
-        uses: easingthemes/ssh-deploy@v5.1.1
+        uses: easingthemes/ssh-deploy@v6.0.3
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-avzr --delete"
