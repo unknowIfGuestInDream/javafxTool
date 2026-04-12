@@ -154,7 +154,7 @@
         <thumbnailator.version>0.4.21</thumbnailator.version>
         <gson.version>2.13.2</gson.version>
         <tabula.version>1.0.5</tabula.version>
-        <preferencesfx.version>11.17.0</preferencesfx.version>
+        <preferencesfx.version>11.19.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.39.0</jface.version>
         <swt.version>3.133.0</swt.version>
