@@ -169,7 +169,7 @@
         <violations.version>1.160.5</violations.version>
         <asm.version>9.9.1</asm.version>
         <pmd.version>7.23.0</pmd.version>
-        <bytebuddy.version>1.18.7</bytebuddy.version>
+        <bytebuddy.version>1.18.8</bytebuddy.version>
         <tess4j.version>5.18.0</tess4j.version>
         <hikariCP.version>7.0.2</hikariCP.version>
         <druid.version>1.2.28</druid.version>
