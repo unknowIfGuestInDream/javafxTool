@@ -16,7 +16,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-log/5.8.44/hutool-log-5.8.44.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/cn/hutool/hutool-poi/5.8.44/hutool-poi-5.8.44.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/dlsc/formsfx/formsfx-core/11.6.0/formsfx-core-11.6.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/dlsc/preferencesfx/preferencesfx-core/11.17.0/preferencesfx-core-11.17.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/dlsc/preferencesfx/preferencesfx-core/11.19.0/preferencesfx-core-11.19.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.20/jackson-annotations-2.20.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar" path-in-jar="/" />
