@@ -32,6 +32,8 @@ pipeline {
     }
     environment {
         USER_NAME = 'Jenkins'
+        // 限制 Maven JVM 堆内存，避免在低配服务器(4核4G)上构建时内存压力过大
+        MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
     }
     tools {
         jdk "jdk21"
@@ -94,7 +96,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*21*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -145,7 +147,7 @@ pipeline {
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzf *mac*21*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -196,7 +198,7 @@ pipeline {
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci '-Dmaven.compile.fork=true' clean -T 1C install"
+                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzf *linux*21*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
