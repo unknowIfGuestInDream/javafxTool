@@ -111,7 +111,7 @@
         <poi-ooxml.version>5.5.1</poi-ooxml.version>
         <freemarker.version>2.3.34</freemarker.version>
         <aviator.version>5.4.3</aviator.version>
-        <jaxen.version>2.0.0</jaxen.version>
+        <jaxen.version>2.0.1</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.44</hutool.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
