@@ -14,7 +14,7 @@ JavaFXTool基于JDK21 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | caffeine               | 3.2.3        | 本地缓存                             |
 | checker-qual           | 4.0.0       | Java 的可插拔类型检查                    |
 | commons-imaging        | 1.0.0-alpha6 | 图像处理库                            |
-| commons-io             | 2.21.0       | IO工具                             |
+| commons-io             | 2.22.0       | IO工具                             |
 | commons-lang3          | 3.20.0       | Java工具类库                         |
 | commons-configuration2 | 2.14.0       | 用于从各种源读取配置数据                     |
 | cssfx                  | 11.5.1       | css 实时重载工具                       |
