@@ -12,7 +12,7 @@
 
 # Introduce
 
-[中文文档](./README_zh.md)  [日本語文書](./README_jp.md)\
+<a href="https://github.com/unknowIfGuestInDream/javafxTool/blob/master/README_zh.md">中文文档</a> · <a href="https://github.com/unknowIfGuestInDream/javafxTool/blob/master/README_jp.md">日本語文書</a><br>
 Javafx scaffolding, built on JDK21 + JavaFX 21 + controlsfx 11 + Maven
 
 Frame and login are basic modules, which are pluggable through java SPI to facilitate the integration of application
