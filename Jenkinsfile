@@ -34,6 +34,8 @@ pipeline {
         USER_NAME = 'Jenkins'
         // 限制 Maven JVM 堆内存，避免在低配服务器(4核4G)上构建时内存压力过大
         MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
+        // Jenkins 构建使用 1 个 Maven 线程，并关闭 javac verbose 日志，降低内存和日志压力
+        MAVEN_CI_ARGS = '-B --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false'
     }
     tools {
         jdk "jdk21"
@@ -96,7 +98,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*21*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -104,7 +106,7 @@ pipeline {
 
         stage('Build smc-windows') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('smc', 'win')
                 }
@@ -125,7 +127,7 @@ pipeline {
 
         stage('Build qe-windows') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=win -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('qe', 'win')
                 }
@@ -147,7 +149,7 @@ pipeline {
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzf *mac*21*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -155,7 +157,7 @@ pipeline {
 
         stage('Build smc-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('smc', 'mac')
                 }
@@ -176,7 +178,7 @@ pipeline {
 
         stage('Build qe-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('qe', 'mac')
                 }
@@ -198,7 +200,7 @@ pipeline {
         stage('Prepare Linux Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=linux -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzf *linux*21*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -206,7 +208,7 @@ pipeline {
 
         stage('Build smc-linux') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('smc', 'linux')
                 }
@@ -227,7 +229,7 @@ pipeline {
 
         stage('Build qe-linux') {
             steps {
-                sh "$M2_HOME/bin/mvn -B --no-transfer-progress -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=linux -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
                     packageTool('qe', 'linux')
                 }
