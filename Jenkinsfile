@@ -35,7 +35,7 @@ pipeline {
         // 限制 Maven JVM 堆内存，避免在低配服务器(4核4G)上构建时内存压力过大
         MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
         // Jenkins 构建串行执行 Maven reactor，并关闭 javac verbose 日志，降低内存和日志压力
-        MAVEN_CI_ARGS = '-B -q --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false'
+        MAVEN_CI_ARGS = '-B --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false'
     }
     tools {
         jdk "jdk21"
