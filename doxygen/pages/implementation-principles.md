@@ -23,7 +23,7 @@ to the corresponding runtime area.
 | ---------------- | --------------- | ---------------------- |
 | `FXSamplerProject` | `SampleScanner` | Collect project metadata, sample base packages and welcome pages. |
 | `FXSamplerConfiguration` | `FXSampler` and `SampleBase` | Resolve the application title, icon, stylesheet and theme. |
-| `MenubarConfigration` | `FXSampler` | Build the top menu bar supplied by application modules. |
+| `MenubarConfiguration` | `FXSampler` | Build the top menu bar supplied by application modules. |
 | `SamplesTreeViewConfiguration` | `FXSampler` | Customize the sample tree view and tree cell factory. |
 | `CenterPanelService` | `FXSampler` | Provide the main center node and react to sample selection changes. |
 | `SamplePostProcessorService` | `FXSampler` | Adjust collected sample tree items after scanning. |
@@ -64,7 +64,7 @@ frame startup sequence.
    start [label="FXSampler startup"];
    project [label="Load FXSamplerProject"];
    config [label="Apply FXSamplerConfiguration"];
-   menu [label="Build MenubarConfigration"];
+   menu [label="Build MenubarConfiguration"];
    tree [label="Configure SamplesTreeViewConfiguration"];
    center [label="Attach CenterPanelService"];
    post [label="Run SamplePostProcessorService"];
