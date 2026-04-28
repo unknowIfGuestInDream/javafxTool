@@ -180,7 +180,6 @@ body.sidebar-collapsed #sidebar-toggle {
 
 .contents img[alt="jetbrains"] {
     width: 100px;
-    max-width: 100px;
     height: auto;
 }
 
@@ -285,9 +284,3 @@ div.line,
     color: var(--primary-dark-color);
 }
 
-#main-menu li:has(> a[href^="namespacemembers"]),
-#nav-tree .item:has(a[href^="namespacemembers"]),
-.directory tr:has(a[href*="doxygen_2pages"]),
-.directory li:has(a[href*="doxygen_2pages"]) {
-    display: none !important;
-}

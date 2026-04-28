@@ -19,14 +19,24 @@
         removeMatches();
         const navTree = document.getElementById("nav-tree");
         if (navTree && typeof MutationObserver !== "undefined") {
-            const observer = new MutationObserver(removeMatches);
+            let pending = false;
+            const observer = new MutationObserver(() => {
+                if (pending) {
+                    return;
+                }
+                pending = true;
+                window.requestAnimationFrame(() => {
+                    pending = false;
+                    removeMatches();
+                });
+            });
             observer.observe(navTree, { childList: true, subtree: true });
         }
     }
 
     function hideDoxygenPageFiles() {
-        const isGeneratedPageFile = (text) => /doxygen\/pages\//.test(text)
-            || /^doxygen\/pages$/.test(text);
+        const generatedPageFile = /(?:^|\/)doxygen\/pages(?:\/|$)/;
+        const isGeneratedPageFile = (text) => generatedPageFile.test(text);
         document.querySelectorAll(
             ".directory tr, .directory li, table.memberdecls tr"
         ).forEach((row) => {
