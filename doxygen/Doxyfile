@@ -56,7 +56,7 @@ SORT_MEMBER_DOCS       = YES
 GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
-GENERATE_DEPRECATEDLIST= YES
+GENERATE_DEPRECATEDLIST= NO
 SHOW_USED_FILES        = YES
 SHOW_FILES             = YES
 SHOW_NAMESPACES        = YES
@@ -91,6 +91,7 @@ EXCLUDE                = target \
                          docs-gen
 EXCLUDE_PATTERNS       = */target/* \
                          */build/* \
+                         */module-info.java \
                          */src/test/* \
                          */test/* \
                          */screenshots/* \

@@ -84,7 +84,15 @@ public final class YuiCompressUtil {
     }
 
     /**
-     * @param code 待压缩的代码.
+     * Compresses JavaScript source text.
+     *
+     * @param code source code to compress
+     * @param linebreakpos column after which line breaks are inserted
+     * @param munge whether to obfuscate local symbols
+     * @param verbose whether to display compressor messages
+     * @param preserveAllSemiColons whether to preserve all semicolons
+     * @param disableOptimizations whether to disable micro optimizations
+     * @return compressed JavaScript source
      */
     public static String compressJS(String code, int linebreakpos, boolean munge, boolean verbose, boolean preserveAllSemiColons,
         boolean disableOptimizations) {
@@ -123,7 +131,11 @@ public final class YuiCompressUtil {
     }
 
     /**
-     * @param code 待压缩的代码.
+     * Compresses CSS source text.
+     *
+     * @param code source code to compress
+     * @param linebreakpos column after which line breaks are inserted
+     * @return compressed CSS source
      */
     public static String compressCSS(String code, int linebreakpos) {
         try (InputStreamReader in = new InputStreamReader(new ByteArrayInputStream(code.getBytes()),

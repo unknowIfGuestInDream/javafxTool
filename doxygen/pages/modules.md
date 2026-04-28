@@ -12,6 +12,22 @@ together to provide a pluggable JavaFX scaffolding framework.
 | `demo` | Example module showing framework and ControlsFX usage. |
 | `smc`, `qe`, `cg` | Application modules that integrate through the framework SPI. |
 
+The Java Platform Module System descriptors (`module-info.java`) are kept with
+their owning Maven modules in source control. They are summarized here instead
+of being listed as standalone root-level file entries in the generated file
+index.
+
+| Descriptor | Module focus |
+| ---------- | ------------ |
+| `core/src/main/java/module-info.java` | Core runtime utilities and shared JavaFX infrastructure. |
+| `frame/src/main/java/module-info.java` | Main shell, samples, project metadata and UI extension SPI. |
+| `login/src/main/java/module-info.java` | Login UI and authentication extension SPI. |
+| `common/src/main/java/module-info.java` | Reusable common components and developer tools. |
+| `demo/src/main/java/module-info.java` | Demonstration samples for framework and ControlsFX behavior. |
+| `smc/src/main/java/module-info.java` | SMC application module tools and providers. |
+| `qe/src/main/java/module-info.java` | QE application module tools and providers. |
+| `cg/src/main/java/module-info.java` | CG application module tools and providers. |
+
 @dot
  digraph module_dependencies {
    graph [rankdir=LR, bgcolor="transparent", nodesep="0.45", ranksep="0.65"];
