@@ -61,6 +61,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.verbose>true</maven.compiler.verbose>
         <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
@@ -1266,7 +1267,7 @@
                     <target>${maven.compiler.target}</target>
                     <release>${maven.compiler.target}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <verbose>true</verbose>
+                    <verbose>${maven.compiler.verbose}</verbose>
                     <showWarnings>true</showWarnings>
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
