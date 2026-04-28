@@ -153,7 +153,7 @@
         <richtextfx.version>0.11.7</richtextfx.version>
         <groovy.version>5.0.5</groovy.version>
         <thumbnailator.version>0.4.21</thumbnailator.version>
-        <gson.version>2.13.2</gson.version>
+        <gson.version>2.14.0</gson.version>
         <tabula.version>1.0.5</tabula.version>
         <preferencesfx.version>11.19.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
