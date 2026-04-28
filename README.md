@@ -79,5 +79,5 @@ If you have any questions, you can send an email to liang.tang.cx@gmail.com
 
 # Thanks
 
-- [![jetbrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*98642y*_ga*MTIxMDA5OTM5Ni4xNjgwMzQyNjgy*_ga_9J976DJZ68*MTY4MTIxMDIzMy41LjEuMTY4MTIxMTE1MS4wLjAuMA..&_ga=2.268101710.1369693703.1681210234-1210099396.1680342682)](https://jb.gg/OpenSource)
+- [![jetbrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://jb.gg/OpenSource)
 - **Thanks to JetBrains for the free open source license**
