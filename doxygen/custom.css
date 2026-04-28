@@ -16,9 +16,22 @@ body {
 }
 
 #titlearea {
-    border-bottom: 1px solid #e2e8f0;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #c7d2fe;
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 48%, #06b6d4 100%);
     color: #ffffff;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, .16);
+}
+
+#titlearea::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, .26), transparent 24%),
+        radial-gradient(circle at 85% 30%, rgba(255, 255, 255, .18), transparent 20%);
 }
 
 #projectname,
@@ -164,6 +177,12 @@ body.sidebar-collapsed #sidebar-toggle {
     border: 1px solid #e2e8f0;
 }
 
+.contents img[alt="jetbrains"] {
+    width: 100px;
+    max-width: 100px;
+    height: auto;
+}
+
 .memitem,
 .memproto,
 .memdoc,
@@ -263,4 +282,11 @@ div.line,
 .exception,
 .mlabel {
     color: var(--primary-dark-color);
+}
+
+#main-menu li:has(> a[href^="namespacemembers"]),
+#nav-tree .item:has(a[href^="namespacemembers"]),
+.directory tr:has(a[href*="doxygen_2pages"]),
+.directory li:has(a[href*="doxygen_2pages"]) {
+    display: none !important;
 }

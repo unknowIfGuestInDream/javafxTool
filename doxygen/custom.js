@@ -1,4 +1,49 @@
 (function () {
+
+    function removeTreeEntriesByLabel(label) {
+        const removeMatches = () => {
+            document.querySelectorAll(
+                "#nav-tree a, #nav-tree .label, #main-menu a"
+            ).forEach((node) => {
+                if (node.textContent.trim() !== label) {
+                    return;
+                }
+                const item = node.closest("#main-menu li") || node.closest(".item")
+                    || node.closest("li") || node.parentElement;
+                if (item) {
+                    item.style.display = "none";
+                }
+            });
+        };
+        removeMatches();
+        const navTree = document.getElementById("nav-tree");
+        if (navTree && typeof MutationObserver !== "undefined") {
+            const observer = new MutationObserver(removeMatches);
+            observer.observe(navTree, { childList: true, subtree: true });
+        }
+    }
+
+    function hideDoxygenPageFiles() {
+        const isGeneratedPageFile = (text) => /doxygen\/pages\//.test(text)
+            || /^doxygen\/pages$/.test(text);
+        document.querySelectorAll(
+            ".directory tr, .directory li, table.memberdecls tr"
+        ).forEach((row) => {
+            if (isGeneratedPageFile(row.textContent)) {
+                row.style.display = "none";
+            }
+        });
+        document.querySelectorAll(
+            "a[href*=\"doxygen_2pages\"], a[href*=\"doxygen/pages\"]"
+        ).forEach((link) => {
+            const row = link.closest("tr") || link.closest("li")
+                || link.parentElement;
+            if (row) {
+                row.style.display = "none";
+            }
+        });
+    }
+
     function addSidebarToggle() {
         const sideNav = document.getElementById("side-nav");
         const docContent = document.getElementById("doc-content");
@@ -56,5 +101,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         addSidebarToggle();
+        removeTreeEntriesByLabel("Package Members");
+        hideDoxygenPageFiles();
     });
 }());

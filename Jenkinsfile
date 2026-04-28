@@ -254,7 +254,7 @@ pipeline {
                     if (hasDoxygen) {
                         sh 'rm -rf docs-gen doxygen-docs.zip'
                         sh 'doxygen doxygen/Doxyfile'
-                        sh 'jar --create --file doxygen-docs.zip -C docs-gen html'
+                        sh 'cd docs-gen && zip -qr ../doxygen-docs.zip html'
                         archiveArtifacts artifacts: 'doxygen-docs.zip', allowEmptyArchive: false
                     } else {
                         echo 'doxygen not found on this agent; skip Doxygen documentation generation'
