@@ -17,7 +17,9 @@ hard-coded dependencies.
 Each module contributes features by exporting implementation classes and
 registering them in `META-INF/services`. The framework starts with the stable
 SPI contracts, asks `ServiceLoader` for providers and then applies each provider
-to the corresponding runtime area.
+to the corresponding runtime area. In the table below, the discovery
+point is the class that calls `ServiceLoader`, and the runtime responsibility is
+what the framework does with each discovered provider.
 
 | Service contract | Discovery point | Runtime responsibility |
 | ---------------- | --------------- | ---------------------- |
