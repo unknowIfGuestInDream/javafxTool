@@ -25,6 +25,7 @@ body {
 }
 
 #titlearea::after {
+    /* Soft highlight spots keep the title gradient lively without reducing contrast. */
     content: "";
     position: absolute;
     inset: 0;

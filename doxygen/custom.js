@@ -8,6 +8,7 @@
                 if (node.textContent.trim() !== label) {
                     return;
                 }
+                // Doxygen uses li nodes for the top menu and .item nodes for the tree view.
                 const item = node.closest("#main-menu li") || node.closest(".item")
                     || node.closest("li") || node.parentElement;
                 if (item) {
