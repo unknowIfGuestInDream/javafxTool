@@ -671,6 +671,7 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
      * occurs on the "track" of the slider. This will cause the thumb to be
      * moved by some amount.
      *
+     * @param e the mouse event that initiated the track press
      * @param position The mouse position on track with 0.0 being beginning of
      *                 track and 1.0 being the end
      */
@@ -708,6 +709,9 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     }
 
     /**
+     * Handles pressing the low-value thumb before a drag starts.
+     *
+     * @param e the mouse event that pressed the low thumb
      * @param position The mouse position on track with 0.0 being beginning of
      *                 track and 1.0 being the end
      */
@@ -721,6 +725,9 @@ public class RangeSliderSkin extends SkinBase<RangeSlider> {
     }
 
     /**
+     * Handles dragging the low-value thumb to a new track position.
+     *
+     * @param e the mouse event that dragged the low thumb
      * @param position The mouse position on track with 0.0 being beginning of
      *                 track and 1.0 being the end
      */

@@ -1,0 +1,420 @@
+/**
+ * @namespace com
+ * @brief Root namespace for documented Java packages.
+ */
+/**
+ * @namespace com::tlcsdm
+ * @brief Organization namespace for javafxTool packages.
+ */
+/**
+ * @namespace com::tlcsdm::cg
+ * @brief CG application module tools and providers.
+ */
+/**
+ * @namespace com::tlcsdm::cg::config
+ * @brief Java package namespace for com.tlcsdm.cg.config.
+ */
+/**
+ * @namespace com::tlcsdm::cg::provider
+ * @brief Java package namespace for com.tlcsdm.cg.provider.
+ */
+/**
+ * @namespace com::tlcsdm::cg::util
+ * @brief Java package namespace for com.tlcsdm.cg.util.
+ */
+/**
+ * @namespace com::tlcsdm::core
+ * @brief Core infrastructure and shared runtime utilities.
+ */
+/**
+ * @namespace com::tlcsdm::core::ai
+ * @brief Java package namespace for com.tlcsdm.core.ai.
+ */
+/**
+ * @namespace com::tlcsdm::core::ai::deepseek
+ * @brief Java package namespace for com.tlcsdm.core.ai.deepseek.
+ */
+/**
+ * @namespace com::tlcsdm::core::annotation
+ * @brief Java package namespace for com.tlcsdm.core.annotation.
+ */
+/**
+ * @namespace com::tlcsdm::core::concurrent
+ * @brief Java package namespace for com.tlcsdm.core.concurrent.
+ */
+/**
+ * @namespace com::tlcsdm::core::database
+ * @brief Java package namespace for com.tlcsdm.core.database.
+ */
+/**
+ * @namespace com::tlcsdm::core::dsl
+ * @brief Java package namespace for com.tlcsdm.core.dsl.
+ */
+/**
+ * @namespace com::tlcsdm::core::dsl::commands
+ * @brief Java package namespace for com.tlcsdm.core.dsl.commands.
+ */
+/**
+ * @namespace com::tlcsdm::core::dsl::impl
+ * @brief Java package namespace for com.tlcsdm.core.dsl.impl.
+ */
+/**
+ * @namespace com::tlcsdm::core::dsl::runtime
+ * @brief Java package namespace for com.tlcsdm.core.dsl.runtime.
+ */
+/**
+ * @namespace com::tlcsdm::core::dsl::stringvars
+ * @brief Java package namespace for com.tlcsdm.core.dsl.stringvars.
+ */
+/**
+ * @namespace com::tlcsdm::core::event
+ * @brief Java package namespace for com.tlcsdm.core.event.
+ */
+/**
+ * @namespace com::tlcsdm::core::eventbus
+ * @brief Java package namespace for com.tlcsdm.core.eventbus.
+ */
+/**
+ * @namespace com::tlcsdm::core::exception
+ * @brief Java package namespace for com.tlcsdm.core.exception.
+ */
+/**
+ * @namespace com::tlcsdm::core::factory
+ * @brief Java package namespace for com.tlcsdm.core.factory.
+ */
+/**
+ * @namespace com::tlcsdm::core::factory::config
+ * @brief Java package namespace for com.tlcsdm.core.factory.config.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker::code
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.code.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker::directive
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.directive.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker::format
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.format.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker::method
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.method.
+ */
+/**
+ * @namespace com::tlcsdm::core::freemarker::template
+ * @brief Java package namespace for com.tlcsdm.core.freemarker.template.
+ */
+/**
+ * @namespace com::tlcsdm::core::groovy
+ * @brief Java package namespace for com.tlcsdm.core.groovy.
+ */
+/**
+ * @namespace com::tlcsdm::core::httpserver
+ * @brief Java package namespace for com.tlcsdm.core.httpserver.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx
+ * @brief Java package namespace for com.tlcsdm.core.javafx.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::bind
+ * @brief Java package namespace for com.tlcsdm.core.javafx.bind.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::chart
+ * @brief Java package namespace for com.tlcsdm.core.javafx.chart.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::control
+ * @brief Java package namespace for com.tlcsdm.core.javafx.control.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::control::skin
+ * @brief Java package namespace for com.tlcsdm.core.javafx.control.skin.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::controller
+ * @brief Java package namespace for com.tlcsdm.core.javafx.controller.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::controlsfx
+ * @brief Java package namespace for com.tlcsdm.core.javafx.controlsfx.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::dialog
+ * @brief Java package namespace for com.tlcsdm.core.javafx.dialog.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::factory
+ * @brief Java package namespace for com.tlcsdm.core.javafx.factory.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::helper
+ * @brief Java package namespace for com.tlcsdm.core.javafx.helper.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::richtext
+ * @brief Java package namespace for com.tlcsdm.core.javafx.richtext.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::richtext::hyperlink
+ * @brief Java package namespace for com.tlcsdm.core.javafx.richtext.hyperlink.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::service
+ * @brief Java package namespace for com.tlcsdm.core.javafx.service.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::stage
+ * @brief Java package namespace for com.tlcsdm.core.javafx.stage.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::util
+ * @brief Java package namespace for com.tlcsdm.core.javafx.util.
+ */
+/**
+ * @namespace com::tlcsdm::core::javafx::view
+ * @brief Java package namespace for com.tlcsdm.core.javafx.view.
+ */
+/**
+ * @namespace com::tlcsdm::core::logging
+ * @brief Java package namespace for com.tlcsdm.core.logging.
+ */
+/**
+ * @namespace com::tlcsdm::core::logging::logback
+ * @brief Java package namespace for com.tlcsdm.core.logging.logback.
+ */
+/**
+ * @namespace com::tlcsdm::core::model
+ * @brief Java package namespace for com.tlcsdm.core.model.
+ */
+/**
+ * @namespace com::tlcsdm::core::oshi
+ * @brief Java package namespace for com.tlcsdm.core.oshi.
+ */
+/**
+ * @namespace com::tlcsdm::core::powershell
+ * @brief Java package namespace for com.tlcsdm.core.powershell.
+ */
+/**
+ * @namespace com::tlcsdm::core::util
+ * @brief Java package namespace for com.tlcsdm.core.util.
+ */
+/**
+ * @namespace com::tlcsdm::core::util::picHider
+ * @brief Java package namespace for com.tlcsdm.core.util.picHider.
+ */
+/**
+ * @namespace com::tlcsdm::core::watermark
+ * @brief Java package namespace for com.tlcsdm.core.watermark.
+ */
+/**
+ * @namespace com::tlcsdm::demo
+ * @brief Demonstration samples for framework usage.
+ */
+/**
+ * @namespace com::tlcsdm::demo::internal
+ * @brief Java package namespace for com.tlcsdm.demo.internal.
+ */
+/**
+ * @namespace com::tlcsdm::demo::internal::richtextarea
+ * @brief Java package namespace for com.tlcsdm.demo.internal.richtextarea.
+ */
+/**
+ * @namespace com::tlcsdm::demo::internal::richtextarea::popup
+ * @brief Java package namespace for com.tlcsdm.demo.internal.richtextarea.popup.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples
+ * @brief Java package namespace for com.tlcsdm.demo.samples.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::actions
+ * @brief Java package namespace for com.tlcsdm.demo.samples.actions.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::button
+ * @brief Java package namespace for com.tlcsdm.demo.samples.button.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::checked
+ * @brief Java package namespace for com.tlcsdm.demo.samples.checked.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::dialogs
+ * @brief Java package namespace for com.tlcsdm.demo.samples.dialogs.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::propertysheet
+ * @brief Java package namespace for com.tlcsdm.demo.samples.propertysheet.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::spreadsheet
+ * @brief Java package namespace for com.tlcsdm.demo.samples.spreadsheet.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::tablefilter
+ * @brief Java package namespace for com.tlcsdm.demo.samples.tablefilter.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::tableview
+ * @brief Java package namespace for com.tlcsdm.demo.samples.tableview.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::tableview2
+ * @brief Java package namespace for com.tlcsdm.demo.samples.tableview2.
+ */
+/**
+ * @namespace com::tlcsdm::demo::samples::textfields
+ * @brief Java package namespace for com.tlcsdm.demo.samples.textfields.
+ */
+/**
+ * @namespace com::tlcsdm::frame
+ * @brief Main JavaFX framework shell and service contracts.
+ */
+/**
+ * @namespace com::tlcsdm::frame::cache
+ * @brief Java package namespace for com.tlcsdm.frame.cache.
+ */
+/**
+ * @namespace com::tlcsdm::frame::cache::impl
+ * @brief Java package namespace for com.tlcsdm.frame.cache.impl.
+ */
+/**
+ * @namespace com::tlcsdm::frame::event
+ * @brief Java package namespace for com.tlcsdm.frame.event.
+ */
+/**
+ * @namespace com::tlcsdm::frame::model
+ * @brief Java package namespace for com.tlcsdm.frame.model.
+ */
+/**
+ * @namespace com::tlcsdm::frame::service
+ * @brief Java package namespace for com.tlcsdm.frame.service.
+ */
+/**
+ * @namespace com::tlcsdm::frame::service::impl
+ * @brief Java package namespace for com.tlcsdm.frame.service.impl.
+ */
+/**
+ * @namespace com::tlcsdm::frame::util
+ * @brief Java package namespace for com.tlcsdm.frame.util.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon
+ * @brief Reusable common JavaFX controls and tools.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::code
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.code.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::config
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.config.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::debug
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.debug.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::provider
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.provider.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::tools
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.tools.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::tools::escape
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.tools.escape.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::tools::image
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.tools.image.
+ */
+/**
+ * @namespace com::tlcsdm::jfxcommon::util
+ * @brief Java package namespace for com.tlcsdm.jfxcommon.util.
+ */
+/**
+ * @namespace com::tlcsdm::login
+ * @brief Login framework and authentication service APIs.
+ */
+/**
+ * @namespace com::tlcsdm::login::service
+ * @brief Java package namespace for com.tlcsdm.login.service.
+ */
+/**
+ * @namespace com::tlcsdm::login::util
+ * @brief Java package namespace for com.tlcsdm.login.util.
+ */
+/**
+ * @namespace com::tlcsdm::qe
+ * @brief QE application module tools and providers.
+ */
+/**
+ * @namespace com::tlcsdm::qe::config
+ * @brief Java package namespace for com.tlcsdm.qe.config.
+ */
+/**
+ * @namespace com::tlcsdm::qe::provider
+ * @brief Java package namespace for com.tlcsdm.qe.provider.
+ */
+/**
+ * @namespace com::tlcsdm::qe::tools
+ * @brief Java package namespace for com.tlcsdm.qe.tools.
+ */
+/**
+ * @namespace com::tlcsdm::qe::tools::dali
+ * @brief Java package namespace for com.tlcsdm.qe.tools.dali.
+ */
+/**
+ * @namespace com::tlcsdm::qe::util
+ * @brief Java package namespace for com.tlcsdm.qe.util.
+ */
+/**
+ * @namespace com::tlcsdm::smc
+ * @brief SMC application module tools and providers.
+ */
+/**
+ * @namespace com::tlcsdm::smc::codeDev
+ * @brief Java package namespace for com.tlcsdm.smc.codeDev.
+ */
+/**
+ * @namespace com::tlcsdm::smc::codeDev::ecm
+ * @brief Java package namespace for com.tlcsdm.smc.codeDev.ecm.
+ */
+/**
+ * @namespace com::tlcsdm::smc::config
+ * @brief Java package namespace for com.tlcsdm.smc.config.
+ */
+/**
+ * @namespace com::tlcsdm::smc::provider
+ * @brief Java package namespace for com.tlcsdm.smc.provider.
+ */
+/**
+ * @namespace com::tlcsdm::smc::tools
+ * @brief Java package namespace for com.tlcsdm.smc.tools.
+ */
+/**
+ * @namespace com::tlcsdm::smc::tools::girret
+ * @brief Java package namespace for com.tlcsdm.smc.tools.girret.
+ */
+/**
+ * @namespace com::tlcsdm::smc::unitDesign
+ * @brief Java package namespace for com.tlcsdm.smc.unitDesign.
+ */
+/**
+ * @namespace com::tlcsdm::smc::unitTest
+ * @brief Java package namespace for com.tlcsdm.smc.unitTest.
+ */
+/**
+ * @namespace com::tlcsdm::smc::util
+ * @brief Java package namespace for com.tlcsdm.smc.util.
+ */

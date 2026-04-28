@@ -75,3 +75,5 @@ pom.xml.versionsBackup
 ### Temporary JDK installations ###
 jdk-*/
 OpenJDK*.tar.gz
+
+docs-gen/

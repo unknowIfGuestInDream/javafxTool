@@ -246,6 +246,28 @@ pipeline {
             }
         }
 
+
+        stage('Generate Doxygen Docs') {
+            steps {
+                script {
+                    def hasDoxygen = sh(script: 'command -v doxygen >/dev/null 2>&1', returnStatus: true) == 0
+                    if (hasDoxygen) {
+                        sh 'rm -rf docs-gen doxygen-docs.zip'
+                        sh 'doxygen doxygen/Doxyfile'
+                        sh 'cd docs-gen && zip -qr ../doxygen-docs.zip html'
+                        archiveArtifacts artifacts: 'doxygen-docs.zip', allowEmptyArchive: false
+                    } else {
+                        echo 'doxygen not found on this agent; skip Doxygen documentation generation'
+                    }
+                }
+            }
+            post {
+                cleanup {
+                    sh 'rm -rf docs-gen doxygen-docs.zip || true'
+                }
+            }
+        }
+
         stage('Clean Workspace') {
              steps {
                  script {
