@@ -23,12 +23,11 @@ jobs:
         run: |
           set -o pipefail
           PLANTUML_JAR_PATH="$(dpkg -L plantuml | grep '/plantuml\.jar$' | head -n 1)"
-          if [ -z "$PLANTUML_JAR_PATH" ] && [ -f /usr/share/plantuml/plantuml.jar ]; then
-            PLANTUML_JAR_PATH=/usr/share/plantuml/plantuml.jar
-          fi
-          if [ -z "$PLANTUML_JAR_PATH" ] && [ -f /usr/share/java/plantuml.jar ]; then
-            PLANTUML_JAR_PATH=/usr/share/java/plantuml.jar
-          fi
+          for candidate in /usr/share/plantuml/plantuml.jar /usr/share/java/plantuml.jar; do
+            if [ -z "$PLANTUML_JAR_PATH" ] && [ -f "$candidate" ]; then
+              PLANTUML_JAR_PATH="$candidate"
+            fi
+          done
           if [ -z "$PLANTUML_JAR_PATH" ]; then
             echo "Unable to locate plantuml.jar" >&2
             exit 1

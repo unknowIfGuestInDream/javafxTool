@@ -20,7 +20,7 @@
 # - HTML_COLORSTYLE_HUE    = 215
 # - HTML_COLORSTYLE_SAT    = 70
 # - HTML_COLORSTYLE_GAMMA  = 90
-# - NUM_PROC_THREADS       = 1
+# - NUM_PROC_THREADS       = 1 (the template's auto-threading setting crashed Doxygen in this repository)
 # - DOT_UML_DETAILS        = NO
 
 #---------------------------------------------------------------------------
