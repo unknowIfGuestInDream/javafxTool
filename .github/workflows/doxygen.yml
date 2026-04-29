@@ -21,6 +21,7 @@ jobs:
 
       - name: Generate documentation
         run: |
+          set -o pipefail
           PLANTUML_JAR_PATH="$(dpkg -L plantuml | grep '/plantuml\.jar$' | head -n 1)"
           if [ -z "$PLANTUML_JAR_PATH" ] && [ -f /usr/share/plantuml/plantuml.jar ]; then
             PLANTUML_JAR_PATH=/usr/share/plantuml/plantuml.jar

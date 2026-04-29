@@ -12,7 +12,7 @@
 # - PROJECT_BRIEF          = "JavaFX scaffolding framework for modular desktop tools."
 # - STRIP_FROM_PATH        = core/frame/login/common/demo/smc/qe/cg src roots
 # - TOC_INCLUDE_HEADINGS   = 0
-# - GENERATE_DEPRECATEDLIST= NO
+# - GENERATE_DEPRECATEDLIST = NO
 # - INPUT                  = README.md, doxygen pages, and the javafxTool module sources
 # - EXCLUDE_PATTERNS       = add module-info.java and screenshot/docs-gen exclusions
 # - IMAGE_PATH             = .
