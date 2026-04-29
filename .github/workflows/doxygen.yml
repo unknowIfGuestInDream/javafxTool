@@ -9,6 +9,8 @@ permissions:
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
+    env:
+      PLANTUML_JAR_PATH: /usr/share/plantuml/plantuml.jar
 
     steps:
       - name: Checkout
@@ -20,21 +22,7 @@ jobs:
           sudo apt-get install -y -qq doxygen graphviz plantuml
 
       - name: Generate documentation
-        run: |
-          set -o pipefail
-          PLANTUML_JAR_PATH="$(dpkg -L plantuml | grep '/plantuml\.jar$' | head -n 1)"
-          for candidate in /usr/share/plantuml/plantuml.jar /usr/share/java/plantuml.jar; do
-            if [ -z "$PLANTUML_JAR_PATH" ] && [ -f "$candidate" ]; then
-              PLANTUML_JAR_PATH="$candidate"
-            fi
-          done
-          if [ -z "$PLANTUML_JAR_PATH" ]; then
-            echo "Unable to locate plantuml.jar" >&2
-            exit 1
-          fi
-          echo "Using PlantUML JAR: $PLANTUML_JAR_PATH"
-          export PLANTUML_JAR_PATH
-          doxygen doxygen/Doxyfile
+        run: doxygen doxygen/Doxyfile
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
