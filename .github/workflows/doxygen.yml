@@ -33,6 +33,7 @@ jobs:
             echo "Unable to locate plantuml.jar" >&2
             exit 1
           fi
+          echo "Using PlantUML JAR: $PLANTUML_JAR_PATH"
           export PLANTUML_JAR_PATH
           doxygen doxygen/Doxyfile
 

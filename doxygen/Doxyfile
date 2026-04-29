@@ -10,6 +10,7 @@
 # Project-specific overrides relative to the reference template:
 # - PROJECT_NAME           = "javafxTool"
 # - PROJECT_BRIEF          = "JavaFX scaffolding framework for modular desktop tools."
+# - PROJECT_LOGO           = (intentionally empty)
 # - STRIP_FROM_PATH        = core/frame/login/common/demo/smc/qe/cg src roots
 # - TOC_INCLUDE_HEADINGS   = 0
 # - GENERATE_DEPRECATEDLIST = NO
