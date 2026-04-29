@@ -10,7 +10,7 @@
 # Project-specific overrides relative to the reference template:
 # - PROJECT_NAME           = "javafxTool"
 # - PROJECT_BRIEF          = "JavaFX scaffolding framework for modular desktop tools."
-# - PROJECT_LOGO           = (intentionally empty)
+# - PROJECT_LOGO           = frame/src/main/resources/fxsampler/logo.png
 # - STRIP_FROM_PATH        = core/frame/login/common/demo/smc/qe/cg src roots
 # - TOC_INCLUDE_HEADINGS   = 0
 # - GENERATE_DEPRECATEDLIST = NO
@@ -31,7 +31,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "javafxTool"
 PROJECT_NUMBER         = "1.0.0"
 PROJECT_BRIEF          = "JavaFX scaffolding framework for modular desktop tools."
-PROJECT_LOGO           =
+PROJECT_LOGO           = frame/src/main/resources/fxsampler/logo.png
 OUTPUT_DIRECTORY       = docs-gen
 CREATE_SUBDIRS         = NO
 CREATE_SUBDIRS_LEVEL   = 8
