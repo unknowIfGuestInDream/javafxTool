@@ -14,13 +14,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Install Doxygen and Graphviz
+      - name: Install Doxygen, Graphviz and PlantUML
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq doxygen graphviz
+          sudo apt-get install -y -qq doxygen graphviz plantuml
 
       - name: Generate documentation
-        run: doxygen doxygen/Doxyfile
+        run: |
+          PLANTUML_JAR_PATH="$(dpkg -L plantuml | grep '/plantuml\.jar$' | head -n 1)"
+          if [ -z "$PLANTUML_JAR_PATH" ]; then
+            echo "Unable to locate plantuml.jar" >&2
+            exit 1
+          fi
+          export PLANTUML_JAR_PATH
+          doxygen doxygen/Doxyfile
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
