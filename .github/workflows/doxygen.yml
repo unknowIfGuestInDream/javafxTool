@@ -9,15 +9,17 @@ permissions:
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
+    env:
+      PLANTUML_JAR_PATH: /usr/share/plantuml/plantuml.jar
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Install Doxygen and Graphviz
+      - name: Install Doxygen, Graphviz and PlantUML
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq doxygen graphviz
+          sudo apt-get install -y -qq doxygen graphviz plantuml
 
       - name: Generate documentation
         run: doxygen doxygen/Doxyfile

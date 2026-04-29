@@ -36,6 +36,7 @@ pipeline {
         MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
         // Jenkins 构建使用 1 个 Maven 线程，并关闭 javac verbose 日志，降低内存和日志压力
         MAVEN_CI_ARGS = '-B --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false'
+        PLANTUML_JAR_PATH = '/usr/share/plantuml/plantuml.jar'
     }
     tools {
         jdk "jdk21"
@@ -255,7 +256,13 @@ pipeline {
                     def hasDoxygen = sh(script: 'command -v doxygen >/dev/null 2>&1', returnStatus: true) == 0
                     if (hasDoxygen) {
                         sh 'rm -rf docs-gen doxygen-docs.zip'
-                        sh 'doxygen doxygen/Doxyfile'
+                        sh '''
+                            if [ ! -f "$PLANTUML_JAR_PATH" ]; then
+                                echo "PlantUML jar not found; running Doxygen without PlantUML diagrams."
+                                unset PLANTUML_JAR_PATH
+                            fi
+                            doxygen doxygen/Doxyfile
+                        '''
                         sh 'cd docs-gen && zip -qr ../doxygen-docs.zip html'
                         archiveArtifacts artifacts: 'doxygen-docs.zip', allowEmptyArchive: false
                     } else {

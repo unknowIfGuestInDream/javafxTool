@@ -49,6 +49,12 @@ body {
     color: #dbeafe;
 }
 
+#projectlogo img {
+    display: block;
+    width: auto;
+    max-height: 40px;
+}
+
 #main-menu,
 #nav-path {
     background: #ffffff;
