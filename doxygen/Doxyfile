@@ -6,22 +6,6 @@
 # All paths below are therefore expressed relative to the repository root,
 # while OUTPUT_DIRECTORY is placed under "docs-gen" so the generated
 # artifacts are easy to ignore and to upload from CI/CD.
-#
-# Project-specific overrides relative to the reference template:
-# - PROJECT_NAME           = "javafxTool"
-# - PROJECT_BRIEF          = "JavaFX scaffolding framework for modular desktop tools."
-# - PROJECT_LOGO           = frame/src/main/resources/fxsampler/logo.png
-# - STRIP_FROM_PATH        = core/frame/login/common/demo/smc/qe/cg src roots
-# - TOC_INCLUDE_HEADINGS   = 0
-# - GENERATE_DEPRECATEDLIST = NO
-# - INPUT                  = README.md, doxygen pages, and the javafxTool module sources
-# - EXCLUDE_PATTERNS       = add module-info.java and screenshot/docs-gen exclusions
-# - IMAGE_PATH             = .
-# - HTML_COLORSTYLE_HUE    = 215
-# - HTML_COLORSTYLE_SAT    = 70
-# - HTML_COLORSTYLE_GAMMA  = 90
-# - NUM_PROC_THREADS       = 1 (the template's auto-threading setting crashed Doxygen in this repository)
-# - DOT_UML_DETAILS        = NO
 
 #---------------------------------------------------------------------------
 # Project related configuration options
