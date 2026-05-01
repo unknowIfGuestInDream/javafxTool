@@ -5,6 +5,7 @@
 
 - Develop
     - [SPI接口](develop/Interface.md)
+    - [开发工作流](develop/Workflow.md)
     - [注意事项](develop/Note.md)
     - [打包](develop/Package.md)
 
