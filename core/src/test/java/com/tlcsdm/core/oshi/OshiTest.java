@@ -182,9 +182,9 @@ public class OshiTest {
             System.out.println(
                 "Cumulative: " + String.format(Locale.ROOT, "%.1f", 100d * p.getProcessCpuLoadCumulative()));
             System.out.println("VSZ: " + FormatUtil.formatBytes(p.getVirtualSize()));
-            System.out.println("RSS: " + FormatUtil.formatBytes(p.getResidentSetSize()));
+            System.out.println("RSS: " + FormatUtil.formatBytes(p.getResidentMemory()));
             System.out.println(
-                "% Memory: " + String.format(Locale.ROOT, "%.1f", 100d * p.getResidentSetSize() / totalMem));
+                "% Memory: " + String.format(Locale.ROOT, "%.1f", 100d * p.getResidentMemory() / totalMem));
             System.out.println("Process Name: " + p.getName());
         }
     }
