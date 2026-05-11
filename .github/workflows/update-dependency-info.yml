@@ -104,7 +104,7 @@ jobs:
             ["tess4j.version"]="tess4j:tess4j"
             ["rich-text-area.version"]="rich-text-area:rich-text-area"
             ["animateFX.version"]="AnimateFX:AnimateFX"
-            ["oshi.version"]="oshi-core-java11:oshi-core-java11"
+            ["oshi.version"]="oshi-core:oshi-core"
             ["checker-qual.version"]="checker-qual:checker-qual"
             ["jfxtras.version"]="jfxtras:jfxtras"
             ["zip4j.version"]="zip4j:zip4j"
