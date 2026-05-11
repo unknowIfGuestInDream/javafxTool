@@ -190,7 +190,7 @@
         <teenyhttpd.version>1.0.5</teenyhttpd.version>
         <java-util.version>4.102.0</java-util.version>
         <eclipse-collections.version>13.0.0</eclipse-collections.version>
-        <jep.version>4.2.2</jep.version>
+        <jep.version>4.3.1</jep.version>
         <imageio.version>3.13.1</imageio.version>
         <icns.version>1.2</icns.version>
         <guice.version>7.0.0</guice.version>
