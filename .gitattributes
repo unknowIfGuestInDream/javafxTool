@@ -23,6 +23,8 @@
 frame/src/main/resources/com/tlcsdm/frame/static/css/*        linguist-vendored
 core/src/test/resources/nashorn/*.js                          linguist-vendored
 docs/**                                                       linguist-documentation
+.understand-anything/**                                       linguist-documentation
+doxygen/**                                                    linguist-documentation
 
 # Ensure the following are treated as binary.
 # # (binary is a macro for -text -diff)

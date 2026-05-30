@@ -1,0 +1,90 @@
+# .understandignore - patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions - uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# HELP.md
+# !.mvn/wrapper/maven-wrapper.jar
+# !**/src/main/**/target/
+# !**/src/test/**/target/
+# .apt_generated
+# .classpath
+# .factorypath
+# .project
+# .settings
+# /.settings/**
+# !/.settings/
+# !/.settings/runConfigurations
+# !/.settings/runConfigurations/**
+# .springBeans
+# .sts4-cache
+# .idea/**
+# !.idea/icon.png
+# !.idea/copyright
+# !.idea/copyright/profiles_settings.xml
+# !.idea/copyright/tlcsdm.xml
+# !.idea/runConfigurations
+# !.idea/runConfigurations/**
+# !.idea/vcs.xml
+# !.idea/jarRepositories.xml
+# !.idea/artifacts
+# !.idea/artifacts/**
+# !.idea/codeStyles
+# !.idea/codeStyles/**
+# !.idea/fileTemplates
+# !.idea/fileTemplates/**
+# !.idea/dictionaries
+# *.iws
+# *.iml
+# *.ipr
+# qodana.sarif.json
+# **/integration-test-screenshots/**
+# .flattened-pom.xml
+# dependency-reduced-pom.xml
+# /nbproject/private/
+# /nbbuild/
+# /nbdist/
+# /.nb-gradle/
+# /.mvn/wrapper/
+# /mvnw
+# /mvnw.cmd
+# logs/
+# runtime/
+# .jython_cache
+# pom.xml.versionsBackup
+# .cache/
+# *.bak
+# .xcodemap/
+# .okhttpcache
+# jdk-*/
+# OpenJDK*.tar.gz
+# docs-gen/
+
+# --- Detected directories (uncomment to exclude) ---
+
+docs/
+doxygen/
+.github/
+.idea/
+.cache/
+.vscode/
+logs/
+dist/
+runtime/
+cg/
+**/src/main/**/target/
+**/src/test/**/target/
+.imgbotconfig
+.mergify.yml
+qodana.yaml
+sweep.yaml
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap
