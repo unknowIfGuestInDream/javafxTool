@@ -158,7 +158,7 @@
         <preferencesfx.version>11.19.0</preferencesfx.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <jface.version>3.39.100</jface.version>
-        <swt.version>3.133.0</swt.version>
+        <swt.version>3.134.0</swt.version>
         <jna.version>5.19.0</jna.version>
         <vosk.version>0.3.45</vosk.version>
         <java2.version>3.5.0</java2.version>
