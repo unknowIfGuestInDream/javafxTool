@@ -16,7 +16,7 @@ pull_request_rules:
     actions:
       assign:
         users:
-          - "{{author}}"
+          - "{{ author }}"
   - name: Assign Reviewer
     conditions:
       - author!=unknowIfGuestInDream
