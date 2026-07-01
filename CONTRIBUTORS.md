@@ -5,7 +5,8 @@ Shout out to our top contributors!
 - [DreamAwakenFateBroke](https://github.com/DreamAwakenFateBroke)
 - [Copilot](https://github.com/apps/copilot-swe-agent)
 - [step-security-bot](https://github.com/step-security-bot)
+- [mergify[bot]](https://github.com/apps/mergify)
 - [sweep-ai-deprecated[bot]](https://github.com/apps/sweep-ai-deprecated)
 
 
-_Last updated: Mon, 01 Jun 26 00:55:49 +0000_
+_Last updated: Wed, 01 Jul 26 00:54:15 +0000_
