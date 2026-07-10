@@ -169,7 +169,7 @@
         <jython.version>2.7.4</jython.version>
         <violations.version>1.160.5</violations.version>
         <asm.version>9.10.1</asm.version>
-        <pmd.version>7.25.0</pmd.version>
+        <pmd.version>7.26.0</pmd.version>
         <bytebuddy.version>1.18.11</bytebuddy.version>
         <tess4j.version>5.19.0</tess4j.version>
         <hikariCP.version>7.1.0</hikariCP.version>
