@@ -111,7 +111,7 @@
         <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
         <poi-ooxml.version>5.5.1</poi-ooxml.version>
         <freemarker.version>2.3.34</freemarker.version>
-        <aviator.version>5.4.3</aviator.version>
+        <aviator.version>5.4.4</aviator.version>
         <jaxen.version>2.0.6</jaxen.version>
         <sikulixapi.version>2.0.5</sikulixapi.version>
         <hutool.version>5.8.47</hutool.version>
