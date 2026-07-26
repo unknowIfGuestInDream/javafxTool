@@ -144,7 +144,7 @@ public class DependencyInfo {
             new Dependency("com.sikulix", "sikulixapi", "2.0.5", false, "https://github.com/RaiMan/SikuliX1",
                 "MIT License", "http://www.sikulix.com/disclaimer/#license"),
 
-            new Dependency("com.googlecode.aviator", "aviator", "5.4.3", false,
+            new Dependency("com.googlecode.aviator", "aviator", "5.4.4", false,
                 "https://github.com/killme2008/aviator", "GNU LESSER GENERAL PUBLIC LICENSE",
                 "http://www.gnu.org/licenses/lgpl.html"),
 
