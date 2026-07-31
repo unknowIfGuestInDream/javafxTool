@@ -46,10 +46,10 @@ public class DependencyInfo {
 
     private static class SingletonInstance {
         private static final List<Dependency> INSTANCE = List.of(
-            new Dependency("org.openjfx", "javafx", "21.0.10", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
+            new Dependency("org.openjfx", "javafx", "21.0.12", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
-            new Dependency("org.controlsfx", "controlsfx", "11.2.3", true,
+            new Dependency("org.controlsfx", "controlsfx", "11.2.4", true,
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 

@@ -28,7 +28,7 @@
 #
 
 # see https://api.adoptium.net/q/swagger-ui/#/Binary/getBinaryByVersion
-JDK_VERSION="jdk-21.0.10%2B7"
+JDK_VERSION="jdk-21.0.12%2B8"
 JLINK_MODULES="java.se,jdk.unsupported,jdk.zipfs,jdk.management,jdk.crypto.ec,jdk.localedata,jdk.charsets"
 
 mkdir -p aftifact
@@ -73,7 +73,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-tar -czf aftifact/OpenJDK21U-jre_x64_linux_hotspot_21.0.10_7.tar.gz jre-linux
+tar -czf aftifact/OpenJDK21U-jre_x64_linux_hotspot_21.0.12_8.tar.gz jre-linux
 
 # Windows JRE (cross-link using Linux jlink with Windows jmods)
 ${LINUX_JLINK} \
@@ -88,7 +88,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-zip -qr aftifact/OpenJDK21U-jre_x64_windows_hotspot_21.0.10_7.zip jre-win
+zip -qr aftifact/OpenJDK21U-jre_x64_windows_hotspot_21.0.12_8.zip jre-win
 
 # Mac JRE (cross-link using Linux jlink with Mac jmods)
 ${LINUX_JLINK} \
@@ -107,7 +107,7 @@ fi
 mkdir -p jre-mac/Contents/Home
 cp -r jre-mac-temp/. jre-mac/Contents/Home/
 rm -rf jre-mac-temp
-tar -czf aftifact/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.10_7.tar.gz jre-mac
+tar -czf aftifact/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.12_8.tar.gz jre-mac
 
 # Clean up
 rm -rf jdk-win jdk-linux jdk-mac jdk-win.zip jdk-linux.tar.gz jdk-mac.tar.gz jre-win jre-linux jre-mac
