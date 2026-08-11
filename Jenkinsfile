@@ -99,7 +99,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn ${} -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*21*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
