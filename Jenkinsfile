@@ -35,7 +35,7 @@ pipeline {
         // 限制 Maven JVM 堆内存，避免在低配服务器(4核4G)上构建时内存压力过大
         MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
         // Jenkins 构建使用 1 个 Maven 线程，并关闭 javac verbose 日志，降低内存和日志压力
-        MAVEN_CI_ARGS = '-B --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false'
+        MAVEN_CI_ARGS = '-B --no-transfer-progress -T 1 -Dmaven.compiler.verbose=false -Dmaven.javadoc.skip=true'
         PLANTUML_JAR_PATH = '/usr/share/plantuml/plantuml.jar'
     }
     tools {
@@ -99,7 +99,7 @@ pipeline {
         stage('Prepare Windows Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${} -f pom.xml -s $M2_HOME/conf/settings.xml '-Djavafx.platform=win' '-Dmaven.test.skip=true' '-Dmaven.javadoc.skip=true' -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && unzip -q *windows*21*.zip -d jretemp && mv jretemp/* jretemp/jre"
                 }
             }
