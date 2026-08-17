@@ -20,7 +20,7 @@ JavaFXTool基于JDK21 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | cssfx                  | 11.5.1       | css 实时重载工具                       |
 | dom4j                  | 2.2.0        | XML 框架                           |
 | freemarker             | 2.3.34       | 模板引擎库                            |
-| groovy                 | 5.0.8        | Groovy                           |
+| groovy                 | 5.1.0        | Groovy                           |
 | hutool                 | 5.8.47       | Java工具类库                         |
 | icns                   | 1.2          | 处理 Apple Icon Image 格式图标的 Java 库 |
 | image4j                | 0.7.2        | 处理 BMP 和 ICO 图像格式的 Java 库        |
