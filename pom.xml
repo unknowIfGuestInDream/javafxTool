@@ -161,7 +161,7 @@
         <swt.version>3.134.0</swt.version>
         <jna.version>5.19.1</jna.version>
         <vosk.version>0.3.45</vosk.version>
-        <java2.version>3.5.0</java2.version>
+        <java2.version>4.2.0</java2.version>
         <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
         <jaxb.version>4.0.9</jaxb.version>
         <jakarta.jaxb.version>4.0.9</jakarta.jaxb.version>
