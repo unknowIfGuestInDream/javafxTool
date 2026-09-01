@@ -105,7 +105,7 @@ public final class AutoUpdate {
         try {
             Path file = downloader.download(info, opts.getTargetDir(),
                 (bytesRead, totalBytes) -> FxApp.runLater(() -> updateProgress(holder, bytesRead, totalBytes)));
-            FxApp.runLater(() -> onDownloaded(file, opts));
+            FxApp.runLater(() -> onDownloaded(file, opts, holder));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             FxApp.runLater(() -> onDownloadFailed(holder));
@@ -119,7 +119,8 @@ public final class AutoUpdate {
         FxAlerts.error(I18nUtils.get("autoupdate.failed.title"), I18nUtils.get("autoupdate.failed.message"));
     }
 
-    private static void onDownloaded(final Path file, final AutoUpdateOptions opts) {
+    private static void onDownloaded(final Path file, final AutoUpdateOptions opts, final ProgressHolder holder) {
+        closeQuietly(holder);
         UpdateApplier applier = new UpdateApplier();
         if (opts.isAutoApply() && opts.getInstallDir() != null) {
             boolean restart = FxAlerts.confirmYesNo(I18nUtils.get("autoupdate.restart.title"),
@@ -172,9 +173,6 @@ public final class AutoUpdate {
             holder.bar.setProgress(progress);
             long percent = Math.round(progress * 100);
             holder.label.setText(I18nUtils.get("autoupdate.progress.percent", percent));
-            if (bytesRead >= totalBytes) {
-                closeQuietly(holder);
-            }
         } else {
             holder.bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         }
