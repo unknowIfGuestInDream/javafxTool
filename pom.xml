@@ -51,6 +51,7 @@
         <module>qe</module>
         <module>common</module>
         <module>cg</module>
+        <module>autoupdate</module>
     </modules>
 
     <properties>
