@@ -10,6 +10,7 @@ and any SPI providers it contributes.
 | ------ | ---- |
 | `core` | Shared utilities, JavaFX helpers, event bus, configuration paths, FreeMarker template loading and Groovy script loading. |
 | `frame` | Main UI shell, sample scanner, project metadata model and SPI definitions for integrating tools and samples. |
+| `autoupdate` | Optional self-update helper (check, download with progress, SHA-256 verify, reveal or apply) built only on `core` and the JDK. |
 | `login` | Optional login window and authentication SPI that can be reused by application modules. |
 | `common` | Reusable controls, shared configuration helpers, default templates and common sample pages. |
 | `demo` | Example module showing framework wiring and ControlsFX behavior. |
@@ -24,6 +25,7 @@ index.
 | ---------- | ------------ |
 | `core/src/main/java/module-info.java` | Core runtime utilities and shared JavaFX infrastructure. |
 | `frame/src/main/java/module-info.java` | Main shell, samples, project metadata and UI extension SPI. |
+| `autoupdate/src/main/java/module-info.java` | Optional self-update facade, download, verification and install helpers. |
 | `login/src/main/java/module-info.java` | Login UI and authentication extension SPI. |
 | `common/src/main/java/module-info.java` | Reusable common components and developer tools. |
 | `demo/src/main/java/module-info.java` | Demonstration samples for framework and ControlsFX behavior. |

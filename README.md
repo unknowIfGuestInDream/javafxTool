@@ -22,6 +22,7 @@ modules. demo is the provided example module.
 
 - docs: Documentation (built with docsify)
 - frame: Application main UI framework (provide SPI interface)
+- autoupdate: Optional auto-update module for application self-update (check, download, install)
 - core: Application core components, including some common functions
 - login: Login module (provides SPI interface)
 - demo: demo example (based on controlsfx demo transformation)

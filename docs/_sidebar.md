@@ -12,6 +12,8 @@
 - Programs
     - Common
         - [介绍](common/Into.md)
+    - AutoUpdate
+        - [介绍](autoupdate/Into.md)
     - Smc
         - [介绍](smc/Into.md)
     - Qe

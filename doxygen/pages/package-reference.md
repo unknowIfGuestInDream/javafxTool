@@ -10,6 +10,7 @@ Key package families:
 | -------------- | ----------- |
 | `com.tlcsdm.core` | Core infrastructure, JavaFX helper APIs and shared runtime utilities. |
 | `com.tlcsdm.frame` | Framework shell, service contracts and sample tree integration points. |
+| `com.tlcsdm.autoupdate` | Optional self-update facade, download, verification and install helpers. |
 | `com.tlcsdm.login` | Login frame and login verification service contract. |
 | `com.tlcsdm.jfxcommon` | Common reusable tools and controls used by application modules. |
 | `com.tlcsdm.demo` | Demo samples and ControlsFX showcase code. |
