@@ -119,6 +119,14 @@ public class AutoUpdateDownloaderTest {
             AutoUpdateDownloader.sha256(file));
     }
 
+    @Test
+    public void rejectsFileNameEscapingTargetDir(@TempDir Path dir) {
+        UpdateInfo info = UpdateInfo.builder().downloadUrl("http://127.0.0.1:1/app.zip")
+            .fileName("../escaped.zip").build();
+        assertThrows(IOException.class, () -> newDownloader().download(info, dir, null));
+        assertFalse(Files.exists(dir.getParent().resolve("escaped.zip")));
+    }
+
     private static AutoUpdateDownloader newDownloader() {
         return new AutoUpdateDownloader(
             HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build(), Duration.ofSeconds(30));

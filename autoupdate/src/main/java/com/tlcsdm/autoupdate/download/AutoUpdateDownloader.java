@@ -94,8 +94,13 @@ public class AutoUpdateDownloader {
     public Path download(UpdateInfo info, Path targetDir, DownloadProgressListener listener)
         throws IOException, InterruptedException {
         Files.createDirectories(targetDir);
-        Path target = targetDir.resolve(info.getFileName());
-        Path temp = targetDir.resolve(info.getFileName() + ".part");
+        Path base = targetDir.toAbsolutePath().normalize();
+        Path target = base.resolve(info.getFileName()).normalize();
+        // 防止文件名包含路径分隔符或 ".." 导致写出目标目录之外
+        if (!base.equals(target.getParent())) {
+            throw new IOException("Illegal download file name: " + info.getFileName());
+        }
+        Path temp = base.resolve(target.getFileName().toString() + ".part");
 
         HttpRequest request = HttpRequest.newBuilder(URI.create(info.getDownloadUrl())).GET()
             .timeout(requestTimeout).header("User-Agent", USER_AGENT).build();
