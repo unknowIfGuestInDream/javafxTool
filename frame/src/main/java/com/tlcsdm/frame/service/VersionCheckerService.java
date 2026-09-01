@@ -133,9 +133,57 @@ public interface VersionCheckerService {
                 releaseMap.put("body", map.get("description"));
                 releaseMap.put("releaseUrl", ((Map<String, Object>) map.get("_links")).get("self"));
             }
+            releaseMap.put("assets", parseReleaseAssets(url, map));
             releaseList.add(releaseMap);
         }
         return releaseList;
+    }
+
+    /**
+     * 解析release中的附件资源, 供自动更新等场景使用.
+     *
+     * <p>每个附件包含 {@code name}(文件名)、{@code downloadUrl}(下载地址)、
+     * {@code size}(字节大小)以及可选的 {@code sha256}(校验和)。</p>
+     *
+     * @param url release接口地址
+     * @param map 单条release的原始数据
+     * @return 附件列表, 无附件时返回空列表
+     */
+    default List<Map<String, Object>> parseReleaseAssets(String url, Map<String, Object> map) {
+        List<Map<String, Object>> assetList = new ArrayList<>();
+        if (isGithub(url)) {
+            Object assets = map.get("assets");
+            if (assets instanceof List<?> list) {
+                for (Object item : list) {
+                    if (!(item instanceof Map<?, ?> asset)) {
+                        continue;
+                    }
+                    Map<String, Object> assetMap = new HashMap<>();
+                    assetMap.put("name", asset.get("name"));
+                    assetMap.put("downloadUrl", asset.get("browser_download_url"));
+                    assetMap.put("size", asset.get("size"));
+                    Object digest = asset.get("digest");
+                    if (digest != null) {
+                        String digestStr = String.valueOf(digest);
+                        assetMap.put("sha256",
+                            digestStr.startsWith("sha256:") ? digestStr.substring("sha256:".length()) : digestStr);
+                    }
+                    assetList.add(assetMap);
+                }
+            }
+        } else if (map.get("assets") instanceof Map<?, ?> assets && assets.get("links") instanceof List<?> links) {
+            for (Object item : links) {
+                if (!(item instanceof Map<?, ?> link)) {
+                    continue;
+                }
+                Map<String, Object> assetMap = new HashMap<>();
+                assetMap.put("name", link.get("name"));
+                Object direct = link.get("direct_asset_url");
+                assetMap.put("downloadUrl", direct != null ? direct : link.get("url"));
+                assetList.add(assetMap);
+            }
+        }
+        return assetList;
     }
 
     /**

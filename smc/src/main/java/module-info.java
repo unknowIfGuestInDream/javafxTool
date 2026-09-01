@@ -57,6 +57,7 @@ module com.tlcsdm.smc {
     requires javafx.web;
     requires com.tlcsdm.core;
     requires com.tlcsdm.frame;
+    requires com.tlcsdm.autoupdate;
     requires org.controlsfx.controls;
     requires cn.hutool.core;
     requires cn.hutool.poi;

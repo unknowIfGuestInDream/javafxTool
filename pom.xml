@@ -352,6 +352,11 @@
             </dependency>
             <dependency>
                 <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-autoupdate</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-login</artifactId>
                 <version>${javafxTool-login.version}</version>
             </dependency>
