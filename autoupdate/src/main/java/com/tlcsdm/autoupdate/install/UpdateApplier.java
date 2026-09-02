@@ -27,6 +27,7 @@
 
 package com.tlcsdm.autoupdate.install;
 
+import com.tlcsdm.core.javafx.util.ConfigureUtil;
 import com.tlcsdm.core.javafx.util.OSUtil;
 
 import java.io.File;
@@ -83,18 +84,40 @@ public class UpdateApplier {
         String script = buildUpdateScript(os, packageFile, installDir, relaunchCommand);
         boolean windows = os == OSUtil.OS.WINDOWS;
         String suffix = windows ? ".bat" : ".sh";
-        Path scriptFile = Files.createTempFile("javafxtool-update-", suffix);
+        Path scriptDir = Path.of(ConfigureUtil.getConfigurePath(), "update");
+        Files.createDirectories(scriptDir);
+        Path scriptFile = Files.createTempFile(scriptDir, "javafxtool-update-", suffix);
         Files.writeString(scriptFile, script);
         if (!windows) {
             makeExecutable(scriptFile);
         }
         ProcessBuilder builder = windows
-            ? new ProcessBuilder("cmd", "/c", "start", "", scriptFile.toString())
-            : new ProcessBuilder("sh", scriptFile.toString());
+            ? new ProcessBuilder(windowsShell(), "/c", "start", "", scriptFile.toString())
+            : new ProcessBuilder("/bin/sh", scriptFile.toString());
         builder.directory(installDir.toFile());
         builder.redirectOutput(ProcessBuilder.Redirect.DISCARD);
         builder.redirectError(ProcessBuilder.Redirect.DISCARD);
         builder.start();
+    }
+
+    /**
+     * 解析 Windows 命令解释器的绝对路径, 避免依赖 {@code PATH} 查找 {@code cmd}.
+     *
+     * <p>优先使用系统环境变量 {@code ComSpec}, 其次根据 {@code SystemRoot} 拼接,
+     * 最终回退到默认安装位置.</p>
+     *
+     * @return {@code cmd.exe} 的绝对路径
+     */
+    private static String windowsShell() {
+        String comSpec = System.getenv("ComSpec");
+        if (comSpec != null && !comSpec.isBlank()) {
+            return comSpec;
+        }
+        String systemRoot = System.getenv("SystemRoot");
+        if (systemRoot == null || systemRoot.isBlank()) {
+            systemRoot = "C:\\Windows";
+        }
+        return systemRoot + "\\System32\\cmd.exe";
     }
 
     /**
