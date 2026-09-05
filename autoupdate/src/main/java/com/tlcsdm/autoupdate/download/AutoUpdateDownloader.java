@@ -32,6 +32,7 @@ import com.tlcsdm.autoupdate.model.UpdateInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ProxySelector;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -64,10 +65,16 @@ public class AutoUpdateDownloader {
 
     /**
      * 使用默认配置创建下载器.
+     *
+     * <p>默认客户端会跟随重定向 (GitHub release 资源会跳转到对象存储), 并通过
+     * {@link ProxySelector#getDefault()} 使用 JVM 代理设置 (例如 {@code -Dhttps.proxyHost}
+     * /{@code -Dhttps.proxyPort} 或 {@code -Djava.net.useSystemProxies=true}). 若下载主机
+     * 在当前网络不可达, 连接会在超时后抛出 {@link java.net.http.HttpConnectTimeoutException}.</p>
      */
     public AutoUpdateDownloader() {
         this(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL)
-            .connectTimeout(Duration.ofSeconds(15)).build(), Duration.ofMinutes(30));
+            .proxy(ProxySelector.getDefault()).connectTimeout(Duration.ofSeconds(15)).build(),
+            Duration.ofMinutes(30));
     }
 
     /**

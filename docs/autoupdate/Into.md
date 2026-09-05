@@ -121,6 +121,19 @@ UI strings live in
 and are resolved through `I18nUtils.get(key, args...)`. Keep the three bundles
 in sync when adding a key.
 
+## Troubleshooting
+
+If a download fails with `HttpConnectTimeoutException: HTTP connect timed out`,
+the downloader could not reach the release host within the connect timeout. This
+is a network-reachability issue, and the underlying cause is logged through
+`StaticLog`. A GitHub `browser_download_url` redirects to the
+`objects.githubusercontent.com` CDN, which is a different host from the
+`api.github.com` endpoint used for the version check — so the check can succeed
+while the download times out. Retry on a stable connection, mirror the asset, or
+route traffic through a proxy: the downloader honors `ProxySelector.getDefault()`,
+so launch the app with `-Dhttps.proxyHost`/`-Dhttps.proxyPort` or
+`-Djava.net.useSystemProxies=true`.
+
 ## Requirements
 
 - **JDK 21+**

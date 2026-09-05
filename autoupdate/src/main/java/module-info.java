@@ -27,6 +27,7 @@
 
 module com.tlcsdm.autoupdate {
     requires com.tlcsdm.core;
+    requires cn.hutool.log;
     requires javafx.controls;
     requires javafx.graphics;
     requires java.net.http;

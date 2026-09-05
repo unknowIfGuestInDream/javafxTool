@@ -176,6 +176,27 @@ and are resolved through `I18nUtils.get(key, args...)`, which honors the running
 locale from `Config.defaultLocale`. Keep the three bundles in sync when adding a
 key.
 
+## Troubleshooting
+
+**Download fails with `HttpConnectTimeoutException: HTTP connect timed out`.**
+The downloader could not open a TCP connection to the release host within the
+connect timeout. This is a network-reachability problem rather than a logic
+error — the underlying cause is logged through `StaticLog` on the download
+thread. Common reasons and remedies:
+
+- **The asset host is unreachable from your network.** A GitHub
+  `browser_download_url` redirects from `github.com` to the
+  `objects.githubusercontent.com` CDN, which is a different host from the
+  `api.github.com` endpoint used for the version check — so the check can
+  succeed while the download times out. Try again on a stable connection or
+  host the release asset on a mirror your users can reach.
+- **A proxy is required.** The JDK `HttpClient` does not use the system proxy
+  automatically. The bundled downloader calls `ProxySelector.getDefault()`, so
+  you can route traffic through a proxy by launching the app with the standard
+  JVM options, for example
+  `-Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890`, or
+  `-Djava.net.useSystemProxies=true` to reuse the operating-system settings.
+
 ## Notes and limitations
 
 - Only HTTP/HTTPS download URLs are supported.

@@ -27,6 +27,7 @@
 
 package com.tlcsdm.autoupdate;
 
+import cn.hutool.log.StaticLog;
 import com.tlcsdm.autoupdate.download.AutoUpdateDownloader;
 import com.tlcsdm.autoupdate.install.UpdateApplier;
 import com.tlcsdm.autoupdate.model.UpdateInfo;
@@ -108,8 +109,10 @@ public final class AutoUpdate {
             FxApp.runLater(() -> onDownloaded(file, opts, holder));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            StaticLog.error(e, "Auto update download interrupted: {}", info.getDownloadUrl());
             FxApp.runLater(() -> onDownloadFailed(holder));
         } catch (IOException e) {
+            StaticLog.error(e, "Auto update download failed: {}", info.getDownloadUrl());
             FxApp.runLater(() -> onDownloadFailed(holder));
         }
     }

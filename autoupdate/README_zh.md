@@ -165,6 +165,21 @@ UI 文案位于
 通过 `I18nUtils.get(key, args...)` 解析，遵循 `Config.defaultLocale` 的运行时语言。
 新增键时请同步维护三份资源文件。
 
+## 常见问题
+
+**下载时抛出 `HttpConnectTimeoutException: HTTP connect timed out`。**
+表示下载器在连接超时时间内无法与 release 主机建立 TCP 连接，属于网络可达性问题而非逻辑错误，
+其根本异常已通过 `StaticLog` 记录在下载线程日志中。常见原因与处理方式：
+
+- **资源主机在当前网络下不可达。** GitHub 的 `browser_download_url` 会从 `github.com`
+  重定向到 `objects.githubusercontent.com` CDN，它与版本检查使用的 `api.github.com`
+  并非同一主机，因此可能出现「检查成功但下载超时」的情况。请在网络稳定时重试，
+  或将 release 资源托管到用户可访问的镜像地址。
+- **需要通过代理访问。** JDK 的 `HttpClient` 不会自动使用系统代理。内置下载器已调用
+  `ProxySelector.getDefault()`，因此可以在启动应用时通过标准 JVM 参数指定代理，例如
+  `-Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890`，或使用
+  `-Djava.net.useSystemProxies=true` 复用操作系统的代理设置。
+
 ## 说明与限制
 
 - 仅支持 HTTP/HTTPS 下载地址。
