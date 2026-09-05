@@ -52,6 +52,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <p>基于 JDK 内置 {@link HttpClient} 实现, 支持重定向 (GitHub release 资源会跳转到
  * 对象存储), 下载进度回调以及 SHA-256 校验. 该类不依赖 JavaFX, 可独立进行单元测试.</p>
  *
+ * <p>每个实例仅用于一次下载: 可通过 {@link #cancel()} 从其他线程 (例如关闭进度对话框时)
+ * 取消当前下载, 取消后 {@link #isCancelled()} 会保持 {@code true}, 如需重试应创建新的实例.</p>
+ *
  * @author unknowIfGuestInDream
  */
 public class AutoUpdateDownloader {
@@ -127,6 +130,7 @@ public class AutoUpdateDownloader {
              OutputStream out = Files.newOutputStream(temp)) {
             copy(in, out, total, listener);
         } catch (IOException e) {
+            // 下载失败或被取消 (cancel() 关闭了流) 都不保留半成品文件
             Files.deleteIfExists(temp);
             if (cancelled.get()) {
                 throw new InterruptedException("Download cancelled by user");
@@ -135,6 +139,7 @@ public class AutoUpdateDownloader {
         } finally {
             activeStream = null;
         }
+        // 覆盖流已读完但取消信号在最后一刻到达的窗口
         if (cancelled.get()) {
             Files.deleteIfExists(temp);
             throw new InterruptedException("Download cancelled by user");
@@ -182,7 +187,7 @@ public class AutoUpdateDownloader {
         }
         while ((len = in.read(buffer)) != -1) {
             if (cancelled.get()) {
-                return;
+                throw new IOException("Download cancelled by user");
             }
             out.write(buffer, 0, len);
             read += len;
