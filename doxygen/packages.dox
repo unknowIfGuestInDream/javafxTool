@@ -7,6 +7,26 @@
  * @brief Organization namespace for javafxTool packages.
  */
 /**
+ * @namespace com::tlcsdm::autoupdate
+ * @brief Optional auto-update module facade and options.
+ */
+/**
+ * @namespace com::tlcsdm::autoupdate::download
+ * @brief Java package namespace for com.tlcsdm.autoupdate.download.
+ */
+/**
+ * @namespace com::tlcsdm::autoupdate::install
+ * @brief Java package namespace for com.tlcsdm.autoupdate.install.
+ */
+/**
+ * @namespace com::tlcsdm::autoupdate::model
+ * @brief Java package namespace for com.tlcsdm.autoupdate.model.
+ */
+/**
+ * @namespace com::tlcsdm::autoupdate::util
+ * @brief Java package namespace for com.tlcsdm.autoupdate.util.
+ */
+/**
  * @namespace com::tlcsdm::cg
  * @brief CG application module tools and providers.
  */

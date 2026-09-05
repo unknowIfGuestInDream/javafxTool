@@ -51,6 +51,7 @@
         <module>qe</module>
         <module>common</module>
         <module>cg</module>
+        <module>autoupdate</module>
     </modules>
 
     <properties>
@@ -347,6 +348,11 @@
             <dependency>
                 <groupId>com.tlcsdm</groupId>
                 <artifactId>javafxTool-frame</artifactId>
+                <version>${javafxTool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tlcsdm</groupId>
+                <artifactId>javafxTool-autoupdate</artifactId>
                 <version>${javafxTool.version}</version>
             </dependency>
             <dependency>

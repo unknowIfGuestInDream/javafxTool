@@ -8,6 +8,7 @@ frame 和 login 是基础模块, 通过java SPI实现可拔插，方便应用模
 
 - docs: 文档(使用docsify构建)
 - frame: 应用主体UI框架(提供SPI接口)
+- autoupdate: 可选的自动更新模块，应用集成后可自助检查、下载并安装更新
 - core: 应用核心组件，包含一些共同功能
 - login: 登录模块(提供SPI接口)
 - demo: demo示例(基于controlsfx demo改造)

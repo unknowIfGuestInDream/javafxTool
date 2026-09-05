@@ -55,6 +55,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.tlcsdm</groupId>
+            <artifactId>javafxTool-autoupdate</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <scope>compile</scope>

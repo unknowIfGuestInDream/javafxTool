@@ -39,6 +39,7 @@ INLINE_INHERITED_MEMB  = YES
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = core/src/main/java \
                          frame/src/main/java \
+                         autoupdate/src/main/java \
                          login/src/main/java \
                          common/src/main/java \
                          demo/src/main/java \
@@ -151,6 +152,7 @@ INPUT                  = README.md \
                          doxygen/pages \
                          core/src/main/java \
                          frame/src/main/java \
+                         autoupdate/src/main/java \
                          login/src/main/java \
                          common/src/main/java \
                          demo/src/main/java \
