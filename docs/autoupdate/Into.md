@@ -104,6 +104,10 @@ AutoUpdateOptions options = AutoUpdateOptions.builder()
 AutoUpdate.promptAndUpdate(info, options);
 ```
 
+Closing the progress dialog while a download is running cancels the download and
+deletes the partially downloaded `.part` file, so no incomplete file is left
+behind.
+
 ## Public API
 
 | Type | Purpose |

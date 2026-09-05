@@ -44,6 +44,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.HexFormat;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 更新包下载器.
@@ -62,6 +63,8 @@ public class AutoUpdateDownloader {
 
     private final HttpClient client;
     private final Duration requestTimeout;
+    private final AtomicBoolean cancelled = new AtomicBoolean(false);
+    private volatile InputStream activeStream;
 
     /**
      * 使用默认配置创建下载器.
@@ -118,9 +121,23 @@ public class AutoUpdateDownloader {
         }
 
         long total = contentLength(response, info);
-        try (InputStream in = response.body();
+        InputStream body = response.body();
+        activeStream = body;
+        try (InputStream in = body;
              OutputStream out = Files.newOutputStream(temp)) {
             copy(in, out, total, listener);
+        } catch (IOException e) {
+            Files.deleteIfExists(temp);
+            if (cancelled.get()) {
+                throw new InterruptedException("Download cancelled by user");
+            }
+            throw e;
+        } finally {
+            activeStream = null;
+        }
+        if (cancelled.get()) {
+            Files.deleteIfExists(temp);
+            throw new InterruptedException("Download cancelled by user");
         }
 
         if (info.hasChecksum()) {
@@ -134,6 +151,27 @@ public class AutoUpdateDownloader {
         return target;
     }
 
+    /**
+     * 取消当前下载.
+     *
+     * <p>可从其他线程 (例如 JavaFX 应用线程) 调用: 会置位取消标记并关闭底层输入流,
+     * 以中断可能阻塞的读取. 下载方法随后会删除未完成的 {@code .part} 临时文件并抛出
+     * {@link InterruptedException}.</p>
+     */
+    public void cancel() {
+        cancelled.set(true);
+        closeQuietly(activeStream);
+    }
+
+    /**
+     * 判断下载是否已被取消.
+     *
+     * @return 已调用 {@link #cancel()} 时返回 {@code true}
+     */
+    public boolean isCancelled() {
+        return cancelled.get();
+    }
+
     private void copy(InputStream in, OutputStream out, long total, DownloadProgressListener listener)
         throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
@@ -143,6 +181,9 @@ public class AutoUpdateDownloader {
             listener.onProgress(0, total);
         }
         while ((len = in.read(buffer)) != -1) {
+            if (cancelled.get()) {
+                return;
+            }
             out.write(buffer, 0, len);
             read += len;
             if (listener != null) {

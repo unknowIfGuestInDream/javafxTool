@@ -103,6 +103,20 @@ public class AutoUpdateDownloaderTest {
     }
 
     @Test
+    public void deletesPartFileWhenDownloadCancelled(@TempDir Path dir) throws Exception {
+        byte[] body = new byte[64 * 1024];
+        try (TinyHttpServer server = new TinyHttpServer(200, body)) {
+            UpdateInfo info = UpdateInfo.builder().downloadUrl(server.baseUrl() + "/big.zip").build();
+            AutoUpdateDownloader downloader = newDownloader();
+            assertThrows(InterruptedException.class,
+                () -> downloader.download(info, dir, (read, total) -> downloader.cancel()));
+            assertTrue(downloader.isCancelled());
+            assertFalse(Files.exists(dir.resolve("big.zip")));
+            assertFalse(Files.exists(dir.resolve("big.zip.part")));
+        }
+    }
+
+    @Test
     public void nonOkStatusThrows(@TempDir Path dir) throws Exception {
         try (TinyHttpServer server = new TinyHttpServer(404, "nope".getBytes(StandardCharsets.UTF_8))) {
             UpdateInfo info = UpdateInfo.builder().downloadUrl(server.baseUrl() + "/missing.zip").build();

@@ -204,3 +204,5 @@ thread. Common reasons and remedies:
   `installDir`) and executables (launched directly). Extend `UpdateApplier` for
   other package formats.
 - The module never downloads anything without explicit user confirmation.
+- Closing the progress dialog while a download is running cancels it and deletes
+  the partially downloaded `.part` file, so no incomplete file is left behind.

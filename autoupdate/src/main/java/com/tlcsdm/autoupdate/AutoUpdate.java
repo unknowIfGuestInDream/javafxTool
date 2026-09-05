@@ -98,19 +98,25 @@ public final class AutoUpdate {
             return;
         }
         ProgressHolder holder = showProgress(info);
-        ThreadPoolTaskExecutor.get().execute(() -> runDownload(info, opts, holder));
+        AutoUpdateDownloader downloader = new AutoUpdateDownloader();
+        holder.stage.setOnCloseRequest(e -> downloader.cancel());
+        ThreadPoolTaskExecutor.get().execute(() -> runDownload(info, opts, holder, downloader));
     }
 
-    private static void runDownload(final UpdateInfo info, final AutoUpdateOptions opts, final ProgressHolder holder) {
-        AutoUpdateDownloader downloader = new AutoUpdateDownloader();
+    private static void runDownload(final UpdateInfo info, final AutoUpdateOptions opts, final ProgressHolder holder,
+        final AutoUpdateDownloader downloader) {
         try {
             Path file = downloader.download(info, opts.getTargetDir(),
                 (bytesRead, totalBytes) -> FxApp.runLater(() -> updateProgress(holder, bytesRead, totalBytes)));
             FxApp.runLater(() -> onDownloaded(file, opts, holder));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            StaticLog.error(e, "Auto update download interrupted: {}", info.getDownloadUrl());
-            FxApp.runLater(() -> onDownloadFailed(holder));
+            if (downloader.isCancelled()) {
+                FxApp.runLater(() -> closeQuietly(holder));
+            } else {
+                StaticLog.error(e, "Auto update download interrupted: {}", info.getDownloadUrl());
+                FxApp.runLater(() -> onDownloadFailed(holder));
+            }
         } catch (IOException e) {
             StaticLog.error(e, "Auto update download failed: {}", info.getDownloadUrl());
             FxApp.runLater(() -> onDownloadFailed(holder));
