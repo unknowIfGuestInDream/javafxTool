@@ -49,7 +49,7 @@ public class DependencyInfo {
             new Dependency("org.openjfx", "javafx", "21.0.12", true, "https://github.com/openjdk/jfx", "GPLv2+CE",
                 "https://openjdk.java.net/legal/gplv2+ce.html"),
 
-            new Dependency("org.controlsfx", "controlsfx", "11.2.4", true,
+            new Dependency("org.controlsfx", "controlsfx", "11.2.5", true,
                 "https://github.com/controlsfx/controlsfx", "The 3-Clause BSD License",
                 "http://www.opensource.org/licenses/bsd-license.php"),
 

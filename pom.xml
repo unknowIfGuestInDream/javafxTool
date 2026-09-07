@@ -105,7 +105,7 @@
         <jcip-annotations.version>1.0-1</jcip-annotations.version>
         <javafx.version>21.0.12</javafx.version>
         <javafx.swt.version>21.0.12</javafx.swt.version>
-        <controlsfx.version>11.2.4</controlsfx.version>
+        <controlsfx.version>11.2.5</controlsfx.version>
         <tlcsdm-common.version>1.4.6</tlcsdm-common.version>
         <tlcsdm-asyncTool.version>1.0.1</tlcsdm-asyncTool.version>
         <lombok.version>1.18.48</lombok.version>
