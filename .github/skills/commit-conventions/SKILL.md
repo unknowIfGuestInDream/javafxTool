@@ -74,7 +74,7 @@ If a repository already has a stable list of scopes, use that list.
 - **No trailing period.**
 - Header line (`<type>(<scope>): <subject>`) **≤ 50 characters**.
 - Be specific. `fix(login): handle null username on submit` beats
-  `fix(auth): bug fix`.
+  `fix(login): bug fix`.
 
 ## Body rules
 
