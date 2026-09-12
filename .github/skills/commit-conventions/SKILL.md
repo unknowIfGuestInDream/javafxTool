@@ -1,15 +1,20 @@
 ---
 name: commit-conventions
-description: Use this skill whenever you author or amend git commits, write a pull request title, or generate suggested commit messages for the javafxTool repository. It enforces the AngularJS Git Commit Message Conventions used by the project.
+description: Use this skill whenever you author or amend git commits, write a pull request title, or generate suggested commit messages. It provides reusable AngularJS-style commit message guidance that can be applied across repositories.
 license: MIT
 ---
 
 # Commit Conventions
 
-javafxTool follows the **AngularJS Git Commit Message Conventions**. Every
-commit (including merge / squash titles and any commit messages produced by
-automation) must match this format. PR titles should also use the format,
-because the PR title is reused for squash-merge commit messages.
+Use this skill whenever you need a consistent commit message or PR title.
+It follows the **AngularJS Git Commit Message Conventions**, but keeps the
+guidance generic so it can be reused across projects. If a repository has its
+own documented commit rules, treat those as the source of truth and use this
+skill as the default baseline.
+
+Every commit (including merge / squash titles and automation-generated commit
+messages) should match this format. PR titles should also use the same format,
+because many platforms reuse the PR title for squash-merge commit messages.
 
 ## Format
 
@@ -29,27 +34,36 @@ because the PR title is reused for squash-merge commit messages.
 
 | Type | Use it for |
 | ---- | ---------- |
-| `feat` | A new feature visible to users or downstream modules. |
+| `feat` | A new feature visible to users or downstream consumers. |
 | `fix` | A bug fix. |
-| `docs` | Documentation-only changes (`docs/`, `doxygen/`, `README*.md`, JavaDoc). |
+| `docs` | Documentation-only changes. |
 | `style` | Formatting, white-space, missing semicolons — no functional change. |
 | `refactor` | Code change that neither fixes a bug nor adds a feature. |
 | `perf` | Performance improvement. |
 | `test` | Adding or correcting tests. |
-| `chore` | Maintenance, project metadata, IDE files, repo housekeeping. |
-| `build` | Changes to the build system or external dependencies (Maven, plugins). |
-| `ci` | Changes to GitHub Actions workflows, Jenkins files or other CI configuration. |
+| `chore` | Maintenance, metadata, repo housekeeping, or other non-product work. |
+| `build` | Changes to the build system, packaging, or external dependencies. |
+| `ci` | Changes to CI/CD workflows, automation, or release pipelines. |
 | `revert` | Reverts a previous commit; body must contain `Reverts: <sha>`. |
 
-## Common scopes for this repo
+## Choosing a scope
 
-Use the affected module or area name in lowercase. Common scopes:
+Use the affected module, package, app, service, or area name in lowercase when
+it helps readers understand the change quickly.
 
-`core`, `frame`, `login`, `common`, `demo`, `smc`, `qe`, `cg`,
-`docs`, `doxygen`, `ci`, `deps`, `release`.
+Good examples:
 
-If the change spans multiple modules, omit the scope rather than inventing a
-combined one.
+- `api`
+- `auth`
+- `ui`
+- `docs`
+- `build`
+- `release`
+
+If the change spans multiple unrelated areas, omit the scope instead of
+inventing an unclear combined value.
+
+If a repository already has a stable list of scopes, use that list.
 
 ## Subject rules
 
@@ -58,7 +72,7 @@ combined one.
 - **No trailing period.**
 - Header line (`<type>(<scope>): <subject>`) **≤ 50 characters**.
 - Be specific. `fix(login): handle null username on submit` beats
-  `fix(login): bug fix`.
+  `fix: bug fix`.
 
 ## Body rules
 
@@ -77,11 +91,10 @@ combined one.
 Feature with issue link:
 
 ```
-feat(frame): add easter egg SPI registration
+feat(auth): add remember-me token refresh
 
-- discover EasterEggService implementations via ServiceLoader
-- start enabled providers after sample post-processing
-- document the contract in docs/develop/Interface.md
+- refresh tokens before expiry during active sessions
+- reduce forced sign-ins for long-running browser sessions
 
 Closes #123
 ```
@@ -89,7 +102,7 @@ Closes #123
 Bug fix:
 
 ```
-fix(login): trim whitespace before validating username
+fix(api): reject empty filter values
 
 Closes #456
 ```
@@ -97,7 +110,7 @@ Closes #456
 Documentation-only change:
 
 ```
-docs(doxygen): add contribution workflow page
+docs: add release checklist
 ```
 
 CI change:
@@ -109,30 +122,32 @@ ci: pin actions/checkout to v4
 Breaking change:
 
 ```
-refactor(core)!: rename TemplateLoaderService to TemplateLoaderProvider
+refactor(api)!: rename account service endpoints
 
-BREAKING CHANGE: implementations must rename their service file under
-META-INF/services and update `provides ... with ...` declarations in
-module-info.java.
+BREAKING CHANGE: clients must update requests from `/account/*` to
+`/accounts/*` and regenerate any API bindings that use the old paths.
 ```
 
 ## Validation checklist (run before committing)
 
-1. Header matches `^(feat|fix|docs|style|refactor|perf|test|chore|revert|build|ci)(\([a-z0-9,\-]+\))?!?: .+$`.
+1. Header matches `^(feat|fix|docs|style|refactor|perf|test|chore|revert|build|ci)(\([a-z0-9-]+\))?!?: .+$`.
 2. Header length ≤ 50 characters.
 3. Subject is lowercase, imperative, no trailing period.
 4. Blank line between header / body / footer.
 5. Body lines ≤ 72 characters.
-6. Issue references use `Closes #N` syntax.
+6. Issue references use `Closes #N`, `Fixes #N`, or `Refs #N`.
 7. PR title matches the same format as the commit header.
 
-## Branch naming (related)
+## Tailor it to each repository
 
-Branch names use a different convention but are tightly coupled to commit
-practice:
+This skill is intentionally generic. When you copy it into another repository,
+customize only the project-specific parts:
 
-- `feature/<short-name>` for new features
-- `fix/<short-name>` for bug fixes
-- `docs/<scope>` for documentation-only branches
+- replace or extend the allowed type list if the project uses a different set
+- document any repository-specific scope vocabulary
+- add issue-tracker footer conventions if they differ
+- add branch naming guidance only if that repository enforces it
+- add examples that match the project's language and architecture
 
-Never push commits or open PRs from `master`.
+Keep the core format, subject rules, body rules, and footer rules unchanged
+unless the repository has an explicit alternative standard.
