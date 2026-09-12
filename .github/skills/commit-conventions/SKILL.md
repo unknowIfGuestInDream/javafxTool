@@ -63,7 +63,9 @@ Good examples:
 If the change spans multiple unrelated areas, omit the scope instead of
 inventing an unclear combined value.
 
-Do not use comma-separated scopes unless the repository explicitly allows them.
+This baseline skill does not allow comma-separated scopes. If a repository
+explicitly allows them, update the copied skill and its validation regex
+together.
 
 If a repository already has a stable list of scopes, use that list.
 
