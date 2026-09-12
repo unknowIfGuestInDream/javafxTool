@@ -63,6 +63,8 @@ Good examples:
 If the change spans multiple unrelated areas, omit the scope instead of
 inventing an unclear combined value.
 
+Do not use comma-separated scopes unless the repository explicitly allows them.
+
 If a repository already has a stable list of scopes, use that list.
 
 ## Subject rules
