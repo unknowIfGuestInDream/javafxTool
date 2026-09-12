@@ -134,7 +134,7 @@ BREAKING CHANGE: clients must update requests from `/account/*` to
 
 ## Validation checklist (run before committing)
 
-1. Header matches `^(feat|fix|docs|style|refactor|perf|test|chore|revert|build|ci)(\([a-z0-9-]+\))?!?: .+$`.
+1. Header matches `^(feat|fix|docs|style|refactor|perf|test|chore|revert|build|ci)(\([a-z0-9-]+\))?!?: .+$` (baseline rule: no comma-separated scopes).
 2. Header length ≤ 50 characters.
 3. Subject is lowercase, imperative, no trailing period.
 4. Blank line between header / body / footer.
