@@ -93,7 +93,7 @@
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
         <launch4j-maven-plugin.version>2.7.0</launch4j-maven-plugin.version>
         <xml-maven-plugin.version>1.2.2</xml-maven-plugin.version>
-        <git-changelog-maven-plugin.version>2.2.11</git-changelog-maven-plugin.version>
+        <git-changelog-maven-plugin.version>2.4.0</git-changelog-maven-plugin.version>
         <cyclonedx-maven-plugin.version>2.9.3</cyclonedx-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
         <!--  if you update the checkstyle version make sure you update the google_checks.xml inside the repository -->
