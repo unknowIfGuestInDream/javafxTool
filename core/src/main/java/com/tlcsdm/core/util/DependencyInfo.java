@@ -68,7 +68,7 @@ public class DependencyInfo {
             new Dependency("cn.hutool", "hutool", "5.8.47", true, "https://github.com/dromara/hutool",
                 "Mulan Permissive Software License，Version 2", "https://license.coscl.org.cn/MulanPSL2"),
 
-            new Dependency("org.apache.commons", "commons-lang3", "3.20.0", true,
+            new Dependency("org.apache.commons", "commons-lang3", "3.21.0", true,
                 "https://commons.apache.org/proper/commons-lang/", "Apache License, Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0"),
 
