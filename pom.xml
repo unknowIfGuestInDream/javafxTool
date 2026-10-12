@@ -197,7 +197,7 @@
         <guice.version>7.0.0</guice.version>
         <jmh.version>1.37</jmh.version>
         <jtidy.version>1.0.5</jtidy.version>
-        <javaluator.version>3.0.6</javaluator.version>
+        <javaluator.version>3.0.8</javaluator.version>
         <javapoet.version>0.20.0</javapoet.version>
         <nashorn.version>15.7</nashorn.version>
         <jruby.version>9.4.15.0</jruby.version>
