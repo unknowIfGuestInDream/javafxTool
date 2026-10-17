@@ -50,17 +50,17 @@ rm -r apidocs
 rm -r license
 done
 
-$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install
+$M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac-aarch64 -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean install
 $M2_HOME/bin/mvn -f pom.xml -s $M2_HOME/conf/settings.xml clean
 for mod in smc qe cg
 do
-$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true package
+$M2_HOME/bin/mvn -f ${mod}/pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac-aarch64 -Dmaven.test.skip=true package
 cp ${mod}/target/javafxTool-${mod}.jar javafxTool-${mod}.jar
 cp -r ${mod}/target/lib lib
 cp -r ${mod}/target/reports/apidocs apidocs
 cp -r ${mod}/target/license license
-zip -r ${mod}Tool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
-zip -uj ${mod}Tool-mac_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac/${mod}/*
+zip -r ${mod}Tool-mac-aarch64_b${BUILD_NUMBER}_$(date +%Y%m%d).zip docs javafxTool-${mod}.jar lib apidocs license
+zip -uj ${mod}Tool-mac-aarch64_b${BUILD_NUMBER}_$(date +%Y%m%d).zip jenkins/mac-aarch64/${mod}/*
 rm javafxTool-${mod}.jar
 rm -r lib
 rm -r apidocs
