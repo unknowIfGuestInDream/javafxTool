@@ -2240,6 +2240,84 @@ Changelog of {{repoName}}.
                 </plugins>
             </build>
         </profile>
+        <!--
+            Cross platform build support.
+
+            When the target platform is passed explicitly on the command line
+            (e.g. -Djavafx.platform=mac on a Linux CI/Jenkins node), newer Maven
+            releases fail to build the OpenJFX artifact models because the
+            upstream "javafx.platform.custom" profile declares the self
+            referencing property <javafx.platform>${javafx.platform}</javafx.platform>,
+            which is now rejected as a recursive expression cycle. As a result
+            the platform specific (classified) JavaFX jars are never resolved and
+            the compilation fails with "module not found: javafx.*".
+
+            This profile is only active when javafx.platform is supplied, and it
+            declares the classified JavaFX jars directly so the correct native
+            artifacts are resolved from our own POM instead of relying on the
+            broken upstream transitive resolution. On a native build (no
+            -Djavafx.platform) the profile stays inactive and OpenJFX keeps
+            auto-detecting the running platform.
+        -->
+        <profile>
+            <id>javafx-platform</id>
+            <activation>
+                <property>
+                    <name>javafx.platform</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-base</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-graphics</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-controls</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-fxml</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-swing</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-media</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-web</artifactId>
+                    <version>${javafx.version}</version>
+                    <classifier>${javafx.platform}</classifier>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <reporting>
