@@ -150,7 +150,7 @@ pipeline {
         stage('Prepare Mac Build') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
+                    sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f pom.xml -s $M2_HOME/conf/settings.xml -Djavafx.platform=mac-aarch64 -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -DworkEnv=ci clean install"
                     sh "rm -rf jretemp && mkdir -v jretemp && tar -xzf *mac*21*.tar.gz -C jretemp && mv jretemp/* jretemp/jre"
                 }
             }
@@ -158,9 +158,9 @@ pipeline {
 
         stage('Build smc-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f smc/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac-aarch64 -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('smc', 'mac')
+                    packageTool('smc', 'mac-aarch64')
                 }
             }
 
@@ -179,9 +179,9 @@ pipeline {
 
         stage('Build qe-mac') {
             steps {
-                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
+                sh "$M2_HOME/bin/mvn ${MAVEN_CI_ARGS} -f qe/pom.xml -s $M2_HOME/conf/settings.xml -Duser.name=${USER_NAME} -Djavafx.platform=mac-aarch64 -Dmaven.test.skip=true -DworkEnv=ci -Pjavadoc-with-links package"
                 script {
-                    packageTool('qe', 'mac')
+                    packageTool('qe', 'mac-aarch64')
                 }
             }
 

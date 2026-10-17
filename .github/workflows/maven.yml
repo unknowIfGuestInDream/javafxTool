@@ -30,17 +30,9 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven in Mac
-        if: runner.os == 'Macos'
-        run: mvn -B -U clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true' '-Djavafx.platform=mac'
       - name: Build with Maven
-        if: runner.os != 'Macos'
         run: mvn -B -U clean package --file pom.xml -DskipTests '-Dmaven.javadoc.skip=true'
-      - name: Test with Maven in Mac
-        if: runner.os == 'Macos'
-        run: mvn test --file pom.xml -DworkEnv=ci '-Djavafx.platform=mac' '-Dkotest.framework.classpath.scanning.autoscan.disable=true'
       - name: Test with Maven
-        if: runner.os != 'Macos'
         run: mvn test --file pom.xml -DworkEnv=ci '-Dkotest.framework.classpath.scanning.autoscan.disable=true'
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v6

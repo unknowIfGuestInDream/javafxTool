@@ -42,7 +42,7 @@ jobs:
       fail-fast: false
       matrix:
         mod: [ 'smc', 'qe' ]
-        buildos: [ 'mac', 'linux', 'win' ]
+        buildos: [ 'mac-aarch64', 'linux', 'win' ]
     runs-on: ubuntu-latest
     needs: prepare
     continue-on-error: false
