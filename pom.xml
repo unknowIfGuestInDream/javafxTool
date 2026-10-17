@@ -1319,6 +1319,30 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <!-- Each forked JVM writes its own exec file to avoid concurrent writes -->
+                            <destFile>${project.build.directory}/jacoco-forks/jacoco-${surefire.forkNumber}.exec</destFile>
+                            <!-- Overwrite stale data from previous runs instead of appending -->
+                            <append>false</append>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>merge-forks</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${project.build.directory}/jacoco-forks</directory>
+                                    <includes>
+                                        <include>*.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                            <destFile>${project.build.directory}/jacoco.exec</destFile>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -1326,6 +1350,9 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
