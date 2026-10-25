@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "6.0.0", false,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.197", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -184,7 +184,7 @@ public class DependencyInfo {
                 "https://github.com/Typhon0/AnimateFX",
                 "Apache-2.0 license", "https://www.apache.org/licenses/LICENSE-2.0"),
 
-            new Dependency("com.github.oshi", "oshi-core", "7.7.1", false,
+            new Dependency("com.github.oshi", "oshi-core", "7.7.2", false,
                 "https://github.com/oshi/oshi",
                 "MIT license", "https://opensource.org/licenses/MIT"),
 
