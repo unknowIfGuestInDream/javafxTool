@@ -98,7 +98,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "6.0.0", false,
+            new Dependency("io.github.classgraph", "classgraph", "4.8.197", false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
@@ -200,7 +200,7 @@ public class DependencyInfo {
                 "https://github.com/srikanth-lingala/zip4j",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0.txt"),
 
-            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2026.8", false,
+            new Dependency("net.sourceforge.plantuml", "plantuml", "1.2026.9", false,
                 "https://plantuml.com/",
                 "MIT License", "https://opensource.org/license/mit/"),
 
