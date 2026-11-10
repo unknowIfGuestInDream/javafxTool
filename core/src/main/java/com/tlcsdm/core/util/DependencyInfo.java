@@ -102,7 +102,7 @@ public class DependencyInfo {
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 
-            new Dependency("com.google.guava", "guava", "33.7.2-jre", false, "https://github.com/google/guava",
+            new Dependency("com.google.guava", "guava", "33.8.0-jre", false, "https://github.com/google/guava",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("com.github.ben-manes.caffeine", "caffeine", "3.3.1", false,
@@ -170,7 +170,7 @@ public class DependencyInfo {
             new Dependency("org.python", "jython", "2.7.4", false, "https://github.com/jython/jython",
                 "PSF license", "https://raw.githubusercontent.com/jython/jython/v2.7.4/LICENSE.txt"),
 
-            new Dependency("net.bytebuddy", "byte-buddy", "1.18.16", false, "https://bytebuddy.net/",
+            new Dependency("net.bytebuddy", "byte-buddy", "1.18.17", false, "https://bytebuddy.net/",
                 "Apache License, Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
 
             new Dependency("net.sourceforge.tess4j", "tess4j", "5.20.0", false, "https://github.com/nguyenq/tess4j",
