@@ -183,7 +183,7 @@
         <rich-text-area.version>1.2.6</rich-text-area.version>
         <animateFX.version>1.3.0</animateFX.version>
         <oshi.version>7.7.3</oshi.version>
-        <classgraph.version>5.0.2</classgraph.version>
+        <classgraph.version>4.8.200</classgraph.version>
         <classgraph.jdk25.version>6.0.2</classgraph.jdk25.version>
         <checker-qual.version>4.4.0</checker-qual.version>
         <jfxtras.version>17-r1</jfxtras.version>
@@ -2383,6 +2383,15 @@ Changelog of {{repoName}}.
             <properties>
                 <classgraph.version>${classgraph.jdk25.version}</classgraph.version>
             </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.classgraph</groupId>
+                        <artifactId>classgraph</artifactId>
+                        <version>${classgraph.jdk25.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
         </profile>
     </profiles>
 

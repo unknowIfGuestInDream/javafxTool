@@ -30,7 +30,10 @@ package com.tlcsdm.core.util;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 项目总体依赖信息.
@@ -42,6 +45,27 @@ public class DependencyInfo {
 
     public static List<Dependency> getDependencyList() {
         return SingletonInstance.INSTANCE;
+    }
+
+    /**
+     * Reads the classgraph version baked in by Maven resource filtering.
+     * On JDK &lt; 25 this returns the 4.8.x value; on JDK 25+ the classgraph-jdk25
+     * profile overrides {@code classgraph.version} to the 6.x value at build time.
+     */
+    private static String loadClassgraphVersion() {
+        try (InputStream in = DependencyInfo.class.getResourceAsStream("dependency.properties")) {
+            if (in != null) {
+                Properties props = new Properties();
+                props.load(in);
+                String version = props.getProperty("classgraph.version");
+                if (version != null && !version.isEmpty()) {
+                    return version;
+                }
+            }
+        } catch (IOException ignored) {
+            // fall through to compile-time default
+        }
+        return "4.8.200";
     }
 
     private static class SingletonInstance {
@@ -98,7 +122,7 @@ public class DependencyInfo {
             new Dependency("org.reflections", "reflections", "0.10.2", true,
                 "http://github.com/ronmamo/reflections", "WTFPL", "http://www.wtfpl.net/"),
 
-            new Dependency("io.github.classgraph", "classgraph", "5.0.2", false,
+            new Dependency("io.github.classgraph", "classgraph", loadClassgraphVersion(), false,
                 "https://github.com/classgraph/classgraph", "MIT License",
                 "http://opensource.org/licenses/MIT"),
 

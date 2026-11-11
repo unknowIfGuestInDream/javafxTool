@@ -132,8 +132,10 @@ jobs:
             
             # Get properties from the pom.xml
             for prop_name in "${!DEP_MAPPINGS[@]}"; do
-              # Extract new version number
-              NEW_VERSION=$(grep -oP "(?<=<${prop_name}>)[^<]+" "$pom_file" 2>/dev/null || true)
+              # Extract new version number; exclude profile-override lines that
+              # contain property references (e.g. ${classgraph.jdk25.version})
+              NEW_VERSION=$(grep -oP "(?<=<${prop_name}>)[^<]+" "$pom_file" 2>/dev/null \
+                | grep -v '^\$' | head -1 || true)
               
               if [ -n "$NEW_VERSION" ]; then
                 MAPPING="${DEP_MAPPINGS[$prop_name]}"

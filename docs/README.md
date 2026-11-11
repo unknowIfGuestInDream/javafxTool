@@ -31,6 +31,7 @@ JavaFXTool基于JDK21 + JavaFX 21 + controlsfx 11 + maven构建的javafx脚手�
 | logback                | 1.6.6       | Java日志框架                         |
 | poi-ooxml              | 6.0.0        | 用于Microsoft Documents的Java API   |
 | preferencesfx          | 11.19.0      | 为应用程序设置/首选项创建 UI 的框架             |
+| classgraph             | 4.8.200      | 超快速 Java 类路径扫描工具                   |
 | reflections            | 0.10.2       | Java 运行时元数据分析                    |
 | richtextfx             | 0.11.7       | JavaFX 的富文本组件                    |
 | teenyHttpd             | 1.0.5        | 轻量的HTTP 服务器                      |
