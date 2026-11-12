@@ -2370,19 +2370,18 @@ Changelog of {{repoName}}.
         </profile>
         <profile>
             <!--
-                classgraph 5.x supports JDK 17-24 and is the default.
-                classgraph 6.x is required for JDK 25+; this profile activates
-                automatically on JDK 25 or later and overrides classgraph.version.
-                Both versions are tracked by Dependabot via the two properties
-                above: classgraph.version (5.x) and classgraph.jdk25.version (6.x).
+                classgraph 4.8.x is used for all JDKs (tracked via classgraph.version above)
+                because kotest 5.x (a transitive dependency of pmd-lang-test) calls the
+                deprecated blacklistPackages() API which was removed in classgraph 5.0.0.
+                When kotest is upgraded to a version that is compatible with classgraph 5.x/6.x,
+                the properties override can be re-enabled here to activate 6.x on JDK 25+.
+                Until then, this profile only exists to let Dependabot track the 6.x line
+                independently via classgraph.jdk25.version.
             -->
             <id>classgraph-jdk25</id>
             <activation>
                 <jdk>[25,)</jdk>
             </activation>
-            <properties>
-                <classgraph.version>${classgraph.jdk25.version}</classgraph.version>
-            </properties>
             <dependencyManagement>
                 <dependencies>
                     <dependency>
