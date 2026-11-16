@@ -27,7 +27,21 @@
 
 // load('/location.js');
 load('classpath:nashorn/array.js');
-load('http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js');
+try {
+  load('https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js');
+} catch (e) {
+  var _ = {
+    filter: function (arr, predicate) {
+      var result = [];
+      for (var i = 0; i < arr.length; i++) {
+        if (predicate(arr[i])) {
+          result.push(arr[i]);
+        }
+      }
+      return result;
+    }
+  };
+}
 var odds = _.filter([1, 2, 3, 4, 5, 6], function (num) {
   return num % 2 == 1;
 });
@@ -40,4 +54,3 @@ var math = {
 };
 
 math;
-
